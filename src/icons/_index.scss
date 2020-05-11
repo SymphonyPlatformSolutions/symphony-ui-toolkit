@@ -1,0 +1,7 @@
+@import './animation';
+@import './tk-icons-embedded';
+
+[class^='tk-ic-']:before,
+[class*=' tk-ic-']:before {
+  color: $--tk-main-text-color;
+}

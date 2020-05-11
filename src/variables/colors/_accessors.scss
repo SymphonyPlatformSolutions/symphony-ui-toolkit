@@ -1,0 +1,19 @@
+$--tk-color-primary: var(--tk-color-primary, $scolor-electricity);
+
+$--tk-color-success: var(--tk-color-success, $scolor-green);
+
+$--tk-color-warning: var(--tk-color-warning, $scolor-orange);
+
+$--tk-color-error: var(--tk-color-error, $scolor-red);
+
+$--tk-main-text-color: var(--tk-main-text-color, $scolor-graphite);
+
+/** ======== Inputs and text areas ======== */
+
+$--tk-input-text-color: var(--tk-input-text-color, $--tk-main-text-color);
+
+$--tk-input-border-inactive-color: var(--tk-input-border-inactive-color, $scolor-graphite-minus-55);
+
+$--tk-input-border-hover-color: var(--tk-input-border-hover-color, $scolor-graphite-minus-21);
+
+$--tk-input-border-focus-color: var(--tk-input-border-focus-color, $scolor-electricity-minus-21);

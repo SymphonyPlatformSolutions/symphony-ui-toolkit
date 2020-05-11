@@ -1,0 +1,54 @@
+.tk-input {
+  border: 1px solid $--tk-input-border-inactive-color;
+  color: $--tk-input-text-color;
+  box-sizing: border-box;
+  border-radius: 4px;
+  font-size: 14px;
+  line-height: 20px;
+  padding: 8px 10px;
+  transition: all 200ms ease-in-out;
+  outline: none;
+  background: transparent;
+
+  &:disabled {
+    @extend .tk-disabled;
+  }
+
+  &:hover {
+    @include addBorder(1px, $--tk-input-border-hover-color);
+  }
+  &:focus {
+    @include addBorder(1px, $--tk-input-border-focus-color);
+  }
+
+  &--success {
+    border-color: $--tk-color-success;
+    &:hover,
+    &:focus {
+      @include addBorder(1px, $--tk-color-success);
+    }
+  }
+  &--warning {
+    border-color: $--tk-color-warning;
+    &:hover,
+    &:focus {
+      @include addBorder(1px, $--tk-color-warning);
+    }
+  }
+  &--error {
+    border-color: $--tk-color-error;
+    &:hover,
+    &:focus {
+      @include addBorder(1px, $--tk-color-error);
+    }
+  }
+}
+/* Select */
+select.tk-input {
+  -webkit-appearance: none;
+  background: transparent;
+  background-repeat: no-repeat;
+  background-position-x: 96%;
+  background-position-y: 50%;
+  background-image: url("data:image/svg+xml;utf8,<svg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M5.00003 6C4.59557 6 4.23093 6.24364 4.07615 6.61732C3.92137 6.99099 4.00692 7.42111 4.29292 7.70711L7.29292 10.7071C7.68345 11.0976 8.31661 11.0976 8.70714 10.7071L11.7071 7.70711C11.9931 7.42111 12.0787 6.99099 11.9239 6.61732C11.7691 6.24364 11.4045 6 11 6H5.00003Z' fill='black'/></svg>");
+}

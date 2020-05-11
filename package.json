@@ -1,0 +1,30 @@
+{
+  "name": "@symphony/uitoolkit-styles",
+  "version": "1.0.0",
+  "description": "Symphony UI design system",
+  "main": "index.css",
+  "scripts": {
+    "start": "start-storybook -p 6006",
+    "build": "sass --style compressed index.scss dist/css/index.css",
+    "sass-watch": "sass --watch --style compressed index.scss dist/css/index.css"
+  },
+  "keywords": [
+    "scss",
+    "sass",
+    "css",
+    "design"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.9.6",
+    "@storybook/addon-storysource": "5.3.18",
+    "@storybook/addons": "5.3.18",
+    "@storybook/html": "5.3.18",
+    "babel-loader": "^8.1.0",
+    "sass": "^1.22.10",
+    "sass-loader": "^7.2.0",
+    "storybook-dark-mode": "^0.4.1"
+  },
+  "dependencies": {}
+}
