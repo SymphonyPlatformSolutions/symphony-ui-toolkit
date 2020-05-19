@@ -2,3 +2,5 @@ node_modules
 .vscode
 dist
 .DS_Store
+symphony-uitoolkit-styles-*.tgz
+package
