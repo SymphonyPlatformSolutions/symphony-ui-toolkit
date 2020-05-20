@@ -17,3 +17,42 @@ $--tk-input-border-inactive-color: var(--tk-input-border-inactive-color, $scolor
 $--tk-input-border-hover-color: var(--tk-input-border-hover-color, $scolor-graphite-minus-21);
 
 $--tk-input-border-focus-color: var(--tk-input-border-focus-color, $scolor-electricity-minus-21);
+
+/** ======== Buttons ======== */
+$--tk-button-color-outline: var(--tk-button-color-outline, #88c0fb);
+
+$--tk-button-color-primary: (
+  default: var(--tk-button-color-primary-default, $scolor-electricity),
+  hover: var(--tk-button-color-primary-hover, $scolor-elements-primary-hover),
+  active: var(--tk-button-color-primary-active, $scolor-elements-primary-active),
+  disabled: var(--tk-button-color-primary-disabled, $scolor-elements-primary-disabled),
+  text: var(--tk-button-color-primary-text, $scolor-white),
+  textDisabled: var(--tk-button-color-primary-text-disabled, $scolor-graphite-minus-24),
+);
+
+$--tk-button-color-secondary: (
+  default: var(--tk-button-color-secondary-default, $scolor-graphite),
+  hover: var(--tk-button-color-secondary-hover, $scolor-elements-secondary-hover),
+  active: var(--tk-button-color-secondary-active, $scolor-elements-secondary-active),
+  disabled: var(--tk-button-color-secondary-disabled, $scolor-elements-secondary-disabled),
+  text: var(--tk-button-color-secondary-text, $scolor-elements-secondary-active),
+  textDisabled: var(--tk-button-color-secondary-text-disabled, $scolor-graphite-minus-72),
+);
+
+$--tk-button-color-tertiary: (
+  default: var(--tk-button-color-tertiary-default, transparent),
+  hover: var(--tk-button-color-tertiary-hover, $scolor-elements-tertiary-hover),
+  active: var(--tk-button-color-tertiary-active, $scolor-elements-tertiary-active),
+  disabled: var(--tk-button-color-tertiary-disabled, transparent),
+  text: var(--tk-button-color-tertiary-text, $scolor-graphite),
+  textDisabled: var(--tk-button-color-tertiary-text-disabled, $scolor-graphite-minus-48),
+);
+
+$--tk-button-color-destructive: (
+  default: var(--tk-button-color-destructive-default, $scolor-red),
+  hover: var(--tk-button-color-destructive-hover, $scolor-elements-destructive-hover),
+  active: var(--tk-button-color-destructive-active, $scolor-elements-destructive-active),
+  disabled: var(--tk-button-color-destructive-disabled, $scolor-elements-destructive-disabled),
+  text: var(--tk-button-color-destructive-text, $scolor-white),
+  textDisabled: var(--tk-button-color-destructive-text-disabled, $scolor-graphite-minus-24),
+);

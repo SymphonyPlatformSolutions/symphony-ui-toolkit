@@ -1,0 +1,46 @@
+/* Define color on current text and eventual font icons */
+@mixin addFontIconColor($fontColor) {
+  // Icon styling selector takes precendence over the button colors
+  &, i {
+    color: $fontColor;
+  }
+}
+
+/* Applies color styles to filled buttons, buttons that do not have borders */
+@mixin styleFilledButton($colorMap) {
+  background-color: map-get($colorMap, default);
+  @include addFontIconColor(map-get($colorMap, text));
+  &:hover {
+      background-color: map-get($colorMap, hover);
+  }
+  &:active {
+      background-color: map-get($colorMap, active);
+  }
+  &:disabled {
+      background-color: map-get($colorMap, disabled);
+      @include addFontIconColor(map-get($colorMap, textDisabled))
+  }
+}
+
+/* Applies color styles to outline buttons, buttons that do not have a background */
+@mixin styleOutlinedButton($colorMap) {
+  background-color: transparent;
+  @include addBorder(2px, map-get($colorMap, default));
+  @include addFontIconColor(map-get($colorMap, default));
+  &:hover {
+      background-color: transparent;
+      @include addBorder(2px, map-get($colorMap, hover));
+      @include addFontIconColor(map-get($colorMap, hover));
+  }
+  &:active {
+      background-color: transparent;
+      @include addBorder(2px, map-get($colorMap, active));
+      @include addFontIconColor(map-get($colorMap, active));
+  }
+  &:disabled {
+      background-color: transparent;
+      @include addBorder(2px, map-get($colorMap, disabled));
+      @include addFontIconColor(map-get($colorMap, textDisabled));
+  }
+}
+

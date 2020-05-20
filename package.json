@@ -1,7 +1,10 @@
 {
   "name": "@symphony/uitoolkit-styles",
-  "version": "1.0.0",
+  "version": "1.0.1-SNAPSHOT.1",
   "description": "Symphony UI design system",
+  "publishConfig": {
+    "registry": "https://repo.symphony.com/artifactory/api/npm/npm-local-dev2"
+  },
   "main": "index.css",
   "scripts": {
     "start": "start-storybook -p 6006",
