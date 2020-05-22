@@ -1,0 +1,25 @@
+{
+  "env": {
+    "jest": true,
+    "node": true
+  },
+  "parser": "babel-eslint",
+  "extends" : ["airbnb"],
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "plugins": ["react"],
+  "settings": {
+    "react": {
+      "createClass": "createReactClass",
+      "version": "detect"
+    }
+  },
+  "rules": {
+    "react/jsx-props-no-spreading": ["off"]
+  }
+}
