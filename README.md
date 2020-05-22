@@ -15,8 +15,14 @@ Run
 yarn
 ```
 
-## 🛸 Explore
+## 🛸 Explore the existing components using the StoryBook
 
 ```
-yarn start
+yarn storybook
+```
+
+## 🛸 Tests and coverage
+
+```
+yarn test
 ```
