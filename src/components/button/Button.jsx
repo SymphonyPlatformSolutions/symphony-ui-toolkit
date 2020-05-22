@@ -18,7 +18,6 @@ const Button = ({
     className,
     prefix,
     `${prefix}--${variant}`,
-    loading && `${prefix}--loading`,
     iconButton && `${prefix}--icon`,
   );
   return (

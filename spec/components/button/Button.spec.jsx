@@ -29,7 +29,8 @@ describe('Button', () => {
       const text = 'button text';
       const wrapper = shallow(<Button loading>{text}</Button>);
       expect(wrapper.length).toEqual(1);
-      expect(wrapper.hasClass('tk-button--loading')).toBe(true);
+      expect(wrapper.find('i').hasClass('animate-spin')).toBe(true);
+      expect(wrapper.find('i').hasClass('tk-ic-loading')).toBe(true);
       expect(wrapper.text().includes(text)).toBe(false);
     });
   });
