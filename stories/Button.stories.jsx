@@ -21,10 +21,10 @@ export const Buttons = () => (
         Button
       </Button>
       <Button variant="primary" loading>
-        Button
+        Invisible
       </Button>
       <Button variant="primary" disabled>
-        <i className="tk-ic-check tk-ok" />
+        <i className="tk-ic-check tk-color-action-ok" />
       </Button>
     </div>
 
@@ -45,6 +45,12 @@ export const Buttons = () => (
         <i className="tk-ic-lock" />
         Button
       </Button>
+      <Button variant="secondary" loading>
+        Invisible
+      </Button>
+      <Button variant="secondary" disabled>
+        <i className="tk-ic-check tk-color-action-ok" />
+      </Button>
     </div>
 
     <h2>Tertiary</h2>
@@ -64,6 +70,12 @@ export const Buttons = () => (
         <i className="tk-ic-lock" />
         Button
       </Button>
+      <Button variant="tertiary" loading>
+        Invisible
+      </Button>
+      <Button variant="tertiary" disabled>
+        <i className="tk-ic-check tk-color-action-ok" />
+      </Button>
     </div>
 
     <h2>Destructive</h2>
@@ -82,6 +94,12 @@ export const Buttons = () => (
       <Button variant="destructive" disabled>
         <i className="tk-ic-lock" />
         Button
+      </Button>
+      <Button variant="destructive" loading>
+        Invisible
+      </Button>
+      <Button variant="destructive" disabled>
+        <i className="tk-ic-check tk-color-action-ok" />
       </Button>
     </div>
   </>
