@@ -18,7 +18,7 @@ yarn
 ## 🛸 Explore the existing components using the StoryBook
 
 ```
-yarn storybook
+yarn start
 ```
 
 ## 🛸 Tests and coverage
