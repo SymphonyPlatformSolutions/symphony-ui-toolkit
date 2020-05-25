@@ -4,3 +4,4 @@ stories
 publish.sh
 yarn.lock
 .circleci
+dist/storybook

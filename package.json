@@ -9,6 +9,7 @@
   "scripts": {
     "start": "start-storybook -p 6006",
     "build": "sass --style compressed index.scss dist/css/index.css",
+    "build-storybook": "build-storybook -c .storybook -o dist/storybook",
     "sass-watch": "sass --watch --style compressed index.scss dist/css/index.css"
   },
   "keywords": [

@@ -1,3 +1,5 @@
+/** ======== Globals ======== */
+
 $--tk-color-primary: var(--tk-color-primary, $scolor-electricity);
 
 $--tk-color-success: var(--tk-color-success, $scolor-green);
@@ -7,6 +9,8 @@ $--tk-color-warning: var(--tk-color-warning, $scolor-orange);
 $--tk-color-error: var(--tk-color-error, $scolor-red);
 
 $--tk-main-text-color: var(--tk-main-text-color, $scolor-graphite);
+
+$--tk-outline-color: #88c0fb;
 
 /** ======== Inputs and text areas ======== */
 
@@ -19,7 +23,6 @@ $--tk-input-border-hover-color: var(--tk-input-border-hover-color, $scolor-graph
 $--tk-input-border-focus-color: var(--tk-input-border-focus-color, $scolor-electricity-minus-21);
 
 /** ======== Buttons ======== */
-$--tk-button-color-outline: var(--tk-button-color-outline, #88c0fb);
 
 $--tk-button-color-primary: (
   default: var(--tk-button-color-primary-default, $scolor-electricity),
