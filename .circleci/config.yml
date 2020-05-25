@@ -20,4 +20,7 @@ jobs:
 workflows:
   build:
     jobs:
-      - build-and-publish
+      - build-and-publish:
+          filters:
+            tags:
+              only: /^v.*/
