@@ -3,6 +3,9 @@ orbs:
   node: circleci/node@2.1
 jobs:
   build-and-publish:
+    filters:  # required since `test` has tag filters AND requires `build`
+      tags:
+        only: /^v.*/
     executor:
       name: node/default
       tag: 'lts' 
