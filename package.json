@@ -45,6 +45,7 @@
     "@storybook/addon-links": "^5.3.18",
     "@storybook/addon-storysource": "5.3.18",
     "@storybook/addons": "5.3.18",
+    "@storybook/html": "^5.3.19",
     "@storybook/react": "^5.3.18",
     "@symphony/uitoolkit-styles": "^1.0.1-SNAPSHOT.1",
     "@types/jest": "^25.2.3",
