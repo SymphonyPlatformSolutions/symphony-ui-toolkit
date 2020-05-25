@@ -1,0 +1,75 @@
+{
+  "name": "@symphony/uitoolkit-components",
+  "version": "1.0.0-SNAPSHOT",
+  "description": "React components for the Symphony UI design system",
+  "publishConfig": {
+    "registry": "https://repo.symphony.com/artifactory/api/npm/npm-local-dev2"
+  },
+  "license": "ISC",
+  "sideEffects": false,
+  "main": "dist",
+  "module": "dist",
+  "files": [
+    "dist/**"
+  ],
+  "scripts": {
+    "clean": "rm -rf dist",
+    "init": "mkdir dist",
+    "prebuild": "npm run clean && npm run init",
+    "build": "tsc",
+    "lint": "eslint --ext .ts,.tsx,.js,.jsx ./",
+    "lint-fix": "eslint --ext .ts,.tsx,.js,.jsx ./",
+    "prepare": "npm run build",
+    "start": "start-storybook -p 6006",
+    "storybook-build": "build-storybook",
+    "test": "jest --watchAll",
+    "test-once": "jest"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0"
+  },
+  "dependencies": {
+    "@types/classnames": "^2.2.10",
+    "classnames": "^2.2.6",
+    "prop-types": "^15.7.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.6",
+    "@babel/preset-env": "^7.9.6",
+    "@babel/preset-react": "^7.9.4",
+    "@babel/preset-typescript": "^7.9.0",
+    "@storybook/addon-a11y": "^5.3.18",
+    "@storybook/addon-actions": "^5.3.18",
+    "@storybook/addon-links": "^5.3.18",
+    "@storybook/addon-storysource": "5.3.18",
+    "@storybook/addons": "5.3.18",
+    "@storybook/html": "^5.3.19",
+    "@storybook/react": "^5.3.18",
+    "@symphony/uitoolkit-styles": "^1.0.1-SNAPSHOT.1",
+    "@types/jest": "^25.2.3",
+    "@types/react": "^16.9.35",
+    "@types/react-dom": "^16.9.8",
+    "@types/storybook__react": "^5.2.1",
+    "@typescript-eslint/eslint-plugin": "^3.0.0",
+    "@typescript-eslint/parser": "^3.0.0",
+    "babel-eslint": "^10.1.0",
+    "babel-loader": "^8.1.0",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
+    "eslint": "^7.1.0",
+    "eslint-config-airbnb": "18.1.0",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.20.0",
+    "eslint-plugin-react-hooks": "^2.5.1",
+    "jest": "^26.0.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "storybook-dark-mode": "^0.4.1",
+    "ts-jest": "^26.0.0",
+    "ts-loader": "^7.0.5",
+    "typescript": "^3.9.3"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "declaration": true,
+    "outDir": "./dist",
+    "strict": true,
+    "jsx": "react",
+    "rootDirs": ["src", "stories"],
+    "esModuleInterop": true
+  },
+  "include": ["src/**/*.ts", "spec/**/*.ts", "stories/**/*.ts"],
+  "exclude": ["node_modules", "coverage"],
+  "jsx": "react"
+}
