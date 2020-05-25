@@ -1,10 +1,19 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
 import classNames from 'classnames';
 
 const prefix = 'tk-button';
 
-const Button = ({
+type ButtonProps = {
+  iconButton?: boolean,
+  children?: React.ReactNode,
+  className?: string,
+  disabled?: boolean,
+  loading?: boolean,
+  type?: 'button' | 'reset' | 'submit',
+  variant?: 'primary' | 'secondary' | 'tertiary' | 'destructive'
+};
+
+const Button: React.SFC<ButtonProps> = ({
   children,
   className,
   iconButton,
@@ -13,7 +22,7 @@ const Button = ({
   disabled,
   type,
   ...rest
-}) => {
+}: ButtonProps) => {
   const classes = classNames(
     className,
     prefix,
@@ -33,25 +42,14 @@ const Button = ({
   );
 };
 
-Button.propTypes = {
-  iconButton: PropTypes.bool,
-  children: PropTypes.node.isRequired,
-  className: PropTypes.string,
-  disabled: PropTypes.bool,
-  loading: PropTypes.bool,
-  type: PropTypes.oneOf(['button', 'reset', 'submit']),
-  variant: PropTypes.oneOf(['primary', 'secondary', 'tertiary', 'destructive']),
-};
-
 Button.defaultProps = {
   iconButton: false,
   className: '',
   disabled: false,
-  loading: null,
+  loading: false,
   type: 'button',
   variant: 'primary',
 };
 
 Button.displayName = 'Button';
-
 export default Button;

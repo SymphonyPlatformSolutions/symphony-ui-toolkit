@@ -1,7 +1,7 @@
-import React from 'react';
-import Button from '../src/components/button/index';
+import React from 'react'
+import Button from '../src/components/button';
 
-export const Buttons = () => (
+export const Buttons: React.SFC  = () => (
   <>
     <h2>Primary</h2>
     <div style={{ display: 'flex', margin: 16 }}>
