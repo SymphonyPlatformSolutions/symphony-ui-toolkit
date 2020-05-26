@@ -26,6 +26,7 @@
     "test-once": "jest"
   },
   "peerDependencies": {
+    "@symphony/uitoolkit-styles": "1.x",
     "react": ">=16.8.0",
     "react-dom": ">=16.8.0"
   },
