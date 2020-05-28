@@ -6,7 +6,7 @@ function executePublish {
     git config --global user.email "$GIT_USEREMAIL"
     git config --global user.name "$GIT_USERNAME"
     git commit -m "[skip ci] AUTO Bump version"
-    git push --set-upstream origin ${CIRCLE_BRANCH}
+    git push origin HEAD:master
 }
 
 # Set version
