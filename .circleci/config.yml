@@ -5,24 +5,22 @@ jobs:
   build-and-publish:
     executor:
       name: node/default
-      tag: 'lts' 
+      tag: 'lts'
     steps:
-      - run:
-          command: |
-            echo ${CIRCLE_PULL_REQUEST}
-            echo ${CIRCLE_PR_NUMBER}
       - checkout
       - run: echo "registry=$SYM_NPM_READ_REPO" > ~/.npmrc
       - run: echo "_auth=$SYM_NPM_TOKEN" >> ~/.npmrc
       - run: echo "always-auth=true" >> ~/.npmrc
-      - run: echo "email=SYM_NPM_EMAIL" >> ~/.npmrc
+      - run: echo "email=$SYM_NPM_EMAIL" >> ~/.npmrc
       - run: yarn
       - run: yarn build
       - run: bash ./publish.sh
       - run: rm -f ~/.npmrc
-      
+
 workflows:
   build:
     jobs:
-      - build-and-publish
-      
+      - build-and-publish:
+        filters:
+          tags:
+            only: /^v.*$/
