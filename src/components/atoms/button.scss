@@ -1,6 +1,6 @@
 $fontSize: 12;
 .tk-button {
-  font-size: toEm(12);
+  font-size: toEm($fontSize);
   display: inline-block;
   border: none;
   border-radius: toEm(16, $fontSize);
