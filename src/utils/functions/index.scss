@@ -1,0 +1,3 @@
+@function toEm($size, $base: 14) {
+  @return ($size/$base) * 1em;
+}

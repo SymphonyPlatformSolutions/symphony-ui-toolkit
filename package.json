@@ -8,9 +8,9 @@
   "main": "index.css",
   "scripts": {
     "start": "start-storybook -p 6006",
-    "build": "sass --style compressed index.scss dist/css/index.css",
+    "build": "sass --load-path=node_modules --style compressed uitoolkit.scss:dist/css/uitoolkit.css uitoolkit-tempo-support.scss:dist/css/uitoolkit-tempo-support.css",
     "build-storybook": "build-storybook -c .storybook -o dist/storybook",
-    "sass-watch": "sass --watch --style compressed index.scss dist/css/index.css"
+    "sass-watch": "sass --watch --load-path=node_modules --style compressed uitoolkit.scss:dist/css/uitoolkit.css uitoolkit-tempo-support.scss:dist/css/uitoolkit-tempo-support.css"
   },
   "keywords": [
     "scss",
@@ -30,5 +30,7 @@
     "sass-loader": "^7.2.0",
     "storybook-dark-mode": "^0.4.1"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@symphony/tempo-ui": "^0.0.54"
+  }
 }

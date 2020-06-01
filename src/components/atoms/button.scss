@@ -1,11 +1,15 @@
+$fontSize: 12;
 .tk-button {
+  font-size: toEm($fontSize);
+  display: inline-block;
   border: none;
-  border-radius: 1.333em;
-  padding: 0.667em 1.333em;
-  font-size: 0.75em;
-  letter-spacing: 0.041em;
-  height: 2.667em;
+  border-radius: toEm(16, $fontSize);
+  padding: toEm(8, $fontSize) toEm(16, $fontSize);
+  letter-spacing: toEm(0.5, $fontSize);
+  height: toEm(32, $fontSize);
   text-transform: uppercase;
+  text-align: center;
+  line-height: toEm(16, $fontSize);
 
   cursor: pointer;
   &:disabled {
@@ -33,6 +37,6 @@
   }
   &--icon {
     border-radius: 50%;
-    padding: 0.667em;
+    padding: toEm(8, $fontSize);
   }
 }

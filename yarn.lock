@@ -1243,6 +1243,11 @@
     telejson "^3.2.0"
     util-deprecate "^1.0.2"
 
+"@symphony/tempo-ui@^0.0.54":
+  version "0.0.54"
+  resolved "https://repo.symphony.com/artifactory/api/npm/npm-virtual-dev/@symphony/tempo-ui/-/@symphony/tempo-ui-0.0.54.tgz#fab287e0ec198ea9d337c99549278a082a9ca441"
+  integrity sha1-+rKH4OwZjqnTN8mVSSeKCCqcpEE=
+
 "@types/anymatch@*":
   version "1.3.1"
   resolved "https://repo.symphony.com/artifactory/api/npm/npm-virtual-dev/@types/anymatch/-/anymatch-1.3.1.tgz#336badc1beecb9dacc38bea2cf32adf627a8421a"
