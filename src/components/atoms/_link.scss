@@ -1,6 +1,6 @@
 .tk-link {
-  font-size: 1em;
-  line-height: 1.42em; // TODO replace by em computation
+  font-size: toEm(14);
+  line-height: toEm(20);
   color: $--tk-color-primary;
   text-decoration-line: underline;
   outline: none;
