@@ -5,6 +5,6 @@
 }
 
 /* Outlines are common to all inputs. Blurred outline is not supported yet. */
-@mixin addOutline($color) {
-  outline: 3px auto $color;
+@mixin addOutline() {
+  outline: 3px auto $--tk-outline-color;
 }

@@ -10,6 +10,13 @@
     cursor: pointer;
   }
   &:focus {
-    @include addOutline($--tk-outline-color);
+    @include addOutline();
   }
+}
+
+/* Reset browser button styles */
+button.tk-link {
+  background: none;
+  border: none;
+  padding: 0;
 }
