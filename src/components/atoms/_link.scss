@@ -1,0 +1,15 @@
+.tk-link {
+  font-size: 1em;
+  line-height: 1.42em; // TODO replace by em computation
+  color: $--tk-color-primary;
+  text-decoration-line: underline;
+  outline: none;
+
+  &:hover {
+    text-decoration-line: none;
+    cursor: pointer;
+  }
+  &:focus {
+    @include addOutline($--tk-outline-color);
+  }
+}
