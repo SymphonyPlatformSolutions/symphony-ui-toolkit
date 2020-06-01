@@ -4,7 +4,7 @@ The official styles library of Symphony's design system
 
 ## Requirements
 
-- Node 10+
+- Node 12+
 - Yarn
 
 ## 🛠 Install
