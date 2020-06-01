@@ -18,7 +18,7 @@ $fontSize: 12;
   }
 
   &:focus {
-    outline: 3px auto $--tk-outline-color;
+    @include addOutline($--tk-outline-color);
   }
 
   @include styleFilledButton($--tk-button-color-primary);

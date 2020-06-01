@@ -3,3 +3,8 @@
   box-shadow: inset 0 0 0 $size $color;
   border-color: $color;
 }
+
+/* Outlines are common to all inputs. Blurred outline is not supported yet. */
+@mixin addOutline($color) {
+  outline: 3px auto $color;
+}
