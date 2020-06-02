@@ -28,9 +28,8 @@
     "babel-loader": "^8.1.0",
     "sass": "^1.22.10",
     "sass-loader": "^7.2.0",
-    "storybook-dark-mode": "^0.4.1"
-  },
-  "dependencies": {
+    "storybook-dark-mode": "^0.4.1",
     "@symphony/tempo-ui": "^0.0.54"
-  }
+  },
+  "dependencies": {}
 }
