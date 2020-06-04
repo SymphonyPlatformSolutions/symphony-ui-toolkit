@@ -3,7 +3,7 @@ $fontSize: 12;
 .tk-label {
   @include addTransition();
   display: block;
-  font-size: toEm(12, $fontSize);
+  font-size: toEm(12);
   line-height: toEm(16, $fontSize);
   color: $--tk-input-default-inactive-color;
   &:hover,
