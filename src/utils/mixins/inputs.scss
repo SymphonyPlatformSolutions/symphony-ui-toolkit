@@ -1,0 +1,23 @@
+@mixin styleHoverInput($hoverColor) {
+  color: $hoverColor;
+  @include addBorder(2px, $hoverColor);
+  &::placeholder {
+    color: $hoverColor;
+  }
+}
+@mixin styleInput($inactiveColor, $focusColor, $activeColor, $backgroundColor) {
+  color: $inactiveColor;
+  background-color: $backgroundColor;
+  @include addBorder(2px, $inactiveColor);
+  &::placeholder {
+    color: $inactiveColor;
+  }
+  &:hover {
+    @include styleHoverInput($activeColor);
+  }
+  &:focus,
+  &:active {
+    color: $activeColor;
+    @include addBorder(2px, $focusColor);
+  }
+}
