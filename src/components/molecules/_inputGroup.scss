@@ -15,7 +15,7 @@
     margin-bottom: toEm(4);
   }
 
-  &:hover {
+  &:hover, &:focus-within {
     @include styleLabels {
       color: $--tk-input-default-active-color;
     }
@@ -33,7 +33,7 @@
     }
   }
 
-  &--error:hover {
+  &--error:hover, &--error:focus-within {
     @include styleLabels {
       color: $--tk-input-error-active-color;
     }
@@ -42,7 +42,7 @@
     }
   }
 
-  &--disabled:hover {
+  &--disabled:hover, &--disabled:focus-within  {
     @include styleLabels {
       @extend .tk-label--disabled;
     }
