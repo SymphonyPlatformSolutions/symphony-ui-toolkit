@@ -1,0 +1,54 @@
+@mixin styleLabels {
+  label,
+  .tk-input-helper,
+  .tk-input-error {
+    @content;
+  }
+}
+
+.tk-input-group {
+  display: flex;
+  flex-direction: column;
+
+  label {
+    @extend .tk-label;
+    margin-bottom: toEm(4);
+  }
+
+  &:hover {
+    @include styleLabels {
+      color: $--tk-input-default-active-color;
+    }
+    .tk-input:not(:focus) {
+      @include styleHoverInput($--tk-input-default-active-color);
+    }
+  }
+
+  &--error {
+    @include styleLabels {
+      @extend .tk-label--error;
+    }
+    .tk-input {
+      @extend .tk-input--error;
+    }
+  }
+
+  &--error:hover {
+    @include styleLabels {
+      color: $--tk-input-error-active-color;
+    }
+    .tk-input:not(:focus) {
+      @include styleHoverInput($--tk-input-error-active-color);
+    }
+  }
+
+  &--disabled:hover {
+    @include styleLabels {
+      @extend .tk-label--disabled;
+    }
+    .tk-input:focus,
+    .tk-input:not(:focus) {
+      @extend .tk-input--disabled;
+    }
+  }
+}
