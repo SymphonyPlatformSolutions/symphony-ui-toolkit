@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { isEmpty } from 'lodash';
 import React from 'react';
-import { ValidatorFn } from '../../core/validators/validators';
+import { ValidatorFn } from 'core/validators/validators';
 
 type InputProps = {
   validator?: ValidatorFn | Array<ValidatorFn>;
@@ -92,9 +92,9 @@ export default class Input extends React.Component<InputProps> {
           'tk-input-group--error': errorMessages.length
         })}
       >
-        {this.props.label ?? (
+        {this.props.label ? (
           <label className="tk-label">{this.props.label}</label>
-        )}
+        ) : null}
         <input
           className="tk-input"
           value={this.state.value}

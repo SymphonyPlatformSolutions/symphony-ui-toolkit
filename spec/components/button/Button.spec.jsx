@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 
 import Button from '../../../src/components/button/Button';
 
-describe('Button', () => {
+describe('Button Component', () => {
   describe('"primary" story', () => {
     it('render with default props does not crash', () => {
       const wrapper = shallow(<Button>Text</Button>);

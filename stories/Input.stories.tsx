@@ -64,7 +64,7 @@ export const ChangeProgrammatically = () => (
     <p>Manipulate programmatically: Use knobs</p>
     <Input
       placeholder="Firstname"
-      value="My first name"
+      value=""
       dirty={boolean('Dirty', false)}
       errors={{ required: 'This field is mandatory' }}
       validator={Validators.Required}
