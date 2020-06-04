@@ -1,5 +1,4 @@
 import '!style-loader!css-loader!sass-loader!../stories/stories.scss';
-import './styles.css';
 import { addParameters } from '@storybook/html';
 import addons from '@storybook/addons';
 import { themes } from '@storybook/theming';

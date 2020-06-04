@@ -1,7 +1,0 @@
-/* Styles for titles in Dark mode are defined in the StoryBook
- until we have a design for them in the UI Toolkit. */
-.dark h1,
-.dark h2,
-.dark h3 {
-  color: white;
-}
