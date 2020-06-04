@@ -22,10 +22,9 @@
 
   --tk-input-default-inactive-color: #{$scolor-graphite-minus-48};
   --tk-input-default-active-color: #{$scolor-graphite-minus-72};
-  --tk-input-default-focus-color: #{$scolor-electricity};
+  --tk-input-default-focus-border-color: #{$scolor-electricity};
   --tk-input-default-background-color: #{$scolor-graphite-plus-24};
 
-  --tk-input-error-focus-color: #{$scolor-electricity};
   --tk-input-error-background-color: #{$scolor-graphite-plus-24};
 
   --tk-input-disabled-color: #{$scolor-graphite-minus-48};

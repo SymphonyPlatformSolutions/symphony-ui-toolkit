@@ -16,12 +16,12 @@ $--tk-outline-color: #88c0fb;
 
 $--tk-input-default-inactive-color: var(--tk-input-default-inactive-color, $scolor-graphite-minus-24);
 $--tk-input-default-active-color: var(--tk-input-default-active-color, $scolor-graphite);
-$--tk-input-default-focus-color: var(--tk-input-default-focus-color, $scolor-electricity);
+$--tk-input-default-focus-border-color: var(--tk-input-default-focus-border-color, $scolor-electricity);
 $--tk-input-default-background-color: var(--tk-input-default-background-color, transparent);
 
 $--tk-input-error-inactive-color: var(--tk-input-error-inactive-color, $--tk-color-error);
 $--tk-input-error-active-color: var(--tk-input-error-active-color, $scolor-elements-destructive-active);
-$--tk-input-error-focus-color: var(--tk-input-error-focus-color, $scolor-elements-destructive-active);
+$--tk-input-error-focus-border-color: var(--tk-input-error-focus-border-color, $scolor-elements-destructive-active);
 $--tk-input-error-background-color: var(--tk-input-error-background-color, transparent);
 
 $--tk-input-disabled-color: var(--tk-input-disabled-color, $scolor-graphite-minus-24);

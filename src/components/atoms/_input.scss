@@ -12,7 +12,7 @@ $fontSize: 12;
 
   @include styleInput(
     $--tk-input-default-inactive-color,
-    $--tk-input-default-focus-color,
+    $--tk-input-default-focus-border-color,
     $--tk-input-default-active-color,
     $--tk-input-default-background-color
   );
@@ -20,7 +20,7 @@ $fontSize: 12;
   &--error {
     @include styleInput(
       $--tk-input-error-inactive-color,
-      $--tk-input-error-focus-color,
+      $--tk-input-error-focus-border-color,
       $--tk-input-error-active-color,
       $--tk-input-error-background-color
     );
