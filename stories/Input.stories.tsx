@@ -9,10 +9,11 @@ export const Inputs: React.SFC = () => {
   };
 
   return (
-    <React.Fragment>
+    <div style={{ width: '50%' }}>
       <div>
-        <p>Simple Input with change handler</p>
+        <p>Simple Input with change handler and a label</p>
         <Input
+          label="Ipsum"
           placeholder="Firstname"
           value="Lorem"
           onChange={logChange}
@@ -36,6 +37,7 @@ export const Inputs: React.SFC = () => {
         <p>Support multiple validators: Mandatory number</p>
         <Input
           onChange={logChange}
+          label="Number"
           errors={{
             required: 'This field is mandatory',
             number: 'Should be a number'
@@ -55,12 +57,12 @@ export const Inputs: React.SFC = () => {
           placeholder="Magic word"
         ></Input>
       </div>
-    </React.Fragment>
+    </div>
   );
 };
 
 export const ChangeProgrammatically = () => (
-  <div>
+  <div style={{ width: '50%' }}>
     <p>Manipulate programmatically: Use knobs</p>
     <Input
       placeholder="Firstname"
