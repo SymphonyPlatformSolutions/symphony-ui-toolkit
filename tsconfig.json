@@ -7,7 +7,10 @@
     "strict": true,
     "jsx": "react",
     "rootDirs": ["src", "stories"],
-    "esModuleInterop": true
+    "baseUrl": "src",
+    "esModuleInterop": true,
+    "noImplicitAny": false,
+    "strictNullChecks": false
   },
   "include": ["src/**/*.ts", "spec/**/*.ts", "stories/**/*.ts"],
   "exclude": ["node_modules", "coverage"],

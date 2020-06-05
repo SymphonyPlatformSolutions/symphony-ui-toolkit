@@ -1,7 +1,7 @@
-import React from 'react'
-import Button from '../src/components/button';
+import React from 'react';
+import { Button } from '../src/components';
 
-export const Buttons: React.SFC  = () => (
+export const Buttons: React.SFC = () => (
   <>
     <h2>Primary</h2>
     <div style={{ display: 'flex', margin: 16 }}>
@@ -107,5 +107,5 @@ export const Buttons: React.SFC  = () => (
 
 export default {
   title: 'Button',
-  component: Buttons,
+  component: Buttons
 };

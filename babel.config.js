@@ -1,9 +1,14 @@
-module.exports = (api) => {
+module.exports = api => {
   api.cache(true);
 
-  const presets = ['@babel/env', '@babel/preset-react', '@babel/preset-typescript'];
+  const presets = [
+    '@babel/preset-typescript',
+    '@babel/preset-react',
+    '@babel/env'
+  ];
 
   return {
-     presets,
+    presets,
+    plugins: ['transform-class-properties']
   };
 };

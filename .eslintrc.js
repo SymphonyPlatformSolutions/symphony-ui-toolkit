@@ -5,21 +5,23 @@ module.exports = {
     commonjs: true
   },
   settings: {
-  react: {
-    'version': 'detect'
-  }},
+    react: {
+      version: 'detect'
+    }
+  },
   parser: '@typescript-eslint/parser',
-  plugins: [
-    '@typescript-eslint',
-  ],
+  plugins: ['@typescript-eslint'],
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
-    'plugin:react/recommended',
+    'plugin:react/recommended'
   ],
   rules: {
     'react/jsx-props-no-spreading': ['off'],
-    'quotes': ['error', 'single'],
+    quotes: ['error', 'single'],
     'jsx-quotes': ['error', 'prefer-double'],
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
+    '@typescript-eslint/no-explicit-any': 'off',
+    indent: ['error', 2]
   }
-}
+};

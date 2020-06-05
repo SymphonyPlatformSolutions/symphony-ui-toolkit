@@ -1,6 +1,7 @@
-import '@symphony/uitoolkit-styles/dist/css/index.css';
-import { addParameters } from '@storybook/html';
+import '!style-loader!css-loader!sass-loader!../stories/stories.scss';
+import '@symphony/uitoolkit-styles/dist/css/uitoolkit.css';
 import addons from '@storybook/addons';
+import { addParameters, addDecorator } from '@storybook/react';
 import { themes } from '@storybook/theming';
 
 setTimeout(() => init());
@@ -8,15 +9,15 @@ setTimeout(() => init());
 addParameters({
   darkMode: {
     // Override the default dark theme
-    dark: { ...themes.dark, appContentBg: '#1A1C1D' },
-  },
+    dark: { ...themes.dark, appContentBg: '#1A1C1D' }
+  }
 });
 
 // this allows us to add a dark class to body element to be able to render our component in dark mode  in sync with storybook's
 const init = () => {
   const darkClass = 'dark';
   const channel = addons.getChannel();
-  channel.on('DARK_MODE', (isDark) => {
+  channel.on('DARK_MODE', isDark => {
     if (isDark) {
       document.body.classList.add(darkClass);
     } else {
