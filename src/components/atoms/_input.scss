@@ -1,7 +1,7 @@
-$fontSize: 12;
+$fontSize: 14;
 
 .tk-input {
-  font-size: toEm(14, $fontSize);
+  font-size: toEm($fontSize);
   line-height: toEm(20, $fontSize);
   padding: toEm(8, $fontSize) toEm(10, $fontSize);
   margin-bottom: toEm(4, $fontSize);
@@ -41,6 +41,7 @@ $fontSize: 12;
 }
 
 .tk-input-error {
+  @extend .tk-label;
   @extend .tk-label--error;
 }
 
