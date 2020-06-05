@@ -62,9 +62,9 @@ export default class Input extends React.Component<InputProps> {
       }
     }
     if (!valid && this.props.errors) {
-      Object.entries(errors).forEach(entry => {
-        if (entry[1]) {
-          errorMessages.push(this.props.errors[entry[0]]);
+      Object.entries(errors).forEach(([errorId, errorVal]) => {
+        if (errorVal) {
+          errorMessages.push(this.props.errors[errorId]);
         }
       });
     }
