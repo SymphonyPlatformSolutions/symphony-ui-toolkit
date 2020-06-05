@@ -48,7 +48,7 @@
     }
     .tk-input:focus,
     .tk-input:not(:focus) {
-      @extend .tk-input--disabled;
+      @include styleHoverInput($--tk-input-disabled-color);
     }
   }
 }
