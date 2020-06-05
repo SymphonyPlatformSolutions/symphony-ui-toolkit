@@ -2,13 +2,37 @@ export default {
   title: 'Input fields',
 };
 
-export const Input = () => {
-  return (
-    '<input type="text" class="tk-input" value="Text" /><br><br>' +
-    '<input type="text" class="tk-input tk-input--success" value="Text" /><br><br>' +
-    '<input type="text" class="tk-input tk-input--warning" value="Text" /><br><br>' +
-    '<input type="text" class="tk-input tk-input--error" value="Text" />'
-  );
+export const TextField = () => {
+  return (`
+    <div style="max-width: 600px">
+      <h2>Input groups</h2>
+        <h3>Default</h3>
+          <div class="tk-input-group">
+            <label for="input">Field label</label>
+            <input id="input" type="text" class="tk-input" placeholder="Type something..." />
+            <div class="tk-input-helper">This is a helper.</div>
+          </div>
+        <h3>Error</h3>
+          <div class="tk-input-group tk-input-group--error">
+            <label for="input-error">Field label</label>
+            <input id="input-error" type="text" class="tk-input" placeholder="Type something..." />
+            <div class="tk-input-error">This field is required.</div>
+          </div>
+        <h3>Disabled</h3>
+          <div class="tk-input-group tk-input-group--disabled">
+            <label for="input-disabled">Field label</label>
+            <input id="input-disabled" type="text" class="tk-input" placeholder="Type something..." disabled />
+            <div class="tk-input-helper">This is a helper.</div>
+          </div>
+      <h2>Without labels</h2>
+        <h3>Default</h3>
+          <input type="text" class="tk-input" placeholder="Type something..." />
+        <h3>Error</h3>
+            <input type="text" class="tk-input tk-input--error" placeholder="Type something..." />
+        <h3>Disabled</h3>
+          <input type="text" class="tk-input" placeholder="Type something..." disabled />
+      </div>
+    `);
 };
 
 export const Select = () => {
@@ -19,4 +43,14 @@ export const Select = () => {
   </select>`;
 };
 
-export const TextArea = () => `<textarea class="tk-input" cols="50" rows="10"></textarea>`;
+export const TextArea = () => {
+  return (
+    `
+    <h3>Default</h3>
+    <textarea class="tk-input" cols="50" rows="5"></textarea>
+    <h3>Error</h3>
+    <textarea class="tk-input tk-input--error" cols="50" rows="5"></textarea>
+    <h3>Disabled</h3>
+    <textarea class="tk-input" cols="50" rows="5" disabled></textarea>`
+  );
+};

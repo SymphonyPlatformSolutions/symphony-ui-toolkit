@@ -1,48 +1,50 @@
+$fontSize: 14;
+
 .tk-input {
-  border: 1px solid $--tk-input-border-inactive-color;
-  color: $--tk-input-text-color;
-  box-sizing: border-box;
-  border-radius: 4px;
-  font-size: 14px;
-  line-height: 20px;
-  padding: 8px 10px;
-  transition: all 200ms ease-in-out;
+  font-size: toEm($fontSize);
+  line-height: toEm(20, $fontSize);
+  padding: toEm(8, $fontSize) toEm(10, $fontSize);
+  margin-bottom: toEm(4, $fontSize);
+  border-radius: toEm(4, $fontSize);
+  border: none;
   outline: none;
-  background: transparent;
+  @include addTransition();
 
-  &:disabled {
-    @extend .tk-disabled;
-  }
+  @include styleInput(
+    $--tk-input-default-inactive-color,
+    $--tk-input-default-focus-border-color,
+    $--tk-input-default-active-color,
+    $--tk-input-default-background-color
+  );
 
-  &:hover {
-    @include addBorder(1px, $--tk-input-border-hover-color);
-  }
-  &:focus {
-    @include addBorder(1px, $--tk-input-border-focus-color);
-  }
-
-  &--success {
-    border-color: $--tk-color-success;
-    &:hover,
-    &:focus {
-      @include addBorder(1px, $--tk-color-success);
-    }
-  }
-  &--warning {
-    border-color: $--tk-color-warning;
-    &:hover,
-    &:focus {
-      @include addBorder(1px, $--tk-color-warning);
-    }
-  }
   &--error {
-    border-color: $--tk-color-error;
-    &:hover,
-    &:focus {
-      @include addBorder(1px, $--tk-color-error);
-    }
+    @include styleInput(
+      $--tk-input-error-inactive-color,
+      $--tk-input-error-focus-border-color,
+      $--tk-input-error-active-color,
+      $--tk-input-error-background-color
+    );
+  }
+  &--disabled,
+  &:disabled {
+    @include styleInput(
+      $--tk-input-disabled-color,
+      $--tk-input-disabled-color,
+      $--tk-input-disabled-color,
+      $--tk-input-disabled-background-color
+    );
   }
 }
+
+.tk-input-helper {
+  @extend .tk-label;
+}
+
+.tk-input-error {
+  @extend .tk-label;
+  @extend .tk-label--error;
+}
+
 /* Select */
 select.tk-input {
   -webkit-appearance: none;

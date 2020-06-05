@@ -1,7 +1,20 @@
+$fontSize: 12;
+
 .tk-label {
-  font-weight: 600;
-  font-size: 12px;
-  line-height: 24px;
-  color: $--tk-main-text-color;
+  @include addTransition();
   display: block;
+  font-size: toEm($fontSize);
+  line-height: toEm(16, $fontSize);
+  color: $--tk-input-default-inactive-color;
+  &:hover,
+  &--error:hover {
+    color: $--tk-input-default-active-color;
+  }
+  &--error {
+    color: $--tk-input-error-inactive-color;
+  }
+  &--disabled,
+  &--disabled:hover {
+    color: $--tk-input-disabled-color;
+  }
 }
