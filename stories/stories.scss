@@ -3,3 +3,17 @@ html {
     'Arial', sans-serif;
   font-size: 14px;
 }
+
+#root {
+  overflow-x: hidden;
+}
+// Layout utils
+.flex-row {
+  display: flex;
+  margin-left: -16px;
+  margin-right: -16px;
+  .flex-col {
+    flex-direction: column;
+    padding: 16px;
+  }
+}
