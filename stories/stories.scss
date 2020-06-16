@@ -4,10 +4,25 @@ body {
   font-family: 'SymphonyLato', 'Lato', 'Segoe UI', 'Helvetica Neue', 'Verdana', 'Arial', sans-serif;
   font-size: 14px;
 }
+
+#root {
+  overflow-x: hidden;
+}
 /* Styles for titles in Dark mode are defined in the StoryBook
 until we have a design for them in the UI Toolkit. */
 .dark h1,
 .dark h2,
 .dark h3 {
- color: white;
+  color: white;
+}
+
+// Layout utils
+.flex-row {
+  display: flex;
+  margin-left: -16px;
+  margin-right: -16px;
+  .flex-col {
+    flex-direction: column;
+    padding: 16px;
+  }
 }

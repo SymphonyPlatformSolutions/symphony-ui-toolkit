@@ -1,0 +1,26 @@
+.tk-quote-container {
+  color: $--tk-main-text-color;
+  position: relative;
+  background-color: rgba($scolor-electricity, 0.06);
+  border-radius: 4px;
+  padding: 8px;
+  padding-left: 16px;
+
+  &::before,
+  &--default::before {
+    content: '';
+    left: 4px;
+    top: 4px;
+    bottom: 4px;
+    position: absolute;
+    width: 4px;
+    border-radius: 2px;
+    background-color: $--tk-color-primary;
+  }
+  &--error {
+    background-color: rgba($scolor-red, 0.06);
+    &::before {
+      background-color: $--tk-color-error;
+    }
+  }
+}
