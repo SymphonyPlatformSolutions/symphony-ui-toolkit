@@ -1,19 +1,18 @@
 import * as React from 'react';
-import classNames from 'classnames';
-import ResizeDetectDiv from '../../core/utils/ResizeDetectDiv';
+import ResizeDetectDiv from '../../core/hoc/ResizeDetectDiv';
 
 type CropContentProps = {
   children?: React.ReactNode;
   cropHeight?: string;
   className?: string;
   collapsed?: boolean;
+  style?: any;
 };
 
 export default class CropContent extends React.Component<CropContentProps> {
   private containerElRef: HTMLDivElement;
 
   public state = {
-    cropHeight: this.props.cropHeight || '80px',
     collapsed: this.props.collapsed === undefined ? true : this.props.collapsed,
     hasOverflow: false
   };
@@ -24,10 +23,15 @@ export default class CropContent extends React.Component<CropContentProps> {
 
   componentDidMount() {
     // after first render check if component needs toggle
-    this.handleWidthChange();
+    this.handleOverflow();
+  }
+  componentDidUpdate(prevProps) {
+    if (prevProps.cropHeight !== this.props.cropHeight) {
+      this.handleOverflow();
+    }
   }
 
-  handleWidthChange() {
+  handleOverflow() {
     if (this.state.collapsed) {
       const hasOverflow =
         this.containerElRef &&
@@ -37,22 +41,21 @@ export default class CropContent extends React.Component<CropContentProps> {
   }
 
   render() {
-    const height = this.state.collapsed ? `${this.state.cropHeight}` : '100vh';
-    const contentClasses = classNames(
-      { collapsed: this.state.collapsed },
-      'content'
-    );
+    const height = this.state.collapsed
+      ? `${this.props.cropHeight || '80px'}`
+      : '100vh';
 
     return (
       <ResizeDetectDiv
-        onWidthChange={this.handleWidthChange.bind(this)}
+        onWidthChange={this.handleOverflow.bind(this)}
         className={'tk-crop-content ' + this.props.className}
+        style={this.props.style}
       >
         <div
           ref={el => {
             this.containerElRef = el;
           }}
-          className={contentClasses}
+          className="content"
           style={{ maxHeight: height }}
         >
           {this.props.children}

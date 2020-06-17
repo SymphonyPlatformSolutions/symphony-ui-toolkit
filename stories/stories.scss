@@ -8,6 +8,9 @@ html {
   overflow-x: hidden;
 }
 // Layout utils
+.flex-container {
+  overflow-x: hidden;
+}
 .flex-row {
   display: flex;
   margin-left: -16px;

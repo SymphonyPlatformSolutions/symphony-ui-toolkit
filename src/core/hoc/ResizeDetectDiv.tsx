@@ -5,22 +5,25 @@ import { withResizeDetector } from 'react-resize-detector';
 interface ResizeDetectDivProps {
   width: number;
   height: number;
-  onResize: (width: number, height: number) => any;
-  onWidthChange: (width: number) => any;
-  onHeightChange: (height: number) => any;
-  targetRef: any;
+  onResize?: (width: number, height: number) => any;
+  onWidthChange?: (width: number) => any;
+  onHeightChange?: (height: number) => any;
+  targetRef?: any;
+  className?: string;
 }
 
-class ResizeDetectDiv extends React.Component<ResizeDetectDivProps> {
+export class ResizeDetectDivInternal extends React.Component<
+  ResizeDetectDivProps
+> {
   componentDidUpdate(prevProps: ResizeDetectDivProps) {
     const { width, height } = this.props;
-    const widthChanged = width !== prevProps.width;
-    const heightChanged = height !== prevProps.height;
+    const widthChanged = width - prevProps.width;
+    const heightChanged = height - prevProps.height;
     if (widthChanged && this.props.onWidthChange) {
       this.props.onWidthChange(width);
     }
     if (heightChanged && this.props.onHeightChange) {
-      this.props.onHeightChange(width);
+      this.props.onHeightChange(height);
     }
     if ((heightChanged || widthChanged) && this.props.onResize) {
       this.props.onResize(width, height);
@@ -41,4 +44,4 @@ class ResizeDetectDiv extends React.Component<ResizeDetectDivProps> {
   }
 }
 
-export default withResizeDetector(ResizeDetectDiv);
+export default withResizeDetector(ResizeDetectDivInternal);
