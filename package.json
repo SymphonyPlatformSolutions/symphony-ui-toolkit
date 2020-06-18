@@ -10,7 +10,7 @@
     "start": "start-storybook -p 6006",
     "build": "sass --load-path=node_modules --style compressed uitoolkit.scss:dist/css/uitoolkit.css uitoolkit-tempo-support.scss:dist/css/uitoolkit-tempo-support.css",
     "build-storybook": "build-storybook -c .storybook -o dist/storybook",
-    "sass-watch": "sass --watch --load-path=node_modules --style compressed uitoolkit.scss:dist/css/uitoolkit.css uitoolkit-tempo-support.scss:dist/css/uitoolkit-tempo-support.css"
+    "sass-watch": "sass --watch --load-path=node_modules --style compressed uitoolkit.scss:dist/css/uitoolkit.css"
   },
   "keywords": [
     "scss",
