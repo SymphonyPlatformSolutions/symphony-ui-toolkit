@@ -6,7 +6,7 @@ type CropContentProps = {
   children?: React.ReactNode;
   cropHeight?: string;
   className?: string;
-  collapsed?: boolean;
+  initCollapsed?: boolean;
   style?: any;
 };
 
@@ -14,7 +14,8 @@ export default class CropContent extends React.Component<CropContentProps> {
   private containerElRef: HTMLDivElement;
 
   public state = {
-    collapsed: this.props.collapsed === undefined ? true : this.props.collapsed,
+    collapsed:
+      this.props.initCollapsed === undefined || this.props.initCollapsed,
     hasOverflow: false
   };
 

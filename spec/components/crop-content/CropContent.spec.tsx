@@ -1,11 +1,16 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 
 import CropContent from '../../../src/components/crop-content/CropContent';
+import ResizeDetectDiv from '../../../src/core/hoc/ResizeDetectDiv';
 
-const getWrapper = () =>
+/**
+ * Util methods
+ */
+
+const getWrapper = (initCollapsed?) =>
   shallow(
-    <CropContent>
+    <CropContent initCollapsed={initCollapsed}>
       Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
       doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo
       inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
@@ -31,6 +36,15 @@ const getToggleContainer = wrapper => {
 const getContentBlock = wrapper => {
   return wrapper.find('.tk-crop-content .content');
 };
+
+const simResize = (wrapper, scrollHeight, offsetHeight) => {
+  (wrapper.instance() as CropContent)['containerElRef'] = {
+    offsetHeight,
+    scrollHeight
+  } as HTMLDivElement;
+  (wrapper.find(ResizeDetectDiv).prop('onWidthChange') as any)();
+};
+
 describe('CropContent Component', () => {
   describe('should be created properly', () => {
     it('render with default props does not crash', () => {
@@ -38,21 +52,30 @@ describe('CropContent Component', () => {
       expect(wrapper.length).toEqual(1);
       expect(wrapper.hasClass('tk-crop-content')).toBe(true);
     });
+    it('should init collapsed properly', () => {
+      let wrapper = getWrapper(true);
+      expect(wrapper.state('collapsed')).toBeTruthy();
+      wrapper = getWrapper(false);
+      expect(wrapper.state('collapsed')).toBeFalsy();
+      wrapper = getWrapper();
+      expect(wrapper.state('collapsed')).toBeTruthy();
+    });
     it('content should crop at 80px by default', () => {
       const wrapper = getWrapper();
-      wrapper.setState({ hasOverflow: true });
+      simResize(wrapper, 100, 50);
       expect(getContentBlock(wrapper).prop('style').maxHeight).toBe('80px');
       expect(getToggleContainer(wrapper).length).toBe(1);
     });
     it('toggle should appear according to overflow state', () => {
       const wrapper = getWrapper();
+      simResize(wrapper, 50, 100);
       expect(getToggleContainer(wrapper).length).toBe(0);
-      wrapper.setState({ hasOverflow: true });
+      simResize(wrapper, 100, 50);
       expect(getToggleContainer(wrapper).length).toBe(1);
     });
     it('toggle should switch state and height', () => {
       const wrapper = getWrapper();
-      wrapper.setState({ hasOverflow: true });
+      simResize(wrapper, 100, 50);
       expect(getToggleContainer(wrapper).length).toBe(1);
       getToggleLink(wrapper).simulate('click');
       expect(getContentBlock(wrapper).prop('style').maxHeight).toBe('100vh');
@@ -68,17 +91,17 @@ describe('CropContent Component', () => {
     });
     it('should handle overflow only on collapsed state', () => {
       const wrapper = getWrapper();
-      wrapper.setState({ hasOverflow: true });
+      // mock overflow
+      simResize(wrapper, 100, 50);
+      // container expanded
       getToggleLink(wrapper).simulate('click');
+      simResize(wrapper, 50, 100);
+      expect((wrapper.instance().state as any).hasOverflow).toBeTruthy();
 
-      const setStateSpy = jest.spyOn(wrapper.instance(), 'setState');
-
-      (wrapper.instance() as CropContent).handleOverflow();
-      expect(setStateSpy).not.toHaveBeenCalled();
-
+      // container collapsed
       getToggleLink(wrapper).simulate('click');
-      (wrapper.instance() as CropContent).handleOverflow();
-      expect(setStateSpy).toHaveBeenCalled();
+      simResize(wrapper, 50, 100);
+      expect((wrapper.instance().state as any).hasOverflow).toBeFalsy();
     });
   });
 });
