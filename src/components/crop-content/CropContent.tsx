@@ -63,12 +63,7 @@ export default class CropContent extends React.Component<CropContentProps> {
         {/* this should only display if there's overflow or collapsed false */}
         {this.state.hasOverflow ? (
           <div className="toggle-container">
-            <a
-              onClick={() => {
-                this.onToggle();
-              }}
-              className="tk-link"
-            >
+            <a onClick={this.onToggle.bind(this)} className="tk-link">
               Show {this.state.collapsed ? 'more' : 'less'}
             </a>
           </div>
