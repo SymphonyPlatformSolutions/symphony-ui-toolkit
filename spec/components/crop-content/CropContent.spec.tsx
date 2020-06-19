@@ -63,7 +63,7 @@ describe('CropContent Component', () => {
         wrapper.instance() as CropContent,
         'handleOverflow'
       );
-      wrapper.setProps({ cropHeight: 100 });
+      wrapper.setProps({ cropHeight: '100px' });
       expect(handleOverflowSpy).toHaveBeenCalled();
     });
     it('should handle overflow only on collapsed state', () => {
