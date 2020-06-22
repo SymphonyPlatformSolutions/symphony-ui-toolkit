@@ -2,7 +2,7 @@ import { withKnobs, number } from '@storybook/addon-knobs';
 import React from 'react';
 import { CropContent } from '../src/components';
 
-export const CropContentStory: React.SFC = () => {
+export const CropContentContainer: React.SFC = () => {
   return (
     <>
       <div className="flex-row">
@@ -88,6 +88,6 @@ export const CropContentStory: React.SFC = () => {
 };
 
 export default {
-  title: 'Crop Content',
+  title: 'Containers',
   decorators: [withKnobs]
 };
