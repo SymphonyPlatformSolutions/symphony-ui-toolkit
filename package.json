@@ -35,7 +35,8 @@
     "classnames": "^2.2.6",
     "lodash": "4.17.15",
     "prop-types": "^15.7.2",
-    "react-resize-detector": "^5.0.3"
+    "react-resize-detector": "^5.0.3",
+    "styled-components": "^5.1.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
@@ -57,6 +58,7 @@
     "@types/react": "^16.9.35",
     "@types/react-dom": "^16.9.8",
     "@types/storybook__react": "^5.2.1",
+    "@types/styled-components": "^5.1.0",
     "@typescript-eslint/eslint-plugin": "^3.0.0",
     "@typescript-eslint/parser": "^3.0.0",
     "babel-eslint": "^10.1.0",
