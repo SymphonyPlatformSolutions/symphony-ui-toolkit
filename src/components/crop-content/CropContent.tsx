@@ -76,6 +76,6 @@ export default class CropContent extends React.Component<CropContentProps> {
 
   static propTypes = {
     cropHeight: PropTypes.string,
-    collapsed: PropTypes.bool
+    initCollapsed: PropTypes.bool
   };
 }
