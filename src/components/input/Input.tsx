@@ -2,18 +2,31 @@ import classNames from 'classnames';
 import { isEmpty } from 'lodash';
 import React from 'react';
 import { ValidatorFn } from 'core/validators/validators';
+import InfoHint from '../info-hint';
+import styled from 'styled-components';
 
 type InputProps = {
   validator?: ValidatorFn | Array<ValidatorFn>;
   dirty?: boolean;
   touched?: boolean;
   label?: string;
+  tooltip?: string;
   errors?: { [id: string]: string };
   onValidationChanged?: (boolean) => any;
   onChange?: (string) => any;
   value?: string;
   placeholder?: string;
 };
+
+const InputHeader = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const InputTooltip = styled.div`
+  display: inline-block;
+  margin-left: auto;
+`;
 
 export default class Input extends React.Component<InputProps> {
   public state: any = {
@@ -79,6 +92,7 @@ export default class Input extends React.Component<InputProps> {
       validator,
       dirty,
       label,
+      tooltip,
       errors,
       onValidationChanged,
       onChange,
@@ -92,9 +106,15 @@ export default class Input extends React.Component<InputProps> {
           'tk-input-group--error': errorMessages.length
         })}
       >
-        {this.props.label ? (
-          <label className="tk-label">{this.props.label}</label>
-        ) : null}
+        {this.props.label || this.props.tooltip ? (<InputHeader>
+          {this.props.label ? (
+            <label className="tk-label">{this.props.label}</label>
+          ) : null}
+          {this.props.tooltip ? (
+            <InputTooltip><InfoHint title={this.props.tooltip}/></InputTooltip>
+          ) : null}
+        </InputHeader>) : null
+        }
         <input
           className="tk-input"
           value={this.state.value}

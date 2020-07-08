@@ -21,6 +21,26 @@ export const Inputs: React.SFC = () => {
       </div>
       <hr />
       <div>
+        <p>Simple Input with change handler and a tooltip</p>
+        <Input
+          tooltip="Ipsum"
+          placeholder="Firstname"
+          value="Lorem"
+          onChange={logChange}
+        ></Input>
+      </div>
+      <div>
+        <p>Simple Input with change handler with a label and a tooltip</p>
+        <Input
+          label="Ipsum"
+          tooltip="Ipsum"
+          placeholder="Firstname"
+          value="Lorem"
+          onChange={logChange}
+        ></Input>
+      </div>
+      <hr />
+      <div>
         <p>
           Input with Required validator: validation only executes when field is
           touched or dirty, you can also assign a validation change handler
