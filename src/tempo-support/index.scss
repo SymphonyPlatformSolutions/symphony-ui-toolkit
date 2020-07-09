@@ -1,14 +1,16 @@
 $icon-font-path: 'https://cdn.symphony.com/resources/api/v2.0/fonts/tempo-icons';
 $tempo-icon-path: 'https://cdn.symphony.com/resources/api/v2.0/images/icons';
-@import '@symphony/tempo-ui/src/styles/tempo/variables';
-@import '@symphony/tempo-ui/src/styles/tempo/tempo-icons';
-@import '@symphony/tempo-ui/src/styles/tempo/mixins/font-mixins';
-@import '@symphony/tempo-ui/src/styles/tempo/mixins/button-mixins';
-@import '@symphony/tempo-ui/src/styles/tempo/buttons';
-@import '@symphony/tempo-ui/src/styles/tempo/switch';
-@import '@symphony/tempo-ui/src/styles/tempo/forms';
-@import '@symphony/tempo-ui/src/styles/tempo/checkboxes';
-@import '@symphony/tempo-ui/src/styles/tempo/radio-buttons';
-@import '@symphony/tempo-ui/src/styles/tempo/helper-classes';
-@import '@symphony/tempo-ui/src/styles/tempo/tabs';
-@import '@symphony/tempo-ui/src/styles/tempo/themed';
+.tempo-ui-scope {
+  @import '@symphony/tempo-ui/src/styles/tempo/variables';
+  @import '@symphony/tempo-ui/src/styles/tempo/tempo-icons';
+  @import '@symphony/tempo-ui/src/styles/tempo/mixins/font-mixins';
+  @import '@symphony/tempo-ui/src/styles/tempo/mixins/button-mixins';
+  @import '@symphony/tempo-ui/src/styles/tempo/buttons';
+  @import '@symphony/tempo-ui/src/styles/tempo/switch';
+  @import '@symphony/tempo-ui/src/styles/tempo/forms';
+  @import '@symphony/tempo-ui/src/styles/tempo/checkboxes';
+  @import '@symphony/tempo-ui/src/styles/tempo/radio-buttons';
+  @import '@symphony/tempo-ui/src/styles/tempo/helper-classes';
+  @import '@symphony/tempo-ui/src/styles/tempo/tabs';
+  @import '@symphony/tempo-ui/src/styles/tempo/themed';
+}
