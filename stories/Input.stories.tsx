@@ -33,7 +33,7 @@ export const Inputs: React.SFC = () => {
         <p>Simple Input with change handler with a label and a tooltip</p>
         <Input
           label="Ipsum"
-          tooltip="Ipsum"
+          tooltip="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
           placeholder="Firstname"
           value="Lorem"
           onChange={logChange}
