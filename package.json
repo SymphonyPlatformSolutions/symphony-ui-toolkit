@@ -1,6 +1,6 @@
 {
   "name": "@symphony/uitoolkit-styles",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Symphony UI design system",
   "publishConfig": {
     "registry": "https://repo.symphony.com/artifactory/api/npm/npm-local-dev2"
