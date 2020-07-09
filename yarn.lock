@@ -1378,6 +1378,11 @@
   resolved "https://repo.symphony.com/artifactory/api/npm/npm-virtual-dev/@nodelib/fs.stat/-/fs.stat-1.1.3.tgz#2b5a3ab3f918cca48a8c754c08168e3f03eba61b"
   integrity sha1-K1o6s/kYzKSKjHVMCBaOPwPrphs=
 
+"@popperjs/core@^2.4.4":
+  version "2.4.4"
+  resolved "https://repo.symphony.com/artifactory/api/npm/npm-virtual-dev/@popperjs/core/-/core-2.4.4.tgz#11d5db19bd178936ec89cd84519c4de439574398"
+  integrity sha1-EdXbGb0XiTbsic2EUZxN5DlXQ5g=
+
 "@reach/router@^1.2.1":
   version "1.3.3"
   resolved "https://repo.symphony.com/artifactory/api/npm/npm-virtual-dev/@reach/router/-/router-1.3.3.tgz#58162860dce6c9449d49be86b0561b5ef46d80db"
@@ -8279,6 +8284,11 @@ nan@^2.12.1, nan@^2.13.2:
   resolved "https://repo.symphony.com/artifactory/api/npm/npm-virtual-dev/nan/-/nan-2.14.1.tgz#d7be34dfa3105b91494c3147089315eff8874b01"
   integrity sha1-174036MQW5FJTDFHCJMV7/iHSwE=
 
+nanoid@^2.1.0:
+  version "2.1.11"
+  resolved "https://repo.symphony.com/artifactory/api/npm/npm-virtual-dev/nanoid/-/nanoid-2.1.11.tgz#ec24b8a758d591561531b4176a01e3ab4f0f0280"
+  integrity sha1-7CS4p1jVkVYVMbQXagHjq08PAoA=
+
 nanomatch@^1.2.9:
   version "1.2.13"
   resolved "https://repo.symphony.com/artifactory/api/npm/npm-virtual-dev/nanomatch/-/nanomatch-1.2.13.tgz#b87a8aa4fc0de8fe6be88895b38983ff265bd119"
@@ -9667,6 +9677,14 @@ react-popper@^1.3.7:
     typed-styles "^0.0.7"
     warning "^4.0.2"
 
+react-popper@^2.2.3:
+  version "2.2.3"
+  resolved "https://repo.symphony.com/artifactory/api/npm/npm-virtual-dev/react-popper/-/react-popper-2.2.3.tgz#33d425fa6975d4bd54d9acd64897a89d904b9d97"
+  integrity sha1-M9Ql+ml11L1U2azWSJeonZBLnZc=
+  dependencies:
+    react-fast-compare "^3.0.1"
+    warning "^4.0.2"
+
 react-redux@^7.0.2:
   version "7.2.0"
   resolved "https://repo.symphony.com/artifactory/api/npm/npm-virtual-dev/react-redux/-/react-redux-7.2.0.tgz#f970f62192b3981642fec46fd0db18a074fe879d"
@@ -10503,6 +10521,13 @@ shellwords@^0.1.1:
   version "0.1.1"
   resolved "https://repo.symphony.com/artifactory/api/npm/npm-virtual-dev/shellwords/-/shellwords-0.1.1.tgz#d6b9181c1a48d397324c84871efbcfc73fc0654b"
   integrity sha1-1rkYHBpI05cyTISHHvvPxz/AZUs=
+
+shortid@^2.2.15:
+  version "2.2.15"
+  resolved "https://repo.symphony.com/artifactory/api/npm/npm-virtual-dev/shortid/-/shortid-2.2.15.tgz#2b902eaa93a69b11120373cd42a1f1fe4437c122"
+  integrity sha1-K5AuqpOmmxESA3PNQqHx/kQ3wSI=
+  dependencies:
+    nanoid "^2.1.0"
 
 side-channel@^1.0.2:
   version "1.0.2"
