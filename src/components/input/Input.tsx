@@ -3,6 +3,7 @@ import { isEmpty } from 'lodash';
 import React from 'react';
 import { ValidatorFn } from 'core/validators/validators';
 import InfoHint from '../info-hint';
+import shortid from 'shortid';
 import styled from 'styled-components';
 
 type InputProps = {
@@ -32,7 +33,7 @@ export default class Input extends React.Component<InputProps> {
   public state: any = {
     dirty: false,
     touched: false,
-    value: this.props.value || ''
+    value: this.props.value || '',
   };
   constructor(props) {
     super(props);
@@ -64,7 +65,7 @@ export default class Input extends React.Component<InputProps> {
     if ((this.touched || this.dirty) && this.props.validator) {
       if (this.props.validator instanceof Array) {
         errors = this.props.validator
-          .map(validator => validator(value))
+          .map((validator) => validator(value))
           .reduce((prev, curr) => ({ ...prev, ...curr }), {});
       } else {
         errors = this.props.validator(value);
@@ -86,6 +87,9 @@ export default class Input extends React.Component<InputProps> {
 
   render() {
     const errorMessages = this.validate(this.state.value);
+
+    const ariaId = `hint-${shortid.generate()}`;
+
     /* eslint-disable */
     const {
       touched,
@@ -103,23 +107,27 @@ export default class Input extends React.Component<InputProps> {
     return (
       <div
         className={classNames('tk-input-group', {
-          'tk-input-group--error': errorMessages.length
+          'tk-input-group--error': errorMessages.length,
         })}
       >
-        {this.props.label || this.props.tooltip ? (<InputHeader>
-          {this.props.label ? (
-            <label className="tk-label">{this.props.label}</label>
-          ) : null}
-          {this.props.tooltip ? (
-            <InputTooltip><InfoHint title={this.props.tooltip}/></InputTooltip>
-          ) : null}
-        </InputHeader>) : null
-        }
+        {this.props.label || this.props.tooltip ? (
+          <InputHeader>
+            {this.props.label ? (
+              <label className="tk-label">{this.props.label}</label>
+            ) : null}
+            {this.props.tooltip ? (
+              <InputTooltip>
+                <InfoHint id={ariaId} title={this.props.tooltip} />
+              </InputTooltip>
+            ) : null}
+          </InputHeader>
+        ) : null}
         <input
+          aria-describedby={ariaId}
           className="tk-input"
           value={this.state.value}
           onBlur={() => this.onBlur()}
-          onChange={evt => this.onChange(evt)}
+          onChange={(evt) => this.onChange(evt)}
           {...rest}
         />
         {errorMessages.map((errMsg, i) => (

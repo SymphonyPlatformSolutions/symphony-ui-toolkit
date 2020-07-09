@@ -1,12 +1,9 @@
 import PropTypes from 'prop-types';
-import React, { useState, useMemo } from 'react';
+import React, { useState } from 'react';
 import InfoHintIcon from './InfoHintIcon';
-import shortid from 'shortid';
 import { usePopper } from 'react-popper';
 
-const InfoHint = ({ title }) => {
-  const ariaId = useMemo(() => `hint-${shortid.generate()}`, []);
-
+const InfoHint = ({ id, title }) => {
   const [tooltipShown, setInfoHintShown] = useState(false);
 
   const [referenceElement, setReferenceElement] = useState(null);
@@ -45,18 +42,19 @@ const InfoHint = ({ title }) => {
         className="info-hint"
         ref={setReferenceElement}
         title={title}
-        aria-describedby={ariaId}
       >
         <InfoHintIcon className="info-hint__icon" />
       </span>
 
       {tooltipShown && (
         <div
+          id={id}
+          role="tooltip"
           ref={setPopperElement}
           style={styles.popper}
           {...attributes.popper}
         >
-          Popper element
+          {title}
           <div ref={setArrowElement} style={styles.arrow} />
         </div>
       )}
@@ -65,6 +63,7 @@ const InfoHint = ({ title }) => {
 };
 
 InfoHint.propTypes = {
+  id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
 };
 
