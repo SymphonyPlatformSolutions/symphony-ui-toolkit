@@ -1,8 +1,12 @@
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import InfoHintIcon from './InfoHintIcon';
+import shortid from 'shortid';
+import Tooltip from '../tooltip';
 
 const InfoHint = ({ title }) => {
+  const ariaId = useMemo(() => `hint-${shortid.generate()}`, []);
+
   const [tooltipShown, setInfoHintShown] = useState(false);
 
   const handleClick = () => {
