@@ -4,64 +4,54 @@ import { usePopper } from 'react-popper';
 import { CSSTransition } from 'react-transition-group';
 import styled from 'styled-components';
 
-import './style.css';
-
 const TooltipContainer = styled.div`
-  border-radius: 8px;
-  background-color: #333436;
-  padding: 16px;
-  text-align: center;
-  color: #ffffff;
-  // font-family: Segoe UI;
-  font-size: 14px;
-  line-height: 20px;
-  white-space: pre-line;
-  min-width: 200px;
-  max-width: 500px;
-
-  .arrow {
-    position: absolute;
-    width: 24px;
-    height: 24px;
-    z-index: -1;
-    border-radius: 2px;
-    &::before {
-      position: absolute;
-      left: 0;
-      width: 24px;
-      height: 24px;
-      z-index: -1;
-      border-radius: 2px;
-      content: '';
-      transform: rotate(45deg);
-      background: #333436;
+  &.TooltipContainer {
+    &-enter {
+      opacity: 0;
+      &-active {
+        opacity: 1;
+        transition: opacity 200ms;
+      }
+    }
+    &-exit {
+      opacity: 1;
+      &-active {
+        opacity: 0;
+        transition: opacity 200ms;
+      }
     }
   }
 
-  &[data-popper-placement^='top'] > .arrow {
+  .tooltip__arrow {
+    position: absolute;
+    z-index: -1;
+    border-radius: 2px;
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      z-index: -1;
+      border-radius: 2px;
+      transform: rotate(45deg);
+    }
+  }
+
+  &[data-popper-placement^='top'] > .tooltip__arrow {
     bottom: -7px;
   }
-  &[data-popper-placement^='bottom'] > .arrow {
+  &[data-popper-placement^='bottom'] > .tooltip__arrow {
     top: -7px;
   }
-  &[data-popper-placement^='left'] > .arrow {
+  &[data-popper-placement^='left'] > .tooltip__arrow {
     right: -7px;
   }
-  &[data-popper-placement^='right'] > .arrow {
+  &[data-popper-placement^='right'] > .tooltip__arrow {
     left: -7px;
   }
 `;
 
-const TooltipFooter = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 8px;
-`;
-
 const TooltipClose = styled.span`
-  text-transform: uppercase;
   cursor: pointer;
-  padding: 8px 16px;
 `;
 
 /**
@@ -112,6 +102,7 @@ const Tooltip = ({
         id={id}
         role="tooltip"
         ref={setPopperElement}
+        className="tk-tooltip"
         style={styles.popper}
         {...attributes.popper}
       >
@@ -119,14 +110,14 @@ const Tooltip = ({
         <div
           ref={setArrowElement}
           style={styles.arrow}
-          className="arrow"
+          className="tooltip__arrow tk-tooltip__arrow"
           data-popper-arrow
         />
-        <TooltipFooter className="cta-container">
-          <TooltipClose className="cta-container__text" onClick={onHintClose}>
+        <div className="tk-tooltip__footer">
+          <TooltipClose className="tk-tooltip__close" onClick={onHintClose}>
             Got it
           </TooltipClose>
-        </TooltipFooter>
+        </div>
       </TooltipContainer>
     </CSSTransition>
   );

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const InfoHintIcon = ({ className }) => {
   return (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
         className={className}
         d="M8 12C8.55228 12 9 11.5523 9 11V8.5C9 7.94772 8.55228 7.5 8 7.5C7.44772 7.5 7 7.94772 7 8.5V11C7 11.5523 7.44772 12 8 12Z"

@@ -7,7 +7,6 @@ import Tooltip from '../tooltip';
 const InfoHintSpan = styled.span`
   display: inline-block;
   cursor: pointer;
-  height: 16px;
 `;
 
 const InfoHint = ({ id, title }) => {
@@ -27,11 +26,11 @@ const InfoHint = ({ id, title }) => {
     <>
       <InfoHintSpan
         onClick={handleClick}
-        className="info-hint"
+        className="tk-info-hint"
         ref={setReferenceElement}
         title={title}
       >
-        <InfoHintIcon className="info-hint__icon" />
+        <InfoHintIcon className="tk-info-hint__icon" />
       </InfoHintSpan>
 
       <Tooltip
