@@ -56,6 +56,18 @@ const TooltipContainer = styled.div`
   }
 `;
 
+const TooltipFooter = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 8px;
+`;
+
+const TooltipClose = styled.span`
+  text-transform: uppercase;
+  cursor: pointer;
+  padding: 8px 16px;
+`;
+
 const InfoHint = ({ id, title }) => {
   const [tooltipShown, setInfoHintShown] = useState(false);
 
@@ -114,6 +126,14 @@ const InfoHint = ({ id, title }) => {
             className="arrow"
             data-popper-arrow
           />
+          <TooltipFooter className="cta-container">
+            <TooltipClose
+              className="cta-container__text"
+              onClick={handleHintClose}
+            >
+              Got it
+            </TooltipClose>
+          </TooltipFooter>
         </TooltipContainer>
       )}
     </>
