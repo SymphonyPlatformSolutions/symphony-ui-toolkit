@@ -7,11 +7,7 @@
   },
   "license": "ISC",
   "sideEffects": false,
-  "main": "dist",
-  "module": "dist",
-  "files": [
-    "dist/**"
-  ],
+  "main": "index.js",
   "scripts": {
     "clean": "rm -rf dist",
     "init": "mkdir dist",
@@ -19,7 +15,6 @@
     "build": "tsc",
     "lint": "eslint --ext .ts,.tsx,.js,.jsx ./",
     "lint-fix": "eslint --ext .ts,.tsx,.js,.jsx ./",
-    "prepare": "npm run build",
     "start": "start-storybook -p 6006",
     "storybook-build": "build-storybook",
     "test": "jest --watchAll",
