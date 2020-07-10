@@ -2,7 +2,10 @@ import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import InfoHintIcon from './InfoHintIcon';
 import { usePopper } from 'react-popper';
+import { CSSTransition } from 'react-transition-group';
 import styled from 'styled-components';
+
+import './style.css';
 
 const InfoHintSpan = styled.span`
   display: inline-block;
@@ -111,7 +114,13 @@ const InfoHint = ({ id, title }) => {
         <InfoHintIcon className="info-hint__icon" />
       </InfoHintSpan>
 
-      {tooltipShown && (
+      <CSSTransition
+        unmountOnExit
+        in={tooltipShown}
+        timeout={200}
+        classNames="TooltipContainer"
+        appear
+      >
         <TooltipContainer
           id={id}
           role="tooltip"
@@ -135,7 +144,7 @@ const InfoHint = ({ id, title }) => {
             </TooltipClose>
           </TooltipFooter>
         </TooltipContainer>
-      )}
+      </CSSTransition>
     </>
   );
 };
