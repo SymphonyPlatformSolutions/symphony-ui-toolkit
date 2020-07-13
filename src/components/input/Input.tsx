@@ -38,6 +38,7 @@ export default class Input extends React.Component<InputProps> {
     dirty: false,
     touched: false,
     value: this.props.value || '',
+    errorMessages: [],
   };
   constructor(props) {
     super(props);
@@ -52,28 +53,32 @@ export default class Input extends React.Component<InputProps> {
     return this.state.dirty || this.props.dirty;
   }
 
-  onChange(evt) {
-    this.setState({ dirty: true, value: evt.target.value });
+  async onChange(evt) {
+    const newValue = evt.target.value;
+    this.setState({ dirty: true, value: newValue });
     if (this.props.onChange) {
-      this.props.onChange(evt.target.value);
+      this.props.onChange(newValue);
     }
+    this.setState({ errorMessages: await this.validate(newValue) });
   }
 
-  onBlur(): void {
+  async onBlur(): Promise<void> {
     this.setState({ touched: true });
+    this.setState({ errorMessages: await this.validate(this.state.value) });
   }
 
-  validate(value: string): string[] {
+  async validate(value: string): Promise<string[]> {
     let errors;
     let valid = true;
     const errorMessages = [];
-    if ((this.touched || this.dirty) && this.props.validator) {
+    // if ((this.touched || this.dirty) && this.props.validator) {
+    if (this.props.validator) {
       if (this.props.validator instanceof Array) {
-        errors = this.props.validator
-          .map((validator) => validator(value))
-          .reduce((prev, curr) => ({ ...prev, ...curr }), {});
+        const errorsMap = await Promise.all(this.props.validator
+          .map(validator => validator(value)));
+        errors = errorsMap.reduce((prev, curr) => ({ ...prev, ...curr }), {});
       } else {
-        errors = this.props.validator(value);
+        errors = await this.props.validator(value);
       }
       valid = !errors || isEmpty(errors);
       if (this.props.onValidationChanged) {
@@ -91,9 +96,6 @@ export default class Input extends React.Component<InputProps> {
   }
 
   render() {
-    const errorMessages = this.validate(this.state.value);
-
-    /* eslint-disable */
     const {
       touched,
       validator,
@@ -107,7 +109,8 @@ export default class Input extends React.Component<InputProps> {
       value,
       ...rest
     } = this.props;
-    /* eslint-enable */
+
+    const { errorMessages } = this.state;
     return (
       <div
         className={classNames('tk-input-group', {
