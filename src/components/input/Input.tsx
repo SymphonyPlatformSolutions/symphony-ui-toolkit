@@ -31,6 +31,8 @@ const InputTooltip = styled.div`
 `;
 
 export default class Input extends React.Component<InputProps> {
+  private ariaId: string;
+
   public state: any = {
     dirty: false,
     touched: false,
@@ -38,6 +40,7 @@ export default class Input extends React.Component<InputProps> {
   };
   constructor(props) {
     super(props);
+    this.ariaId = `hint-${shortid.generate()}`;
   }
 
   get touched() {
@@ -89,8 +92,6 @@ export default class Input extends React.Component<InputProps> {
   render() {
     const errorMessages = this.validate(this.state.value);
 
-    const ariaId = `hint-${shortid.generate()}`;
-
     /* eslint-disable */
     const {
       touched,
@@ -118,7 +119,7 @@ export default class Input extends React.Component<InputProps> {
             {tooltip ? (
               <InputTooltip>
                 <Icon
-                  id={ariaId}
+                  id={this.ariaId}
                   iconName="tk-ic-info-round"
                   description={tooltip}
                   tooltipCloseLabel={tooltipCloseLabel}
@@ -128,7 +129,7 @@ export default class Input extends React.Component<InputProps> {
           </InputHeader>
         ) : null}
         <input
-          aria-describedby={ariaId}
+          aria-describedby={tooltip && this.ariaId}
           className="tk-input"
           value={this.state.value}
           onBlur={() => this.onBlur()}
