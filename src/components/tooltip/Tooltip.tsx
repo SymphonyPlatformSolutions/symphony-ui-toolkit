@@ -66,6 +66,7 @@ const TooltipClose = styled.span`
 const Tooltip = ({
   id,
   description,
+  closeLabel,
   visible,
   onHintClose,
   referenceElement,
@@ -115,7 +116,7 @@ const Tooltip = ({
         />
         <div className="tk-tooltip__footer">
           <TooltipClose className="tk-tooltip__close" onClick={onHintClose}>
-            Got it
+            {closeLabel}
           </TooltipClose>
         </div>
       </TooltipContainer>
@@ -126,6 +127,7 @@ const Tooltip = ({
 Tooltip.propTypes = {
   id: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
+  closeLabel: PropTypes.string.isRequired,
   visible: PropTypes.bool.isRequired,
   onHintClose: PropTypes.func.isRequired,
   referenceElement: PropTypes.object,

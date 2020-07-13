@@ -4,7 +4,7 @@ import { Input } from '../src/components';
 import { Validators } from '../src/core/validators/validators';
 
 export const Inputs: React.SFC = () => {
-  const logChange = value => {
+  const logChange = (value) => {
     console.info(value);
   };
 
@@ -24,6 +24,7 @@ export const Inputs: React.SFC = () => {
         <p>Simple Input with change handler and a tooltip</p>
         <Input
           tooltip="Ipsum"
+          tooltipCloseLabel="Got it"
           placeholder="Firstname"
           value="Lorem"
           onChange={logChange}
@@ -34,6 +35,7 @@ export const Inputs: React.SFC = () => {
         <Input
           label="Ipsum"
           tooltip="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+          tooltipCloseLabel="Got it"
           placeholder="Firstname"
           value="Lorem"
           onChange={logChange}
@@ -60,7 +62,7 @@ export const Inputs: React.SFC = () => {
           label="Number"
           errors={{
             required: 'This field is mandatory',
-            number: 'Should be a number'
+            number: 'Should be a number',
           }}
           validator={[Validators.Required, Validators.Number]}
           placeholder="Age"
@@ -71,7 +73,7 @@ export const Inputs: React.SFC = () => {
         <p>Using pattern validator</p>
         <Input
           errors={{
-            pattern: 'Should start with lorem'
+            pattern: 'Should start with lorem',
           }}
           validator={[Validators.Pattern(/lorem.*/)]}
           placeholder="Magic word"
@@ -97,5 +99,5 @@ export const ChangeProgrammatically = () => (
 
 export default {
   title: 'Input',
-  decorators: [withKnobs]
+  decorators: [withKnobs],
 };

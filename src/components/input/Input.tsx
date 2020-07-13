@@ -12,6 +12,7 @@ type InputProps = {
   touched?: boolean;
   label?: string;
   tooltip?: string;
+  tooltipCloseLabel?: string;
   errors?: { [id: string]: string };
   onValidationChanged?: (boolean) => any;
   onChange?: (string) => any;
@@ -97,6 +98,7 @@ export default class Input extends React.Component<InputProps> {
       dirty,
       label,
       tooltip,
+      tooltipCloseLabel,
       errors,
       onValidationChanged,
       onChange,
@@ -117,7 +119,11 @@ export default class Input extends React.Component<InputProps> {
             ) : null}
             {this.props.tooltip ? (
               <InputTooltip>
-                <InfoHint id={ariaId} title={this.props.tooltip} />
+                <InfoHint
+                  id={ariaId}
+                  description={this.props.tooltip}
+                  tooltipCloseLabel={tooltipCloseLabel}
+                />
               </InputTooltip>
             ) : null}
           </InputHeader>

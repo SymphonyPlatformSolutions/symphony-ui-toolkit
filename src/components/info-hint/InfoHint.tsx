@@ -9,7 +9,7 @@ const InfoHintSpan = styled.span`
   cursor: pointer;
 `;
 
-const InfoHint = ({ id, title }) => {
+const InfoHint = ({ id, description, tooltipCloseLabel }) => {
   const [tooltipShown, setInfoHintShown] = useState(false);
 
   const [referenceElement, setReferenceElement] = useState(null);
@@ -28,7 +28,6 @@ const InfoHint = ({ id, title }) => {
         onClick={handleClick}
         className="tk-info-hint"
         ref={setReferenceElement}
-        title={title}
       >
         <InfoHintIcon className="tk-info-hint__icon" />
       </InfoHintSpan>
@@ -36,7 +35,8 @@ const InfoHint = ({ id, title }) => {
       <Tooltip
         id={id}
         onHintClose={handleClick}
-        description={title}
+        description={description}
+        closeLabel={tooltipCloseLabel}
         visible={tooltipShown}
         referenceElement={referenceElement}
       />
@@ -46,7 +46,8 @@ const InfoHint = ({ id, title }) => {
 
 InfoHint.propTypes = {
   id: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  tooltipCloseLabel: PropTypes.string.isRequired,
 };
 
 export default InfoHint;
