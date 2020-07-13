@@ -34,6 +34,15 @@ export const Inputs: React.SFC = () => {
       </div>
       <hr />
       <div>
+        <p>Input with MinLength validator</p>
+        <Input
+          placeholder="How are you?"
+          errors={{ minlength: 'You need to enter 3 characters minimum' }}
+          validator={Validators.MinLength(3)}
+        ></Input>
+      </div>
+      <hr />
+      <div>
         <p>Support multiple validators: Mandatory number</p>
         <Input
           onChange={logChange}
