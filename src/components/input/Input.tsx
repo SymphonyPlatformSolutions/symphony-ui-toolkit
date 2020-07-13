@@ -113,7 +113,7 @@ export default class Input extends React.Component<InputProps> {
         })}
       >
         {this.props.label || this.props.tooltip ? (
-          <InputHeader>
+          <InputHeader className="tk-input-group__header">
             {this.props.label ? (
               <label className="tk-label">{this.props.label}</label>
             ) : null}

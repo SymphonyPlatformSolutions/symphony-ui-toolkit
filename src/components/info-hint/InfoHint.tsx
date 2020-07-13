@@ -1,15 +1,17 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
-import InfoHintIcon from './InfoHintIcon';
 import styled from 'styled-components';
 import Tooltip from '../tooltip';
 
-const InfoHintSpan = styled.span`
-  display: inline-block;
+const IconTag = styled.i`
   cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
-const InfoHint = ({ id, description, tooltipCloseLabel }) => {
+const Icon = ({ id, description, tooltipCloseLabel }) => {
   const [tooltipShown, setInfoHintShown] = useState(false);
 
   const [referenceElement, setReferenceElement] = useState(null);
@@ -20,13 +22,11 @@ const InfoHint = ({ id, description, tooltipCloseLabel }) => {
 
   return (
     <>
-      <InfoHintSpan
+      <IconTag
+        className="tk-ic-info-round"
         onClick={handleClick}
-        className="tk-info-hint"
         ref={setReferenceElement}
-      >
-        <InfoHintIcon className="tk-info-hint__icon" />
-      </InfoHintSpan>
+      />
 
       <Tooltip
         id={id}
@@ -40,10 +40,10 @@ const InfoHint = ({ id, description, tooltipCloseLabel }) => {
   );
 };
 
-InfoHint.propTypes = {
+Icon.propTypes = {
   id: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
-  tooltipCloseLabel: PropTypes.string.isRequired,
+  tooltipCloseLabel: PropTypes.string.isRequired
 };
 
-export default InfoHint;
+export default Icon;
