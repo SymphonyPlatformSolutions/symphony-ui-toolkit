@@ -1,4 +1,4 @@
-import { withKnobs, text, boolean } from '@storybook/addon-knobs';
+import { withKnobs, boolean } from '@storybook/addon-knobs';
 import React from 'react';
 import { Input } from '../src/components';
 import { Validators } from '../src/core/validators/validators';

@@ -18,10 +18,6 @@ const InfoHint = ({ id, description, tooltipCloseLabel }) => {
     setInfoHintShown(!tooltipShown);
   };
 
-  const handleHintClose = () => {
-    setInfoHintShown(false);
-  };
-
   return (
     <>
       <InfoHintSpan

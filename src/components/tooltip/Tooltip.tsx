@@ -72,7 +72,6 @@ const Tooltip = ({
   referenceElement,
 }) => {
   const [popperElement, setPopperElement] = useState(null);
-  const [arrowElement, setArrowElement] = useState(null);
   const { styles, attributes } = usePopper(referenceElement, popperElement, {
     placement: 'top',
     modifiers: [
@@ -109,7 +108,6 @@ const Tooltip = ({
       >
         {description}
         <div
-          ref={setArrowElement}
           style={styles.arrow}
           className="tooltip__arrow tk-tooltip__arrow"
           data-popper-arrow
