@@ -1,3 +1,3 @@
 import Icon from './Icon';
 
-export default InfoHint;
+export default Icon;

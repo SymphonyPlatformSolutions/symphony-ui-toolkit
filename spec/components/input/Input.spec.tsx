@@ -93,7 +93,7 @@ describe('Input Component', () => {
       const tooltipText = 'Tooltip';
       const tooltipCloseLabel = 'Close';
       let wrapper = shallow(<Input></Input>);
-      expect(wrapper.find('InfoHint').length).toBe(0);
+      expect(wrapper.find('Icon').length).toBe(0);
       wrapper = shallow(
         <Input
           tooltip={tooltipText}
@@ -102,10 +102,11 @@ describe('Input Component', () => {
           value="Lorem"
         ></Input>
       );
-      expect(wrapper.find('InfoHint').length).toBe(1);
-      expect(wrapper.find('InfoHint').prop('id')).toBeDefined();
-      expect(wrapper.find('InfoHint').prop('description')).toEqual(tooltipText);
-      expect(wrapper.find('InfoHint').prop('tooltipCloseLabel')).toEqual(
+      expect(wrapper.find('Icon').length).toBe(1);
+      expect(wrapper.find('Icon').prop('id')).toBeDefined();
+      expect(wrapper.find('Icon').prop('iconName')).toBeDefined;
+      expect(wrapper.find('Icon').prop('description')).toEqual(tooltipText);
+      expect(wrapper.find('Icon').prop('tooltipCloseLabel')).toEqual(
         tooltipCloseLabel
       );
     });

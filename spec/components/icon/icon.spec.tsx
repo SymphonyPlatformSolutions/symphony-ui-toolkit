@@ -1,19 +1,21 @@
 import { shallow } from 'enzyme';
 import React from 'react';
-import { InfoHint } from '../../../src/components';
+import Icon from '../../../src/components/icon';
 
-describe('InfoHint Component', () => {
-  describe('InfoHint component test suite => ', () => {
+describe('Icon Component', () => {
+  describe('Icon component test suite => ', () => {
     it('render with default props and initial value', () => {
       const id = 'UniqueID';
+      const iconName = 'tk-ic-info-round';
       const description = 'Tooltip';
       const tooltipCloseLabel = 'CLOSE';
       const wrapper = shallow(
-        <InfoHint
+        <Icon
           id={id}
+          iconName={iconName}
           description={description}
           tooltipCloseLabel={tooltipCloseLabel}
-        ></InfoHint>
+        ></Icon>
       );
       expect(wrapper.length).toEqual(1);
       expect(wrapper.find('Tooltip').length).toBe(1);

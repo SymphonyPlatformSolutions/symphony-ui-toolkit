@@ -11,7 +11,7 @@ const IconTag = styled.i`
   align-items: center;
 `;
 
-const Icon = ({ id, description, tooltipCloseLabel }) => {
+const Icon = ({ id, iconName, description, tooltipCloseLabel }) => {
   const [tooltipShown, setInfoHintShown] = useState(false);
 
   const [referenceElement, setReferenceElement] = useState(null);
@@ -23,7 +23,7 @@ const Icon = ({ id, description, tooltipCloseLabel }) => {
   return (
     <>
       <IconTag
-        className="tk-ic-info-round"
+        className={`${iconName} tk-icon`}
         onClick={handleClick}
         ref={setReferenceElement}
       />
@@ -42,8 +42,9 @@ const Icon = ({ id, description, tooltipCloseLabel }) => {
 
 Icon.propTypes = {
   id: PropTypes.string.isRequired,
+  iconName: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
-  tooltipCloseLabel: PropTypes.string.isRequired
+  tooltipCloseLabel: PropTypes.string.isRequired,
 };
 
 export default Icon;

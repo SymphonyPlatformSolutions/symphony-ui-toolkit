@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { isEmpty } from 'lodash';
 import React from 'react';
 import { ValidatorFn } from 'core/validators/validators';
-import InfoHint from '../info-hint';
+import Icon from '../icon';
 import shortid from 'shortid';
 import styled from 'styled-components';
 
@@ -112,16 +112,15 @@ export default class Input extends React.Component<InputProps> {
           'tk-input-group--error': errorMessages.length,
         })}
       >
-        {this.props.label || this.props.tooltip ? (
+        {label || tooltip ? (
           <InputHeader className="tk-input-group__header">
-            {this.props.label ? (
-              <label className="tk-label">{this.props.label}</label>
-            ) : null}
-            {this.props.tooltip ? (
+            {label ? <label className="tk-label">{label}</label> : null}
+            {tooltip ? (
               <InputTooltip>
-                <InfoHint
+                <Icon
                   id={ariaId}
-                  description={this.props.tooltip}
+                  iconName="tk-ic-info-round"
+                  description={tooltip}
                   tooltipCloseLabel={tooltipCloseLabel}
                 />
               </InputTooltip>
