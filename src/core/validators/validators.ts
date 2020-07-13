@@ -1,3 +1,5 @@
+import { safeRegexExecute } from './patternValidator/safeRegexExecute';
+
 /**
  * A ValidatorFn takes a value as a string and returns an error object {'validationName':true}
  * ex: Required => {'required':true}
@@ -23,9 +25,9 @@ const Required: ValidatorFn = value => {
  * Checks if a provided value has the minimum length, returns {minlength:true} if error, return null if value has the minimum length
  * @param value Value to test
  */
-const MinLength = (minlength: Number) => {
+const MinLength = (minlength: Number): ValidatorFn => {
   return value => {
-    if (minlength < value.length) {
+    if (minlength <= value.length) {
       return Promise.resolve(null);
     }
     return Promise.resolve({ minlength: true });
@@ -48,12 +50,13 @@ const Number: ValidatorFn = value => {
  * Return {pattern:true} if no match,
  * @param value Value to test
  */
-const Pattern = (regex: string | RegExp) => {
-  return value => {
-    if (new RegExp(regex).test(value)) {
-      return Promise.resolve(null);
+const Pattern = (regex: string | RegExp): ValidatorFn => {
+  return async (value) => {
+    const regexMatch = await safeRegexExecute(regex, value);
+    if (!regexMatch) {
+      return Promise.resolve({ pattern: true });
     }
-    return Promise.resolve({ pattern: true });
+    return Promise.resolve(null);
   };
 };
 

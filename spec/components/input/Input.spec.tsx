@@ -3,8 +3,19 @@ import React from 'react';
 import { Input } from '../../../src/components';
 import { Validators } from '../../../src/core/validators/validators';
 
+jest.mock(
+  '../../../src/core/validators/patternValidator/safeRegexExecute',
+  () => ({
+    safeRegexExecute: jest.fn()
+  })
+);
+
 describe('Input Component', () => {
   describe('Input component test suite => ', () => {
+    afterEach(() => {
+      jest.restoreAllMocks();
+    });
+
     it('render with default props and initial value', () => {
       const wrapper = shallow(<Input value="Test"></Input>);
       expect(wrapper.length).toEqual(1);
@@ -18,7 +29,15 @@ describe('Input Component', () => {
       expect(wrapper.length).toEqual(1);
       expect(wrapper.find('input').prop('aria-label')).toEqual(ariaLabel);
     });
-    it('if a validator is present no error message appears before touched/modified', () => {
+    it('if a validator is present no error message appears before touched/modified', async () => {
+      const zone = {
+        validator: Validators.Required
+      };
+      const validator = jest
+        .spyOn(zone, 'validator')
+        .mockImplementation(x => Promise.resolve({ required: true }));
+      const validate = jest.spyOn(Input.prototype, 'validate');
+
       const wrapper = shallow(
         <Input
           validator={Validators.Required}
@@ -27,42 +46,57 @@ describe('Input Component', () => {
       );
       expect(wrapper.length).toEqual(1);
       expect(wrapper.find('.tk-input-error')).toEqual({});
-      wrapper.find('input').simulate('change', { target: { value: 'test' } });
       wrapper.find('input').simulate('change', { target: { value: '' } });
+      await validator;
+      await validate;
+      wrapper.render();
       expect(wrapper.find('.tk-input-error').text()).toEqual('Required');
     });
-    it('callbacks should be called on value and validation change', () => {
+    it('callbacks should be called on value and validation change', async () => {
       const zone = {
         onChange: () => null,
-        onValidationChange: () => null,
+        onValidationChanged: () => null,
+        validator: Validators.Required
       };
       const change = jest.spyOn(zone, 'onChange');
-      const valChange = jest.spyOn(zone, 'onValidationChange');
+      const validate = jest.spyOn(Input.prototype, 'validate');
+      const valChange = jest.spyOn(zone, 'onValidationChanged');
+      const validator = jest
+        .spyOn(zone, 'validator')
+        .mockImplementation(x => Promise.resolve({ required: true }));
       const wrapper = shallow(
         <Input
-          validator={Validators.Required}
-          onValidationChanged={zone.onValidationChange}
+          validator={zone.validator}
+          onValidationChanged={zone.onValidationChanged}
           onChange={zone.onChange}
         ></Input>
       );
-      wrapper.find('input').simulate('change', { target: { value: 'test' } });
-      expect(change).toHaveBeenCalledWith('test');
       wrapper.find('input').simulate('change', { target: { value: '' } });
       expect(change).toHaveBeenCalledWith('');
+      await validator;
+      await validate;
       expect(valChange).toHaveBeenCalledWith(false);
     });
-    it('dirty state could be overridden', () => {
+    it('dirty state could be overridden', async () => {
       const zone = {
-        onValidationChange: () => null,
+        onValidationChanged: () => null,
+        validator: Validators.Required
       };
-      const valChange = jest.spyOn(zone, 'onValidationChange');
+      const validator = jest
+        .spyOn(zone, 'validator')
+        .mockImplementation(x => Promise.resolve({ required: true }));
+      const validate = jest.spyOn(Input.prototype, 'validate');
+
+      const valChange = jest.spyOn(zone, 'onValidationChanged');
       shallow(
         <Input
-          validator={Validators.Required}
-          onValidationChanged={zone.onValidationChange}
+          validator={zone.validator}
+          onValidationChanged={zone.onValidationChanged}
           dirty={true}
         ></Input>
       );
+      await validator;
+      await validate;
       expect(valChange).toHaveBeenCalledWith(false);
     });
     it('should mark touched onBlur', () => {
@@ -71,16 +105,23 @@ describe('Input Component', () => {
       wrapper.find('input').simulate('blur');
       expect(wrapper.state('touched')).toBeTruthy();
     });
-    it('should chain validators in an array', () => {
+    it('should chain validators in an array', async () => {
+      const promiseAll = jest
+        .spyOn(Promise, 'all')
+        .mockImplementation(x =>
+          Promise.resolve([{ number: true }])
+        );
+      const validate = jest.spyOn(Input.prototype, 'validate');
       const wrapper = shallow(
         <Input
           errors={{ required: 'Required', number: 'Number' }}
           validator={[Validators.Required, Validators.Number]}
-          dirty={true}
         ></Input>
       );
-      expect(wrapper.find('.tk-input-error').text()).toEqual('Required');
       wrapper.find('input').simulate('change', { target: { value: 'test' } });
+      await promiseAll;
+      await validate;
+      wrapper.render();
       expect(wrapper.find('.tk-input-error').text()).toEqual('Number');
     });
     it('should display a label if provided', () => {
