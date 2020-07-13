@@ -88,6 +88,7 @@ const Tooltip = ({
 
   return (
     <CSSTransition
+      mountOnEnter
       unmountOnExit
       in={visible}
       timeout={200}
