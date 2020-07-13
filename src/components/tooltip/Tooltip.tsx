@@ -22,30 +22,26 @@ const TooltipContainer = styled.div`
     }
   }
 
-  .tooltip__arrow {
+  .tooltip__arrowContainer {
     position: absolute;
-    z-index: -1;
-    border-radius: 2px;
-    &::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      z-index: -1;
-      border-radius: 2px;
-      transform: rotate(45deg);
-    }
   }
 
-  &[data-popper-placement^='top'] > .tooltip__arrow {
+  .tooltip__arrow {
+    z-index: -1;
+    border-radius: 2px;
+    transform: rotate(45deg);
+  }
+
+  &[data-popper-placement^='top'] > .tooltip__arrowContainer {
     bottom: -7px;
   }
-  &[data-popper-placement^='bottom'] > .tooltip__arrow {
+  &[data-popper-placement^='bottom'] > .tooltip__arrowContainer {
     top: -7px;
   }
-  &[data-popper-placement^='left'] > .tooltip__arrow {
+  &[data-popper-placement^='left'] > .tooltip__arrowContainer {
     right: -7px;
   }
-  &[data-popper-placement^='right'] > .tooltip__arrow {
+  &[data-popper-placement^='right'] > .tooltip__arrowContainer {
     left: -7px;
   }
 `;
@@ -106,12 +102,14 @@ const Tooltip = ({
         style={styles.popper}
         {...attributes.popper}
       >
-        {description}
+        <span className="tk-tooltip__description">{description}</span>
         <div
+          className="tooltip__arrowContainer"
           style={styles.arrow}
-          className="tooltip__arrow tk-tooltip__arrow"
           data-popper-arrow
-        />
+        >
+          <div className="tooltip__arrow tk-tooltip__arrow" />
+        </div>
         <div className="tk-tooltip__footer">
           <TooltipClose className="tk-tooltip__close" onClick={onHintClose}>
             {closeLabel}

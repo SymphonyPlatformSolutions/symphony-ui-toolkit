@@ -26,7 +26,7 @@ describe('Tooltip Component', () => {
       );
       expect(wrapper.find('.tk-tooltip').length).toBe(1);
       expect(wrapper.find('.tk-tooltip').prop('id')).toEqual(id);
-      expect(wrapper.find('.tk-tooltip').childAt(0).text()).toEqual(
+      expect(wrapper.find('.tk-tooltip__description').text()).toEqual(
         description
       );
       expect(wrapper.find('.tk-tooltip__footer').text()).toEqual(closeLabel);
