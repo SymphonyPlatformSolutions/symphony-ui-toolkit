@@ -1,5 +1,7 @@
 # Execute publish
 function executePublish {
+    cp package.json dist/src
+    cd dist/src
     npm pack
     npm publish
     git add package.json
