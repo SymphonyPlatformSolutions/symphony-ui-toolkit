@@ -2,6 +2,9 @@ $fontSize: 14;
 $backgroundColor: $scolor-graphite-plus-48;
 
 .tk-tooltip {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
   border-radius: 8px;
   background-color: $backgroundColor;
   font-size: toEm($fontSize);
@@ -17,12 +20,7 @@ $backgroundColor: $scolor-graphite-plus-48;
     $arrowSize:toEm(24,$fontSize);
     width: $arrowSize;
     height: $arrowSize;
-
-    &::before {
-      width: $arrowSize;
-      height: $arrowSize;
-      background: $backgroundColor;
-    }
+    background-color: $backgroundColor;
   }
 
   &__footer {
