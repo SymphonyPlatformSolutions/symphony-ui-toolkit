@@ -9,6 +9,6 @@ module.exports = api => {
 
   return {
     presets,
-    plugins: ['transform-class-properties']
+    plugins: ['transform-class-properties', '@babel/plugin-transform-runtime']
   };
 };

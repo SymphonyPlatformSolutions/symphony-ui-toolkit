@@ -36,11 +36,14 @@
     "lodash": "4.17.15",
     "prop-types": "^15.7.2",
     "react-resize-detector": "^5.0.3",
-    "styled-components": "^5.1.1"
+    "safe-regex": "^2.1.1",
+    "styled-components": "^5.1.1",
+    "worker-loader": "^2.0.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.9.6",
+    "@babel/plugin-transform-runtime": "^7.10.4",
     "@babel/preset-env": "^7.9.6",
     "@babel/preset-react": "^7.9.4",
     "@babel/preset-typescript": "^7.9.0",

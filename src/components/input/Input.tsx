@@ -20,7 +20,7 @@ export default class Input extends React.Component<InputProps> {
     dirty: false,
     touched: false,
     value: this.props.value || '',
-    errorMessages: [],
+    errorMessages: []
   };
   constructor(props) {
     super(props);
@@ -34,33 +34,53 @@ export default class Input extends React.Component<InputProps> {
     return this.state.dirty || this.props.dirty;
   }
 
-  async onChange(evt) {
+  componentWillMount() {
+    const { dirty, touched } = this.props;
+    if (dirty || touched) {
+      this.validateAndUpdateState(this.state.value);
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    const { dirty, touched } = this.props;
+    
+    const isDirtyUpdate = dirty && prevProps.dirty !== dirty;
+    const isTouchedUpdate = touched && prevProps.touched !== touched;
+    if (isDirtyUpdate || isTouchedUpdate) {
+      this.validateAndUpdateState(this.state.value);
+    }
+  }
+
+  onChange(evt) {
     const newValue = evt.target.value;
     this.setState({ dirty: true, value: newValue });
+    this.validateAndUpdateState(newValue);
     if (this.props.onChange) {
       this.props.onChange(newValue);
     }
-    this.setState({ errorMessages: await this.validate(newValue) });
   }
 
-  async onBlur(): Promise<void> {
+  onBlur(): void {
     this.setState({ touched: true });
-    this.setState({ errorMessages: await this.validate(this.state.value) });
+    this.validateAndUpdateState(this.state.value);
+  }
+
+  validateAndUpdateState(value: string): void {
+    this.validate(value).then(errorMessages => {
+      this.setState({ errorMessages });
+    });
   }
 
   async validate(value: string): Promise<string[]> {
     let errors;
     let valid = true;
     const errorMessages = [];
-    // if ((this.touched || this.dirty) && this.props.validator) {
     if (this.props.validator) {
       if (this.props.validator instanceof Array) {
-        const errorsMap = await Promise.all(this.props.validator
-          .map(validator => validator(value)));
+        const errorsMap = await Promise.all(
+          this.props.validator.map(validator => validator(value))
+        );
         errors = errorsMap.reduce((prev, curr) => ({ ...prev, ...curr }), {});
-        // errors = await this.props.validator
-        //   .map(validator => await validator(value))
-        //   .reduce((prev, curr) => ({ ...prev, ...curr }), {});
       } else {
         errors = await this.props.validator(value);
       }

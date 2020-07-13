@@ -43,15 +43,16 @@ export const Inputs: React.SFC = () => {
       </div>
       <hr />
       <div>
-        <p>Support multiple validators: Mandatory number</p>
+        <p>Support multiple validators: Mandatory number, with a minimum length of 3 characters</p>
         <Input
           onChange={logChange}
           label="Number"
           errors={{
             required: 'This field is mandatory',
-            number: 'Should be a number'
+            number: 'Should be a number',
+            minlength: 'Please type at least 3 numbers'
           }}
-          validator={[Validators.Required, Validators.Number]}
+          validator={[Validators.Required, Validators.Number, Validators.MinLength(3)]}
           placeholder="Age"
         ></Input>
       </div>
