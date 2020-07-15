@@ -120,10 +120,12 @@ export default class Input extends React.Component<InputProps> {
             {tooltip ? (
               <InputTooltip>
                 <Icon
-                  id={this.ariaId}
                   iconName="info-round"
-                  description={tooltip}
-                  tooltipCloseLabel={tooltipCloseLabel}
+                  tooltip={{
+                    id: this.ariaId,
+                    description: tooltip,
+                    closeLabel: tooltipCloseLabel,
+                  }}
                 />
               </InputTooltip>
             ) : null}

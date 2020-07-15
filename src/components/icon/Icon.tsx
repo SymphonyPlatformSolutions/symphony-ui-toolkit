@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import PropTypes, { Validator } from 'prop-types';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import Tooltip from '../tooltip';
@@ -10,7 +10,18 @@ const IconTag = styled.i`
   align-items: center;
 `;
 
-const Icon = ({ id, iconName, description, tooltipCloseLabel }) => {
+interface TooltipProps {
+  id: string;
+  description: string;
+  closeLabel: string;
+}
+
+interface IconProps {
+  iconName: string;
+  tooltip?: TooltipProps;
+}
+
+const Icon: React.FC<IconProps> = ({ iconName, tooltip }) => {
   const [tooltipShown, setInfoHintShown] = useState(false);
 
   const [referenceElement, setReferenceElement] = useState(null);
@@ -27,23 +38,27 @@ const Icon = ({ id, iconName, description, tooltipCloseLabel }) => {
         ref={setReferenceElement}
       />
 
-      <Tooltip
-        id={id}
-        onHintClose={handleClick}
-        description={description}
-        closeLabel={tooltipCloseLabel}
-        visible={tooltipShown}
-        referenceElement={referenceElement}
-      />
+      {tooltip && (
+        <Tooltip
+          id={tooltip.id}
+          onHintClose={handleClick}
+          description={tooltip.description}
+          closeLabel={tooltip.closeLabel}
+          visible={tooltipShown}
+          referenceElement={referenceElement}
+        />
+      )}
     </>
   );
 };
 
 Icon.propTypes = {
-  id: PropTypes.string.isRequired,
   iconName: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
-  tooltipCloseLabel: PropTypes.string.isRequired,
+  tooltip: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    closeLabel: PropTypes.string.isRequired,
+  }) as Validator<TooltipProps>,
 };
 
 export default Icon;
