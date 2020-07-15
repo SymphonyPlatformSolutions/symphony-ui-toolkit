@@ -26,11 +26,15 @@
     "react-dom": ">=16.8.0"
   },
   "dependencies": {
+    "@popperjs/core": "^2.4.4",
     "@types/classnames": "^2.2.10",
     "classnames": "^2.2.6",
     "lodash": "4.17.15",
     "prop-types": "^15.7.2",
+    "react-popper": "^2.2.3",
     "react-resize-detector": "^5.0.3",
+    "react-transition-group": "^4.4.1",
+    "shortid": "^2.2.15",
     "styled-components": "^5.1.1"
   },
   "devDependencies": {
