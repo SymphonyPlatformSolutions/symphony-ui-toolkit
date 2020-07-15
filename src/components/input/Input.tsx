@@ -121,7 +121,7 @@ export default class Input extends React.Component<InputProps> {
               <InputTooltip>
                 <Icon
                   id={this.ariaId}
-                  iconName="tk-ic-info-round"
+                  iconName="info-round"
                   description={tooltip}
                   tooltipCloseLabel={tooltipCloseLabel}
                 />

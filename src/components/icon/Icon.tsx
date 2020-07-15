@@ -22,7 +22,7 @@ const Icon = ({ id, iconName, description, tooltipCloseLabel }) => {
   return (
     <>
       <IconTag
-        className={`${iconName} tk-icon`}
+        className={`tk-ic-${iconName} tk-icon`}
         onClick={handleClick}
         ref={setReferenceElement}
       />
