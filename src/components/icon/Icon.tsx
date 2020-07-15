@@ -5,7 +5,6 @@ import Tooltip from '../tooltip';
 
 const IconTag = styled.i`
   cursor: pointer;
-  font-size: 16px;
   display: flex;
   justify-content: center;
   align-items: center;

@@ -28,6 +28,7 @@ const InputHeader = styled.div`
 const InputTooltip = styled.div`
   display: inline-block;
   margin-left: auto;
+  font-size: 16px;
 `;
 
 export default class Input extends React.Component<InputProps> {
