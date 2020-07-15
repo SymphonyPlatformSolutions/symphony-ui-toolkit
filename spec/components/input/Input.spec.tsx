@@ -103,10 +103,15 @@ describe('Input Component', () => {
         ></Input>
       );
       expect(wrapper.find('Icon').length).toBe(1);
-      expect(wrapper.find('Icon').prop('id')).toBeDefined();
-      expect(wrapper.find('Icon').prop('iconName')).toBeDefined;
-      expect(wrapper.find('Icon').prop('description')).toEqual(tooltipText);
-      expect(wrapper.find('Icon').prop('tooltipCloseLabel')).toEqual(
+      expect(wrapper.find('Icon').prop('iconName')).toBeDefined();
+      expect(wrapper.find('Icon').prop('tooltip')).toBeDefined();
+      expect(wrapper.find('Icon').prop('tooltip')).toHaveProperty('id');
+      expect(wrapper.find('Icon').prop('tooltip')).toHaveProperty(
+        'description',
+        tooltipText
+      );
+      expect(wrapper.find('Icon').prop('tooltip')).toHaveProperty(
+        'closeLabel',
         tooltipCloseLabel
       );
     });

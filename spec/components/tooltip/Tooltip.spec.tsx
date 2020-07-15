@@ -1,6 +1,6 @@
 import { shallow } from 'enzyme';
 import React from 'react';
-import { Tooltip } from '../../../src/components';
+import Tooltip from '../../../src/components/tooltip';
 
 describe('Tooltip Component', () => {
   describe('Tooltip component test suite => ', () => {
