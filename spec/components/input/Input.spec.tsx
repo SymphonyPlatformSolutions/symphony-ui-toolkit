@@ -35,7 +35,7 @@ describe('Input Component', () => {
       };
       const validator = jest
         .spyOn(zone, 'validator')
-        .mockImplementation(x => Promise.resolve({ required: true }));
+        .mockImplementation(() => Promise.resolve({ required: true }));
       const validate = jest.spyOn(Input.prototype, 'validate');
 
       const wrapper = shallow(
@@ -63,7 +63,7 @@ describe('Input Component', () => {
       const valChange = jest.spyOn(zone, 'onValidationChanged');
       const validator = jest
         .spyOn(zone, 'validator')
-        .mockImplementation(x => Promise.resolve({ required: true }));
+        .mockImplementation(() => Promise.resolve({ required: true }));
       const wrapper = shallow(
         <Input
           validator={zone.validator}
@@ -77,27 +77,75 @@ describe('Input Component', () => {
       await validate;
       expect(valChange).toHaveBeenCalledWith(false);
     });
-    it('dirty state could be overridden', async () => {
-      const zone = {
-        onValidationChanged: () => null,
-        validator: Validators.Required
-      };
-      const validator = jest
-        .spyOn(zone, 'validator')
-        .mockImplementation(x => Promise.resolve({ required: true }));
-      const validate = jest.spyOn(Input.prototype, 'validate');
+    describe('dirty and touched change should trigger validate method', () => {
+      it('when mount - dirty', async () => {
+        const zone = {
+          onValidationChanged: () => null,
+          validator: Validators.Required
+        };
+        const validator = jest
+          .spyOn(zone, 'validator')
+        const validate = jest.spyOn(Input.prototype, 'validate');
 
-      const valChange = jest.spyOn(zone, 'onValidationChanged');
-      shallow(
-        <Input
-          validator={zone.validator}
-          onValidationChanged={zone.onValidationChanged}
-          dirty={true}
-        ></Input>
-      );
-      await validator;
-      await validate;
-      expect(valChange).toHaveBeenCalledWith(false);
+        const valChange = jest.spyOn(zone, 'onValidationChanged');
+        shallow(
+          <Input
+            validator={zone.validator}
+            onValidationChanged={zone.onValidationChanged}
+            dirty={true}
+          ></Input>
+        );
+        await validator;
+        await validate;
+        expect(valChange).toHaveBeenCalledWith(false);
+      });
+      it('when mount - touched', async () => {
+        const zone = {
+          onValidationChanged: () => null,
+          validator: Validators.Required
+        };
+        const validator = jest
+          .spyOn(zone, 'validator')
+          .mockImplementation(() => Promise.resolve({ required: true }));
+        const validate = jest.spyOn(Input.prototype, 'validate');
+
+        const valChange = jest.spyOn(zone, 'onValidationChanged');
+        shallow(
+          <Input
+            validator={zone.validator}
+            onValidationChanged={zone.onValidationChanged}
+            touched={true}
+          ></Input>
+        );
+        await validator;
+        await validate;
+        expect(valChange).toHaveBeenCalledWith(false);
+      });
+      it('when props update', async () => {
+        const zone = {
+          onValidationChanged: () => null,
+          validator: Validators.Required
+        };
+        const validator = jest
+          .spyOn(zone, 'validator')
+        const validate = jest.spyOn(Input.prototype, 'validate');
+
+        const valChange = jest.spyOn(zone, 'onValidationChanged');
+        const wrapper = shallow(
+          <Input
+            validator={zone.validator}
+            onValidationChanged={zone.onValidationChanged}
+          ></Input>
+        );
+        wrapper.setProps({ dirty: true });
+        await validator;
+        await validate;
+        expect(valChange).toHaveBeenCalledWith(false);
+        wrapper.setProps({ dirty: false, touched: true });
+        await validator;
+        await validate;
+        expect(valChange).toHaveBeenCalledWith(false);
+      });
     });
     it('should mark touched onBlur', () => {
       const wrapper = shallow(<Input></Input>);
@@ -108,9 +156,7 @@ describe('Input Component', () => {
     it('should chain validators in an array', async () => {
       const promiseAll = jest
         .spyOn(Promise, 'all')
-        .mockImplementation(x =>
-          Promise.resolve([{ number: true }])
-        );
+        .mockImplementation(() => Promise.resolve([{ number: true }]));
       const validate = jest.spyOn(Input.prototype, 'validate');
       const wrapper = shallow(
         <Input
@@ -123,6 +169,60 @@ describe('Input Component', () => {
       await validate;
       wrapper.render();
       expect(wrapper.find('.tk-input-error').text()).toEqual('Number');
+    });
+
+    describe('should clear input', () => {
+      const tests = [
+        {
+          title: 'when default value',
+          args: {
+            defaultValue: 'default value',
+            expectedAfterReset: 'default value'
+          }
+        },
+        {
+          title: 'when no value',
+          args: { defaultValue: undefined, expectedAfterReset: '' }
+        }
+      ];
+
+      tests.forEach(function(test) {
+        it(`${test.title}`, async () => {
+          const zone = {
+            onChange: () => null
+          };
+          jest.spyOn(Input.prototype, 'reset');
+          const change = jest.spyOn(zone, 'onChange');
+          const wrapper = shallow(
+            <Input
+              value={test.args.defaultValue}
+              onChange={zone.onChange}
+            ></Input>
+          );
+          wrapper
+            .find('input')
+            .simulate('change', { target: { value: 'test' } });
+          let state = wrapper.state();
+          expect(state).toEqual(
+            expect.objectContaining({
+              value: 'test',
+              dirty: true,
+              touched: false
+            })
+          );
+
+          wrapper.instance().reset();
+          state = wrapper.state();
+          expect(state).toEqual(
+            expect.objectContaining({
+              value: test.args.expectedAfterReset,
+              dirty: false,
+              touched: false
+            })
+          );
+          expect(change).toHaveBeenCalledWith(test.args.expectedAfterReset);
+        });
+      });
     });
     it('should display a label if provided', () => {
       let wrapper = shallow(<Input></Input>);

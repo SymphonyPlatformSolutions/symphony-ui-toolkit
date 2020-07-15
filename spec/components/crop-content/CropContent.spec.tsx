@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { shallow } from 'enzyme';
 
 import CropContent from '../../../src/components/crop-content/CropContent';
 import ResizeDetectDiv from '../../../src/core/hoc/ResizeDetectDiv';

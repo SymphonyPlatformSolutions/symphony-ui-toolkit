@@ -25,7 +25,7 @@ const Required: ValidatorFn = value => {
  * Checks if a provided value has the minimum length, returns {minlength:true} if error, return null if value has the minimum length
  * @param value Value to test
  */
-const MinLength = (minlength: Number): ValidatorFn => {
+const MinLength = (minlength: number): ValidatorFn => {
   return value => {
     if (minlength <= value.length) {
       return Promise.resolve(null);
