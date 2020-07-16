@@ -15,7 +15,7 @@ describe('runRegex.worker', () => {
   it('should register listener', () => {
     // We do not import the file at the root of the file since it has
     // a side-effect
-    require('../../../../src/core/validators/patternValidator/runRegex.worker.js');
+    require('../../../../src/core/validators/patternValidator/runRegex.worker.ts');
     expect(window.self.addEventListener).toHaveBeenCalledTimes(1);
     window.self.addEventListener.mock.calls[0][1]({
       data: { pattern: 'aaa', value: 'aa' },
@@ -34,7 +34,7 @@ describe('runRegex.worker', () => {
       { pattern: '[1-9]', value: '2', expectation: true },
     ].forEach(({ pattern, value, expectation }) => {
       it(`should return ${expect} for pattern ${pattern} with value ${value}`, () => {
-        const executeFn = require('../../../../src/core/validators/patternValidator/runRegex.worker.js').execute;
+        const executeFn = require('../../../../src/core/validators/patternValidator/runRegex.worker.ts').execute;
         expect(executeFn(pattern, value)).toBe(expectation);
       });
     });
