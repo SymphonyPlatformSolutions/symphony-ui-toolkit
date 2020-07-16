@@ -38,6 +38,7 @@ export default class Input extends React.Component<InputProps> {
     dirty: false,
     touched: false,
     value: this.props.value || '',
+    errorMessages: []
   };
   constructor(props) {
     super(props);
@@ -45,35 +46,77 @@ export default class Input extends React.Component<InputProps> {
   }
 
   get touched() {
-    return this.state.touched;
+    return this.state.touched || this.props.touched;
   }
 
   get dirty() {
     return this.state.dirty || this.props.dirty;
   }
 
+  componentDidMount() {
+    const { dirty, touched } = this.props;
+    if (dirty || touched) {
+      this.setState({ dirty: false, touched: false });
+      this.validateAndUpdateState(this.state.value);
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    const { dirty, touched } = this.props;
+
+    const isDirtyUpdated = prevProps.dirty !== dirty;
+    const isTouchedUpdated = prevProps.touched !== touched;
+    if (isDirtyUpdated || isTouchedUpdated) {
+      this.setState({ dirty: false, touched: false });
+      this.validateAndUpdateState(this.state.value);
+    }
+  }
+
   onChange(evt) {
-    this.setState({ dirty: true, value: evt.target.value });
+    const newValue = evt.target.value;
+    this.setState({ dirty: true, value: newValue }, () =>
+      this.validateAndUpdateState(newValue)
+    );
+
     if (this.props.onChange) {
-      this.props.onChange(evt.target.value);
+      this.props.onChange(newValue);
+    }
+  }
+
+  reset() {
+    const { value } = this.props;
+    const defaultValue = value || '';
+    this.setState({ value: defaultValue, dirty: false, touched: false });
+
+    if (this.props.onChange) {
+      this.props.onChange(defaultValue);
     }
   }
 
   onBlur(): void {
-    this.setState({ touched: true });
+    this.setState({ touched: true }, () =>
+      this.validateAndUpdateState(this.state.value)
+    );
   }
 
-  validate(value: string): string[] {
+  validateAndUpdateState(value: string): void {
+    this.validate(value).then(errorMessages => {
+      this.setState({ errorMessages });
+    });
+  }
+
+  async validate(value: string): Promise<string[]> {
     let errors;
     let valid = true;
     const errorMessages = [];
-    if ((this.touched || this.dirty) && this.props.validator) {
+    if ((this.dirty || this.touched) && this.props.validator) {
       if (this.props.validator instanceof Array) {
-        errors = this.props.validator
-          .map((validator) => validator(value))
-          .reduce((prev, curr) => ({ ...prev, ...curr }), {});
+        const errorsMap = await Promise.all(
+          this.props.validator.map(validator => validator(value))
+        );
+        errors = errorsMap.reduce((prev, curr) => ({ ...prev, ...curr }), {});
       } else {
-        errors = this.props.validator(value);
+        errors = await this.props.validator(value);
       }
       valid = !errors || isEmpty(errors);
       if (this.props.onValidationChanged) {
@@ -91,9 +134,7 @@ export default class Input extends React.Component<InputProps> {
   }
 
   render() {
-    const errorMessages = this.validate(this.state.value);
-
-    /* eslint-disable */
+    /* eslint-disable @typescript-eslint/no-unused-vars */
     const {
       touched,
       validator,
@@ -107,11 +148,13 @@ export default class Input extends React.Component<InputProps> {
       value,
       ...rest
     } = this.props;
-    /* eslint-enable */
+    /* eslint-enable @typescript-eslint/no-unused-vars */
+
+    const { errorMessages } = this.state;
     return (
       <div
         className={classNames('tk-input-group', {
-          'tk-input-group--error': errorMessages.length,
+          'tk-input-group--error': errorMessages.length
         })}
       >
         {label || tooltip ? (
@@ -124,7 +167,7 @@ export default class Input extends React.Component<InputProps> {
                   tooltip={{
                     id: this.ariaId,
                     description: tooltip,
-                    closeLabel: tooltipCloseLabel,
+                    closeLabel: tooltipCloseLabel
                   }}
                 />
               </InputTooltip>
@@ -136,7 +179,7 @@ export default class Input extends React.Component<InputProps> {
           className="tk-input"
           value={this.state.value}
           onBlur={() => this.onBlur()}
-          onChange={(evt) => this.onChange(evt)}
+          onChange={evt => this.onChange(evt)}
           {...rest}
         />
         {errorMessages.map((errMsg, i) => (

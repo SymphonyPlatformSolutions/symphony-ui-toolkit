@@ -26,3 +26,13 @@ yarn start
 ```
 yarn test
 ```
+
+## Setup on your React project
+
+```
+yarn add @symphony/uitoolkit-components
+```
+
+```
+import {Button} from '@symphony/uitoolkit-components';
+```

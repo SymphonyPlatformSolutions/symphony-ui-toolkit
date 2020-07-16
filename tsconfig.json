@@ -10,7 +10,7 @@
     "baseUrl": "src",
     "esModuleInterop": true,
     "noImplicitAny": false,
-    "strictNullChecks": false
+    "strictNullChecks": false,
   },
   "include": ["src/**/*.ts", "spec/**/*.ts", "stories/**/*.ts"],
   "exclude": ["node_modules", "coverage"],

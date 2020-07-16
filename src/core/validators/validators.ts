@@ -1,3 +1,5 @@
+import { safeRegexExecute } from './patternValidator/safeRegexExecute';
+
 /**
  * A ValidatorFn takes a value as a string and returns an error object {'validationName':true}
  * ex: Required => {'required':true}
@@ -6,7 +8,7 @@
  * Validators could be combined using Combine validator
  * Returns null if no validation error
  */
-export type ValidatorFn = (value: string) => { [id: string]: boolean } | null;
+export type ValidatorFn = (value: string) => Promise<{ [id: string]: boolean }> | Promise<null>;
 
 /**
  * Checks if a mandatory value isn't empty , returns {required:true} if error, return null if it's not empty
@@ -14,20 +16,33 @@ export type ValidatorFn = (value: string) => { [id: string]: boolean } | null;
  */
 const Required: ValidatorFn = value => {
   if (!value) {
-    return { required: true };
+    return Promise.resolve({ required: true });
   }
-  return null;
+  return Promise.resolve(null);
 };
 
 /**
- * Checks if a provided value is a number , returns {number:true} if not a number, return null number
+ * Checks if a provided value has the minimum length, returns {minlength:true} if error, return null if value has the minimum length
+ * @param value Value to test
+ */
+const MinLength = (minlength: number): ValidatorFn => {
+  return value => {
+    if (minlength <= value.length) {
+      return Promise.resolve(null);
+    }
+    return Promise.resolve({ minlength: true });
+  };
+};
+
+/**
+ * Checks if a provided value is a number , returns {number:true} if not a number, return null if number
  * @param value Value to test
  */
 const Number: ValidatorFn = value => {
   if (isNaN(value as any)) {
-    return { number: true };
+    return Promise.resolve({ number: true });
   }
-  return null;
+  return Promise.resolve(null);
 };
 
 /**
@@ -35,13 +50,14 @@ const Number: ValidatorFn = value => {
  * Return {pattern:true} if no match,
  * @param value Value to test
  */
-const Pattern = (regex: string | RegExp) => {
-  return value => {
-    if (new RegExp(regex).test(value)) {
-      return null;
+const Pattern = (regex: string | RegExp): ValidatorFn => {
+  return async (value) => {
+    const regexMatch = await safeRegexExecute(regex, value);
+    if (!regexMatch) {
+      return Promise.resolve({ pattern: true });
     }
-    return { pattern: true };
+    return Promise.resolve(null);
   };
 };
 
-export const Validators = { Required, Number, Pattern };
+export const Validators = { Required, MinLength, Number, Pattern };

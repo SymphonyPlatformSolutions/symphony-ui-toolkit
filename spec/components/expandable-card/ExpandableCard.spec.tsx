@@ -1,7 +1,6 @@
 import { shallow } from 'enzyme';
 import React from 'react';
 import { ExpandableCard } from '../../../src/components';
-import { last } from 'lodash';
 
 /**
  * Util methods
