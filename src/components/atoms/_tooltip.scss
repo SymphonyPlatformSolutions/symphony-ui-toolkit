@@ -7,7 +7,7 @@ $backgroundColor: $scolor-graphite-plus-48;
   flex-direction: column;
   border-radius: 8px;
   background-color: $backgroundColor;
-  font-size: unquote($fontSize + 'px');
+  font-size: #{$fontSize}px;
   padding: toEm(16, $fontSize);
   text-align: left;
   color: $scolor-white;
