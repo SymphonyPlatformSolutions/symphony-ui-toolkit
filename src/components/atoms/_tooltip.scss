@@ -10,7 +10,7 @@ $backgroundColor: $scolor-graphite-plus-48;
   font-size: #{$fontSize}px;
   padding: toEm(16, $fontSize);
   text-align: left;
-  color: $scolor-white;
+  color: $scolor-graphite-minus-96;
   line-height: toEm(20, $fontSize);
   white-space: pre-line;
   min-width: toEm(200, $fontSize);
@@ -30,6 +30,7 @@ $backgroundColor: $scolor-graphite-plus-48;
   }
 
   &__close {
+    color: $scolor-white;
     text-transform: uppercase;
     padding: toEm(8, $fontSize) toEm(16, $fontSize);
   }
