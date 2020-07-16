@@ -1,5 +1,7 @@
 import safeRegex from 'safe-regex';
 
+const ctx: Worker = self as any;
+
 export const execute = (pattern, value) => {
   if (!safeRegex(pattern)) {
     // If it is unsafe, we simulate that it is a match
@@ -12,5 +14,5 @@ self.addEventListener('message', (event) => {
   const {
     data: { pattern, value },
   } = event;
-  self.postMessage({ result: execute(pattern, value) });
+  ctx.postMessage({ result: execute(pattern, value) });
 });
