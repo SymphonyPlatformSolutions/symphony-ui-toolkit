@@ -16,7 +16,7 @@
     "lint": "eslint --ext .ts,.tsx,.js,.jsx ./",
     "lint-fix": "eslint --ext .ts,.tsx,.js,.jsx ./",
     "start": "start-storybook -p 6006",
-    "storybook-build": "build-storybook",
+    "build-storybook": "build-storybook -c .storybook -o dist/storybook",
     "test": "jest --watchAll",
     "test-once": "jest"
   },
