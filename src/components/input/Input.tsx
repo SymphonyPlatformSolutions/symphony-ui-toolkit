@@ -56,8 +56,7 @@ export default class Input extends React.Component<InputProps> {
   componentDidMount() {
     const { dirty, touched } = this.props;
     if (dirty || touched) {
-      this.setState({ dirty: false, touched: false });
-      this.validateAndUpdateState(this.state.value);
+      this.resetErrors();
     }
   }
 
@@ -67,8 +66,7 @@ export default class Input extends React.Component<InputProps> {
     const isDirtyUpdated = prevProps.dirty !== dirty;
     const isTouchedUpdated = prevProps.touched !== touched;
     if (isDirtyUpdated || isTouchedUpdated) {
-      this.setState({ dirty: false, touched: false });
-      this.validateAndUpdateState(this.state.value);
+      this.resetErrors();
     }
   }
 
@@ -83,11 +81,15 @@ export default class Input extends React.Component<InputProps> {
     }
   }
 
+  resetErrors() {
+    this.setState({ dirty: false, touched: false }, () => this.validateAndUpdateState(this.state.value));
+  }
+
   reset() {
     const { value } = this.props;
     const defaultValue = value || '';
-    this.setState({ value: defaultValue, dirty: false, touched: false });
-
+    this.setState({ value: defaultValue });
+    this.resetErrors();
     if (this.props.onChange) {
       this.props.onChange(defaultValue);
     }
