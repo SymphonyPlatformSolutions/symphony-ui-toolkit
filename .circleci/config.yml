@@ -5,7 +5,7 @@ jobs:
   build-and-publish:
     executor:
       name: node/default
-      tag: 'lts' 
+      tag: 'lts'
     steps:
       - checkout
       - run: echo "registry=$SYM_NPM_READ_REPO" > ~/.npmrc
@@ -16,10 +16,11 @@ jobs:
       - run: yarn build
       - run: bash ./publish.sh
       - run: rm -f ~/.npmrc
+      - run: rm -rf ./dist
       - run: yarn build-storybook
       - store_artifacts:
           path: ./dist/storybook
-      
+
 workflows:
   build:
     jobs:
