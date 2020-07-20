@@ -31,8 +31,9 @@ export const Inputs: React.SFC = () => {
         ></Input>
       </div>
       <div>
-        <p>Simple Input with change handler with a label and a tooltip</p>
+        <p>Simple Input with change handler with a label and a tooltip.</p> <p>If the attribute id is defined, it will be attached to the label as a for attribute.</p>
         <Input
+          id="input-1234567890"
           label="Ipsum"
           tooltip="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
           tooltipCloseLabel="Got it"
