@@ -225,10 +225,12 @@ describe('Input Component', () => {
       });
     });
     it('should display a label if provided', () => {
+      const id = "textfield-1234567890";
       let wrapper = shallow(<Input></Input>);
       expect(wrapper.find('label.tk-label').length).toBe(0);
-      wrapper = shallow(<Input label="LABEL"></Input>);
+      wrapper = shallow(<Input label="LABEL" id={id}></Input>);
       expect(wrapper.find('label.tk-label').text()).toEqual('LABEL');
+      expect(wrapper.find(`label[htmlFor="${id}"]`)).toHaveLength(1);
     });
     it('should display a tooltip if provided', () => {
       const tooltipText = 'Tooltip';

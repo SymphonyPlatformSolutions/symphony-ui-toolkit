@@ -11,6 +11,7 @@ type InputProps = {
   dirty?: boolean;
   touched?: boolean;
   label?: string;
+  id?: string;
   tooltip?: string;
   tooltipCloseLabel?: string;
   errors?: { [id: string]: string };
@@ -138,6 +139,7 @@ export default class Input extends React.Component<InputProps> {
   render() {
     /* eslint-disable @typescript-eslint/no-unused-vars */
     const {
+      id,
       touched,
       validator,
       dirty,
@@ -161,7 +163,7 @@ export default class Input extends React.Component<InputProps> {
       >
         {label || tooltip ? (
           <InputHeader className="tk-input-group__header">
-            {label ? <label className="tk-label">{label}</label> : null}
+            {label ? <label className="tk-label" htmlFor={id}>{label}</label> : null}
             {tooltip ? (
               <InputTooltip>
                 <Icon
@@ -177,6 +179,7 @@ export default class Input extends React.Component<InputProps> {
           </InputHeader>
         ) : null}
         <input
+          id={id}
           aria-describedby={tooltip && this.ariaId}
           className="tk-input"
           value={this.state.value}
