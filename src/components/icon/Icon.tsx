@@ -2,6 +2,7 @@ import PropTypes, { Validator } from 'prop-types';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import Tooltip from '../tooltip';
+import InfoRoundIcon from './InfoRoundIcon';
 
 const IconTag = styled.i`
   cursor: pointer;
@@ -33,10 +34,12 @@ const Icon: React.FC<IconProps> = ({ iconName, tooltip }) => {
   return (
     <>
       <IconTag
-        className={`tk-ic-${iconName} tk-icon`}
+        className={`tk-ic-${iconName != 'info-round' ? iconName : ''} tk-icon`}
         onClick={handleClick}
         ref={setReferenceElement}
-      />
+      >
+        {iconName == 'info-round' ? <InfoRoundIcon /> : null}
+      </IconTag>
 
       {tooltip && (
         <Tooltip
