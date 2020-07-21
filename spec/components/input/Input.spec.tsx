@@ -3,13 +3,6 @@ import React from 'react';
 import { Input } from '../../../src/components';
 import { Validators } from '../../../src/core/validators/validators';
 
-jest.mock(
-  '../../../src/core/validators/patternValidator/safeRegexExecute',
-  () => ({
-    safeRegexExecute: jest.fn()
-  })
-);
-
 describe('Input Component', () => {
   describe('Input component test suite => ', () => {
     afterEach(() => {

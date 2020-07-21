@@ -30,8 +30,9 @@ export const Inputs: React.SFC = () => {
           onChange={logChange}
         ></Input>
       </div>
+      <hr />
       <div>
-        <p>Simple Input with change handler with a label and a tooltip.</p> <p>If the attribute id is defined, it will be attached to the label as a for attribute.</p>
+        <p>Simple Input with change handler with a label and a tooltip. If the attribute id is defined, it will be attached to the label as a 'for' attribute.</p>
         <Input
           id="input-1234567890"
           label="Ipsum"
@@ -39,6 +40,15 @@ export const Inputs: React.SFC = () => {
           tooltipCloseLabel="Got it"
           placeholder="Firstname"
           value="Lorem"
+          onChange={logChange}
+        ></Input>
+      </div>
+      <hr />
+      <div>
+        <p>Simple Input with masked data</p>
+        <Input
+          value="Lorem"
+          masked={true}
           onChange={logChange}
         ></Input>
       </div>
