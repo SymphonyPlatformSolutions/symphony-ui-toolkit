@@ -97,9 +97,13 @@ export const Inputs: React.SFC = () => {
 export const ChangeProgrammatically = () => {
   this.child = React.createRef();
 
-  const label = 'Clear feature';
-  const handler = () => this.child.current.reset();
-  button(label, handler);
+  const labelClear = 'Reset';
+  const reset = () => this.child.current.reset();
+  button(labelClear, reset);
+
+  const labelRefresh = 'Refresh validation';
+  const refresh = () => this.child.current.refreshValidation().then((isValid) => console.log(isValid));
+  button(labelRefresh, refresh);
   
   return (<div style={{ width: '50%' }}>
     <p>Manipulate programmatically: Use knobs</p>

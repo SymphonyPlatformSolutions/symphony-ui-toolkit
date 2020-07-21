@@ -224,8 +224,29 @@ describe('Input Component', () => {
         });
       });
     });
+    it('should force validation', async () => {
+      const zone = {
+        validator: Validators.Required
+      };
+      const validator = jest
+        .spyOn(zone, 'validator')
+      const validate = jest.spyOn(Input.prototype, 'validate');
+
+      const wrapper = shallow(
+        <Input
+          validator={zone.validator}
+          errors={{ required: 'Required' }}
+        ></Input>
+      );
+      wrapper.instance().refreshValidation();
+
+      await validator;
+      await validate;
+      wrapper.render();
+      expect(wrapper.find('.tk-input-error').text()).toEqual('Required');
+    });
     it('should display a label if provided', () => {
-      const id = "textfield-1234567890";
+      const id = 'textfield-1234567890';
       let wrapper = shallow(<Input></Input>);
       expect(wrapper.find('label.tk-label').length).toBe(0);
       wrapper = shallow(<Input label="LABEL" id={id}></Input>);

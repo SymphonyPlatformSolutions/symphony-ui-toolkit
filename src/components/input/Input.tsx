@@ -38,6 +38,7 @@ export default class Input extends React.Component<InputProps> {
   public state: any = {
     dirty: false,
     touched: false,
+    isValid: true,
     value: this.props.value || '',
     errorMessages: []
   };
@@ -82,8 +83,16 @@ export default class Input extends React.Component<InputProps> {
     }
   }
 
-  resetErrors() {
-    this.setState({ dirty: false, touched: false }, () => this.validateAndUpdateState(this.state.value));
+  onBlur(): void {
+    this.setState({ touched: true }, () =>
+      this.validateAndUpdateState(this.state.value)
+    );
+  }
+
+  private resetErrors() {
+    this.setState({ dirty: false, touched: false }, () =>
+      this.validateAndUpdateState(this.state.value)
+    );
   }
 
   reset() {
@@ -96,19 +105,26 @@ export default class Input extends React.Component<InputProps> {
     }
   }
 
-  onBlur(): void {
-    this.setState({ touched: true }, () =>
-      this.validateAndUpdateState(this.state.value)
-    );
+  // force validation refresh, and return isValid state when triggered (used in Elements form before submission)
+  async refreshValidation(): Promise<boolean> {
+    return new Promise(resolve => {
+      this.setState({ dirty: true, touched: true }, async () => {
+        this.validate(this.state.value).then(errorMessages => {
+          this.setState({ errorMessages });
+          const { isValid } = this.state;
+          resolve(isValid);
+        });
+      });
+    });
   }
 
-  validateAndUpdateState(value: string): void {
+  private validateAndUpdateState(value: string): void {
     this.validate(value).then(errorMessages => {
       this.setState({ errorMessages });
     });
   }
 
-  async validate(value: string): Promise<string[]> {
+  private async validate(value: string): Promise<string[]> {
     let errors;
     let valid = true;
     const errorMessages = [];
@@ -133,6 +149,7 @@ export default class Input extends React.Component<InputProps> {
         }
       });
     }
+    this.setState({ isValid: valid });
     return errorMessages;
   }
 
@@ -163,7 +180,11 @@ export default class Input extends React.Component<InputProps> {
       >
         {label || tooltip ? (
           <InputHeader className="tk-input-group__header">
-            {label ? <label className="tk-label" htmlFor={id}>{label}</label> : null}
+            {label ? (
+              <label className="tk-label" htmlFor={id}>
+                {label}
+              </label>
+            ) : null}
             {tooltip ? (
               <InputTooltip>
                 <Icon
