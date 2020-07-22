@@ -7,18 +7,20 @@ import shortid from 'shortid';
 import styled from 'styled-components';
 
 type InputProps = {
-  validator?: ValidatorFn | Array<ValidatorFn>;
   dirty?: boolean;
-  touched?: boolean;
-  label?: string;
-  id?: string;
-  tooltip?: string;
-  tooltipCloseLabel?: string;
+  disabled?: boolean;
   errors?: { [id: string]: string };
+  id?: string;
+  label?: string;
+  masked?: boolean;
+  placeholder?: string;
   onValidationChanged?: (boolean) => any;
   onChange?: (string) => any;
+  tooltip?: string;
+  tooltipCloseLabel?: string;
+  touched?: boolean;
+  validator?: ValidatorFn | Array<ValidatorFn>;
   value?: string;
-  placeholder?: string;
 };
 
 const InputHeader = styled.div`
@@ -38,6 +40,8 @@ export default class Input extends React.Component<InputProps> {
   public state: any = {
     dirty: false,
     touched: false,
+    isValid: true,
+    hideText: this.props.masked || false,
     value: this.props.value || '',
     errorMessages: []
   };
@@ -71,10 +75,10 @@ export default class Input extends React.Component<InputProps> {
     }
   }
 
-  onChange(evt) {
+  private onChange(evt) {
     const newValue = evt.target.value;
     this.setState({ dirty: true, value: newValue }, () =>
-      this.validateAndUpdateState(newValue)
+      this.validate(newValue)
     );
 
     if (this.props.onChange) {
@@ -82,33 +86,26 @@ export default class Input extends React.Component<InputProps> {
     }
   }
 
-  resetErrors() {
-    this.setState({ dirty: false, touched: false }, () => this.validateAndUpdateState(this.state.value));
+  private onBlur(): void {
+    this.setState({ touched: true }, () => this.validate(this.state.value));
   }
 
-  reset() {
-    const { value } = this.props;
-    const defaultValue = value || '';
-    this.setState({ value: defaultValue });
-    this.resetErrors();
-    if (this.props.onChange) {
-      this.props.onChange(defaultValue);
-    }
-  }
-
-  onBlur(): void {
-    this.setState({ touched: true }, () =>
-      this.validateAndUpdateState(this.state.value)
+  private resetErrors() {
+    this.setState({ dirty: false, touched: false }, () =>
+      this.validate(this.state.value)
     );
   }
 
-  validateAndUpdateState(value: string): void {
-    this.validate(value).then(errorMessages => {
-      this.setState({ errorMessages });
-    });
-  }
+  private handleViewText = event => {
+    if (this.props.disabled) return;
 
-  async validate(value: string): Promise<string[]> {
+    event.preventDefault();
+    this.setState({
+      hideText: !this.state.hideText
+    });
+  };
+
+  private async validate(value: string): Promise<string[]> {
     let errors;
     let valid = true;
     const errorMessages = [];
@@ -133,7 +130,35 @@ export default class Input extends React.Component<InputProps> {
         }
       });
     }
+    this.setState({ isValid: valid, errorMessages });
     return errorMessages;
+  }
+
+  /**
+   * Reset to default value and reset errors, callback onChange props
+   */
+  public reset(): void {
+    const { value } = this.props;
+    const defaultValue = value || '';
+    this.setState({ value: defaultValue });
+    this.resetErrors();
+    if (this.props.onChange) {
+      this.props.onChange(defaultValue);
+    }
+  }
+
+  /**
+   * Force validation to refresh, and return isValid state when triggered (used in Elements form before submission)
+   */
+  public async refreshValidation(): Promise<boolean> {
+    return new Promise(resolve => {
+      this.setState({ dirty: true, touched: true }, async () => {
+        this.validate(this.state.value).then(() => {
+          const { isValid } = this.state;
+          resolve(isValid);
+        });
+      });
+    });
   }
 
   render() {
@@ -143,18 +168,19 @@ export default class Input extends React.Component<InputProps> {
       touched,
       validator,
       dirty,
+      disabled,
       label,
+      masked,
       tooltip,
       tooltipCloseLabel,
       errors,
       onValidationChanged,
       onChange,
-      value,
       ...rest
     } = this.props;
     /* eslint-enable @typescript-eslint/no-unused-vars */
 
-    const { errorMessages } = this.state;
+    const { errorMessages, hideText, value } = this.state;
     return (
       <div
         className={classNames('tk-input-group', {
@@ -163,7 +189,11 @@ export default class Input extends React.Component<InputProps> {
       >
         {label || tooltip ? (
           <InputHeader className="tk-input-group__header">
-            {label ? <label className="tk-label" htmlFor={id}>{label}</label> : null}
+            {label ? (
+              <label className="tk-label" htmlFor={id}>
+                {label}
+              </label>
+            ) : null}
             {tooltip ? (
               <InputTooltip>
                 <Icon
@@ -178,15 +208,33 @@ export default class Input extends React.Component<InputProps> {
             ) : null}
           </InputHeader>
         ) : null}
-        <input
-          id={id}
-          aria-describedby={tooltip && this.ariaId}
-          className="tk-input"
-          value={this.state.value}
-          onBlur={() => this.onBlur()}
-          onChange={evt => this.onChange(evt)}
-          {...rest}
-        />
+        <div className="tk-input-group__body">
+          <input
+            {...rest}
+            id={id}
+            aria-describedby={tooltip && this.ariaId}
+            className="tk-input"
+            value={value}
+            onBlur={() => this.onBlur()}
+            onChange={evt => this.onChange(evt)}
+            style={
+              {
+                WebkitTextSecurity: masked && hideText && 'disc'
+              } as React.CSSProperties
+            }
+            disabled={disabled}
+          />
+          <button
+            tabIndex={value.length === 0 ? -1 : 0}
+            onClick={this.handleViewText}
+            style={{
+              display: masked && value.length ? 'inline' : 'none'
+            }}
+            className="tk-input__hide"
+          >
+            {hideText ? 'show' : 'hide'}
+          </button>
+        </div>
         {errorMessages.map((errMsg, i) => (
           <div className="tk-input-error" key={i}>
             {errMsg}

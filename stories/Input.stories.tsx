@@ -30,8 +30,9 @@ export const Inputs: React.SFC = () => {
           onChange={logChange}
         ></Input>
       </div>
+      <hr />
       <div>
-        <p>Simple Input with change handler with a label and a tooltip.</p> <p>If the attribute id is defined, it will be attached to the label as a for attribute.</p>
+        <p>Simple Input with change handler with a label and a tooltip. If the attribute id is defined, it will be attached to the label as a 'for' attribute.</p>
         <Input
           id="input-1234567890"
           label="Ipsum"
@@ -39,6 +40,15 @@ export const Inputs: React.SFC = () => {
           tooltipCloseLabel="Got it"
           placeholder="Firstname"
           value="Lorem"
+          onChange={logChange}
+        ></Input>
+      </div>
+      <hr />
+      <div>
+        <p>Simple Input with masked data</p>
+        <Input
+          value="Lorem"
+          masked={true}
           onChange={logChange}
         ></Input>
       </div>
@@ -97,9 +107,13 @@ export const Inputs: React.SFC = () => {
 export const ChangeProgrammatically = () => {
   this.child = React.createRef();
 
-  const label = 'Clear feature';
-  const handler = () => this.child.current.reset();
-  button(label, handler);
+  const labelClear = 'Reset';
+  const reset = () => this.child.current.reset();
+  button(labelClear, reset);
+
+  const labelRefresh = 'Refresh validation';
+  const refresh = () => this.child.current.refreshValidation().then((isValid) => console.log(isValid));
+  button(labelRefresh, refresh);
   
   return (<div style={{ width: '50%' }}>
     <p>Manipulate programmatically: Use knobs</p>

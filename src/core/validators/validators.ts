@@ -1,5 +1,3 @@
-import { safeRegexExecute } from './patternValidator/safeRegexExecute';
-
 /**
  * A ValidatorFn takes a value as a string and returns an error object {'validationName':true}
  * ex: Required => {'required':true}
@@ -50,13 +48,12 @@ const Number: ValidatorFn = value => {
  * Return {pattern:true} if no match,
  * @param value Value to test
  */
-const Pattern = (regex: string | RegExp): ValidatorFn => {
-  return async (value) => {
-    const regexMatch = await safeRegexExecute(regex, value);
-    if (!regexMatch) {
-      return Promise.resolve({ pattern: true });
+const Pattern = (regex: string | RegExp) => {
+  return value => {
+    if (new RegExp(regex).test(value)) {
+      return Promise.resolve(null);
     }
-    return Promise.resolve(null);
+    return Promise.resolve({ pattern: true });
   };
 };
 

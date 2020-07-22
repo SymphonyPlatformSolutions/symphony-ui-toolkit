@@ -35,9 +35,7 @@
     "react-resize-detector": "^5.0.3",
     "react-transition-group": "^4.4.1",
     "shortid": "^2.2.15",
-    "safe-regex": "^2.1.1",
-    "styled-components": "^5.1.1",
-    "worker-loader": "^2.0.0"
+    "styled-components": "^5.1.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
@@ -53,7 +51,7 @@
     "@storybook/addon-storysource": "5.3.18",
     "@storybook/addons": "5.3.18",
     "@storybook/react": "^5.3.18",
-    "@symphony/uitoolkit-styles": "1.0.7-SNAPSHOT.2",
+    "@symphony/uitoolkit-styles": "1.0.7-SNAPSHOT.3",
     "@types/enzyme": "^3.10.5",
     "@types/jest": "^25.2.3",
     "@types/lodash": "^4.14.154",
