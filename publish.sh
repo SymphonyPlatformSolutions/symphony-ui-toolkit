@@ -1,9 +1,9 @@
 # Execute publish
 function executePublish {
-    cp package.json dist/src
-    cd dist/src
-    npm pack
+    cp package.json dist/
+    cd dist
     npm publish
+    cd ..
     git add package.json
     git config --global user.email "$GIT_USEREMAIL"
     git config --global user.name "$GIT_USERNAME"
