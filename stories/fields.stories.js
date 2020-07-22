@@ -12,6 +12,14 @@ export const TextField = () => {
             <input id="input" type="text" class="tk-input" placeholder="Type something..." />
             <div class="tk-input-helper">This is a helper.</div>
           </div>
+          <div class="tk-input-group">
+          <label for="input">Field label</label>
+            <div class="tk-input-group__body">
+              <input id="input" type="text" class="tk-input" placeholder="Type something..." />
+              <button class="tk-input__hide">Hide</button>
+            </div>
+            <div class="tk-input-helper">This is a helper.</div>
+          </div>
         <h3>Error</h3>
           <div class="tk-input-group tk-input-group--error">
             <label for="input-error">Field label</label>

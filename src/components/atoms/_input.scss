@@ -1,9 +1,17 @@
 $fontSize: 14;
 
+.tk-input-group__body {
+  position: relative;
+  display: flex;
+}
+
 .tk-input {
+  width: 100%;
   font-size: toEm($fontSize);
   line-height: toEm(20, $fontSize);
-  padding: toEm(8, $fontSize) toEm(10, $fontSize);
+  padding: toEm(8, $fontSize) toEm(75, $fontSize) toEm(8, $fontSize) toEm(10, $fontSize);
+  background-color: transparent;
+  border-color: transparent;
   margin-bottom: toEm(4, $fontSize);
   border-radius: toEm(4, $fontSize);
   border: none;
@@ -13,14 +21,16 @@ $fontSize: 14;
   @include styleInput(
     $--tk-input-default-inactive-color,
     $--tk-input-default-focus-border-color,
+    $--tk-input-default-hover-color,
     $--tk-input-default-active-color,
     $--tk-input-default-background-color
   );
-
+  
   &--error {
     @include styleInput(
       $--tk-input-error-inactive-color,
       $--tk-input-error-focus-border-color,
+      $--tk-input-error-active-color,
       $--tk-input-error-active-color,
       $--tk-input-error-background-color
     );
@@ -31,9 +41,24 @@ $fontSize: 14;
       $--tk-input-disabled-color,
       $--tk-input-disabled-color,
       $--tk-input-disabled-color,
+      $--tk-input-disabled-color,
       $--tk-input-disabled-background-color
     );
   }
+
+}
+
+.tk-input__hide {
+  position: absolute;
+  height: 100%;
+  right: 0;
+  width: toEm(75, $fontSize);
+  max-height: toEm(39, $fontSize);
+  background-color: transparent;
+  color: $scolor-electricity;
+  border: none;
+  outline: none;
+  cursor: pointer;
 }
 
 .tk-input-helper {

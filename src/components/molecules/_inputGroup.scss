@@ -23,7 +23,7 @@
       color: $--tk-input-default-active-color;
     }
     .tk-input:not(:focus) {
-      @include styleHoverInput($--tk-input-default-active-color);
+      @include styleHoverInput($--tk-input-default-hover-color, $--tk-input-default-active-color);
     }
   }
 
@@ -41,7 +41,7 @@
       color: $--tk-input-error-active-color;
     }
     .tk-input:not(:focus) {
-      @include styleHoverInput($--tk-input-error-active-color);
+      @include styleHoverInput($--tk-input-error-active-color, $--tk-input-error-active-color);
     }
   }
 
@@ -51,7 +51,7 @@
     }
     .tk-input:focus,
     .tk-input:not(:focus) {
-      @include styleHoverInput($--tk-input-disabled-color);
+      @include styleHoverInput($--tk-input-disabled-color, $--tk-input-disabled-color);
     }
   }
 }

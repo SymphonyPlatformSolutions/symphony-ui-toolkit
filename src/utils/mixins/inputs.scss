@@ -1,19 +1,20 @@
-@mixin styleHoverInput($hoverColor) {
-  color: $hoverColor;
-  @include addBorder(2px, $hoverColor);
+@mixin styleHoverInput($borderColor, $fontColor) {
+  color: $fontColor;
+  @include addBorder(2px, $borderColor);
   &::placeholder {
-    color: $hoverColor;
+    color: $fontColor;
   }
 }
-@mixin styleInput($inactiveColor, $focusBorderColor, $activeColor, $backgroundColor) {
-  color: $inactiveColor;
+@mixin styleInput($inactiveColor, $focusBorderColor, $hoverColor, $activeColor, $backgroundColor) {
+  color: $activeColor;
   background-color: $backgroundColor;
   @include addBorder(2px, $inactiveColor);
   &::placeholder {
+    @include addTransition();
     color: $inactiveColor;
   }
   &:hover {
-    @include styleHoverInput($activeColor);
+    @include styleHoverInput($hoverColor, $activeColor);
   }
   &:focus,
   &:active {
