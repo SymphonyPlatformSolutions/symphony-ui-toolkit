@@ -1,6 +1,6 @@
 $fontSize: 14;
 
-.tk-input-group__body {
+.tk-input-container {
   position: relative;
   display: flex;
 }
@@ -48,7 +48,7 @@ $fontSize: 14;
 
 }
 
-.tk-input__hide {
+.tk-input-hide {
   position: absolute;
   height: 100%;
   right: 0;
