@@ -208,13 +208,13 @@ export default class Input extends React.Component<InputProps> {
             ) : null}
           </InputHeader>
         ) : null}
-        <div className="tk-input-group__body">
+        <div className="tk-input__container">
           <input
             {...rest}
-            id={id}
             aria-describedby={tooltip && this.ariaId}
             className="tk-input"
-            value={value}
+            disabled={disabled}
+            id={id}
             onBlur={() => this.onBlur()}
             onChange={evt => this.onChange(evt)}
             style={
@@ -222,21 +222,21 @@ export default class Input extends React.Component<InputProps> {
                 WebkitTextSecurity: masked && hideText && 'disc'
               } as React.CSSProperties
             }
-            disabled={disabled}
+            value={value}
           />
           <button
+            className="tk-input__hide"
             tabIndex={value.length === 0 ? -1 : 0}
             onClick={this.handleViewText}
             style={{
               display: masked && value.length ? 'inline' : 'none'
             }}
-            className="tk-input__hide"
           >
             {hideText ? 'show' : 'hide'}
           </button>
         </div>
         {errorMessages.map((errMsg, i) => (
-          <div className="tk-input-error" key={i}>
+          <div className="tk-input__error" key={i}>
             {errMsg}
           </div>
         ))}
