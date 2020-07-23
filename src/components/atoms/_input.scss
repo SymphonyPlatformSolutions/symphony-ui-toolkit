@@ -1,6 +1,6 @@
 $fontSize: 14;
 
-.tk-input-container {
+.tk-input__container {
   position: relative;
   display: flex;
 }
@@ -48,7 +48,7 @@ $fontSize: 14;
 
 }
 
-.tk-input-hide {
+.tk-input__hide {
   position: absolute;
   height: 100%;
   right: 0;
@@ -61,11 +61,11 @@ $fontSize: 14;
   cursor: pointer;
 }
 
-.tk-input-helper {
+.tk-input__helper {
   @extend .tk-label;
 }
 
-.tk-input-error {
+.tk-input__error {
   @extend .tk-label;
   @extend .tk-label--error;
 }
