@@ -38,12 +38,12 @@ describe('Input Component', () => {
         ></Input>
       );
       expect(wrapper.length).toEqual(1);
-      expect(wrapper.find('.tk-input-error')).toEqual({});
+      expect(wrapper.find('.tk-input__error')).toEqual({});
       wrapper.find('input').simulate('change', { target: { value: '' } });
       await validator;
       await validate;
       wrapper.render();
-      expect(wrapper.find('.tk-input-error').text()).toEqual('Required');
+      expect(wrapper.find('.tk-input__error').text()).toEqual('Required');
     });
     it('callbacks should be called on value and validation change', async () => {
       const zone = {
@@ -161,7 +161,7 @@ describe('Input Component', () => {
       await promiseAll;
       await validate;
       wrapper.render();
-      expect(wrapper.find('.tk-input-error').text()).toEqual('Number');
+      expect(wrapper.find('.tk-input__error').text()).toEqual('Number');
     });
 
     describe('should clear input', () => {
@@ -236,7 +236,7 @@ describe('Input Component', () => {
       await validator;
       await validate;
       wrapper.render();
-      expect(wrapper.find('.tk-input-error').text()).toEqual('Required');
+      expect(wrapper.find('.tk-input__error').text()).toEqual('Required');
     });
     it('should display a label if provided', () => {
       const id = 'textfield-1234567890';
