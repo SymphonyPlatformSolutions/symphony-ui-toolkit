@@ -56,28 +56,28 @@ $fontSize: 14;
     );
   }
 
-}
+  &__hide {
+    position: absolute;
+    height: 100%;
+    right: 0;
+    width: toEm(75, $fontSize);
+    max-height: toEm(39, $fontSize);
+    background-color: transparent;
+    color: $scolor-electricity;
+    border: none;
+    outline: none;
+    cursor: pointer;
+  }
 
-.tk-input__hide {
-  position: absolute;
-  height: 100%;
-  right: 0;
-  width: toEm(75, $fontSize);
-  max-height: toEm(39, $fontSize);
-  background-color: transparent;
-  color: $scolor-electricity;
-  border: none;
-  outline: none;
-  cursor: pointer;
-}
+  &__helper {
+    @extend .tk-label;
+  }
 
-.tk-input__helper {
-  @extend .tk-label;
-}
+  &__error {
+    @extend .tk-label;
+    @extend .tk-label--error;
+  }
 
-.tk-input__error {
-  @extend .tk-label;
-  @extend .tk-label--error;
 }
 
 /* Select */
