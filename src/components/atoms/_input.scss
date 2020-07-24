@@ -5,8 +5,18 @@ $fontSize: 14;
   display: flex;
 }
 
+.tk-text-area{
+  $height: toEm(110, $fontSize);
+  min-height: $height;
+  max-height: $height;
+  resize: none;
+  text-overflow: ellipsis;
+}
+
+.tk-text-area,
 .tk-input {
   width: 100%;
+  box-sizing: border-box;
   font-size: toEm($fontSize);
   line-height: toEm(20, $fontSize);
   padding: toEm(8, $fontSize) toEm(75, $fontSize) toEm(8, $fontSize) toEm(10, $fontSize);
@@ -25,7 +35,7 @@ $fontSize: 14;
     $--tk-input-default-active-color,
     $--tk-input-default-background-color
   );
-  
+
   &--error {
     @include styleInput(
       $--tk-input-error-inactive-color,
