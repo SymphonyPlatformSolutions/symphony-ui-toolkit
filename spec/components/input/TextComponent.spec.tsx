@@ -3,8 +3,8 @@ import React from 'react';
 import { TextField } from '../../../src/components';
 import { Validators } from '../../../src/core/validators/validators';
 
-describe('Input Component', () => {
-  describe('Input component test suite => ', () => {
+describe('TextComponent Component', () => {
+  describe('TextComponent component test suite => ', () => {
     afterEach(() => {
       jest.restoreAllMocks();
     });
