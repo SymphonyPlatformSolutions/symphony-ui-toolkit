@@ -199,6 +199,7 @@ class TextComponent extends React.Component<
     /* eslint-disable @typescript-eslint/no-unused-vars */
     const {
       id,
+      type,
       touched,
       validator,
       dirty,
@@ -218,11 +219,11 @@ class TextComponent extends React.Component<
 
     let className;
     let TagName;
-    if (this.props.type == Types.TEXTAREA) {
+    if (type == Types.TEXTAREA) {
       className = 'tk-text-area';
       TagName = 'textarea';
     } else {
-      className = 'tk-input';
+      className = 'tk-text-field';
       TagName = 'input';
     }
 
@@ -258,27 +259,25 @@ class TextComponent extends React.Component<
             {...rest}
             id={id}
             aria-describedby={tooltip && this.ariaId}
-            className={className}
+            className={`tk-input ${className}`}
             value={value}
             onBlur={() => this.onBlur()}
             onChange={(evt) => this.onChange(evt)}
             style={
               {
-                WebkitTextSecurity: masked && hideText && 'disc',
+                WebkitTextSecurity: type == Types.TEXTFIELD && masked && hideText && 'disc',
               } as React.CSSProperties
             }
             disabled={disabled}
           />
-          <button
-            className="tk-input__hide"
-            tabIndex={value.length === 0 ? -1 : 0}
-            onClick={this.handleViewText}
-            style={{
-              display: masked && value.length ? 'inline' : 'none',
-            }}
-          >
-            {hideText ? 'show' : 'hide'}
-          </button>
+          { type == Types.TEXTFIELD ?
+            (<button
+              className="tk-input__hide"
+              tabIndex={value.length === 0 ? -1 : 0}
+              onClick={this.handleViewText}
+              style={{
+                display: masked && value.length ? 'inline' : 'none',
+              }}>{hideText ? 'show' : 'hide'}</button>) : null }
         </div>
         {errorMessages.map((errMsg, i) => (
           <div className="tk-input__error" key={i}>
