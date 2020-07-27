@@ -1,95 +1,95 @@
 import { withKnobs, boolean, button, text } from '@storybook/addon-knobs';
 import React from 'react';
-import { TextField } from '../src/components';
+import { TextArea } from '../src/components';
 import { Validators } from '../src/core/validators/validators';
 
-export const TextFields: React.SFC = () => {
+export const TextAreas: React.SFC = () => {
   const logChange = (value) => {
     console.info(value);
   };
 
   return (
     <div style={{ width: '50%' }}>
-      <h1>Text Field</h1>
+      <h1>Text Area</h1>
       <h2>Basics</h2>
       <div>
-        <p>Simple Text Field with a <strong>placeholder</strong></p>
-        <TextField
-          placeholder="Firstname"
-        ></TextField>
+        <p>Simple Text Area with a <strong>placeholder</strong></p>
+        <TextArea
+          placeholder="Type something"
+        ></TextArea>
       </div>
       <hr />
       <div>
-        <p>Simple Text Field with a <strong>change handler</strong> logging in the browser console</p>
-        <TextField
-          placeholder="Firstname"
+        <p>Simple Text Area with a <strong>change handler</strong> logging in the browser console</p>
+        <TextArea
+          placeholder="Type something"
           onChange={logChange}
-        ></TextField>
+        ></TextArea>
       </div>
       <hr />
       <div>
-        <p>Simple Text Field with a <strong>label</strong></p>
+        <p>Simple Text Area with a <strong>label</strong></p>
         <p> If the attribute id is defined, it will be attached to the label as a 'for' attribute.</p>
-        <TextField
+        <TextArea
           id="input-1234567890"
-          label="Ipsum"
-          placeholder="Firstname"
-        ></TextField>
+          label="Lorem Ipsum"
+          placeholder="Type something"
+        ></TextArea>
       </div>
       <hr />
       <div>
-        <p>Simple Text Field with a <strong>tooltip</strong></p>
-        <TextField
+        <p>Simple Text Area with a <strong>tooltip</strong></p>
+        <TextArea
           tooltip="More information"
           tooltipCloseLabel="Got it"
           placeholder="Type something"
-        ></TextField>
+        ></TextArea>
       </div>
       <hr />
       <div>
-        <p>Simple Text Field with a <strong>label</strong> and a <strong>tooltip</strong></p>
-        <TextField
-          label="Ipsum"
+        <p>Simple Text Area with a <strong>label</strong> and a <strong>tooltip</strong></p>
+        <TextArea
+          label="Lorem Ipsum"
           tooltip="More information"
           tooltipCloseLabel="Got it"
           placeholder="Type something"
-        ></TextField>
+        ></TextArea>
       </div>
       <hr />
       <div>
-        <p>Simple Text Field with a <strong>default value</strong></p>
-        <TextField
+        <p>Simple Text Area with a <strong>default value</strong></p>
+        <TextArea
           placeholder="Type something"
           value="Lorem Ipsum"
-        ></TextField>
+        ></TextArea>
       </div>
       <hr />
       <div>
-        <p>Simple Text Field with <strong>masked data</strong></p>
-        <TextField value="Lorem" masked={true} onChange={logChange}></TextField>
+        <p>Simple Text Area with <strong>masked data</strong></p>
+        <TextArea value="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum" masked={true} onChange={logChange}></TextArea>
       </div>
       <hr />
       <h2>Validators</h2>
       <div>
         <p>
-          Text Field with <strong>Required validator</strong>: validation only executes when field
+          Text Area with <strong>Required validator</strong>: validation only executes when field
           is touched or dirty, you can also assign a validation change handler
         </p>
-        <TextField
-          placeholder="Firstname"
+        <TextArea
+          placeholder="How are you?"
           errors={{ required: 'This field is mandatory' }}
           onValidationChanged={logChange}
           validator={Validators.Required}
-        ></TextField>
+        ></TextArea>
       </div>
       <hr />
       <div>
-        <p>Text Field with <strong>MinLength validator</strong></p>
-        <TextField
+        <p>Text Area with <strong>MinLength validator</strong></p>
+        <TextArea
           placeholder="How are you?"
           errors={{ minlength: 'You need to enter 3 characters minimum' }}
           validator={Validators.MinLength(3)}
-        ></TextField>
+        ></TextArea>
       </div>
       <hr />
       <div>
@@ -97,7 +97,7 @@ export const TextFields: React.SFC = () => {
           Support <strong>multiple validators</strong>: Mandatory number, with a minimum length
           of 3 characters
         </p>
-        <TextField
+        <TextArea
           onChange={logChange}
           label="Number"
           errors={{
@@ -110,19 +110,19 @@ export const TextFields: React.SFC = () => {
             Validators.Number,
             Validators.MinLength(3),
           ]}
-          placeholder="Age"
-        ></TextField>
+          placeholder="Type something"
+        ></TextArea>
       </div>
       <hr />
       <div>
         <p>Using <strong>pattern validator</strong></p>
-        <TextField
+        <TextArea
           errors={{
             pattern: 'Should start with lorem',
           }}
           validator={[Validators.Pattern(/lorem.*/)]}
           placeholder="Magic word"
-        ></TextField>
+        ></TextArea>
       </div>
     </div>
   );
@@ -145,7 +145,7 @@ export const ChangeProgrammatically = () => {
   return (
     <div style={{ width: '50%' }}>
       <p>Manipulate programmatically: Use knobs</p>
-      <TextField
+      <TextArea
         ref={this.child}
         placeholder="Firstname"
         value={text('Default value', '')}
@@ -153,12 +153,12 @@ export const ChangeProgrammatically = () => {
         errors={{ required: 'This field is mandatory' }}
         validator={Validators.Required}
         aria-label="Field"
-      ></TextField>
+      ></TextArea>
     </div>
   );
 };
 
 export default {
-  title: 'TextField',
+  title: 'TextArea',
   decorators: [withKnobs],
 };
