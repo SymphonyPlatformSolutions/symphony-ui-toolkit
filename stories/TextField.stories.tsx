@@ -11,7 +11,6 @@ export const TextFields: React.SFC = () => {
   return (
     <div style={{ width: '50%' }}>
       <h1>Text Field</h1>
-      <h2>Basics</h2>
       <div>
         <p>Simple Text Field with a <strong>placeholder</strong></p>
         <TextField
@@ -67,62 +66,6 @@ export const TextFields: React.SFC = () => {
       <div>
         <p>Simple Text Field with <strong>masked data</strong></p>
         <TextField value="Lorem" masked={true} onChange={logChange}></TextField>
-      </div>
-      <hr />
-      <h2>Validators</h2>
-      <div>
-        <p>
-          Text Field with <strong>Required validator</strong>: validation only executes when field
-          is touched or dirty, you can also assign a validation change handler
-        </p>
-        <TextField
-          placeholder="Firstname"
-          errors={{ required: 'This field is mandatory' }}
-          onValidationChanged={logChange}
-          validator={Validators.Required}
-        ></TextField>
-      </div>
-      <hr />
-      <div>
-        <p>Text Field with <strong>MinLength validator</strong></p>
-        <TextField
-          placeholder="How are you?"
-          errors={{ minlength: 'You need to enter 3 characters minimum' }}
-          validator={Validators.MinLength(3)}
-        ></TextField>
-      </div>
-      <hr />
-      <div>
-        <p>
-          Support <strong>multiple validators</strong>: Mandatory number, with a minimum length
-          of 3 characters
-        </p>
-        <TextField
-          onChange={logChange}
-          label="Number"
-          errors={{
-            required: 'This field is mandatory',
-            number: 'Should be a number',
-            minlength: 'Please type at least 3 numbers',
-          }}
-          validator={[
-            Validators.Required,
-            Validators.Number,
-            Validators.MinLength(3),
-          ]}
-          placeholder="Age"
-        ></TextField>
-      </div>
-      <hr />
-      <div>
-        <p>Using <strong>pattern validator</strong></p>
-        <TextField
-          errors={{
-            pattern: 'Should start with lorem',
-          }}
-          validator={[Validators.Pattern(/lorem.*/)]}
-          placeholder="Magic word"
-        ></TextField>
       </div>
     </div>
   );
