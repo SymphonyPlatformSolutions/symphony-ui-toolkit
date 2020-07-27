@@ -1,6 +1,6 @@
 import { shallow } from 'enzyme';
 import React from 'react';
-import { Input } from '../../../src/components';
+import { TextField } from '../../../src/components';
 import { Validators } from '../../../src/core/validators/validators';
 
 describe('Input Component', () => {
@@ -10,7 +10,7 @@ describe('Input Component', () => {
     });
 
     it('render with default props and initial value', () => {
-      const wrapper = shallow(<Input value="Test"></Input>);
+      const wrapper = shallow(<TextField value="Test"></TextField>);
       expect(wrapper.length).toEqual(1);
       expect(wrapper.hasClass('tk-input-group')).toBe(true);
       expect(wrapper.find('input.tk-input').length).toBe(1);
@@ -18,7 +18,7 @@ describe('Input Component', () => {
     });
     it('extra props are forwarded to the input element', () => {
       const ariaLabel = 'field';
-      const wrapper = shallow(<Input aria-label={ariaLabel}></Input>);
+      const wrapper = shallow(<TextField aria-label={ariaLabel}></TextField>);
       expect(wrapper.length).toEqual(1);
       expect(wrapper.find('input').prop('aria-label')).toEqual(ariaLabel);
     });
@@ -29,13 +29,13 @@ describe('Input Component', () => {
       const validator = jest
         .spyOn(zone, 'validator')
         .mockImplementation(() => Promise.resolve({ required: true }));
-      const validate = jest.spyOn(Input.prototype, 'validate');
+      const validate = jest.spyOn(TextField.prototype, 'validate');
 
       const wrapper = shallow(
-        <Input
+        <TextField
           validator={Validators.Required}
           errors={{ required: 'Required' }}
-        ></Input>
+        ></TextField>
       );
       expect(wrapper.length).toEqual(1);
       expect(wrapper.find('.tk-input__error')).toEqual({});
@@ -52,17 +52,17 @@ describe('Input Component', () => {
         validator: Validators.Required
       };
       const change = jest.spyOn(zone, 'onChange');
-      const validate = jest.spyOn(Input.prototype, 'validate');
+      const validate = jest.spyOn(TextField.prototype, 'validate');
       const valChange = jest.spyOn(zone, 'onValidationChanged');
       const validator = jest
         .spyOn(zone, 'validator')
         .mockImplementation(() => Promise.resolve({ required: true }));
       const wrapper = shallow(
-        <Input
+        <TextField
           validator={zone.validator}
           onValidationChanged={zone.onValidationChanged}
           onChange={zone.onChange}
-        ></Input>
+        ></TextField>
       );
       wrapper.find('input').simulate('change', { target: { value: '' } });
       expect(change).toHaveBeenCalledWith('');
@@ -78,15 +78,15 @@ describe('Input Component', () => {
         };
         const validator = jest
           .spyOn(zone, 'validator')
-        const validate = jest.spyOn(Input.prototype, 'validate');
+        const validate = jest.spyOn(TextField.prototype, 'validate');
 
         const valChange = jest.spyOn(zone, 'onValidationChanged');
         shallow(
-          <Input
+          <TextField
             validator={zone.validator}
             onValidationChanged={zone.onValidationChanged}
             dirty={true}
-          ></Input>
+          ></TextField>
         );
         await validator;
         await validate;
@@ -100,15 +100,15 @@ describe('Input Component', () => {
         const validator = jest
           .spyOn(zone, 'validator')
           .mockImplementation(() => Promise.resolve({ required: true }));
-        const validate = jest.spyOn(Input.prototype, 'validate');
+        const validate = jest.spyOn(TextField.prototype, 'validate');
 
         const valChange = jest.spyOn(zone, 'onValidationChanged');
         shallow(
-          <Input
+          <TextField
             validator={zone.validator}
             onValidationChanged={zone.onValidationChanged}
             touched={true}
-          ></Input>
+          ></TextField>
         );
         await validator;
         await validate;
@@ -121,14 +121,14 @@ describe('Input Component', () => {
         };
         const validator = jest
           .spyOn(zone, 'validator')
-        const validate = jest.spyOn(Input.prototype, 'validate');
+        const validate = jest.spyOn(TextField.prototype, 'validate');
 
         const valChange = jest.spyOn(zone, 'onValidationChanged');
         const wrapper = shallow(
-          <Input
+          <TextField
             validator={zone.validator}
             onValidationChanged={zone.onValidationChanged}
-          ></Input>
+          ></TextField>
         );
         wrapper.setProps({ dirty: true });
         await validator;
@@ -141,7 +141,7 @@ describe('Input Component', () => {
       });
     });
     it('should mark touched onBlur', () => {
-      const wrapper = shallow(<Input></Input>);
+      const wrapper = shallow(<TextField></TextField>);
       expect(wrapper.state('touched')).toBeFalsy();
       wrapper.find('input').simulate('blur');
       expect(wrapper.state('touched')).toBeTruthy();
@@ -150,12 +150,12 @@ describe('Input Component', () => {
       const promiseAll = jest
         .spyOn(Promise, 'all')
         .mockImplementation(() => Promise.resolve([{ number: true }]));
-      const validate = jest.spyOn(Input.prototype, 'validate');
+      const validate = jest.spyOn(TextField.prototype, 'validate');
       const wrapper = shallow(
-        <Input
+        <TextField
           errors={{ required: 'Required', number: 'Number' }}
           validator={[Validators.Required, Validators.Number]}
-        ></Input>
+        ></TextField>
       );
       wrapper.find('input').simulate('change', { target: { value: 'test' } });
       await promiseAll;
@@ -184,13 +184,13 @@ describe('Input Component', () => {
           const zone = {
             onChange: () => null
           };
-          jest.spyOn(Input.prototype, 'reset');
+          jest.spyOn(TextField.prototype, 'reset');
           const change = jest.spyOn(zone, 'onChange');
           const wrapper = shallow(
-            <Input
+            <TextField
               value={test.args.defaultValue}
               onChange={zone.onChange}
-            ></Input>
+            ></TextField>
           );
           wrapper
             .find('input')
@@ -223,13 +223,13 @@ describe('Input Component', () => {
       };
       const validator = jest
         .spyOn(zone, 'validator')
-      const validate = jest.spyOn(Input.prototype, 'validate');
+      const validate = jest.spyOn(TextField.prototype, 'validate');
 
       const wrapper = shallow(
-        <Input
+        <TextField
           validator={zone.validator}
           errors={{ required: 'Required' }}
-        ></Input>
+        ></TextField>
       );
       wrapper.instance().refreshValidation();
 
@@ -240,24 +240,24 @@ describe('Input Component', () => {
     });
     it('should display a label if provided', () => {
       const id = 'textfield-1234567890';
-      let wrapper = shallow(<Input></Input>);
+      let wrapper = shallow(<TextField></TextField>);
       expect(wrapper.find('label.tk-label').length).toBe(0);
-      wrapper = shallow(<Input label="LABEL" id={id}></Input>);
+      wrapper = shallow(<TextField label="LABEL" id={id}></TextField>);
       expect(wrapper.find('label.tk-label').text()).toEqual('LABEL');
       expect(wrapper.find(`label[htmlFor="${id}"]`)).toHaveLength(1);
     });
     it('should display a tooltip if provided', () => {
       const tooltipText = 'Tooltip';
       const tooltipCloseLabel = 'Close';
-      let wrapper = shallow(<Input></Input>);
+      let wrapper = shallow(<TextField></TextField>);
       expect(wrapper.find('Icon').length).toBe(0);
       wrapper = shallow(
-        <Input
+        <TextField
           tooltip={tooltipText}
           tooltipCloseLabel={tooltipCloseLabel}
           placeholder="Firstname"
           value="Lorem"
-        ></Input>
+        ></TextField>
       );
       expect(wrapper.find('Icon').length).toBe(1);
       expect(wrapper.find('Icon').prop('iconName')).toBeDefined();

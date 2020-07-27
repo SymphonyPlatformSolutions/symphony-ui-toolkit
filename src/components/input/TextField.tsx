@@ -34,7 +34,7 @@ const InputTooltip = styled.div`
   font-size: 16px;
 `;
 
-export default class Input extends React.Component<InputProps> {
+export default class TextField extends React.Component<InputProps> {
   private ariaId: string;
 
   public state: any = {

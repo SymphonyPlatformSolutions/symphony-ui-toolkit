@@ -1,6 +1,6 @@
 import { withKnobs, boolean, button, text, } from '@storybook/addon-knobs';
 import React from 'react';
-import { Input } from '../src/components';
+import { TextField } from '../src/components';
 import { Validators } from '../src/core/validators/validators';
 
 export const Inputs: React.SFC = () => {
@@ -12,28 +12,28 @@ export const Inputs: React.SFC = () => {
     <div style={{ width: '50%' }}>
       <div>
         <p>Simple Input with change handler and a label</p>
-        <Input
+        <TextField
           label="Ipsum"
           placeholder="Firstname"
           value="Lorem"
           onChange={logChange}
-        ></Input>
+        ></TextField>
       </div>
       <hr />
       <div>
         <p>Simple Input with change handler and a tooltip</p>
-        <Input
+        <TextField
           tooltip="Ipsum"
           tooltipCloseLabel="Got it"
           placeholder="Firstname"
           value="Lorem"
           onChange={logChange}
-        ></Input>
+        ></TextField>
       </div>
       <hr />
       <div>
         <p>Simple Input with change handler with a label and a tooltip. If the attribute id is defined, it will be attached to the label as a 'for' attribute.</p>
-        <Input
+        <TextField
           id="input-1234567890"
           label="Ipsum"
           tooltip="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
@@ -41,16 +41,16 @@ export const Inputs: React.SFC = () => {
           placeholder="Firstname"
           value="Lorem"
           onChange={logChange}
-        ></Input>
+        ></TextField>
       </div>
       <hr />
       <div>
         <p>Simple Input with masked data</p>
-        <Input
+        <TextField
           value="Lorem"
           masked={true}
           onChange={logChange}
-        ></Input>
+        ></TextField>
       </div>
       <hr />
       <div>
@@ -58,26 +58,26 @@ export const Inputs: React.SFC = () => {
           Input with Required validator: validation only executes when field is
           touched or dirty, you can also assign a validation change handler
         </p>
-        <Input
+        <TextField
           placeholder="Firstname"
           errors={{ required: 'This field is mandatory' }}
           onValidationChanged={logChange}
           validator={Validators.Required}
-        ></Input>
+        ></TextField>
       </div>
       <hr />
       <div>
         <p>Input with MinLength validator</p>
-        <Input
+        <TextField
           placeholder="How are you?"
           errors={{ minlength: 'You need to enter 3 characters minimum' }}
           validator={Validators.MinLength(3)}
-        ></Input>
+        ></TextField>
       </div>
       <hr />
       <div>
         <p>Support multiple validators: Mandatory number, with a minimum length of 3 characters</p>
-        <Input
+        <TextField
           onChange={logChange}
           label="Number"
           errors={{
@@ -87,18 +87,18 @@ export const Inputs: React.SFC = () => {
           }}
           validator={[Validators.Required, Validators.Number, Validators.MinLength(3)]}
           placeholder="Age"
-        ></Input>
+        ></TextField>
       </div>
       <hr />
       <div>
         <p>Using pattern validator</p>
-        <Input
+        <TextField
           errors={{
             pattern: 'Should start with lorem',
           }}
           validator={[Validators.Pattern(/lorem.*/)]}
           placeholder="Magic word"
-        ></Input>
+        ></TextField>
       </div>
     </div>
   );
@@ -114,10 +114,10 @@ export const ChangeProgrammatically = () => {
   const labelRefresh = 'Refresh validation';
   const refresh = () => this.child.current.refreshValidation().then((isValid) => console.log(isValid));
   button(labelRefresh, refresh);
-  
+
   return (<div style={{ width: '50%' }}>
     <p>Manipulate programmatically: Use knobs</p>
-    <Input
+    <TextField
       ref={this.child}
       placeholder="Firstname"
       value={text('Default value', '')}
@@ -125,7 +125,7 @@ export const ChangeProgrammatically = () => {
       errors={{ required: 'This field is mandatory' }}
       validator={Validators.Required}
       aria-label="Field"
-    ></Input>
+    ></TextField>
   </div>);
 };
 
