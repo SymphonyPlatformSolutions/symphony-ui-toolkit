@@ -6,7 +6,7 @@ $fontSize: 14;
   margin-bottom: toEm(4, $fontSize);
 }
 
-.tk-text-area{
+textarea.tk-input {
   $height: toEm(110, $fontSize);
   min-height: $height;
   text-overflow: ellipsis;

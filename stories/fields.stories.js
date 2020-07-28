@@ -74,10 +74,10 @@ export const TextArea = () => {
   return (
     `
     <h3>Default</h3>
-    <textarea class="tk-input tk-text-area" cols="50" rows="5"></textarea>
+    <textarea class="tk-input" cols="50" rows="5"></textarea>
     <h3>Error</h3>
-    <textarea class="tk-input tk-text-area tk-input--error" cols="50" rows="5"></textarea>
+    <textarea class="tk-input tk-input--error" cols="50" rows="5"></textarea>
     <h3>Disabled</h3>
-    <textarea class="tk-input tk-text-area" cols="50" rows="5" disabled></textarea>`
+    <textarea class="tk-input" cols="50" rows="5" disabled></textarea>`
   );
 };
