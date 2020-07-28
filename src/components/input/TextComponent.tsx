@@ -5,8 +5,14 @@ import { ValidatorFn } from 'core/validators/validators';
 import Icon from '../icon';
 import shortid from 'shortid';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
-type InputProps = {
+enum Types {
+  TEXTAREA = 'TextArea',
+  TEXTFIELD = 'TextField',
+}
+
+type TextComponentProps = {
   dirty?: boolean;
   disabled?: boolean;
   errors?: { [id: string]: string };
@@ -23,19 +29,47 @@ type InputProps = {
   value?: string;
 };
 
-const InputHeader = styled.div`
+type TextComponentPropsWithType = TextComponentProps & {
+  type: Types;
+};
+
+const TextComponentHeader = styled.div`
   display: flex;
   align-items: center;
 `;
 
-const InputTooltip = styled.div`
+const TextComponentTooltip = styled.div`
   display: inline-block;
   margin-left: auto;
   font-size: 16px;
 `;
 
-export default class Input extends React.Component<InputProps> {
+const TextComponentPropTypes = {
+  dirty: PropTypes.bool,
+  disabled: PropTypes.bool,
+  errors: PropTypes.objectOf(PropTypes.string),
+  id: PropTypes.string,
+  label: PropTypes.string,
+  masked: PropTypes.bool,
+  placeholder: PropTypes.string,
+  onValidationChanged: PropTypes.func,
+  onChange: PropTypes.func,
+  tooltip: PropTypes.string,
+  tooltipCloseLabel: PropTypes.string,
+  touched: PropTypes.bool,
+  validator: PropTypes.oneOfType([PropTypes.func, PropTypes.arrayOf(PropTypes.func)]) ,
+  value: PropTypes.string,
+};
+
+class TextComponent extends React.Component<
+  TextComponentPropsWithType
+  > {
   private ariaId: string;
+
+  public static propTypes = {
+    ...TextComponentPropTypes,
+    type: PropTypes.oneOf(Object.values(Types)).isRequired
+  };
 
   public state: any = {
     dirty: false,
@@ -43,7 +77,7 @@ export default class Input extends React.Component<InputProps> {
     isValid: true,
     hideText: this.props.masked || false,
     value: this.props.value || '',
-    errorMessages: []
+    errorMessages: [],
   };
   constructor(props) {
     super(props);
@@ -96,12 +130,12 @@ export default class Input extends React.Component<InputProps> {
     );
   }
 
-  private handleViewText = event => {
+  private handleViewText = (event) => {
     if (this.props.disabled) return;
 
     event.preventDefault();
     this.setState({
-      hideText: !this.state.hideText
+      hideText: !this.state.hideText,
     });
   };
 
@@ -112,7 +146,7 @@ export default class Input extends React.Component<InputProps> {
     if ((this.dirty || this.touched) && this.props.validator) {
       if (this.props.validator instanceof Array) {
         const errorsMap = await Promise.all(
-          this.props.validator.map(validator => validator(value))
+          this.props.validator.map((validator) => validator(value))
         );
         errors = errorsMap.reduce((prev, curr) => ({ ...prev, ...curr }), {});
       } else {
@@ -151,7 +185,7 @@ export default class Input extends React.Component<InputProps> {
    * Force validation to refresh, and return isValid state when triggered (used in Elements form before submission)
    */
   public async refreshValidation(): Promise<boolean> {
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       this.setState({ dirty: true, touched: true }, async () => {
         this.validate(this.state.value).then(() => {
           const { isValid } = this.state;
@@ -165,6 +199,7 @@ export default class Input extends React.Component<InputProps> {
     /* eslint-disable @typescript-eslint/no-unused-vars */
     const {
       id,
+      type,
       touched,
       validator,
       dirty,
@@ -181,59 +216,66 @@ export default class Input extends React.Component<InputProps> {
     /* eslint-enable @typescript-eslint/no-unused-vars */
 
     const { errorMessages, hideText, value } = this.state;
+
+    let className;
+    let TagName;
+    if (type == Types.TEXTAREA) {
+      TagName = 'textarea';
+    } else {
+      TagName = 'input';
+    }
+
     return (
       <div
         className={classNames('tk-input-group', {
-          'tk-input-group--error': errorMessages.length
+          'tk-input-group--error': errorMessages.length,
         })}
       >
         {label || tooltip ? (
-          <InputHeader className="tk-input-group__header">
+          <TextComponentHeader className="tk-input-group__header">
             {label ? (
               <label className="tk-label" htmlFor={id}>
                 {label}
               </label>
             ) : null}
             {tooltip ? (
-              <InputTooltip>
+              <TextComponentTooltip>
                 <Icon
                   iconName="info-round"
                   tooltip={{
                     id: this.ariaId,
                     description: tooltip,
-                    closeLabel: tooltipCloseLabel
+                    closeLabel: tooltipCloseLabel,
                   }}
                 />
-              </InputTooltip>
+              </TextComponentTooltip>
             ) : null}
-          </InputHeader>
+          </TextComponentHeader>
         ) : null}
         <div className="tk-input__container">
-          <input
+          <TagName
             {...rest}
+            id={id}
             aria-describedby={tooltip && this.ariaId}
             className="tk-input"
-            disabled={disabled}
-            id={id}
+            value={value}
             onBlur={() => this.onBlur()}
-            onChange={evt => this.onChange(evt)}
+            onChange={(evt) => this.onChange(evt)}
             style={
               {
-                WebkitTextSecurity: masked && hideText && 'disc'
+                WebkitTextSecurity: type == Types.TEXTFIELD && masked && hideText && 'disc',
               } as React.CSSProperties
             }
-            value={value}
+            disabled={disabled}
           />
-          <button
-            className="tk-input__hide"
-            tabIndex={value.length === 0 ? -1 : 0}
-            onClick={this.handleViewText}
-            style={{
-              display: masked && value.length ? 'inline' : 'none'
-            }}
-          >
-            {hideText ? 'show' : 'hide'}
-          </button>
+          { type == Types.TEXTFIELD ?
+            (<button
+              className="tk-input__hide"
+              tabIndex={value.length === 0 ? -1 : 0}
+              onClick={this.handleViewText}
+              style={{
+                display: masked && value.length ? 'inline' : 'none',
+              }}>{hideText ? 'show' : 'hide'}</button>) : null }
         </div>
         {errorMessages.map((errMsg, i) => (
           <div className="tk-input__error" key={i}>
@@ -244,3 +286,5 @@ export default class Input extends React.Component<InputProps> {
     );
   }
 }
+
+export { TextComponentPropTypes, TextComponentProps, TextComponent, Types };
