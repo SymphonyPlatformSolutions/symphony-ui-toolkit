@@ -5,24 +5,31 @@ export default {
 export const TextField = () => {
   return (`
     <div style="max-width: 600px">
-      <h2>Input groups</h2>
+      <h1>Text Fields</h1>
+        <h2>With labels</h2>
         <h3>Default</h3>
+          <p>Text Field with a label and a helper.</p>  
           <div class="tk-input-group">
-            <label for="input">Field label</label>
+            <div class="tk-input-group__header">
+              <label for="input">Field label</label>    
+            </div>
             <div class="tk-input__container">
               <input id="input" type="text" class="tk-input" placeholder="Type something..." />
             </div>
             <div class="tk-input__helper">This is a helper.</div>
           </div>
+          <hr/>
+          <p>Text Field with a show/hide button.</p>  
           <div class="tk-input-group">
-          <label for="input">Field label</label>
+            <div class="tk-input-group__header">
+              <label for="input">Field label</label>    
+            </div>
             <div class="tk-input__container">
-              <input id="input" type="text" class="tk-input" placeholder="Type something..." />
+              <input id="input" type="password" class="tk-input" placeholder="Type something..." />
               <button class="tk-input__hide">Hide</button>
             </div>
-            <div class="tk-input__helper">This is a helper.</div>
           </div>
-        <h3>Error</h3>
+        <h2>Error</h2>
           <div class="tk-input-group tk-input-group--error">
             <label for="input-error">Field label</label>
             <div class="tk-input__container">
@@ -30,7 +37,7 @@ export const TextField = () => {
             </div>
             <div class="tk-input__error">This field is required.</div>
           </div>
-        <h3>Disabled</h3>
+        <h2>Disabled</h2>
           <div class="tk-input-group tk-input-group--disabled">
             <label for="input-disabled">Field label</label>
             <div class="tk-input__container">
