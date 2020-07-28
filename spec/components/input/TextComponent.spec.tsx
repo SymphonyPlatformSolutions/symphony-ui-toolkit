@@ -20,8 +20,8 @@ describe('TextComponent Component', () => {
       const wrapper = shallow(<TextComponent type={Types.TEXTAREA} value="Test"></TextComponent>);
       expect(wrapper.length).toEqual(1);
       expect(wrapper.hasClass('tk-input-group')).toBe(true);
-      expect(wrapper.find('textarea.tk-text-area').length).toBe(1);
-      expect(wrapper.find('textarea.tk-text-area').prop('value')).toEqual('Test');
+      expect(wrapper.find('textarea.tk-input').length).toBe(1);
+      expect(wrapper.find('textarea.tk-input').prop('value')).toEqual('Test');
     });
     it('extra props are forwarded to the input element', () => {
       const ariaLabel = 'field';

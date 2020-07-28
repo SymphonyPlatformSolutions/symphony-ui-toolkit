@@ -220,10 +220,8 @@ class TextComponent extends React.Component<
     let className;
     let TagName;
     if (type == Types.TEXTAREA) {
-      className = 'tk-text-area';
       TagName = 'textarea';
     } else {
-      className = 'tk-text-field';
       TagName = 'input';
     }
 
@@ -259,7 +257,7 @@ class TextComponent extends React.Component<
             {...rest}
             id={id}
             aria-describedby={tooltip && this.ariaId}
-            className={`tk-input ${className}`}
+            className="tk-input"
             value={value}
             onBlur={() => this.onBlur()}
             onChange={(evt) => this.onChange(evt)}
