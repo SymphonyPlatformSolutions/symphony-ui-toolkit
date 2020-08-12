@@ -1,9 +1,9 @@
 export default {
-  title: 'Input fields',
+  title: "Input fields",
 };
 
 export const TextField = () => {
-  return (`
+  return `
     <div style="max-width: 600px">
       <h1>Text Fields</h1>
         <h2>With labels</h2>
@@ -59,7 +59,7 @@ export const TextField = () => {
           <input type="text" class="tk-input" placeholder="Type something..." disabled />
         </div>
       </div>
-    `);
+    `;
 };
 
 export const Select = () => {
@@ -71,13 +71,11 @@ export const Select = () => {
 };
 
 export const TextArea = () => {
-  return (
-    `
+  return `
     <h3>Default</h3>
     <textarea class="tk-input" cols="50" rows="5"></textarea>
     <h3>Error</h3>
     <textarea class="tk-input tk-input--error" cols="50" rows="5"></textarea>
     <h3>Disabled</h3>
-    <textarea class="tk-input" cols="50" rows="5" disabled></textarea>`
-  );
+    <textarea class="tk-input" cols="50" rows="5" disabled></textarea>`;
 };

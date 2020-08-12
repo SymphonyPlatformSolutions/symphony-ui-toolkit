@@ -9,3 +9,17 @@
 .tk-color-action-warning {
   color: $scolor-red !important;
 }
+
+.tk-text-color {
+  color: $--tk-main-text-color;
+
+  &--warning {
+    @extend .tk-color-action-warning;
+  }
+  &--ok {
+    @extend .tk-color-action-ok;
+  }
+  &--attention {
+    @extend .tk-color-action-attention;
+  }
+}
