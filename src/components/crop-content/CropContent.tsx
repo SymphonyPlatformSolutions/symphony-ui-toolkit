@@ -43,9 +43,12 @@ export default class CropContent extends React.Component<CropContentProps> {
   }
 
   render() {
+    const collapsedHeight = `${this.props.cropHeight || '80px'}`
+    const fullHeight = (this.containerElRef && this.containerElRef.scrollHeight ? `${this.containerElRef.scrollHeight}px` : '100%');
+
     const height = this.state.collapsed
-      ? `${this.props.cropHeight || '80px'}`
-      : '100vh';
+      ? collapsedHeight
+      : fullHeight;
 
     return (
       <ResizeDetectDiv
