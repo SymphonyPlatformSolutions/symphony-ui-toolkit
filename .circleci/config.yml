@@ -12,6 +12,7 @@ jobs:
       - run: echo "_auth=$SYM_NPM_TOKEN" >> ~/.npmrc
       - run: echo "always-auth=true" >> ~/.npmrc
       - run: yarn
+      - run: yarn lint
       - run: yarn test-once
       - run: yarn build
       - run: bash ./publish.sh

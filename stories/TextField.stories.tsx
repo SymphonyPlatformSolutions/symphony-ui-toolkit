@@ -28,7 +28,7 @@ export const TextFields: React.SFC = () => {
       <hr />
       <div>
         <p>Simple Text Field with a <strong>label</strong></p>
-        <p> If the attribute id is defined, it will be attached to the label as a 'for' attribute.</p>
+        <p> If the attribute id is defined, it will be attached to the label as a &apos;for&apos; attribute.</p>
         <TextField
           id="input-1234567890"
           label="Ipsum"
