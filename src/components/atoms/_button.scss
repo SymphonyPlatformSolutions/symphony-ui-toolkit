@@ -10,6 +10,7 @@ $fontSize: 12;
   text-transform: uppercase;
   text-align: center;
   line-height: toEm(16, $fontSize);
+  white-space: nowrap;
 
   cursor: pointer;
   &:disabled {
