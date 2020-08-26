@@ -78,7 +78,7 @@ describe('CropContent Component', () => {
       simResize(wrapper, 100, 50);
       expect(getToggleContainer(wrapper).length).toBe(1);
       getToggleLink(wrapper).simulate('click');
-      expect(getContentBlock(wrapper).prop('style').maxHeight).toBe('100vh');
+      expect(getContentBlock(wrapper).prop('style').maxHeight).toBe('100px');
     });
     it('should handle overflow on cropHeight change', () => {
       const wrapper = getWrapper();
