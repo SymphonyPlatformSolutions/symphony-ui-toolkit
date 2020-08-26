@@ -217,7 +217,6 @@ class TextComponent extends React.Component<
 
     const { errorMessages, hideText, value } = this.state;
 
-    let className;
     let TagName;
     if (type == Types.TEXTAREA) {
       TagName = 'textarea';
