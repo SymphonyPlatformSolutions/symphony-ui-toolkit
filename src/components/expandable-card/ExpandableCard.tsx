@@ -32,7 +32,6 @@ const HeaderDiv = styled.div`
 `;
 
 const BodyDiv = styled.div`
-  max-height: 100vh;
   overflow: hidden;
   transition: max-height 300ms ease-in-out;
   &.collapsed {
