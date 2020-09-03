@@ -1,0 +1,14 @@
+.tk-bg-color {
+    &--warning {
+        background-color: $scolor-red !important;
+    }
+    &--ok {
+        background-color: $scolor-green !important;
+    }
+    &--attention {
+        background-color: $scolor-orange !important;
+    }
+    &--primary {
+        background-color: $scolor-electricity !important;
+    }
+}

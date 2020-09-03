@@ -1,0 +1,48 @@
+@mixin margin-top($size) {
+    margin-top: getSpaceByFactor($size);
+}
+@mixin margin-bottom($size) {
+    margin-bottom: getSpaceByFactor($size);
+}
+@mixin margin-left($size) {
+    margin-left: getSpaceByFactor($size);
+}
+@mixin margin-right($size) {
+    margin-right: getSpaceByFactor($size);
+}
+@mixin padding-top($size) {
+    padding-top: getSpaceByFactor($size);
+}
+@mixin padding-bottom($size) {
+    padding-bottom: getSpaceByFactor($size);
+}
+@mixin padding-left($size) {
+    padding-left: getSpaceByFactor($size);
+}
+@mixin padding-right($size) {
+    padding-right: getSpaceByFactor($size);
+}
+@mixin padding-x($size) {
+    @include padding-left($size);
+    @include padding-right($size);
+}
+@mixin padding-y($size) {
+    @include padding-top($size);
+    @include padding-bottom($size);
+}
+@mixin padding($size) {
+    @include padding-x($size);
+    @include padding-y($size);
+}
+@mixin margin-x($size) {
+    @include margin-left($size);
+    @include margin-right($size);
+}
+@mixin margin-y($size) {
+    @include margin-top($size);
+    @include margin-bottom($size);
+}
+@mixin margin($size) {
+    @include margin-x($size);
+    @include margin-y($size);
+}

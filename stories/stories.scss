@@ -28,7 +28,18 @@ until we have a design for them in the UI Toolkit. */
     padding: 16px;
   }
 }
+.flex-container {
+  display: flex;
+  &.column {
+    flex-direction: column;
+  }
+}
 
-.p-2 {
-  padding: 0.5rem;
+/* Styles used for Util stories defined in the StoryBook  */
+.box {
+  width: 50px;
+  height: 50px;
+}
+.item {
+  height: 40px;
 }

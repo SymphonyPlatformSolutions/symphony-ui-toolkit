@@ -1,3 +1,6 @@
+.tk-color-action-primary {
+  color: $scolor-electricity !important;
+}
 .tk-color-action-ok {
   color: $scolor-green !important;
 }
@@ -21,5 +24,8 @@
   }
   &--attention {
     @extend .tk-color-action-attention;
+  }
+  &--primary {
+    @extend .tk-color-action-primary;
   }
 }
