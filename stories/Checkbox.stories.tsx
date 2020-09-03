@@ -7,33 +7,67 @@ export const Checkboxs: React.SFC = () => {
     <div style={{ width: '50%' }}>
       <h1>Checkbox</h1>
       <div>
-        <p>Simple Checkbox Field</p>
-        <Checkbox label="test" name="nametest" value="Yes"></Checkbox>
+        <h2>Default Checkbox</h2>
+        <div>
+          <Checkbox
+            label="Checkbox"
+            name="simple-checkbox"
+            value="checkbox-1"
+            checked
+          />
+        </div>
+        <div>
+          <Checkbox
+            label="Checkbox"
+            name="simple-checkbox"
+            value="checkbox-2"
+          />
+        </div>
       </div>
       <div>
-        <p>Label placement Checkbox Field</p>
+        <h2>Disabled Checkbox</h2>
+        <div>
+          <Checkbox
+            label="Checkbox"
+            name="disabled-checkbox"
+            value="Checkbox-Checked-Disabled"
+            checked
+            disabled
+          />
+        </div>
+        <div>
+          <Checkbox
+            label="Checkbox"
+            name="disabled-checkbox"
+            value="Checkbox-Unchecked-Disabled"
+            disabled
+          />
+        </div>
+      </div>
+      <div>
+        <h2>Label placements</h2>
         <Checkbox
-          label="top"
-          name="nametest"
-          value="Yes"
+          label="Top"
+          name="placement-label"
+          value="top"
           labelPlacement="top"
         ></Checkbox>
         <Checkbox
-          label="left"
-          name="nametest"
-          value="Yes"
+          label="Left"
+          name="placement-label"
+          value="left"
           labelPlacement="left"
         ></Checkbox>
         <Checkbox
           label="bottom"
-          name="nametest"
-          value="Yes"
+          name="placement-label"
+          value="bottom"
           labelPlacement="bottom"
         ></Checkbox>
         <Checkbox
-          label="right"
-          name="nametest"
-          value="Yes"
+          label="Right"
+          name="placement-label"
+          value="right"
           labelPlacement="right"
         ></Checkbox>
       </div>
