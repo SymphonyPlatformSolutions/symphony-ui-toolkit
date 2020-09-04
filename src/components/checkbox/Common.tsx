@@ -1,4 +1,4 @@
-import React, { useMemo, useEffect, useState } from 'react';
+import React, { useMemo, useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import classNames from 'classnames';
@@ -10,18 +10,18 @@ enum Types {
   RADIO = 'radio',
 }
 
-enum CHECKBOX_STATES {
-  CHECKED = 'on',
-  INDETERMINATE = 'indeterminate',
-  UNCHECKED = 'off',
-}
+const CHECKBOX_STATES = {
+  CHECKED: 'on',
+  INDETERMINATE: 'indeterminate',
+  UNCHECKED: 'off',
+};
 
-enum LABEL_PLACEMENTS {
-  TOP = 'top',
-  RIGHT = 'right',
-  BOTTOM = 'bottom',
-  LEFT = 'left',
-}
+const LABEL_PLACEMENTS = {
+  TOP: 'top',
+  RIGHT: 'right',
+  BOTTOM: 'bottom',
+  LEFT: 'left',
+};
 
 const Input = styled.input`
   // Hide the input without using 'display:none'.
@@ -69,7 +69,7 @@ const Common = ({
   label,
   name,
   value,
-  checked,
+  checkedState,
   required,
   tabIndex,
   labelPlacement,
@@ -85,7 +85,6 @@ const Common = ({
   const [isFocused, setFocus] = useState(false);
 
   const iconType = type === 'radio' ? 'radio-button' : type;
-  const iconName = `${iconType}-${checked ? 'on' : 'off'}`;
 
   useEffect(() => {
     const keyPressHandler = (event) => {
@@ -106,6 +105,24 @@ const Common = ({
     };
   }, [isFocused, handleClick]);
 
+  const memoizeOnClick = useCallback(
+    (event) => {
+      if (!disabled) {
+        handleClick(event);
+      }
+    },
+    [disabled, handleClick]
+  );
+
+  const memoizeOnChange = useCallback(
+    (event) => {
+      if (!disabled) {
+        handleChange(event);
+      }
+    },
+    [disabled, handleChange]
+  );
+
   const onFocusHandler = (e) => {
     setFocus(true);
   };
@@ -121,7 +138,7 @@ const Common = ({
           'tk-checkbox',
           `tk-checkbox__labelPlacement--${labelPlacement}`,
           {
-            'tk-checkbox--checked': checked,
+            'tk-checkbox--checked': checkedState !== CHECKBOX_STATES.UNCHECKED,
             'tk-checkbox--disabled': disabled,
             'tk-checkbox--focused': isFocused,
           }
@@ -136,14 +153,14 @@ const Common = ({
             id={memoizedId}
             name={name}
             value={value}
-            checked={checked}
+            checked={checkedState === CHECKBOX_STATES.CHECKED}
             required={required}
             disabled={disabled}
-            onClick={handleClick}
-            onChange={handleChange}
+            onClick={memoizeOnClick}
+            onChange={memoizeOnChange}
             tabIndex={-1}
           />
-          <Icon iconName={iconName} aria-hidden />
+          <Icon iconName={`${iconType}-${checkedState}`} aria-hidden />
         </IconContainer>
         <label
           className={classNames(
@@ -162,7 +179,7 @@ const Common = ({
 
 const CommonPropTypes = {
   id: PropTypes.string,
-  state: PropTypes.oneOf(Object.values(CHECKBOX_STATES)),
+  checkedState: PropTypes.oneOf(Object.values(CHECKBOX_STATES)),
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,

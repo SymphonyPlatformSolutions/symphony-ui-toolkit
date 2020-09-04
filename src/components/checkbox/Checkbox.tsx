@@ -8,17 +8,26 @@ import {
 } from './Common';
 
 const Checkbox = (props) => {
-  const [isChecked, setChecked] = useState(props.checked);
+  const [checkedState, setCheckedState] = useState(
+    props.checkedState || CHECKBOX_STATES.UNCHECKED
+  );
 
-  const onClickCallback = useCallback(() => {
-    setChecked(!isChecked);
-  }, [isChecked]);
+  const onClickCallback = (event) => {
+    console.log('onClickCallback: previous', checkedState);
+    if (checkedState === CHECKBOX_STATES.CHECKED) {
+      console.log('onClickCallback: new', CHECKBOX_STATES.UNCHECKED);
+      setCheckedState(CHECKBOX_STATES.UNCHECKED);
+    } else {
+      console.log('onClickCallback: new', CHECKBOX_STATES.CHECKED);
+      setCheckedState(CHECKBOX_STATES.CHECKED);
+    }
+  };
 
   return (
     <Common
       type={Types.CHECKBOX}
       labelPlacement={props.labelPlacement || LABEL_PLACEMENTS.RIGHT}
-      checked={isChecked}
+      checkedState={checkedState}
       handleClick={onClickCallback}
       {...props}
     />
