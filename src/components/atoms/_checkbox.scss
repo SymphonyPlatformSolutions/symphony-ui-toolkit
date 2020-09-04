@@ -1,0 +1,29 @@
+$fontSize: 12;
+
+.tk-checkbox {
+  color: #17181b;
+  min-height: 20px;
+
+  &:focus {
+    outline-color: $--tk-color-primary;
+    outline-width: 2px;
+  }
+
+  &__icon {
+    font-size: 16px;
+  }
+  &__label {
+    outline: none;
+    font-size: 14px;
+    margin-left: 8px;
+  }
+  &--checked {
+    & .tk-checkbox__icon i {
+      color: $--tk-color-primary;
+    }
+  }
+  &--disabled {
+    color: #7c7f86;
+    cursor: none;
+  }
+}
