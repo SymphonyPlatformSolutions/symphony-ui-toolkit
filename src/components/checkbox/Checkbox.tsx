@@ -14,10 +14,8 @@ const Checkbox = (props) => {
 
   const onClickCallback = () => {
     if (checkedState === CHECKBOX_STATES.CHECKED) {
-      console.log('onClickCallback: new', CHECKBOX_STATES.UNCHECKED);
       setCheckedState(CHECKBOX_STATES.UNCHECKED);
     } else {
-      console.log('onClickCallback: new', CHECKBOX_STATES.CHECKED);
       setCheckedState(CHECKBOX_STATES.CHECKED);
     }
   };
