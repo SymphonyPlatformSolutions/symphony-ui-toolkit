@@ -73,8 +73,8 @@ const Common = ({
   required,
   tabIndex,
   labelPlacement,
-  handleClick = (any) => {},
-  handleChange = (any) => {},
+  handleClick = (event) => {},
+  handleChange = (event) => {},
   disabled,
 }) => {
   const memoizedId = useMemo(() => {

@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 import {
   Common,
   CommonPropTypes,
@@ -12,8 +12,7 @@ const Checkbox = (props) => {
     props.checkedState || CHECKBOX_STATES.UNCHECKED
   );
 
-  const onClickCallback = (event) => {
-    console.log('onClickCallback: previous', checkedState);
+  const onClickCallback = () => {
     if (checkedState === CHECKBOX_STATES.CHECKED) {
       console.log('onClickCallback: new', CHECKBOX_STATES.UNCHECKED);
       setCheckedState(CHECKBOX_STATES.UNCHECKED);

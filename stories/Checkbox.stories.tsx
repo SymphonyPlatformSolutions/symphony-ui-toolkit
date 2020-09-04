@@ -1,4 +1,4 @@
-import { withKnobs, boolean, button, text } from '@storybook/addon-knobs';
+import { withKnobs } from '@storybook/addon-knobs';
 import React from 'react';
 import { Checkbox } from '../src/components';
 
@@ -16,9 +16,10 @@ export const Checkboxes: React.SFC = () => {
           />
         </div>
         <h2>Active Checkbox</h2>
+        <p>In the following examples the states of the checkboxes are fixed</p>
         <div>
           <Checkbox
-            label="Checkbox"
+            label="Checkbox 'on'"
             name="simple-checkbox"
             value="checkbox-1"
             checkedState="on"
@@ -26,7 +27,7 @@ export const Checkboxes: React.SFC = () => {
         </div>
         <div>
           <Checkbox
-            label="Checkbox"
+            label="Checkbox 'indeterminate'"
             name="simple-checkbox"
             value="checkbox-2"
             checkedState="indeterminate"
@@ -34,7 +35,7 @@ export const Checkboxes: React.SFC = () => {
         </div>
         <div>
           <Checkbox
-            label="Checkbox"
+            label="Checkbox 'off'"
             name="simple-checkbox"
             value="checkbox-3"
             checkedState="off"
@@ -73,6 +74,10 @@ export const Checkboxes: React.SFC = () => {
       </div>
       <div>
         <h2>Label placements</h2>
+        <p>
+          The label can be positioned at the{' '}
+          <strong>top, right, bottom, left</strong> of the checkbox
+        </p>
         <Checkbox
           label="Top"
           name="placement-label"
@@ -97,6 +102,51 @@ export const Checkboxes: React.SFC = () => {
           value="right"
           labelPlacement="right"
         ></Checkbox>
+      </div>
+      <div>
+        <h2>Accessibility</h2>
+        <p>
+          You can navigate between checkboxes using <strong>Tab</strong> key or{' '}
+          <strong>Shift + Tab</strong> keys
+        </p>
+        <p>
+          Select or unselect checkbox with <strong>Space</strong> key
+        </p>
+        <div>
+          <Checkbox
+            label="Checkbox"
+            name="simple-checkbox"
+            value="checkbox-1"
+          />
+        </div>
+        <div>
+          <Checkbox
+            label="Checkbox"
+            name="simple-checkbox"
+            value="checkbox-2"
+          />
+        </div>
+        <div>
+          <Checkbox
+            label="Checkbox"
+            name="simple-checkbox"
+            value="checkbox-3"
+          />
+        </div>
+        <div>
+          <Checkbox
+            label="Checkbox"
+            name="simple-checkbox"
+            value="checkbox-4"
+          />
+        </div>
+        <div>
+          <Checkbox
+            label="Checkbox"
+            name="simple-checkbox"
+            value="checkbox-5"
+          />
+        </div>
       </div>
     </div>
   );
