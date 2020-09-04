@@ -3,8 +3,9 @@ $fontSize: 14;
 $labelMargin: toEm(8, $fontSize);
 
 .tk-checkbox {
-  color: #17181b;
-  min-height: 20px;
+  color: $--tk-input-default-active-color;
+  min-height: toEm(20, $fontSize);
+
   // Exceptional margin for outline focus display
   $focusMargin: toEm(2, $fontSize);
   margin: $focusMargin;
@@ -17,30 +18,36 @@ $labelMargin: toEm(8, $fontSize);
   &__icon {
     font-size: toEm(16, $fontSize);
   }
+
   &__label {
     outline: none;
     font-size: toEm($fontSize);
 
-      &--top {
-        margin-bottom: $labelMargin;
-      }
-      &--right{
-        margin-left: $labelMargin;
-      }
-      &--left {
-        margin-right: $labelMargin;
-      }
-      &--bottom {
-        margin-top: $labelMargin;
-      }
+    &--top {
+      margin-bottom: $labelMargin;
+    }
+    &--right {
+      margin-left: $labelMargin;
+    }
+    &--left {
+      margin-right: $labelMargin;
+    }
+    &--bottom {
+      margin-top: $labelMargin;
+    }
   }
+
   &--checked {
     & .tk-checkbox__icon i {
       color: $--tk-color-primary;
     }
   }
+
   &--disabled {
-    color: $scolor-graphite-minus-24;
+    color: $--tk-input-disabled-color;
     cursor: none;
+    .tk-checkbox__icon i {
+      color: $--tk-input-disabled-color;
+    }
   }
 }
