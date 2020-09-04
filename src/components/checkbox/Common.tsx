@@ -97,6 +97,7 @@ const Common = ({
         (event.code === 'Space' || event.keyCode === 32)
       ) {
         handleClick(event);
+        event.preventDefault();
       }
     };
     window.addEventListener('keydown', keyPressHandler);
