@@ -9,26 +9,32 @@ export const TextFields: React.SFC = () => {
   };
 
   return (
-    <div style={{ width: '50%' }}>
+    <div className="tk-text-color" style={{ width: '50%' }}>
       <h1>Text Field</h1>
       <div>
-        <p>Simple Text Field with a <strong>placeholder</strong></p>
-        <TextField
-          placeholder="Firstname"
-        ></TextField>
+        <p>
+          Simple Text Field with a <strong>placeholder</strong>
+        </p>
+        <TextField placeholder="Firstname"></TextField>
       </div>
       <hr />
       <div>
-        <p>Simple Text Field with a <strong>change handler</strong> logging in the browser console</p>
-        <TextField
-          placeholder="Firstname"
-          onChange={logChange}
-        ></TextField>
+        <p>
+          Simple Text Field with a <strong>change handler</strong> logging in
+          the browser console
+        </p>
+        <TextField placeholder="Firstname" onChange={logChange}></TextField>
       </div>
       <hr />
       <div>
-        <p>Simple Text Field with a <strong>label</strong></p>
-        <p> If the attribute id is defined, it will be attached to the label as a &apos;for&apos; attribute.</p>
+        <p>
+          Simple Text Field with a <strong>label</strong>
+        </p>
+        <p>
+          {' '}
+          If the attribute id is defined, it will be attached to the label as a
+          &apos;for&apos; attribute.
+        </p>
         <TextField
           id="input-1234567890"
           label="Ipsum"
@@ -37,7 +43,9 @@ export const TextFields: React.SFC = () => {
       </div>
       <hr />
       <div>
-        <p>Simple Text Field with a <strong>tooltip</strong></p>
+        <p>
+          Simple Text Field with a <strong>tooltip</strong>
+        </p>
         <TextField
           tooltip="More information"
           tooltipCloseLabel="Got it"
@@ -46,7 +54,10 @@ export const TextFields: React.SFC = () => {
       </div>
       <hr />
       <div>
-        <p>Simple Text Field with a <strong>label</strong> and a <strong>tooltip</strong></p>
+        <p>
+          Simple Text Field with a <strong>label</strong> and a{' '}
+          <strong>tooltip</strong>
+        </p>
         <TextField
           label="Ipsum"
           tooltip="More information"
@@ -56,15 +67,16 @@ export const TextFields: React.SFC = () => {
       </div>
       <hr />
       <div>
-        <p>Simple Text Field with a <strong>default value</strong></p>
-        <TextField
-          placeholder="Type something"
-          value="Lorem Ipsum"
-        ></TextField>
+        <p>
+          Simple Text Field with a <strong>default value</strong>
+        </p>
+        <TextField placeholder="Type something" value="Lorem Ipsum"></TextField>
       </div>
       <hr />
       <div>
-        <p>Simple Text Field with <strong>masked data</strong></p>
+        <p>
+          Simple Text Field with <strong>masked data</strong>
+        </p>
         <TextField value="Lorem" masked={true} onChange={logChange}></TextField>
       </div>
     </div>

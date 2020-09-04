@@ -2,9 +2,9 @@ import { withKnobs, boolean, button, text } from '@storybook/addon-knobs';
 import React from 'react';
 import { Checkbox } from '../src/components';
 
-export const Checkboxs: React.SFC = () => {
+export const Checkboxes: React.SFC = () => {
   return (
-    <div style={{ width: '50%' }}>
+    <div className="tk-text-color" style={{ width: '50%' }}>
       <h1>Checkbox</h1>
       <div>
         <h2>Default Checkbox</h2>
@@ -13,7 +13,15 @@ export const Checkboxs: React.SFC = () => {
             label="Checkbox"
             name="simple-checkbox"
             value="checkbox-1"
-            checked
+          />
+        </div>
+        <h2>Active Checkbox</h2>
+        <div>
+          <Checkbox
+            label="Checkbox"
+            name="simple-checkbox"
+            value="checkbox-1"
+            checkedState="on"
           />
         </div>
         <div>
@@ -21,6 +29,15 @@ export const Checkboxs: React.SFC = () => {
             label="Checkbox"
             name="simple-checkbox"
             value="checkbox-2"
+            checkedState="indeterminate"
+          />
+        </div>
+        <div>
+          <Checkbox
+            label="Checkbox"
+            name="simple-checkbox"
+            value="checkbox-3"
+            checkedState="off"
           />
         </div>
       </div>
@@ -29,17 +46,27 @@ export const Checkboxs: React.SFC = () => {
         <div>
           <Checkbox
             label="Checkbox"
-            name="disabled-checkbox"
-            value="Checkbox-Checked-Disabled"
-            checked
+            name="simple-checkbox"
+            value="checkbox-1"
+            checkedState="on"
             disabled
           />
         </div>
         <div>
           <Checkbox
             label="Checkbox"
-            name="disabled-checkbox"
-            value="Checkbox-Unchecked-Disabled"
+            name="simple-checkbox"
+            value="checkbox-2"
+            checkedState="indeterminate"
+            disabled
+          />
+        </div>
+        <div>
+          <Checkbox
+            label="Checkbox"
+            name="simple-checkbox"
+            value="checkbox-3"
+            checkedState="off"
             disabled
           />
         </div>
