@@ -45,7 +45,7 @@ const GlobalContainer = styled.div`
 const CheckboxComponent = styled.div`
   display: flex;
   align-items: center;
-  &.CheckboxContainer__label {
+  &.tk-checkbox__labelPlacement {
     &--top {
       flex-direction: column-reverse;
     }
@@ -84,7 +84,6 @@ const Common = ({
 
   const [isFocused, setFocus] = useState(false);
 
-  const labelPlacementClass = `CheckboxContainer__label--${labelPlacement}`;
   const iconType = type === 'radio' ? 'radio-button' : type;
   const iconName = `${iconType}-${checked ? 'on' : 'off'}`;
 
@@ -117,11 +116,15 @@ const Common = ({
   return (
     <GlobalContainer>
       <CheckboxComponent
-        className={classNames('tk-checkbox', labelPlacementClass, {
-          'tk-checkbox--checked': checked,
-          'tk-checkbox--disabled': disabled,
-          'tk-checkbox--focused': isFocused,
-        })}
+        className={classNames(
+          'tk-checkbox',
+          `tk-checkbox__labelPlacement--${labelPlacement}`,
+          {
+            'tk-checkbox--checked': checked,
+            'tk-checkbox--disabled': disabled,
+            'tk-checkbox--focused': isFocused,
+          }
+        )}
         tabIndex={tabIndex || 0}
         onFocus={onFocusHandler}
         onBlur={onBlurHandler}
@@ -142,7 +145,10 @@ const Common = ({
           <Icon iconName={iconName} aria-hidden />
         </IconContainer>
         <label
-          className="tk-checkbox__label"
+          className={classNames(
+            'tk-checkbox__label',
+            `tk-checkbox__label--${labelPlacement}`
+          )}
           htmlFor={memoizedId}
           tabIndex={-1}
         >
