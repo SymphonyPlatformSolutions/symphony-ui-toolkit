@@ -1,31 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import CheckboxStates from './CheckboxStates';
 import {
   SelectionInput,
   SelectionInputPropTypes,
   Types,
-  LABEL_PLACEMENTS,
-  CHECKBOX_STATES,
+  LabelPlacements,
 } from './SelectionInput';
 
 const Checkbox = (props) => {
   const [checkedState, setCheckedState] = useState(
-    props.checkedState || CHECKBOX_STATES.UNCHECKED
+    props.selectionState || CheckboxStates.UNCHECKED
   );
 
-  const onClickCallback = () => {
-    if (checkedState === CHECKBOX_STATES.CHECKED) {
-      setCheckedState(CHECKBOX_STATES.UNCHECKED);
+  useEffect(() => {
+    if (props.defaultSelectionState) {
+      setCheckedState(props.defaultSelectionState);
+    }
+  }, [props.defaultSelectionState, setCheckedState]);
+
+  const onClickHandler = () => {
+    if (checkedState === CheckboxStates.CHECKED) {
+      setCheckedState(CheckboxStates.UNCHECKED);
     } else {
-      setCheckedState(CHECKBOX_STATES.CHECKED);
+      setCheckedState(CheckboxStates.CHECKED);
     }
   };
 
   return (
     <SelectionInput
       type={Types.CHECKBOX}
-      labelPlacement={props.labelPlacement || LABEL_PLACEMENTS.RIGHT}
-      checkedState={checkedState}
-      handleClick={onClickCallback}
+      labelPlacement={props.labelPlacement || LabelPlacements.RIGHT}
+      selectionState={checkedState}
+      handleClick={onClickHandler}
       {...props}
     />
   );

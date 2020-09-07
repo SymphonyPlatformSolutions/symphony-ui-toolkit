@@ -4,24 +4,19 @@ import styled from 'styled-components';
 import classNames from 'classnames';
 import shortid from 'shortid';
 import Icon from '../icon';
+import CheckboxStates from './CheckboxStates';
 
 enum Types {
   CHECKBOX = 'checkbox',
   RADIO = 'radio',
 }
 
-const CHECKBOX_STATES = {
-  CHECKED: 'on',
-  INDETERMINATE: 'indeterminate',
-  UNCHECKED: 'off',
-};
-
-const LABEL_PLACEMENTS = {
-  TOP: 'top',
-  RIGHT: 'right',
-  BOTTOM: 'bottom',
-  LEFT: 'left',
-};
+enum LabelPlacements {
+  TOP = 'top',
+  RIGHT = 'right',
+  BOTTOM = 'bottom',
+  LEFT = 'left',
+}
 
 const Input = styled.input`
   // Hide the input without using 'display:none'.
@@ -42,7 +37,7 @@ const GlobalContainer = styled.div`
   display: inline-block;
 `;
 
-const CheckboxComponent = styled.div`
+const SelectionInputDiv = styled.div`
   display: flex;
   align-items: center;
   &.tk-checkbox__labelPlacement {
@@ -63,29 +58,49 @@ const IconContainer = styled.span`
   position: relative;
 `;
 
-const SelectionInput = ({
+interface SelectionInputProps {
+  id?: string;
+  type: Types;
+  name: string;
+  label: string;
+  labelPlacement?: LabelPlacements;
+  value: string;
+  selectionState?: CheckboxStates;
+  defaultSelectionState?: CheckboxStates;
+  handleClick?: (event) => void;
+  handleChange?: (event) => void;
+  required?: boolean;
+  disabled?: boolean;
+  tabIndex?: number;
+}
+
+const SelectionInput: React.FC<SelectionInputProps> = ({
   id,
   type,
-  label,
   name,
-  value,
-  checkedState,
-  required,
-  tabIndex,
+  label,
   labelPlacement,
+  value,
+  selectionState,
+  defaultSelectionState,
   handleClick = (event) => {},
   handleChange = (event) => {},
+  required,
   disabled,
+  tabIndex,
 }) => {
   const memoizedId = useMemo(() => {
     // Generate unique ID
     return id || `${type}-${shortid.generate()}`;
   }, [id]);
 
+  // Used for the keyboard navigation
   const [isFocused, setFocus] = useState(false);
 
+  // Icon to use
   const iconType = type === 'radio' ? 'radio-button' : type;
 
+  // Accessibility keyboard navigation
   useEffect(() => {
     const keyPressHandler = (event) => {
       // Space key (https://www.w3.org/TR/uievents/#fixed-virtual-key-codes)
@@ -123,22 +138,24 @@ const SelectionInput = ({
     [disabled, handleChange]
   );
 
+  // Component gets focus
   const onFocusHandler = (e) => {
     setFocus(true);
   };
 
+  // Component loses focus.
   const onBlurHandler = (e) => {
     setFocus(false);
   };
 
   return (
     <GlobalContainer>
-      <CheckboxComponent
+      <SelectionInputDiv
         className={classNames(
-          'tk-checkbox',
+          `tk-${type.valueOf()}`,
           `tk-checkbox__labelPlacement--${labelPlacement}`,
           {
-            'tk-checkbox--checked': checkedState !== CHECKBOX_STATES.UNCHECKED,
+            'tk-checkbox--checked': selectionState !== CheckboxStates.UNCHECKED,
             'tk-checkbox--disabled': disabled,
             'tk-checkbox--focused': isFocused,
           }
@@ -153,14 +170,14 @@ const SelectionInput = ({
             id={memoizedId}
             name={name}
             value={value}
-            checked={checkedState === CHECKBOX_STATES.CHECKED}
+            checked={selectionState === CheckboxStates.CHECKED}
             required={required}
             disabled={disabled}
             onClick={memoizeOnClick}
             onChange={memoizeOnChange}
             tabIndex={-1}
           />
-          <Icon iconName={`${iconType}-${checkedState}`} aria-hidden />
+          <Icon iconName={`${iconType}-${selectionState}`} aria-hidden />
         </IconContainer>
         <label
           className={classNames(
@@ -172,25 +189,40 @@ const SelectionInput = ({
         >
           {label}
         </label>
-      </CheckboxComponent>
+      </SelectionInputDiv>
     </GlobalContainer>
   );
 };
 
+interface SelectionInputProps {
+  id?: string;
+  type: Types;
+  name: string;
+  label: string;
+  labelPlacement?: LabelPlacements;
+  value: string;
+  selectionState?: CheckboxStates;
+  defaultSelectionState?: CheckboxStates;
+  handleClick?: (event) => void;
+  handleChange?: (event) => void;
+  required?: boolean;
+  disabled?: boolean;
+  tabIndex?: number;
+}
+
 const SelectionInputPropTypes = {
   id: PropTypes.string,
-  checkedState: PropTypes.oneOf(Object.values(CHECKBOX_STATES)),
-  name: PropTypes.string.isRequired,
+  name: PropTypes.string,
   label: PropTypes.string.isRequired,
+  labelPlacement: PropTypes.oneOf(Object.values(LabelPlacements)),
   value: PropTypes.string.isRequired,
+  selectionState: PropTypes.oneOf(Object.values(CheckboxStates)),
+  defaultSelectionState: PropTypes.oneOf(Object.values(CheckboxStates)),
   handleClick: PropTypes.func,
   handleChange: PropTypes.func,
-  checked: PropTypes.bool,
   required: PropTypes.bool,
-  tabIndex: PropTypes.number,
-  labelPlacement: PropTypes.oneOf(Object.values(LABEL_PLACEMENTS)),
   disabled: PropTypes.bool,
-  onClick: PropTypes.func,
+  tabIndex: PropTypes.number,
 };
 
 SelectionInput.propTypes = {
@@ -198,10 +230,4 @@ SelectionInput.propTypes = {
   type: PropTypes.oneOf(Object.values(Types)),
 };
 
-export {
-  SelectionInput,
-  SelectionInputPropTypes,
-  Types,
-  LABEL_PLACEMENTS,
-  CHECKBOX_STATES,
-};
+export { SelectionInput, SelectionInputPropTypes, Types, LabelPlacements };

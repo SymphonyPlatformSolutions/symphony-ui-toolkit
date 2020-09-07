@@ -1,6 +1,9 @@
 import { withKnobs } from '@storybook/addon-knobs';
 import React from 'react';
 import { Checkbox } from '../src/components';
+import CheckboxStates from '../src/components/selection/CheckboxStates';
+import { LabelPlacements } from '../src/components/selection/SelectionInput';
+import { action } from '@storybook/addon-actions';
 
 export const Checkboxes: React.SFC = () => {
   return (
@@ -16,58 +19,63 @@ export const Checkboxes: React.SFC = () => {
           />
         </div>
         <h2>Active Checkbox</h2>
-        <p>In the following examples the states of the checkboxes are fixed</p>
+        <h3>Default checked state</h3>
+        <p>
+          In the following examples the states of the checkboxes have a default
+          value defined with <strong>defaultSelectionState</strong> attribute.
+        </p>
         <div>
           <Checkbox
             label="Checkbox 'on'"
-            name="simple-checkbox"
-            value="checkbox-1"
-            checkedState="on"
+            name="active-checkbox"
+            value="active-checkbox-1"
+            defaultSelectionState={CheckboxStates.CHECKED}
           />
         </div>
         <div>
           <Checkbox
             label="Checkbox 'indeterminate'"
-            name="simple-checkbox"
-            value="checkbox-2"
-            checkedState="indeterminate"
+            name="active-checkbox"
+            value="active-checkbox-2"
+            defaultSelectionState={CheckboxStates.INDETERMINATE}
           />
         </div>
         <div>
           <Checkbox
             label="Checkbox 'off'"
-            name="simple-checkbox"
-            value="checkbox-3"
-            checkedState="off"
+            name="active-checkbox"
+            value="active-checkbox-3"
+            defaultSelectionState={CheckboxStates.UNCHECKED}
           />
         </div>
       </div>
       <div>
         <h2>Disabled Checkbox</h2>
+        <p>In the following examples the states of the checkboxes are fixed</p>
         <div>
           <Checkbox
             label="Checkbox"
-            name="simple-checkbox"
-            value="checkbox-1"
-            checkedState="on"
+            name="disabled-checkbox"
+            value="disabled-checkbox-1"
+            selectionState={CheckboxStates.CHECKED}
             disabled
           />
         </div>
         <div>
           <Checkbox
             label="Checkbox"
-            name="simple-checkbox"
-            value="checkbox-2"
-            checkedState="indeterminate"
+            name="disabled-checkbox"
+            value="disabled-checkbox-2"
+            selectionState={CheckboxStates.INDETERMINATE}
             disabled
           />
         </div>
         <div>
           <Checkbox
             label="Checkbox"
-            name="simple-checkbox"
-            value="checkbox-3"
-            checkedState="off"
+            name="disabled-checkbox"
+            value="disabled-checkbox-3"
+            selectionState={CheckboxStates.UNCHECKED}
             disabled
           />
         </div>
@@ -82,25 +90,25 @@ export const Checkboxes: React.SFC = () => {
           label="Top"
           name="placement-label"
           value="top"
-          labelPlacement="top"
+          labelPlacement={LabelPlacements.TOP}
         ></Checkbox>
         <Checkbox
           label="Left"
           name="placement-label"
           value="left"
-          labelPlacement="left"
+          labelPlacement={LabelPlacements.LEFT}
         ></Checkbox>
         <Checkbox
           label="bottom"
           name="placement-label"
           value="bottom"
-          labelPlacement="bottom"
+          labelPlacement={LabelPlacements.BOTTOM}
         ></Checkbox>
         <Checkbox
           label="Right"
           name="placement-label"
           value="right"
-          labelPlacement="right"
+          labelPlacement={LabelPlacements.RIGHT}
         ></Checkbox>
       </div>
       <div>
@@ -114,37 +122,77 @@ export const Checkboxes: React.SFC = () => {
         </p>
         <div>
           <Checkbox
-            label="Checkbox"
-            name="simple-checkbox"
-            value="checkbox-1"
+            label="Checkbox 1"
+            name="a11y-checkbox"
+            value="a11y-checkbox-1"
           />
         </div>
         <div>
           <Checkbox
-            label="Checkbox"
-            name="simple-checkbox"
-            value="checkbox-2"
+            label="Checkbox 2"
+            name="a11y-checkbox"
+            value="a11y-checkbox-2"
           />
         </div>
         <div>
           <Checkbox
-            label="Checkbox"
-            name="simple-checkbox"
-            value="checkbox-3"
+            label="Checkbox 3"
+            name="a11y-checkbox"
+            value="a11y-checkbox-3"
           />
         </div>
         <div>
           <Checkbox
-            label="Checkbox"
-            name="simple-checkbox"
-            value="checkbox-4"
+            label="Checkbox 4"
+            name="a11y-checkbox"
+            value="a11y-checkbox-4"
           />
         </div>
         <div>
           <Checkbox
-            label="Checkbox"
-            name="simple-checkbox"
-            value="checkbox-5"
+            label="Checkbox 5"
+            name="a11y-checkbox"
+            value="a11y-checkbox-5"
+          />
+        </div>
+      </div>
+      <div>
+        <h2>Controlled checked state</h2>
+        <p>
+          In the following example the state of the checkbox has a fixed value
+          defined with <strong>selectionState</strong> attribute. This can be
+          useful if you want the parent component to control the checked state
+          of the checkbox. The Checkbox component will call the handleClick
+          method of the parent component every time the user clicks, so the
+          parent can do what it wants.
+        </p>
+        <div>
+          <Checkbox
+            label="Controlled Checkbox"
+            name="controller-checkbox"
+            value="controlled-checkbox-1"
+            selectionState={CheckboxStates.CHECKED}
+            handleClick={action('handleChange controlled-checkbox-1')}
+          />
+        </div>
+      </div>
+      <div>
+        <h2>Action</h2>
+        <p>
+          In the following example the state of the checkboxe has a fixed value
+          defined with <strong>checkedState</strong> attribute. This can be
+          useful if you want the parent component to control the checked state
+          of the checkbox. The Checkbox component will call the handleClick
+          method of the parent component every time the user clicks, so the
+          parent can do what it wants.
+        </p>
+        <div>
+          <Checkbox
+            label="Checkbox with actions"
+            name="simple-checkbox-actions"
+            value="checkbox-actions"
+            handleChange={action('handleChange action')}
+            handleClick={action('handleClick action')}
           />
         </div>
       </div>
@@ -154,5 +202,5 @@ export const Checkboxes: React.SFC = () => {
 
 export default {
   title: 'Checkbox',
-  decorators: [withKnobs],
+  decorators: [],
 };
