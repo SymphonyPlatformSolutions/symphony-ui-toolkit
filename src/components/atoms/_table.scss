@@ -1,0 +1,19 @@
+.tk-table {
+  border-collapse: collapse;
+  width: 100%;
+  th {
+    text-align: left;
+    border-bottom: 1px solid $scolor-graphite-minus-48;
+    height: $--tk-table-cell-height;
+  }
+  tbody tr { 
+    &:hover {
+    background-color: $--tk-table-hover-color;
+    }
+  }
+  td {
+    height: $--tk-table-cell-height;
+    vertical-align: middle;
+    border-bottom: 1px solid $scolor-graphite-minus-48;
+  }
+}
