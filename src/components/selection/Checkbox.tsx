@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import {
-  Common,
-  CommonPropTypes,
+  SelectionInput,
+  SelectionInputPropTypes,
   Types,
   LABEL_PLACEMENTS,
   CHECKBOX_STATES,
-} from './Common';
+} from './SelectionInput';
 
 const Checkbox = (props) => {
   const [checkedState, setCheckedState] = useState(
@@ -21,7 +21,7 @@ const Checkbox = (props) => {
   };
 
   return (
-    <Common
+    <SelectionInput
       type={Types.CHECKBOX}
       labelPlacement={props.labelPlacement || LABEL_PLACEMENTS.RIGHT}
       checkedState={checkedState}
@@ -31,6 +31,6 @@ const Checkbox = (props) => {
   );
 };
 
-Checkbox.propTypes = CommonPropTypes;
+Checkbox.propTypes = SelectionInputPropTypes;
 
 export default Checkbox;

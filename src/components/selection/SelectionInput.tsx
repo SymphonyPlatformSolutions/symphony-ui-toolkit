@@ -63,7 +63,7 @@ const IconContainer = styled.span`
   position: relative;
 `;
 
-const Common = ({
+const SelectionInput = ({
   id,
   type,
   label,
@@ -177,7 +177,7 @@ const Common = ({
   );
 };
 
-const CommonPropTypes = {
+const SelectionInputPropTypes = {
   id: PropTypes.string,
   checkedState: PropTypes.oneOf(Object.values(CHECKBOX_STATES)),
   name: PropTypes.string.isRequired,
@@ -193,9 +193,15 @@ const CommonPropTypes = {
   onClick: PropTypes.func,
 };
 
-Common.propTypes = {
-  ...CommonPropTypes,
+SelectionInput.propTypes = {
+  ...SelectionInputPropTypes,
   type: PropTypes.oneOf(Object.values(Types)),
 };
 
-export { Common, CommonPropTypes, Types, LABEL_PLACEMENTS, CHECKBOX_STATES };
+export {
+  SelectionInput,
+  SelectionInputPropTypes,
+  Types,
+  LABEL_PLACEMENTS,
+  CHECKBOX_STATES,
+};

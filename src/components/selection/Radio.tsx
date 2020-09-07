@@ -1,5 +1,9 @@
 import React, { useState, useCallback } from 'react';
-import { Common, CommonPropTypes, Types } from './Common';
+import {
+  SelectionInput,
+  SelectionInputPropTypes,
+  Types,
+} from './SelectionInput';
 
 const Radio = (props) => {
   const [isChecked, setChecked] = useState(props.checked);
@@ -9,9 +13,15 @@ const Radio = (props) => {
     props.handleClick && props.handleClick(!isChecked);
   }, [isChecked]);
 
-  return <Common type={Types.RADIO} handleClick={onClickCallback} {...props} />;
+  return (
+    <SelectionInput
+      type={Types.RADIO}
+      handleClick={onClickCallback}
+      {...props}
+    />
+  );
 };
 
-Radio.propTypes = CommonPropTypes;
+Radio.propTypes = SelectionInputPropTypes;
 
 export default Radio;

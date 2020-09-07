@@ -1,6 +1,6 @@
 import Button from './button';
 import { TextField, TextArea } from './input';
-import Checkbox from './checkbox/Checkbox';
+import Checkbox from './selection/Checkbox';
 import CropContent from './crop-content/CropContent';
 import ExpandableCard from './expandable-card/ExpandableCard';
 
