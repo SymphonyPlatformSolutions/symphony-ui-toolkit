@@ -1,6 +1,7 @@
 import { shallow } from 'enzyme';
 import React from 'react';
 import { Checkbox } from '../../../src/components';
+import CheckboxStates from '../../../src/components/selection/CheckboxStates';
 import {
   SelectionInput,
   Types,
@@ -15,13 +16,35 @@ describe('Checkbox Component', () => {
     it('render with default props and initial value', () => {
       const wrapper = shallow(
         <Checkbox
-          name="test-checkbbox-name"
+          name="test-checkbox-name"
           value="test-checkbox-value"
         ></Checkbox>
       );
       expect(wrapper.length).toEqual(1);
       expect(wrapper.find(SelectionInput).length).toBe(1);
       expect(wrapper.find(SelectionInput).prop('type')).toEqual(Types.CHECKBOX);
+      expect(wrapper.find(SelectionInput).prop('name')).toEqual(
+        'test-checkbox-name'
+      );
+      expect(wrapper.find(SelectionInput).prop('value')).toEqual(
+        'test-checkbox-value'
+      );
+    });
+
+    it('with configured selection state', () => {
+      const wrapper = shallow(
+        <Checkbox
+          name="test-checkbox-name"
+          value="test-checkbox-value"
+          selectionState={CheckboxStates.CHECKED}
+        ></Checkbox>
+      );
+      expect(wrapper.length).toEqual(1);
+      expect(wrapper.find(SelectionInput).length).toBe(1);
+      expect(wrapper.find(SelectionInput).prop('type')).toEqual(Types.CHECKBOX);
+      expect(wrapper.find(SelectionInput).prop('selectionState')).toBe(
+        CheckboxStates.CHECKED
+      );
     });
   });
 });

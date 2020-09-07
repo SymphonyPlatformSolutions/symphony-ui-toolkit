@@ -33,6 +33,8 @@ const Input = styled.input`
   padding: 0;
 `;
 
+Input.displayName = 'input';
+
 const GlobalContainer = styled.div`
   display: inline-block;
 `;
@@ -52,6 +54,8 @@ const SelectionInputDiv = styled.div`
     }
   }
 `;
+
+SelectionInputDiv.displayName = 'SelectionInputDiv';
 
 const IconContainer = styled.span`
   cursor: pointer;
@@ -124,7 +128,7 @@ const SelectionInput: React.FC<SelectionInputPropsWithType> = ({
 
   const memoizeOnClick = useCallback(
     (event) => {
-      if (!disabled) {
+      if (!disabled && handleClick) {
         handleClick(event);
       }
     },
@@ -133,7 +137,7 @@ const SelectionInput: React.FC<SelectionInputPropsWithType> = ({
 
   const memoizeOnChange = useCallback(
     (event) => {
-      if (!disabled) {
+      if (!disabled && handleChange) {
         handleChange(event);
       }
     },

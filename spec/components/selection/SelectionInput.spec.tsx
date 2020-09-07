@@ -4,6 +4,8 @@ import {
   SelectionInput,
   Types,
 } from '../../../src/components/selection/SelectionInput';
+import { Checkbox } from '../../../src/components';
+import CheckboxStates from '../../../src/components/selection/CheckboxStates';
 
 describe('SelectionInput Component', () => {
   describe('SelectionInput test suite => ', () => {
@@ -20,12 +22,12 @@ describe('SelectionInput Component', () => {
         ></SelectionInput>
       );
       expect(wrapper.length).toEqual(1);
-      expect(wrapper.hasClass('tk-checkbox')).toBe(true);
-      expect(wrapper.find('input.tk-checkbox').length).toBe(1);
-      expect(wrapper.find('input.tk-checkbox').prop('name')).toEqual(
+      expect(wrapper.find('.tk-checkbox').length).toBe(1);
+      expect(wrapper.find('input').length).toBe(1);
+      expect(wrapper.find('input').prop('name')).toEqual(
         'SelectionInput-test-name'
       );
-      expect(wrapper.find('input.tk-checkbox').prop('value')).toEqual(
+      expect(wrapper.find('input').prop('value')).toEqual(
         'SelectionInput-test-value'
       );
     });
@@ -34,7 +36,7 @@ describe('SelectionInput Component', () => {
       const wrapper = shallow(
         <SelectionInput
           type={Types.CHECKBOX}
-          name="SelectionInput-test-name"
+          name="SelectionInput-test-name2"
           value="SelectionInput-test-value"
           aria-label={ariaLabel}
         ></SelectionInput>
@@ -42,26 +44,25 @@ describe('SelectionInput Component', () => {
       expect(wrapper.length).toEqual(1);
       expect(wrapper.find('input').prop('aria-label')).toEqual(ariaLabel);
     });
-    it('callbacks should be called on value and validation change', async () => {
-      const zone = {
-        onClick: () => null,
-        onChange: () => null,
-      };
-      const click = jest.spyOn(zone, 'onClick');
-      const change = jest.spyOn(zone, 'onChange');
+
+    it('with click handler', () => {
+      const clickCallback = jest.fn();
+      const changeCallback = jest.fn();
       const wrapper = shallow(
         <SelectionInput
           type={Types.CHECKBOX}
-          name="SelectionInput-test-name"
-          value="SelectionInput-test-value"
-          handleClick={zone.onClick}
-          handleChange={zone.onChange}
+          name="SelectionInput-action-name"
+          value="SelectionInput-action-value"
+          handleClick={clickCallback}
+          handleChange={changeCallback}
         ></SelectionInput>
       );
-      wrapper.find('input').simulate('click', { target: { value: '' } });
-      wrapper.find('input').simulate('change', { target: { value: '' } });
-      expect(click).toHaveBeenCalledWith('');
-      expect(change).toHaveBeenCalledWith('');
+      expect(wrapper.length).toEqual(1);
+      expect(wrapper.find('input').length).toBe(1);
+      wrapper.find('input').simulate('click');
+      expect(clickCallback).toBeCalled();
+      wrapper.find('input').simulate('change');
+      expect(changeCallback).toBeCalled();
     });
   });
 });
