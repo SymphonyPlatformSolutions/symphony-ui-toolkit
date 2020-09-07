@@ -60,13 +60,11 @@ const IconContainer = styled.span`
 
 interface SelectionInputProps {
   id?: string;
-  type: Types;
   name: string;
-  label: string;
+  label?: string;
   labelPlacement?: LabelPlacements;
   value: string;
   selectionState?: CheckboxStates;
-  defaultSelectionState?: CheckboxStates;
   handleClick?: (event) => void;
   handleChange?: (event) => void;
   required?: boolean;
@@ -74,7 +72,11 @@ interface SelectionInputProps {
   tabIndex?: number;
 }
 
-const SelectionInput: React.FC<SelectionInputProps> = ({
+interface SelectionInputPropsWithType extends SelectionInputProps {
+  type: Types;
+}
+
+const SelectionInput: React.FC<SelectionInputPropsWithType> = ({
   id,
   type,
   name,
@@ -82,12 +84,12 @@ const SelectionInput: React.FC<SelectionInputProps> = ({
   labelPlacement,
   value,
   selectionState,
-  defaultSelectionState,
-  handleClick = (event) => {},
-  handleChange = (event) => {},
+  handleClick,
+  handleChange,
   required,
   disabled,
   tabIndex,
+  ...otherProps
 }) => {
   const memoizedId = useMemo(() => {
     // Generate unique ID
@@ -139,25 +141,28 @@ const SelectionInput: React.FC<SelectionInputProps> = ({
   );
 
   // Component gets focus
-  const onFocusHandler = (e) => {
+  const onFocusHandler = () => {
     setFocus(true);
   };
 
   // Component loses focus.
-  const onBlurHandler = (e) => {
+  const onBlurHandler = () => {
     setFocus(false);
   };
+
+  const tkClassName = `tk-${type.valueOf()}`;
 
   return (
     <GlobalContainer>
       <SelectionInputDiv
         className={classNames(
-          `tk-${type.valueOf()}`,
-          `tk-checkbox__labelPlacement--${labelPlacement}`,
+          tkClassName,
+          `${tkClassName}__labelPlacement--${labelPlacement}`,
           {
-            'tk-checkbox--checked': selectionState !== CheckboxStates.UNCHECKED,
-            'tk-checkbox--disabled': disabled,
-            'tk-checkbox--focused': isFocused,
+            [`${tkClassName}--checked`]:
+              selectionState !== CheckboxStates.UNCHECKED,
+            [`${tkClassName}--disabled`]: disabled,
+            [`${tkClassName}--focused`]: isFocused,
           }
         )}
         tabIndex={tabIndex || 0}
@@ -176,13 +181,14 @@ const SelectionInput: React.FC<SelectionInputProps> = ({
             onClick={memoizeOnClick}
             onChange={memoizeOnChange}
             tabIndex={-1}
+            {...otherProps}
           />
           <Icon iconName={`${iconType}-${selectionState}`} aria-hidden />
         </IconContainer>
         <label
           className={classNames(
-            'tk-checkbox__label',
-            `tk-checkbox__label--${labelPlacement}`
+            `${tkClassName}__label`,
+            `${tkClassName}__label--${labelPlacement}`
           )}
           htmlFor={memoizedId}
           tabIndex={-1}
@@ -194,30 +200,13 @@ const SelectionInput: React.FC<SelectionInputProps> = ({
   );
 };
 
-interface SelectionInputProps {
-  id?: string;
-  type: Types;
-  name: string;
-  label: string;
-  labelPlacement?: LabelPlacements;
-  value: string;
-  selectionState?: CheckboxStates;
-  defaultSelectionState?: CheckboxStates;
-  handleClick?: (event) => void;
-  handleChange?: (event) => void;
-  required?: boolean;
-  disabled?: boolean;
-  tabIndex?: number;
-}
-
 const SelectionInputPropTypes = {
   id: PropTypes.string,
-  name: PropTypes.string,
-  label: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  label: PropTypes.string,
   labelPlacement: PropTypes.oneOf(Object.values(LabelPlacements)),
   value: PropTypes.string.isRequired,
   selectionState: PropTypes.oneOf(Object.values(CheckboxStates)),
-  defaultSelectionState: PropTypes.oneOf(Object.values(CheckboxStates)),
   handleClick: PropTypes.func,
   handleChange: PropTypes.func,
   required: PropTypes.bool,
@@ -230,4 +219,10 @@ SelectionInput.propTypes = {
   type: PropTypes.oneOf(Object.values(Types)),
 };
 
-export { SelectionInput, SelectionInputPropTypes, Types, LabelPlacements };
+export {
+  SelectionInput,
+  SelectionInputProps,
+  SelectionInputPropTypes,
+  Types,
+  LabelPlacements,
+};

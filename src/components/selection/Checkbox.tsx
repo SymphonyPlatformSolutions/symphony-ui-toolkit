@@ -2,37 +2,54 @@ import React, { useState, useEffect } from 'react';
 import CheckboxStates from './CheckboxStates';
 import {
   SelectionInput,
+  SelectionInputProps,
   SelectionInputPropTypes,
   Types,
   LabelPlacements,
 } from './SelectionInput';
 
-const Checkbox = (props) => {
+interface CheckboxProps extends SelectionInputProps {
+  defaultSelectionState?: CheckboxStates;
+}
+
+const Checkbox: React.FC<CheckboxProps> = ({
+  labelPlacement,
+  handleClick,
+  selectionState,
+  defaultSelectionState,
+  ...otherProps
+}) => {
   const [checkedState, setCheckedState] = useState(
-    props.selectionState || CheckboxStates.UNCHECKED
+    selectionState || CheckboxStates.UNCHECKED
   );
 
   useEffect(() => {
-    if (props.defaultSelectionState) {
-      setCheckedState(props.defaultSelectionState);
+    if (defaultSelectionState) {
+      setCheckedState(defaultSelectionState);
     }
-  }, [props.defaultSelectionState, setCheckedState]);
+  }, [defaultSelectionState, setCheckedState]);
 
-  const onClickHandler = () => {
-    if (checkedState === CheckboxStates.CHECKED) {
-      setCheckedState(CheckboxStates.UNCHECKED);
-    } else {
-      setCheckedState(CheckboxStates.CHECKED);
+  const onClickHandler = (event) => {
+    if (!selectionState) {
+      // If the selection state is not given in props, then we use the internal state component,
+      // otherwise we let the parent component defines if the component is checked or not
+      if (checkedState === CheckboxStates.CHECKED) {
+        setCheckedState(CheckboxStates.UNCHECKED);
+      } else {
+        setCheckedState(CheckboxStates.CHECKED);
+      }
     }
+    // Call user handleClick method if defined
+    if (handleClick) handleClick(event);
   };
 
   return (
     <SelectionInput
       type={Types.CHECKBOX}
-      labelPlacement={props.labelPlacement || LabelPlacements.RIGHT}
+      labelPlacement={labelPlacement || LabelPlacements.RIGHT}
       selectionState={checkedState}
       handleClick={onClickHandler}
-      {...props}
+      {...otherProps}
     />
   );
 };

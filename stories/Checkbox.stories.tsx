@@ -1,4 +1,3 @@
-import { withKnobs } from '@storybook/addon-knobs';
 import React from 'react';
 import { Checkbox } from '../src/components';
 import CheckboxStates from '../src/components/selection/CheckboxStates';
@@ -179,12 +178,16 @@ export const Checkboxes: React.SFC = () => {
       <div>
         <h2>Action</h2>
         <p>
-          In the following example the state of the checkboxe has a fixed value
-          defined with <strong>checkedState</strong> attribute. This can be
-          useful if you want the parent component to control the checked state
-          of the checkbox. The Checkbox component will call the handleClick
-          method of the parent component every time the user clicks, so the
-          parent can do what it wants.
+          (<strong>Open the Actions tab to see the events.</strong>)
+        </p>
+        <p>
+          <strong>handleChange</strong>: This method is called when the value of
+          the Checkbox changes.
+        </p>
+        <p>
+          <strong>handleClick</strong>: This method is called when the user
+          clicks on the Checkbox or Label. Note: this method is also called when
+          the user select/unselect the Checkbox with the keyboard space key.
         </p>
         <div>
           <Checkbox
