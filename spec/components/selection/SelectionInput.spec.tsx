@@ -4,8 +4,6 @@ import {
   SelectionInput,
   Types,
 } from '../../../src/components/selection/SelectionInput';
-import { Checkbox } from '../../../src/components';
-import CheckboxStates from '../../../src/components/selection/CheckboxStates';
 
 describe('SelectionInput Component', () => {
   describe('SelectionInput test suite => ', () => {
