@@ -33,7 +33,7 @@ const Input = styled.input`
   padding: 0;
 `;
 
-Input.displayName = 'input';
+Input.displayName = 'Input';
 
 const GlobalContainer = styled.div`
   display: inline-block;

@@ -1,5 +1,6 @@
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import React from 'react';
+
 import {
   SelectionInput,
   Types,
@@ -21,11 +22,11 @@ describe('SelectionInput Component', () => {
       );
       expect(wrapper.length).toEqual(1);
       expect(wrapper.find('.tk-checkbox').length).toBe(1);
-      expect(wrapper.find('input').length).toBe(1);
-      expect(wrapper.find('input').prop('name')).toEqual(
+      expect(wrapper.find('Input').length).toBe(1);
+      expect(wrapper.find('Input').prop('name')).toEqual(
         'SelectionInput-test-name'
       );
-      expect(wrapper.find('input').prop('value')).toEqual(
+      expect(wrapper.find('Input').prop('value')).toEqual(
         'SelectionInput-test-value'
       );
     });
@@ -40,7 +41,7 @@ describe('SelectionInput Component', () => {
         ></SelectionInput>
       );
       expect(wrapper.length).toEqual(1);
-      expect(wrapper.find('input').prop('aria-label')).toEqual(ariaLabel);
+      expect(wrapper.find('Input').prop('aria-label')).toEqual(ariaLabel);
     });
 
     it('with click handler', () => {
@@ -56,10 +57,10 @@ describe('SelectionInput Component', () => {
         ></SelectionInput>
       );
       expect(wrapper.length).toEqual(1);
-      expect(wrapper.find('input').length).toBe(1);
-      wrapper.find('input').simulate('click');
+      expect(wrapper.find('Input').length).toBe(1);
+      wrapper.find('Input').simulate('click');
       expect(clickCallback).toBeCalled();
-      wrapper.find('input').simulate('change');
+      wrapper.find('Input').simulate('change');
       expect(changeCallback).toBeCalled();
     });
   });
