@@ -173,7 +173,13 @@ const SelectionInput: React.FC<SelectionInputPropsWithType> = ({
         onFocus={onFocusHandler}
         onBlur={onBlurHandler}
       >
-        <IconContainer className="tk-checkbox__icon" tab-index="-1">
+        <IconContainer
+          className={classNames(`${tkClassName}__icon`, {
+            [`${tkClassName}__icon--checked`]:
+              selectionState !== CheckboxStates.UNCHECKED,
+          })}
+          tab-index="-1"
+        >
           <Input
             type={type}
             id={memoizedId}
