@@ -15,7 +15,7 @@ $labelMargin: toEm(8, $fontSize);
     outline-width: $focusMargin;
   }
 
-  &__input{
+  &__icon{
     cursor: pointer;
     &:before {
       font-family: "tk-icons";
@@ -25,9 +25,11 @@ $labelMargin: toEm(8, $fontSize);
       width: 1em;
       line-height: 1em;
       text-align: center;
+      content: '\e816';
     }
 
-    &--on:before {
+    &--on:before,
+    .tk-checkbox__input:checked + &:before {
       content: '\e817';
       color: $--tk-color-primary;
     }
@@ -35,10 +37,6 @@ $labelMargin: toEm(8, $fontSize);
     &--indeterminate:before {
       content: '\e815';
       color: $--tk-color-primary;
-    }
-
-    &--off:before {
-      content: '\e816';
     }
   }
 
