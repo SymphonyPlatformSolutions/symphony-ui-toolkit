@@ -15,11 +15,30 @@ $labelMargin: toEm(8, $fontSize);
     outline-width: $focusMargin;
   }
 
-  &__icon {
-    font-size: toEm(16, $fontSize);
+  &__input{
+    cursor: pointer;
+    &:before {
+      font-family: "tk-icons";
+      font-size: toEm(16, $fontSize);
+      font-style: normal;
+      font-weight: normal;
+      width: 1em;
+      line-height: 1em;
+      text-align: center;
+    }
 
-    &--checked {
+    &--on:before {
+      content: '\e817';
       color: $--tk-color-primary;
+    }
+
+    &--indeterminate:before {
+      content: '\e815';
+      color: $--tk-color-primary;
+    }
+
+    &--off:before {
+      content: '\e816';
     }
   }
 
