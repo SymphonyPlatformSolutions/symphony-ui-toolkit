@@ -22,11 +22,11 @@ describe('SelectionInput Component', () => {
       );
       expect(wrapper.length).toEqual(1);
       expect(wrapper.find('.tk-checkbox').length).toBe(1);
-      expect(wrapper.find('Input').length).toBe(1);
-      expect(wrapper.find('Input').prop('name')).toEqual(
+      expect(wrapper.find('input').length).toBe(1);
+      expect(wrapper.find('input').prop('name')).toEqual(
         'SelectionInput-test-name'
       );
-      expect(wrapper.find('Input').prop('value')).toEqual(
+      expect(wrapper.find('input').prop('value')).toEqual(
         'SelectionInput-test-value'
       );
     });
@@ -41,7 +41,7 @@ describe('SelectionInput Component', () => {
         ></SelectionInput>
       );
       expect(wrapper.length).toEqual(1);
-      expect(wrapper.find('Input').prop('aria-label')).toEqual(ariaLabel);
+      expect(wrapper.find('input').prop('aria-label')).toEqual(ariaLabel);
     });
 
     it('with click handler', () => {
@@ -57,10 +57,10 @@ describe('SelectionInput Component', () => {
         ></SelectionInput>
       );
       expect(wrapper.length).toEqual(1);
-      expect(wrapper.find('Input').length).toBe(1);
-      wrapper.find('Input').simulate('click');
+      expect(wrapper.find('input').length).toBe(1);
+      wrapper.find('input').simulate('click');
       expect(clickCallback).toBeCalled();
-      wrapper.find('Input').simulate('change');
+      wrapper.find('input').simulate('change');
       expect(changeCallback).toBeCalled();
     });
   });

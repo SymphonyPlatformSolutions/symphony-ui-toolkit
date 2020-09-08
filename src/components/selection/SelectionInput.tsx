@@ -1,6 +1,5 @@
 import React, { useMemo, useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 import classNames from 'classnames';
 import shortid from 'shortid';
 import CheckboxStates from './CheckboxStates';
@@ -16,49 +15,6 @@ enum LabelPlacements {
   BOTTOM = 'bottom',
   LEFT = 'left',
 }
-
-const Input = styled.input`
-  // Hide the input without using 'display:none'.
-  // Otherwise it will hide the checkbox from both browser and assistive technology (AT) users,
-  // and we would also lose keyboard interactions.
-  cursor: inherit;
-  position: absolute;
-  opacity: 0;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  margin: 0;
-  padding: 0;
-`;
-
-Input.displayName = 'Input';
-
-const GlobalContainer = styled.div`
-  display: inline-block;
-`;
-
-const SelectionInputDiv = styled.div`
-  display: flex;
-  align-items: center;
-  &.tk-checkbox__labelPlacement {
-    &--top {
-      flex-direction: column-reverse;
-    }
-    &--left {
-      flex-direction: row-reverse;
-    }
-    &--bottom {
-      flex-direction: column;
-    }
-  }
-`;
-
-SelectionInputDiv.displayName = 'SelectionInputDiv';
-
-const InputContainer = styled.span`
-  position: relative;
-`;
 
 interface SelectionInputProps {
   id?: string;
@@ -152,8 +108,8 @@ const SelectionInput: React.FC<SelectionInputPropsWithType> = ({
   const tkClassName = `tk-${type.valueOf()}`;
 
   return (
-    <GlobalContainer>
-      <SelectionInputDiv
+    <div className={`${tkClassName}__container`}>
+      <div
         className={classNames(
           tkClassName,
           `${tkClassName}--${selectionState}`,
@@ -167,14 +123,9 @@ const SelectionInput: React.FC<SelectionInputPropsWithType> = ({
         onFocus={onFocusHandler}
         onBlur={onBlurHandler}
       >
-        <InputContainer
-          className={classNames(
-            `${tkClassName}__input`,
-            `${tkClassName}__input--${selectionState}`
-          )}
-          tab-index="-1"
-        >
-          <Input
+        <div className={`${tkClassName}__inputContainer`} tab-index="-1">
+          <input
+            className={`${tkClassName}__input`}
             type={type}
             id={memoizedId}
             name={name}
@@ -187,7 +138,14 @@ const SelectionInput: React.FC<SelectionInputPropsWithType> = ({
             tabIndex={-1}
             {...otherProps}
           />
-        </InputContainer>
+          <span
+            className={classNames(
+              `${tkClassName}__icon`,
+              `${tkClassName}__icon--${selectionState}`
+            )}
+            aria-hidden
+          ></span>
+        </div>
         <label
           className={classNames(
             `${tkClassName}__label`,
@@ -198,8 +156,8 @@ const SelectionInput: React.FC<SelectionInputPropsWithType> = ({
         >
           {label}
         </label>
-      </SelectionInputDiv>
-    </GlobalContainer>
+      </div>
+    </div>
   );
 };
 
