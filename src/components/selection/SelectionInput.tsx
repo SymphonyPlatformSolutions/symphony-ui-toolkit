@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import classNames from 'classnames';
 import shortid from 'shortid';
-import Icon from '../icon';
 import CheckboxStates from './CheckboxStates';
 
 enum Types {
@@ -57,8 +56,7 @@ const SelectionInputDiv = styled.div`
 
 SelectionInputDiv.displayName = 'SelectionInputDiv';
 
-const IconContainer = styled.span`
-  cursor: pointer;
+const InputContainer = styled.span`
   position: relative;
 `;
 
@@ -102,9 +100,6 @@ const SelectionInput: React.FC<SelectionInputPropsWithType> = ({
 
   // Used for the keyboard navigation
   const [isFocused, setFocus] = useState(false);
-
-  // Icon to use
-  const iconType = type === 'radio' ? 'radio-button' : type;
 
   // Accessibility keyboard navigation
   useEffect(() => {
@@ -161,10 +156,9 @@ const SelectionInput: React.FC<SelectionInputPropsWithType> = ({
       <SelectionInputDiv
         className={classNames(
           tkClassName,
+          `${tkClassName}--${selectionState}`,
           `${tkClassName}__labelPlacement--${labelPlacement}`,
           {
-            [`${tkClassName}--checked`]:
-              selectionState !== CheckboxStates.UNCHECKED,
             [`${tkClassName}--disabled`]: disabled,
             [`${tkClassName}--focused`]: isFocused,
           }
@@ -173,11 +167,11 @@ const SelectionInput: React.FC<SelectionInputPropsWithType> = ({
         onFocus={onFocusHandler}
         onBlur={onBlurHandler}
       >
-        <IconContainer
-          className={classNames(`${tkClassName}__icon`, {
-            [`${tkClassName}__icon--checked`]:
-              selectionState !== CheckboxStates.UNCHECKED,
-          })}
+        <InputContainer
+          className={classNames(
+            `${tkClassName}__input`,
+            `${tkClassName}__input--${selectionState}`
+          )}
           tab-index="-1"
         >
           <Input
@@ -193,8 +187,7 @@ const SelectionInput: React.FC<SelectionInputPropsWithType> = ({
             tabIndex={-1}
             {...otherProps}
           />
-          <Icon iconName={`${iconType}-${selectionState}`} aria-hidden />
-        </IconContainer>
+        </InputContainer>
         <label
           className={classNames(
             `${tkClassName}__label`,
