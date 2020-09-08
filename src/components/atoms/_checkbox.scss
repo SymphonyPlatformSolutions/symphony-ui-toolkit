@@ -17,6 +17,10 @@ $labelMargin: toEm(8, $fontSize);
 
   &__icon {
     font-size: toEm(16, $fontSize);
+
+    &--checked {
+      color: $--tk-color-primary;
+    }
   }
 
   &__label {
@@ -37,17 +41,8 @@ $labelMargin: toEm(8, $fontSize);
     }
   }
 
-  &--checked {
-    & .tk-checkbox__icon i {
-      color: $--tk-color-primary;
-    }
-  }
-
   &--disabled {
     color: $--tk-input-disabled-color;
     cursor: none;
-    .tk-checkbox__icon i {
-      color: $--tk-input-disabled-color;
-    }
   }
 }
