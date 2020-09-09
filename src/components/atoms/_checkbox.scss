@@ -1,0 +1,112 @@
+$fontSize: 14;
+
+$labelMargin: toEm(8, $fontSize);
+
+.tk-checkbox {
+  &__container {
+    display: inline-block;
+  }
+
+  display: flex;
+  align-items: center;
+  color: $--tk-input-default-active-color;
+  min-height: toEm(20, $fontSize);
+
+  // Exceptional margin for outline focus display
+  $focusMargin: toEm(2, $fontSize);
+  margin: $focusMargin;
+  padding: $focusMargin;
+
+  &:focus {
+    outline-width: $focusMargin;
+  }
+
+  &__input {
+    // Hide the input without using 'display:none'.
+    // Otherwise it will hide the checkbox from both browser and assistive technology (AT) users,
+    // and we would also lose keyboard interactions.
+    cursor: inherit;
+    position: absolute;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+  }
+
+  &__inputContainer {
+    position: relative;
+  }
+
+  &__icon {
+    cursor: pointer;
+    &:before {
+      font-family: "tk-icons";
+      font-size: toEm(16, $fontSize);
+      font-style: normal;
+      font-weight: normal;
+      width: 1em;
+      line-height: 1em;
+      text-align: center;
+      content: "\e816";
+    }
+
+    &--on:before,
+    .tk-checkbox__input:checked + &:before {
+      content: "\e817";
+      color: $--tk-color-primary;
+    }
+
+    &--indeterminate:before {
+      content: "\e815";
+      color: $--tk-color-primary;
+    }
+  }
+
+  &__label {
+    outline: none;
+    font-size: toEm($fontSize);
+    margin-left: $labelMargin;
+
+    &--top {
+      margin-bottom: $labelMargin;
+      margin-left: 0;
+    }
+    &--right {
+      margin-left: $labelMargin;
+    }
+    &--left {
+      margin-right: $labelMargin;
+      margin-left: 0;
+    }
+    &--bottom {
+      margin-top: $labelMargin;
+      margin-left: 0;
+    }
+  }
+
+  &__labelPlacement {
+    &--top {
+      flex-direction: column-reverse;
+    }
+    &--left {
+      flex-direction: row-reverse;
+    }
+    &--bottom {
+      flex-direction: column;
+    }
+  }
+
+  &--disabled {
+    color: $--tk-input-disabled-color;
+    cursor: none;
+
+    & .tk-checkbox__icon--on:before,
+    & .tk-checkbox__icon--indeterminate:before,
+    & .tk-checkbox__icon .tk-checkbox__input:checked + &:before {
+      color: $--tk-input-disabled-color;
+    }
+  }
+}
