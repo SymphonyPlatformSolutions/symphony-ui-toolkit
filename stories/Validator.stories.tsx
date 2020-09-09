@@ -9,17 +9,21 @@ export const Validator: React.SFC = () => {
   };
 
   return (
-    <div style={{ width: '50%' }}>
+    <div className="tk-text-color" style={{ width: '50%' }}>
       <h1>Validator</h1>
       <p>
-        All following validators can be applied to a <strong>Text Field</strong> or a <strong>Text Area</strong>
+        All following validators can be applied to a <strong>Text Field</strong>{' '}
+        or a <strong>Text Area</strong>
       </p>
       <p>
-        Validation only executes when field is touched or dirty, you can also assign a validation change handler.
+        Validation only executes when field is touched or dirty, you can also
+        assign a validation change handler.
       </p>
       <h2>Required validator</h2>
       <div>
-        <p>Text Field with <strong>Required validator</strong></p>
+        <p>
+          Text Field with <strong>Required validator</strong>
+        </p>
         <TextField
           placeholder="Firstname"
           errors={{ required: 'This field is mandatory' }}
@@ -29,7 +33,9 @@ export const Validator: React.SFC = () => {
       </div>
       <h2>MinLength validator</h2>
       <div>
-        <p>Text Field with <strong>MinLength validator</strong></p>
+        <p>
+          Text Field with <strong>MinLength validator</strong>
+        </p>
         <TextField
           placeholder="How are you?"
           errors={{ minlength: 'You need to enter 3 characters minimum' }}
@@ -39,8 +45,8 @@ export const Validator: React.SFC = () => {
       <h2>Multiple validators</h2>
       <div>
         <p>
-          Support <strong>multiple validators</strong>: Mandatory number, with a minimum length
-          of 3 characters
+          Support <strong>multiple validators</strong>: Mandatory number, with a
+          minimum length of 3 characters
         </p>
         <TextField
           onChange={logChange}
@@ -60,7 +66,9 @@ export const Validator: React.SFC = () => {
       </div>
       <h2>Pattern validator</h2>
       <div>
-        <p>Using <strong>pattern validator</strong></p>
+        <p>
+          Using <strong>pattern validator</strong>
+        </p>
         <TextField
           errors={{
             pattern: 'Should start with lorem',

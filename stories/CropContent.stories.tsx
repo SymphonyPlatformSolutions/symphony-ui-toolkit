@@ -4,7 +4,7 @@ import { CropContent } from '../src/components';
 
 export const CropContentContainer: React.SFC = () => {
   return (
-    <>
+    <div className="tk-text-color">
       <div className="flex-row">
         <div className="flex-col" style={{ maxWidth: '30%' }}>
           <h2>Unstyled</h2>
@@ -83,11 +83,11 @@ export const CropContentContainer: React.SFC = () => {
           </CropContent>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
 export default {
   title: 'Containers',
-  decorators: [withKnobs]
+  decorators: [withKnobs],
 };

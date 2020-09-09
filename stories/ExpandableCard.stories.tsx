@@ -3,7 +3,7 @@ import { ExpandableCard, Button, CropContent } from '../src/components';
 
 export const ExpandableCardContainer: React.SFC = () => {
   return (
-    <>
+    <div className="tk-text-color">
       <div className="flex-row">
         <div className="flex-col" style={{ maxWidth: '50%' }}>
           <h2>Basic card</h2>
@@ -37,10 +37,10 @@ export const ExpandableCardContainer: React.SFC = () => {
           </ExpandableCard>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
 export default {
-  title: 'Containers'
+  title: 'Containers',
 };

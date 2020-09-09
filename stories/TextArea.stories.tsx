@@ -9,26 +9,32 @@ export const TextAreas: React.SFC = () => {
   };
 
   return (
-    <div style={{ width: '50%' }}>
+    <div className="tk-text-color" style={{ width: '50%' }}>
       <h1>Text Area</h1>
       <div>
-        <p>Simple Text Area with a <strong>placeholder</strong></p>
-        <TextArea
-          placeholder="Type something"
-        ></TextArea>
+        <p>
+          Simple Text Area with a <strong>placeholder</strong>
+        </p>
+        <TextArea placeholder="Type something"></TextArea>
       </div>
       <hr />
       <div>
-        <p>Simple Text Area with a <strong>change handler</strong> logging in the browser console</p>
-        <TextArea
-          placeholder="Type something"
-          onChange={logChange}
-        ></TextArea>
+        <p>
+          Simple Text Area with a <strong>change handler</strong> logging in the
+          browser console
+        </p>
+        <TextArea placeholder="Type something" onChange={logChange}></TextArea>
       </div>
       <hr />
       <div>
-        <p>Simple Text Area with a <strong>label</strong></p>
-        <p> If the attribute id is defined, it will be attached to the label as a &apos;for&apos; attribute.</p>
+        <p>
+          Simple Text Area with a <strong>label</strong>
+        </p>
+        <p>
+          {' '}
+          If the attribute id is defined, it will be attached to the label as a
+          &apos;for&apos; attribute.
+        </p>
         <TextArea
           id="input-1234567890"
           label="Lorem Ipsum"
@@ -37,7 +43,9 @@ export const TextAreas: React.SFC = () => {
       </div>
       <hr />
       <div>
-        <p>Simple Text Area with a <strong>tooltip</strong></p>
+        <p>
+          Simple Text Area with a <strong>tooltip</strong>
+        </p>
         <TextArea
           tooltip="More information"
           tooltipCloseLabel="Got it"
@@ -46,7 +54,10 @@ export const TextAreas: React.SFC = () => {
       </div>
       <hr />
       <div>
-        <p>Simple Text Area with a <strong>label</strong> and a <strong>tooltip</strong></p>
+        <p>
+          Simple Text Area with a <strong>label</strong> and a{' '}
+          <strong>tooltip</strong>
+        </p>
         <TextArea
           label="Lorem Ipsum"
           tooltip="More information"

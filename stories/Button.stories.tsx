@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from '../src/components';
 
 export const Buttons: React.SFC = () => (
-  <>
+  <div className="tk-text-color">
     <h2>Primary</h2>
     <div style={{ display: 'flex', margin: 16 }}>
       <Button variant="primary">Button</Button>
@@ -102,10 +102,10 @@ export const Buttons: React.SFC = () => (
         <i className="tk-ic-check tk-color-action-ok" />
       </Button>
     </div>
-  </>
+  </div>
 );
 
 export default {
   title: 'Button',
-  component: Buttons
+  component: Buttons,
 };
