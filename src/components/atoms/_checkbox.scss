@@ -54,7 +54,7 @@ $labelMargin: toEm(8, $fontSize);
     }
 
     &--on:before,
-    .tk-checkbox__input:checked + &:before {
+    .tk-checkbox__input:checked:enabled + &:before {
       content: "\e817";
       color: $--tk-color-primary;
     }
@@ -105,7 +105,7 @@ $labelMargin: toEm(8, $fontSize);
 
     & .tk-checkbox__icon--on:before,
     & .tk-checkbox__icon--indeterminate:before,
-    & .tk-checkbox__icon .tk-checkbox__input:checked + &:before {
+    .tk-checkbox__input:checked:disabled + &:before {
       color: $--tk-input-disabled-color;
     }
   }
