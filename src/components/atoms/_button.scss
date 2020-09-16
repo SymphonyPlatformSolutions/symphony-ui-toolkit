@@ -3,7 +3,7 @@ $fontSize: 12;
   font-size: toEm($fontSize);
   display: inline-block;
   border: none;
-  border-radius: toEm(16, $fontSize);
+  border-radius: 2em;
   padding: toEm(8, $fontSize) toEm(16, $fontSize);
   letter-spacing: toEm(0.5, $fontSize);
   text-transform: uppercase;
