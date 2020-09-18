@@ -69,9 +69,11 @@ const Tooltip = ({
   closeLabel,
   visible,
   onHintClose,
-  referenceElement,
+  placement,
+  ...otherProps
 }) => {
   const [popperElement, setPopperElement] = useState(null);
+  const [referenceElement, setReferenceElement] = useState(null);
   const { styles, attributes } = usePopper(referenceElement, popperElement, {
     placement: placement || 'top',
     modifiers: [
@@ -91,37 +93,42 @@ const Tooltip = ({
   });
 
   return (
-    <CSSTransition
-      mountOnEnter
-      unmountOnExit
-      in={visible}
-      timeout={200}
-      classNames="TooltipContainer"
-      appear
-    >
-      <TooltipContainer
-        id={id}
-        role="tooltip"
-        ref={setPopperElement}
-        className="tk-tooltip"
-        style={styles.popper}
-        {...attributes.popper}
+    <SpanStyled ref={setReferenceElement}>
+      {otherProps.children}
+      <CSSTransition
+        mountOnEnter
+        unmountOnExit
+        in={visible}
+        timeout={200}
+        classNames="TooltipContainer"
+        appear
       >
-        <span className="tk-tooltip__description">{description}</span>
-        <div
-          className="tooltip__arrowContainer"
-          style={styles.arrow}
-          data-popper-arrow
+        <TooltipContainer
+          id={id}
+          role="tooltip"
+          ref={setPopperElement}
+          className="tk-tooltip"
+          style={styles.popper}
+          {...attributes.popper}
         >
-          <div className="tooltip__arrow tk-tooltip__arrow" />
-        </div>
-        <div className="tk-tooltip__footer">
-          <TooltipClose className="tk-tooltip__close" onClick={onHintClose}>
-            {closeLabel}
-          </TooltipClose>
-        </div>
-      </TooltipContainer>
-    </CSSTransition>
+          <span className="tk-tooltip__description">{description}</span>
+          <div
+            className="tooltip__arrowContainer"
+            style={styles.arrow}
+            data-popper-arrow
+          >
+            <div className="tooltip__arrow tk-tooltip__arrow" />
+          </div>
+          <div className="tk-tooltip__footer">
+            {closeLabel ? (
+              <TooltipClose className="tk-tooltip__close" onClick={onHintClose}>
+                {closeLabel}
+              </TooltipClose>
+            ) : null}
+          </div>
+        </TooltipContainer>
+      </CSSTransition>
+    </SpanStyled>
   );
 };
 
@@ -130,8 +137,8 @@ Tooltip.propTypes = {
   description: PropTypes.string.isRequired,
   closeLabel: PropTypes.string.isRequired,
   visible: PropTypes.bool.isRequired,
-  onHintClose: PropTypes.func.isRequired,
-  referenceElement: PropTypes.object,
+  onHintClose: PropTypes.func,
+  // placement: PropTypes.oneOf(Placement.valueOf()),
 };
 
 export default Tooltip;

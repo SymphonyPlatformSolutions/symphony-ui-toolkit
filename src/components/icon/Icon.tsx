@@ -20,11 +20,7 @@ const Icon = ({ iconName, handleClick }) => {
 
 Icon.propTypes = {
   iconName: PropTypes.string.isRequired,
-  tooltip: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    closeLabel: PropTypes.string.isRequired,
-  }) as Validator<TooltipProps>,
+  handleClick: PropTypes.func,
 };
 
 export default Icon;
