@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Tooltip } from '../src/components';
 import Icon from '../src/components/icon';
-// import { start, Placement } from '@popperjs/core';
 
 export default {
   title: 'Tooltip',
@@ -128,6 +127,9 @@ OnAnImage.args = {
   description: 'Attached on an image',
   placement: 'top',
   children: (
-    <img src="https://symphony.com/wp-content/uploads/2019/06/logo.png" />
+    <img
+      style={{ width: '225px', height: '40px' }}
+      src="https://symphony.com/wp-content/uploads/2019/06/logo.png"
+    />
   ),
 };
