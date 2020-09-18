@@ -1,6 +1,9 @@
 import { shallow } from 'enzyme';
 import React from 'react';
-import { TextComponent, Types } from '../../../src/components/input/TextComponent';
+import {
+  TextComponent,
+  Types,
+} from '../../../src/components/input/TextComponent';
 import { Validators } from '../../../src/core/validators/validators';
 
 describe('TextComponent Component', () => {
@@ -10,14 +13,18 @@ describe('TextComponent Component', () => {
     });
 
     it('render a TextField with default props and initial value and test if a input html tag is used', () => {
-      const wrapper = shallow(<TextComponent type={Types.TEXTFIELD} value="Test"></TextComponent>);
+      const wrapper = shallow(
+        <TextComponent type={Types.TEXTFIELD} value="Test"></TextComponent>
+      );
       expect(wrapper.length).toEqual(1);
       expect(wrapper.hasClass('tk-input-group')).toBe(true);
       expect(wrapper.find('input.tk-input').length).toBe(1);
       expect(wrapper.find('input.tk-input').prop('value')).toEqual('Test');
     });
     it('render a TextArea with default props and initial value and test if a textarea html tag is used', () => {
-      const wrapper = shallow(<TextComponent type={Types.TEXTAREA} value="Test"></TextComponent>);
+      const wrapper = shallow(
+        <TextComponent type={Types.TEXTAREA} value="Test"></TextComponent>
+      );
       expect(wrapper.length).toEqual(1);
       expect(wrapper.hasClass('tk-input-group')).toBe(true);
       expect(wrapper.find('textarea.tk-input').length).toBe(1);
@@ -25,7 +32,12 @@ describe('TextComponent Component', () => {
     });
     it('extra props are forwarded to the input element', () => {
       const ariaLabel = 'field';
-      const wrapper = shallow(<TextComponent type={Types.TEXTFIELD} aria-label={ariaLabel}></TextComponent>);
+      const wrapper = shallow(
+        <TextComponent
+          type={Types.TEXTFIELD}
+          aria-label={ariaLabel}
+        ></TextComponent>
+      );
       expect(wrapper.length).toEqual(1);
       expect(wrapper.find('input').prop('aria-label')).toEqual(ariaLabel);
     });
@@ -151,7 +163,9 @@ describe('TextComponent Component', () => {
       });
     });
     it('should mark touched onBlur', () => {
-      const wrapper = shallow(<TextComponent type={Types.TEXTFIELD}></TextComponent>);
+      const wrapper = shallow(
+        <TextComponent type={Types.TEXTFIELD}></TextComponent>
+      );
       expect(wrapper.state('touched')).toBeFalsy();
       wrapper.find('input').simulate('blur');
       expect(wrapper.state('touched')).toBeTruthy();
@@ -252,16 +266,26 @@ describe('TextComponent Component', () => {
     });
     it('should display a label if provided', () => {
       const id = 'textfield-1234567890';
-      let wrapper = shallow(<TextComponent type={Types.TEXTFIELD}></TextComponent>);
+      let wrapper = shallow(
+        <TextComponent type={Types.TEXTFIELD}></TextComponent>
+      );
       expect(wrapper.find('label.tk-label').length).toBe(0);
-      wrapper = shallow(<TextComponent type={Types.TEXTFIELD} label="LABEL" id={id}></TextComponent>);
+      wrapper = shallow(
+        <TextComponent
+          type={Types.TEXTFIELD}
+          label="LABEL"
+          id={id}
+        ></TextComponent>
+      );
       expect(wrapper.find('label.tk-label').text()).toEqual('LABEL');
       expect(wrapper.find(`label[htmlFor="${id}"]`)).toHaveLength(1);
     });
     it('should display a tooltip if provided', () => {
       const tooltipText = 'Tooltip';
       const tooltipCloseLabel = 'Close';
-      let wrapper = shallow(<TextComponent type={Types.TEXTFIELD}></TextComponent>);
+      let wrapper = shallow(
+        <TextComponent type={Types.TEXTFIELD}></TextComponent>
+      );
       expect(wrapper.find('Icon').length).toBe(0);
       wrapper = shallow(
         <TextComponent
@@ -274,14 +298,10 @@ describe('TextComponent Component', () => {
       );
       expect(wrapper.find('Icon').length).toBe(1);
       expect(wrapper.find('Icon').prop('iconName')).toBeDefined();
-      expect(wrapper.find('Icon').prop('tooltip')).toBeDefined();
-      expect(wrapper.find('Icon').prop('tooltip')).toHaveProperty('id');
-      expect(wrapper.find('Icon').prop('tooltip')).toHaveProperty(
-        'description',
-        tooltipText
-      );
-      expect(wrapper.find('Icon').prop('tooltip')).toHaveProperty(
-        'closeLabel',
+      expect(wrapper.find('Tooltip').length).toBe(1);
+      expect(wrapper.find('Tooltip').prop('id')).toBeDefined();
+      expect(wrapper.find('Tooltip').prop('description')).toEqual(tooltipText);
+      expect(wrapper.find('Tooltip').prop('closeLabel')).toEqual(
         tooltipCloseLabel
       );
     });

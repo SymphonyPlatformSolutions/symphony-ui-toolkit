@@ -20,10 +20,6 @@ describe('Icon Component', () => {
         ></Icon>
       );
       expect(wrapper.length).toEqual(1);
-      expect(wrapper.find('Tooltip').length).toBe(1);
-      expect(wrapper.find('Tooltip').prop('id')).toEqual(id);
-      expect(wrapper.find('Tooltip').prop('description')).toEqual(description);
-      expect(wrapper.find('Tooltip').prop('closeLabel')).toEqual(closeLabel);
     });
   });
 });
