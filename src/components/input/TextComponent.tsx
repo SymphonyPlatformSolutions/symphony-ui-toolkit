@@ -75,6 +75,7 @@ class TextComponent extends React.Component<
     dirty: false,
     touched: false,
     isValid: true,
+    showTooltip: false,
     hideText: this.props.masked || false,
     value: this.props.value || '',
     errorMessages: [],
@@ -167,6 +168,10 @@ class TextComponent extends React.Component<
     this.setState({ isValid: valid, errorMessages });
     return errorMessages;
   }
+
+  private handleClickIcon = () => {
+    this.setState({ showTooltip: !this.state.showTooltip });
+  };
 
   /**
    * Reset to default value and reset errors, callback onChange props

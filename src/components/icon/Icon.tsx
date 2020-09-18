@@ -1,57 +1,20 @@
-import PropTypes, { Validator } from 'prop-types';
-import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import styled from 'styled-components';
-import Tooltip from '../tooltip';
 import InfoRoundIcon from './InfoRoundIcon';
 
 const IconTag = styled.i`
   cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 `;
 
-interface TooltipProps {
-  id: string;
-  description: string;
-  closeLabel: string;
-}
-
-interface IconProps {
-  iconName: string;
-  tooltip?: TooltipProps;
-}
-
-const Icon: React.FC<IconProps> = ({ iconName, tooltip }) => {
-  const [tooltipShown, setInfoHintShown] = useState(false);
-
-  const [referenceElement, setReferenceElement] = useState(null);
-
-  const handleClick = () => {
-    setInfoHintShown(!tooltipShown);
-  };
-
+const Icon = ({ iconName, handleClick }) => {
   return (
-    <>
-      <IconTag
-        className={`tk-ic-${iconName != 'info-round' ? iconName : ''} tk-icon`}
-        onClick={handleClick}
-        ref={setReferenceElement}
-      >
-        {iconName == 'info-round' ? <InfoRoundIcon /> : null}
-      </IconTag>
-
-      {tooltip && (
-        <Tooltip
-          id={tooltip.id}
-          onHintClose={handleClick}
-          description={tooltip.description}
-          closeLabel={tooltip.closeLabel}
-          visible={tooltipShown}
-          referenceElement={referenceElement}
-        />
-      )}
-    </>
+    <IconTag
+      className={`tk-ic-${iconName != 'info-round' ? iconName : ''} tk-icon`}
+      onClick={handleClick}
+    >
+      {iconName == 'info-round' ? <InfoRoundIcon /> : null}
+    </IconTag>
   );
 };
 

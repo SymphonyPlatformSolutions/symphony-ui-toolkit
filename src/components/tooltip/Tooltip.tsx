@@ -3,6 +3,11 @@ import PropTypes from 'prop-types';
 import { usePopper } from 'react-popper';
 import { CSSTransition } from 'react-transition-group';
 import styled from 'styled-components';
+import { Placement } from '@popperjs/core';
+
+const SpanStyled = styled.span`
+  display: inline-block;
+`;
 
 const TooltipContainer = styled.div`
   &.TooltipContainer {
@@ -24,10 +29,10 @@ const TooltipContainer = styled.div`
 
   .tooltip__arrowContainer {
     position: absolute;
+    z-index: -1;
   }
 
   .tooltip__arrow {
-    z-index: -1;
     border-radius: 2px;
     transform: rotate(45deg);
   }
@@ -56,7 +61,6 @@ const TooltipClose = styled.span`
  * @param description Text to display in the tooltip
  * @param visible true if the tooltip should be displayed, false otherwise
  * @param onHintClose Function to call on close action
- * @param referenceElement HTML Element on which the Tooltip must be positioned
  * @constructor
  */
 const Tooltip = ({
@@ -69,7 +73,7 @@ const Tooltip = ({
 }) => {
   const [popperElement, setPopperElement] = useState(null);
   const { styles, attributes } = usePopper(referenceElement, popperElement, {
-    placement: 'top',
+    placement: placement || 'top',
     modifiers: [
       {
         name: 'flip',
@@ -122,7 +126,7 @@ const Tooltip = ({
 };
 
 Tooltip.propTypes = {
-  id: PropTypes.string.isRequired,
+  id: PropTypes.string,
   description: PropTypes.string.isRequired,
   closeLabel: PropTypes.string.isRequired,
   visible: PropTypes.bool.isRequired,
