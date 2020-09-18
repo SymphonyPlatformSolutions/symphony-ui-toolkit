@@ -1478,6 +1478,20 @@
     util-deprecate "^1.0.2"
     uuid "^8.0.0"
 
+"@storybook/addon-controls@^6.0.21":
+  version "6.0.21"
+  resolved "https://repo.symphony.com/artifactory/api/npm/npm-virtual-dev/@storybook/addon-controls/-/addon-controls-6.0.21.tgz#cc6efcd61a0283c4f7abb1ab094b555b0f7f8295"
+  integrity sha1-zG781hoCg8T3q7GrCUtVWw9/gpU=
+  dependencies:
+    "@storybook/addons" "6.0.21"
+    "@storybook/api" "6.0.21"
+    "@storybook/client-api" "6.0.21"
+    "@storybook/components" "6.0.21"
+    "@storybook/node-logger" "6.0.21"
+    "@storybook/theming" "6.0.21"
+    core-js "^3.0.1"
+    ts-dedent "^1.1.1"
+
 "@storybook/addon-knobs@^6.0.21":
   version "6.0.21"
   resolved "https://repo.symphony.com/artifactory/api/npm/npm-virtual-dev/@storybook/addon-knobs/-/addon-knobs-6.0.21.tgz#421076f7880ce1b4804266766122aebcee9b023c"

@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { usePopper } from 'react-popper';
 import { CSSTransition } from 'react-transition-group';
 import styled from 'styled-components';
-import { Placement } from '@popperjs/core';
 
 const SpanStyled = styled.span`
   display: inline-block;
@@ -135,10 +134,10 @@ const Tooltip = ({
 Tooltip.propTypes = {
   id: PropTypes.string,
   description: PropTypes.string.isRequired,
-  closeLabel: PropTypes.string.isRequired,
+  closeLabel: PropTypes.string,
   visible: PropTypes.bool.isRequired,
   onHintClose: PropTypes.func,
-  // placement: PropTypes.oneOf(Placement.valueOf()),
+  placement: PropTypes.string,
 };
 
 export default Tooltip;
