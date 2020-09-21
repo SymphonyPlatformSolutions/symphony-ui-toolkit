@@ -50,17 +50,17 @@ $labelMargin: toEm(8, $fontSize);
       width: 1em;
       line-height: 1em;
       text-align: center;
-      content: "\e816";
+      content:"\f117";
     }
 
     &--on:before,
     .tk-checkbox__input:checked:enabled + &:before {
-      content: "\e817";
+      content: "\f118";
       color: $--tk-color-primary;
     }
 
     &--indeterminate:before {
-      content: "\e815";
+      content: "\f116";
       color: $--tk-color-primary;
     }
   }
