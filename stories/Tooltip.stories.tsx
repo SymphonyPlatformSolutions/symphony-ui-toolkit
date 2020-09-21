@@ -33,15 +33,13 @@ const Template = (args) => {
   return <Tooltip visible={showTooltip} onHintClose={handleClick} {...args} />;
 };
 
-const AddExplanation = (explanation) => {
-  return (Story) => (
-    <div>
-      <p>{explanation}</p>
-      <Story />
-    </div>
-  );
-};
-
+// eslint-disable-next-line react/display-name
+const addExplanation = (explanation) => (Story) => (
+  <div>
+    <p>{explanation}</p>
+    <Story />
+  </div>
+);
 export const Standard = Template.bind({});
 
 Standard.args = {
@@ -112,7 +110,7 @@ OnHover.args = {
   placement: 'top',
   children: <button type={'button'}>A button</button>,
 };
-OnHover.decorators = [AddExplanation('Hover the icon to see the tooltip')];
+OnHover.decorators = [addExplanation('Hover the icon to see the tooltip')];
 
 export const Placements = Template.bind({});
 Placements.args = {
