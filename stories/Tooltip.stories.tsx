@@ -33,6 +33,15 @@ const Template = (args) => {
   return <Tooltip visible={showTooltip} onHintClose={handleClick} {...args} />;
 };
 
+const AddExplanation = (explanation) => {
+  return (Story) => (
+    <div>
+      <p>{explanation}</p>
+      <Story />
+    </div>
+  );
+};
+
 export const Standard = Template.bind({});
 
 Standard.args = {
@@ -79,6 +88,31 @@ OnClick.args = {
   placement: 'top',
   children: <button type={'button'}>A button</button>,
 };
+
+export const OnHover = (args) => {
+  const [showTooltip, setShowTooltip] = useState(false);
+
+  const handleClick = () => {
+    setShowTooltip(!showTooltip);
+  };
+
+  return (
+    <Tooltip {...args} visible={showTooltip} onHintClose={handleClick}>
+      <span
+        onMouseEnter={() => setShowTooltip(true)}
+        onMouseLeave={() => setShowTooltip(false)}
+      >
+        <Icon iconName="info-round" />
+      </span>
+    </Tooltip>
+  );
+};
+OnHover.args = {
+  description: 'Message appears on hover',
+  placement: 'top',
+  children: <button type={'button'}>A button</button>,
+};
+OnHover.decorators = [AddExplanation('Hover the icon to see the tooltip')];
 
 export const Placements = Template.bind({});
 Placements.args = {
