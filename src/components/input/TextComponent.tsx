@@ -6,6 +6,7 @@ import Icon from '../icon';
 import shortid from 'shortid';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import Tooltip from '../tooltip';
 
 enum Types {
   TEXTAREA = 'TextArea',
@@ -57,24 +58,26 @@ const TextComponentPropTypes = {
   tooltip: PropTypes.string,
   tooltipCloseLabel: PropTypes.string,
   touched: PropTypes.bool,
-  validator: PropTypes.oneOfType([PropTypes.func, PropTypes.arrayOf(PropTypes.func)]) ,
+  validator: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.arrayOf(PropTypes.func),
+  ]),
   value: PropTypes.string,
 };
 
-class TextComponent extends React.Component<
-  TextComponentPropsWithType
-  > {
+class TextComponent extends React.Component<TextComponentPropsWithType> {
   private ariaId: string;
 
   public static propTypes = {
     ...TextComponentPropTypes,
-    type: PropTypes.oneOf(Object.values(Types)).isRequired
+    type: PropTypes.oneOf(Object.values(Types)).isRequired,
   };
 
   public state: any = {
     dirty: false,
     touched: false,
     isValid: true,
+    showTooltip: false,
     hideText: this.props.masked || false,
     value: this.props.value || '',
     errorMessages: [],
@@ -168,6 +171,10 @@ class TextComponent extends React.Component<
     return errorMessages;
   }
 
+  private handleClickIcon = () => {
+    this.setState({ showTooltip: !this.state.showTooltip });
+  };
+
   /**
    * Reset to default value and reset errors, callback onChange props
    */
@@ -239,14 +246,19 @@ class TextComponent extends React.Component<
             ) : null}
             {tooltip ? (
               <TextComponentTooltip>
-                <Icon
-                  iconName="info-round"
-                  tooltip={{
-                    id: this.ariaId,
-                    description: tooltip,
-                    closeLabel: tooltipCloseLabel,
-                  }}
-                />
+                <Tooltip
+                  id={this.ariaId}
+                  description={tooltip}
+                  closeLabel={tooltipCloseLabel}
+                  onHintClose={this.handleClickIcon}
+                  visible={this.state.showTooltip}
+                  placement={null}
+                >
+                  <Icon
+                    iconName="info-round"
+                    handleClick={this.handleClickIcon}
+                  />
+                </Tooltip>
               </TextComponentTooltip>
             ) : null}
           </TextComponentHeader>
@@ -262,19 +274,24 @@ class TextComponent extends React.Component<
             onChange={(evt) => this.onChange(evt)}
             style={
               {
-                WebkitTextSecurity: type == Types.TEXTFIELD && masked && hideText && 'disc',
+                WebkitTextSecurity:
+                  type == Types.TEXTFIELD && masked && hideText && 'disc',
               } as React.CSSProperties
             }
             disabled={disabled}
           />
-          { type == Types.TEXTFIELD ?
-            (<button
+          {type == Types.TEXTFIELD ? (
+            <button
               className="tk-input__hide"
               tabIndex={value.length === 0 ? -1 : 0}
               onClick={this.handleViewText}
               style={{
                 display: masked && value.length ? 'inline' : 'none',
-              }}>{hideText ? 'show' : 'hide'}</button>) : null }
+              }}
+            >
+              {hideText ? 'show' : 'hide'}
+            </button>
+          ) : null}
         </div>
         {errorMessages.map((errMsg, i) => (
           <div className="tk-input__error" key={i}>

@@ -6,18 +6,19 @@ module.exports = {
     '@storybook/addon-a11y/register',
     '@storybook/addon-storysource',
     'storybook-dark-mode/register',
-    '@storybook/addon-knobs/register'
+    '@storybook/addon-knobs/register', // Keep until we migrate all to addon-controls
+    '@storybook/addon-controls',
   ],
-  webpackFinal: async config => {
+  webpackFinal: async (config) => {
     config.module.rules.push({
       test: /\.(ts|tsx)$/,
       use: [
         {
-          loader: require.resolve('ts-loader')
-        }
-      ]
+          loader: require.resolve('ts-loader'),
+        },
+      ],
     });
     config.resolve.extensions.push('.ts', '.tsx');
     return config;
-  }
+  },
 };

@@ -4,6 +4,10 @@ import { usePopper } from 'react-popper';
 import { CSSTransition } from 'react-transition-group';
 import styled from 'styled-components';
 
+const SpanStyled = styled.span`
+  display: inline-block;
+`;
+
 const TooltipContainer = styled.div`
   &.TooltipContainer {
     &-enter {
@@ -24,10 +28,10 @@ const TooltipContainer = styled.div`
 
   .tooltip__arrowContainer {
     position: absolute;
+    z-index: -1;
   }
 
   .tooltip__arrow {
-    z-index: -1;
     border-radius: 2px;
     transform: rotate(45deg);
   }
@@ -56,7 +60,6 @@ const TooltipClose = styled.span`
  * @param description Text to display in the tooltip
  * @param visible true if the tooltip should be displayed, false otherwise
  * @param onHintClose Function to call on close action
- * @param referenceElement HTML Element on which the Tooltip must be positioned
  * @constructor
  */
 const Tooltip = ({
@@ -65,11 +68,13 @@ const Tooltip = ({
   closeLabel,
   visible,
   onHintClose,
-  referenceElement,
+  placement,
+  ...otherProps
 }) => {
   const [popperElement, setPopperElement] = useState(null);
+  const [referenceElement, setReferenceElement] = useState(null);
   const { styles, attributes } = usePopper(referenceElement, popperElement, {
-    placement: 'top',
+    placement: placement || 'top',
     modifiers: [
       {
         name: 'flip',
@@ -87,47 +92,52 @@ const Tooltip = ({
   });
 
   return (
-    <CSSTransition
-      mountOnEnter
-      unmountOnExit
-      in={visible}
-      timeout={200}
-      classNames="TooltipContainer"
-      appear
-    >
-      <TooltipContainer
-        id={id}
-        role="tooltip"
-        ref={setPopperElement}
-        className="tk-tooltip"
-        style={styles.popper}
-        {...attributes.popper}
+    <SpanStyled ref={setReferenceElement}>
+      {otherProps.children}
+      <CSSTransition
+        mountOnEnter
+        unmountOnExit
+        in={visible}
+        timeout={200}
+        classNames="TooltipContainer"
+        appear
       >
-        <span className="tk-tooltip__description">{description}</span>
-        <div
-          className="tooltip__arrowContainer"
-          style={styles.arrow}
-          data-popper-arrow
+        <TooltipContainer
+          id={id}
+          role="tooltip"
+          ref={setPopperElement}
+          className="tk-tooltip"
+          style={styles.popper}
+          {...attributes.popper}
         >
-          <div className="tooltip__arrow tk-tooltip__arrow" />
-        </div>
-        <div className="tk-tooltip__footer">
-          <TooltipClose className="tk-tooltip__close" onClick={onHintClose}>
-            {closeLabel}
-          </TooltipClose>
-        </div>
-      </TooltipContainer>
-    </CSSTransition>
+          <span className="tk-tooltip__description">{description}</span>
+          <div
+            className="tooltip__arrowContainer"
+            style={styles.arrow}
+            data-popper-arrow
+          >
+            <div className="tooltip__arrow tk-tooltip__arrow" />
+          </div>
+          <div className="tk-tooltip__footer">
+            {closeLabel ? (
+              <TooltipClose className="tk-tooltip__close" onClick={onHintClose}>
+                {closeLabel}
+              </TooltipClose>
+            ) : null}
+          </div>
+        </TooltipContainer>
+      </CSSTransition>
+    </SpanStyled>
   );
 };
 
 Tooltip.propTypes = {
-  id: PropTypes.string.isRequired,
+  id: PropTypes.string,
   description: PropTypes.string.isRequired,
-  closeLabel: PropTypes.string.isRequired,
+  closeLabel: PropTypes.string,
   visible: PropTypes.bool.isRequired,
-  onHintClose: PropTypes.func.isRequired,
-  referenceElement: PropTypes.object,
+  onHintClose: PropTypes.func,
+  placement: PropTypes.string,
 };
 
 export default Tooltip;
