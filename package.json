@@ -8,11 +8,11 @@
   "main": "index.css",
   "scripts": {
     "start": "start-storybook -p 6006 -c .storybook watch-css -s ./src",
-    "build": "sass --load-path=node_modules --no-source-map --style compressed uitoolkit.scss:dist/css/uitoolkit.css uitoolkit-tempo-support.scss:dist/css/uitoolkit-tempo-support.css",
+    "build": "npm run icons-build && sass --load-path=node_modules --no-source-map --style compressed uitoolkit.scss:dist/css/uitoolkit.css uitoolkit-tempo-support.scss:dist/css/uitoolkit-tempo-support.css",
     "build-storybook": "build-storybook -c .storybook -o dist/storybook",
     "watch": "sass --watch --no-source-map --load-path=node_modules --style compressed uitoolkit.scss:dist/css/uitoolkit.css",
-    "icons": "icon-font-generator src/icons/svg/*.svg -o src/assets/fonts/ --csspath src/icons/_tk-icons-embedded.scss -p tk-icon -n tk-icons -j false --csstp src/assets/fonts/tk-icons.hbs",
-    "build-icons": "npm run icons && node src/scripts/icons-storybook"
+    "icons-storybook": "icon-font-generator src/icons/svg/*.svg -o src/assets/fonts/ --csspath src/icons/_tk-icons-embedded.scss -p tk-icon -n tk-icons -j false --csstp src/assets/fonts/tk-icons.hbs && node src/scripts/icons-storybook",
+    "icons-build": "icon-font-generator src/icons/svg/*.svg -o dist/fonts/ --csspath src/icons/_tk-icons-embedded.scss -p tk-icon -n tk-icons -j false --html false"
   },
   "keywords": [
     "scss",

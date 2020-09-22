@@ -36,5 +36,5 @@ src/
 - Run:
 
 ```
-yarn build-icons
+yarn icons-storybook
 ```
