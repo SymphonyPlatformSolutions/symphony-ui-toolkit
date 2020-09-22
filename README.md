@@ -20,3 +20,21 @@ yarn
 ```
 yarn start
 ```
+
+## 😀 Icons
+
+To add a new icon in UIToolkit Styles:
+
+- Add the <em>*.svg</em> source file to:
+```
+src/
+|
+|– icons/
+|   |– svg/
+```
+
+- Run:
+
+```
+yarn icons-storybook
+```
