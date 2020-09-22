@@ -16,7 +16,6 @@ jobs:
       - run: yarn build
       - run: bash ./publish.sh
       - run: rm -f ~/.npmrc
-      - run: yarn build-storybook
       - store_artifacts:
           path: ./dist/storybook
 
