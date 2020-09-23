@@ -19,7 +19,7 @@ describe('Button Component', () => {
     it('renders iconButton icon', () => {
       const wrapper = shallow(
         <Button iconButton>
-          <i className="tk-ic-lock" />
+          <i className="tk-icon-lock" />
         </Button>
       );
       expect(wrapper.length).toEqual(1);
@@ -30,7 +30,7 @@ describe('Button Component', () => {
       const wrapper = shallow(<Button loading>{text}</Button>);
       expect(wrapper.length).toEqual(1);
       expect(wrapper.find('i').hasClass('animate-spin')).toBe(true);
-      expect(wrapper.find('i').hasClass('tk-ic-loading')).toBe(true);
+      expect(wrapper.find('i').hasClass('tk-icon-loading')).toBe(true);
       expect(wrapper.text().includes(text)).toBe(false);
     });
   });
