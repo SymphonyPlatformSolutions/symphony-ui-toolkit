@@ -9,11 +9,20 @@ url("../src/assets/fonts/tk-icons.svg#tk-icons") format("svg");
   }
 
   i[class^="tk-icon-"]:before, i[class*=" tk-icon-"]:before {
+    display: inline-block;
     font-family: {{fontName}} !important;
     font-style: normal;
+    font-variant: normal;
     font-weight: normal !important;
+    line-height: 1em;
+    margin-left: .2em;
+    margin-right: .2em;
+    speak: none;
+    text-align: center;  
+    text-decoration: inherit;
+    text-transform: none;
     vertical-align: top;
-    line-height: 1;
+    width: 1em;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
