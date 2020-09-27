@@ -8,10 +8,12 @@
   "main": "index.css",
   "scripts": {
     "start": "start-storybook -p 6006 -c .storybook watch-css -s ./src",
-    "build": "node src/scripts/index build",
+    "build": "yarn sass --load-path=node_modules --no-source-map --style compressed uitoolkit.scss:dist/css/uitoolkit.css uitoolkit-tempo-support.scss:dist/css/uitoolkit-tempo-support.css",
     "build-storybook": "build-storybook -c .storybook -o dist/storybook",
     "watch": "sass --watch --no-source-map --load-path=node_modules --style compressed uitoolkit.scss:dist/css/uitoolkit.css",
-    "icons-storybook": "node src/scripts/index iconsStorybook"
+    "icons": "node src/scripts/index icons",
+    "prebuild":"yarn icons",
+    "prestart": "yarn icons"
   },
   "keywords": [
     "scss",
