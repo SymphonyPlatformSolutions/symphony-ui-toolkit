@@ -20,7 +20,7 @@ describe('Button Component', () => {
     it('renders iconButton icon', () => {
       const wrapper = shallow(
         <Button iconButton>
-          <Icon iconName="more-_"></Icon>
+          <Icon iconName="more"></Icon>
         </Button>
       );
       expect(wrapper.length).toEqual(1);
