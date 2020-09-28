@@ -1,20 +1,21 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import InfoRoundIcon from './InfoRoundIcon';
 
-const Icon = ({ iconName, handleClick }) => (
-  <i
-    style={{ cursor: handleClick && 'pointer' }}
-    className={`tk-ic-${iconName != 'info-round' ? iconName : ''} tk-icon`}
-    onClick={handleClick}
-  >
-    {iconName == 'info-round' ? <InfoRoundIcon /> : null}
-  </i>
-);
+const Icon = ({ iconName, className, handleClick }) => {
+
+  return (
+    <i
+      style={{ cursor: handleClick && 'pointer' }}
+      className={`tk-icon-${iconName} ${className ? className :''}`}
+      onClick={handleClick}
+    />
+  );
+};
 
 Icon.propTypes = {
   iconName: PropTypes.string.isRequired,
   handleClick: PropTypes.func,
+  className: PropTypes.string
 };
 
 export default Icon;

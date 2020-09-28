@@ -1,30 +1,31 @@
 import React from 'react';
 import { Button } from '../src/components';
+import Icon from '../src/components/icon/Icon';
 
 export const Buttons: React.SFC = () => (
   <div className="tk-text-color">
     <h2>Primary</h2>
     <div style={{ display: 'flex', margin: 16 }}>
-      <Button variant="primary">Button</Button>
+      <Button variant="primary"> Button</Button>
       <Button variant="primary">
-        <i className="tk-ic-lock" />
-        Button
+        <Icon iconName="lock" className="tk-mr-h"></Icon>
+           Button
       </Button>
       <Button variant="primary" iconButton>
-        <i className="tk-ic-more-v" />
+        <Icon iconName="more"></Icon>
       </Button>
       <Button variant="primary" disabled>
         Button
       </Button>
       <Button variant="primary" disabled>
-        <i className="tk-ic-lock" />
+        <Icon iconName="lock" className="tk-mr-h"></Icon>
         Button
       </Button>
       <Button variant="primary" loading>
         Invisible
       </Button>
       <Button variant="primary" disabled>
-        <i className="tk-ic-check tk-color-action-ok" />
+        <Icon iconName="check" className="tk-color-action-ok"></Icon>
       </Button>
     </div>
 
@@ -32,24 +33,24 @@ export const Buttons: React.SFC = () => (
     <div style={{ display: 'flex', margin: 16 }}>
       <Button variant="secondary">Button</Button>
       <Button variant="secondary">
-        <i className="tk-ic-lock" />
+        <Icon iconName="lock" className="tk-mr-h"></Icon>
         Button
       </Button>
       <Button variant="secondary" iconButton>
-        <i className="tk-ic-more-v" />
+        <Icon iconName="more"></Icon>
       </Button>
       <Button variant="secondary" disabled>
         Button
       </Button>
       <Button variant="secondary" disabled>
-        <i className="tk-ic-lock" />
+        <Icon iconName="lock" className="tk-mr-h"></Icon>
         Button
       </Button>
       <Button variant="secondary" loading>
         Invisible
       </Button>
       <Button variant="secondary" disabled>
-        <i className="tk-ic-check tk-color-action-ok" />
+        <Icon iconName="check" className="tk-color-action-ok"></Icon>
       </Button>
     </div>
 
@@ -57,24 +58,24 @@ export const Buttons: React.SFC = () => (
     <div style={{ display: 'flex', margin: 16 }}>
       <Button variant="tertiary">Button</Button>
       <Button variant="tertiary">
-        <i className="tk-ic-lock" />
+        <Icon iconName="lock" className="tk-mr-h"></Icon>
         Button
       </Button>
       <Button variant="tertiary" iconButton>
-        <i className="tk-ic-more-v" />
+        <Icon iconName="more"></Icon>
       </Button>
       <Button variant="tertiary" disabled>
         Button
       </Button>
       <Button variant="tertiary" disabled>
-        <i className="tk-ic-lock" />
+        <Icon iconName="lock" className="tk-mr-h"></Icon>
         Button
       </Button>
       <Button variant="tertiary" loading>
         Invisible
       </Button>
       <Button variant="tertiary" disabled>
-        <i className="tk-ic-check tk-color-action-ok" />
+        <Icon iconName="check" className="tk-color-action-ok"></Icon>
       </Button>
     </div>
 
@@ -82,24 +83,24 @@ export const Buttons: React.SFC = () => (
     <div style={{ display: 'flex', margin: 16 }}>
       <Button variant="destructive">Button</Button>
       <Button variant="destructive">
-        <i className="tk-ic-lock" />
+        <Icon iconName="lock" className="tk-mr-h"></Icon>
         Button
       </Button>
       <Button variant="destructive" iconButton>
-        <i className="tk-ic-more-v" />
+        <Icon iconName="more"></Icon>
       </Button>
       <Button variant="destructive" disabled>
         Button
       </Button>
       <Button variant="destructive" disabled>
-        <i className="tk-ic-lock" />
+        <Icon iconName="lock" className="tk-mr-h"></Icon>
         Button
       </Button>
       <Button variant="destructive" loading>
         Invisible
       </Button>
       <Button variant="destructive" disabled>
-        <i className="tk-ic-check tk-color-action-ok" />
+        <Icon iconName="check" className="tk-color-action-ok"></Icon>
       </Button>
     </div>
   </div>

@@ -20,7 +20,7 @@ const HeaderDiv = styled.div`
     text-decoration: none;
     display: inline-block;
   }
-  & > .tk-ic-top {
+  & > .tk-icon-top {
     &::before {
       transition: transform 300ms ease-in-out;
     }
@@ -64,7 +64,7 @@ export default class ExpandableCard extends React.Component<
             {this.state.collapsed ? 'EXPAND' : 'COLLAPSE'}
           </a>
           <i
-            className={'tk-ic-top' + collapsedClass}
+            className={'tk-icon-top' + collapsedClass}
             onClick={this.onToggle.bind(this)}
             aria-label="Toggle"
           ></i>

@@ -37,7 +37,7 @@ const Button: React.SFC<ButtonProps> = ({
       type={type}
       {...rest}
     >
-      {loading ? <i className="animate-spin tk-ic-loading" /> : children}
+      {loading ? <i className="animate-spin tk-icon-loading" /> : children}
     </button>
   );
 };

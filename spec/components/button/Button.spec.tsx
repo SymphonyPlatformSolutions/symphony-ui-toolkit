@@ -2,6 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import Button from '../../../src/components/button/Button';
+import Icon from '../../../src/components/icon/Icon';
 
 describe('Button Component', () => {
   describe('"primary" story', () => {
@@ -19,7 +20,7 @@ describe('Button Component', () => {
     it('renders iconButton icon', () => {
       const wrapper = shallow(
         <Button iconButton>
-          <i className="tk-ic-lock" />
+          <Icon iconName="more"></Icon>
         </Button>
       );
       expect(wrapper.length).toEqual(1);
@@ -30,7 +31,7 @@ describe('Button Component', () => {
       const wrapper = shallow(<Button loading>{text}</Button>);
       expect(wrapper.length).toEqual(1);
       expect(wrapper.find('i').hasClass('animate-spin')).toBe(true);
-      expect(wrapper.find('i').hasClass('tk-ic-loading')).toBe(true);
+      expect(wrapper.find('i').hasClass('tk-icon-loading')).toBe(true);
       expect(wrapper.text().includes(text)).toBe(false);
     });
   });
