@@ -20,6 +20,4 @@ const generateIcons = () => {
   console.info('Auto-generated icons.stories.js ✅');    
 }
 
-if (process.argv.includes('icons')) {
-  generateIcons();
-}
+generateIcons();
