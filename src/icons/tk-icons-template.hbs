@@ -1,11 +1,11 @@
 /**************************** Icon Font *****************************/
 @font-face {
     font-family: "{{ fontName }}";
-  src: url("../src/assets/fonts/tk-icons.eot?#iefix") format("embedded-opentype"),
-url("../src/assets/fonts/tk-icons.woff2") format("woff2"),
-url("../src/assets/fonts/tk-icons.woff") format("woff"),
-url("../src/assets/fonts/tk-icons.ttf") format("truetype"),
-url("../src/assets/fonts/tk-icons.svg#tk-icons") format("svg");
+  src: url($ICONS_FONTS_PATH+"/tk-icons.eot?#iefix") format("embedded-opentype"),
+url($ICONS_FONTS_PATH+"/tk-icons.woff2") format("woff2"),
+url($ICONS_FONTS_PATH+"/tk-icons.woff") format("woff"),
+url($ICONS_FONTS_PATH+"/tk-icons.ttf") format("truetype"),
+url($ICONS_FONTS_PATH+"/tk-icons.svg#tk-icons") format("svg");
   }
 
   i[class^="tk-icon-"]:before, i[class*=" tk-icon-"]:before {
@@ -15,8 +15,6 @@ url("../src/assets/fonts/tk-icons.svg#tk-icons") format("svg");
     font-variant: normal;
     font-weight: normal !important;
     line-height: 1em;
-    margin-left: .2em;
-    margin-right: .2em;
     speak: none;
     text-align: center;  
     text-decoration: inherit;

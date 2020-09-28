@@ -1,8 +1,8 @@
-@import "../uitoolkit.scss";
+$ICONS_FONTS_PATH: '../dist/fonts';
+@import '../uitoolkit.scss';
 
 body {
-  font-family: "SymphonyLato", "Lato", "Segoe UI", "Helvetica Neue", "Verdana",
-    "Arial", sans-serif;
+  font-family: 'SymphonyLato', 'Lato', 'Segoe UI', 'Helvetica Neue', 'Verdana', 'Arial', sans-serif;
   font-size: 14px;
   @extend .tk-text-color;
 }
@@ -62,7 +62,6 @@ until we have a design for them in the UI Toolkit. */
     @extend .tk-color-action-primary;
   }
   .inner {
-  text-align: center;
-  } 
+    text-align: center;
+  }
 }
-

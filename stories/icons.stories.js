@@ -194,15 +194,6 @@ export default { title: 'Icons'}; export const Icon = () => `
 
         <div class="preview">
             <span class="inner">
-                <i class=" tk-icon-checkbox-indeterminate"></i>
-            </span>
-            <br>
-            <span class='label'>checkbox-indeterminate</span>
-        </div>
-
-
-        <div class="preview">
-            <span class="inner">
                 <i class=" tk-icon-checkbox-off"></i>
             </span>
             <br>
@@ -734,19 +725,19 @@ export default { title: 'Icons'}; export const Icon = () => `
 
         <div class="preview">
             <span class="inner">
-                <i class=" tk-icon-more-_"></i>
+                <i class=" tk-icon-more"></i>
             </span>
             <br>
-            <span class='label'>more-_</span>
+            <span class='label'>more</span>
         </div>
 
 
         <div class="preview">
             <span class="inner">
-                <i class=" tk-icon-more-–"></i>
+                <i class=" tk-icon-more–horizontal"></i>
             </span>
             <br>
-            <span class='label'>more-–</span>
+            <span class='label'>more–horizontal</span>
         </div>
 
 
