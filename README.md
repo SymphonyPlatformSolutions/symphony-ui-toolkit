@@ -36,5 +36,5 @@ src/
 - Run:
 
 ```
-yarn icons-storybook
+yarn start
 ```
