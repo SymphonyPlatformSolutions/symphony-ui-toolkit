@@ -25,7 +25,7 @@ export const Buttons: React.SFC = () => (
         Invisible
       </Button>
       <Button variant="primary" disabled>
-        <i className="tk-icon-check tk-color-action-ok" />
+        <Icon iconName="check" className="tk-color-action-ok"></Icon>
       </Button>
     </div>
 
@@ -50,7 +50,7 @@ export const Buttons: React.SFC = () => (
         Invisible
       </Button>
       <Button variant="secondary" disabled>
-        <i className="tk-icon-check tk-color-action-ok" />
+        <Icon iconName="check" className="tk-color-action-ok"></Icon>
       </Button>
     </div>
 
@@ -75,7 +75,7 @@ export const Buttons: React.SFC = () => (
         Invisible
       </Button>
       <Button variant="tertiary" disabled>
-        <i className="tk-icon-check tk-color-action-ok" />
+        <Icon iconName="check" className="tk-color-action-ok"></Icon>
       </Button>
     </div>
 
@@ -100,7 +100,7 @@ export const Buttons: React.SFC = () => (
         Invisible
       </Button>
       <Button variant="destructive" disabled>
-        <i className="tk-icon-check tk-color-action-ok" />
+        <Icon iconName="check" className="tk-color-action-ok"></Icon>
       </Button>
     </div>
   </div>

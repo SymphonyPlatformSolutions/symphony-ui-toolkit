@@ -2,6 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import Button from '../../../src/components/button/Button';
+import Icon from '../../../src/components/icon/Icon';
 
 describe('Button Component', () => {
   describe('"primary" story', () => {
@@ -19,7 +20,7 @@ describe('Button Component', () => {
     it('renders iconButton icon', () => {
       const wrapper = shallow(
         <Button iconButton>
-          <i className="tk-icon-lock" />
+          <Icon iconName="more-_"></Icon>
         </Button>
       );
       expect(wrapper.length).toEqual(1);
