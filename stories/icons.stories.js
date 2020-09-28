@@ -869,15 +869,6 @@ export default { title: 'Icons'}; export const Icon = () => `
 
         <div class="preview">
             <span class="inner">
-                <i class=" tk-icon-printer"></i>
-            </span>
-            <br>
-            <span class='label'>printer</span>
-        </div>
-
-
-        <div class="preview">
-            <span class="inner">
                 <i class=" tk-icon-radio-button-off"></i>
             </span>
             <br>

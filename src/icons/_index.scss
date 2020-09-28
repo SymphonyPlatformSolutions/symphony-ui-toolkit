@@ -5,14 +5,11 @@ $ICONS_FONTS_PATH: 'dist/fonts' !default;
 
 [class^='tk-icon-'],
 [class*=' tk-icon-'] {
-  color: $--tk-main-text-color;
   display: inline-block;
   font-variant: normal;
   font-style: normal;
   font-weight: normal;
   line-height: 1em;
-  margin-left: 0.2em;
-  margin-right: 0.2em;
   speak: none;
   text-align: center;
   text-decoration: inherit;
