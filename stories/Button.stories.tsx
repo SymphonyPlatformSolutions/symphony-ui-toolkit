@@ -12,13 +12,13 @@ export const Buttons: React.SFC = () => (
            Button
       </Button>
       <Button variant="primary" iconButton>
-        <Icon iconName="more-_"></Icon>
+        <Icon iconName="more"></Icon>
       </Button>
       <Button variant="primary" disabled>
         Button
       </Button>
       <Button variant="primary" disabled>
-        <Icon iconName="lock"></Icon>
+        <Icon iconName="lock" className="tk-mr-h"></Icon>
         Button
       </Button>
       <Button variant="primary" loading>
@@ -37,7 +37,7 @@ export const Buttons: React.SFC = () => (
         Button
       </Button>
       <Button variant="secondary" iconButton>
-        <Icon iconName="more-_"></Icon>
+        <Icon iconName="more"></Icon>
       </Button>
       <Button variant="secondary" disabled>
         Button
@@ -62,7 +62,7 @@ export const Buttons: React.SFC = () => (
         Button
       </Button>
       <Button variant="tertiary" iconButton>
-        <Icon iconName="more-_"></Icon>
+        <Icon iconName="more"></Icon>
       </Button>
       <Button variant="tertiary" disabled>
         Button
@@ -87,7 +87,7 @@ export const Buttons: React.SFC = () => (
         Button
       </Button>
       <Button variant="destructive" iconButton>
-        <Icon iconName="more-_"></Icon>
+        <Icon iconName="more"></Icon>
       </Button>
       <Button variant="destructive" disabled>
         Button
