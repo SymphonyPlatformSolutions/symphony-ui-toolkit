@@ -49,4 +49,4 @@ workflows:
             tags:
               only: /^v.*$/
             branches:
-              only: /^(?!pull\/).*$/
+              ignore: /.*/
