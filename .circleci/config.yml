@@ -47,3 +47,8 @@ workflows:
       - deploy-storybook:
           requires:
             - build-and-publish
+          filters:
+            tags:
+              only: /^v.*$/
+            branches:
+              ignore: /.*/
