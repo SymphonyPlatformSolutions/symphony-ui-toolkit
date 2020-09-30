@@ -1,6 +1,5 @@
-import '!style-loader!css-loader!sass-loader!../stories/stories.scss';
 import addons from '@storybook/addons';
-import { addParameters, addDecorator } from '@storybook/react';
+import { addParameters } from '@storybook/react';
 import { themes } from '@storybook/theming';
 
 setTimeout(() => init());

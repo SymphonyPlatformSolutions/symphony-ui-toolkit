@@ -1,6 +1,7 @@
 version: 2.1
 orbs:
   node: circleci/node@2.1
+  aws-s3: circleci/aws-s3@1.1.1
 jobs:
   build-and-publish:
     executor:
@@ -19,8 +20,22 @@ jobs:
       - run: rm -f ~/.npmrc
       - run: rm -rf ./dist
       - run: yarn build-storybook
-      - store_artifacts:
-          path: ./dist/storybook
+      - persist_to_workspace:
+          root: dist
+          paths:
+            - storybook
+
+  deploy-storybook:
+    executor:
+      name: node/default
+      tag: 'lts'
+    steps:
+      - attach_workspace:
+          at: /tmp/dist
+      - aws-s3/sync:
+          arguments: --delete
+          from: /tmp/dist/storybook
+          to: s3://uitoolkit-storybook/components
 
 workflows:
   build:
@@ -29,3 +44,11 @@ workflows:
           filters:
             tags:
               only: /^v.*/
+      - deploy-storybook:
+          requires:
+            - build-and-publish
+          filters:
+            tags:
+              only: /^v.*$/
+            branches:
+              ignore: /.*/
