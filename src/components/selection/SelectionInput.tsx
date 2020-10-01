@@ -1,4 +1,10 @@
-import React, { useMemo, useCallback, useEffect, useState } from 'react';
+import React, {
+  useMemo,
+  useCallback,
+  useEffect,
+  useState,
+  useRef,
+} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import shortid from 'shortid';
@@ -57,12 +63,20 @@ const SelectionInput: React.FC<SelectionInputPropsWithType> = ({
   // Used for the keyboard navigation
   const [isFocused, setFocus] = useState(false);
 
+  const [isSelected, setSelected] = useState(
+    selectionState === CheckboxStates.CHECKED
+  );
+
+  // Input element
+  const inputRef = useRef(null);
+
   // Accessibility keyboard navigation
   useEffect(() => {
     const keyPressHandler = (event) => {
       // Space key (https://www.w3.org/TR/uievents/#fixed-virtual-key-codes)
       // Space code (https://w3c.github.io/uievents-code/) Not supported on IE
       if (
+        handleClick &&
         !disabled &&
         isFocused &&
         (event.code === 'Space' || event.keyCode === 32)
@@ -125,12 +139,13 @@ const SelectionInput: React.FC<SelectionInputPropsWithType> = ({
       >
         <div className={`${tkClassName}__inputContainer`} tab-index="-1">
           <input
+            ref={inputRef}
             className={`${tkClassName}__input`}
             type={type}
             id={memoizedId}
             name={name}
             value={value}
-            checked={selectionState === CheckboxStates.CHECKED}
+            checked={isSelected}
             required={required}
             disabled={disabled}
             onClick={memoizeOnClick}
