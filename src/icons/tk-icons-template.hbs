@@ -1,4 +1,5 @@
 /**************************** Icon Font *****************************/
+{{!-- Icon fonts are generated from SVG sources, this is the template of the resulting SCSS file of icons definitions --}}
 @font-face {
     font-family: "{{ fontName }}";
   src: url($ICONS_FONTS_PATH+"/tk-icons.eot?#iefix") format("embedded-opentype"),
@@ -27,6 +28,15 @@ url($ICONS_FONTS_PATH+"/tk-icons.svg#tk-icons") format("svg");
 
 {{# each codepoints }}
 .{{ ../classPrefix }}{{ @key }}:before {
+    content: "\\{{ this }}";
+}
+{{/ each }}
+
+{{!-- Useful mixins to use icons directly in scss
+Usage : @include tk-icon-[icon-name] --}}
+/** Mixins **/
+{{# each codepoints }}
+@mixin {{ ../classPrefix }}{{ @key }} {
     content: "\\{{ this }}";
 }
 {{/ each }}

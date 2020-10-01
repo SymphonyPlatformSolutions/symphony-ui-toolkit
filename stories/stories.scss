@@ -35,6 +35,11 @@ until we have a design for them in the UI Toolkit. */
   }
 }
 
+// inline block container for presentation
+.d-inline-block {
+  display: inline-block;
+}
+
 /* Styles used for Util stories defined in the StoryBook  */
 .font-bold {
   font-weight: 700 !important;

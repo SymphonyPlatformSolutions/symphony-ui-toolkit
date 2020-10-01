@@ -3,10 +3,6 @@ $fontSize: 14;
 $labelMargin: toEm(8, $fontSize);
 
 .tk-checkbox {
-  &__container {
-    display: inline-block;
-  }
-
   display: flex;
   align-items: center;
   color: $--tk-input-default-active-color;
@@ -43,24 +39,25 @@ $labelMargin: toEm(8, $fontSize);
   &__icon {
     cursor: pointer;
     &:before {
-      font-family: "tk-icons";
+      font-family: 'tk-icons';
       font-size: toEm(16, $fontSize);
       font-style: normal;
       font-weight: normal;
       width: 1em;
       line-height: 1em;
       text-align: center;
-      content:"\f117";
+      @include tk-icon-checkbox-off;
     }
 
-    &--on:before,
+    .tk-checkbox__input:checked + &:before {
+      @include tk-icon-checkbox-on;
+    }
     .tk-checkbox__input:checked:enabled + &:before {
-      content: "\f118";
       color: $--tk-color-primary;
     }
 
-    &--indeterminate:before {
-      content: "\f116";
+    .tk-checkbox--indeterminate &::before {
+      @include tk-icon-checkbox-indeterminate;
       color: $--tk-color-primary;
     }
   }
@@ -103,8 +100,7 @@ $labelMargin: toEm(8, $fontSize);
     color: $--tk-input-disabled-color;
     cursor: none;
 
-    & .tk-checkbox__icon--on:before,
-    & .tk-checkbox__icon--indeterminate:before,
+    & .tk-checkbox__icon:before,
     .tk-checkbox__input:checked:disabled + &:before {
       color: $--tk-input-disabled-color;
     }
