@@ -88,7 +88,6 @@ const SelectionInput: React.FC<SelectionInputPropsWithType> = ({
         tkClassName,
         `${tkClassName}__labelPlacement--${labelPlacement}`,
         {
-          [`${tkClassName}--disabled`]: disabled,
           [`${tkClassName}--focused`]: isFocused,
           [`${tkClassName}--mixed`]: checked === 'mixed',
         }
