@@ -132,26 +132,25 @@ export const Checkboxes: React.SFC = () => {
           value="a11y-checkbox-5"
         />
       </div>
-      {/*<div>*/}
-      {/*  <h2>Controlled checked state</h2>*/}
-      {/*  <p>*/}
-      {/*    In the following example the state of the checkbox has a fixed value*/}
-      {/*    defined with <strong>selectionState</strong> attribute. This can be*/}
-      {/*    useful if you want the parent component to control the checked state*/}
-      {/*    of the checkbox. The Checkbox component will call the handleClick*/}
-      {/*    method of the parent component every time the user clicks, so the*/}
-      {/*    parent can do what it wants.*/}
-      {/*  </p>*/}
-      {/*  <div>*/}
-      {/*    <Checkbox*/}
-      {/*      label="Controlled Checkbox"*/}
-      {/*      name="controller-checkbox"*/}
-      {/*      value="controlled-checkbox-1"*/}
-      {/*      selectionState={SelectionStates.CHECKED}*/}
-      {/*      handleClick={action('handleChange controlled-checkbox-1')}*/}
-      {/*    />*/}
-      {/*  </div>*/}
-      {/*</div>*/}
+      <div>
+        <h2>Controlled checked state</h2>
+        <p>
+          In the following example the state of the checkbox has a fixed value
+          defined with <strong>checked</strong> attribute. This can be useful if
+          you want the parent component to control the checked state of the
+          checkbox. The Checkbox component will call the onClick method of the
+          parent component every time the user clicks, so the parent can do what
+          it wants.
+        </p>
+        <Checkbox
+          label="Controlled Checkbox"
+          name="controller-checkbox"
+          value="controlled-checkbox-1"
+          checked="checked"
+          onClick={action('onClick controlled-checkbox-1')}
+          onChange={action('onChange controlled-checkbox-1')}
+        />
+      </div>
       {/*<div>*/}
       {/*  <h2>Action</h2>*/}
       {/*  <p>*/}

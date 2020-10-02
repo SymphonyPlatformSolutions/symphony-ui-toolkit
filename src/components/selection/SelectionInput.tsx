@@ -13,8 +13,8 @@ interface SelectionInputProps {
   value: string;
   checked?: string;
   defaultChecked?: string;
-  handleClick?: (event) => void;
-  handleChange?: (event) => void;
+  onClick?: (event) => void;
+  onChange?: (event) => void;
   required?: boolean;
   disabled?: boolean;
   tabIndex?: number;
@@ -31,8 +31,8 @@ const SelectionInput: React.FC<SelectionInputPropsWithType> = ({
   label,
   labelPlacement,
   value,
-  handleClick,
-  handleChange,
+  onClick,
+  onChange,
   required,
   disabled,
   tabIndex,
@@ -57,12 +57,12 @@ const SelectionInput: React.FC<SelectionInputPropsWithType> = ({
       // Space key (https://www.w3.org/TR/uievents/#fixed-virtual-key-codes)
       // Space code (https://w3c.github.io/uievents-code/) Not supported on IE
       if (
-        handleClick &&
+        onClick &&
         !disabled &&
         isFocused &&
         (event.code === 'Space' || event.keyCode === 32)
       ) {
-        handleClick(event);
+        onClick(event);
         event.preventDefault();
       }
     };
@@ -70,25 +70,7 @@ const SelectionInput: React.FC<SelectionInputPropsWithType> = ({
     return () => {
       window.removeEventListener('keydown', keyPressHandler);
     };
-  }, [isFocused, handleClick]);
-
-  const memoizeOnClick = useCallback(
-    (event) => {
-      if (!disabled && handleClick) {
-        handleClick(event);
-      }
-    },
-    [disabled, handleClick]
-  );
-
-  const memoizeOnChange = useCallback(
-    (event) => {
-      if (!disabled && handleChange) {
-        handleChange(event);
-      }
-    },
-    [disabled, handleChange]
-  );
+  }, [isFocused, onClick]);
 
   // Component gets focus
   const onFocusHandler = () => {
@@ -128,6 +110,8 @@ const SelectionInput: React.FC<SelectionInputPropsWithType> = ({
           disabled={disabled}
           onFocus={onFocusHandler}
           onBlur={onBlurHandler}
+          onClick={onClick}
+          onChange={onChange}
           {...otherProps}
         />
         <span className={classNames(`${tkClassName}__icon`)} aria-hidden></span>
@@ -151,8 +135,8 @@ const SelectionInputPropTypes = {
   label: PropTypes.string,
   labelPlacement: PropTypes.oneOf(Object.values(LabelPlacements)),
   value: PropTypes.string.isRequired,
-  handleClick: PropTypes.func,
-  handleChange: PropTypes.func,
+  onClick: PropTypes.func,
+  onChange: PropTypes.func,
   required: PropTypes.bool,
   disabled: PropTypes.bool,
   tabIndex: PropTypes.number,
