@@ -44,12 +44,13 @@ jobs:
       - attach_workspace:
           at: /tmp/dist
       - run: CDN_DIR_VERSION=${CIRCLE_TAG:=master}
+      - run: echo ${CDN_DIR_VERSION}
       - aws-s3/sync:
           arguments: '--delete --dryrun'
           aws-access-key-id: AWS_ACCESS_KEY_CDN
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY_CDN
           from: /tmp/dist/fonts
-          to: s3://www-prod.symphony.com/resources/ui-toolkit/$CDN_DIR_VERSION/fonts
+          to: s3://www-prod.symphony.com/resources/ui-toolkit/<< $CDN_DIR_VERSION >>/fonts
 
 workflows:
   build:
@@ -69,8 +70,8 @@ workflows:
       - deploy-cdn:
           requires:
             - build-and-publish
-          filters:
-            branches:
-              only: master
-            tags:
-              only: /^v.*\d$(?!^v.*SNAPSHOT$)/
+          # filters:
+          # branches:
+          #   only: master
+          # tags:
+          #   only: /^v.*\d$(?!^v.*SNAPSHOT$)/
