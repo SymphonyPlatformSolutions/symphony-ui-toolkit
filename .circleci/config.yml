@@ -84,8 +84,8 @@ workflows:
           cdn_version_path: << pipeline.git.tag >>
           requires:
             - build-and-publish
-          # filters:
-          #   branches:
-          #     only: master
-          #   tags:
-          #     only: /^v.*\d$(?!^v.*SNAPSHOT$)/
+          filters:
+            branches:
+              only: master
+            tags:
+              only: /^v.*\d$(?!^v.*SNAPSHOT$)/
