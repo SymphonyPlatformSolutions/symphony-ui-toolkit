@@ -1,6 +1,6 @@
 enum SelectionStates {
-  CHECKED = 'on',
-  INDETERMINATE = 'indeterminate',
-  UNCHECKED = 'off',
+  CHECKED = 'checked',
+  MIXED = 'mixed',
+  UNCHECKED = 'unchecked',
 }
 export default SelectionStates;
