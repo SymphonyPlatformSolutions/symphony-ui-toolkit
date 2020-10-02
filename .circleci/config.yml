@@ -1,12 +1,16 @@
+# Anchors
+defaults: &defaults
+  executor:
+    name: node/default
+    tag: 'lts'
+
 version: 2.1
 orbs:
   node: circleci/node@2.1
   aws-s3: circleci/aws-s3@1.1.1
 jobs:
   build-and-publish:
-    executor:
-      name: node/default
-      tag: 'lts'
+    <<: *defaults
     steps:
       - checkout
       - run: echo "registry=$SYM_NPM_READ_REPO" > ~/.npmrc
@@ -22,11 +26,11 @@ jobs:
           root: dist
           paths:
             - storybook
+            - css
+            - fonts
 
   deploy-storybook:
-    executor:
-      name: node/default
-      tag: 'lts'
+    <<: *defaults
     steps:
       - attach_workspace:
           at: /tmp/dist
@@ -34,6 +38,18 @@ jobs:
           arguments: --delete
           from: /tmp/dist/storybook
           to: s3://uitoolkit-storybook/styles
+  deploy-cdn:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: /tmp/dist
+      - run: CDN_DIR_VERSION=${CIRCLE_TAG:=master}
+      - aws-s3/sync:
+          arguments: '--delete --dryrun'
+          aws-access-key-id: AWS_ACCESS_KEY_CDN
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY_CDN
+          from: /tmp/dist/fonts
+          to: s3://www-prod.symphony.com/resources/ui-toolkit/$CDN_DIR_VERSION/fonts
 
 workflows:
   build:
@@ -50,3 +66,11 @@ workflows:
               only: /^v.*$/
             branches:
               ignore: /.*/
+      - deploy-cdn:
+          requires:
+            - build-and-publish
+          filters:
+            branches:
+              only: master
+            tags:
+              only: /^v.*\d$(?!^v.*SNAPSHOT$)/
