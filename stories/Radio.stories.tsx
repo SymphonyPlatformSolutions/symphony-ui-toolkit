@@ -98,11 +98,10 @@ export const Radios: React.SFC = () => {
       <div>
         <h2>Accessibility</h2>
         <p>
-          You can navigate between radio using <strong>Tab</strong> key or{' '}
-          <strong>Shift + Tab</strong> keys
+          You can navigate between radio using <strong>arrow</strong> keys
         </p>
         <p>
-          Select or unselect radio with <strong>Space</strong> key
+          Select radio with <strong>Space</strong> key
         </p>
         <div>
           <Radio label="Radio 1" name="a11y-radio" value="a11y-radio-1" />
