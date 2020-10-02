@@ -40,17 +40,19 @@ jobs:
           to: s3://uitoolkit-storybook/styles
   deploy-cdn:
     <<: *defaults
+    parameters:
+      cdn_version_path:
+        type: string
+        default: master
     steps:
       - attach_workspace:
           at: /tmp/dist
-      - run: CDN_DIR_VERSION=${CIRCLE_TAG:=master}
-      - run: echo ${CDN_DIR_VERSION}
       - aws-s3/sync:
           arguments: '--delete --dryrun'
           aws-access-key-id: AWS_ACCESS_KEY_CDN
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY_CDN
           from: /tmp/dist/fonts
-          to: s3://www-prod.symphony.com/resources/ui-toolkit/<< $CDN_DIR_VERSION >>/fonts
+          to: s3://www-prod.symphony.com/resources/ui-toolkit/<< parameters.cdn_version_path >>/fonts
 
 workflows:
   build:
@@ -68,6 +70,7 @@ workflows:
             branches:
               ignore: /.*/
       - deploy-cdn:
+          cdn_version_path: << pipeline.git.tag >>
           requires:
             - build-and-publish
           # filters:
