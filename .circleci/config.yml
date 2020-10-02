@@ -45,15 +45,22 @@ jobs:
         type: string
         default: master
     steps:
-      - attach_workspace:
-          at: /tmp/dist
-      - aws-s3/sync:
-          arguments: '--delete --dryrun'
+      - run: touch test.txt
+      - aws-s3/copy:
           aws-access-key-id: AWS_ACCESS_KEY_CDN
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY_CDN
           aws-region: AWS_REGION_CDN
-          from: /tmp/dist/fonts
-          to: s3://www-prod.symphony.com/resources/ui-toolkit/<< parameters.cdn_version_path >>/fonts
+          from: ./test.txt
+          to: s3://www-prod.symphony.com/resources/ui-toolkit/<< parameters.cdn_version_path >>/
+      # - attach_workspace:
+      #     at: /tmp/dist
+      # - aws-s3/sync:
+      #     arguments: '--delete --dryrun'
+      #     aws-access-key-id: AWS_ACCESS_KEY_CDN
+      #     aws-secret-access-key: AWS_SECRET_ACCESS_KEY_CDN
+      #     aws-region: AWS_REGION_CDN
+      #     from: /tmp/dist/fonts
+      #     to: s3://www-prod.symphony.com/resources/ui-toolkit/<< parameters.cdn_version_path >>/fonts
 
 workflows:
   build:
@@ -72,10 +79,10 @@ workflows:
               ignore: /.*/
       - deploy-cdn:
           cdn_version_path: << pipeline.git.tag >>
-          requires:
-            - build-and-publish
+          # requires:
+          #   - build-and-publish
           # filters:
-          # branches:
-          #   only: master
-          # tags:
-          #   only: /^v.*\d$(?!^v.*SNAPSHOT$)/
+          #   branches:
+          #     only: master
+          #   tags:
+          #     only: /^v.*\d$(?!^v.*SNAPSHOT$)/
