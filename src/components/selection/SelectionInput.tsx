@@ -1,26 +1,10 @@
-import React, {
-  useMemo,
-  useCallback,
-  useEffect,
-  useState,
-  useRef,
-} from 'react';
+import React, { useMemo, useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import shortid from 'shortid';
+import SelectionTypes from './SelectionTypes';
 import SelectionStates from './SelectionStates';
-
-enum Types {
-  CHECKBOX = 'checkbox',
-  RADIO = 'radio',
-}
-
-enum LabelPlacements {
-  TOP = 'top',
-  RIGHT = 'right',
-  BOTTOM = 'bottom',
-  LEFT = 'left',
-}
+import LabelPlacements from './LabelPlacements';
 
 interface SelectionInputProps {
   id?: string;
@@ -37,7 +21,7 @@ interface SelectionInputProps {
 }
 
 interface SelectionInputPropsWithType extends SelectionInputProps {
-  type: Types;
+  type: SelectionTypes;
 }
 
 const SelectionInput: React.FC<SelectionInputPropsWithType> = ({
@@ -60,17 +44,11 @@ const SelectionInput: React.FC<SelectionInputPropsWithType> = ({
     return id || `${type}-${shortid.generate()}`;
   }, [id]);
 
+  // Default labelPlacement on right if not provided
   labelPlacement = labelPlacement || LabelPlacements.RIGHT;
 
   // Used for the keyboard navigation
   const [isFocused, setFocus] = useState(false);
-
-  const [isSelected, setSelected] = useState(
-    selectionState === SelectionStates.CHECKED
-  );
-
-  // Input element
-  const inputRef = useRef(null);
 
   // Accessibility keyboard navigation
   useEffect(() => {
@@ -121,73 +99,43 @@ const SelectionInput: React.FC<SelectionInputPropsWithType> = ({
     setFocus(false);
   };
 
-  let ariaChecked;
-  switch (selectionState) {
-    case SelectionStates.CHECKED:
-      ariaChecked = 'true';
-      break;
-    case SelectionStates.INDETERMINATE:
-      ariaChecked = 'mixed';
-      break;
-    case SelectionStates.UNCHECKED:
-    default:
-      ariaChecked = 'false';
-  }
-
   const tkClassName = `tk-${type.valueOf()}`;
 
   return (
-    <div className={`${tkClassName}__container`}>
-      <div
-        className={classNames(
-          tkClassName,
-          `${tkClassName}--${selectionState}`,
-          `${tkClassName}__labelPlacement--${labelPlacement}`,
-          {
-            [`${tkClassName}--disabled`]: disabled,
-            [`${tkClassName}--focused`]: isFocused,
-          }
-        )}
-        tabIndex={tabIndex || 0}
-        onFocus={onFocusHandler}
-        onBlur={onBlurHandler}
-      >
-        <div className={`${tkClassName}__inputContainer`} tab-index="-1">
-          <input
-            ref={inputRef}
-            className={`${tkClassName}__input`}
-            type={type}
-            id={memoizedId}
-            name={name}
-            value={value}
-            checked={isSelected}
-            required={required}
-            disabled={disabled}
-            onClick={memoizeOnClick}
-            onChange={memoizeOnChange}
-            tabIndex={-1}
-            aria-checked={ariaChecked}
-            {...otherProps}
-          />
-          <span
-            className={classNames(
-              `${tkClassName}__icon`,
-              `${tkClassName}__icon--${selectionState}`
-            )}
-            aria-hidden
-          ></span>
-        </div>
-        <label
-          className={classNames(
-            `${tkClassName}__label`,
-            `${tkClassName}__label--${labelPlacement}`
-          )}
-          htmlFor={memoizedId}
-          tabIndex={-1}
-        >
-          {label}
-        </label>
+    <div
+      className={classNames(
+        tkClassName,
+        `${tkClassName}__labelPlacement--${labelPlacement}`,
+        {
+          [`${tkClassName}--disabled`]: disabled,
+          [`${tkClassName}--focused`]: isFocused,
+        }
+      )}
+      tab-index="-1"
+    >
+      <div className={`${tkClassName}__inputContainer`}>
+        <input
+          id={memoizedId}
+          className={`${tkClassName}__input`}
+          type={type}
+          name={name}
+          value={value}
+          disabled={disabled}
+          onFocus={onFocusHandler}
+          onBlur={onBlurHandler}
+          {...otherProps}
+        />
+        <span className={classNames(`${tkClassName}__icon`)} aria-hidden></span>
       </div>
+      <label
+        className={classNames(
+          `${tkClassName}__label`,
+          `${tkClassName}__label--${labelPlacement}`
+        )}
+        htmlFor={memoizedId}
+      >
+        {label}
+      </label>
     </div>
   );
 };
@@ -208,13 +156,13 @@ const SelectionInputPropTypes = {
 
 SelectionInput.propTypes = {
   ...SelectionInputPropTypes,
-  type: PropTypes.oneOf(Object.values(Types)),
+  type: PropTypes.oneOf(Object.values(SelectionTypes)),
 };
 
 export {
   SelectionInput,
   SelectionInputProps,
   SelectionInputPropTypes,
-  Types,
+  SelectionTypes,
   LabelPlacements,
 };

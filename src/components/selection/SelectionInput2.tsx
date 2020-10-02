@@ -12,6 +12,7 @@ interface SelectionInputProps {
   label?: string;
   labelPlacement?: LabelPlacements;
   value: string;
+  checked?: string;
   selectionState?: SelectionStates;
   handleClick?: (event) => void;
   handleChange?: (event) => void;
@@ -37,10 +38,11 @@ const SelectionInput: React.FC<SelectionInputPropsWithType> = ({
   required,
   disabled,
   tabIndex,
+  checked,
   ...otherProps
 }) => {
+  // Generate unique ID if not provided
   const memoizedId = useMemo(() => {
-    // Generate unique ID if not provided
     return id || `${type}-${shortid.generate()}`;
   }, [id]);
 
@@ -109,6 +111,7 @@ const SelectionInput: React.FC<SelectionInputPropsWithType> = ({
         {
           [`${tkClassName}--disabled`]: disabled,
           [`${tkClassName}--focused`]: isFocused,
+          [`${tkClassName}--mixed`]: checked === 'mixed',
         }
       )}
       tab-index="-1"
@@ -120,6 +123,7 @@ const SelectionInput: React.FC<SelectionInputPropsWithType> = ({
           type={type}
           name={name}
           value={value}
+          checked={checked === 'checked' ? true : null}
           disabled={disabled}
           onFocus={onFocusHandler}
           onBlur={onBlurHandler}
@@ -152,6 +156,7 @@ const SelectionInputPropTypes = {
   required: PropTypes.bool,
   disabled: PropTypes.bool,
   tabIndex: PropTypes.number,
+  defaultChecked: PropTypes.string,
 };
 
 SelectionInput.propTypes = {

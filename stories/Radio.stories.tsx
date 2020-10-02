@@ -17,13 +17,14 @@ export const Radios: React.SFC = () => {
         <h3>Default checked state</h3>
         <p>
           In the following examples the states of the checkboxes have a default
-          value defined with <strong>defaultSelectionState</strong> attribute.
+          value defined with <strong>defaultChecked</strong> attribute.
         </p>
         <div>
           <Radio
             label="Radio 'on'"
             name="active-radio"
             value="active-radio-1"
+            defaultChecked="defaultChecked"
           />
         </div>
         <div>
