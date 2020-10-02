@@ -1,10 +1,8 @@
 import { shallow } from 'enzyme';
 import React from 'react';
+import SelectionTypes from '../../../src/components/selection/SelectionTypes';
 
-import {
-  SelectionInput,
-  Types,
-} from '../../../src/components/selection/SelectionInput';
+import { SelectionInput } from '../../../src/components/selection/SelectionInput';
 
 describe('SelectionInput Component', () => {
   describe('SelectionInput test suite => ', () => {
@@ -15,7 +13,7 @@ describe('SelectionInput Component', () => {
     it('render a Checkbox with default props and initial value and test if a input html tag is used', () => {
       const wrapper = shallow(
         <SelectionInput
-          type={Types.CHECKBOX}
+          type={SelectionTypes.CHECKBOX}
           name="SelectionInput-test-name"
           value="SelectionInput-test-value"
         ></SelectionInput>
@@ -34,7 +32,7 @@ describe('SelectionInput Component', () => {
       const ariaLabel = 'field';
       const wrapper = shallow(
         <SelectionInput
-          type={Types.CHECKBOX}
+          type={SelectionTypes.CHECKBOX}
           name="SelectionInput-test-name2"
           value="SelectionInput-test-value"
           aria-label={ariaLabel}
@@ -49,11 +47,11 @@ describe('SelectionInput Component', () => {
       const changeCallback = jest.fn();
       const wrapper = shallow(
         <SelectionInput
-          type={Types.CHECKBOX}
+          type={SelectionTypes.CHECKBOX}
           name="SelectionInput-action-name"
           value="SelectionInput-action-value"
-          handleClick={clickCallback}
-          handleChange={changeCallback}
+          onClick={clickCallback}
+          onChange={changeCallback}
         ></SelectionInput>
       );
       expect(wrapper.length).toEqual(1);

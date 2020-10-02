@@ -14,22 +14,23 @@ export const Checkboxes = () => {
         <h3>Default checked state</h3>
         <p>
           In the following examples the states of the checkboxes have a default
-          value defined with <strong>defaultChecked</strong> attribute.
+          value defined with <strong>checked</strong> attribute.
         </p>
         <Checkbox
-          label="Checkbox 'on'"
+          label="Checkbox 'checked'"
           name="active-checkbox"
           value="active-checkbox-1"
-          defaultChecked="checked"
+          checked="checked"
+          onChange={action('onChange active-checkbox-1')}
         />
         <Checkbox
           label="Checkbox 'mixed'"
           name="active-checkbox"
           value="active-checkbox-2"
-          defaultChecked="mixed"
+          checked="mixed"
         />
         <Checkbox
-          label="Checkbox 'off'"
+          label="Checkbox by default"
           name="active-checkbox"
           value="active-checkbox-3"
         />
@@ -138,16 +139,13 @@ export const Checkboxes = () => {
           In the following example the state of the checkbox has a fixed value
           defined with <strong>checked</strong> attribute. This can be useful if
           you want the parent component to control the checked state of the
-          checkbox. The Checkbox component will call the onClick method of the
-          parent component every time the user clicks, so the parent can do what
-          it wants.
+          checkbox.
         </p>
         <Checkbox
           label="Controlled Checkbox"
           name="controller-checkbox"
           value="controlled-checkbox-1"
           checked="checked"
-          onClick={action('onClick controlled-checkbox-1')}
           onChange={action('onChange controlled-checkbox-1')}
         />
       </div>
@@ -157,13 +155,13 @@ export const Checkboxes = () => {
           (<strong>Open the Actions tab to see the events.</strong>)
         </p>
         <p>
-          <strong>handleChange</strong>: This method is called when the value of
-          the Checkbox changes.
+          <strong>onClick</strong>: This method is called when the user clicks
+          on the Checkbox or Label. Note: this method is also called when the
+          user select/unselect the Checkbox with the keyboard space key.
         </p>
         <p>
-          <strong>handleClick</strong>: This method is called when the user
-          clicks on the Checkbox or Label. Note: this method is also called when
-          the user select/unselect the Checkbox with the keyboard space key.
+          <strong>onChange</strong>: This method is called when the value of the
+          Checkbox changes.
         </p>
         <Checkbox
           label="Checkbox with actions"

@@ -8,23 +8,9 @@ export const Radios = () => {
     <div className="tk-text-color" style={{ width: '50%' }}>
       <h1>Radio</h1>
       <div>
-        <h2>Default Radio</h2>
-        <div>
-          <Radio label="Radio" name="simple-radio" value="radio-1" />
-        </div>
-        <h2>Active Checkbox</h2>
-        <h3>Default checked state</h3>
-        <p>
-          In the following examples the states of the checkboxes have a default
-          value defined with <strong>defaultChecked</strong> attribute.
-        </p>
-        <Radio
-          label="Radio 'on'"
-          name="active-radio"
-          value="active-radio-1"
-          defaultChecked="checked"
-        />
-        <Radio label="Radio 'off'" name="active-radio" value="active-radio-2" />
+        <h2>Active Radio</h2>
+        <Radio label="Radio" name="active-radio" value="active-radio-1" />
+        <Radio label="Radio" name="active-radio" value="active-radio-2" />
       </div>
       <div>
         <h2>Disabled Radio</h2>
@@ -97,18 +83,16 @@ export const Radios = () => {
         <h2>Controlled checked state</h2>
         <p>
           In the following example the state of the radio has a fixed value
-          defined with <strong>selectionState</strong> attribute. This can be
-          useful if you want the parent component to control the checked state
-          of the radio. The Radio component will call the handleClick method of
-          the parent component every time the user clicks, so the parent can do
-          what it wants.
+          defined with <strong>checked</strong> attribute. This can be useful if
+          you want the parent component to control the checked state of the
+          radio.
         </p>
         <Radio
           label="Controlled Radio"
           name="controlled-radio"
           value="controlled-radio-1"
           checked="checked"
-          onClick={action('onClick controlled-radio-1')}
+          onChange={action('onChange controlled-radio-1')}
         />
       </div>
       <div>
@@ -117,20 +101,26 @@ export const Radios = () => {
           (<strong>Open the Actions tab to see the events.</strong>)
         </p>
         <p>
-          <strong>handleChange</strong>: This method is called when the value of
-          the Radio changes.
+          <strong>onClick</strong>: This method is called when the user clicks
+          on the Radio or Label.
         </p>
         <p>
-          <strong>handleClick</strong>: This method is called when the user
-          clicks on the Checkbox or Label. Note: this method is also called when
-          the user select/unselect the Checkbox with the keyboard space key.
+          <strong>onChange</strong>: This method is called when the value of the
+          Radio changes.
         </p>
         <Radio
           label="Radio with actions"
           name="simple-radio-actions"
-          value="radio-actions"
-          onClick={action('handleClick action')}
-          onChange={action('handleChange action')}
+          value="radio-actions-1"
+          onClick={action('onClick radio-actions-1')}
+          onChange={action('onChange radio-actions-1')}
+        />
+        <Radio
+          label="Radio with actions"
+          name="simple-radio-actions"
+          value="radio-actions-2"
+          onClick={action('onClick radio-actions-2')}
+          onChange={action('onChange radio-actions-2')}
         />
       </div>
     </div>

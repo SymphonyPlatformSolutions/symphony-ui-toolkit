@@ -12,7 +12,6 @@ interface SelectionInputProps {
   labelPlacement?: LabelPlacements;
   value: string;
   checked?: string;
-  defaultChecked?: string;
   onClick?: (event) => void;
   onChange?: (event) => void;
   required?: boolean;
@@ -37,7 +36,6 @@ const SelectionInput: React.FC<SelectionInputPropsWithType> = ({
   disabled,
   tabIndex,
   checked,
-  defaultChecked,
   ...otherProps
 }) => {
   // Generate unique ID if not provided
@@ -92,8 +90,7 @@ const SelectionInput: React.FC<SelectionInputPropsWithType> = ({
         {
           [`${tkClassName}--disabled`]: disabled,
           [`${tkClassName}--focused`]: isFocused,
-          [`${tkClassName}--mixed`]:
-            defaultChecked === 'mixed' || checked === 'mixed',
+          [`${tkClassName}--mixed`]: checked === 'mixed',
         }
       )}
       tab-index="-1"
@@ -105,13 +102,14 @@ const SelectionInput: React.FC<SelectionInputPropsWithType> = ({
           type={type}
           name={name}
           value={value}
-          defaultChecked={defaultChecked === 'checked'}
           checked={checked === 'checked' ? true : null}
           disabled={disabled}
           onFocus={onFocusHandler}
           onBlur={onBlurHandler}
           onClick={onClick}
           onChange={onChange}
+          required={required}
+          tabIndex={tabIndex}
           {...otherProps}
         />
         <span className={classNames(`${tkClassName}__icon`)} aria-hidden></span>
@@ -136,7 +134,6 @@ const SelectionInputPropTypes = {
   labelPlacement: PropTypes.oneOf(Object.values(LabelPlacements)),
   value: PropTypes.string.isRequired,
   checked: PropTypes.string,
-  defaultChecked: PropTypes.string,
   onClick: PropTypes.func,
   onChange: PropTypes.func,
   required: PropTypes.bool,
