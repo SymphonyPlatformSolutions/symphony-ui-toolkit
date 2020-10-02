@@ -51,6 +51,7 @@ jobs:
           arguments: '--delete --dryrun'
           aws-access-key-id: AWS_ACCESS_KEY_CDN
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY_CDN
+          aws-region: AWS_REGION_CDN
           from: /tmp/dist/fonts
           to: s3://www-prod.symphony.com/resources/ui-toolkit/<< parameters.cdn_version_path >>/fonts
 
