@@ -1,6 +1,6 @@
 {
   "name": "@symphony/uitoolkit-components",
-  "version": "1.0.4-SNAPSHOT.1",
+  "version": "1.0.4-SNAPSHOT.2",
   "description": "React components for the Symphony UI design system",
   "publishConfig": {
     "registry": "https://repo.symphony.com/artifactory/api/npm/npm-local-dev2"
@@ -16,12 +16,13 @@
     "lint": "eslint --ext .ts,.tsx,.js,.jsx ./",
     "lint-fix": "eslint --ext .ts,.tsx,.js,.jsx ./ --fix",
     "start": "start-storybook -p 6006",
+    "storybook-docs": "start-storybook --docs",
     "build-storybook": "build-storybook -c .storybook -o dist/storybook",
     "test": "jest --watchAll",
     "test-once": "jest"
   },
   "peerDependencies": {
-    "@symphony/uitoolkit-styles": ">=1.0.8",
+    "@symphony/uitoolkit-styles": "1.0.10",
     "react": ">=16.8.0",
     "react-dom": ">=16.8.0"
   },
@@ -52,6 +53,7 @@
     "@storybook/addon-storysource": "6.0.21",
     "@storybook/addons": "6.0.21",
     "@storybook/react": "^6.0.21",
+    "@storybook/preset-scss": "^1.0.2",
     "@symphony/uitoolkit-styles": "v1.0.10-SNAPSHOT.8",
     "@types/enzyme": "^3.10.5",
     "@types/jest": "^25.2.3",
@@ -65,7 +67,7 @@
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.1.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
-    "css-loader": "^3.5.3",
+    "css-loader": "^4.3.0",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
     "eslint": "^7.1.0",
@@ -75,11 +77,12 @@
     "eslint-plugin-react": "^7.20.0",
     "eslint-plugin-react-hooks": "^2.5.1",
     "jest": "^26.0.1",
-    "node-sass": "^4.14.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "sass-loader": "^8.0.2",
+    "sass": "^1.26.11",
+    "sass-loader": "^10.0.2",
     "storybook-dark-mode": "^1.0.3",
+    "style-loader": "^1.2.1",
     "ts-jest": "^26.0.0",
     "ts-loader": "^7.0.5",
     "typescript": "^3.9.3"

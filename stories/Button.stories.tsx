@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button } from '../src/components';
 import Icon from '../src/components/icon/Icon';
+import './stories.scss';
 
 export const Buttons: React.SFC = () => (
   <div className="tk-text-color">
@@ -9,7 +10,7 @@ export const Buttons: React.SFC = () => (
       <Button variant="primary"> Button</Button>
       <Button variant="primary">
         <Icon iconName="lock" className="tk-mr-h"></Icon>
-           Button
+        Button
       </Button>
       <Button variant="primary" iconButton>
         <Icon iconName="more"></Icon>
