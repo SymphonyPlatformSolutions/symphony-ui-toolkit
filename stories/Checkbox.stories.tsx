@@ -1,6 +1,5 @@
 import React from 'react';
 import { Checkbox } from '../src/components';
-import SelectionStates from '../src/components/selection/SelectionStates';
 import { LabelPlacements } from '../src/components/selection/SelectionInput';
 import { action } from '@storybook/addon-actions';
 
@@ -15,27 +14,24 @@ export const Checkboxes: React.SFC = () => {
         <h3>Default checked state</h3>
         <p>
           In the following examples the states of the checkboxes have a default
-          value defined with <strong>defaultSelectionState</strong> attribute.
+          value defined with <strong>defaultChecked</strong> attribute.
         </p>
         <Checkbox
           label="Checkbox 'on'"
           name="active-checkbox"
           value="active-checkbox-1"
-          checked="checked"
-          defaultSelectionState={SelectionStates.CHECKED}
+          defaultChecked={'checked'}
         />
         <Checkbox
           label="Checkbox 'mixed'"
           name="active-checkbox"
           value="active-checkbox-2"
-          checked="mixed"
-          defaultSelectionState={SelectionStates.MIXED}
+          defaultChecked={'mixed'}
         />
         <Checkbox
           label="Checkbox 'off'"
           name="active-checkbox"
           value="active-checkbox-3"
-          defaultSelectionState={SelectionStates.UNCHECKED}
         />
       </div>
       <div>
@@ -45,21 +41,20 @@ export const Checkboxes: React.SFC = () => {
           label="Checkbox"
           name="disabled-checkbox"
           value="disabled-checkbox-1"
-          selectionState={SelectionStates.CHECKED}
+          checked={'checked'}
           disabled
         />
         <Checkbox
           label="Checkbox"
           name="disabled-checkbox"
           value="disabled-checkbox-2"
-          selectionState={SelectionStates.MIXED}
+          checked="mixed"
           disabled
         />
         <Checkbox
           label="Checkbox"
           name="disabled-checkbox"
           value="disabled-checkbox-3"
-          selectionState={SelectionStates.UNCHECKED}
           disabled
         />
       </div>

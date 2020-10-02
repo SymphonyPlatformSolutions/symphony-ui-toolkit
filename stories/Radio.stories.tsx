@@ -1,6 +1,5 @@
 import React from 'react';
 import { Radio } from '../src/components';
-import SelectionStates from '../src/components/selection/SelectionStates';
 import { LabelPlacements } from '../src/components/selection/SelectionInput';
 import { action } from '@storybook/addon-actions';
 
@@ -24,7 +23,7 @@ export const Radios: React.SFC = () => {
             label="Radio 'on'"
             name="active-radio"
             value="active-radio-1"
-            defaultChecked="defaultChecked"
+            defaultChecked="checked"
           />
         </div>
         <div>
@@ -43,7 +42,8 @@ export const Radios: React.SFC = () => {
             label="Radio"
             name="disabled-radio"
             value="disabled-radio-1"
-            selectionState={SelectionStates.CHECKED}
+            checked="checked"
+            // selectionState={SelectionStates.CHECKED}
             disabled
           />
         </div>
@@ -52,7 +52,6 @@ export const Radios: React.SFC = () => {
             label="Radio"
             name="disabled-radio"
             value="disabled-radio-2"
-            selectionState={SelectionStates.UNCHECKED}
             disabled
           />
         </div>
@@ -136,7 +135,7 @@ export const Radios: React.SFC = () => {
             label="Controlled Radio"
             name="controlled-radio"
             value="controlled-radio-1"
-            selectionState={SelectionStates.CHECKED}
+            checked="checked"
             handleClick={action('handleChange controlled-radio-1')}
           />
         </div>
