@@ -1,9 +1,8 @@
 import Button from './button';
 import { TextField, TextArea } from './input';
-import Checkbox from './selection/Checkbox';
+import { Checkbox, Radio } from './selection';
 import CropContent from './crop-content/CropContent';
 import ExpandableCard from './expandable-card/ExpandableCard';
-import Radio from './selection/Radio';
 import Tooltip from './tooltip/Tooltip';
 
 export {

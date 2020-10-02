@@ -1,6 +1,6 @@
-enum CheckboxStates {
+enum SelectionStates {
   CHECKED = 'on',
   INDETERMINATE = 'indeterminate',
   UNCHECKED = 'off',
 }
-export default CheckboxStates;
+export default SelectionStates;

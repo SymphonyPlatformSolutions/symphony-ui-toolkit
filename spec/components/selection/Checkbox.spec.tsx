@@ -1,7 +1,7 @@
 import { shallow, mount } from 'enzyme';
 import React from 'react';
 import { Checkbox } from '../../../src/components';
-import CheckboxStates from '../../../src/components/selection/CheckboxStates';
+import SelectionStates from '../../../src/components/selection/SelectionStates';
 import {
   SelectionInput,
   Types,
@@ -33,14 +33,14 @@ describe('Checkbox Component', () => {
         <Checkbox
           name="default-state-checkbox-name"
           value="default-state-checkbox-value"
-          defaultSelectionState={CheckboxStates.CHECKED}
+          defaultSelectionState={SelectionStates.CHECKED}
         />
       );
       expect(wrapper.length).toEqual(1);
       expect(wrapper.find(SelectionInput).length).toBe(1);
       expect(wrapper.find(SelectionInput).prop('type')).toEqual(Types.CHECKBOX);
       expect(wrapper.find(SelectionInput).prop('selectionState')).toBe(
-        CheckboxStates.CHECKED
+        SelectionStates.CHECKED
       );
       wrapper.unmount();
     });
@@ -50,14 +50,14 @@ describe('Checkbox Component', () => {
         <Checkbox
           name="configured-checkbox-name"
           value="configured-checkbox-value"
-          selectionState={CheckboxStates.CHECKED}
+          selectionState={SelectionStates.CHECKED}
         />
       );
       expect(wrapper.length).toEqual(1);
       expect(wrapper.find(SelectionInput).length).toBe(1);
       expect(wrapper.find(SelectionInput).prop('type')).toEqual(Types.CHECKBOX);
       expect(wrapper.find(SelectionInput).prop('selectionState')).toBe(
-        CheckboxStates.CHECKED
+        SelectionStates.CHECKED
       );
     });
 

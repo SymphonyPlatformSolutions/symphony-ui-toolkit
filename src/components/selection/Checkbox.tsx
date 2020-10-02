@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import CheckboxStates from './CheckboxStates';
+import SelectionStates from './SelectionStates';
 import {
   SelectionInput,
   SelectionInputProps,
@@ -9,7 +9,7 @@ import {
 } from './SelectionInput';
 
 interface CheckboxProps extends SelectionInputProps {
-  defaultSelectionState?: CheckboxStates;
+  defaultSelectionState?: SelectionStates;
 }
 
 const Checkbox: React.FC<CheckboxProps> = ({
@@ -20,7 +20,7 @@ const Checkbox: React.FC<CheckboxProps> = ({
   ...otherProps
 }) => {
   const [checkedState, setCheckedState] = useState(
-    selectionState || CheckboxStates.UNCHECKED
+    selectionState || SelectionStates.UNCHECKED
   );
 
   useEffect(() => {
@@ -33,10 +33,10 @@ const Checkbox: React.FC<CheckboxProps> = ({
     if (!selectionState) {
       // If the selection state is not given in props, then we use the internal state component,
       // otherwise we let the parent component defines if the component is checked or not
-      if (checkedState === CheckboxStates.CHECKED) {
-        setCheckedState(CheckboxStates.UNCHECKED);
+      if (checkedState === SelectionStates.CHECKED) {
+        setCheckedState(SelectionStates.UNCHECKED);
       } else {
-        setCheckedState(CheckboxStates.CHECKED);
+        setCheckedState(SelectionStates.CHECKED);
       }
     }
     // Call user handleClick method if defined

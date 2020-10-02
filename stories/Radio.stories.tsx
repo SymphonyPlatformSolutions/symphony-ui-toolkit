@@ -1,23 +1,10 @@
-import React, { useState, useCallback } from 'react';
+import React from 'react';
 import { Radio } from '../src/components';
-import CheckboxStates from '../src/components/selection/CheckboxStates';
+import SelectionStates from '../src/components/selection/SelectionStates';
 import { LabelPlacements } from '../src/components/selection/SelectionInput';
 import { action } from '@storybook/addon-actions';
 
 export const Radios: React.SFC = () => {
-  const [activeRadio, setActiveRadio] = useState();
-  const [radioPlacementLabel, setRadioPlacementLabel] = useState();
-
-  const onChange = (event) => {
-    console.log(event.currentTarget.value);
-    setActiveRadio(event.currentTarget.value);
-  };
-
-  const onChangePlacement = (event) => {
-    console.log(event.currentTarget.value);
-    setRadioPlacementLabel(event.currentTarget.value);
-  };
-
   return (
     <div className="tk-text-color" style={{ width: '50%' }}>
       <h1>Radio</h1>
@@ -37,12 +24,6 @@ export const Radios: React.SFC = () => {
             label="Radio 'on'"
             name="active-radio"
             value="active-radio-1"
-            handleChange={onChange}
-            selectionState={
-              activeRadio == 'active-radio-1'
-                ? CheckboxStates.CHECKED
-                : CheckboxStates.UNCHECKED
-            }
           />
         </div>
         <div>
@@ -50,12 +31,6 @@ export const Radios: React.SFC = () => {
             label="Radio 'off'"
             name="active-radio"
             value="active-radio-2"
-            handleChange={onChange}
-            selectionState={
-              activeRadio == 'active-radio-2'
-                ? CheckboxStates.CHECKED
-                : CheckboxStates.UNCHECKED
-            }
           />
         </div>
       </div>
@@ -67,7 +42,7 @@ export const Radios: React.SFC = () => {
             label="Radio"
             name="disabled-radio"
             value="disabled-radio-1"
-            selectionState={CheckboxStates.CHECKED}
+            selectionState={SelectionStates.CHECKED}
             disabled
           />
         </div>
@@ -76,7 +51,7 @@ export const Radios: React.SFC = () => {
             label="Radio"
             name="disabled-radio"
             value="disabled-radio-2"
-            selectionState={CheckboxStates.UNCHECKED}
+            selectionState={SelectionStates.UNCHECKED}
             disabled
           />
         </div>
@@ -87,59 +62,43 @@ export const Radios: React.SFC = () => {
           The label can be positioned at the{' '}
           <strong>top, right, bottom, left</strong> of the radio
         </p>
-        <Radio
-          label="Top"
-          name="placement-label"
-          value="top"
-          labelPlacement={LabelPlacements.TOP}
-          handleChange={onChangePlacement}
-          selectionState={
-            radioPlacementLabel == 'top'
-              ? CheckboxStates.CHECKED
-              : CheckboxStates.UNCHECKED
-          }
-        ></Radio>
-        <Radio
-          label="Left"
-          name="placement-label"
-          value="left"
-          labelPlacement={LabelPlacements.LEFT}
-          handleChange={onChangePlacement}
-          selectionState={
-            radioPlacementLabel == 'left'
-              ? CheckboxStates.CHECKED
-              : CheckboxStates.UNCHECKED
-          }
-        ></Radio>
-        <Radio
-          label="bottom"
-          name="placement-label"
-          value="bottom"
-          labelPlacement={LabelPlacements.BOTTOM}
-          handleChange={onChangePlacement}
-          selectionState={
-            radioPlacementLabel == 'bottom'
-              ? CheckboxStates.CHECKED
-              : CheckboxStates.UNCHECKED
-          }
-        ></Radio>
-        <Radio
-          label="Right"
-          name="placement-label"
-          value="right"
-          labelPlacement={LabelPlacements.RIGHT}
-          handleChange={onChangePlacement}
-          selectionState={
-            radioPlacementLabel == 'right'
-              ? CheckboxStates.CHECKED
-              : CheckboxStates.UNCHECKED
-          }
-        ></Radio>
+        <div className="d-inline-block">
+          <Radio
+            label="Top"
+            name="placement-label"
+            value="top"
+            labelPlacement={LabelPlacements.TOP}
+          ></Radio>
+        </div>
+        <div className="d-inline-block">
+          <Radio
+            label="Left"
+            name="placement-label"
+            value="left"
+            labelPlacement={LabelPlacements.LEFT}
+          ></Radio>
+        </div>
+        <div className="d-inline-block">
+          <Radio
+            label="bottom"
+            name="placement-label"
+            value="bottom"
+            labelPlacement={LabelPlacements.BOTTOM}
+          ></Radio>
+        </div>
+        <div className="d-inline-block">
+          <Radio
+            label="Right"
+            name="placement-label"
+            value="right"
+            labelPlacement={LabelPlacements.RIGHT}
+          ></Radio>
+        </div>
       </div>
       <div>
         <h2>Accessibility</h2>
         <p>
-          You can navigate between checkboxes using <strong>Tab</strong> key or{' '}
+          You can navigate between radio using <strong>Tab</strong> key or{' '}
           <strong>Shift + Tab</strong> keys
         </p>
         <p>
@@ -176,7 +135,7 @@ export const Radios: React.SFC = () => {
             label="Controlled Radio"
             name="controlled-radio"
             value="controlled-radio-1"
-            selectionState={CheckboxStates.CHECKED}
+            selectionState={SelectionStates.CHECKED}
             handleClick={action('handleChange controlled-radio-1')}
           />
         </div>

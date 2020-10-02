@@ -1,6 +1,6 @@
 import React from 'react';
 import { Checkbox } from '../src/components';
-import CheckboxStates from '../src/components/selection/CheckboxStates';
+import SelectionStates from '../src/components/selection/SelectionStates';
 import { LabelPlacements } from '../src/components/selection/SelectionInput';
 import { action } from '@storybook/addon-actions';
 
@@ -28,7 +28,7 @@ export const Checkboxes: React.SFC = () => {
             label="Checkbox 'on'"
             name="active-checkbox"
             value="active-checkbox-1"
-            defaultSelectionState={CheckboxStates.CHECKED}
+            defaultSelectionState={SelectionStates.CHECKED}
           />
         </div>
         <div>
@@ -36,7 +36,7 @@ export const Checkboxes: React.SFC = () => {
             label="Checkbox 'indeterminate'"
             name="active-checkbox"
             value="active-checkbox-2"
-            defaultSelectionState={CheckboxStates.INDETERMINATE}
+            defaultSelectionState={SelectionStates.INDETERMINATE}
           />
         </div>
         <div>
@@ -44,7 +44,7 @@ export const Checkboxes: React.SFC = () => {
             label="Checkbox 'off'"
             name="active-checkbox"
             value="active-checkbox-3"
-            defaultSelectionState={CheckboxStates.UNCHECKED}
+            defaultSelectionState={SelectionStates.UNCHECKED}
           />
         </div>
       </div>
@@ -56,7 +56,7 @@ export const Checkboxes: React.SFC = () => {
             label="Checkbox"
             name="disabled-checkbox"
             value="disabled-checkbox-1"
-            selectionState={CheckboxStates.CHECKED}
+            selectionState={SelectionStates.CHECKED}
             disabled
           />
         </div>
@@ -65,7 +65,7 @@ export const Checkboxes: React.SFC = () => {
             label="Checkbox"
             name="disabled-checkbox"
             value="disabled-checkbox-2"
-            selectionState={CheckboxStates.INDETERMINATE}
+            selectionState={SelectionStates.INDETERMINATE}
             disabled
           />
         </div>
@@ -74,7 +74,7 @@ export const Checkboxes: React.SFC = () => {
             label="Checkbox"
             name="disabled-checkbox"
             value="disabled-checkbox-3"
-            selectionState={CheckboxStates.UNCHECKED}
+            selectionState={SelectionStates.UNCHECKED}
             disabled
           />
         </div>
@@ -170,7 +170,7 @@ export const Checkboxes: React.SFC = () => {
             label="Controlled Checkbox"
             name="controller-checkbox"
             value="controlled-checkbox-1"
-            selectionState={CheckboxStates.CHECKED}
+            selectionState={SelectionStates.CHECKED}
             handleClick={action('handleChange controlled-checkbox-1')}
           />
         </div>
