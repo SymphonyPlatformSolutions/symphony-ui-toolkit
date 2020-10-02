@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback, useEffect, useState } from 'react';
+import React, { useMemo, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import shortid from 'shortid';
@@ -135,12 +135,13 @@ const SelectionInputPropTypes = {
   label: PropTypes.string,
   labelPlacement: PropTypes.oneOf(Object.values(LabelPlacements)),
   value: PropTypes.string.isRequired,
+  checked: PropTypes.string,
+  defaultChecked: PropTypes.string,
   onClick: PropTypes.func,
   onChange: PropTypes.func,
   required: PropTypes.bool,
   disabled: PropTypes.bool,
   tabIndex: PropTypes.number,
-  defaultChecked: PropTypes.string,
 };
 
 SelectionInput.propTypes = {
@@ -148,10 +149,4 @@ SelectionInput.propTypes = {
   type: PropTypes.oneOf(Object.values(SelectionTypes)),
 };
 
-export {
-  SelectionInput,
-  SelectionInputProps,
-  SelectionInputPropTypes,
-  SelectionTypes,
-  LabelPlacements,
-};
+export { SelectionInput, SelectionInputProps, SelectionInputPropTypes };

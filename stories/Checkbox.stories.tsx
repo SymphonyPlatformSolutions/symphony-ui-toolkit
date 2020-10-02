@@ -1,9 +1,9 @@
 import React from 'react';
 import { Checkbox } from '../src/components';
-import { LabelPlacements } from '../src/components/selection/SelectionInput';
+import LabelPlacements from '../src/components/selection/LabelPlacements';
 import { action } from '@storybook/addon-actions';
 
-export const Checkboxes: React.SFC = () => {
+export const Checkboxes = () => {
   return (
     <div className="tk-text-color" style={{ width: '50%' }}>
       <h1>Checkbox</h1>
@@ -20,13 +20,13 @@ export const Checkboxes: React.SFC = () => {
           label="Checkbox 'on'"
           name="active-checkbox"
           value="active-checkbox-1"
-          defaultChecked={'checked'}
+          defaultChecked="checked"
         />
         <Checkbox
           label="Checkbox 'mixed'"
           name="active-checkbox"
           value="active-checkbox-2"
-          defaultChecked={'mixed'}
+          defaultChecked="mixed"
         />
         <Checkbox
           label="Checkbox 'off'"
@@ -41,7 +41,7 @@ export const Checkboxes: React.SFC = () => {
           label="Checkbox"
           name="disabled-checkbox"
           value="disabled-checkbox-1"
-          checked={'checked'}
+          checked="checked"
           disabled
         />
         <Checkbox
@@ -151,30 +151,28 @@ export const Checkboxes: React.SFC = () => {
           onChange={action('onChange controlled-checkbox-1')}
         />
       </div>
-      {/*<div>*/}
-      {/*  <h2>Action</h2>*/}
-      {/*  <p>*/}
-      {/*    (<strong>Open the Actions tab to see the events.</strong>)*/}
-      {/*  </p>*/}
-      {/*  <p>*/}
-      {/*    <strong>handleChange</strong>: This method is called when the value of*/}
-      {/*    the Checkbox changes.*/}
-      {/*  </p>*/}
-      {/*  <p>*/}
-      {/*    <strong>handleClick</strong>: This method is called when the user*/}
-      {/*    clicks on the Checkbox or Label. Note: this method is also called when*/}
-      {/*    the user select/unselect the Checkbox with the keyboard space key.*/}
-      {/*  </p>*/}
-      {/*  <div>*/}
-      {/*    <Checkbox*/}
-      {/*      label="Checkbox with actions"*/}
-      {/*      name="simple-checkbox-actions"*/}
-      {/*      value="checkbox-actions"*/}
-      {/*      handleChange={action('handleChange action')}*/}
-      {/*      handleClick={action('handleClick action')}*/}
-      {/*    />*/}
-      {/*  </div>*/}
-      {/*</div>*/}
+      <div>
+        <h2>Action</h2>
+        <p>
+          (<strong>Open the Actions tab to see the events.</strong>)
+        </p>
+        <p>
+          <strong>handleChange</strong>: This method is called when the value of
+          the Checkbox changes.
+        </p>
+        <p>
+          <strong>handleClick</strong>: This method is called when the user
+          clicks on the Checkbox or Label. Note: this method is also called when
+          the user select/unselect the Checkbox with the keyboard space key.
+        </p>
+        <Checkbox
+          label="Checkbox with actions"
+          name="simple-checkbox-actions"
+          value="checkbox-actions"
+          onChange={action('onChange checkbox-actions')}
+          onClick={action('onClick checkbox-actions')}
+        />
+      </div>
     </div>
   );
 };

@@ -1,9 +1,9 @@
 import React from 'react';
 import { Radio } from '../src/components';
-import { LabelPlacements } from '../src/components/selection/SelectionInput';
+import LabelPlacements from '../src/components/selection/LabelPlacements';
 import { action } from '@storybook/addon-actions';
 
-export const Radios: React.SFC = () => {
+export const Radios = () => {
   return (
     <div className="tk-text-color" style={{ width: '50%' }}>
       <h1>Radio</h1>
@@ -18,43 +18,30 @@ export const Radios: React.SFC = () => {
           In the following examples the states of the checkboxes have a default
           value defined with <strong>defaultChecked</strong> attribute.
         </p>
-        <div>
-          <Radio
-            label="Radio 'on'"
-            name="active-radio"
-            value="active-radio-1"
-            defaultChecked="checked"
-          />
-        </div>
-        <div>
-          <Radio
-            label="Radio 'off'"
-            name="active-radio"
-            value="active-radio-2"
-          />
-        </div>
+        <Radio
+          label="Radio 'on'"
+          name="active-radio"
+          value="active-radio-1"
+          defaultChecked="checked"
+        />
+        <Radio label="Radio 'off'" name="active-radio" value="active-radio-2" />
       </div>
       <div>
         <h2>Disabled Radio</h2>
         <p>In the following examples the states of the radio are fixed</p>
-        <div>
-          <Radio
-            label="Radio"
-            name="disabled-radio"
-            value="disabled-radio-1"
-            checked="checked"
-            // selectionState={SelectionStates.CHECKED}
-            disabled
-          />
-        </div>
-        <div>
-          <Radio
-            label="Radio"
-            name="disabled-radio"
-            value="disabled-radio-2"
-            disabled
-          />
-        </div>
+        <Radio
+          label="Radio"
+          name="disabled-radio"
+          value="disabled-radio-1"
+          checked="checked"
+          disabled
+        />
+        <Radio
+          label="Radio"
+          name="disabled-radio"
+          value="disabled-radio-2"
+          disabled
+        />
       </div>
       <div>
         <h2>Label placements</h2>
@@ -100,24 +87,11 @@ export const Radios: React.SFC = () => {
         <p>
           You can navigate between radio using <strong>arrow</strong> keys
         </p>
-        <p>
-          Select radio with <strong>Space</strong> key
-        </p>
-        <div>
-          <Radio label="Radio 1" name="a11y-radio" value="a11y-radio-1" />
-        </div>
-        <div>
-          <Radio label="Radio 2" name="a11y-radio" value="a11y-radio-2" />
-        </div>
-        <div>
-          <Radio label="Radio 3" name="a11y-radio" value="a11y-radio-3" />
-        </div>
-        <div>
-          <Radio label="Radio 4" name="a11y-radio" value="a11y-radio-4" />
-        </div>
-        <div>
-          <Radio label="Radio 5" name="a11y-radio" value="a11y-radio-5" />
-        </div>
+        <Radio label="Radio 1" name="a11y-radio" value="a11y-radio-1" />
+        <Radio label="Radio 2" name="a11y-radio" value="a11y-radio-2" />
+        <Radio label="Radio 3" name="a11y-radio" value="a11y-radio-3" />
+        <Radio label="Radio 4" name="a11y-radio" value="a11y-radio-4" />
+        <Radio label="Radio 5" name="a11y-radio" value="a11y-radio-5" />
       </div>
       <div>
         <h2>Controlled checked state</h2>
@@ -129,15 +103,13 @@ export const Radios: React.SFC = () => {
           the parent component every time the user clicks, so the parent can do
           what it wants.
         </p>
-        <div>
-          <Radio
-            label="Controlled Radio"
-            name="controlled-radio"
-            value="controlled-radio-1"
-            checked="checked"
-            handleClick={action('handleChange controlled-radio-1')}
-          />
-        </div>
+        <Radio
+          label="Controlled Radio"
+          name="controlled-radio"
+          value="controlled-radio-1"
+          checked="checked"
+          onClick={action('onClick controlled-radio-1')}
+        />
       </div>
       <div>
         <h2>Action</h2>
@@ -153,15 +125,13 @@ export const Radios: React.SFC = () => {
           clicks on the Checkbox or Label. Note: this method is also called when
           the user select/unselect the Checkbox with the keyboard space key.
         </p>
-        <div>
-          <Radio
-            label="Radio with actions"
-            name="simple-radio-actions"
-            value="radio-actions"
-            handleChange={action('handleChange action')}
-            handleClick={action('handleClick action')}
-          />
-        </div>
+        <Radio
+          label="Radio with actions"
+          name="simple-radio-actions"
+          value="radio-actions"
+          onClick={action('handleClick action')}
+          onChange={action('handleChange action')}
+        />
       </div>
     </div>
   );
