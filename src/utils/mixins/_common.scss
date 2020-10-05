@@ -12,3 +12,17 @@
 @mixin addTransition() {
   transition: all 200ms ease-in-out;
 }
+
+// Simulate browser outline (Come from https://ghinda.net/article/mimic-native-focus-css)
+@mixin browserOutline() {
+  outline-width: 2px;
+  outline-style: solid;
+  outline-color: Highlight;
+
+  /* WebKit gets its native focus styles.
+   */
+  @media (-webkit-min-device-pixel-ratio:0) {
+    outline-color: -webkit-focus-ring-color;
+    outline-style: auto;
+  }
+}
