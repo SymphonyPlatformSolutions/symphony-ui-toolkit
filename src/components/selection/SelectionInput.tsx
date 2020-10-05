@@ -1,20 +1,10 @@
-import React, { useMemo, useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import shortid from 'shortid';
-import CheckboxStates from './CheckboxStates';
-
-enum Types {
-  CHECKBOX = 'checkbox',
-  RADIO = 'radio',
-}
-
-enum LabelPlacements {
-  TOP = 'top',
-  RIGHT = 'right',
-  BOTTOM = 'bottom',
-  LEFT = 'left',
-}
+import SelectionTypes from './SelectionTypes';
+import SelectionStatus from './SelectionStatus';
+import LabelPlacements from './LabelPlacements';
 
 interface SelectionInputProps {
   id?: string;
@@ -22,16 +12,16 @@ interface SelectionInputProps {
   label?: string;
   labelPlacement?: LabelPlacements;
   value: string;
-  selectionState?: CheckboxStates;
-  handleClick?: (event) => void;
-  handleChange?: (event) => void;
+  status?: SelectionStatus;
+  onClick?: (event) => void;
+  onChange?: (event) => void;
   required?: boolean;
   disabled?: boolean;
   tabIndex?: number;
 }
 
 interface SelectionInputPropsWithType extends SelectionInputProps {
-  type: Types;
+  type: SelectionTypes;
 }
 
 const SelectionInput: React.FC<SelectionInputPropsWithType> = ({
@@ -41,18 +31,21 @@ const SelectionInput: React.FC<SelectionInputPropsWithType> = ({
   label,
   labelPlacement,
   value,
-  selectionState,
-  handleClick,
-  handleChange,
+  onClick,
+  onChange,
   required,
   disabled,
   tabIndex,
+  status,
   ...otherProps
 }) => {
+  // Generate unique ID if not provided
   const memoizedId = useMemo(() => {
-    // Generate unique ID
     return id || `${type}-${shortid.generate()}`;
   }, [id]);
+
+  // Default labelPlacement on right if not provided
+  labelPlacement = labelPlacement || LabelPlacements.RIGHT;
 
   // Used for the keyboard navigation
   const [isFocused, setFocus] = useState(false);
@@ -63,11 +56,12 @@ const SelectionInput: React.FC<SelectionInputPropsWithType> = ({
       // Space key (https://www.w3.org/TR/uievents/#fixed-virtual-key-codes)
       // Space code (https://w3c.github.io/uievents-code/) Not supported on IE
       if (
+        onClick &&
         !disabled &&
         isFocused &&
         (event.code === 'Space' || event.keyCode === 32)
       ) {
-        handleClick(event);
+        onClick(event);
         event.preventDefault();
       }
     };
@@ -75,25 +69,7 @@ const SelectionInput: React.FC<SelectionInputPropsWithType> = ({
     return () => {
       window.removeEventListener('keydown', keyPressHandler);
     };
-  }, [isFocused, handleClick]);
-
-  const memoizeOnClick = useCallback(
-    (event) => {
-      if (!disabled && handleClick) {
-        handleClick(event);
-      }
-    },
-    [disabled, handleClick]
-  );
-
-  const memoizeOnChange = useCallback(
-    (event) => {
-      if (!disabled && handleChange) {
-        handleChange(event);
-      }
-    },
-    [disabled, handleChange]
-  );
+  }, [isFocused, onClick]);
 
   // Component gets focus
   const onFocusHandler = () => {
@@ -108,55 +84,45 @@ const SelectionInput: React.FC<SelectionInputPropsWithType> = ({
   const tkClassName = `tk-${type.valueOf()}`;
 
   return (
-    <div className={`${tkClassName}__container`}>
-      <div
-        className={classNames(
-          tkClassName,
-          `${tkClassName}--${selectionState}`,
-          `${tkClassName}__labelPlacement--${labelPlacement}`,
-          {
-            [`${tkClassName}--disabled`]: disabled,
-            [`${tkClassName}--focused`]: isFocused,
-          }
-        )}
-        tabIndex={tabIndex || 0}
-        onFocus={onFocusHandler}
-        onBlur={onBlurHandler}
-      >
-        <div className={`${tkClassName}__inputContainer`} tab-index="-1">
-          <input
-            className={`${tkClassName}__input`}
-            type={type}
-            id={memoizedId}
-            name={name}
-            value={value}
-            checked={selectionState === CheckboxStates.CHECKED}
-            required={required}
-            disabled={disabled}
-            onClick={memoizeOnClick}
-            onChange={memoizeOnChange}
-            tabIndex={-1}
-            {...otherProps}
-          />
-          <span
-            className={classNames(
-              `${tkClassName}__icon`,
-              `${tkClassName}__icon--${selectionState}`
-            )}
-            aria-hidden
-          ></span>
-        </div>
-        <label
-          className={classNames(
-            `${tkClassName}__label`,
-            `${tkClassName}__label--${labelPlacement}`
-          )}
-          htmlFor={memoizedId}
-          tabIndex={-1}
-        >
-          {label}
-        </label>
+    <div
+      className={classNames(
+        tkClassName,
+        `${tkClassName}__labelPlacement--${labelPlacement}`,
+        {
+          [`${tkClassName}--focused`]: isFocused,
+          [`${tkClassName}--mixed`]: status === SelectionStatus.MIXED,
+        }
+      )}
+      tab-index="-1"
+    >
+      <div className={`${tkClassName}__inputContainer`}>
+        <input
+          id={memoizedId}
+          className={`${tkClassName}__input`}
+          type={type}
+          name={name}
+          value={value}
+          checked={status === SelectionStatus.CHECKED ? true : null}
+          disabled={disabled}
+          onFocus={onFocusHandler}
+          onBlur={onBlurHandler}
+          onClick={onClick}
+          onChange={onChange}
+          required={required}
+          tabIndex={tabIndex}
+          {...otherProps}
+        />
+        <span className={classNames(`${tkClassName}__icon`)} aria-hidden></span>
       </div>
+      <label
+        className={classNames(
+          `${tkClassName}__label`,
+          `${tkClassName}__label--${labelPlacement}`
+        )}
+        htmlFor={memoizedId}
+      >
+        {label}
+      </label>
     </div>
   );
 };
@@ -167,9 +133,9 @@ const SelectionInputPropTypes = {
   label: PropTypes.string,
   labelPlacement: PropTypes.oneOf(Object.values(LabelPlacements)),
   value: PropTypes.string.isRequired,
-  selectionState: PropTypes.oneOf(Object.values(CheckboxStates)),
-  handleClick: PropTypes.func,
-  handleChange: PropTypes.func,
+  status: PropTypes.oneOf(Object.values(SelectionStatus)),
+  onClick: PropTypes.func,
+  onChange: PropTypes.func,
   required: PropTypes.bool,
   disabled: PropTypes.bool,
   tabIndex: PropTypes.number,
@@ -177,13 +143,7 @@ const SelectionInputPropTypes = {
 
 SelectionInput.propTypes = {
   ...SelectionInputPropTypes,
-  type: PropTypes.oneOf(Object.values(Types)),
+  type: PropTypes.oneOf(Object.values(SelectionTypes)),
 };
 
-export {
-  SelectionInput,
-  SelectionInputProps,
-  SelectionInputPropTypes,
-  Types,
-  LabelPlacements,
-};
+export { SelectionInput, SelectionInputProps, SelectionInputPropTypes };
