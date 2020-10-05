@@ -9,9 +9,9 @@
   "scripts": {
     "prestart": "yarn icons",
     "start": "start-storybook -p 6006 -c .storybook watch-css -s ./src",
-    "prebuild": "yarn icons",
+    "prebuild": "yarn icons && sh src/scripts/generate-cdn.sh",
     "build-storybook": "build-storybook -c .storybook -o dist/storybook",
-    "build": "yarn sass --load-path=node_modules --no-source-map --style compressed uitoolkit.scss:dist/css/uitoolkit.css uitoolkit-tempo-support.scss:dist/css/uitoolkit-tempo-support.css",
+    "build": "yarn sass --load-path=node_modules --no-source-map --style compressed uitoolkit.scss:dist/css/uitoolkit.css uitoolkit-tempo-support.scss:dist/css/uitoolkit-tempo-support.css uitoolkit-cdn.generated.scss:dist/css/uitoolkit-cdn.generated.css",
     "watch": "sass --watch --no-source-map --load-path=node_modules --style compressed uitoolkit.scss:dist/css/uitoolkit.css",
     "icons": "node src/scripts/generate-icons"
   },

@@ -5,3 +5,4 @@ publish.sh
 yarn.lock
 .circleci
 dist/storybook
+uitoolkit-cdn.generated.*
