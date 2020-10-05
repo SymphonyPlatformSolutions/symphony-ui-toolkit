@@ -1,8 +1,9 @@
-import React, { useMemo, useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import shortid from 'shortid';
 import SelectionTypes from './SelectionTypes';
+import SelectionStatus from './SelectionStatus';
 import LabelPlacements from './LabelPlacements';
 
 interface SelectionInputProps {
@@ -11,7 +12,7 @@ interface SelectionInputProps {
   label?: string;
   labelPlacement?: LabelPlacements;
   value: string;
-  checked?: string;
+  status?: SelectionStatus;
   onClick?: (event) => void;
   onChange?: (event) => void;
   required?: boolean;
@@ -35,7 +36,7 @@ const SelectionInput: React.FC<SelectionInputPropsWithType> = ({
   required,
   disabled,
   tabIndex,
-  checked,
+  status,
   ...otherProps
 }) => {
   // Generate unique ID if not provided
@@ -89,7 +90,7 @@ const SelectionInput: React.FC<SelectionInputPropsWithType> = ({
         `${tkClassName}__labelPlacement--${labelPlacement}`,
         {
           [`${tkClassName}--focused`]: isFocused,
-          [`${tkClassName}--mixed`]: checked === 'mixed',
+          [`${tkClassName}--mixed`]: status === SelectionStatus.MIXED,
         }
       )}
       tab-index="-1"
@@ -101,7 +102,7 @@ const SelectionInput: React.FC<SelectionInputPropsWithType> = ({
           type={type}
           name={name}
           value={value}
-          checked={checked === 'checked' ? true : null}
+          checked={status === SelectionStatus.CHECKED ? true : null}
           disabled={disabled}
           onFocus={onFocusHandler}
           onBlur={onBlurHandler}
@@ -132,7 +133,7 @@ const SelectionInputPropTypes = {
   label: PropTypes.string,
   labelPlacement: PropTypes.oneOf(Object.values(LabelPlacements)),
   value: PropTypes.string.isRequired,
-  checked: PropTypes.string,
+  status: PropTypes.oneOf(Object.values(SelectionStatus)),
   onClick: PropTypes.func,
   onChange: PropTypes.func,
   required: PropTypes.bool,

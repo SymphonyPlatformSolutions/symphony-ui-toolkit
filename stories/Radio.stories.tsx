@@ -2,6 +2,7 @@ import React from 'react';
 import { Radio } from '../src/components';
 import LabelPlacements from '../src/components/selection/LabelPlacements';
 import { action } from '@storybook/addon-actions';
+import SelectionStatus from '../src/components/selection/SelectionStatus';
 
 export const Radios = () => {
   return (
@@ -19,7 +20,7 @@ export const Radios = () => {
           label="Radio"
           name="disabled-radio"
           value="disabled-radio-1"
-          checked="checked"
+          status={SelectionStatus.CHECKED}
           disabled
         />
         <Radio
@@ -91,7 +92,7 @@ export const Radios = () => {
           label="Controlled Radio"
           name="controlled-radio"
           value="controlled-radio-1"
-          checked="checked"
+          status={SelectionStatus.CHECKED}
           onChange={action('onChange controlled-radio-1')}
         />
       </div>

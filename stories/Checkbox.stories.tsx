@@ -1,6 +1,7 @@
 import React from 'react';
 import { Checkbox } from '../src/components';
 import LabelPlacements from '../src/components/selection/LabelPlacements';
+import SelectionStatus from '../src/components/selection/SelectionStatus';
 import { action } from '@storybook/addon-actions';
 
 export const Checkboxes = () => {
@@ -20,14 +21,14 @@ export const Checkboxes = () => {
           label="Checkbox 'checked'"
           name="active-checkbox"
           value="active-checkbox-1"
-          checked="checked"
+          status={SelectionStatus.CHECKED}
           onChange={action('onChange active-checkbox-1')}
         />
         <Checkbox
           label="Checkbox 'mixed'"
           name="active-checkbox"
           value="active-checkbox-2"
-          checked="mixed"
+          status={SelectionStatus.MIXED}
         />
         <Checkbox
           label="Checkbox by default"
@@ -42,14 +43,14 @@ export const Checkboxes = () => {
           label="Checkbox"
           name="disabled-checkbox"
           value="disabled-checkbox-1"
-          checked="checked"
+          status={SelectionStatus.CHECKED}
           disabled
         />
         <Checkbox
           label="Checkbox"
           name="disabled-checkbox"
           value="disabled-checkbox-2"
-          checked="mixed"
+          status={SelectionStatus.MIXED}
           disabled
         />
         <Checkbox
@@ -137,7 +138,7 @@ export const Checkboxes = () => {
         <h2>Controlled checked state</h2>
         <p>
           In the following example the state of the checkbox has a fixed value
-          defined with <strong>checked</strong> attribute. This can be useful if
+          defined with <strong>status</strong> attribute. This can be useful if
           you want the parent component to control the checked state of the
           checkbox.
         </p>
@@ -145,7 +146,7 @@ export const Checkboxes = () => {
           label="Controlled Checkbox"
           name="controller-checkbox"
           value="controlled-checkbox-1"
-          checked="checked"
+          status={SelectionStatus.CHECKED}
           onChange={action('onChange controlled-checkbox-1')}
         />
       </div>
