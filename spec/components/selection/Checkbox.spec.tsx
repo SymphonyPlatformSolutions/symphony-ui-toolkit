@@ -1,8 +1,9 @@
-import { shallow, mount } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import React from 'react';
 import { Checkbox } from '../../../src/components';
 import SelectionTypes from '../../../src/components/selection/SelectionTypes';
 import { SelectionInput } from '../../../src/components/selection/SelectionInput';
+import SelectionStatus from '../../../src/components/selection/SelectionStatus';
 
 describe('Checkbox Component', () => {
   describe('Checkbox component test suite => ', () => {
@@ -27,13 +28,13 @@ describe('Checkbox Component', () => {
       );
     });
 
-    it('with "checked" state', () => {
+    it('with "checked" status', () => {
       const onChangeCallback = jest.fn();
       const wrapper = mount(
         <Checkbox
           name="checked-state-checkbox-name"
           value="checked-state-checkbox-value"
-          checked="checked"
+          status={SelectionStatus.CHECKED}
           onChange={onChangeCallback}
         />
       );
@@ -42,17 +43,19 @@ describe('Checkbox Component', () => {
       expect(wrapper.find(SelectionInput).prop('type')).toEqual(
         SelectionTypes.CHECKBOX
       );
-      expect(wrapper.find(SelectionInput).prop('checked')).toBe('checked');
+      expect(wrapper.find(SelectionInput).prop('status')).toBe(
+        SelectionStatus.CHECKED
+      );
       wrapper.unmount();
     });
 
-    it('with "mixed" state', () => {
+    it('with "mixed" status', () => {
       const onChangeCallback = jest.fn();
       const wrapper = shallow(
         <Checkbox
           name="mixed-checkbox-name"
           value="mixed-checkbox-value"
-          checked="mixed"
+          status={SelectionStatus.MIXED}
           onChange={onChangeCallback}
         />
       );
@@ -61,7 +64,9 @@ describe('Checkbox Component', () => {
       expect(wrapper.find(SelectionInput).prop('type')).toEqual(
         SelectionTypes.CHECKBOX
       );
-      expect(wrapper.find(SelectionInput).prop('checked')).toBe('mixed');
+      expect(wrapper.find(SelectionInput).prop('status')).toBe(
+        SelectionStatus.MIXED
+      );
     });
 
     it('with click handler', () => {

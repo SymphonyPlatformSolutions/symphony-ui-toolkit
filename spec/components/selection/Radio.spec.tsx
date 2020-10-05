@@ -1,8 +1,9 @@
-import { shallow, mount } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import React from 'react';
 import { Radio } from '../../../src/components';
 import SelectionTypes from '../../../src/components/selection/SelectionTypes';
 import { SelectionInput } from '../../../src/components/selection/SelectionInput';
+import SelectionStatus from '../../../src/components/selection/SelectionStatus';
 
 describe('Radio Component', () => {
   describe('Radio component test suite => ', () => {
@@ -27,13 +28,13 @@ describe('Radio Component', () => {
       );
     });
 
-    it('with "checked" state', () => {
+    it('with "checked" status', () => {
       const onChangeCallback = jest.fn();
       const wrapper = mount(
         <Radio
           name="default-state-radio-name"
           value="default-state-radio-value"
-          checked="checked"
+          status={SelectionStatus.CHECKED}
           onChange={onChangeCallback}
         />
       );
@@ -42,7 +43,9 @@ describe('Radio Component', () => {
       expect(wrapper.find(SelectionInput).prop('type')).toEqual(
         SelectionTypes.RADIO
       );
-      expect(wrapper.find(SelectionInput).prop('checked')).toBe('checked');
+      expect(wrapper.find(SelectionInput).prop('status')).toBe(
+        SelectionStatus.CHECKED
+      );
       wrapper.unmount();
     });
 
