@@ -4,7 +4,7 @@ import { Checkbox, Radio } from './selection';
 import CropContent from './crop-content/CropContent';
 import ExpandableCard from './expandable-card/ExpandableCard';
 import Tooltip from './tooltip/Tooltip';
-import Validation from './validator';
+import Validation from './validation';
 
 export {
   Button,

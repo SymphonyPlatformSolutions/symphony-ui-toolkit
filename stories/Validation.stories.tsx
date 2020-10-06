@@ -5,7 +5,7 @@ import { Validators } from '../src/core/validators/validators';
 
 export const Validations = () => {
   const logChange = (value) => {
-    console.log('Change', value);
+    console.log('Component is valid:', value);
   };
   return (
     <div className="tk-text-color" style={{ width: '50%' }}>
@@ -19,7 +19,12 @@ export const Validations = () => {
         validator={Validators.Required}
         errorMessage={{ required: 'This field is mandatory' }}
       >
-        <TextField placeholder="Firstname"></TextField>
+        <TextField
+          placeholder="Firstname"
+          onChange={() => {
+            console.log('Existing onChange method called');
+          }}
+        ></TextField>
       </Validation>
       <h2>Multiple validators</h2>
       <p>

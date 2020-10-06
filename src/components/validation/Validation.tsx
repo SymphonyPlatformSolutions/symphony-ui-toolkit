@@ -22,6 +22,7 @@ const Validation = ({
   children,
 }) => {
   const [errors, setErrors] = useState([]);
+  const [isValid, setValid] = useState(null);
   const validate = async (value: string): Promise<string[]> => {
     let errors;
     let valid = true;
@@ -36,7 +37,8 @@ const Validation = ({
         errors = await validator(value);
       }
       valid = !errors || isEmpty(errors);
-      if (onValidationChanged) {
+      if (onValidationChanged && valid !== isValid) {
+        setValid(valid);
         onValidationChanged(valid);
       }
     }
@@ -52,8 +54,19 @@ const Validation = ({
   };
 
   const childrenWithValidation = React.Children.map(children, (child) => {
+    if (!React.isValidElement(child)) {
+      console.error('Child is not a valid React element', child);
+    }
+    // type childProps = React.ComponentProps<typeof child>;
+    //
+    // console.log('Props', childProps);
     return React.cloneElement(child, {
-      onChange: validate,
+      onChange: (value) => {
+        validate(value as any);
+        if (child.props.onChange) {
+          child.props.onChange(value);
+        }
+      },
     });
   });
 
@@ -65,11 +78,9 @@ const Validation = ({
     >
       {childrenWithValidation}
       {errors ? (
-        <ul className="tk-validation__errorList">
+        <ul className="tk-validation__errors">
           {errors.map((error, index) => (
-            <li key={index} className="tk-validation__error">
-              {error}
-            </li>
+            <li key={index}>{error}</li>
           ))}
         </ul>
       ) : null}
