@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
+import classNames from 'classnames';
 
 const ValidationPropTypes = {
   validator: PropTypes.oneOfType([
@@ -57,20 +58,22 @@ const Validation = ({
   });
 
   return (
-    <>
+    <span
+      className={classNames('tk-validation', {
+        'tk-validation--error': errors && errors.length,
+      })}
+    >
       {childrenWithValidation}
       {errors ? (
-        <div className="tk-error">
-          <ul>
-            {errors.map((error, index) => (
-              <li key={index} className="tk-error__item">
-                {error}
-              </li>
-            ))}
-          </ul>
-        </div>
+        <ul className="tk-validation__errorList">
+          {errors.map((error, index) => (
+            <li key={index} className="tk-validation__error">
+              {error}
+            </li>
+          ))}
+        </ul>
       ) : null}
-    </>
+    </span>
   );
 };
 
