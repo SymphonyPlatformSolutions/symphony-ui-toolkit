@@ -17,14 +17,34 @@ export const Validations = () => {
       <Validation
         onValidationChanged={logChange}
         validator={Validators.Required}
-        errorMessage={{ required: 'This field is mandatory' }}
+        errorMessage={'This field is mandatory'}
       >
         <TextField
           placeholder="Firstname"
           onChange={() => {
             console.log('Existing onChange method called');
           }}
-        ></TextField>
+        />
+      </Validation>
+      <p>
+        Text Field with <strong>MinLength validator</strong>
+      </p>
+      <Validation
+        onValidationChanged={logChange}
+        validator={Validators.MinLength(3)}
+        errorMessage={'You need to enter 3 characters minimum'}
+      >
+        <TextField placeholder="How are you?" />
+      </Validation>
+      <p>
+        Using <strong>pattern validator</strong>
+      </p>
+      <Validation
+        onValidationChanged={logChange}
+        validator={Validators.Pattern(/lorem.*/)}
+        errorMessage={'Should start with lorem'}
+      >
+        <TextField placeholder="Magic word" />
       </Validation>
       <h2>Multiple validators</h2>
       <p>
@@ -33,50 +53,45 @@ export const Validations = () => {
       </p>
       <Validation
         onValidationChanged={logChange}
-        errorMessage={{
-          required: 'This field is mandatory',
-          number: 'Should be a number',
-          minlength: 'Please type at least 3 numbers',
-        }}
         validator={[
           Validators.Required,
           Validators.Number,
           Validators.MinLength(3),
         ]}
+        errorMessage={{
+          required: 'This field is mandatory',
+          number: 'Should be a number',
+          minlength: 'Please type at least 3 numbers',
+        }}
       >
-        <TextField placeholder="Firstname"></TextField>
+        <TextField onChange={logChange} label="Number" placeholder="Age" />
       </Validation>
       <h2>Can be attached to anything</h2>
-      <p>Text Field, Text Area</p>
+      <p>The Validation component wraps the component to be validated.</p>
+      <p>
+        To be able to validate the component, the child component must take in
+        parameters two methods: <strong>onChange</strong> and{' '}
+        <strong>onBlur</strong> methods.
+      </p>
+      <p>
+        Call onChange method when the child&apos;s value changes and call onBlur
+        method when it loses the focus.
+      </p>
+      <p>Here another example with a validation on a Text Area</p>
       <Validation
         onValidationChanged={logChange}
-        errorMessage={{
-          required: 'This field is mandatory',
-          number: 'Should be a number',
-          minlength: 'Please type at least 3 numbers',
-        }}
         validator={[
           Validators.Required,
           Validators.Number,
           Validators.MinLength(3),
         ]}
-      >
-        <TextField placeholder="Firstname"></TextField>
-      </Validation>
-      <Validation
-        onValidationChanged={logChange}
         errorMessage={{
           required: 'This field is mandatory',
           number: 'Should be a number',
-          minlength: 'Please type at least 3 numbers',
+          minlength: 'Please type at least 5 characters',
         }}
-        validator={[
-          Validators.Required,
-          Validators.Number,
-          Validators.MinLength(3),
-        ]}
       >
-        <TextArea placeholder="Firstname"></TextArea>
+        <TextArea placeholder="Type something" />
       </Validation>
     </div>
   );

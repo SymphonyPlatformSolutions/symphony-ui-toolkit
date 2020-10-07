@@ -10,7 +10,7 @@ const ValidationPropTypes = {
   ]),
   errorMessage: PropTypes.oneOfType([
     PropTypes.string,
-    PropTypes.arrayOf(PropTypes.string),
+    PropTypes.objectOf(PropTypes.string),
   ]),
   onValidationChanged: PropTypes.func,
 };
@@ -19,7 +19,7 @@ const Validation = ({
   validator,
   errorMessage,
   onValidationChanged,
-  children,
+  ...otherProps
 }) => {
   const [errors, setErrors] = useState([]);
   const [isValid, setValid] = useState(null);
@@ -45,7 +45,11 @@ const Validation = ({
     if (!valid && errorMessage) {
       Object.entries(errors).forEach(([errorId, errorVal]) => {
         if (errorVal) {
-          errorMessages.push(errorMessage[errorId]);
+          if (errorMessage instanceof Object) {
+            errorMessages.push(errorMessage[errorId]);
+          } else {
+            errorMessages.push(errorMessage);
+          }
         }
       });
     }
@@ -53,22 +57,28 @@ const Validation = ({
     return errorMessages;
   };
 
-  const childrenWithValidation = React.Children.map(children, (child) => {
-    if (!React.isValidElement(child)) {
-      console.error('Child is not a valid React element', child);
+  const childrenWithValidation = React.Children.map(
+    otherProps.children,
+    (child) => {
+      if (!React.isValidElement(child)) {
+        console.error('Child is not a valid React element', child);
+      }
+      return React.cloneElement(child, {
+        onChange: (value) => {
+          validate(value as any);
+          if (child.props.onChange) {
+            child.props.onChange(value);
+          }
+        },
+        onBlur: (event: any) => {
+          validate(event.target.value);
+          if (child.props.onBlur) {
+            child.props.onBlur(event);
+          }
+        },
+      });
     }
-    // type childProps = React.ComponentProps<typeof child>;
-    //
-    // console.log('Props', childProps);
-    return React.cloneElement(child, {
-      onChange: (value) => {
-        validate(value as any);
-        if (child.props.onChange) {
-          child.props.onChange(value);
-        }
-      },
-    });
-  });
+  );
 
   return (
     <span
@@ -80,7 +90,9 @@ const Validation = ({
       {errors ? (
         <ul className="tk-validation__errors">
           {errors.map((error, index) => (
-            <li key={index}>{error}</li>
+            <li className="tk-validation__error" key={index}>
+              {error}
+            </li>
           ))}
         </ul>
       ) : null}
@@ -88,6 +100,6 @@ const Validation = ({
   );
 };
 
-Validation.prototype = ValidationPropTypes;
+Validation.propTypes = ValidationPropTypes;
 
 export default Validation;
