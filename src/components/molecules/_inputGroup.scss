@@ -36,7 +36,10 @@
     }
   }
 
-  &--error:hover, &--error:focus-within {
+  .tk-validation--error:hover &,
+  .tk-validation--error:focus-within &,
+  &--error:hover,
+  &--error:focus-within {
     @include styleLabels {
       color: $--tk-input-error-active-color;
     }

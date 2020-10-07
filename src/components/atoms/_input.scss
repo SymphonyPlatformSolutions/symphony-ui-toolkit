@@ -71,12 +71,27 @@ textarea.tk-input {
     @extend .tk-label;
   }
 
-  .tk-validation__error,
   &__error {
     @extend .tk-label;
     @extend .tk-label--error;
   }
 
+}
+
+.tk-validation {
+  &--error {
+    color: $--tk-input-error-inactive-color;
+  }
+
+  &--error:focus-within &__error,
+  &--error:hover &__error {
+    color: $--tk-input-error-active-color;
+  }
+
+  &__error {
+    @extend .tk-label;
+    @extend .tk-label--error;
+  }
 }
 
 /* Select */
