@@ -35,7 +35,7 @@ class Validation extends React.Component<ValidationProps> {
 
   componentDidMount() {
     if (this.props.validateOnInit) {
-      this.validate(this.state.validateOnInit);
+      this.validate(this.props.validateOnInit);
     }
   }
 
@@ -79,7 +79,6 @@ class Validation extends React.Component<ValidationProps> {
       }
       valid = !errors || isEmpty(errors);
       if (this.props.onValidationChanged && valid !== this.state.isValid) {
-        console.log('onValidationChanged', valid, value);
         this.props.onValidationChanged(valid);
       }
     }
@@ -102,7 +101,6 @@ class Validation extends React.Component<ValidationProps> {
    * Reset to default value and reset errors
    */
   public reset(): void {
-    console.log('Reset', this.props.children);
     this.setState({ isValid: null, errors: [] });
   }
 
@@ -110,7 +108,6 @@ class Validation extends React.Component<ValidationProps> {
    * Force validation to refresh, and return isValid state when triggered (used in Elements form before submission)
    */
   public async refreshValidation(): Promise<boolean> {
-    console.log('refreshValidation', this.state.lastValue);
     await this.validate(this.state.lastValue);
     return this.state.isValid;
   }

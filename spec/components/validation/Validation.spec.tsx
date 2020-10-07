@@ -16,13 +16,13 @@ describe('Validation Component', () => {
         </Validation>
       );
       expect(wrapper.length).toEqual(1);
-      expect(wrapper.find('.tk-validation--error')).toEqual({});
-      expect(wrapper.find('.tk-validation__error')).toEqual({});
+      expect(wrapper.find('.tk-validation--error').exists()).toBeFalsy();
+      expect(wrapper.find('.tk-validation__error').exists()).toBeFalsy();
       const mockEvent = { target: { value: 'This is just for test' } };
       wrapper.find('TextField').simulate('change', mockEvent);
       expect(validate).toHaveBeenCalledWith(mockEvent.target.value);
     });
-    it('"onValidationChanged" callback should be called on value change', async () => {
+    it('"onValidationChanged" callback should be called on validation', async () => {
       const zone = {
         onChange: () => null,
         onValidationChanged: () => null,
@@ -46,6 +46,58 @@ describe('Validation Component', () => {
       await validate;
       expect(valChange).toHaveBeenCalledWith(true);
     });
+    it('validation should be called when the child component is updated', async () => {
+      const zone = {
+        onChange: () => null,
+        validator: Validators.Required,
+      };
+      const change = jest.spyOn(zone, 'onChange');
+      const validate = jest.spyOn(Validation.prototype, 'validate');
+      const wrapper = shallow(
+        <Validation validator={zone.validator} errorMessage={'Required'}>
+          <TextField onChange={zone.onChange} />
+        </Validation>
+      );
+      const mockEvent = { target: { value: 'This is just for test' } };
+      wrapper.find('TextField').simulate('change', mockEvent);
+      expect(change).toHaveBeenCalledWith(mockEvent);
+      await validate;
+      expect(validate).toHaveBeenCalledWith(mockEvent.target.value);
+    });
+    it('validation should be called when the child component loses focus', async () => {
+      const zone = {
+        onBlur: () => null,
+        validator: Validators.Required,
+      };
+      const blur = jest.spyOn(zone, 'onBlur');
+      const validate = jest.spyOn(Validation.prototype, 'validate');
+      const wrapper = shallow(
+        <Validation validator={zone.validator} errorMessage={'Required'}>
+          <TextField onBlur={zone.onBlur} />
+        </Validation>
+      );
+      const mockEvent = { target: { value: 'This is just for test' } };
+      wrapper.find('TextField').simulate('blur', mockEvent);
+      expect(blur).toHaveBeenCalledWith(mockEvent);
+      await validate;
+      expect(validate).toHaveBeenCalledWith(mockEvent.target.value);
+    });
+    it('validation should be called at initialization if validateOnInit is defined', async () => {
+      const validate = jest.spyOn(Validation.prototype, 'validate');
+      const valueToCheck = 'A value to test';
+      const wrapper = shallow(
+        <Validation
+          validateOnInit={valueToCheck}
+          validator={Validators.Required}
+          errorMessage={'Required'}
+        >
+          <TextField />
+        </Validation>
+      );
+      expect(wrapper.length).toEqual(1);
+      expect(validate).toHaveBeenCalled();
+      expect(validate).toHaveBeenCalledWith(valueToCheck);
+    });
     it('should chain validators in an array', async () => {
       const promiseAll = jest
         .spyOn(Promise, 'all')
@@ -66,62 +118,6 @@ describe('Validation Component', () => {
       wrapper.render();
       expect(wrapper.find('.tk-validation__error').text()).toEqual('Number');
     });
-
-    // describe('should clear input', () => {
-    //   const tests = [
-    //     {
-    //       title: 'when default value',
-    //       args: {
-    //         defaultValue: 'default value',
-    //         expectedAfterReset: 'default value',
-    //       },
-    //     },
-    //     {
-    //       title: 'when no value',
-    //       args: { defaultValue: undefined, expectedAfterReset: '' },
-    //     },
-    //   ];
-    //
-    //   tests.forEach(function (test) {
-    //     it(`${test.title}`, async () => {
-    //       const zone = {
-    //         onChange: () => null,
-    //       };
-    //       jest.spyOn(Validation.prototype, 'reset');
-    //       const change = jest.spyOn(zone, 'onChange');
-    //       const wrapper = shallow(
-    //         <Validation validator={} errorMessage={}>
-    //           <TextField
-    //             value={test.args.defaultValue}
-    //             onChange={zone.onChange}
-    //           />
-    //         </Validation>
-    //       );
-    //       wrapper
-    //         .find('input')
-    //         .simulate('change', { target: { value: 'test' } });
-    //       let state = wrapper.state();
-    //       expect(state).toEqual(
-    //         expect.objectContaining({
-    //           value: 'test',
-    //           dirty: true,
-    //           touched: false,
-    //         })
-    //       );
-    //
-    //       wrapper.instance().reset();
-    //       state = wrapper.state();
-    //       expect(state).toEqual(
-    //         expect.objectContaining({
-    //           value: test.args.expectedAfterReset,
-    //           dirty: false,
-    //           touched: false,
-    //         })
-    //       );
-    //       expect(change).toHaveBeenCalledWith(test.args.expectedAfterReset);
-    //     });
-    //   });
-    // });
     it('should force validation', async () => {
       const zone = {
         onChange: () => null,
@@ -132,14 +128,10 @@ describe('Validation Component', () => {
       const validator = jest.spyOn(zone, 'validator');
 
       const wrapper = shallow(
-        <Validation
-          validator={zone.validator}
-          errorMessage={{ required: 'Required' }}
-        >
+        <Validation validator={zone.validator} errorMessage={'Required'}>
           <TextField />
         </Validation>
       );
-      console.log(wrapper.debug({ verbose: true }));
       (wrapper.instance() as Validation).refreshValidation();
 
       await validator;
@@ -159,7 +151,6 @@ describe('Validation Component', () => {
           <TextField />
         </Validation>
       );
-      console.log(wrapper.debug({ verbose: true }));
       (wrapper.instance() as Validation).refreshValidation();
       // Now some errors should be displayed
       await validator;
@@ -174,77 +165,5 @@ describe('Validation Component', () => {
       // Now no errors should be displayed
       expect(wrapper.find('.tk-validation__error').exists()).toBeFalsy();
     });
-
-    // describe('validate method should be trigger', () => {
-    //   it('when validateOnInit is defined', async () => {
-    //     const zone = {
-    //       onValidationChanged: () => null,
-    //       validator: Validators.Required,
-    //     };
-    //     const validator = jest.spyOn(zone, 'validator');
-    //     const validate = jest.spyOn(TextField.prototype, 'validate');
-    //
-    //     const valChange = jest.spyOn(zone, 'onValidationChanged');
-    //     shallow(
-    //       <Validation
-    //         validator={zone.validator}
-    //         errorMessage={'Required'}
-    //         onValidationChanged={zone.onValidationChanged}
-    //         validateOnInit={'A value'}
-    //       >
-    //         <TextField />
-    //       </Validation>
-    //     );
-    //     await validator;
-    //     await validate;
-    //     expect(valChange).toHaveBeenCalledWith('A value');
-    //   });
-    //   it('when prop is updated', async () => {
-    //     const zone = {
-    //       onValidationChanged: () => null,
-    //       validator: Validators.Required,
-    //     };
-    //     const validator = jest.spyOn(zone, 'validator');
-    //     const validate = jest.spyOn(TextField.prototype, 'validate');
-    //
-    //     const valChange = jest.spyOn(zone, 'onValidationChanged');
-    //     const wrapper = shallow(
-    //       <Validation
-    //         validator={zone.validator}
-    //         errorMessage={'Required'}
-    //         onValidationChanged={zone.onValidationChanged}
-    //       >
-    //         <TextField />
-    //       </Validation>
-    //     );
-    //     wrapper.find('TextField').setProps({ value: 'An update' });
-    //     await validator;
-    //     await validate;
-    //     expect(valChange).toHaveBeenCalledWith('An update');
-    //   });
-    //   it('when prop is updated', async () => {
-    //     const zone = {
-    //       onValidationChanged: () => null,
-    //       validator: Validators.Required,
-    //     };
-    //     const validator = jest.spyOn(zone, 'validator');
-    //     const validate = jest.spyOn(TextField.prototype, 'validate');
-    //
-    //     const valChange = jest.spyOn(zone, 'onValidationChanged');
-    //     const wrapper = shallow(
-    //       <Validation
-    //         validator={zone.validator}
-    //         errorMessage={'Required'}
-    //         onValidationChanged={zone.onValidationChanged}
-    //       >
-    //         <TextField />
-    //       </Validation>
-    //     );
-    //     wrapper.find('input').simulate('blur');
-    //     await validator;
-    //     await validate;
-    //     expect(valChange).toHaveBeenCalled();
-    //   });
-    // });
   });
 });
