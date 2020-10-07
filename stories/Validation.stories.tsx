@@ -66,6 +66,19 @@ export const Validations = () => {
       >
         <TextField onChange={logChange} label="Number" placeholder="Age" />
       </Validation>
+      <h2>Validation at initialization</h2>
+      <p>
+        Using <strong>validateOnInit</strong> parameter, you can give to the
+        Validation component the value to validate at initialization.
+      </p>
+      <Validation
+        onValidationChanged={logChange}
+        validator={Validators.Pattern(/lorem.*/)}
+        errorMessage={'Should start with lorem'}
+        validateOnInit={'A value to validate'}
+      >
+        <TextField value={'A value to validate'} placeholder="Magic word" />
+      </Validation>
       <h2>Can be attached to anything</h2>
       <p>The Validation component wraps the component to be validated.</p>
       <p>

@@ -1,39 +1,12 @@
 import { shallow } from 'enzyme';
 import React from 'react';
-import { TextComponent, Types } from '../../../src/components/input/TextComponent';
+import { TextField, Validation } from '../../../src/components';
 import { Validators } from '../../../src/core/validators/validators';
 
-describe('TextComponent Component', () => {
-  describe('TextComponent test suite => ', () => {
+describe('Validation Component', () => {
+  describe('Validation test suite => ', () => {
     afterEach(() => {
       jest.restoreAllMocks();
-    });
-
-    it('render a TextField with default props and initial value and test if a input html tag is used', () => {
-      const wrapper = shallow(
-        <TextComponent type={Types.TEXTFIELD} value="Test" />
-      );
-      expect(wrapper.length).toEqual(1);
-      expect(wrapper.hasClass('tk-input-group')).toBe(true);
-      expect(wrapper.find('input.tk-input').length).toBe(1);
-      expect(wrapper.find('input.tk-input').prop('value')).toEqual('Test');
-    });
-    it('render a TextArea with default props and initial value and test if a textarea html tag is used', () => {
-      const wrapper = shallow(
-        <TextComponent type={Types.TEXTAREA} value="Test" />
-      );
-      expect(wrapper.length).toEqual(1);
-      expect(wrapper.hasClass('tk-input-group')).toBe(true);
-      expect(wrapper.find('textarea.tk-input').length).toBe(1);
-      expect(wrapper.find('textarea.tk-input').prop('value')).toEqual('Test');
-    });
-    it('extra props are forwarded to the input element', () => {
-      const ariaLabel = 'field';
-      const wrapper = shallow(
-        <TextComponent type={Types.TEXTFIELD} aria-label={ariaLabel} />
-      );
-      expect(wrapper.length).toEqual(1);
-      expect(wrapper.find('input').prop('aria-label')).toEqual(ariaLabel);
     });
     it('if a validator is present no error message appears before touched/modified', async () => {
       const zone = {
@@ -42,22 +15,20 @@ describe('TextComponent Component', () => {
       const validator = jest
         .spyOn(zone, 'validator')
         .mockImplementation(() => Promise.resolve({ required: true }));
-      const validate = jest.spyOn(TextComponent.prototype, 'validate');
+      const validate = jest.spyOn(Validation.prototype, 'validate');
 
       const wrapper = shallow(
-        <TextComponent
-          type={Types.TEXTFIELD}
-          validator={Validators.Required}
-          errors={{ required: 'Required' }}
-        />
+        <Validation validator={Validators.Required} errorMessage={'Required'}>
+          <TextField />
+        </Validation>
       );
       expect(wrapper.length).toEqual(1);
-      expect(wrapper.find('.tk-input__error')).toEqual({});
+      expect(wrapper.find('.tk-validation--error')).toEqual({});
       wrapper.find('input').simulate('change', { target: { value: '' } });
       await validator;
       await validate;
       wrapper.render();
-      expect(wrapper.find('.tk-input__error').text()).toEqual('Required');
+      expect(wrapper.find('.tk-validation__error').text()).toEqual('Required');
     });
     it('callbacks should be called on value and validation change', async () => {
       const zone = {
@@ -66,18 +37,19 @@ describe('TextComponent Component', () => {
         validator: Validators.Required,
       };
       const change = jest.spyOn(zone, 'onChange');
-      const validate = jest.spyOn(TextComponent.prototype, 'validate');
+      const validate = jest.spyOn(Validation.prototype, 'validate');
       const valChange = jest.spyOn(zone, 'onValidationChanged');
       const validator = jest
         .spyOn(zone, 'validator')
         .mockImplementation(() => Promise.resolve({ required: true }));
       const wrapper = shallow(
-        <TextComponent
-          type={Types.TEXTFIELD}
+        <Validation
           validator={zone.validator}
+          errorMessage={'Required'}
           onValidationChanged={zone.onValidationChanged}
-          onChange={zone.onChange}
-        />
+        >
+          <TextField />
+        </Validation>
       );
       wrapper.find('input').simulate('change', { target: { value: '' } });
       expect(change).toHaveBeenCalledWith('');
@@ -255,39 +227,6 @@ describe('TextComponent Component', () => {
       await validate;
       wrapper.render();
       expect(wrapper.find('.tk-input__error').text()).toEqual('Required');
-    });
-    it('should display a label if provided', () => {
-      const id = 'textfield-1234567890';
-      let wrapper = shallow(<TextComponent type={Types.TEXTFIELD} />);
-      expect(wrapper.find('label.tk-label').length).toBe(0);
-      wrapper = shallow(
-        <TextComponent type={Types.TEXTFIELD} label="LABEL" id={id} />
-      );
-      expect(wrapper.find('label.tk-label').text()).toEqual('LABEL');
-      expect(wrapper.find(`label[htmlFor="${id}"]`)).toHaveLength(1);
-    });
-    it('should display a tooltip if provided', () => {
-      const tooltipText = 'Tooltip';
-      const tooltipCloseLabel = 'Close';
-      let wrapper = shallow(<TextComponent type={Types.TEXTFIELD} />);
-      expect(wrapper.find('Icon').length).toBe(0);
-      wrapper = shallow(
-        <TextComponent
-          type={Types.TEXTFIELD}
-          tooltip={tooltipText}
-          tooltipCloseLabel={tooltipCloseLabel}
-          placeholder="Firstname"
-          value="Lorem"
-        />
-      );
-      expect(wrapper.find('Icon').length).toBe(1);
-      expect(wrapper.find('Icon').prop('iconName')).toBeDefined();
-      expect(wrapper.find('Tooltip').length).toBe(1);
-      expect(wrapper.find('Tooltip').prop('id')).toBeDefined();
-      expect(wrapper.find('Tooltip').prop('description')).toEqual(tooltipText);
-      expect(wrapper.find('Tooltip').prop('closeLabel')).toEqual(
-        tooltipCloseLabel
-      );
     });
   });
 });

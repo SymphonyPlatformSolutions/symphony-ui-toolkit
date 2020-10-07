@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
 import classNames from 'classnames';
+import { ValidatorFn } from '../../core/validators/validators';
 
 const ValidationPropTypes = {
   validator: PropTypes.oneOfType([
@@ -13,12 +14,21 @@ const ValidationPropTypes = {
     PropTypes.objectOf(PropTypes.string),
   ]),
   onValidationChanged: PropTypes.func,
+  validateOnInit: PropTypes.string,
 };
 
-const Validation = ({
+interface ValidationProps {
+  validator: ValidatorFn | ValidatorFn[];
+  errorMessage: string | { [key: string]: string };
+  onValidationChanged?: (isValid: boolean) => void;
+  validateOnInit?: string;
+}
+
+const Validation: React.FC<ValidationProps> = ({
   validator,
   errorMessage,
   onValidationChanged,
+  validateOnInit,
   ...otherProps
 }) => {
   const [errors, setErrors] = useState([]);
@@ -57,28 +67,47 @@ const Validation = ({
     return errorMessages;
   };
 
-  const childrenWithValidation = React.Children.map(
-    otherProps.children,
-    (child) => {
-      if (!React.isValidElement(child)) {
-        console.error('Child is not a valid React element', child);
-      }
-      return React.cloneElement(child, {
-        onChange: (value) => {
-          validate(value as any);
-          if (child.props.onChange) {
-            child.props.onChange(value);
-          }
-        },
-        onBlur: (event: any) => {
-          validate(event.target.value);
-          if (child.props.onBlur) {
-            child.props.onBlur(event);
-          }
-        },
-      });
+  const getChildWithValidation = (child) => {
+    if (!React.isValidElement(child)) {
+      console.error('Child is not a valid React element', child);
     }
-  );
+    return React.cloneElement(child as any, {
+      onChange: (value) => {
+        validate(value as any);
+        if (child.props.onChange) {
+          child.props.onChange(value);
+        }
+      },
+      onBlur: (event: any) => {
+        validate(event.target.value);
+        if (child.props.onBlur) {
+          child.props.onBlur(event);
+        }
+      },
+    });
+  };
+
+  let childWithValidation;
+  if (React.Children.count(otherProps.children) === 0) {
+    console.error('The Validation component requires one child component.');
+  } else if (React.Children.count(otherProps.children) > 1) {
+    console.error(
+      `The Validation component can wrap only one component. Found: ${React.Children.count(
+        otherProps.children
+      )}`,
+      otherProps.children
+    );
+  } else {
+    const child = React.Children.only(otherProps.children);
+    childWithValidation = getChildWithValidation(child);
+  }
+
+  if (validateOnInit !== null && validateOnInit !== undefined) {
+    // Similar to componentDidMount and componentDidUpdate:
+    useEffect(() => {
+      validate(validateOnInit);
+    }, [validateOnInit]);
+  }
 
   return (
     <span
@@ -86,7 +115,7 @@ const Validation = ({
         'tk-validation--error': errors && errors.length,
       })}
     >
-      {childrenWithValidation}
+      {childWithValidation}
       {errors ? (
         <ul className="tk-validation__errors">
           {errors.map((error, index) => (
