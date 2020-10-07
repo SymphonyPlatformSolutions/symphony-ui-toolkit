@@ -49,10 +49,10 @@ class Validation extends React.Component<ValidationProps> {
       console.error('Child is not a valid React element', child);
     }
     return React.cloneElement(child as any, {
-      onChange: (value) => {
-        this.validate(value as any);
+      onChange: (event: any) => {
+        this.validate(event.target.value);
         if (child.props.onChange) {
-          child.props.onChange(value);
+          child.props.onChange(event);
         }
       },
       onBlur: (event: any) => {
@@ -64,7 +64,7 @@ class Validation extends React.Component<ValidationProps> {
     });
   }
 
-  private async validate(value: string): Promise<string[]> {
+  public async validate(value: string): Promise<string[]> {
     let errors;
     let valid = true;
     const errorMessages = [];
@@ -79,6 +79,7 @@ class Validation extends React.Component<ValidationProps> {
       }
       valid = !errors || isEmpty(errors);
       if (this.props.onValidationChanged && valid !== this.state.isValid) {
+        console.log('onValidationChanged', valid, value);
         this.props.onValidationChanged(valid);
       }
     }

@@ -16,7 +16,7 @@ type TextComponentProps = {
   label?: string;
   masked?: boolean;
   placeholder?: string;
-  onChange?: (string) => any;
+  onChange?: (event) => any;
   onBlur?: () => any;
   tooltip?: string;
   tooltipCloseLabel?: string;
@@ -73,7 +73,7 @@ class TextComponent extends React.Component<TextComponentPropsWithType> {
     const newValue = evt.target.value;
     this.setState({ value: newValue });
     if (this.props.onChange) {
-      this.props.onChange(newValue);
+      this.props.onChange(evt);
     }
   };
 
