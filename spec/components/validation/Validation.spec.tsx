@@ -16,8 +16,8 @@ describe('Validation Component', () => {
         </Validation>
       );
       expect(wrapper.length).toEqual(1);
-      expect(wrapper.find('.tk-validation--error').exists()).toBeFalsy();
-      expect(wrapper.find('.tk-validation__error').exists()).toBeFalsy();
+      expect(wrapper.find('.tk-validation--errors').exists()).toBeFalsy();
+      expect(wrapper.find('.tk-validation__errors').exists()).toBeFalsy();
       const mockEvent = { target: { value: 'This is just for test' } };
       wrapper.find('TextField').simulate('change', mockEvent);
       expect(validate).toHaveBeenCalledWith(mockEvent.target.value);
@@ -116,7 +116,7 @@ describe('Validation Component', () => {
       await promiseAll;
       await validate;
       wrapper.render();
-      expect(wrapper.find('.tk-validation__error').text()).toEqual('Number');
+      expect(wrapper.find('.tk-validation__errors').text()).toEqual('Number');
     });
     it('should force validation', async () => {
       const zone = {
@@ -137,7 +137,7 @@ describe('Validation Component', () => {
       await validator;
       await validate;
       wrapper.render();
-      expect(wrapper.find('.tk-validation__error').text()).toEqual('Required');
+      expect(wrapper.find('.tk-validation__errors').text()).toEqual('Required');
     });
     it('should reset validation', async () => {
       const zone = {
@@ -156,14 +156,14 @@ describe('Validation Component', () => {
       await validator;
       await validate;
       wrapper.render();
-      expect(wrapper.find('.tk-validation__error').text()).toEqual('Required');
+      expect(wrapper.find('.tk-validation__errors').text()).toEqual('Required');
 
       (wrapper.instance() as Validation).reset();
       await validator;
       await validate;
       wrapper.render();
       // Now no errors should be displayed
-      expect(wrapper.find('.tk-validation__error').exists()).toBeFalsy();
+      expect(wrapper.find('.tk-validation__errors').exists()).toBeFalsy();
     });
   });
 });
