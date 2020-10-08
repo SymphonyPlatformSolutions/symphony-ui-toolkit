@@ -1,7 +1,7 @@
 @mixin styleLabels {
   label,
   .tk-input__helper,
-  .tk-input__error {
+  .tk-validation__error {
     @content;
   }
 }
@@ -27,19 +27,17 @@
     }
   }
 
-  &--error {
+  .tk-validation--error & {
     @include styleLabels {
       @extend .tk-label--error;
     }
     .tk-input {
-      @extend .tk-input--error;
+      @extend .tk-validation--error;
     }
   }
 
   .tk-validation--error:hover &,
-  .tk-validation--error:focus-within &,
-  &--error:hover,
-  &--error:focus-within {
+  .tk-validation--error:focus-within & {
     @include styleLabels {
       color: $--tk-input-error-active-color;
     }

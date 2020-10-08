@@ -34,8 +34,7 @@ textarea.tk-input {
     $--tk-input-default-background-color
   );
 
-  .tk-validation--error &,
-  &--error {
+  .tk-validation--error & {
     @include styleInput(
       $--tk-input-error-inactive-color,
       $--tk-input-error-focus-border-color,
@@ -71,12 +70,6 @@ textarea.tk-input {
   &__helper {
     @extend .tk-label;
   }
-
-  &__error {
-    @extend .tk-label;
-    @extend .tk-label--error;
-  }
-
 }
 
 .tk-validation {
