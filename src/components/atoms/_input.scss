@@ -15,6 +15,7 @@ textarea.tk-input {
 .tk-input {
   width: 100%;
   box-sizing: border-box;
+  font-family: inherit;
   font-size: toEm($fontSize);
   line-height: toEm(20, $fontSize);
   padding: toEm(8, $fontSize) toEm(75, $fontSize) toEm(8, $fontSize) toEm(10, $fontSize);
@@ -33,7 +34,7 @@ textarea.tk-input {
     $--tk-input-default-background-color
   );
 
-  &--error {
+  .tk-validation--error & {
     @include styleInput(
       $--tk-input-error-inactive-color,
       $--tk-input-error-focus-border-color,
@@ -69,12 +70,22 @@ textarea.tk-input {
   &__helper {
     @extend .tk-label;
   }
+}
 
-  &__error {
+.tk-validation {
+  &--error {
+    color: $--tk-input-error-inactive-color;
+  }
+
+  &--error:focus-within &__errors,
+  &--error:hover &__errors {
+    color: $--tk-input-error-active-color;
+  }
+
+  &__errors {
     @extend .tk-label;
     @extend .tk-label--error;
   }
-
 }
 
 /* Select */

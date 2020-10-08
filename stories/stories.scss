@@ -70,3 +70,9 @@ until we have a design for them in the UI Toolkit. */
     text-align: center;
   }
 }
+
+.code {
+  white-space: pre;
+  padding: 1em;
+  background-color: $scolor-graphite-minus-96;
+}
