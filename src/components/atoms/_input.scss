@@ -15,6 +15,7 @@ textarea.tk-input {
 .tk-input {
   width: 100%;
   box-sizing: border-box;
+  font-family: inherit;
   font-size: toEm($fontSize);
   line-height: toEm(20, $fontSize);
   padding: toEm(8, $fontSize) toEm(75, $fontSize) toEm(8, $fontSize) toEm(10, $fontSize);
