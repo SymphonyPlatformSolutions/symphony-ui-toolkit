@@ -140,9 +140,7 @@ class Validation extends React.Component<ValidationProps> {
         {this.state.errors && this.state.errors.length ? (
           <ul className="tk-validation__errors">
             {this.state.errors.map((error, index) => (
-              <li className="tk-validation__error" key={index}>
-                {error}
-              </li>
+              <li key={index}>{error}</li>
             ))}
           </ul>
         ) : null}
