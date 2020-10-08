@@ -10,10 +10,10 @@ describe('TextField Component', () => {
     });
 
     it('render with default props and initial value', () => {
-      const wrapper = shallow(<TextField></TextField>);
+      const wrapper = shallow(<TextField />);
       expect(wrapper.length).toEqual(1);
-      expect(wrapper.find(TextComponent).length).toBe(1)
-      expect(wrapper.find(TextComponent).prop('type')).toEqual(Types.TEXTFIELD)
+      expect(wrapper.find(TextComponent).length).toBe(1);
+      expect(wrapper.find(TextComponent).prop('type')).toEqual(Types.TEXTFIELD);
     });
   });
 });
