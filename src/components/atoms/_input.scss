@@ -77,12 +77,12 @@ textarea.tk-input {
     color: $--tk-input-error-inactive-color;
   }
 
-  &--error:focus-within &__error,
-  &--error:hover &__error {
+  &--error:focus-within &__errors,
+  &--error:hover &__errors {
     color: $--tk-input-error-active-color;
   }
 
-  &__error {
+  &__errors {
     @extend .tk-label;
     @extend .tk-label--error;
   }

@@ -1,7 +1,7 @@
 @mixin styleLabels {
   label,
   .tk-input__helper,
-  .tk-validation__error {
+  .tk-validation__errors {
     @content;
   }
 }
