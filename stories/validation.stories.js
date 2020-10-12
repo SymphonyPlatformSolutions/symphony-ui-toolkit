@@ -25,7 +25,7 @@ export const Validation = () => {
     &lt;/span&gt;
       </pre>
        </p>
-        <h2>Validartion on a  Text Field</h2>
+        <h2>Validation on a  Text Field</h2>
           <span class="tk-validation--error">
             <div class="tk-input-group">
                 <label for="text-field-input">Field label</label>
