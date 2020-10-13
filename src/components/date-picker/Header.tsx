@@ -4,7 +4,7 @@ import React from 'react';
 import Icon from '../icon/Icon';
 import { addMonths, addYears } from 'date-fns';
 
-const Header = ({ date, localeUtils, onChange }) => {
+const Header = ({ date, months, onChange }) => {
   const changeYear = (amount: number) => {
     onChange(addYears(date, amount));
   };
@@ -12,8 +12,6 @@ const Header = ({ date, localeUtils, onChange }) => {
   const changeMonth = (amount: number) => {
     onChange(addMonths(date, amount));
   };
-
-  const months = localeUtils.getMonths();
 
   const captionHeader = `${months[date.getMonth()]} ${date.getFullYear()}`;
   // todo: add aria label, and with translation

@@ -18,6 +18,9 @@ type TextComponentProps = {
   placeholder?: string;
   onChange?: (event) => any;
   onBlur?: () => any;
+  onFocus?: () => any;
+  onKeyDown?: (event) => any;
+  // innerRef?: any;
   tooltip?: string;
   tooltipCloseLabel?: string;
   value?: string;
@@ -46,6 +49,9 @@ const TextComponentPropTypes = {
   placeholder: PropTypes.string,
   onChange: PropTypes.func,
   onBlur: PropTypes.func,
+  onFocus: PropTypes.func,
+  onKeyDown: PropTypes.func,
+  // innerRef: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
   tooltip: PropTypes.string,
   tooltipCloseLabel: PropTypes.string,
   value: PropTypes.string,
@@ -67,6 +73,13 @@ class TextComponent extends React.Component<TextComponentPropsWithType> {
   constructor(props) {
     super(props);
     this.ariaId = `hint-${shortid.generate()}`;
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.value !== this.props.value)
+      this.setState({
+        value: nextProps.value || '',
+      });
   }
 
   onChange = (evt) => {
@@ -98,10 +111,13 @@ class TextComponent extends React.Component<TextComponentPropsWithType> {
       disabled,
       label,
       masked,
+      // innerRef,
       tooltip,
       tooltipCloseLabel,
       onChange,
       onBlur,
+      onFocus,
+      onKeyDown,
       ...rest
     } = this.props;
     /* eslint-enable @typescript-eslint/no-unused-vars */
@@ -146,11 +162,14 @@ class TextComponent extends React.Component<TextComponentPropsWithType> {
         <div className="tk-input__container">
           <TagName
             {...rest}
+            // ref={innerRef}
             id={id}
             aria-describedby={tooltip && this.ariaId}
             className="tk-input"
             value={value}
             onBlur={onBlur}
+            onFocus={onFocus}
+            onKeyDown={onKeyDown}
             onChange={this.onChange}
             style={
               {
@@ -163,7 +182,7 @@ class TextComponent extends React.Component<TextComponentPropsWithType> {
           {type == Types.TEXTFIELD ? (
             <button
               className="tk-input__hide"
-              tabIndex={value.length === 0 ? -1 : 0}
+              tabIndex={value && value.length === 0 ? -1 : 0}
               onClick={this.handleViewText}
               style={{
                 display: masked && value.length ? 'inline' : 'none',
