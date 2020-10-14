@@ -1,13 +1,17 @@
 import PropTypes from 'prop-types';
 import React, { useState, useRef } from 'react';
 
-import DayPicker, { DayModifiers } from 'react-day-picker';
-import 'react-day-picker/lib/style.css';
+import { usePopper } from 'react-popper';
 
 import { CSSTransition } from 'react-transition-group';
 
+import DayPicker, { DayModifiers } from 'react-day-picker';
+import 'react-day-picker/lib/style.css';
+
 import TextField from '../input/TextField';
 import Icon from '../icon/Icon';
+
+import styled from 'styled-components';
 
 import {
   getFirstDayOfWeek,
@@ -16,11 +20,38 @@ import {
   getWeekdaysShort,
 } from './utils/dateFnsUtils';
 
+import {
+  handleKeyDownIcon,
+  handleKeyDownInput,
+  handleKeyDownPicker,
+} from './utils/keyPressUtils';
 import { addLoopNavigation } from './utils/datePickerUtils';
 
-import { format as formatDate, isSameDay, isValid, parse } from 'date-fns';
+import { format as formatDate, isSameDay, isValid } from 'date-fns';
 
 import Header from './Header';
+
+//TODO: refactor
+const PopperContainer = styled.div`
+  z-index: 1;
+  &.PopperContainer {
+    z-index: 1;
+    &-enter {
+      opacity: 0;
+      &-active {
+        opacity: 1;
+        transition: opacity 200ms;
+      }
+    }
+    &-exit {
+      opacity: 1;
+      &-active {
+        opacity: 0;
+        transition: opacity 200ms;
+      }
+    }
+  }
+`;
 
 /** TODO: Handle format case sensitive */
 const DatePicker = ({
@@ -33,10 +64,31 @@ const DatePicker = ({
   placeholder = format.toUpperCase(),
   // multiple = false,
   locale = 'en-US',
+  placement,
   todayButton,
   tooltip,
   showOverlay,
 }) => {
+  const [popperElement, setPopperElement] = useState(null);
+  const [referenceElement, setReferenceElement] = useState(null);
+  const { styles, attributes } = usePopper(referenceElement, popperElement, {
+    placement: placement || 'bottom',
+    modifiers: [
+      {
+        name: 'flip',
+        options: {
+          fallbackPlacements: ['top', 'right', 'left'],
+        },
+      },
+      {
+        name: 'offset',
+        options: {
+          offset: [0, 4],
+        },
+      },
+    ],
+  });
+
   const [selectedDate, setSelectedDate] = useState(date);
   const [navigationDate, setNavigationDate] = useState(
     initialMonth || date || new Date()
@@ -69,21 +121,6 @@ const DatePicker = ({
     );
     setShowPicker(false);
     // refInput.current.focus();
-  };
-
-  const handleKeyDownPicker = (e) => {
-    switch (e.keyCode) {
-      case 27:
-        setShowPicker(false);
-        e.preventDefault();
-        e.stopPropagation();
-        if (refIcon.current) {
-          refIcon.current.focus();
-        }
-        break;
-      default:
-        break;
-    }
   };
 
   // const handleMultipleDayClick = (day: Date, modifiers: DayModifiers) => {
@@ -127,44 +164,8 @@ const DatePicker = ({
     setShowPicker(!showPicker);
   };
 
-  const handleKeyDownInput = (e) => {
-    switch (e.keyCode) {
-      case 13:
-        e.preventDefault();
-        e.stopPropagation();
-        setShowPicker(!showPicker);
-        break;
-      case 27:
-        e.preventDefault();
-        e.stopPropagation();
-        setShowPicker(false);
-        break;
-      default:
-        break;
-    }
-  };
-
-  const handleKeyDownIcon = (e) => {
-    switch (e.keyCode) {
-      case 9:
-        if (!e.shiftKey && showPicker && refPicker.current) {
-          e.preventDefault();
-          e.stopPropagation();
-          refPicker.current.dayPicker.querySelector('.DayPicker-Day:not(.DayPicker-Day--outside)').focus();
-        }
-        break;
-      case 13:
-        e.preventDefault();
-        e.stopPropagation();
-        handleClickIcon();
-        break;
-      default:
-        break;
-    }
-  };
-
   return (
-    <>
+    <div style={{ position: 'relative' }} ref={setReferenceElement}>
       <div className="DayPicker-Input">
         <TextField
           // innerRef={refInput}
@@ -174,47 +175,63 @@ const DatePicker = ({
           tooltip={tooltip}
           onChange={handleInputChange}
           onFocus={() => setShowPicker(true)}
-          onKeyDown={handleKeyDownInput}
+          onKeyDown={(e) => handleKeyDownInput(e, showOverlay, setShowPicker)}
         ></TextField>
-        <span
+        <div
           ref={refIcon}
           tabIndex={0}
           className="DayPicker-Input--icon"
           onClick={handleClickIcon}
-          onKeyDown={handleKeyDownIcon}
+          onKeyDown={(e) => handleKeyDownIcon(e, showPicker, refPicker)}
         >
           <Icon iconName="calendar"></Icon>
-        </span>
+        </div>
       </div>
-      <div style={{ display: showPicker ? 'block' : 'none' }}>
-        <DayPicker
-          ref={refPicker}
-          selectedDays={selectedDate}
-          disabledDays={disabledDays}
-          dir={dir}
-          todayButton={todayButton}
-          month={navigationDate}
-          captionElement={({ date }) => (
-            <Header
-              date={date}
-              months={getMonths(now, getLocale)}
-              onChange={handleHeaderChange}
-            />
-          )}
-          onKeyDown={handleKeyDownPicker}
-          // onDayClick={multiple ? handleMultipleDayClick : handleDayClick}
-          onDayClick={handleDayClick}
-          onTodayButtonClick={handleDayClick}
-          locale={locale}
-          months={getMonths(now, getLocale)}
-          weekdaysLong={getWeekdaysLong(now, getLocale)}
-          weekdaysShort={getWeekdaysShort(now, getLocale)}
-          // firstDayOfWeek={getFirstDayOfWeek(now, getLocale)}
-          // labels={getLabels(locale)}
-          fixedWeeks
-        ></DayPicker>
-      </div>
-    </>
+      <CSSTransition
+        mountOnEnter
+        unmountOnExit
+        in={showPicker}
+        timeout={200}
+        classNames="PopperContainer"
+        appear
+      >
+        <PopperContainer
+          // id={id}
+          role="tooltip"
+          ref={setPopperElement}
+          className=""
+          style={styles.popper}
+          {...attributes.popper}
+        >
+          <DayPicker
+            ref={refPicker}
+            selectedDays={selectedDate}
+            disabledDays={disabledDays}
+            dir={dir}
+            todayButton={todayButton}
+            month={navigationDate}
+            captionElement={({ date }) => (
+              <Header
+                date={date}
+                months={getMonths(now, getLocale)}
+                onChange={handleHeaderChange}
+              />
+            )}
+            onKeyDown={(e) => handleKeyDownPicker(e, setShowPicker, refIcon)}
+            // onDayClick={multiple ? handleMultipleDayClick : handleDayClick}
+            onDayClick={handleDayClick}
+            onTodayButtonClick={handleDayClick}
+            locale={locale}
+            months={getMonths(now, getLocale)}
+            weekdaysLong={getWeekdaysLong(now, getLocale)}
+            weekdaysShort={getWeekdaysShort(now, getLocale)}
+            // firstDayOfWeek={getFirstDayOfWeek(now, getLocale)}
+            // labels={getLabels(locale)}
+            fixedWeeks
+          ></DayPicker>
+        </PopperContainer>
+      </CSSTransition>
+    </div>
   );
 };
 

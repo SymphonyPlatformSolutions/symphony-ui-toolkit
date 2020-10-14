@@ -26,12 +26,16 @@ export const DatePickers: React.SFC = () => {
         <DatePicker todayButton="today"></DatePicker>
       </div>
       <div className="tk-text-color">
+        <h2>Initially open</h2>
+        <DatePicker todayButton="today" showOverlay={true}></DatePicker>
+      </div>
+      <div className="tk-text-color">
         <h2>With value</h2>
-        <DatePicker todayButton="today" date={new Date()} showOverlay={true}></DatePicker>
+        <DatePicker todayButton="today" date={new Date()}></DatePicker>
       </div>
       <div className="tk-text-color">
         <h2>Using locale</h2>
-        <DatePicker todayButton="today" locale="fr" showOverlay={true}></DatePicker>
+        <DatePicker todayButton="today" locale="fr"></DatePicker>
       </div>
       <div className="tk-text-color">
         <h2>Disabling days</h2>
@@ -39,13 +43,26 @@ export const DatePickers: React.SFC = () => {
           todayButton="today"
           locale="fr"
           disabledDays={disabledDays}
-          showOverlay={true}
         ></DatePicker>
         <DatePicker
           todayButton="today"
           locale="fr"
           disabledDays={disabledWeekends}
-          showOverlay={true}
+        ></DatePicker>
+      </div>
+      <div className="tk-text-color">
+        <h2>Disabling days</h2>
+        <DatePicker
+          todayButton="today"
+          locale="fr"
+          disabledDays={disabledDays}
+          tooltip="Depart date"
+          label="Expense"
+        ></DatePicker>
+        <DatePicker
+          todayButton="today"
+          locale="fr"
+          disabledDays={disabledWeekends}
         ></DatePicker>
       </div>
     </>
