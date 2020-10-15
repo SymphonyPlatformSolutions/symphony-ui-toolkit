@@ -35,7 +35,7 @@ jobs:
       - aws-s3/sync:
           arguments: --delete
           from: /tmp/dist/storybook
-          to: s3://uitoolkit-storybook/components
+          to: s3://uitoolkit-storybook/components/master
 
 workflows:
   build:
@@ -48,7 +48,5 @@ workflows:
           requires:
             - build-and-publish
           filters:
-            tags:
-              only: /^v.*$/
             branches:
-              ignore: /.*/
+              only: master
