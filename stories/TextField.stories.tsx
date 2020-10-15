@@ -44,6 +44,27 @@ export const TextFields: React.SFC = () => {
       <hr />
       <div>
         <p>
+          Simple Text Field with an <strong>icon</strong>
+        </p>
+        <TextField iconProps={{ iconName: 'calendar' }}></TextField>
+      </div>
+      <hr />
+      <div>
+        <p>
+          Simple Text Field with an <strong>icon</strong>, method <strong>handlers</strong> and <strong>tabIndex</strong>
+        </p>
+        <TextField
+          iconProps={{
+            iconName: 'calendar',
+            tabIndex: 0,
+            onClick: () => logChange('clicked'),
+            onKeyDown: logChange,
+          }}
+        ></TextField>
+      </div>
+      <hr />
+      <div>
+        <p>
           Simple Text Field with a <strong>tooltip</strong>
         </p>
         <TextField

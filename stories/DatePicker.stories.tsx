@@ -20,52 +20,47 @@ export const DatePickers: React.SFC = () => {
   const disabledWeekends = [{ daysOfWeek: [0, 6] }];
 
   return (
-    <>
-      <div className="tk-text-color">
+    <div className="tk-text-color" style={{ minHeight: '500px' }}>
+      <div>
         <h2>Default</h2>
         <DatePicker todayButton="today"></DatePicker>
       </div>
-      <div className="tk-text-color">
+      <div>
         <h2>Initially open</h2>
         <DatePicker todayButton="today" showOverlay={true}></DatePicker>
       </div>
-      <div className="tk-text-color">
+      <div>
         <h2>With value</h2>
         <DatePicker todayButton="today" date={new Date()}></DatePicker>
       </div>
-      <div className="tk-text-color">
+      <div>
         <h2>Using locale</h2>
         <DatePicker todayButton="today" locale="fr"></DatePicker>
       </div>
-      <div className="tk-text-color">
+      <div>
         <h2>Disabling days</h2>
         <DatePicker
           todayButton="today"
-          locale="fr"
           disabledDays={disabledDays}
         ></DatePicker>
         <DatePicker
           todayButton="today"
-          locale="fr"
           disabledDays={disabledWeekends}
         ></DatePicker>
       </div>
-      <div className="tk-text-color">
-        <h2>Disabling days</h2>
+      <div>
+        <h2>Using label and tooltip</h2>
         <DatePicker
           todayButton="today"
-          locale="fr"
-          disabledDays={disabledDays}
           tooltip="Depart date"
           label="Expense"
         ></DatePicker>
-        <DatePicker
-          todayButton="today"
-          locale="fr"
-          disabledDays={disabledWeekends}
-        ></DatePicker>
       </div>
-    </>
+      <div>
+        <h2>Disabled</h2>
+        <DatePicker todayButton="today" disabled={true}></DatePicker>
+      </div>
+    </div>
   );
 };
 

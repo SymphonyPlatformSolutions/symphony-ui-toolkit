@@ -1,8 +1,9 @@
 import React from 'react';
-import Icon from '../icon';
+import classNames from 'classnames';
 import shortid from 'shortid';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import Icon from '../icon';
 import Tooltip from '../tooltip';
 
 enum Types {
@@ -10,8 +11,11 @@ enum Types {
   TEXTFIELD = 'TextField',
 }
 
+/** TODO: maybe move iconProps somewhere else as it only affect TextField */
 type TextComponentProps = {
+  className?: string;
   disabled?: boolean;
+  iconProps?: TextComponentIconProps;
   id?: string;
   label?: string;
   masked?: boolean;
@@ -24,6 +28,14 @@ type TextComponentProps = {
   tooltip?: string;
   tooltipCloseLabel?: string;
   value?: string;
+};
+
+type TextComponentIconProps = {
+  iconName: string;
+  ref?: any;
+  tabIndex?: number;
+  onClick?: () => any;
+  onKeyDown?: (event) => any;
 };
 
 type TextComponentPropsWithType = TextComponentProps & {
@@ -41,9 +53,12 @@ const TextComponentTooltip = styled.div`
   font-size: 16px;
 `;
 
+//TODO: change iconProps any by more specific
 const TextComponentPropTypes = {
+  className: PropTypes.string,
   disabled: PropTypes.bool,
   id: PropTypes.string,
+  iconProps: PropTypes.any,
   label: PropTypes.string,
   masked: PropTypes.bool,
   placeholder: PropTypes.string,
@@ -106,7 +121,9 @@ class TextComponent extends React.Component<TextComponentPropsWithType> {
   render() {
     /* eslint-disable @typescript-eslint/no-unused-vars */
     const {
+      className,
       id,
+      iconProps,
       type,
       disabled,
       label,
@@ -132,7 +149,7 @@ class TextComponent extends React.Component<TextComponentPropsWithType> {
     }
 
     return (
-      <div className="tk-input-group">
+      <div className={classNames('tk-input-group', { disabled })}>
         {label || tooltip ? (
           <TextComponentHeader className="tk-input-group__header">
             {label ? (
@@ -165,7 +182,9 @@ class TextComponent extends React.Component<TextComponentPropsWithType> {
             // ref={innerRef}
             id={id}
             aria-describedby={tooltip && this.ariaId}
-            className="tk-input"
+            className={classNames('tk-input', className, {
+              hasIcon: iconProps,
+            })}
             value={value}
             onBlur={onBlur}
             onFocus={onFocus}
@@ -179,6 +198,20 @@ class TextComponent extends React.Component<TextComponentPropsWithType> {
             }
             disabled={disabled}
           />
+          {iconProps && type == Types.TEXTFIELD ? (
+            <div
+              ref={iconProps.ref}
+              tabIndex={iconProps.tabIndex}
+              className={`tk-input__icon ${className ? className : ''}`}
+              style={{
+                cursor: !disabled && iconProps.onClick ? 'pointer' : 'auto',
+              }}
+              onClick={!disabled ? iconProps.onClick : null}
+              onKeyDown={!disabled ? iconProps.onKeyDown : null}
+            >
+              <Icon iconName={iconProps.iconName}></Icon>
+            </div>
+          ) : null}
           {type == Types.TEXTFIELD ? (
             <button
               className="tk-input__hide"

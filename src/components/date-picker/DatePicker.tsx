@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import classNames from 'classnames';
 
 import { usePopper } from 'react-popper';
 
@@ -9,7 +10,8 @@ import DayPicker, { DayModifiers } from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
 
 import TextField from '../input/TextField';
-import Icon from '../icon/Icon';
+import Validation from '../validation/Validation';
+import { Validators } from '../../../src/core/validators/validators';
 
 import styled from 'styled-components';
 
@@ -24,6 +26,7 @@ import {
   handleKeyDownIcon,
   handleKeyDownInput,
   handleKeyDownPicker,
+  handleKeyDownCell
 } from './utils/keyPressUtils';
 import { addLoopNavigation } from './utils/datePickerUtils';
 
@@ -57,6 +60,7 @@ const PopperContainer = styled.div`
 const DatePicker = ({
   date,
   disabledDays,
+  disabled,
   dir = 'ltr',
   format = 'MM-dd-yyyy',
   initialMonth,
@@ -68,6 +72,8 @@ const DatePicker = ({
   todayButton,
   tooltip,
   showOverlay,
+  onBlur,
+  onChange,
 }) => {
   const [popperElement, setPopperElement] = useState(null);
   const [referenceElement, setReferenceElement] = useState(null);
@@ -101,15 +107,33 @@ const DatePicker = ({
   );
   // const [inputValue, setInputValue] = useState(date ? date.toLocaleDateString() : null);
 
+  const refContainer = useRef(null);
   const refPicker = useRef(null);
   const refInput = useRef(null);
   const refIcon = useRef(null);
+
+  function handleEventClickOutside(ref) {
+    useEffect(() => {
+      function handleClickOutside(event) {
+        if (ref.current && !ref.current.contains(event.target)) {
+          setShowPicker(false);
+        }
+      }
+
+      // Bind the event listener
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => {
+        // Unbind the event listener on clean up
+        document.removeEventListener('mousedown', handleClickOutside);
+      };
+    }, [ref]);
+  }
 
   const handleHeaderChange = (date) => {
     setNavigationDate(date);
   };
 
-  const handleDayClick = (date: Date, modifiers: DayModifiers) => {
+  const handleDayClick = (date: Date, modifiers: DayModifiers, e) => {
     if (modifiers.disabled) {
       return;
     }
@@ -120,6 +144,9 @@ const DatePicker = ({
         : formatDate(date, format, { locale: getLocale })
     );
     setShowPicker(false);
+    if (onChange) {
+      onChange({ target: { value: date } });
+    }
     // refInput.current.focus();
   };
 
@@ -158,34 +185,46 @@ const DatePicker = ({
       setNavigationDate(newDate);
       // TODO: handle when year is not specified
     }
+    if (onChange) {
+      onChange(e);
+    }
   };
 
   const handleClickIcon = () => {
     setShowPicker(!showPicker);
   };
 
+  const iconProps = {
+    className: classNames({
+      active: showPicker,
+    }),
+    iconName: 'calendar',
+    ref: refIcon,
+    tabIndex: 0,
+    onClick: () => handleClickIcon(),
+    onKeyDown: (e) => handleKeyDownIcon(e, showPicker, refPicker),
+  };
+
+  handleEventClickOutside(refContainer);
+
   return (
-    <div style={{ position: 'relative' }} ref={setReferenceElement}>
-      <div className="DayPicker-Input">
+    <div className={'DayPicker-Container'} onBlur={onBlur} ref={refContainer}>
+      <div className="DayPicker-Input" ref={setReferenceElement}>
         <TextField
           // innerRef={refInput}
+          className={classNames({
+            active: showPicker,
+          })}
+          disabled={disabled}
           value={inputValue}
           placeholder={placeholder}
           label={label}
           tooltip={tooltip}
           onChange={handleInputChange}
           onFocus={() => setShowPicker(true)}
-          onKeyDown={(e) => handleKeyDownInput(e, showOverlay, setShowPicker)}
+          onKeyDown={(e) => handleKeyDownInput(e, setShowPicker)}
+          iconProps={iconProps}
         ></TextField>
-        <div
-          ref={refIcon}
-          tabIndex={0}
-          className="DayPicker-Input--icon"
-          onClick={handleClickIcon}
-          onKeyDown={(e) => handleKeyDownIcon(e, showPicker, refPicker)}
-        >
-          <Icon iconName="calendar"></Icon>
-        </div>
       </div>
       <CSSTransition
         mountOnEnter
@@ -218,6 +257,7 @@ const DatePicker = ({
               />
             )}
             onKeyDown={(e) => handleKeyDownPicker(e, setShowPicker, refIcon)}
+            onDayKeyDown={(day, modifiers, e) => handleKeyDownCell(e, setNavigationDate)}
             // onDayClick={multiple ? handleMultipleDayClick : handleDayClick}
             onDayClick={handleDayClick}
             onTodayButtonClick={handleDayClick}
@@ -225,7 +265,6 @@ const DatePicker = ({
             months={getMonths(now, getLocale)}
             weekdaysLong={getWeekdaysLong(now, getLocale)}
             weekdaysShort={getWeekdaysShort(now, getLocale)}
-            // firstDayOfWeek={getFirstDayOfWeek(now, getLocale)}
             // labels={getLabels(locale)}
             fixedWeeks
           ></DayPicker>
@@ -240,10 +279,13 @@ DatePicker.propTypes = {
   date: PropTypes.instanceOf(Date),
   format: PropTypes.string,
   dir: PropTypes.string,
+  disabled: PropTypes.bool,
   disabledDays: PropTypes.any, // TODO: Date | Object | Date[] | (day: Date) ⇒ boolean
   initialMonth: PropTypes.instanceOf(Date),
   label: PropTypes.string,
   locale: PropTypes.string,
+  onBlur: PropTypes.func,
+  onChange: PropTypes.func,
   placeholder: PropTypes.string,
   // multiple: PropTypes.bool,
   todayButton: PropTypes.string,
