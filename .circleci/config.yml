@@ -44,7 +44,7 @@ jobs:
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY_STORYBOOK
           aws-region: AWS_REGION_STORYBOOK
           from: /tmp/dist/storybook
-          to: s3://uitoolkit-storybook/styles
+          to: s3://uitoolkit-storybook/styles/master
 
   deploy-cdn:
     <<: *defaults
@@ -76,10 +76,8 @@ workflows:
           requires:
             - build-and-publish
           filters:
-            tags:
-              only: /^v.*$/
             branches:
-              ignore: /.*/
+              only: master
       - deploy-cdn:
           cdn_version_path: << pipeline.git.tag >>
           requires:
