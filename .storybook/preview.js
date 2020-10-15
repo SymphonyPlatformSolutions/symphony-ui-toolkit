@@ -1,6 +1,7 @@
 import addons from '@storybook/addons';
 import { addParameters } from '@storybook/react';
 import { themes } from '@storybook/theming';
+import '../dist/styles';
 
 setTimeout(() => init());
 
