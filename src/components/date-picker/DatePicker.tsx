@@ -1,22 +1,32 @@
 import PropTypes from 'prop-types';
-import React, { useState, useRef, useEffect } from 'react';
+import React, { FunctionComponent, useState, useRef, useEffect } from 'react';
 import classNames from 'classnames';
 
 import { usePopper } from 'react-popper';
 
 import { CSSTransition } from 'react-transition-group';
 
-import DayPicker, { DayModifiers } from 'react-day-picker';
+import DayPicker, {
+  DayModifiers,
+  RangeModifier,
+  BeforeModifier,
+  AfterModifier,
+  BeforeAfterModifier,
+  DaysOfWeekModifier,
+  FunctionModifier,
+  Modifier,
+} from 'react-day-picker';
+
+//TODO: move import to tk-styles???
 import 'react-day-picker/lib/style.css';
 
 import TextField from '../input/TextField';
-import Validation from '../validation/Validation';
-import { Validators } from '../../../src/core/validators/validators';
 
 import styled from 'styled-components';
 
+import { PopperContainer } from '../common/popperUtils';
+
 import {
-  getFirstDayOfWeek,
   getMonths,
   getWeekdaysLong,
   getWeekdaysShort,
@@ -26,7 +36,7 @@ import {
   handleKeyDownIcon,
   handleKeyDownInput,
   handleKeyDownPicker,
-  handleKeyDownCell
+  handleKeyDownCell,
 } from './utils/keyPressUtils';
 import { addLoopNavigation } from './utils/datePickerUtils';
 
@@ -34,30 +44,43 @@ import { format as formatDate, isSameDay, isValid } from 'date-fns';
 
 import Header from './Header';
 
-//TODO: refactor
-const PopperContainer = styled.div`
+const DatePickerContainer = styled.div`
   z-index: 1;
-  &.PopperContainer {
-    z-index: 1;
-    &-enter {
-      opacity: 0;
-      &-active {
-        opacity: 1;
-        transition: opacity 200ms;
-      }
-    }
-    &-exit {
-      opacity: 1;
-      &-active {
-        opacity: 0;
-        transition: opacity 200ms;
-      }
-    }
+  &.DatePickerContainer {
+    ${PopperContainer}
   }
 `;
 
-/** TODO: Handle format case sensitive */
-const DatePicker = ({
+type DatePickerComponentProps = {
+  className: string;
+  date?: Date;
+  disabledDays?:
+    | Date
+    | RangeModifier
+    | BeforeModifier
+    | AfterModifier
+    | BeforeAfterModifier
+    | DaysOfWeekModifier
+    | FunctionModifier
+    | Modifier[];
+  disabled?: boolean;
+  dir: 'ltr' | 'rtl';
+  format: string;
+  initialMonth: Date;
+  label: string;
+  placeholder: string;
+  // multiple: boolean,
+  locale: string;
+  placement: 'top' | 'bottom' | 'right' | 'left';
+  todayButton: string;
+  tooltip: string;
+  showOverlay: boolean;
+  onBlur: () => any;
+  onChange: (event) => any;
+};
+
+/** TODO: Handle 'format' case sensitive */
+const DatePicker: FunctionComponent<DatePickerComponentProps> = ({
   date,
   disabledDays,
   disabled,
@@ -105,11 +128,9 @@ const DatePicker = ({
   const [inputValue, setInputValue] = useState(
     date ? formatDate(date, format, { locale: getLocale }) : null
   );
-  // const [inputValue, setInputValue] = useState(date ? date.toLocaleDateString() : null);
 
   const refContainer = useRef(null);
   const refPicker = useRef(null);
-  const refInput = useRef(null);
   const refIcon = useRef(null);
 
   function handleEventClickOutside(ref) {
@@ -138,6 +159,7 @@ const DatePicker = ({
       return;
     }
     setSelectedDate(modifiers.selected ? undefined : date);
+    setNavigationDate(modifiers.selected ? undefined : date);
     setInputValue(
       modifiers.selected
         ? undefined
@@ -147,9 +169,9 @@ const DatePicker = ({
     if (onChange) {
       onChange({ target: { value: date } });
     }
-    // refInput.current.focus();
   };
 
+  /** Uncomment when multiple available */
   // const handleMultipleDayClick = (day: Date, modifiers: DayModifiers) => {
   //   if (modifiers.disabled) {
   //     return;
@@ -172,10 +194,9 @@ const DatePicker = ({
     '.DayPicker-Caption--prevYear'
   );
 
-  const now = new Date(); // to handle locale dictionary
-  // TODO: replace "Today" by translation service
+  /** to handle locale dictionary (months, weekdaysLong, weekdaysShort attributes) */
+  const now = new Date();
 
-  /** INPUT LOGIC */
   const handleInputChange = (e) => {
     const newValue = e.target.value;
     setInputValue(newValue);
@@ -206,12 +227,14 @@ const DatePicker = ({
   };
 
   handleEventClickOutside(refContainer);
-
   return (
-    <div className={'DayPicker-Container'} onBlur={onBlur} ref={refContainer}>
-      <div className="DayPicker-Input" ref={setReferenceElement}>
+    <div
+      className={'tk-DatePicker-container'}
+      onBlur={onBlur}
+      ref={refContainer}
+    >
+      <div className="tk-DatePicker-input" ref={setReferenceElement}>
         <TextField
-          // innerRef={refInput}
           className={classNames({
             active: showPicker,
           })}
@@ -231,15 +254,14 @@ const DatePicker = ({
         unmountOnExit
         in={showPicker}
         timeout={200}
-        classNames="PopperContainer"
+        classNames="DatePickerContainer"
         appear
       >
-        <PopperContainer
+        <DatePickerContainer
           // id={id}
           role="tooltip"
           ref={setPopperElement}
-          className=""
-          style={styles.popper}
+          style={{ ...styles.popper, direction: dir }}
           {...attributes.popper}
         >
           <DayPicker
@@ -252,12 +274,15 @@ const DatePicker = ({
             captionElement={({ date }) => (
               <Header
                 date={date}
+                dir={dir}
                 months={getMonths(now, getLocale)}
                 onChange={handleHeaderChange}
               />
             )}
             onKeyDown={(e) => handleKeyDownPicker(e, setShowPicker, refIcon)}
-            onDayKeyDown={(day, modifiers, e) => handleKeyDownCell(e, setNavigationDate)}
+            onDayKeyDown={(day, modifiers, e) =>
+              handleKeyDownCell(e, setNavigationDate)
+            }
             // onDayClick={multiple ? handleMultipleDayClick : handleDayClick}
             onDayClick={handleDayClick}
             onTodayButtonClick={handleDayClick}
@@ -265,28 +290,65 @@ const DatePicker = ({
             months={getMonths(now, getLocale)}
             weekdaysLong={getWeekdaysLong(now, getLocale)}
             weekdaysShort={getWeekdaysShort(now, getLocale)}
-            // labels={getLabels(locale)}
+            // labels={getLabels(locale)} // TODO Previous/Next Month, Previous/Next Year...
             fixedWeeks
           ></DayPicker>
-        </PopperContainer>
+        </DatePickerContainer>
       </CSSTransition>
     </div>
   );
 };
 
+//TODO: SIMPLIFY?????
+const modifierPropTypes = [
+  PropTypes.instanceOf(Date),
+  PropTypes.exact({
+    from: PropTypes.instanceOf(Date),
+    to: PropTypes.instanceOf(Date),
+  }),
+  PropTypes.arrayOf(PropTypes.exact ({
+    from: PropTypes.instanceOf(Date),
+    to: PropTypes.instanceOf(Date),
+  })),
+  PropTypes.exact({
+    before: PropTypes.instanceOf(Date),
+  }),
+  PropTypes.arrayOf(PropTypes.exact ({
+    before: PropTypes.instanceOf(Date),
+  })),
+  PropTypes.exact({
+    after: PropTypes.instanceOf(Date),
+  }),
+  PropTypes.arrayOf(PropTypes.exact ({
+    after: PropTypes.instanceOf(Date),
+  })),
+  PropTypes.exact({
+    after: PropTypes.instanceOf(Date),
+    before: PropTypes.instanceOf(Date),
+  }),
+  PropTypes.arrayOf(PropTypes.exact ({
+    after: PropTypes.instanceOf(Date),
+    before: PropTypes.instanceOf(Date),
+  })),
+  PropTypes.exact({
+    daysOfWeek: PropTypes.arrayOf(PropTypes.number),
+  }),
+  PropTypes.func,
+]
+
 DatePicker.propTypes = {
   className: PropTypes.string,
   date: PropTypes.instanceOf(Date),
   format: PropTypes.string,
-  dir: PropTypes.string,
+  dir: PropTypes.oneOf(['ltr', 'rtl']),
   disabled: PropTypes.bool,
-  disabledDays: PropTypes.any, // TODO: Date | Object | Date[] | (day: Date) ⇒ boolean
+  disabledDays: PropTypes.oneOfType(modifierPropTypes),
   initialMonth: PropTypes.instanceOf(Date),
   label: PropTypes.string,
   locale: PropTypes.string,
   onBlur: PropTypes.func,
   onChange: PropTypes.func,
-  placeholder: PropTypes.string,
+  placeholder: PropTypes.oneOf(['top', 'bottom', 'right', 'left']),
   // multiple: PropTypes.bool,
   todayButton: PropTypes.string,
   tooltip: PropTypes.string,

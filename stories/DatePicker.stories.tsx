@@ -17,47 +17,100 @@ export const DatePickers: React.SFC = () => {
     },
   ];
 
-  const disabledWeekends = [{ daysOfWeek: [0, 6] }];
+  const disabledWednesday = [{ daysOfWeek: [3] }];
 
   return (
     <div className="tk-text-color" style={{ minHeight: '500px' }}>
+      <h1>Date Picker</h1>
       <div>
-        <h2>Default</h2>
+        <p>Default Date Picker</p>
         <DatePicker todayButton="today"></DatePicker>
       </div>
-      <div>
-        <h2>Initially open</h2>
+      <hr />
+      <div style={{marginBottom: '300px'}}>
+        <p>
+          Date Picker initially <strong>open</strong>
+        </p>
         <DatePicker todayButton="today" showOverlay={true}></DatePicker>
       </div>
+      <hr />
       <div>
-        <h2>With value</h2>
+        <p>
+          Date Picker with <strong>initial value</strong>
+        </p>
         <DatePicker todayButton="today" date={new Date()}></DatePicker>
       </div>
+      <hr />
       <div>
-        <h2>Using locale</h2>
-        <DatePicker todayButton="today" locale="fr"></DatePicker>
+        <p>
+          Date Picker with specific <strong>format</strong>
+        </p>
+        <DatePicker todayButton="today" format="dd/MM/yyyy"></DatePicker>
       </div>
+      <hr />
       <div>
-        <h2>Disabling days</h2>
+        <p>
+          Date Picker opening on specific <strong>initial month</strong>
+        </p>
+        <DatePicker
+          todayButton="today"
+          initialMonth={new Date(now.getFullYear(), now.getMonth() + 2, now.getDate())}
+        ></DatePicker>
+      </div>
+      <hr />
+      <div>
+        <p>
+          Date Picker opening on specific <strong>placement</strong> (top) by default
+        </p>
+        <DatePicker
+          todayButton="today"
+          placement="top"
+        ></DatePicker>
+      </div>
+      <hr />
+      <div>
+        <p>
+          Date Picker using <strong>locale</strong> (french)
+        </p>
+        <DatePicker todayButton="today" locale="fr"></DatePicker>
+        <p>
+          Date Picker using <strong>locale</strong> (arabic) and <strong>right-to-left</strong>
+        </p>
+        <DatePicker todayButton="today" locale="ar-DZ" dir="rtl"></DatePicker>
+      </div>
+      <hr />
+      <div>
+        <p>
+          Date Picker with <strong>disabled days</strong> (date, before, after,
+          and intervals)
+        </p>
         <DatePicker
           todayButton="today"
           disabledDays={disabledDays}
         ></DatePicker>
+        <p>
+          Date Picker with <strong>every Wednesday</strong> disabled
+          (daysOfWeek)
+        </p>
         <DatePicker
           todayButton="today"
-          disabledDays={disabledWeekends}
+          disabledDays={disabledWednesday}
         ></DatePicker>
       </div>
+      <hr />
       <div>
-        <h2>Using label and tooltip</h2>
+        <p>
+          Date Picker using <strong>label</strong> and <strong>tooltip</strong>
+        </p>
         <DatePicker
           todayButton="today"
           tooltip="Depart date"
           label="Expense"
         ></DatePicker>
       </div>
+      <hr />
       <div>
-        <h2>Disabled</h2>
+        <p>Disabled</p>
         <DatePicker todayButton="today" disabled={true}></DatePicker>
       </div>
     </div>

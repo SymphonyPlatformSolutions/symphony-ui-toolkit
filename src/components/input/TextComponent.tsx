@@ -149,7 +149,7 @@ class TextComponent extends React.Component<TextComponentPropsWithType> {
     }
 
     return (
-      <div className={classNames('tk-input-group', { disabled })}>
+      <div className={classNames('tk-input-group', { 'tk-input-group--disabled': disabled })}>
         {label || tooltip ? (
           <TextComponentHeader className="tk-input-group__header">
             {label ? (
