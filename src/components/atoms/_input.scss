@@ -3,7 +3,6 @@ $fontSize: 14;
 .tk-input__container {
   position: relative;
   display: flex;
-  margin-bottom: toEm(4, $fontSize);
 }
 
 textarea.tk-input {
@@ -18,7 +17,8 @@ textarea.tk-input {
   font-family: inherit;
   font-size: toEm($fontSize);
   line-height: toEm(20, $fontSize);
-  padding: toEm(8, $fontSize) toEm(75, $fontSize) toEm(8, $fontSize) toEm(10, $fontSize);
+  padding: toEm(8, $fontSize) toEm(75, $fontSize) toEm(8, $fontSize)
+    toEm(10, $fontSize);
   background-color: transparent;
   border-color: transparent;
   border-radius: toEm(4, $fontSize);
@@ -26,6 +26,9 @@ textarea.tk-input {
   outline: none;
   @include addTransition();
 
+  &.hasIcon {
+    padding-left: toEm(40, $fontSize);
+  }
   @include styleInput(
     $--tk-input-default-inactive-color,
     $--tk-input-default-focus-border-color,
@@ -43,7 +46,6 @@ textarea.tk-input {
       $--tk-input-error-background-color
     );
   }
-  &--disabled,
   &:disabled {
     @include styleInput(
       $--tk-input-disabled-color,
@@ -52,6 +54,25 @@ textarea.tk-input {
       $--tk-input-disabled-color,
       $--tk-input-disabled-background-color
     );
+  }
+
+  &__icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 100%;
+    width: toEm(32, $fontSize);
+
+    border-radius: toEm(4, $fontSize) 0 0 toEm(4, $fontSize);
+    color: $scolor-white;
+    z-index: 1;
+    @include addTransition();
+
   }
 
   &__hide {
@@ -69,6 +90,37 @@ textarea.tk-input {
 
   &__helper {
     @extend .tk-label;
+    margin-top: toEm(4, $fontSize);
+  }
+}
+
+/** icon styles depends on container **/
+.tk-input__container {
+  @include styleInputIcon(
+    $--tk-input-default-inactive-color,
+    $--tk-input-default-focus-border-color,
+    $--tk-input-default-hover-color,
+    $--tk-input-default-background-color
+  );
+
+  .tk-validation--error & {
+    @include styleInputIcon(
+      $--tk-input-error-inactive-color,
+      $--tk-input-error-focus-border-color,
+      $--tk-input-error-active-color,
+      $--tk-input-error-background-color
+    );
+  }
+  .tk-input-group--disabled & {
+    .tk-input__icon {
+      outline: none;
+    }
+    @include styleInputIcon(
+      $--tk-input-disabled-color,
+      $--tk-input-disabled-color,
+      $--tk-input-disabled-color,
+      $--tk-input-disabled-background-color
+    );
   }
 }
 
@@ -85,6 +137,7 @@ textarea.tk-input {
   &__errors {
     @extend .tk-label;
     @extend .tk-label--error;
+    margin-top: toEm(4, $fontSize);
   }
 }
 

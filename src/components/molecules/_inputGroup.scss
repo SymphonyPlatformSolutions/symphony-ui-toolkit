@@ -22,7 +22,7 @@
     @include styleLabels {
       color: $--tk-input-default-active-color;
     }
-    .tk-input:not(:focus) {
+    .tk-input:not(:focus).tk-input__icon:not(:focus) {
       @include styleHoverInput($--tk-input-default-hover-color, $--tk-input-default-active-color);
     }
   }

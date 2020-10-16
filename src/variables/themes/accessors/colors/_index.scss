@@ -67,5 +67,10 @@ $--tk-button-color-destructive: (default: var(--tk-button-color-destructive-defa
   textDisabled: var(--tk-button-color-destructive-text-disabled, $scolor-graphite-minus-24),
 );
 
+/** ======== DatePickers ======== */
+$--tk-datepicker-default-color: var(--tk-datepicker-default-color, $scolor-graphite-plus-48);
+$--tk-datepicker-selected-color: var(--tk-datepicker-selected-color, $scolor-graphite-minus-96);
+$--tk-datepicker-selected-background-color: var(--tk-datepicker-selected-color, $scolor-electricity);
+
 /** ======== Tables ======== */
 $--tk-table-hover-color: var(--tk-table-hover-color, $scolor-graphite-minus-72);
