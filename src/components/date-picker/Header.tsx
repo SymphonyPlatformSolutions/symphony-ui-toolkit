@@ -4,7 +4,7 @@ import React from 'react';
 import Icon from '../icon/Icon';
 import { addMonths, addYears } from 'date-fns';
 
-const Header = ({ date, dir, months, onChange }) => {
+const Header = ({ date, dir, labels, months, onChange }) => {
   const changeYear = (amount: number) => {
     onChange(addYears(date, amount));
   };
@@ -21,15 +21,15 @@ const Header = ({ date, dir, months, onChange }) => {
       <div className="DayPicker-Caption--heading" role="heading">
         <div>
           <button
-            aria-label="Previous Year"
+            aria-label={labels.previousYear}
             className="DayPicker-Caption--prevYear"
             onClick={() => changeYear(-1)}
           >
             <Icon iconName={dir === 'ltr' ? 'chevron-left' : 'chevron-right'}></Icon>
           </button>
           <button
+            aria-label={labels.previousMonth}
             className="DayPicker-Caption--prevMonth"
-            aria-label="Previous Month"
             onClick={() => changeMonth(-1)}
           >
             <Icon iconName={dir === 'ltr' ? 'left' : 'right'}></Icon>
@@ -38,15 +38,15 @@ const Header = ({ date, dir, months, onChange }) => {
         <div className="DayPicker-Caption--text">{captionHeader}</div>
         <div>
           <button
+            aria-label={labels.nextMonth}
             className="DayPicker-Caption--nextMonth"
-            aria-label="Next Month"
             onClick={() => changeMonth(1)}
           >
             <Icon iconName={dir === 'ltr' ? 'right' : 'left'}></Icon>
           </button>
           <button
+            aria-label={labels.nextYear}
             className="DayPicker-Caption--nextYear"
-            aria-label="Next Year"
             onClick={() => changeYear(1)}
           >
             <Icon iconName={dir === 'ltr' ? 'chevron-right' : 'chevron-left'}></Icon>

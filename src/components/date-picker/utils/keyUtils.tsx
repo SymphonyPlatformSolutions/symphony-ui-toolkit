@@ -1,8 +1,14 @@
 import { addMonths } from 'date-fns';
 
+export const TAB = 'Tab';
+export const ENTER = 'Enter';
+export const ESC = 'Escape';
+export const PAGE_UP = 'PageUp';
+export const PAGE_DOWN = 'PageDown';
+
 export function handleKeyDownPicker(e: React.KeyboardEvent<HTMLDivElement>, setShowPicker: (bool) => any, refIcon): void {
-  switch (e.keyCode) {
-    case 27:
+  switch (e.key) {
+    case ESC:
       setShowPicker(false);
       e.preventDefault();
       e.stopPropagation();
@@ -15,13 +21,13 @@ export function handleKeyDownPicker(e: React.KeyboardEvent<HTMLDivElement>, setS
   }
 }
 export function handleKeyDownCell(e: React.KeyboardEvent<HTMLDivElement>, setNavigationDate): void {
-  switch (e.keyCode) {
-    case 33:
+  switch (e.key) {
+    case PAGE_UP:
       e.preventDefault();
       e.stopPropagation();
       setNavigationDate(date => addMonths(date, -1));
       break;
-    case 34:
+    case PAGE_DOWN:
       e.preventDefault();
       e.stopPropagation();
       setNavigationDate(date => addMonths(date, 1));
@@ -32,8 +38,8 @@ export function handleKeyDownCell(e: React.KeyboardEvent<HTMLDivElement>, setNav
 }
 
 export function handleKeyDownIcon(e, showPicker: boolean, refPicker): void {
-  switch (e.keyCode) {
-    case 9:
+  switch (e.key) {
+    case TAB:
       if (!e.shiftKey && showPicker && refPicker.current) {
         e.preventDefault();
         e.stopPropagation();
@@ -42,7 +48,7 @@ export function handleKeyDownIcon(e, showPicker: boolean, refPicker): void {
           .focus();
       }
       break;
-    case 13:
+    case ENTER:
       e.preventDefault();
       e.stopPropagation();
       e.target.click();
@@ -53,13 +59,13 @@ export function handleKeyDownIcon(e, showPicker: boolean, refPicker): void {
 }
 
 export function handleKeyDownInput(e: React.KeyboardEvent<HTMLDivElement>, setShowPicker: (bool) => any): void {
-  switch (e.keyCode) {
-    case 13:
+  switch (e.key) {
+    case ENTER:
       e.preventDefault();
       e.stopPropagation();
       setShowPicker( showPicker=> !showPicker);
       break;
-    case 27:
+    case ESC:
       e.preventDefault();
       e.stopPropagation();
       setShowPicker(false);

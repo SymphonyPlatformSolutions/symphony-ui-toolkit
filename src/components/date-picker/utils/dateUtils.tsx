@@ -6,25 +6,9 @@ import {
   endOfYear,
   eachDayOfInterval,
   eachMonthOfInterval,
-  getDaysInMonth,
-  addMonths,
-  addYears,
-  startOfToday,
-  isBefore,
-  startOfMonth,
-  lastDayOfMonth,
   getDay,
-  isValid,
-  addDays,
-  differenceInCalendarMonths
 } from 'date-fns';
 
-// locale={locale}
-// months={MONTHS[locale]}
-// weekdaysLong={WEEKDAYS_LONG[locale]}
-// weekdaysShort={WEEKDAYS_SHORT[locale]}
-// firstDayOfWeek={FIRST_DAY_OF_WEEK[locale]}
-// labels={LABELS[locale]}
 export function getMonths(date: Date, locale: Locale) {
   const arr = eachMonthOfInterval({
     start: startOfYear(date),
@@ -58,7 +42,3 @@ function getWeekdays(date: Date, locale: Locale, pattern: string): string[] {
 export function getFirstDayOfWeek(date: Date, locale: Locale) {
   return getDay(startOfWeek(date, { locale }));
 }
-
-// export function getLabels(locale: Locale) {
-//   return { nextMonth: 'Next month', previousMonth: 'Previous month' };
-// }

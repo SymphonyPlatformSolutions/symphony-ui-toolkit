@@ -21,10 +21,10 @@ type TextComponentProps = {
   masked?: boolean;
   placeholder?: string;
   onChange?: (event) => any;
+  onClick?: () => any;
   onBlur?: () => any;
   onFocus?: () => any;
   onKeyDown?: (event) => any;
-  // innerRef?: any;
   tooltip?: string;
   tooltipCloseLabel?: string;
   value?: string;
@@ -53,20 +53,26 @@ const TextComponentTooltip = styled.div`
   font-size: 16px;
 `;
 
-//TODO: change iconProps any by more specific
 const TextComponentPropTypes = {
   className: PropTypes.string,
   disabled: PropTypes.bool,
   id: PropTypes.string,
-  iconProps: PropTypes.any,
+  iconProps: PropTypes.exact({
+    className: PropTypes.string,
+    iconName: PropTypes.string.isRequired,
+    ref: PropTypes.any,
+    tabIndex: PropTypes.number,
+    onClick: PropTypes.func,
+    onKeyDown: PropTypes.func,
+  }),
   label: PropTypes.string,
   masked: PropTypes.bool,
   placeholder: PropTypes.string,
   onChange: PropTypes.func,
   onBlur: PropTypes.func,
+  onClick: PropTypes.func,
   onFocus: PropTypes.func,
   onKeyDown: PropTypes.func,
-  // innerRef: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
   tooltip: PropTypes.string,
   tooltipCloseLabel: PropTypes.string,
   value: PropTypes.string,
@@ -128,11 +134,11 @@ class TextComponent extends React.Component<TextComponentPropsWithType> {
       disabled,
       label,
       masked,
-      // innerRef,
       tooltip,
       tooltipCloseLabel,
       onChange,
       onBlur,
+      onClick,
       onFocus,
       onKeyDown,
       ...rest
@@ -149,7 +155,11 @@ class TextComponent extends React.Component<TextComponentPropsWithType> {
     }
 
     return (
-      <div className={classNames('tk-input-group', { 'tk-input-group--disabled': disabled })}>
+      <div
+        className={classNames('tk-input-group', {
+          'tk-input-group--disabled': disabled,
+        })}
+      >
         {label || tooltip ? (
           <TextComponentHeader className="tk-input-group__header">
             {label ? (
@@ -179,7 +189,6 @@ class TextComponent extends React.Component<TextComponentPropsWithType> {
         <div className="tk-input__container">
           <TagName
             {...rest}
-            // ref={innerRef}
             id={id}
             aria-describedby={tooltip && this.ariaId}
             className={classNames('tk-input', className, {
@@ -187,6 +196,7 @@ class TextComponent extends React.Component<TextComponentPropsWithType> {
             })}
             value={value}
             onBlur={onBlur}
+            onClick={onClick}
             onFocus={onFocus}
             onKeyDown={onKeyDown}
             onChange={this.onChange}

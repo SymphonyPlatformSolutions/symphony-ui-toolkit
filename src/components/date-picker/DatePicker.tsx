@@ -17,7 +17,6 @@ import DayPicker, {
   Modifier,
 } from 'react-day-picker';
 
-//TODO: move import to tk-styles???
 import 'react-day-picker/lib/style.css';
 
 import TextField from '../input/TextField';
@@ -30,17 +29,18 @@ import {
   getMonths,
   getWeekdaysLong,
   getWeekdaysShort,
-} from './utils/dateFnsUtils';
+} from './utils/dateUtils';
 
 import {
   handleKeyDownIcon,
   handleKeyDownInput,
   handleKeyDownPicker,
   handleKeyDownCell,
-} from './utils/keyPressUtils';
-import { addLoopNavigation } from './utils/datePickerUtils';
+} from './utils/keyUtils';
+import { addLoopNavigation, removeTabIndex } from './utils/datePickerUtils';
+import { modifierPropTypes } from './utils/propTypesUtils';
 
-import { format as formatDate, isSameDay, isValid } from 'date-fns';
+import { format as formatDate, isValid, parse } from 'date-fns';
 
 import Header from './Header';
 
@@ -68,8 +68,13 @@ type DatePickerComponentProps = {
   format: string;
   initialMonth: Date;
   label: string;
+  labels: {
+    previousYear: string;
+    nextYear: string;
+    previousMonth: string;
+    nextMonth: string;
+  };
   placeholder: string;
-  // multiple: boolean,
   locale: string;
   placement: 'top' | 'bottom' | 'right' | 'left';
   todayButton: string;
@@ -88,6 +93,12 @@ const DatePicker: FunctionComponent<DatePickerComponentProps> = ({
   format = 'MM-dd-yyyy',
   initialMonth,
   label,
+  labels = {
+    previousYear: 'Previous Year',
+    nextYear: 'Next Year',
+    previousMonth: 'Previous Month',
+    nextMonth: 'Next Month',
+  },
   placeholder = format.toUpperCase(),
   // multiple = false,
   locale = 'en-US',
@@ -171,40 +182,47 @@ const DatePicker: FunctionComponent<DatePickerComponentProps> = ({
     }
   };
 
-  /** Uncomment when multiple available */
-  // const handleMultipleDayClick = (day: Date, modifiers: DayModifiers) => {
-  //   if (modifiers.disabled) {
-  //     return;
-  //   }
-  //   if (modifiers.selected) {
-  //     const selectedIndex = selectedDays.findIndex((selectedDay) =>
-  //       isSameDay(selectedDay, day)
-  //     );
-  //     selectedDays.splice(selectedIndex, 1);
-  //   } else {
-  //     selectedDays.push(day);
-  //   }
-  //   setSelectedDate(selectedDays);
-  // };
-
-  /** reajust loop and navigation */
+  /** DayPicker adjustment */
   addLoopNavigation(
     refPicker,
     '.DayPicker-TodayButton',
-    '.DayPicker-Caption--prevYear'
+    '.DayPicker-Caption--prevYear',
+    '.DayPicker-Day:not(.DayPicker-Day--outside)'
   );
 
-  /** to handle locale dictionary (months, weekdaysLong, weekdaysShort attributes) */
+  // addLoopNavigation(
+  //   refPicker,
+  //   '.DayPicker-Caption--prevYear',
+  //   '.DayPicker-Caption--prevMonth',
+  //   '.DayPicker-TodayButton'
+  // );
+
+  removeTabIndex(refPicker, '.DayPicker-wrapper');
+
+  /** `now` to handle locale dictionary (months, weekdaysLong, weekdaysShort attributes) */
   const now = new Date();
 
   const handleInputChange = (e) => {
     const newValue = e.target.value;
     setInputValue(newValue);
-    const newDate = new Date(newValue);
+
+    let newDate = parse(newValue, format, new Date(), { locale: getLocale });
+    // If year not typed, take the current year
+    if (!isValid(newDate)) {
+      // regex: remove -yyyy, yyyy-, /yyyy, yyyy/, .yyyy, ...
+      newDate = parse(
+        newValue,
+        format.replace(/[\W]?y{4}[\W]?/, ''),
+        new Date(),
+        {
+          locale: getLocale,
+        }
+      );
+    }
+
     if (isValid(newDate)) {
       setSelectedDate(newDate);
       setNavigationDate(newDate);
-      // TODO: handle when year is not specified
     }
     if (onChange) {
       onChange(e);
@@ -235,6 +253,14 @@ const DatePicker: FunctionComponent<DatePickerComponentProps> = ({
     >
       <div className="tk-DatePicker-input" ref={setReferenceElement}>
         <TextField
+          aria-autocomplete="none"
+          aria-describedby={tooltip}
+          aria-label={label}
+          aria-placeholder={placeholder}
+          aria-readonly={disabled}
+          aria-multiline="false"
+          // aria-activedescendent=
+          // aria-required=
           className={classNames({
             active: showPicker,
           })}
@@ -265,6 +291,7 @@ const DatePicker: FunctionComponent<DatePickerComponentProps> = ({
           {...attributes.popper}
         >
           <DayPicker
+            aria-labelledby={label}
             ref={refPicker}
             selectedDays={selectedDate}
             disabledDays={disabledDays}
@@ -277,20 +304,19 @@ const DatePicker: FunctionComponent<DatePickerComponentProps> = ({
                 dir={dir}
                 months={getMonths(now, getLocale)}
                 onChange={handleHeaderChange}
+                labels={labels}
               />
             )}
             onKeyDown={(e) => handleKeyDownPicker(e, setShowPicker, refIcon)}
             onDayKeyDown={(day, modifiers, e) =>
               handleKeyDownCell(e, setNavigationDate)
             }
-            // onDayClick={multiple ? handleMultipleDayClick : handleDayClick}
             onDayClick={handleDayClick}
             onTodayButtonClick={handleDayClick}
             locale={locale}
             months={getMonths(now, getLocale)}
             weekdaysLong={getWeekdaysLong(now, getLocale)}
             weekdaysShort={getWeekdaysShort(now, getLocale)}
-            // labels={getLabels(locale)} // TODO Previous/Next Month, Previous/Next Year...
             fixedWeeks
           ></DayPicker>
         </DatePickerContainer>
@@ -298,43 +324,6 @@ const DatePicker: FunctionComponent<DatePickerComponentProps> = ({
     </div>
   );
 };
-
-//TODO: SIMPLIFY?????
-const modifierPropTypes = [
-  PropTypes.instanceOf(Date),
-  PropTypes.exact({
-    from: PropTypes.instanceOf(Date),
-    to: PropTypes.instanceOf(Date),
-  }),
-  PropTypes.arrayOf(PropTypes.exact ({
-    from: PropTypes.instanceOf(Date),
-    to: PropTypes.instanceOf(Date),
-  })),
-  PropTypes.exact({
-    before: PropTypes.instanceOf(Date),
-  }),
-  PropTypes.arrayOf(PropTypes.exact ({
-    before: PropTypes.instanceOf(Date),
-  })),
-  PropTypes.exact({
-    after: PropTypes.instanceOf(Date),
-  }),
-  PropTypes.arrayOf(PropTypes.exact ({
-    after: PropTypes.instanceOf(Date),
-  })),
-  PropTypes.exact({
-    after: PropTypes.instanceOf(Date),
-    before: PropTypes.instanceOf(Date),
-  }),
-  PropTypes.arrayOf(PropTypes.exact ({
-    after: PropTypes.instanceOf(Date),
-    before: PropTypes.instanceOf(Date),
-  })),
-  PropTypes.exact({
-    daysOfWeek: PropTypes.arrayOf(PropTypes.number),
-  }),
-  PropTypes.func,
-]
 
 DatePicker.propTypes = {
   className: PropTypes.string,
@@ -345,11 +334,16 @@ DatePicker.propTypes = {
   disabledDays: PropTypes.oneOfType(modifierPropTypes),
   initialMonth: PropTypes.instanceOf(Date),
   label: PropTypes.string,
+  labels: PropTypes.exact({
+    previousYear: PropTypes.string,
+    previousMonth: PropTypes.string,
+    nextYear: PropTypes.string,
+    nextMonth: PropTypes.string,
+  }),
   locale: PropTypes.string,
   onBlur: PropTypes.func,
   onChange: PropTypes.func,
   placeholder: PropTypes.oneOf(['top', 'bottom', 'right', 'left']),
-  // multiple: PropTypes.bool,
   todayButton: PropTypes.string,
   tooltip: PropTypes.string,
   showOverlay: PropTypes.bool,

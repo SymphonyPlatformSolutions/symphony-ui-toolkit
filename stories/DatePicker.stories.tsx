@@ -24,28 +24,28 @@ export const DatePickers: React.SFC = () => {
       <h1>Date Picker</h1>
       <div>
         <p>Default Date Picker</p>
-        <DatePicker todayButton="today"></DatePicker>
+        <DatePicker todayButton="today"/>
       </div>
       <hr />
       <div style={{marginBottom: '300px'}}>
         <p>
           Date Picker initially <strong>open</strong>
         </p>
-        <DatePicker todayButton="today" showOverlay={true}></DatePicker>
+        <DatePicker todayButton="today" showOverlay={true}/>
       </div>
       <hr />
       <div>
         <p>
           Date Picker with <strong>initial value</strong>
         </p>
-        <DatePicker todayButton="today" date={new Date()}></DatePicker>
+        <DatePicker todayButton="today" date={new Date()}/>
       </div>
       <hr />
       <div>
         <p>
           Date Picker with specific <strong>format</strong>
         </p>
-        <DatePicker todayButton="today" format="dd/MM/yyyy"></DatePicker>
+        <DatePicker todayButton="today" format="dd/MM/yyyy"/>
       </div>
       <hr />
       <div>
@@ -55,7 +55,7 @@ export const DatePickers: React.SFC = () => {
         <DatePicker
           todayButton="today"
           initialMonth={new Date(now.getFullYear(), now.getMonth() + 2, now.getDate())}
-        ></DatePicker>
+        />
       </div>
       <hr />
       <div>
@@ -65,18 +65,18 @@ export const DatePickers: React.SFC = () => {
         <DatePicker
           todayButton="today"
           placement="top"
-        ></DatePicker>
+        />
       </div>
       <hr />
       <div>
         <p>
           Date Picker using <strong>locale</strong> (french)
         </p>
-        <DatePicker todayButton="today" locale="fr"></DatePicker>
+        <DatePicker todayButton="today" locale="fr"/>
         <p>
           Date Picker using <strong>locale</strong> (arabic) and <strong>right-to-left</strong>
         </p>
-        <DatePicker todayButton="today" locale="ar-DZ" dir="rtl"></DatePicker>
+        <DatePicker todayButton="today" locale="ar-DZ" dir="rtl"/>
       </div>
       <hr />
       <div>
@@ -87,7 +87,7 @@ export const DatePickers: React.SFC = () => {
         <DatePicker
           todayButton="today"
           disabledDays={disabledDays}
-        ></DatePicker>
+        />
         <p>
           Date Picker with <strong>every Wednesday</strong> disabled
           (daysOfWeek)
@@ -95,7 +95,7 @@ export const DatePickers: React.SFC = () => {
         <DatePicker
           todayButton="today"
           disabledDays={disabledWednesday}
-        ></DatePicker>
+        />
       </div>
       <hr />
       <div>
@@ -106,12 +106,12 @@ export const DatePickers: React.SFC = () => {
           todayButton="today"
           tooltip="Depart date"
           label="Expense"
-        ></DatePicker>
+        />
       </div>
       <hr />
       <div>
         <p>Disabled</p>
-        <DatePicker todayButton="today" disabled={true}></DatePicker>
+        <DatePicker todayButton="today" disabled={true}/>
       </div>
     </div>
   );
