@@ -3,103 +3,130 @@ import { Button, Checkbox, Radio, Tooltip } from '../src/components';
 import Icon from '../src/components/icon/Icon';
 import './stories.scss';
 import '../src/styles';
-import Scale from '../src/core/hoc/Scale';
+import Scale, { Sizes } from '../src/core/hoc/Scale';
 
-export const Scaling: React.SFC = () => (
+export const Size: React.SFC = () => (
   <div>
-    <h2 className="tk-pt-2">Scaled buttons</h2>
+    <h1 className="tk-pt-2">Scaled Components</h1>
+    <p>All the components from the UI Toolkit can be scaled. To scale a component you need to add the  <span className="tk-text-color--primary">Scale</span> component as the parent of any other component and indicate the prefered size.</p>
+    <p>The possible <span className="tk-text-color--primary font-bold"><i>sizes</i></span> are: </p>
+    <ul>
+      <li>
+        <code>xx-small</code>
+      </li>
+      <li>
+        <code>x-small</code>
+      </li>
+      <li>
+        <code>small</code>
+      </li>
+      <li>
+        <code>medium</code> (value by default)
+        </li>
+      <li>
+        <code>large</code>
+      </li>
+      <li>
+        <code>x-large</code>
+      </li>
+      <li>
+        <code>xx-large</code>
+      </li>
+    </ul>
+    <div>See examples below.</div>
+    <h2 className="tk-pt-2">Button</h2>
     <div style={{ display: 'flex', margin: 16 }}>
-      <Scale size="xx-small" className="tk-pr-1h">
+      <Scale size={Sizes.XX_SMALL} className="tk-pr-1h">
         <Button variant="primary">xx-small</Button>
       </Scale>
-      <Scale size="x-small" className="tk-pr-1h">
+      <Scale size={Sizes.X_SMALL} className="tk-pr-1h">
         <Button variant="primary">x-small</Button>
       </Scale>
-      <Scale size="small" className="tk-pr-1h">
+      <Scale size={Sizes.SMALL} className="tk-pr-1h">
         <Button variant="primary">small</Button>
       </Scale>
-      <Scale size="medium" className="tk-pr-1h">
+      <Scale size={Sizes.MEDIUM} className="tk-pr-1h">
         <Button variant="primary">medium</Button>
       </Scale>
-      <Scale size="large" className="tk-pr-1h">
+      <Scale size={Sizes.LARGE} className="tk-pr-1h">
         <Button variant="primary">large</Button>
       </Scale>
-      <Scale size="x-large" className="tk-pr-1h">
+      <Scale size={Sizes.X_LARGE} className="tk-pr-1h">
         <Button variant="primary">x-large</Button>
       </Scale>
-      <Scale size="xx-large">
+      <Scale size={Sizes.XX_LARGE}>
         <Button variant="primary">xx-large</Button>
       </Scale>
     </div>
-    <h2 className="tk-pt-2">Scaled Radio buttons</h2>
+    <h2 className="tk-pt-2">Radio button</h2>
     <div style={{ display: 'flex', margin: 16 }}>
-      <Scale size="xx-small" className="tk-pr-1h">
+      <Scale size={Sizes.XX_SMALL} className="tk-pr-1h">
         <Radio label="xx-small" name="active-radio" value="active-radio-1" />
       </Scale>
-      <Scale size="x-small" className="tk-pr-1h">
-        <Radio label="x-small" name="active-radio" value="active-radio-1" />
+      <Scale size={Sizes.X_SMALL} className="tk-pr-1h">
+        <Radio label={Sizes.X_SMALL} name="active-radio" value="active-radio-1" />
       </Scale>
-      <Scale size="small" className="tk-pr-1h">
+      <Scale size={Sizes.SMALL} className="tk-pr-1h">
         <Radio label="small" name="active-radio" value="active-radio-1" />
       </Scale>
-      <Scale size="medium" className="tk-pr-1h">
+      <Scale size={Sizes.MEDIUM} className="tk-pr-1h">
         <Radio label="medium" name="active-radio" value="active-radio-1" />
       </Scale>
-      <Scale size="large" className="tk-pr-1h">
+      <Scale size={Sizes.LARGE} className="tk-pr-1h">
         <Radio label="large" name="active-radio" value="active-radio-1" />
       </Scale>
-      <Scale size="x-large" className="tk-pr-1h">
+      <Scale size={Sizes.X_LARGE} className="tk-pr-1h">
         <Radio label="x-large" name="active-radio" value="active-radio-1" />
       </Scale>
-      <Scale size="xx-large">
+      <Scale size={Sizes.XX_LARGE}>
         <Radio label="xx-large" name="active-radio" value="active-radio-1" />
       </Scale>
     </div>
-    <h2 className="tk-pt-2">Scaled checkboxes</h2>
+    <h2 className="tk-pt-2">Checkbox</h2>
     <div style={{ display: 'flex', margin: 16 }}>
-      <Scale size="xx-small" className="tk-pr-1h">
+      <Scale size={Sizes.XX_SMALL} className="tk-pr-1h">
         <Checkbox
           label="xx-small"
           name="size"
           value="xx-small"
         />
       </Scale>
-      <Scale size="x-small" className="tk-pr-1h">
+      <Scale size={Sizes.X_SMALL} className="tk-pr-1h">
         <Checkbox
-          label="x-small"
+          label={Sizes.X_SMALL}
           name="size"
-          value="x-small"
+          value={Sizes.X_SMALL}
         />
       </Scale>
-      <Scale size="small" className="tk-pr-1h">
+      <Scale size={Sizes.SMALL} className="tk-pr-1h">
         <Checkbox
           label="small"
           name="size"
           value="small"
         />
       </Scale>
-      <Scale size="medium" className="tk-pr-1h">
+      <Scale size={Sizes.MEDIUM} className="tk-pr-1h">
         <Checkbox
           label="medium"
           name="size"
           value="medium"
         />
       </Scale>
-      <Scale size="large" className="tk-pr-1h">
+      <Scale size={Sizes.LARGE} className="tk-pr-1h">
         <Checkbox
           label="large"
           name="size"
           value="large"
         />
       </Scale>
-      <Scale size="x-large" className="tk-pr-1h">
+      <Scale size={Sizes.X_LARGE} className="tk-pr-1h">
         <Checkbox
           label="x-large"
           name="size"
           value="x-large"
         />
       </Scale>
-      <Scale size="xx-large">
+      <Scale size={Sizes.XX_LARGE}>
         <Checkbox
           label="xx-large"
           name="size"
@@ -107,48 +134,48 @@ export const Scaling: React.SFC = () => (
         />
       </Scale>
     </div>
-    <h2 className="tk-pt-2">Scaled icons</h2>
+    <h2 className="tk-pt-2">Icon</h2>
     <div style={{ display: 'flex', margin: 16 }}>
-      <Scale size="xx-small" className="tk-pr-1h">
+      <Scale size={Sizes.XX_SMALL} className="tk-pr-1h">
         <Icon iconName="activity" />
       </Scale>
-      <Scale size="x-small" className="tk-pr-1h">
+      <Scale size={Sizes.X_SMALL} className="tk-pr-1h">
         <Icon iconName="activity" />
       </Scale>
-      <Scale size="small" className="tk-pr-1h">
+      <Scale size={Sizes.SMALL} className="tk-pr-1h">
         <Icon iconName="activity" />
       </Scale>
-      <Scale size="medium" className="tk-pr-1h">
+      <Scale size={Sizes.MEDIUM} className="tk-pr-1h">
         <Icon iconName="activity" />
       </Scale>
-      <Scale size="large" className="tk-pr-1h">
+      <Scale size={Sizes.LARGE} className="tk-pr-1h">
         <Icon iconName="activity" />
       </Scale>
-      <Scale size="x-large" className="tk-pr-1h">
+      <Scale size={Sizes.X_LARGE} className="tk-pr-1h">
         <Icon iconName="activity" />
       </Scale>
-      <Scale size="xx-large" className="tk-pr-5h">
+      <Scale size={Sizes.XX_LARGE} className="tk-pr-5h">
         <Icon iconName="activity" />
       </Scale>
-      <Scale size="xx-small" className="tk-pl-5h tk-pr-1h">
+      <Scale size={Sizes.XX_SMALL} className="tk-pl-5h tk-pr-1h">
         <Icon iconName="food-an-drink" />
       </Scale>
-      <Scale size="x-small" className="tk-pr-1h">
+      <Scale size={Sizes.X_SMALL} className="tk-pr-1h">
         <Icon iconName="food-an-drink" />
       </Scale>
-      <Scale size="small" className="tk-pr-1h">
+      <Scale size={Sizes.SMALL} className="tk-pr-1h">
         <Icon iconName="food-an-drink" />
       </Scale>
-      <Scale size="medium" className="tk-pr-1h">
+      <Scale size={Sizes.MEDIUM} className="tk-pr-1h">
         <Icon iconName="food-an-drink" />
       </Scale>
-      <Scale size="large" className="tk-pr-1h">
+      <Scale size={Sizes.LARGE} className="tk-pr-1h">
         <Icon iconName="food-an-drink" />
       </Scale>
-      <Scale size="x-large" className="tk-pr-1h">
+      <Scale size={Sizes.X_LARGE} className="tk-pr-1h">
         <Icon iconName="food-an-drink" />
       </Scale>
-      <Scale size="xx-large">
+      <Scale size={Sizes.XX_LARGE}>
         <Icon iconName="food-an-drink" />
       </Scale>
     </div>
@@ -158,5 +185,5 @@ export const Scaling: React.SFC = () => (
 
 export default {
   title: 'Scaled components',
-  component: Scaling,
+  component: Size,
 };
