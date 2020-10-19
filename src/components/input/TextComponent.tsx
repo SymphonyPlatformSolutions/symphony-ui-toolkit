@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import Icon from '../icon';
 import shortid from 'shortid';
 import styled from 'styled-components';
@@ -51,31 +51,16 @@ const TextComponentPropTypes = {
   value: PropTypes.string,
 };
 
-const propTypes = {
-  ...TextComponentPropTypes,
-  type: PropTypes.oneOf(Object.values(Types)).isRequired,
-};
-
 const TextComponent: React.FC<TextComponentPropsWithType> = ({id, type, disabled, label, masked, tooltip, tooltipCloseLabel, value, onChange, onBlur, ...rest}) => {
   // const ariaId: string;
 
   const [showTooltip, setShowTooltip] = useState(false);
   const [hideText, setHideText] = useState(masked || false);
-  const [inputValue, setInputValue]= useState(value || '');
 
   // Generate unique ID if not provided
   const ariaId = useMemo(() => {
     return id || `hint-${shortid.generate()}`;
   },[id]);
-
-
-  const onChangeHandler = (evt) => {
-    const newValue = evt.target.value;
-    setInputValue(newValue);
-    if (onChange) {
-      onChange(evt);
-    }
-  };
 
   const handleViewText = (event) => {
     if (disabled) return;
@@ -84,9 +69,12 @@ const TextComponent: React.FC<TextComponentPropsWithType> = ({id, type, disabled
     setHideText(!hideText);
   };
 
-  const handleClickIcon = () => {
-    setShowTooltip( !showTooltip );
-  };
+  const handleClickIcon = useCallback(
+    () => {
+      setShowTooltip( !showTooltip );
+    },
+    [showTooltip],
+  );
 
   let TagName;
   if (type == Types.TEXTAREA) {
@@ -129,9 +117,9 @@ const TextComponent: React.FC<TextComponentPropsWithType> = ({id, type, disabled
           id={id}
           aria-describedby={tooltip && ariaId}
           className="tk-input"
-          value={inputValue}
+          value={value}
           onBlur={onBlur}
-          onChange={onChangeHandler}
+          onChange={onChange}
           style={
             {
               WebkitTextSecurity:
@@ -143,10 +131,10 @@ const TextComponent: React.FC<TextComponentPropsWithType> = ({id, type, disabled
         {type == Types.TEXTFIELD ? (
           <button
             className="tk-input__hide"
-            tabIndex={inputValue.length === 0 ? -1 : 0}
+            tabIndex={value && value.length === 0 ? -1 : 0}
             onClick={handleViewText}
             style={{
-              display: masked && inputValue.length ? 'inline' : 'none',
+              display: masked && value && value.length ? 'inline' : 'none',
             }}
           >
             {hideText ? 'show' : 'hide'}
@@ -156,5 +144,10 @@ const TextComponent: React.FC<TextComponentPropsWithType> = ({id, type, disabled
     </div>
   );
 }
+
+TextComponent.propTypes = {
+  ...TextComponentPropTypes,
+  type: PropTypes.oneOf(Object.values(Types)).isRequired,
+};
 
 export { TextComponentPropTypes, TextComponentProps, TextComponent, Types };
