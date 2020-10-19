@@ -1,4 +1,4 @@
-import { ENTER, TAB } from './keyUtils';
+import { Keys } from './keyUtils';
 
 /**
  * Change the behaviour of 'Tab' and 'Shift + Tab' event of an html element
@@ -20,13 +20,13 @@ export function addLoopNavigation(
       event: React.KeyboardEvent<HTMLDivElement>
     ) {
       // Only let 'Enter' event propagate
-      if (event.key !== ENTER) {
+      if (event.key !== Keys.ENTER) {
         event.preventDefault();
         event.stopPropagation();
       }
 
       // On Tab, focus the 'classNext' element
-      if (event.key === TAB) {
+      if (event.key === Keys.TAB) {
         event.preventDefault();
         event.stopPropagation();
         if (event.shiftKey) {

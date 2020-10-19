@@ -24,28 +24,28 @@ export const DatePickers: React.SFC = () => {
       <h1>Date Picker</h1>
       <div>
         <p>Default Date Picker</p>
-        <DatePicker todayButton="today"/>
+        <DatePicker />
       </div>
       <hr />
-      <div style={{marginBottom: '300px'}}>
+      <div style={{ marginBottom: '300px' }}>
         <p>
           Date Picker initially <strong>open</strong>
         </p>
-        <DatePicker todayButton="today" showOverlay={true}/>
+        <DatePicker showOverlay={true} />
       </div>
       <hr />
       <div>
         <p>
           Date Picker with <strong>initial value</strong>
         </p>
-        <DatePicker todayButton="today" date={new Date()}/>
+        <DatePicker date={new Date()} />
       </div>
       <hr />
       <div>
         <p>
           Date Picker with specific <strong>format</strong>
         </p>
-        <DatePicker todayButton="today" format="dd/MM/yyyy"/>
+        <DatePicker format="dd/MM/yyyy" />
       </div>
       <hr />
       <div>
@@ -53,30 +53,30 @@ export const DatePickers: React.SFC = () => {
           Date Picker opening on specific <strong>initial month</strong>
         </p>
         <DatePicker
-          todayButton="today"
-          initialMonth={new Date(now.getFullYear(), now.getMonth() + 2, now.getDate())}
+          initialMonth={
+            new Date(now.getFullYear(), now.getMonth() + 2, now.getDate())
+          }
         />
       </div>
       <hr />
       <div>
         <p>
-          Date Picker opening on specific <strong>placement</strong> (top) by default
+          Date Picker opening on specific <strong>placement</strong> (top) by
+          default
         </p>
-        <DatePicker
-          todayButton="today"
-          placement="top"
-        />
+        <DatePicker placement="top" />
       </div>
       <hr />
       <div>
         <p>
           Date Picker using <strong>locale</strong> (french)
         </p>
-        <DatePicker todayButton="today" locale="fr"/>
+        <DatePicker todayButton="Aujourd'hui" locale="fr" />
         <p>
-          Date Picker using <strong>locale</strong> (arabic) and <strong>right-to-left</strong>
+          Date Picker using <strong>locale</strong> (arabic) and{' '}
+          <strong>right-to-left</strong>
         </p>
-        <DatePicker todayButton="today" locale="ar-DZ" dir="rtl"/>
+        <DatePicker locale="ar-DZ" dir="rtl" />
       </div>
       <hr />
       <div>
@@ -84,34 +84,24 @@ export const DatePickers: React.SFC = () => {
           Date Picker with <strong>disabled days</strong> (date, before, after,
           and intervals)
         </p>
-        <DatePicker
-          todayButton="today"
-          disabledDays={disabledDays}
-        />
+        <DatePicker disabledDays={disabledDays} />
         <p>
           Date Picker with <strong>every Wednesday</strong> disabled
           (daysOfWeek)
         </p>
-        <DatePicker
-          todayButton="today"
-          disabledDays={disabledWednesday}
-        />
+        <DatePicker disabledDays={disabledWednesday} />
       </div>
       <hr />
       <div>
         <p>
           Date Picker using <strong>label</strong> and <strong>tooltip</strong>
         </p>
-        <DatePicker
-          todayButton="today"
-          tooltip="Depart date"
-          label="Expense"
-        />
+        <DatePicker tooltip="Departure date" label="Expense" />
       </div>
       <hr />
       <div>
         <p>Disabled</p>
-        <DatePicker todayButton="today" disabled={true}/>
+        <DatePicker disabled={true} />
       </div>
     </div>
   );

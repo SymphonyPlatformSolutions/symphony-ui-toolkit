@@ -14,8 +14,6 @@ const Header = ({ date, dir, labels, months, onChange }) => {
   };
 
   const captionHeader = `${months[date.getMonth()]} ${date.getFullYear()}`;
-  // todo: add aria label, and with translation
-  // todo: navigation
   return (
     <div className="DayPicker-Caption" role="heading">
       <div className="DayPicker-Caption--heading" role="heading">

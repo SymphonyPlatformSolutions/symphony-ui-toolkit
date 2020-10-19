@@ -6,16 +6,17 @@ import PropTypes from 'prop-types';
 import Icon from '../icon';
 import Tooltip from '../tooltip';
 
+import { IconProps } from '../icon/Icon';
+
 enum Types {
   TEXTAREA = 'TextArea',
   TEXTFIELD = 'TextField',
 }
 
-/** TODO: maybe move iconProps somewhere else as it only affect TextField */
 type TextComponentProps = {
   className?: string;
   disabled?: boolean;
-  iconProps?: TextComponentIconProps;
+  iconProps?: IconProps;
   id?: string;
   label?: string;
   masked?: boolean;
@@ -28,14 +29,6 @@ type TextComponentProps = {
   tooltip?: string;
   tooltipCloseLabel?: string;
   value?: string;
-};
-
-type TextComponentIconProps = {
-  iconName: string;
-  ref?: any;
-  tabIndex?: number;
-  onClick?: () => any;
-  onKeyDown?: (event) => any;
 };
 
 type TextComponentPropsWithType = TextComponentProps & {
@@ -57,14 +50,7 @@ const TextComponentPropTypes = {
   className: PropTypes.string,
   disabled: PropTypes.bool,
   id: PropTypes.string,
-  iconProps: PropTypes.exact({
-    className: PropTypes.string,
-    iconName: PropTypes.string.isRequired,
-    ref: PropTypes.any,
-    tabIndex: PropTypes.number,
-    onClick: PropTypes.func,
-    onKeyDown: PropTypes.func,
-  }),
+  iconProps: PropTypes.exact(Icon.propTypes),
   label: PropTypes.string,
   masked: PropTypes.bool,
   placeholder: PropTypes.string,
@@ -96,11 +82,13 @@ class TextComponent extends React.Component<TextComponentPropsWithType> {
     this.ariaId = `hint-${shortid.generate()}`;
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.value !== this.props.value)
-      this.setState({
-        value: nextProps.value || '',
-      });
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.value === prevState.value) {
+      return null;
+    }
+    return {
+      value: nextProps.value || '',
+    };
   }
 
   onChange = (evt) => {
@@ -133,6 +121,7 @@ class TextComponent extends React.Component<TextComponentPropsWithType> {
       type,
       disabled,
       label,
+      placeholder,
       masked,
       tooltip,
       tooltipCloseLabel,
@@ -177,10 +166,7 @@ class TextComponent extends React.Component<TextComponentPropsWithType> {
                   visible={this.state.showTooltip}
                   placement={null}
                 >
-                  <Icon
-                    iconName="info-round"
-                    handleClick={this.handleClickIcon}
-                  />
+                  <Icon iconName="info-round" onClick={this.handleClickIcon} />
                 </Tooltip>
               </TextComponentTooltip>
             ) : null}
@@ -188,12 +174,20 @@ class TextComponent extends React.Component<TextComponentPropsWithType> {
         ) : null}
         <div className="tk-input__container">
           <TagName
-            {...rest}
             id={id}
+            aria-autocomplete="none"
             aria-describedby={tooltip && this.ariaId}
+            aria-label={label}
+            aria-placeholder={placeholder}
+            aria-readonly={disabled}
+            aria-multiline={type === Types.TEXTAREA}
+            // aria-activedescendent=
+            // aria-required=
+
             className={classNames('tk-input', className, {
               hasIcon: iconProps,
             })}
+            placeholder={placeholder}
             value={value}
             onBlur={onBlur}
             onClick={onClick}
@@ -207,20 +201,13 @@ class TextComponent extends React.Component<TextComponentPropsWithType> {
               } as React.CSSProperties
             }
             disabled={disabled}
+            {...rest}
           />
           {iconProps && type == Types.TEXTFIELD ? (
-            <div
-              ref={iconProps.ref}
-              tabIndex={iconProps.tabIndex}
-              className={`tk-input__icon ${className ? className : ''}`}
-              style={{
-                cursor: !disabled && iconProps.onClick ? 'pointer' : 'auto',
-              }}
-              onClick={!disabled ? iconProps.onClick : null}
-              onKeyDown={!disabled ? iconProps.onKeyDown : null}
-            >
-              <Icon iconName={iconProps.iconName}></Icon>
-            </div>
+            <Icon
+              {...iconProps}
+              className={classNames('tk-input__icon', iconProps.className)}
+            ></Icon>
           ) : null}
           {type == Types.TEXTFIELD ? (
             <button

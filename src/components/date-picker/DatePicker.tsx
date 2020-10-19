@@ -52,7 +52,7 @@ const DatePickerContainer = styled.div`
 `;
 
 type DatePickerComponentProps = {
-  className: string;
+  className?: string;
   date?: Date;
   disabledDays?:
     | Date
@@ -64,24 +64,24 @@ type DatePickerComponentProps = {
     | FunctionModifier
     | Modifier[];
   disabled?: boolean;
-  dir: 'ltr' | 'rtl';
-  format: string;
-  initialMonth: Date;
-  label: string;
-  labels: {
+  dir?: 'ltr' | 'rtl';
+  format?: string;
+  initialMonth?: Date;
+  label?: string;
+  labels?: {
     previousYear: string;
     nextYear: string;
     previousMonth: string;
     nextMonth: string;
   };
-  placeholder: string;
-  locale: string;
-  placement: 'top' | 'bottom' | 'right' | 'left';
-  todayButton: string;
-  tooltip: string;
-  showOverlay: boolean;
-  onBlur: () => any;
-  onChange: (event) => any;
+  placeholder?: string;
+  locale?: string;
+  placement?: 'top' | 'bottom' | 'right' | 'left';
+  todayButton?: string;
+  tooltip?: string;
+  showOverlay?: boolean;
+  onBlur?: () => any;
+  onChange?: (event) => any;
 };
 
 /** TODO: Handle 'format' case sensitive */
@@ -100,10 +100,9 @@ const DatePicker: FunctionComponent<DatePickerComponentProps> = ({
     nextMonth: 'Next Month',
   },
   placeholder = format.toUpperCase(),
-  // multiple = false,
   locale = 'en-US',
-  placement,
-  todayButton,
+  placement = 'bottom',
+  todayButton = 'Today',
   tooltip,
   showOverlay,
   onBlur,
@@ -112,7 +111,7 @@ const DatePicker: FunctionComponent<DatePickerComponentProps> = ({
   const [popperElement, setPopperElement] = useState(null);
   const [referenceElement, setReferenceElement] = useState(null);
   const { styles, attributes } = usePopper(referenceElement, popperElement, {
-    placement: placement || 'bottom',
+    placement,
     modifiers: [
       {
         name: 'flip',
@@ -171,14 +170,12 @@ const DatePicker: FunctionComponent<DatePickerComponentProps> = ({
     }
     setSelectedDate(modifiers.selected ? undefined : date);
     setNavigationDate(modifiers.selected ? undefined : date);
-    setInputValue(
-      modifiers.selected
-        ? undefined
-        : formatDate(date, format, { locale: getLocale })
-    );
+
+    const inputValue = formatDate(date, format, { locale: getLocale });
+    setInputValue(modifiers.selected ? undefined : inputValue);
     setShowPicker(false);
     if (onChange) {
-      onChange({ target: { value: date } });
+      onChange({ target: { value: inputValue } });
     }
   };
 
@@ -233,12 +230,20 @@ const DatePicker: FunctionComponent<DatePickerComponentProps> = ({
     setShowPicker(!showPicker);
   };
 
+  const textfieldProps = {
+    disabled,
+    label,
+    placeholder,
+    tooltip,
+  };
+
   const iconProps = {
     className: classNames({
       active: showPicker,
     }),
+    disabled,
     iconName: 'calendar',
-    ref: refIcon,
+    forwardRef: refIcon,
     tabIndex: 0,
     onClick: () => handleClickIcon(),
     onKeyDown: (e) => handleKeyDownIcon(e, showPicker, refPicker),
@@ -253,26 +258,15 @@ const DatePicker: FunctionComponent<DatePickerComponentProps> = ({
     >
       <div className="tk-DatePicker-input" ref={setReferenceElement}>
         <TextField
-          aria-autocomplete="none"
-          aria-describedby={tooltip}
-          aria-label={label}
-          aria-placeholder={placeholder}
-          aria-readonly={disabled}
-          aria-multiline="false"
-          // aria-activedescendent=
-          // aria-required=
+          {...textfieldProps}
           className={classNames({
             active: showPicker,
           })}
-          disabled={disabled}
-          value={inputValue}
-          placeholder={placeholder}
-          label={label}
-          tooltip={tooltip}
+          iconProps={iconProps}
+          value={inputValue || ''}
           onChange={handleInputChange}
           onFocus={() => setShowPicker(true)}
           onKeyDown={(e) => handleKeyDownInput(e, setShowPicker)}
-          iconProps={iconProps}
         ></TextField>
       </div>
       <CSSTransition
@@ -343,7 +337,8 @@ DatePicker.propTypes = {
   locale: PropTypes.string,
   onBlur: PropTypes.func,
   onChange: PropTypes.func,
-  placeholder: PropTypes.oneOf(['top', 'bottom', 'right', 'left']),
+  placeholder: PropTypes.string,
+  placement: PropTypes.oneOf(['top', 'bottom', 'right', 'left']),
   todayButton: PropTypes.string,
   tooltip: PropTypes.string,
   showOverlay: PropTypes.bool,

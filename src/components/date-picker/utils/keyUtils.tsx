@@ -1,54 +1,52 @@
 import { addMonths } from 'date-fns';
 
-export const TAB = 'Tab';
-export const ENTER = 'Enter';
-export const ESC = 'Escape';
-export const PAGE_UP = 'PageUp';
-export const PAGE_DOWN = 'PageDown';
-
-export function handleKeyDownPicker(e: React.KeyboardEvent<HTMLDivElement>, setShowPicker: (bool) => any, refIcon): void {
-  switch (e.key) {
-    case ESC:
-      setShowPicker(false);
-      e.preventDefault();
-      e.stopPropagation();
-      if (refIcon.current) {
-        refIcon.current.focus();
-      }
-      break;
-    default:
-      break;
-  }
+export enum Keys {
+  TAB = 'Tab',
+  ENTER = 'Enter',
+  ESC = 'Escape',
+  PAGE_UP = 'PageUp',
+  PAGE_DOWN = 'PageDown',
 }
-export function handleKeyDownCell(e: React.KeyboardEvent<HTMLDivElement>, setNavigationDate): void {
+
+export function handleKeyDownCell(
+  e: React.KeyboardEvent<HTMLDivElement>,
+  setNavigationDate: (date) => any
+): void {
   switch (e.key) {
-    case PAGE_UP:
+    case Keys.PAGE_UP:
       e.preventDefault();
       e.stopPropagation();
-      setNavigationDate(date => addMonths(date, -1));
+      setNavigationDate((date) => addMonths(date, -1));
       break;
-    case PAGE_DOWN:
+    case Keys.PAGE_DOWN:
       e.preventDefault();
       e.stopPropagation();
-      setNavigationDate(date => addMonths(date, 1));
+      setNavigationDate((date) => addMonths(date, 1));
       break;
     default:
       break;
   }
 }
 
-export function handleKeyDownIcon(e, showPicker: boolean, refPicker): void {
+export function handleKeyDownIcon(
+  e,
+  showPicker: boolean,
+  ref: React.MutableRefObject<any>
+): void {
   switch (e.key) {
-    case TAB:
-      if (!e.shiftKey && showPicker && refPicker.current) {
+    case Keys.TAB:
+      if (!e.shiftKey && showPicker && ref.current && ref.current.dayPicker) {
         e.preventDefault();
         e.stopPropagation();
-        refPicker.current.dayPicker
-          .querySelector('.DayPicker-Day:not(.DayPicker-Day--outside)')
-          .focus();
+        const elCell = ref.current.dayPicker.querySelector(
+          '.DayPicker-Day:not(.DayPicker-Day--outside)'
+        );
+        if (elCell) {
+          elCell.focus();
+        }
       }
       break;
-    case ENTER:
+    case Keys.ENTER:
       e.preventDefault();
       e.stopPropagation();
       e.target.click();
@@ -58,17 +56,39 @@ export function handleKeyDownIcon(e, showPicker: boolean, refPicker): void {
   }
 }
 
-export function handleKeyDownInput(e: React.KeyboardEvent<HTMLDivElement>, setShowPicker: (bool) => any): void {
+export function handleKeyDownInput(
+  e: React.KeyboardEvent<HTMLDivElement>,
+  setShowPicker: (bool) => any
+): void {
   switch (e.key) {
-    case ENTER:
+    case Keys.ENTER:
       e.preventDefault();
       e.stopPropagation();
-      setShowPicker( showPicker=> !showPicker);
+      setShowPicker((showPicker) => !showPicker);
       break;
-    case ESC:
+    case Keys.ESC:
       e.preventDefault();
       e.stopPropagation();
       setShowPicker(false);
+      break;
+    default:
+      break;
+  }
+}
+
+export function handleKeyDownPicker(
+  e: React.KeyboardEvent<HTMLDivElement>,
+  setShowPicker: (bool) => any,
+  refIcon
+): void {
+  switch (e.key) {
+    case Keys.ESC:
+      setShowPicker(false);
+      e.preventDefault();
+      e.stopPropagation();
+      if (refIcon.current) {
+        refIcon.current.focus();
+      }
       break;
     default:
       break;

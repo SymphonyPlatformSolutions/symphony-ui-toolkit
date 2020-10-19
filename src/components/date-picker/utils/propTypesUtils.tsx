@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 
 export const modifierPropTypes = [
   PropTypes.instanceOf(Date),
+  PropTypes.arrayOf(PropTypes.instanceOf(Date)),
   PropTypes.exact({
     from: PropTypes.instanceOf(Date),
     to: PropTypes.instanceOf(Date),
@@ -41,5 +42,11 @@ export const modifierPropTypes = [
   PropTypes.exact({
     daysOfWeek: PropTypes.arrayOf(PropTypes.number),
   }),
+  PropTypes.arrayOf(
+    PropTypes.exact({
+      daysOfWeek: PropTypes.arrayOf(PropTypes.number),
+    })
+  ),
   PropTypes.func,
+  PropTypes.arrayOf(PropTypes.func),
 ];
