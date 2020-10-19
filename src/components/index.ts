@@ -1,3 +1,4 @@
+import { Icons } from './../../stories/Icons.stories';
 import Button from './button';
 import { TextArea, TextField } from './input';
 import { Checkbox, Radio } from './selection';
@@ -16,4 +17,5 @@ export {
   TextField,
   Tooltip,
   Validation,
+  Icons
 };
