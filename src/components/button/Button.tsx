@@ -4,13 +4,14 @@ import classNames from 'classnames';
 const prefix = 'tk-button';
 
 type ButtonProps = {
-  iconButton?: boolean,
-  children?: React.ReactNode,
-  className?: string,
-  disabled?: boolean,
-  loading?: boolean,
-  type?: 'button' | 'reset' | 'submit',
-  variant?: 'primary' | 'secondary' | 'tertiary' | 'destructive'
+  iconButton?: boolean;
+  children?: React.ReactNode;
+  className?: string;
+  disabled?: boolean;
+  loading?: boolean;
+  type?: 'button' | 'reset' | 'submit';
+  variant?: 'primary' | 'secondary' | 'tertiary' | 'destructive';
+  onClick?: (event: React.MouseEvent<HTMLElement>) => void;
 };
 
 const Button: React.SFC<ButtonProps> = ({
@@ -27,7 +28,7 @@ const Button: React.SFC<ButtonProps> = ({
     className,
     prefix,
     `${prefix}--${variant}`,
-    iconButton && `${prefix}--icon`,
+    iconButton && `${prefix}--icon`
   );
   return (
     <button
