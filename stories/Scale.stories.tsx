@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Checkbox, Radio, Tooltip } from '../src/components';
+import { Button, Checkbox, Radio } from '../src/components';
 import Icon from '../src/components/icon/Icon';
 import './stories.scss';
 import '../src/styles';
@@ -22,7 +22,7 @@ export const Size: React.SFC = () => (
       </li>
       <li>
         <code>medium</code> (value by default)
-        </li>
+      </li>
       <li>
         <code>large</code>
       </li>
