@@ -6,6 +6,7 @@ import ExpandableCard from './expandable-card';
 import Tooltip from './tooltip';
 import Icon from './icon';
 import Validation from './validation';
+import Link from './link';
 
 export {
   Button,
@@ -17,5 +18,6 @@ export {
   TextField,
   Tooltip,
   Validation,
-  Icon
+  Icon,
+  Link,
 };
