@@ -1,12 +1,17 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-const Icon = ({ iconName, className, handleClick }) => {
+type IconProps = {
+  iconName: string;
+  className?: string;
+  handleClick?: (event: React.MouseEvent<HTMLElement>) => void;
+};
 
+const Icon = ({ iconName, className, handleClick }: IconProps) => {
   return (
     <i
       style={{ cursor: handleClick && 'pointer' }}
-      className={`tk-icon-${iconName} ${className ? className :''}`}
+      className={`tk-icon-${iconName} ${className ? className : ''}`}
       onClick={handleClick}
     />
   );
@@ -15,7 +20,7 @@ const Icon = ({ iconName, className, handleClick }) => {
 Icon.propTypes = {
   iconName: PropTypes.string.isRequired,
   handleClick: PropTypes.func,
-  className: PropTypes.string
+  className: PropTypes.string,
 };
 
 export default Icon;
