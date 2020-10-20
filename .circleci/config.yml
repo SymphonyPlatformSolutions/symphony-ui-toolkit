@@ -86,4 +86,4 @@ workflows:
             branches:
               only: master
             tags:
-              only: /^v.*\d$(?!^v.*SNAPSHOT$)/
+              only: /^v.*\d$(?!^v.*SNAPSHOT.*$)/
