@@ -1,4 +1,4 @@
-import { withKnobs, boolean, button, text } from '@storybook/addon-knobs';
+import { boolean, button, text, withKnobs } from '@storybook/addon-knobs';
 import React from 'react';
 import { TextField } from '../src/components';
 import { Validators } from '../src/core/validators/validators';
@@ -68,7 +68,7 @@ export const TextFields: React.SFC = () => {
       <hr />
       <div>
         <p>
-          Simple Text Field with a <strong>default value</strong>
+          Simple Text Field with a <strong>value</strong>
         </p>
         <TextField placeholder="Type something" value="Lorem Ipsum"></TextField>
       </div>
