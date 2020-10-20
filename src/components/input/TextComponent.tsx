@@ -120,6 +120,7 @@ const TextComponent: React.FC<TextComponentPropsWithType> = ({id, type, disabled
           value={value}
           onBlur={onBlur}
           onChange={onChange}
+          type={type === Types.TEXTFIELD? 'text' : null}
           style={
             {
               WebkitTextSecurity:
