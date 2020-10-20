@@ -1,10 +1,10 @@
-import { Icons } from './../../stories/Icons.stories';
 import Button from './button';
 import { TextArea, TextField } from './input';
 import { Checkbox, Radio } from './selection';
-import CropContent from './crop-content/CropContent';
-import ExpandableCard from './expandable-card/ExpandableCard';
-import Tooltip from './tooltip/Tooltip';
+import CropContent from './crop-content';
+import ExpandableCard from './expandable-card';
+import Tooltip from './tooltip';
+import Icon from './icon';
 import Validation from './validation';
 
 export {
@@ -17,5 +17,5 @@ export {
   TextField,
   Tooltip,
   Validation,
-  Icons
+  Icon
 };
