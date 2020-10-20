@@ -4,18 +4,10 @@ import classNames from 'classnames';
 const prefix = 'tk-size';
 
 
-export enum Sizes {
-  XX_SMALL = 'xx-small',
-  X_SMALL = 'x-small',
-  SMALL = 'small',
-  MEDIUM = 'medium',
-  LARGE = 'large',
-  X_LARGE = 'x-large',
-  XX_LARGE = 'xx-large',
-}
+
 
 type ScaleProps = {
-  size: Sizes,
+  size?: 'xx-small' | 'x-small' | 'small' | 'medium' | 'large' | 'x-large' | 'xx-large',
   className?: string,
 
 };
@@ -38,7 +30,7 @@ const Scale: React.SFC<ScaleProps> = ({
 };
 
 Scale.defaultProps = {
-  size: Sizes.MEDIUM,
+  size: 'medium',
 };
 
 export default Scale;
