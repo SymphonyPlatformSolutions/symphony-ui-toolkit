@@ -45,7 +45,11 @@ export const DatePickers: React.SFC = () => {
         <p>
           Date Picker with specific <strong>format</strong>
         </p>
-        <DatePicker format="dd/MM/yyyy" />
+        <DatePicker format="dd/MM/yyyy"/>
+        <br/>
+        <DatePicker format="MMM, dd yyyy" />
+        <br/>
+        <DatePicker format="dd MMMM yyyy" locale="it"/>
       </div>
       <hr />
       <div>

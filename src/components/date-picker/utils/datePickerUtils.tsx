@@ -2,7 +2,7 @@ import { Keys } from './keyUtils';
 
 /**
  * Change the behaviour of 'Tab' and 'Shift + Tab' event of an html element
- * Used to allow loop navigation from 'Today Button' to Header
+ * Used to allow loop navigation "cells -> 'Today Button' --> Header (<<)"
  * @param ref The html element where is done the querySelector
  * @param classFrom The html class to attach the 'Tab' event
  * @param classNext The html class to focus on 'Tab' event
@@ -25,21 +25,50 @@ export function addLoopNavigation(
         event.stopPropagation();
       }
 
-      // On Tab, focus the 'classNext' element
       if (event.key === Keys.TAB) {
         event.preventDefault();
         event.stopPropagation();
         if (event.shiftKey) {
+          // On Shift+Tab, focus the 'classPrev' element
           const elClassPrevious = ref.current.dayPicker.querySelector(
             classPrev
           );
           elClassPrevious.focus();
         } else {
+          // On Tab, focus the 'classNext' element
           const elClassNext = ref.current.dayPicker.querySelector(classNext);
           elClassNext.focus();
         }
       }
     });
+  }
+}
+
+/**
+ * 
+ * Change the behaviour of 'Tab' and 'Shift + Tab' event of an html element
+ * Used to allow loop navigation "'Today Button' --> Header (<<) --> Header (<)"
+ * @param event 
+ * @param ref The html element where is done the querySelector
+ * @param classNext The html class to focus on 'Tab' event
+ * @param classPrev The html class to focus on 'Shift + Tab' event
+ */
+export function ajustLoopNavigation(
+  event,
+  ref: React.MutableRefObject<any>,
+  classNext: string,
+  classPrev: string
+) {
+  if (event.key === Keys.TAB) {
+    event.preventDefault();
+    event.stopPropagation();
+    if (event.shiftKey) {
+      const elClassPrevious = ref.current.dayPicker.querySelector(classPrev);
+      elClassPrevious.focus();
+    } else {
+      const elClassNext = ref.current.dayPicker.querySelector(classNext);
+      elClassNext.focus();
+    }
   }
 }
 

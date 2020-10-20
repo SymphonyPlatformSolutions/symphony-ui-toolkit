@@ -4,7 +4,9 @@ import React from 'react';
 import Icon from '../icon/Icon';
 import { addMonths, addYears } from 'date-fns';
 
-const Header = ({ date, dir, labels, months, onChange }) => {
+import { ajustLoopNavigation } from './utils/datePickerUtils';
+
+const Header = ({ date, dir, labels, months, onChange, parentRef }) => {
   const changeYear = (amount: number) => {
     onChange(addYears(date, amount));
   };
@@ -22,8 +24,18 @@ const Header = ({ date, dir, labels, months, onChange }) => {
             aria-label={labels.previousYear}
             className="DayPicker-Caption--prevYear"
             onClick={() => changeYear(-1)}
+            onKeyDown={(e) =>
+              ajustLoopNavigation(
+                e,
+                parentRef,
+                '.DayPicker-Caption--prevMonth',
+                '.DayPicker-TodayButton'
+              )
+            }
           >
-            <Icon iconName={dir === 'ltr' ? 'chevron-left' : 'chevron-right'}></Icon>
+            <Icon
+              iconName={dir === 'ltr' ? 'chevron-left' : 'chevron-right'}
+            ></Icon>
           </button>
           <button
             aria-label={labels.previousMonth}
@@ -47,7 +59,9 @@ const Header = ({ date, dir, labels, months, onChange }) => {
             className="DayPicker-Caption--nextYear"
             onClick={() => changeYear(1)}
           >
-            <Icon iconName={dir === 'ltr' ? 'chevron-right' : 'chevron-left'}></Icon>
+            <Icon
+              iconName={dir === 'ltr' ? 'chevron-right' : 'chevron-left'}
+            ></Icon>
           </button>
         </div>
       </div>

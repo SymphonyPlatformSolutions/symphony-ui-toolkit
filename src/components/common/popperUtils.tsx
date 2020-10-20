@@ -16,3 +16,10 @@ export const PopperContainer = styled.div`
     }
   }
 `
+
+export const popperProps = {
+  appear: true,
+  mountOnEnter: true,
+  unmountOnExit: true,
+  timeout: 200
+}

@@ -1,13 +1,19 @@
 import {
-  format,
-  startOfWeek,
   endOfWeek,
-  startOfYear,
   endOfYear,
   eachDayOfInterval,
   eachMonthOfInterval,
+  format,
   getDay,
+  startOfMonth,
+  startOfWeek,
+  startOfYear,
 } from 'date-fns';
+
+// used for aria-label
+export function formatDay(date, locale: Locale) {
+  return format(date, 'EEE MMM dd yyyy', { locale });
+}
 
 export function getMonths(date: Date, locale: Locale) {
   const arr = eachMonthOfInterval({
@@ -41,4 +47,11 @@ function getWeekdays(date: Date, locale: Locale, pattern: string): string[] {
 
 export function getFirstDayOfWeek(date: Date, locale: Locale) {
   return getDay(startOfWeek(date, { locale }));
+}
+
+export function daysNeededForLastMonth(date: Date, locale: Locale) {
+  const firstDayOfWeek = startOfWeek(date, { locale });
+
+  const startDate = startOfMonth(date);
+  return (((getDay(startDate) - getDay(firstDayOfWeek)) % 7) + 7) % 7; // get positive modulo
 }

@@ -1,5 +1,10 @@
 import PropTypes from 'prop-types';
-import React, { FunctionComponent, useState, useRef, useEffect } from 'react';
+import React, {
+  FunctionComponent,
+  useState,
+  useRef,
+  useEffect,
+} from 'react';
 import classNames from 'classnames';
 
 import { usePopper } from 'react-popper';
@@ -15,6 +20,7 @@ import DayPicker, {
   DaysOfWeekModifier,
   FunctionModifier,
   Modifier,
+  LocaleUtils,
 } from 'react-day-picker';
 
 import 'react-day-picker/lib/style.css';
@@ -23,12 +29,13 @@ import TextField from '../input/TextField';
 
 import styled from 'styled-components';
 
-import { PopperContainer } from '../common/popperUtils';
+import { PopperContainer, popperProps } from '../common/popperUtils';
 
 import {
   getMonths,
   getWeekdaysLong,
   getWeekdaysShort,
+  formatDay,
 } from './utils/dateUtils';
 
 import {
@@ -84,13 +91,12 @@ type DatePickerComponentProps = {
   onChange?: (event) => any;
 };
 
-/** TODO: Handle 'format' case sensitive */
 const DatePicker: FunctionComponent<DatePickerComponentProps> = ({
   date,
   disabledDays,
   disabled,
   dir = 'ltr',
-  format = 'MM-dd-yyyy',
+  format = 'MM-dd-yyyy', // format is case sensitive, see https://date-fns.org/v2.16.1/docs/format
   initialMonth,
   label,
   labels = {
@@ -135,6 +141,8 @@ const DatePicker: FunctionComponent<DatePickerComponentProps> = ({
   const getLocale: Locale = require(`date-fns/locale/${locale}/index.js`);
   const [showPicker, setShowPicker] = useState(showOverlay || false);
 
+  const [divToFocus, setDivToFocus] = useState(null);
+
   const [inputValue, setInputValue] = useState(
     date ? formatDate(date, format, { locale: getLocale }) : null
   );
@@ -142,6 +150,24 @@ const DatePicker: FunctionComponent<DatePickerComponentProps> = ({
   const refContainer = useRef(null);
   const refPicker = useRef(null);
   const refIcon = useRef(null);
+
+  useEffect(() => {
+    // setTimeout force to wait for the react-day-picker to re-render
+    setTimeout(() => {
+      focusDiv(divToFocus);
+    });
+  }, [divToFocus]);
+
+  const focusDiv = (divToFocus) => {
+    if (refPicker.current) {
+      if (divToFocus) {
+        let dayNodes = refPicker.current.dayPicker.querySelectorAll(
+          '.DayPicker-Day'
+        );
+        dayNodes[divToFocus.value - 1].focus();
+      }
+    }
+  };
 
   function handleEventClickOutside(ref) {
     useEffect(() => {
@@ -187,17 +213,14 @@ const DatePicker: FunctionComponent<DatePickerComponentProps> = ({
     '.DayPicker-Day:not(.DayPicker-Day--outside)'
   );
 
-  // addLoopNavigation(
-  //   refPicker,
-  //   '.DayPicker-Caption--prevYear',
-  //   '.DayPicker-Caption--prevMonth',
-  //   '.DayPicker-TodayButton'
-  // );
-
   removeTabIndex(refPicker, '.DayPicker-wrapper');
 
   /** `now` to handle locale dictionary (months, weekdaysLong, weekdaysShort attributes) */
   const now = new Date();
+  const localeUtils = {
+    ...LocaleUtils,
+    formatDay: (d: Date, locale: string) => formatDay(d, getLocale),
+  };
 
   const handleInputChange = (e) => {
     const newValue = e.target.value;
@@ -250,6 +273,7 @@ const DatePicker: FunctionComponent<DatePickerComponentProps> = ({
   };
 
   handleEventClickOutside(refContainer);
+
   return (
     <div
       className={'tk-DatePicker-container'}
@@ -270,15 +294,11 @@ const DatePicker: FunctionComponent<DatePickerComponentProps> = ({
         ></TextField>
       </div>
       <CSSTransition
-        mountOnEnter
-        unmountOnExit
+        {...popperProps}
         in={showPicker}
-        timeout={200}
         classNames="DatePickerContainer"
-        appear
       >
         <DatePickerContainer
-          // id={id}
           role="tooltip"
           ref={setPopperElement}
           style={{ ...styles.popper, direction: dir }}
@@ -299,15 +319,25 @@ const DatePicker: FunctionComponent<DatePickerComponentProps> = ({
                 months={getMonths(now, getLocale)}
                 onChange={handleHeaderChange}
                 labels={labels}
+                parentRef={refPicker}
               />
             )}
             onKeyDown={(e) => handleKeyDownPicker(e, setShowPicker, refIcon)}
             onDayKeyDown={(day, modifiers, e) =>
-              handleKeyDownCell(e, setNavigationDate)
+              handleKeyDownCell(
+                day,
+                e,
+                setNavigationDate,
+                setDivToFocus,
+                focusDiv,
+                getLocale
+              )
             }
             onDayClick={handleDayClick}
             onTodayButtonClick={handleDayClick}
             locale={locale}
+            localeUtils={localeUtils}
+            // days={formatDay(now, getLocale)}
             months={getMonths(now, getLocale)}
             weekdaysLong={getWeekdaysLong(now, getLocale)}
             weekdaysShort={getWeekdaysShort(now, getLocale)}
