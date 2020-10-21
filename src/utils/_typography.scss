@@ -4,6 +4,8 @@
   font-size: toEm(14);
   font-weight: normal;
   line-height: toEm(20);
+  margin-block-start: auto;
+  margin-block-end: auto;
 
   &--h1 {
     font-size: toEm(18);
