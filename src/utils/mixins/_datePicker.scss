@@ -1,10 +1,6 @@
-/** TODO: reajust top value**/
 @mixin styleDayPickerCaptionAction($colorFont, $left, $right) {
-  // position: absolute;
   cursor: pointer;
   color: $colorFont;
-  // left: $left;
-  // right: $right;
 
   /* remove button style **/
   background: none;

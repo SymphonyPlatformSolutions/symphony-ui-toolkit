@@ -2,8 +2,6 @@
   position: relative;
 }
 
-/** TODO: move box-shadow as variable **/
-/** TODO: change all hard px values  */
 .DayPicker {
   box-shadow: 0 toEm(2, $fontSize) toEm(4, $fontSize) rgba(15, 27, 36, 0.12),
     0 toEm(12, $fontSize) toEm(28, $fontSize) rgba(15, 27, 36, 0.24);
