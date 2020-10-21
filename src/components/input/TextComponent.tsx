@@ -52,7 +52,6 @@ const TextComponentPropTypes = {
 };
 
 const TextComponent: React.FC<TextComponentPropsWithType> = ({id, type, disabled, label, masked, tooltip, tooltipCloseLabel, value, onChange, onBlur, ...rest}) => {
-  // const ariaId: string;
 
   const [showTooltip, setShowTooltip] = useState(false);
   const [hideText, setHideText] = useState(masked || false);
