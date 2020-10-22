@@ -5,7 +5,13 @@
     color: $fontColor;
   }
 }
-@mixin styleInput($inactiveColor, $focusBorderColor, $hoverColor, $activeColor, $backgroundColor) {
+@mixin styleInput(
+  $inactiveColor,
+  $focusBorderColor,
+  $hoverColor,
+  $activeColor,
+  $backgroundColor
+) {
   color: $activeColor;
   background-color: $backgroundColor;
   @include addBorder(2px, $inactiveColor);
@@ -17,8 +23,39 @@
     @include styleHoverInput($hoverColor, $activeColor);
   }
   &:focus,
-  &:active {
+  &:active,
+  &.active {
     color: $activeColor;
     @include addBorder(2px, $focusBorderColor);
+  }
+
+  .tk-input__container:focus-within & {
+    @include addBorder(2px, $focusBorderColor);
+  }
+}
+
+@mixin styleInputIcon(
+  $inactiveColor,
+  $focusBorderColor,
+  $hoverColor,
+  $iconColor
+) {
+  .tk-input__icon {
+    color: $iconColor;
+    background-color: $inactiveColor;
+  }
+  &:hover {
+    .tk-input__icon {
+      background-color: $hoverColor;
+    }
+  }
+  &:focus,
+  &:focus-within {
+    .tk-input__icon {
+      background-color: $focusBorderColor;
+    }
+  }
+  .tk-input__icon.active {
+    background-color: $focusBorderColor;
   }
 }

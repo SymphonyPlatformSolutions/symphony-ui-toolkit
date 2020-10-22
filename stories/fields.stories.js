@@ -1,5 +1,5 @@
 export default {
-  title: "Input fields",
+  title: 'Input fields',
 };
 
 export const TextField = () => {
@@ -29,14 +29,39 @@ export const TextField = () => {
               <button class="tk-input__hide">Hide</button>
             </div>
           </div>
+          <p>Text Field with a icon button.</p>  
+          <div class="tk-input-group">
+            <div class="tk-input-group__header">
+              <label for="input">Field label</label>    
+            </div>
+            <div class="tk-input__container">
+              <input id="input" type="text" class="tk-input tk-input--with-icon" placeholder="Type something..." />
+              <div tabindex="0" class="tk-input__icon" style="cursor: pointer;">
+                <i class="tk-icon-calendar "></i>
+              </div>
+            </div>
+          </div>
         <h2>Error</h2>
-          <div class="tk-input-group tk-input-group--error">
+        <span class="tk-validation tk-validation--error">
+          <div class="tk-input-group">
             <label for="input-error">Field label</label>
             <div class="tk-input__container">
               <input id="input-error" type="text" class="tk-input" placeholder="Type something..." />
             </div>
-            <div class="tk-input__error">This field is required.</div>
+            <ul class="tk-validation__errors"><li>This field is required.</li></ul>
           </div>
+        </span>
+        <br/>
+        <span class="tk-validation tk-validation--error">
+          <div class="tk-input-group">
+            <div class="tk-input__container">
+              <input id="input" type="text" class="tk-input tk-input--with-icon" placeholder="Type something..." />
+              <div tabindex="0" class="tk-input__icon" style="cursor: pointer;">
+                <i class="tk-icon-calendar "></i>
+              </div>
+            </div>
+          </div>
+        </span>
         <h2>Disabled</h2>
           <div class="tk-input-group tk-input-group--disabled">
             <label for="input-disabled">Field label</label>
@@ -45,15 +70,26 @@ export const TextField = () => {
             </div>
             <div class="tk-input__helper">This is a helper.</div>
           </div>
+          <br/>
+          <div class="tk-input-group tk-input-group--disabled">
+            <div class="tk-input__container">
+              <input id="input" type="text" class="tk-input tk-input--with-icon" placeholder="Type something..." disabled/>
+              <div tabindex="0" class="tk-input__icon">
+                <i class="tk-icon-calendar "></i>
+              </div>
+            </div>
+          </div>
       <h2>Without labels</h2>
         <h3>Default</h3>
         <div class="tk-input__container">
           <input type="text" class="tk-input" placeholder="Type something..." />
         </div>
         <h3>Error</h3>
-        <div class="tk-input__container">
-          <input type="text" class="tk-input tk-input--error" placeholder="Type something..." />
-        </div>
+        <span class="tk-validation tk-validation--error">
+          <div class="tk-input__container">
+            <input type="text" class="tk-input tk-input--error" placeholder="Type something..." />
+          </div>
+        </span>
         <h3>Disabled</h3>
         <div class="tk-input__container">
           <input type="text" class="tk-input" placeholder="Type something..." disabled />
@@ -75,7 +111,9 @@ export const TextArea = () => {
     <h3>Default</h3>
     <textarea class="tk-input" cols="50" rows="5"></textarea>
     <h3>Error</h3>
-    <textarea class="tk-input tk-input--error" cols="50" rows="5"></textarea>
+    <span class="tk-validation tk-validation--error">
+      <textarea class="tk-input tk-input--error" cols="50" rows="5"></textarea>
+    </span>
     <h3>Disabled</h3>
     <textarea class="tk-input" cols="50" rows="5" disabled></textarea>`;
 };

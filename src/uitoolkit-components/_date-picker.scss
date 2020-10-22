@@ -1,0 +1,106 @@
+.tk-datepicker {
+  position: relative;
+}
+
+.DayPicker {
+  box-shadow: 0 toEm(2, $fontSize) toEm(4, $fontSize) rgba(15, 27, 36, 0.12),
+    0 toEm(12, $fontSize) toEm(28, $fontSize) rgba(15, 27, 36, 0.24);
+  border-radius: toEm(8, $fontSize);
+
+  color: $--tk-datepicker-default-color;
+  background-color: $--tk-input-default-background-color;
+
+  .DayPicker-NavBar {
+    display: none;
+  }
+
+  .DayPicker-Weekday,
+  .DayPicker-Caption,
+  .DayPicker-TodayButton {
+    text-transform: uppercase;
+    font-size: toEm(12, $fontSize);;
+  }
+
+  .DayPicker-Weekday {
+    color: $--tk-input-default-active-color;
+    font-weight: 600;
+  }
+
+  .DayPicker-Footer {
+    display: flex;
+    justify-content: center;
+    .DayPicker-TodayButton {
+      cursor: pointer;
+      color: $scolor-electricity;
+      font-weight: 600;
+    }
+  }
+
+  .DayPicker-Caption {
+    margin-bottom: toEm(12, $fontSize);
+    &--heading {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    &--prevYear {
+      margin-left: toEm(9, $fontSize);
+      @include styleDayPickerCaptionAction($scolor-electricity, 1.5em, auto);
+    }
+    &--nextYear {
+      margin-right: toEm(9, $fontSize);
+      @include styleDayPickerCaptionAction($scolor-electricity, auto, 1.5em);
+    }
+    &--prevMonth {
+      @include styleDayPickerCaptionAction($scolor-electricity, 3em, auto);
+    }
+    &--nextMonth {
+      @include styleDayPickerCaptionAction($scolor-electricity, auto, 3em);
+    }
+    &--text {
+      display: flex;
+      justify-content: center;
+    }
+  }
+
+  .DayPicker-Day {
+    &:hover {
+      @include addBorder(toEm(2, $fontSize), $scolor-electricity);
+      box-sizing: border-box;
+      border-radius: toEm(2, $fontSize);
+    }
+    &--today {
+      color: $scolor-electricity;
+    }
+    &--selected {
+      background-color: $--tk-datepicker-selected-background-color;
+      color: $--tk-datepicker-selected-color;
+      border-radius: toEm(2, $fontSize);
+    }
+    &--disabled {
+      color: $--tk-input-default-inactive-color;
+    }
+    &--outside {
+      visibility: hidden;
+    }
+  }
+}
+
+/** Unwanted css */
+.DayPicker {
+  &:not(.DayPicker--interactionDisabled)
+    .DayPicker-Day:not(.DayPicker-Day--disabled):not(.DayPicker-Day--selected):not(.DayPicker-Day--outside):hover {
+    background-color: transparent;
+  }
+  .DayPicker-Day {
+    &--selected {
+      &:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside):hover {
+        background-color: $scolor-electricity;
+      }
+      &:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
+        background-color: $scolor-electricity;
+        color: $--tk-datepicker-selected-color;
+      }
+    }
+  }
+}

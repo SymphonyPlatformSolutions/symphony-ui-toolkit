@@ -1,0 +1,12 @@
+@mixin styleDayPickerCaptionAction($colorFont, $left, $right) {
+  cursor: pointer;
+  color: $colorFont;
+
+  /* remove button style **/
+  background: none;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+}
+
