@@ -5,7 +5,7 @@ const prefix = 'tk-typography';
 type variant = 'italic' | 'bold';
 
 type TypographyProps = {
-  type?: 'h1' | 'h2' | 'h3' | 'h4' | 'span' | 'small';
+  type?: 'h1' | 'h2' | 'h3' | 'h4' | 'body' | 'small';
   variant?: variant | variant[] | '';
   className?: string;
 };
@@ -16,7 +16,7 @@ const Typography: React.SFC<TypographyProps> = ({
   variant,
   ...rest
 }: TypographyProps) => {
-  const TagName = type === 'small' ? 'span' : type;
+  const TagName = (type === 'body' || type === 'small') ? 'span' : type;
   let variantType: any = '';
   if (variant) {
     variantType = typeof variant === 'string' ? `${prefix}--${variant}` : variant.map(variantType => `${prefix}--${variantType}`);
@@ -38,7 +38,7 @@ const Typography: React.SFC<TypographyProps> = ({
 };
 
 Typography.defaultProps = {
-  type: 'span',
+  type: 'body',
 };
 
 export default Typography;
