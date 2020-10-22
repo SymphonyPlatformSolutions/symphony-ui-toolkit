@@ -10,7 +10,9 @@ import {
   startOfYear,
 } from 'date-fns';
 
-// used for aria-label
+/**
+ * used for aria-label
+ */
 export function formatDay(date, locale: Locale) {
   return format(date, 'EEE MMM dd yyyy', { locale });
 }

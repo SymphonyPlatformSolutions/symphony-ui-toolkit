@@ -113,7 +113,7 @@ describe('DatePicker Component', () => {
   it('should trigger onBlur', () => {
     const props = createTestProps({});
     const wrapper = shallow(<DatePicker {...props} />);
-    wrapper.simulate('blur');
+    wrapper.find(TextField).simulate('blur');
     expect(props.onBlur).toHaveBeenCalledTimes(1);
   });
 

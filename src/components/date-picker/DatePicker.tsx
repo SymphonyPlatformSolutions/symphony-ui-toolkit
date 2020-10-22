@@ -1,10 +1,5 @@
 import PropTypes from 'prop-types';
-import React, {
-  FunctionComponent,
-  useState,
-  useRef,
-  useEffect,
-} from 'react';
+import React, { FunctionComponent, useState, useRef, useEffect } from 'react';
 import classNames from 'classnames';
 
 import { usePopper } from 'react-popper';
@@ -26,6 +21,7 @@ import DayPicker, {
 import 'react-day-picker/lib/style.css';
 
 import TextField from '../input/TextField';
+import Icon from '../icon/Icon';
 
 import styled from 'styled-components';
 
@@ -260,35 +256,32 @@ const DatePicker: FunctionComponent<DatePickerComponentProps> = ({
     tooltip,
   };
 
-  const iconProps = {
-    className: classNames({
-      active: showPicker,
-    }),
-    disabled,
-    iconName: 'calendar',
-    forwardRef: refIcon,
-    tabIndex: 0,
-    onClick: () => handleClickIcon(),
-    onKeyDown: (e) => handleKeyDownIcon(e, showPicker, refPicker),
-  };
-
   handleEventClickOutside(refContainer);
 
   return (
-    <div
-      className={'tk-DatePicker-container'}
-      onBlur={onBlur}
-      ref={refContainer}
-    >
-      <div className="tk-DatePicker-input" ref={setReferenceElement}>
+    <div className={'tk-datepicker'} ref={refContainer}>
+      <div ref={setReferenceElement}>
         <TextField
           {...textfieldProps}
           className={classNames({
             active: showPicker,
           })}
-          iconProps={iconProps}
+          iconElement={
+            <Icon
+              className={classNames('tk-input__icon', {
+                active: showPicker,
+              })}
+              disabled={disabled}
+              iconName={'calendar'}
+              forwardRef={refIcon}
+              tabIndex={0}
+              onClick={() => handleClickIcon()}
+              onKeyDown={(e) => handleKeyDownIcon(e, showPicker, refPicker)}
+            ></Icon>
+          }
           value={inputValue || ''}
           onChange={handleInputChange}
+          onBlur={onBlur}
           onFocus={() => setShowPicker(true)}
           onKeyDown={(e) => handleKeyDownInput(e, setShowPicker)}
         ></TextField>

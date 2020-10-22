@@ -5,6 +5,8 @@ import {
   Types,
 } from '../../../src/components/input/TextComponent';
 
+import Icon from '../../../src/components/icon/Icon';
+
 describe('TextComponent Component', () => {
   describe('TextComponent test suite => ', () => {
     afterEach(() => {
@@ -82,7 +84,10 @@ describe('TextComponent Component', () => {
         let wrapper = shallow(<TextComponent type={Types.TEXTFIELD} />);
         expect(wrapper.find('Icon').length).toBe(0);
         wrapper = shallow(
-          <TextComponent type={Types.TEXTFIELD} iconProps={iconProps} />
+          <TextComponent
+            type={Types.TEXTFIELD}
+            iconElement={<Icon {...iconProps} />}
+          />
         );
 
         const wrapperIcon = wrapper.find('Icon');
@@ -97,7 +102,10 @@ describe('TextComponent Component', () => {
         let wrapper = shallow(<TextComponent type={Types.TEXTFIELD} />);
         expect(wrapper.find('Icon').length).toBe(0);
         wrapper = shallow(
-          <TextComponent type={Types.TEXTFIELD} iconProps={iconProps} />
+          <TextComponent
+            type={Types.TEXTFIELD}
+            iconElement={<Icon {...iconProps} />}
+          />
         );
         const wrapperIcon = wrapper.find('Icon');
         expect(iconProps.onClick).toHaveBeenCalledTimes(0);
@@ -108,7 +116,10 @@ describe('TextComponent Component', () => {
         let wrapper = shallow(<TextComponent type={Types.TEXTFIELD} />);
         expect(wrapper.find('Icon').length).toBe(0);
         wrapper = shallow(
-          <TextComponent type={Types.TEXTFIELD} iconProps={iconProps} />
+          <TextComponent
+            type={Types.TEXTFIELD}
+            iconElement={<Icon {...iconProps} />}
+          />
         );
         const wrapperIcon = wrapper.find('Icon');
         expect(iconProps.onKeyDown).toHaveBeenCalledTimes(0);

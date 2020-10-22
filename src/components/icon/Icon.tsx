@@ -8,7 +8,9 @@ export type IconProps = {
   forwardRef?: any;
   tabIndex?: number;
   onClick?: (event: React.MouseEvent<HTMLElement>) => void;
-  handleClick?: (event: React.MouseEvent<HTMLElement>) => void;
+  handleClick?: (
+    event: React.MouseEvent<HTMLElement>
+  ) => void /** deprecated, please use onClick */;
   onKeyDown?: (event) => any;
 };
 
@@ -16,7 +18,7 @@ const Icon: FunctionComponent<IconProps> = ({
   className,
   disabled,
   iconName,
-  handleClick,
+  handleClick /** deprecated, please use onClick */,
   onClick,
   onKeyDown,
   forwardRef,

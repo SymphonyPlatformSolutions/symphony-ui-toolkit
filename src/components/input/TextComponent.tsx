@@ -6,8 +6,6 @@ import PropTypes from 'prop-types';
 import Icon from '../icon';
 import Tooltip from '../tooltip';
 
-import { IconProps } from '../icon/Icon';
-
 enum Types {
   TEXTAREA = 'TextArea',
   TEXTFIELD = 'TextField',
@@ -16,7 +14,7 @@ enum Types {
 type TextComponentProps = {
   className?: string;
   disabled?: boolean;
-  iconProps?: IconProps;
+  iconElement?: JSX.Element;
   id?: string;
   label?: string;
   masked?: boolean;
@@ -50,7 +48,7 @@ const TextComponentPropTypes = {
   className: PropTypes.string,
   disabled: PropTypes.bool,
   id: PropTypes.string,
-  iconProps: PropTypes.exact(Icon.propTypes),
+  iconElement: PropTypes.element,
   label: PropTypes.string,
   masked: PropTypes.bool,
   placeholder: PropTypes.string,
@@ -117,7 +115,7 @@ class TextComponent extends React.Component<TextComponentPropsWithType> {
     const {
       className,
       id,
-      iconProps,
+      iconElement,
       type,
       disabled,
       label,
@@ -181,11 +179,9 @@ class TextComponent extends React.Component<TextComponentPropsWithType> {
             aria-placeholder={placeholder}
             aria-readonly={disabled}
             aria-multiline={type === Types.TEXTAREA}
-            // aria-activedescendent=
-            // aria-required=
 
             className={classNames('tk-input', className, {
-              hasIcon: iconProps,
+              'tk-input--with-icon': iconElement,
             })}
             placeholder={placeholder}
             value={value}
@@ -203,11 +199,8 @@ class TextComponent extends React.Component<TextComponentPropsWithType> {
             disabled={disabled}
             {...rest}
           />
-          {iconProps && type == Types.TEXTFIELD ? (
-            <Icon
-              {...iconProps}
-              className={classNames('tk-input__icon', iconProps.className)}
-            ></Icon>
+          {iconElement && type == Types.TEXTFIELD ? (
+            iconElement
           ) : null}
           {type == Types.TEXTFIELD ? (
             <button

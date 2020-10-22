@@ -45,11 +45,20 @@ export const DatePickers: React.SFC = () => {
         <p>
           Date Picker with specific <strong>format</strong>
         </p>
-        <DatePicker format="dd/MM/yyyy"/>
-        <br/>
+        <DatePicker format="dd/MM/yyyy" />
+        <br />
         <DatePicker format="MMM, dd yyyy" />
-        <br/>
-        <DatePicker format="dd MMMM yyyy" locale="it"/>
+        <br />
+        <DatePicker
+          format="dd MMMM yyyy"
+          locale="it"
+          labels={{
+            previousYear: 'Anno Prossimo',
+            previousMonth: 'Mese Prossimo',
+            nextYear: 'Anno Scorso',
+            nextMonth: 'Mese Scorso',
+          }}
+        />
       </div>
       <hr />
       <div>
@@ -75,7 +84,16 @@ export const DatePickers: React.SFC = () => {
         <p>
           Date Picker using <strong>locale</strong> (french)
         </p>
-        <DatePicker todayButton="Aujourd'hui" locale="fr" />
+        <DatePicker
+          todayButton="Aujourd'hui"
+          locale="fr"
+          labels={{
+            previousYear: 'Année Précédente',
+            previousMonth: 'Mois Précédent',
+            nextYear: 'Anné Précédente',
+            nextMonth: 'Mois Précédent',
+          }}
+        />
         <p>
           Date Picker using <strong>locale</strong> (arabic) and{' '}
           <strong>right-to-left</strong>

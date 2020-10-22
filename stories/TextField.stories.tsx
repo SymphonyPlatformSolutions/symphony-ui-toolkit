@@ -1,6 +1,8 @@
 import { withKnobs, boolean, button, text } from '@storybook/addon-knobs';
 import React from 'react';
 import { TextField } from '../src/components';
+import Icon from '../src/components/icon/Icon';
+
 import { Validators } from '../src/core/validators/validators';
 
 export const TextFields: React.SFC = () => {
@@ -46,20 +48,23 @@ export const TextFields: React.SFC = () => {
         <p>
           Simple Text Field with an <strong>icon</strong>
         </p>
-        <TextField iconProps={{ iconName: 'calendar' }}></TextField>
+        <TextField iconElement={<Icon iconName={'calendar'} />}></TextField>
       </div>
       <hr />
       <div>
         <p>
-          Simple Text Field with an <strong>icon</strong>, method <strong>handlers</strong> and <strong>tabIndex</strong>
+          Simple Text Field with an <strong>icon</strong>, method{' '}
+          <strong>handlers</strong> and <strong>tabIndex</strong>
         </p>
         <TextField
-          iconProps={{
-            iconName: 'calendar',
-            tabIndex: 0,
-            onClick: () => logChange('clicked'),
-            onKeyDown: logChange,
-          }}
+          iconElement={
+            <Icon
+              iconName={'calendar'}
+              tabIndex={0}
+              onClick={() => logChange('clicked')}
+              onKeyDown={logChange}
+            />
+          }
         ></TextField>
       </div>
       <hr />
