@@ -1,8 +1,9 @@
 import React from 'react';
-import Icon from '../icon';
+import classNames from 'classnames';
 import shortid from 'shortid';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import Icon from '../icon';
 import Tooltip from '../tooltip';
 
 enum Types {
@@ -11,13 +12,18 @@ enum Types {
 }
 
 type TextComponentProps = {
+  className?: string;
   disabled?: boolean;
+  iconElement?: JSX.Element;
   id?: string;
   label?: string;
   masked?: boolean;
   placeholder?: string;
   onChange?: (event) => any;
+  onClick?: () => any;
   onBlur?: () => any;
+  onFocus?: () => any;
+  onKeyDown?: (event) => any;
   tooltip?: string;
   tooltipCloseLabel?: string;
   value?: string;
@@ -39,13 +45,18 @@ const TextComponentTooltip = styled.div`
 `;
 
 const TextComponentPropTypes = {
+  className: PropTypes.string,
   disabled: PropTypes.bool,
   id: PropTypes.string,
+  iconElement: PropTypes.element,
   label: PropTypes.string,
   masked: PropTypes.bool,
   placeholder: PropTypes.string,
   onChange: PropTypes.func,
   onBlur: PropTypes.func,
+  onClick: PropTypes.func,
+  onFocus: PropTypes.func,
+  onKeyDown: PropTypes.func,
   tooltip: PropTypes.string,
   tooltipCloseLabel: PropTypes.string,
   value: PropTypes.string,
@@ -67,6 +78,15 @@ class TextComponent extends React.Component<TextComponentPropsWithType> {
   constructor(props) {
     super(props);
     this.ariaId = `hint-${shortid.generate()}`;
+  }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.value === prevState.value) {
+      return null;
+    }
+    return {
+      value: nextProps.value || '',
+    };
   }
 
   onChange = (evt) => {
@@ -93,15 +113,21 @@ class TextComponent extends React.Component<TextComponentPropsWithType> {
   render() {
     /* eslint-disable @typescript-eslint/no-unused-vars */
     const {
+      className,
       id,
+      iconElement,
       type,
       disabled,
       label,
+      placeholder,
       masked,
       tooltip,
       tooltipCloseLabel,
       onChange,
       onBlur,
+      onClick,
+      onFocus,
+      onKeyDown,
       ...rest
     } = this.props;
     /* eslint-enable @typescript-eslint/no-unused-vars */
@@ -116,7 +142,11 @@ class TextComponent extends React.Component<TextComponentPropsWithType> {
     }
 
     return (
-      <div className="tk-input-group">
+      <div
+        className={classNames('tk-input-group', {
+          'tk-input-group--disabled': disabled,
+        })}
+      >
         {label || tooltip ? (
           <TextComponentHeader className="tk-input-group__header">
             {label ? (
@@ -134,10 +164,7 @@ class TextComponent extends React.Component<TextComponentPropsWithType> {
                   visible={this.state.showTooltip}
                   placement={null}
                 >
-                  <Icon
-                    iconName="info-round"
-                    handleClick={this.handleClickIcon}
-                  />
+                  <Icon iconName="info-round" onClick={this.handleClickIcon} />
                 </Tooltip>
               </TextComponentTooltip>
             ) : null}
@@ -145,12 +172,23 @@ class TextComponent extends React.Component<TextComponentPropsWithType> {
         ) : null}
         <div className="tk-input__container">
           <TagName
-            {...rest}
             id={id}
+            aria-autocomplete="none"
             aria-describedby={tooltip && this.ariaId}
-            className="tk-input"
+            aria-label={label}
+            aria-placeholder={placeholder}
+            aria-readonly={disabled}
+            aria-multiline={type === Types.TEXTAREA}
+
+            className={classNames('tk-input', className, {
+              'tk-input--with-icon': iconElement,
+            })}
+            placeholder={placeholder}
             value={value}
             onBlur={onBlur}
+            onClick={onClick}
+            onFocus={onFocus}
+            onKeyDown={onKeyDown}
             onChange={this.onChange}
             style={
               {
@@ -159,11 +197,15 @@ class TextComponent extends React.Component<TextComponentPropsWithType> {
               } as React.CSSProperties
             }
             disabled={disabled}
+            {...rest}
           />
+          {iconElement && type == Types.TEXTFIELD ? (
+            iconElement
+          ) : null}
           {type == Types.TEXTFIELD ? (
             <button
               className="tk-input__hide"
-              tabIndex={value.length === 0 ? -1 : 0}
+              tabIndex={value && value.length === 0 ? -1 : 0}
               onClick={this.handleViewText}
               style={{
                 display: masked && value.length ? 'inline' : 'none',
