@@ -134,7 +134,10 @@ const DatePicker: FunctionComponent<DatePickerComponentProps> = ({
   const [navigationDate, setNavigationDate] = useState(
     initialMonth || date || new Date()
   );
+
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
   const getLocale: Locale = require(`date-fns/locale/${locale}/index.js`);
+
   const [showPicker, setShowPicker] = useState(showOverlay || false);
 
   const [divToFocus, setDivToFocus] = useState(null);
@@ -157,7 +160,7 @@ const DatePicker: FunctionComponent<DatePickerComponentProps> = ({
   const focusDiv = (divToFocus) => {
     if (refPicker.current) {
       if (divToFocus) {
-        let dayNodes = refPicker.current.dayPicker.querySelectorAll(
+        const dayNodes = refPicker.current.dayPicker.querySelectorAll(
           '.DayPicker-Day'
         );
         dayNodes[divToFocus.value - 1].focus();
@@ -186,7 +189,7 @@ const DatePicker: FunctionComponent<DatePickerComponentProps> = ({
     setNavigationDate(date);
   };
 
-  const handleDayClick = (date: Date, modifiers: DayModifiers, e) => {
+  const handleDayClick = (date: Date, modifiers: DayModifiers) => {
     if (modifiers.disabled) {
       return;
     }
@@ -215,7 +218,7 @@ const DatePicker: FunctionComponent<DatePickerComponentProps> = ({
   const now = new Date();
   const localeUtils = {
     ...LocaleUtils,
-    formatDay: (d: Date, locale: string) => formatDay(d, getLocale),
+    formatDay: (d: Date/*, locale: string*/) => formatDay(d, getLocale),
   };
 
   const handleInputChange = (e) => {

@@ -20,31 +20,31 @@ export function handleKeyDownCell(
   focusDiv: (date) => any,
   locale
 ): void {
-  let dayToFocus;
+  let dayToFocus, firstDayOfWeek;
   switch (e.key) {
-    case Keys.PAGE_UP:
-      if (e.shiftKey) {
-        dayToFocus = addYears(date, -1);
-      } else {
-        dayToFocus = addMonths(date, -1);
-      }
-      break;
-    case Keys.PAGE_DOWN:
-      if (e.shiftKey) {
-        dayToFocus = addYears(date, 1);
-      } else {
-        dayToFocus = addMonths(date, 1);
-      }
-      break;
-    case Keys.HOME:
-      const firstDayOfWeek = startOfWeek(date, { locale });
-      dayToFocus = firstDayOfWeek.getDate() <= date.getDate() ? firstDayOfWeek: setDate(date, 1);
-      break;
-    case Keys.END:
-      dayToFocus = endOfWeek(date, { locale });
-      break;
-    default:
-      break;
+  case Keys.PAGE_UP:
+    if (e.shiftKey) {
+      dayToFocus = addYears(date, -1);
+    } else {
+      dayToFocus = addMonths(date, -1);
+    }
+    break;
+  case Keys.PAGE_DOWN:
+    if (e.shiftKey) {
+      dayToFocus = addYears(date, 1);
+    } else {
+      dayToFocus = addMonths(date, 1);
+    }
+    break;
+  case Keys.HOME:
+    firstDayOfWeek = startOfWeek(date, { locale });
+    dayToFocus = firstDayOfWeek.getDate() <= date.getDate() ? firstDayOfWeek: setDate(date, 1);
+    break;
+  case Keys.END:
+    dayToFocus = endOfWeek(date, { locale });
+    break;
+  default:
+    break;
   }
 
   // Focus cell after PAGE_UP or PAGE_DOWN (it is custom logic so it is not handled by the library)
@@ -75,25 +75,25 @@ export function handleKeyDownIcon(
   ref: React.MutableRefObject<any>
 ): void {
   switch (e.key) {
-    case Keys.TAB:
-      if (!e.shiftKey && showPicker && ref.current && ref.current.dayPicker) {
-        e.preventDefault();
-        e.stopPropagation();
-        const elCell = ref.current.dayPicker.querySelector(
-          '.DayPicker-Day:not(.DayPicker-Day--outside)'
-        );
-        if (elCell) {
-          elCell.focus();
-        }
-      }
-      break;
-    case Keys.ENTER:
+  case Keys.TAB:
+    if (!e.shiftKey && showPicker && ref.current && ref.current.dayPicker) {
       e.preventDefault();
       e.stopPropagation();
-      e.target.click();
-      break;
-    default:
-      break;
+      const elCell = ref.current.dayPicker.querySelector(
+        '.DayPicker-Day:not(.DayPicker-Day--outside)'
+      );
+      if (elCell) {
+        elCell.focus();
+      }
+    }
+    break;
+  case Keys.ENTER:
+    e.preventDefault();
+    e.stopPropagation();
+    e.target.click();
+    break;
+  default:
+    break;
   }
 }
 
@@ -102,18 +102,18 @@ export function handleKeyDownInput(
   setShowPicker: (bool) => any
 ): void {
   switch (e.key) {
-    case Keys.ENTER:
-      e.preventDefault();
-      e.stopPropagation();
-      setShowPicker((showPicker) => !showPicker);
-      break;
-    case Keys.ESC:
-      e.preventDefault();
-      e.stopPropagation();
-      setShowPicker(false);
-      break;
-    default:
-      break;
+  case Keys.ENTER:
+    e.preventDefault();
+    e.stopPropagation();
+    setShowPicker((showPicker) => !showPicker);
+    break;
+  case Keys.ESC:
+    e.preventDefault();
+    e.stopPropagation();
+    setShowPicker(false);
+    break;
+  default:
+    break;
   }
 }
 
@@ -123,15 +123,15 @@ export function handleKeyDownPicker(
   refIcon
 ): void {
   switch (e.key) {
-    case Keys.ESC:
-      setShowPicker(false);
-      e.preventDefault();
-      e.stopPropagation();
-      if (refIcon.current) {
-        refIcon.current.focus();
-      }
-      break;
-    default:
-      break;
+  case Keys.ESC:
+    setShowPicker(false);
+    e.preventDefault();
+    e.stopPropagation();
+    if (refIcon.current) {
+      refIcon.current.focus();
+    }
+    break;
+  default:
+    break;
   }
 }

@@ -27,7 +27,7 @@ describe('Key Utils', () => {
   function createRef() {
     const cell = document.createElement('div');
     cell.className = 'DayPicker-Day';
-    let parent = document.createElement('div');
+    const parent = document.createElement('div');
     parent.appendChild(cell);
     const ref = {
       current: { dayPicker: parent, focus: jest.fn() },
@@ -36,7 +36,7 @@ describe('Key Utils', () => {
   }
 
   describe('should handle key down on cell', () => {
-    let tests = [
+    const tests = [
       { key: Keys.PAGE_UP, called: 1 },
       { key: Keys.PAGE_UP, shiftKey: true, called: 1 },
       { key: Keys.PAGE_DOWN, called: 1 },
@@ -58,7 +58,7 @@ describe('Key Utils', () => {
   });
 
   describe('should handle key down on icon', () => {
-    let tests = [
+    const tests = [
       { key: Keys.TAB, ref: createRef(), showPicker: true, called: 1 },
       {
         key: Keys.TAB,
@@ -90,7 +90,7 @@ describe('Key Utils', () => {
   });
 
   describe('should handle key down on input', () => {
-    let tests = [
+    const tests = [
       { key: Keys.ESC, called: 1 },
       { key: Keys.ENTER, called: 1 },
       { key: Keys.TAB, called: 0 },
@@ -110,7 +110,7 @@ describe('Key Utils', () => {
   });
 
   describe('should handle key down on calendar', () => {
-    let tests = [
+    const tests = [
       { key: Keys.ESC, ref: createRef(), called: 1 },
       { key: Keys.ESC, ref: { current: null }, called: 1 },
       { key: Keys.TAB, ref: createRef(), called: 0 },

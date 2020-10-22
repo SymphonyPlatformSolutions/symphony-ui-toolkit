@@ -71,8 +71,17 @@ const Header = ({ date, dir, labels, months, onChange, parentRef }) => {
 
 Header.propTypes = {
   date: PropTypes.instanceOf(Date),
+  dir: PropTypes.oneOf(['rtl', 'ltr']),
+  labels: PropTypes.shape({
+    nextMonth: PropTypes.string.isRequired,
+    previousMonth: PropTypes.string.isRequired,
+    previousYear: PropTypes.string.isRequired,
+    nextYear: PropTypes.string.isRequired,
+  }),
   localeUtils: PropTypes.instanceOf(Object),
+  months: PropTypes.arrayOf(PropTypes.string),
   onChange: PropTypes.func,
+  parentRef: PropTypes.any,
 };
 
 export default Header;

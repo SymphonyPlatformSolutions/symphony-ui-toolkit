@@ -202,7 +202,8 @@ describe('DatePicker Component', () => {
         cell.simulate('focus');
         cell.simulate('keyDown', { key: Keys.HOME });
       });
-      const cell5 = wrapper
+      // const cell5 =
+      wrapper
         .find('.DayPicker-Day:not(.DayPicker-Day--outside)')
         .at(5);
 
@@ -220,7 +221,8 @@ describe('DatePicker Component', () => {
         cell.simulate('focus');
         cell.simulate('keyDown', { key: Keys.END });
       });
-      const cell11 = wrapper
+      // const cell11 = 
+      wrapper
         .find('.DayPicker-Day:not(.DayPicker-Day--outside)')
         .at(11);
       // expect(cell11).toEqual(document.activeElement);
