@@ -5,38 +5,40 @@ const prefix = 'tk-typography';
 type variant = 'italic' | 'bold';
 
 type TypographyProps = {
-  tag?: 'h1' | 'h2' | 'h3' | 'h4' | 'small' | '';
+  type?: 'h1' | 'h2' | 'h3' | 'h4' | 'span' | 'small';
   variant?: variant | variant[] | '';
   className?: string;
 };
 
 const Typography: React.SFC<TypographyProps> = ({
-  tag,
+  type: type,
   className,
   variant,
   ...rest
 }: TypographyProps) => {
+  const TagName = type === 'small' ? 'span' : type;
   let variantType: any = '';
   if (variant) {
     variantType = typeof variant === 'string' ? `${prefix}--${variant}` : variant.map(variantType => `${prefix}--${variantType}`);
   }
+
   const classes = classNames(
-    className,
     prefix,
-    `${prefix}--${tag}`,
-    variantType
+    `${prefix}--${type}`,
+    variantType,
+    className,
   );
   return (
-    <div
+    <TagName
       className={classes}
       {...rest}
     >
-    </div>
+    </TagName>
   );
 };
 
 Typography.defaultProps = {
-  tag: '',
+  type: 'span',
 };
 
 export default Typography;
