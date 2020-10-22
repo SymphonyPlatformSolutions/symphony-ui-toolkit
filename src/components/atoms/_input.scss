@@ -26,7 +26,7 @@ textarea.tk-input {
   outline: none;
   @include addTransition();
 
-  &.hasIcon {
+  &--with-icon {
     padding-left: toEm(40, $fontSize);
   }
   @include styleInput(
@@ -137,7 +137,6 @@ textarea.tk-input {
   &__errors {
     @extend .tk-label;
     @extend .tk-label--error;
-    margin-top: toEm(4, $fontSize);
   }
 }
 

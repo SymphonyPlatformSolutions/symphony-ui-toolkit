@@ -35,7 +35,7 @@ export const TextField = () => {
               <label for="input">Field label</label>    
             </div>
             <div class="tk-input__container">
-              <input id="input" type="text" class="tk-input hasIcon" placeholder="Type something..." />
+              <input id="input" type="text" class="tk-input tk-input--with-icon" placeholder="Type something..." />
               <div tabindex="0" class="tk-input__icon" style="cursor: pointer;">
                 <i class="tk-icon-calendar "></i>
               </div>
@@ -55,7 +55,7 @@ export const TextField = () => {
         <span class="tk-validation tk-validation--error">
           <div class="tk-input-group">
             <div class="tk-input__container">
-              <input id="input" type="text" class="tk-input hasIcon" placeholder="Type something..." />
+              <input id="input" type="text" class="tk-input tk-input--with-icon" placeholder="Type something..." />
               <div tabindex="0" class="tk-input__icon" style="cursor: pointer;">
                 <i class="tk-icon-calendar "></i>
               </div>
@@ -73,7 +73,7 @@ export const TextField = () => {
           <br/>
           <div class="tk-input-group tk-input-group--disabled">
             <div class="tk-input__container">
-              <input id="input" type="text" class="tk-input hasIcon" placeholder="Type something..." disabled/>
+              <input id="input" type="text" class="tk-input tk-input--with-icon" placeholder="Type something..." disabled/>
               <div tabindex="0" class="tk-input__icon">
                 <i class="tk-icon-calendar "></i>
               </div>
