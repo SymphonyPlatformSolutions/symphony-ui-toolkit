@@ -3,9 +3,6 @@ import classNames from 'classnames';
 
 const prefix = 'tk-size';
 
-
-
-
 type ScaleProps = {
   size?: 'xx-small' | 'x-small' | 'small' | 'medium' | 'large' | 'x-large' | 'xx-large',
   className?: string,

@@ -37,7 +37,7 @@
     "react-transition-group": "^4.4.1",
     "shortid": "^2.2.15",
     "styled-components": "^5.1.1",
-    "@symphony/uitoolkit-styles": "1.0.10-SNAPSHOT.15"
+    "@symphony/uitoolkit-styles": "1.0.10-SNAPSHOT.19"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",

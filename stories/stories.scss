@@ -7,14 +7,16 @@ html {
 #root {
   overflow-x: hidden;
 }
+
 // Layout utils
 .flex-container {
   overflow-x: hidden;
 }
+
 .flex-row {
   display: flex;
-  margin-left: -16px;
   margin-right: -16px;
+
   .flex-col {
     flex-direction: column;
     padding: 16px;
@@ -32,4 +34,9 @@ html {
   display: inline-block;
   margin: 20px;
   text-align: center;
+}
+
+// Width percentages
+.w-5 {
+  width: 5%;
 }
