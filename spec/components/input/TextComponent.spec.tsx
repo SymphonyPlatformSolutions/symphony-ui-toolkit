@@ -71,7 +71,7 @@ describe('TextComponent Component', () => {
     });
     describe('should handle icon props', () => {
       const iconProps = {
-        className: 'my-custom-class',
+        className: 'tk-input__icon my-custom-class',
         iconName: 'calendar',
         tabIndex: 0,
         onClick: jest.fn(),

@@ -14,7 +14,7 @@ export enum Keys {
 
 export function handleKeyDownCell(
   date: Date,
-  e: React.KeyboardEvent<HTMLDivElement>,
+  e: React.KeyboardEvent,
   setNavigationDate: (date) => any,
   setDivToFocus: (date) => any,
   focusDiv: (date) => any,
@@ -98,7 +98,7 @@ export function handleKeyDownIcon(
 }
 
 export function handleKeyDownInput(
-  e: React.KeyboardEvent<HTMLDivElement>,
+  e: React.KeyboardEvent,
   setShowPicker: (bool) => any
 ): void {
   switch (e.key) {
@@ -118,7 +118,7 @@ export function handleKeyDownInput(
 }
 
 export function handleKeyDownPicker(
-  e: React.KeyboardEvent<HTMLDivElement>,
+  e: React.KeyboardEvent,
   setShowPicker: (bool) => any,
   refIcon
 ): void {
