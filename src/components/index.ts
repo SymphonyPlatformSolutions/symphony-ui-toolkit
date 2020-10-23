@@ -7,7 +7,7 @@ import ExpandableCard from './expandable-card';
 import Tooltip from './tooltip';
 import Icon from './icon';
 import Validation from './validation';
-import Link from './link';
+import VirtualizedList from './virtualized-list';
 
 export {
   Button,
@@ -21,5 +21,5 @@ export {
   Tooltip,
   Validation,
   Icon,
-  Link,
+  VirtualizedList,
 };
