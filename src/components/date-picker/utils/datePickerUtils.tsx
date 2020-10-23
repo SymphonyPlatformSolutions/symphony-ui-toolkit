@@ -17,13 +17,9 @@ export function addLoopNavigation(
   if (ref.current && ref.current.dayPicker) {
     const elClassFrom = ref.current.dayPicker.querySelector(classFrom);
     elClassFrom.addEventListener('keydown', function (
-      event: React.KeyboardEvent<HTMLDivElement>
+      event: React.KeyboardEvent
     ) {
-      // Only let 'Enter' event propagate
-      if (event.key !== Keys.ENTER) {
-        event.preventDefault();
-        event.stopPropagation();
-      }
+      propagateOnlyEnterTab(event);
 
       if (event.key === Keys.TAB) {
         event.preventDefault();
@@ -45,20 +41,22 @@ export function addLoopNavigation(
 }
 
 /**
- * 
+ *
  * Change the behaviour of 'Tab' and 'Shift + Tab' event of an html element
  * Used to allow loop navigation "'Today Button' --> Header (<<) --> Header (<)"
- * @param event 
+ * @param event Keyboard Event
  * @param ref The html element where is done the querySelector
  * @param classNext The html class to focus on 'Tab' event
  * @param classPrev The html class to focus on 'Shift + Tab' event
  */
 export function ajustLoopNavigation(
-  event,
+  event: React.KeyboardEvent,
   ref: React.MutableRefObject<any>,
   classNext: string,
   classPrev: string
 ) {
+  propagateOnlyEnterTab(event);
+
   if (event.key === Keys.TAB) {
     event.preventDefault();
     event.stopPropagation();
@@ -71,6 +69,18 @@ export function ajustLoopNavigation(
     }
   }
 }
+
+/** 
+ * Remove unwanted arrow navigation on Header
+ * Only let 'Enter' & "Tab" event propagate
+ * @param event Keyboard Event
+ */
+export const propagateOnlyEnterTab = (event: React.KeyboardEvent) => {
+  if ((event.key !== Keys.ENTER) && (event.key !== Keys.TAB)) {
+    event.preventDefault();
+    event.stopPropagation();
+  }
+};
 
 /**
  * For example, remove the unwanted tabIndex on '.DayPicker-wrapper'
