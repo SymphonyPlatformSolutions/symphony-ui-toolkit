@@ -4,26 +4,15 @@ import { usePopper } from 'react-popper';
 import { CSSTransition } from 'react-transition-group';
 import styled from 'styled-components';
 
+import { PopperContainer, popperProps } from '../common/popperUtils';
+
 const SpanStyled = styled.span`
   display: inline-block;
 `;
 
 const TooltipContainer = styled.div`
   &.TooltipContainer {
-    &-enter {
-      opacity: 0;
-      &-active {
-        opacity: 1;
-        transition: opacity 200ms;
-      }
-    }
-    &-exit {
-      opacity: 1;
-      &-active {
-        opacity: 0;
-        transition: opacity 200ms;
-      }
-    }
+    ${PopperContainer}
   }
 
   .tooltip__arrowContainer {
@@ -95,12 +84,9 @@ const Tooltip = ({
     <SpanStyled ref={setReferenceElement}>
       {otherProps.children}
       <CSSTransition
-        mountOnEnter
-        unmountOnExit
+        {...popperProps}
         in={visible}
-        timeout={200}
         classNames="TooltipContainer"
-        appear
       >
         <TooltipContainer
           id={id}

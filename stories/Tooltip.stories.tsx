@@ -76,7 +76,7 @@ export const OnClick = (args) => {
 
   return (
     <Tooltip {...args} visible={showTooltip} onHintClose={handleClick}>
-      <Icon iconName="info-round" handleClick={handleClick} />
+      <Icon iconName="info-round" onClick={handleClick} />
     </Tooltip>
   );
 };

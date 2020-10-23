@@ -1,6 +1,6 @@
 {
   "name": "@symphony/uitoolkit-components",
-  "version": "1.0.4-SNAPSHOT.4",
+  "version": "1.0.4-SNAPSHOT.5",
   "description": "React components for the Symphony UI design system",
   "publishConfig": {
     "registry": "https://repo.symphony.com/artifactory/api/npm/npm-local-dev2"
@@ -28,16 +28,18 @@
   },
   "dependencies": {
     "@popperjs/core": "^2.4.4",
+    "@symphony/uitoolkit-styles": "1.0.10-SNAPSHOT.20",
     "@types/classnames": "^2.2.10",
     "classnames": "^2.2.6",
+    "date-fns": "^2.16.1",
     "lodash": "^4.17.20",
     "prop-types": "^15.7.2",
+    "react-day-picker": "^7.4.8",
     "react-popper": "^2.2.3",
     "react-resize-detector": "^5.0.3",
     "react-transition-group": "^4.4.1",
     "shortid": "^2.2.15",
-    "styled-components": "^5.1.1",
-    "@symphony/uitoolkit-styles": "1.0.10-SNAPSHOT.19"
+    "styled-components": "^5.1.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
@@ -53,8 +55,8 @@
     "@storybook/addon-links": "^6.0.21",
     "@storybook/addon-storysource": "6.0.21",
     "@storybook/addons": "6.0.21",
-    "@storybook/react": "^6.0.21",
     "@storybook/preset-scss": "^1.0.2",
+    "@storybook/react": "^6.0.21",
     "@types/enzyme": "^3.10.5",
     "@types/jest": "^25.2.3",
     "@types/lodash": "^4.14.154",
@@ -76,6 +78,7 @@
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.20.0",
     "eslint-plugin-react-hooks": "^2.5.1",
+    "identity-obj-proxy": "^3.0.0",
     "jest": "^26.0.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",

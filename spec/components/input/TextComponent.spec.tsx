@@ -2,6 +2,8 @@ import { shallow } from 'enzyme';
 import React from 'react';
 import { TextComponent, Types } from '../../../src/components/input/TextComponent';
 
+import Icon from '../../../src/components/icon/Icon';
+
 describe('TextComponent Component', () => {
   describe('TextComponent test suite => ', () => {
     afterEach(() => {
@@ -66,6 +68,61 @@ describe('TextComponent Component', () => {
       expect(wrapper.find('Tooltip').prop('closeLabel')).toEqual(
         tooltipCloseLabel
       );
+    });
+    describe('should handle icon props', () => {
+      const iconProps = {
+        className: 'my-custom-class',
+        iconName: 'calendar',
+        tabIndex: 0,
+        onClick: jest.fn(),
+        onKeyDown: jest.fn(),
+      };
+      it('should display an icon if provided', () => {
+        let wrapper = shallow(<TextComponent type={Types.TEXTFIELD} />);
+        expect(wrapper.find('Icon').length).toBe(0);
+        wrapper = shallow(
+          <TextComponent
+            type={Types.TEXTFIELD}
+            iconElement={<Icon {...iconProps} />}
+          />
+        );
+
+        const wrapperIcon = wrapper.find('Icon');
+        expect(wrapperIcon.length).toBe(1);
+        expect(wrapperIcon.prop('iconName')).toBe(iconProps.iconName);
+        expect(wrapperIcon.prop('className')).toContain(iconProps.className);
+        expect(wrapperIcon.prop('tabIndex')).toBe(iconProps.tabIndex);
+        expect(wrapperIcon.prop('onClick')).toBe(iconProps.onClick);
+        expect(wrapperIcon.prop('onKeyDown')).toBe(iconProps.onKeyDown);
+      });
+      it('should trigger onClick method', () => {
+        let wrapper = shallow(<TextComponent type={Types.TEXTFIELD} />);
+        expect(wrapper.find('Icon').length).toBe(0);
+        wrapper = shallow(
+          <TextComponent
+            type={Types.TEXTFIELD}
+            iconElement={<Icon {...iconProps} />}
+          />
+        );
+        const wrapperIcon = wrapper.find('Icon');
+        expect(iconProps.onClick).toHaveBeenCalledTimes(0);
+        wrapperIcon.simulate('click');
+        expect(iconProps.onClick).toHaveBeenCalledTimes(1);
+      });
+      it('should trigger onKeyDown method', () => {
+        let wrapper = shallow(<TextComponent type={Types.TEXTFIELD} />);
+        expect(wrapper.find('Icon').length).toBe(0);
+        wrapper = shallow(
+          <TextComponent
+            type={Types.TEXTFIELD}
+            iconElement={<Icon {...iconProps} />}
+          />
+        );
+        const wrapperIcon = wrapper.find('Icon');
+        expect(iconProps.onKeyDown).toHaveBeenCalledTimes(0);
+        wrapperIcon.simulate('keyDown', { key: 'Enter' });
+        expect(iconProps.onKeyDown).toHaveBeenCalledTimes(1);
+      });
     });
   });
 });

@@ -1,6 +1,6 @@
 import { withKnobs } from '@storybook/addon-knobs';
 import React from 'react';
-import { TextArea, TextField, Validation } from '../src/components';
+import { DatePicker, TextArea, TextField, Validation } from '../src/components';
 import { Validators } from '../src/core/validators/validators';
 
 export const Validations = () => {
@@ -45,6 +45,20 @@ export const Validations = () => {
         errorMessage={'Should start with lorem'}
       >
         <TextField placeholder="Magic word" />
+      </Validation>
+      <p>
+        Date Picker with <strong>Required validator</strong>
+      </p>
+      <Validation
+        onValidationChanged={logChange}
+        validator={Validators.Required}
+        errorMessage={'This field is mandatory'}
+      >
+        <DatePicker
+          todayButton="today"
+          tooltip="Depart date"
+          label="Expense"
+        ></DatePicker>
       </Validation>
       <h2>Multiple validators</h2>
       <p>
