@@ -18,8 +18,6 @@ import DayPicker, {
   RangeModifier
 } from 'react-day-picker';
 
-import 'react-day-picker/lib/style.css';
-
 import TextField from '../input/TextField';
 import Icon from '../icon/Icon';
 
