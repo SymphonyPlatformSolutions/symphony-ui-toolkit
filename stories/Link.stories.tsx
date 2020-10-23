@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Link } from '../src/components'
+import { Link } from '../src/components';
 import Icon from '../src/components/icon';
 
 export const Links: React.FC = () => (

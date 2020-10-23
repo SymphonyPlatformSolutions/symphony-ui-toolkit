@@ -1,5 +1,5 @@
-import { withKnobs, boolean, button, text } from '@storybook/addon-knobs';
-import React from 'react';
+import { boolean, button, text, withKnobs } from '@storybook/addon-knobs';
+import React, { useState } from 'react';
 import { TextField } from '../src/components';
 import Icon from '../src/components/icon/Icon';
 
@@ -9,6 +9,8 @@ export const TextFields: React.SFC = () => {
   const logChange = (value) => {
     console.info(value);
   };
+
+  const [value, setValue] = useState('Lorem Ipsum');
 
   return (
     <div className="tk-text-color" style={{ width: '50%' }}>
@@ -94,9 +96,9 @@ export const TextFields: React.SFC = () => {
       <hr />
       <div>
         <p>
-          Simple Text Field with a <strong>default value</strong>
+          Simple Text Field with a <strong>value</strong>
         </p>
-        <TextField placeholder="Type something" value="Lorem Ipsum"></TextField>
+        <TextField placeholder="Type something" value={value} onChange={(e) => setValue(e.target.value)}></TextField>
       </div>
       <hr />
       <div>

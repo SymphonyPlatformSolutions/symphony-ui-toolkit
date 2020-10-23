@@ -2,11 +2,11 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import {
-  Keys,
   handleKeyDownCell,
   handleKeyDownIcon,
   handleKeyDownInput,
   handleKeyDownPicker,
+  Keys
 } from '../../../src/components/date-picker/utils/keyUtils';
 
 describe('Key Utils', () => {

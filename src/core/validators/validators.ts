@@ -25,7 +25,7 @@ const Required: ValidatorFn = value => {
  */
 const MinLength = (minlength: number): ValidatorFn => {
   return value => {
-    if (minlength <= value.length) {
+    if (value && minlength <= value.length) {
       return Promise.resolve(null);
     }
     return Promise.resolve({ minlength: true });

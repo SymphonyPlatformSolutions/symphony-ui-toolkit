@@ -1,7 +1,4 @@
-import {
-  addLoopNavigation,
-  removeTabIndex,
-} from '../../../src/components/date-picker/utils/datePickerUtils';
+import { addLoopNavigation, removeTabIndex } from '../../../src/components/date-picker/utils/datePickerUtils';
 
 describe('Methods to remove unwanted behaviour of Reac Day Picker', () => {
   //TODO: add expect
@@ -19,7 +16,7 @@ describe('Methods to remove unwanted behaviour of Reac Day Picker', () => {
     const ref = {
       current: { dayPicker: parent },
     };
-  
+
     addLoopNavigation(ref, '.from', '.next', '.to');
   });
   it('addLoopNavigation', () => {

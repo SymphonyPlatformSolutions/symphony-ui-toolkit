@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import { act } from 'react-dom/test-utils';
 
 import DayPicker from 'react-day-picker';
@@ -221,7 +221,7 @@ describe('DatePicker Component', () => {
         cell.simulate('focus');
         cell.simulate('keyDown', { key: Keys.END });
       });
-      // const cell11 = 
+      // const cell11 =
       wrapper
         .find('.DayPicker-Day:not(.DayPicker-Day--outside)')
         .at(11);

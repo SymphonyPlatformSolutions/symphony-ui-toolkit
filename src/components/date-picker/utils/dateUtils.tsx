@@ -1,13 +1,13 @@
 import {
-  endOfWeek,
-  endOfYear,
   eachDayOfInterval,
   eachMonthOfInterval,
+  endOfWeek,
+  endOfYear,
   format,
   getDay,
   startOfMonth,
   startOfWeek,
-  startOfYear,
+  startOfYear
 } from 'date-fns';
 
 /**

@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { FunctionComponent, useState, useRef, useEffect } from 'react';
+import React, { FunctionComponent, useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 
 import { usePopper } from 'react-popper';
@@ -7,15 +7,15 @@ import { usePopper } from 'react-popper';
 import { CSSTransition } from 'react-transition-group';
 
 import DayPicker, {
-  DayModifiers,
-  RangeModifier,
-  BeforeModifier,
   AfterModifier,
   BeforeAfterModifier,
+  BeforeModifier,
+  DayModifiers,
   DaysOfWeekModifier,
   FunctionModifier,
-  Modifier,
   LocaleUtils,
+  Modifier,
+  RangeModifier
 } from 'react-day-picker';
 
 import 'react-day-picker/lib/style.css';
@@ -27,19 +27,9 @@ import styled from 'styled-components';
 
 import { PopperContainer, popperProps } from '../common/popperUtils';
 
-import {
-  getMonths,
-  getWeekdaysLong,
-  getWeekdaysShort,
-  formatDay,
-} from './utils/dateUtils';
+import { formatDay, getMonths, getWeekdaysLong, getWeekdaysShort } from './utils/dateUtils';
 
-import {
-  handleKeyDownIcon,
-  handleKeyDownInput,
-  handleKeyDownPicker,
-  handleKeyDownCell,
-} from './utils/keyUtils';
+import { handleKeyDownCell, handleKeyDownIcon, handleKeyDownInput, handleKeyDownPicker } from './utils/keyUtils';
 import { addLoopNavigation, removeTabIndex } from './utils/datePickerUtils';
 import { modifierPropTypes } from './utils/propTypesUtils';
 
