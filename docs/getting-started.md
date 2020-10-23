@@ -13,10 +13,15 @@ Install the library from npm by running the following command on your project:
 ```bash
 $ npm install @symphony/uitoolkit-components --save
 ```
+or using yarn
+
+```bash
+$ yarn add @symphony/uitoolkit-components
+```
 
 ## Setup 
 
-To start using UI Toolkit Components you will need to import the [UI Toolkit styles](https://github.com/SymphonyOSF/symphony-bdk-ui-toolkit-styles) library on your project:
+To start using UI Toolkit Components you will need to import the styles definition on your project:
 
 ```bash
   @symphony/uitoolkit-components/styles
@@ -24,11 +29,13 @@ To start using UI Toolkit Components you will need to import the [UI Toolkit sty
 
 ## Usage
 
+Start using by importing the component you need 
+
 ```bash
 import { Button } from '@symphony/uitoolkit-components';
 
 const App = () => (
-  <Button>
+  <Button onClick={()=>alert('UIToolkit is awesome!')}>
     Click me!
   </Button>
 );
