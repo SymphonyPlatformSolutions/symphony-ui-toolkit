@@ -164,7 +164,7 @@ const TextComponent: React.FC<TextComponentPropsWithType> = ({
           disabled={disabled}
           {...rest}
         />
-        {iconElement && type == Types.TEXTFIELD ? iconElement : null}
+        {iconElement && type == Types.TEXTFIELD ? React.cloneElement(iconElement, { className: 'tk-input__icon'}) : null}
         {type == Types.TEXTFIELD ? (
           <button
             className="tk-input__hide"
