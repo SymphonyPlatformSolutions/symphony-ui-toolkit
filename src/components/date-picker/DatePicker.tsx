@@ -45,7 +45,7 @@ import { format as formatDate, isValid, parse } from 'date-fns';
 import Header from './Header';
 
 const DatePickerContainer = styled.div`
-  z-index: 1;
+  z-index: 2;
   &.DatePickerContainer {
     ${PopperContainer}
   }
@@ -104,12 +104,12 @@ const DatePicker: FunctionComponent<DatePickerComponentProps> = ({
   const [popperElement, setPopperElement] = useState(null);
   const [referenceElement, setReferenceElement] = useState(null);
   const { styles, attributes } = usePopper(referenceElement, popperElement, {
-    placement,
+    placement: `${placement}-start` as 'bottom-start' | 'top-start' | 'right-start' | 'left-start',
     modifiers: [
       {
         name: 'flip',
         options: {
-          fallbackPlacements: ['top', 'right', 'left'],
+          fallbackPlacements: ['top-start', 'right-start', 'left-start'],
         },
       },
       {
