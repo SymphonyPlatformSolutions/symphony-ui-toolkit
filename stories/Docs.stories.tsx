@@ -8,5 +8,5 @@ export default {
 };
 
 export const GettingStarted: React.SFC = () => {
-  return (<div className="tk-ml-2h">{ReactHtmlParser(GettingStartedDoc)}</div>)
+  return (<div>{ReactHtmlParser(GettingStartedDoc)}</div>)
 };

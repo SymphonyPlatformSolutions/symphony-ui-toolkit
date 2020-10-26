@@ -40,3 +40,12 @@ html {
 .w-5 {
   width: 5%;
 }
+
+// Docs
+pre {
+  background-color: #eaebec;
+  padding: 20px;
+}
+.dark pre {
+  background-color: #3e4249;
+}
