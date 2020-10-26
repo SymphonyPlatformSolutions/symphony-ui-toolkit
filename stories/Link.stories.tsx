@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { Link } from '../src/components';
-import Icon from '../src/components/icon';
+import { Icon, Link } from '../src/components';
 
 export const Links: React.FC = () => (
   <div>
@@ -15,5 +14,5 @@ export const Links: React.FC = () => (
 
 export default {
   title: 'Link',
-  component: Links,
+  component: Link,
 }

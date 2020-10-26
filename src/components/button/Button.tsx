@@ -1,5 +1,7 @@
 import * as React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { SelectionInputPropTypes } from 'components/selection/SelectionInput';
 
 const prefix = 'tk-button';
 
@@ -52,5 +54,15 @@ Button.defaultProps = {
   variant: 'primary',
 };
 
+Button.propTypes = {
+  iconButton: PropTypes.bool,
+  children: PropTypes.any,
+  className: PropTypes.string,
+  disabled: PropTypes.bool,
+  loading: PropTypes.bool,
+  type: PropTypes.oneOf(['button', 'reset', 'submit']),
+  variant: PropTypes.oneOf(['primary', 'secondary', 'tertiary', 'destructive']),
+  onClick: PropTypes.func,
+}
 Button.displayName = 'Button';
 export default Button;

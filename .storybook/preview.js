@@ -1,3 +1,4 @@
+import React from 'react';
 import addons from '@storybook/addons';
 import { addParameters } from '@storybook/react';
 import { themes } from '@storybook/theming';
@@ -23,3 +24,5 @@ const init = () => {
     }
   });
 };
+
+export const decorators = [(Story) => <div style={{ margin: '3em' }}><Story/></div>];

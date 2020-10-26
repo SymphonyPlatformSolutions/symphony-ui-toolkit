@@ -72,6 +72,6 @@ export const Lists: React.FC = () => (
 
 export default {
   title: 'VirtualizedList',
-  component: Lists,
+  component: VirtualizedList,
 }
 

@@ -43,4 +43,6 @@ export const ExpandableCardContainer: React.SFC = () => {
 
 export default {
   title: 'Containers',
+  component: ExpandableCard,
+  subcomponents: { CropContent },
 };

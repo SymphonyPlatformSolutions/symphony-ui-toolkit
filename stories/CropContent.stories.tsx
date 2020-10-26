@@ -89,5 +89,6 @@ export const CropContentContainer: React.SFC = () => {
 
 export default {
   title: 'Containers',
+  component: CropContent,
   decorators: [withKnobs],
 };

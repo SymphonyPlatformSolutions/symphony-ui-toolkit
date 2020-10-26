@@ -3,6 +3,12 @@ import React from 'react';
 import { TextArea } from '../src/components';
 import { Validators } from '../src/core/validators/validators';
 
+const Template = (args) => {
+  return <TextArea {...args} />;
+};
+
+export const Default = Template.bind({});
+
 export const TextAreas: React.SFC = () => {
   const logChange = (value) => {
     console.info(value);
@@ -101,5 +107,6 @@ export const ChangeProgrammatically = () => {
 
 export default {
   title: 'TextArea',
+  component: TextArea,
   decorators: [withKnobs],
 };
