@@ -19,9 +19,17 @@ module.exports = {
         },
       ],
       include: path.resolve(__dirname, '../dist/*'),
-    });
+    },
+    {
+      test: /\.md$/,
+      use: [
+          {
+              loader: "markdown-loader"
+          }
+      ]
+  }
+    );
 
-    // Return the altered config
     return config;
   },
 };
