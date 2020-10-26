@@ -91,7 +91,7 @@ const DatePicker: FunctionComponent<DatePickerComponentProps> = ({
     previousMonth: 'Previous Month',
     nextMonth: 'Next Month',
   },
-  placeholder = format.toUpperCase(),
+  placeholder,
   locale = 'en-US',
   placement = 'bottom',
   todayButton = 'Today',
@@ -245,7 +245,7 @@ const DatePicker: FunctionComponent<DatePickerComponentProps> = ({
   const textfieldProps = {
     disabled,
     label,
-    placeholder,
+    placeholder: placeholder || format.toUpperCase(),
     tooltip,
   };
 

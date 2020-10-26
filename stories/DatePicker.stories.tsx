@@ -1,7 +1,13 @@
 import React from 'react';
-import { DatePicker } from '../src/components';
+import { DatePicker, TextField } from '../src/components';
 
-export const DatePickers: React.SFC = () => {
+const Template = (args) => {
+  return <DatePicker {...args} />;
+};
+
+export const Default = Template.bind({});
+
+export const MoreExamples: React.SFC = () => {
   const now = new Date();
   const disabledDays = [
     new Date(now.getFullYear(), now.getMonth(), now.getDate() + 7),
@@ -20,7 +26,7 @@ export const DatePickers: React.SFC = () => {
   const disabledWednesday = [{ daysOfWeek: [3] }];
 
   return (
-    <div className="tk-text-color" style={{ minHeight: '500px' }}>
+    <div className="tk-text-color">
       <h1>Date Picker</h1>
       <div>
         <p>Default Date Picker</p>
@@ -131,4 +137,13 @@ export const DatePickers: React.SFC = () => {
 
 export default {
   title: 'DatePicker',
+  component: DatePicker,
+  subcomponents: { TextField },
+  decorators: [
+    (Story) => (
+      <div style={{ minHeight: '300px' }}>
+        <Story />
+      </div>
+    ),
+  ],
 };

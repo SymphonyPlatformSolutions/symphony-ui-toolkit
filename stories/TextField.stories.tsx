@@ -1,9 +1,14 @@
 import { boolean, button, text, withKnobs } from '@storybook/addon-knobs';
 import React, { useState } from 'react';
-import { TextField } from '../src/components';
-import Icon from '../src/components/icon/Icon';
+import { TextField, Icon } from '../src/components';
 
 import { Validators } from '../src/core/validators/validators';
+
+const Template = (args) => {
+  return <TextField {...args} />;
+};
+
+export const Default = Template.bind({});
 
 export const TextFields: React.SFC = () => {
   const logChange = (value) => {
@@ -148,5 +153,7 @@ export const ChangeProgrammatically = () => {
 
 export default {
   title: 'TextField',
+  component: TextField,
+  subcomponents: { Icon },
   decorators: [withKnobs],
 };

@@ -4,6 +4,15 @@ import Icon from '../src/components/icon/Icon';
 import './stories.scss';
 import '../src/styles';
 
+const Template = (args) => {
+  return <Button {...args} />;
+};
+
+export const Default = Template.bind({});
+Default.args = {
+  children: 'Some Text',
+};
+
 export const Buttons: React.SFC = () => (
   <div className="tk-text-color">
     <h2>Primary</h2>
@@ -110,5 +119,6 @@ export const Buttons: React.SFC = () => (
 
 export default {
   title: 'Button',
-  component: Buttons,
+  component: Button,
+  subcomponents: { Icon },
 };

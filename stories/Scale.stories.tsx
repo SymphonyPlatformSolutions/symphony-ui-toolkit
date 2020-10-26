@@ -185,5 +185,6 @@ export const Size: React.SFC = () => (
 
 export default {
   title: 'Scaled components',
-  component: Size,
+  component: Scale,
+  subcomponents: { Icon }
 };

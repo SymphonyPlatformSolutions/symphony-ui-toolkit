@@ -42,5 +42,5 @@ export const TypographyUtils: React.SFC = () => (
 
 export default {
   title: 'Typrography',
-  component: TypographyUtils,
+  component: Typography,
 };
