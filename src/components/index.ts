@@ -1,4 +1,5 @@
 import Button from './button';
+import Link from './link';
 import { TextArea, TextField } from './input';
 import { Checkbox, Radio } from './selection';
 import CropContent from './crop-content';
@@ -22,4 +23,5 @@ export {
   Validation,
   Icon,
   VirtualizedList,
+  Link
 };
