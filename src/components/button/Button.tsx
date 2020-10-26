@@ -1,7 +1,6 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { SelectionInputPropTypes } from 'components/selection/SelectionInput';
 
 const prefix = 'tk-button';
 

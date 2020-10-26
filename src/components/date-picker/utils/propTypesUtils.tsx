@@ -40,6 +40,16 @@ export const modifierPropTypes = [
     })
   ),
   PropTypes.exact({
+    from: PropTypes.instanceOf(Date),
+    to: PropTypes.instanceOf(Date),
+  }),
+  PropTypes.arrayOf(
+    PropTypes.exact({
+      from: PropTypes.instanceOf(Date),
+      to: PropTypes.instanceOf(Date),
+    })
+  ),
+  PropTypes.exact({
     daysOfWeek: PropTypes.arrayOf(PropTypes.number),
   }),
   PropTypes.arrayOf(
