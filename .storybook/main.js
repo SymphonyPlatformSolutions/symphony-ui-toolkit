@@ -18,7 +18,16 @@ module.exports = {
           loader: require.resolve('ts-loader'),
         },
       ],
-    });
+    },
+    {
+      test: /\.md$/,
+      use: [
+          {
+            loader: "markdown-loader",
+          }
+      ]
+   }  
+  );
     config.resolve.extensions.push('.ts', '.tsx');
     return config;
   },
