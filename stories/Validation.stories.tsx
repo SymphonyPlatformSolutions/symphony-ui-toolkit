@@ -8,7 +8,7 @@ export const Validations = () => {
     console.log('Component is valid:', value);
   };
   return (
-    <div className="tk-text-color" style={{ width: '50%' }}>
+    <div style={{ width: '50%' }}>
       <h1>Validation</h1>
       <h2>Single validator</h2>
       <p>

@@ -15,7 +15,7 @@ export const TextAreas: React.SFC = () => {
   };
 
   return (
-    <div className="tk-text-color" style={{ width: '50%' }}>
+    <div style={{ width: '50%' }}>
       <h1>Text Area</h1>
       <div>
         <p>

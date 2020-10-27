@@ -18,7 +18,7 @@ export const TextFields: React.SFC = () => {
   const [value, setValue] = useState('Lorem Ipsum');
 
   return (
-    <div className="tk-text-color" style={{ width: '50%' }}>
+    <div style={{ width: '50%' }}>
       <h1>Text Field</h1>
       <div>
         <p>

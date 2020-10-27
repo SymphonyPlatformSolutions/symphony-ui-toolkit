@@ -14,7 +14,7 @@ Default.args = {
 };
 
 export const Buttons: React.SFC = () => (
-  <div className="tk-text-color">
+  <div>
     <h2>Primary</h2>
     <div style={{ display: 'flex', margin: 16 }}>
       <Button variant="primary"> Button</Button>

@@ -25,4 +25,4 @@ const init = () => {
   });
 };
 
-export const decorators = [(Story) => <div style={{ margin: '3em' }}><Story/></div>];
+export const decorators = [(Story) => <div className="tk-text-color tk-m-4"><Story/></div>];
