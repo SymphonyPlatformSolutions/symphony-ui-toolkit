@@ -31,6 +31,7 @@ describe('DatePicker Component', () => {
         previousMonth: 'Previous Month',
         nextMonth: 'Next Month',
       },
+      name: 'date-travel',
       placeholder: 'MM-DD-YYYY',
       locale: 'en-US',
       placement: 'bottom',
@@ -56,6 +57,7 @@ describe('DatePicker Component', () => {
     expect(wrapperField.prop('label')).toBe(props.label);
     expect(wrapperField.prop('placeholder')).toBe(props.placeholder);
     expect(wrapperField.prop('tooltip')).toBe(props.tooltip);
+    expect(wrapperField.prop('name')).toBe(props.name);
   });
   it('should properly pass props to React Day Picker', () => {
     const props = createTestProps({});
