@@ -232,8 +232,6 @@ const DatePicker: FunctionComponent<DatePickerComponentProps> = ({
       setNavigationDate(newDate);
       if (!matchDay(newDate, disabledDays)) {
         setSelectedDate(newDate);
-      } else {
-        setSelectedDate(null);
       }
     } else {
       setSelectedDate(null);

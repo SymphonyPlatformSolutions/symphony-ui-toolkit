@@ -69,6 +69,11 @@ export const MoreExamples: React.SFC = () => {
             nextMonth: 'Mese Scorso',
           }}
         />
+        <br />
+        <DatePicker
+          format="yyyy年MM月dd日"
+          locale="ja"
+        />
       </div>
       <hr />
       <div>
