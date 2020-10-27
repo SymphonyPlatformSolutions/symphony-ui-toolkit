@@ -7,15 +7,9 @@ import { usePopper } from 'react-popper';
 import { CSSTransition } from 'react-transition-group';
 
 import DayPicker, {
-  AfterModifier,
-  BeforeAfterModifier,
-  BeforeModifier,
   DayModifiers,
-  DaysOfWeekModifier,
-  FunctionModifier,
   LocaleUtils,
   Modifier,
-  RangeModifier
 } from 'react-day-picker';
 
 import 'react-day-picker/lib/style.css';
@@ -27,9 +21,22 @@ import styled from 'styled-components';
 
 import { PopperContainer, popperProps } from '../common/popperUtils';
 
-import { formatDay, getMonths, getWeekdaysLong, getWeekdaysShort } from './utils/dateUtils';
+import {
+  formatDay,
+  getMonths,
+  getWeekdaysLong,
+  getWeekdaysShort,
+} from './utils/dateUtils';
 
-import { handleKeyDownCell, handleKeyDownIcon, handleKeyDownInput, handleKeyDownPicker } from './utils/keyUtils';
+import { matchDay } from './utils/matchDayUtils';
+
+import {
+  handleKeyDownCell,
+  handleKeyDownIcon,
+  handleKeyDownInput,
+  handleKeyDownPicker,
+} from './utils/keyUtils';
+
 import { addLoopNavigation, removeTabIndex } from './utils/datePickerUtils';
 import { modifierPropTypes } from './utils/propTypesUtils';
 
@@ -47,15 +54,7 @@ const DatePickerContainer = styled.div`
 type DatePickerComponentProps = {
   className?: string;
   date?: Date;
-  disabledDays?:
-    | Date
-    | RangeModifier
-    | BeforeModifier
-    | AfterModifier
-    | BeforeAfterModifier
-    | DaysOfWeekModifier
-    | FunctionModifier
-    | Modifier[];
+  disabledDays?: Modifier | Modifier[];
   disabled?: boolean;
   dir?: 'ltr' | 'rtl';
   format?: string;
@@ -208,7 +207,7 @@ const DatePicker: FunctionComponent<DatePickerComponentProps> = ({
   const now = new Date();
   const localeUtils = {
     ...LocaleUtils,
-    formatDay: (d: Date/*, locale: string*/) => formatDay(d, getLocale),
+    formatDay: (d: Date) => formatDay(d, getLocale),
   };
 
   const handleInputChange = (e) => {
@@ -230,8 +229,12 @@ const DatePicker: FunctionComponent<DatePickerComponentProps> = ({
     }
 
     if (isValid(newDate)) {
-      setSelectedDate(newDate);
       setNavigationDate(newDate);
+      if (!matchDay(newDate, disabledDays)) {
+        setSelectedDate(newDate);
+      }
+    } else {
+      setSelectedDate(null);
     }
     if (onChange) {
       onChange(e);
@@ -323,7 +326,6 @@ const DatePicker: FunctionComponent<DatePickerComponentProps> = ({
             onTodayButtonClick={handleDayClick}
             locale={locale}
             localeUtils={localeUtils}
-            // days={formatDay(now, getLocale)}
             months={getMonths(now, getLocale)}
             weekdaysLong={getWeekdaysLong(now, getLocale)}
             weekdaysShort={getWeekdaysShort(now, getLocale)}

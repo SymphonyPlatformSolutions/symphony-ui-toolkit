@@ -21,6 +21,10 @@ export const MoreExamples: React.SFC = () => {
       after: new Date(now.getFullYear(), now.getMonth(), now.getDate() + 15),
       before: new Date(now.getFullYear(), now.getMonth(), now.getDate() + 20),
     },
+    {
+      from: new Date(now.getFullYear(), now.getMonth(), now.getDate() + 22),
+      to: new Date(now.getFullYear(), now.getMonth(), now.getDate() + 24),
+    },
   ];
 
   const disabledWednesday = [{ daysOfWeek: [3] }];
@@ -64,6 +68,11 @@ export const MoreExamples: React.SFC = () => {
             nextYear: 'Anno Scorso',
             nextMonth: 'Mese Scorso',
           }}
+        />
+        <br />
+        <DatePicker
+          format="yyyy年MM月dd日"
+          locale="ja"
         />
       </div>
       <hr />
