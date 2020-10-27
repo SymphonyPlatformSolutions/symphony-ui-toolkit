@@ -3,7 +3,7 @@ import { ExpandableCard, Button, CropContent } from '../src/components';
 
 export const ExpandableCardContainer: React.SFC = () => {
   return (
-    <div className="tk-text-color">
+    <div>
       <div className="flex-row">
         <div className="flex-col" style={{ maxWidth: '50%' }}>
           <h2>Basic card</h2>

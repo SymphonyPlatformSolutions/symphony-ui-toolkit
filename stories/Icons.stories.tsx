@@ -2,7 +2,7 @@ import React from 'react';
 import Icon from '../src/components/icon/Icon';
 
 export const Icons: React.SFC = () => (
-  <div className="tk-text-color">
+  <div>
     <h1>Icons</h1>
     <div className="preview">
       <Icon iconName="accent"></Icon>

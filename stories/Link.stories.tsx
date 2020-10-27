@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Icon, Link } from '../src/components';
 
 export const Links: React.FC = () => (
-  <div className="tk-text-color">
+  <div>
     <h3>URL link</h3>
     <Link url={'https://www.symphony.com'}/><br/><br/>
     <h3>Icon link</h3>

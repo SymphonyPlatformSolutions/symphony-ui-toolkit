@@ -6,7 +6,7 @@ import SelectionStatus from '../src/components/selection/SelectionStatus';
 
 export const Radios = () => {
   return (
-    <div className="tk-text-color" style={{ width: '50%' }}>
+    <div style={{ width: '50%' }}>
       <h1>Radio</h1>
       <div>
         <h2>Active Radio</h2>

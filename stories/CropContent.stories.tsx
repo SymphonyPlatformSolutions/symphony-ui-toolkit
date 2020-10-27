@@ -4,7 +4,7 @@ import { CropContent } from '../src/components';
 
 export const CropContentContainer: React.SFC = () => {
   return (
-    <div className="tk-text-color">
+    <div>
       <div className="flex-row">
         <div className="flex-col" style={{ maxWidth: '30%' }}>
           <h2>Unstyled</h2>

@@ -3,7 +3,7 @@ import Typography from '../src/components/typography';
 
 
 export const TypographyUtils: React.SFC = () => (
-  <div className="tk-ml-2h  tk-text-color">
+  <div>
     <h1 className="tk-mb-4h">Typography</h1>
     <div className="flex-row tk-mb-3h">
       <Typography className="w-5" type="h1">H1</Typography>

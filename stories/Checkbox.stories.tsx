@@ -6,7 +6,7 @@ import { action } from '@storybook/addon-actions';
 
 export const Checkboxes = () => {
   return (
-    <div className="tk-text-color" style={{ width: '50%' }}>
+    <div style={{ width: '50%' }}>
       <h1>Checkbox</h1>
       <div>
         <h2>Default Checkbox</h2>

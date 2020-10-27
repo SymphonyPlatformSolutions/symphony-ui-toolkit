@@ -26,7 +26,7 @@ export const MoreExamples: React.SFC = () => {
   const disabledWednesday = [{ daysOfWeek: [3] }];
 
   return (
-    <div className="tk-text-color">
+    <div>
       <h1>Date Picker</h1>
       <div>
         <p>Default Date Picker</p>
