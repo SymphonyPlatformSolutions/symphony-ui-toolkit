@@ -1,0 +1,74 @@
+$z-index-100: 100;
+$z-index-200: 200;
+
+.tk-dialog-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: $z-index-100;
+  width: 100vw;
+  height: 100vh;
+  box-sizing: border-box;
+  /* has to be rgba so as not to cascade the opacity */
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  @extend .tk-p-2;
+}
+
+.tk-dialog {
+  position: relative;
+  z-index: $z-index-200;
+  box-sizing: border-box;
+  min-width: 296px;
+  box-shadow: 0 2px 4px 0 $--tk-dialog-box-shadow-color;
+  background: $--tk-dialog-background-color;
+  outline: none;
+  border-radius: 2px;
+  @extend .tk-py-3;
+  @extend .tk-px-4;
+
+  &__small {
+    width: 320px;
+  }
+  &__medium {
+    width: 480px;
+  }
+  &__large {
+    width: 100%;
+  }
+
+  &__header {
+    @extend .tk-mb-1h;
+  }
+
+  &__body {
+    overflow-y: auto;
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: flex-end;
+    @extend .tk-mt-3;
+  }
+  
+  &__close {
+    position: absolute;
+    top: 24px; 
+    right: 32px;
+    z-index: $z-index-200;
+    box-shadow: none;
+    box-sizing: border-box;
+    border: none;
+    background: none;
+    display: block;
+    cursor: pointer;
+    color: $--tk-dialog-cross-color;
+    @extend .tk-p-0;
+
+    &:hover {
+      color: $--tk-dialog-hover-cross-color;
+    }
+  }
+}

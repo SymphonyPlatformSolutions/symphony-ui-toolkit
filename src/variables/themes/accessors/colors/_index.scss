@@ -74,3 +74,9 @@ $--tk-datepicker-selected-background-color: var(--tk-datepicker-selected-color, 
 
 /** ======== Tables ======== */
 $--tk-table-hover-color: var(--tk-table-hover-color, $scolor-graphite-minus-72);
+
+/** ======== Dialog ======== */
+$--tk-dialog-background-color: var(--tk-dialog-background-color, $scolor-white);
+$--tk-dialog-box-shadow-color: var(--tk-dialog-box-shadow-color, $scolor-graphite-minus-72);
+$--tk-dialog-cross-color: var(--tk-dialog-cross-color, $scolor-graphite-minus-24);
+$--tk-dialog-hover-cross-color: var(--tk-dialog-hover-cross-color, $scolor-graphite);
