@@ -36,10 +36,16 @@ export function getWeekdaysShort(date: Date, locale: Locale): string[] {
   return getWeekdays(date, locale, 'eeeeee');
 }
 
+/**
+ * Return a list of translated weekdays, always starting by Sunday
+ * @param date 
+ * @param locale 
+ * @param pattern 
+ */
 function getWeekdays(date: Date, locale: Locale, pattern: string): string[] {
   const arr = eachDayOfInterval({
-    start: startOfWeek(date, { locale }),
-    end: endOfWeek(date, { locale }),
+    start: startOfWeek(date), // not providing locale param because react-day-picker expect a list starting by Sunday
+    end: endOfWeek(date), // not providing locale param because react-day-picker expect a list starting by Sunday
   });
 
   return arr.map((item) => {
