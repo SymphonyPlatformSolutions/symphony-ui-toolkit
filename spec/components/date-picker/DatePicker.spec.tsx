@@ -72,6 +72,16 @@ describe('DatePicker Component', () => {
     expect(wrapperPicker.prop('selectedDays')).toBe(props.date);
     expect(wrapperPicker.prop('todayButton')).toBe('Today');
   });
+  it('should not pass date if part of disabled date', () => {
+    const props = createTestProps({
+      disabledDays: { after: new Date(0, 0, 0) },
+    });
+    const wrapper = shallow(<DatePicker {...props} />);
+    const wrapperPicker = wrapper.find(DayPicker);
+    const wrapperTextField = wrapper.find(TextField);
+    expect(wrapperPicker.prop('selectedDays')).toBe(null);
+    expect(wrapperTextField.prop('value')).toBe('');
+  });
   describe('should trigger onChange', () => {
     it('when typing on field', () => {
       const props = createTestProps({});
@@ -205,9 +215,7 @@ describe('DatePicker Component', () => {
         cell.simulate('keyDown', { key: Keys.HOME });
       });
       // const cell5 =
-      wrapper
-        .find('.DayPicker-Day:not(.DayPicker-Day--outside)')
-        .at(5);
+      wrapper.find('.DayPicker-Day:not(.DayPicker-Day--outside)').at(5);
 
       // expect(cell5).toEqual(document.activeElement);
     });
@@ -224,9 +232,7 @@ describe('DatePicker Component', () => {
         cell.simulate('keyDown', { key: Keys.END });
       });
       // const cell11 =
-      wrapper
-        .find('.DayPicker-Day:not(.DayPicker-Day--outside)')
-        .at(11);
+      wrapper.find('.DayPicker-Day:not(.DayPicker-Day--outside)').at(11);
       // expect(cell11).toEqual(document.activeElement);
     });
   });

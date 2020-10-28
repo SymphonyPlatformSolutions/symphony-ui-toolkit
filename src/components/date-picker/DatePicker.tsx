@@ -104,7 +104,11 @@ const DatePicker: FunctionComponent<DatePickerComponentProps> = ({
   const [popperElement, setPopperElement] = useState(null);
   const [referenceElement, setReferenceElement] = useState(null);
   const { styles, attributes } = usePopper(referenceElement, popperElement, {
-    placement: `${placement}-start` as 'bottom-start' | 'top-start' | 'right-start' | 'left-start',
+    placement: `${placement}-start` as
+      | 'bottom-start'
+      | 'top-start'
+      | 'right-start'
+      | 'left-start',
     modifiers: [
       {
         name: 'flip',
@@ -121,7 +125,15 @@ const DatePicker: FunctionComponent<DatePickerComponentProps> = ({
     ],
   });
 
-  const [selectedDate, setSelectedDate] = useState(date);
+  const computeDate = (date) => {
+    if (isValid(date) && !matchDay(date, disabledDays)) {
+      return date;
+    } else {
+      return null;
+    }
+  };
+
+  const [selectedDate, setSelectedDate] = useState(computeDate(date));
   const [navigationDate, setNavigationDate] = useState(
     initialMonth || date || new Date()
   );
@@ -134,7 +146,7 @@ const DatePicker: FunctionComponent<DatePickerComponentProps> = ({
   const [divToFocus, setDivToFocus] = useState(null);
 
   const [inputValue, setInputValue] = useState(
-    date ? formatDate(date, format, { locale: getLocale }) : null
+    computeDate(date) ? formatDate(date, format, { locale: getLocale }) : null
   );
 
   const refContainer = useRef(null);
@@ -232,12 +244,9 @@ const DatePicker: FunctionComponent<DatePickerComponentProps> = ({
 
     if (isValid(newDate)) {
       setNavigationDate(newDate);
-      if (!matchDay(newDate, disabledDays)) {
-        setSelectedDate(newDate);
-      }
-    } else {
-      setSelectedDate(null);
     }
+    setSelectedDate(computeDate(newDate));
+
     if (onChange) {
       onChange(e);
     }
