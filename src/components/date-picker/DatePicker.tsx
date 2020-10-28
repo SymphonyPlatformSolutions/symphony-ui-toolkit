@@ -66,6 +66,7 @@ type DatePickerComponentProps = {
     previousMonth: string;
     nextMonth: string;
   };
+  name?: string;
   placeholder?: string;
   locale?: string;
   placement?: 'top' | 'bottom' | 'right' | 'left';
@@ -90,6 +91,7 @@ const DatePicker: FunctionComponent<DatePickerComponentProps> = ({
     previousMonth: 'Previous Month',
     nextMonth: 'Next Month',
   },
+  name,
   placeholder,
   locale = 'en-US',
   placement = 'bottom',
@@ -248,6 +250,7 @@ const DatePicker: FunctionComponent<DatePickerComponentProps> = ({
   const textfieldProps = {
     disabled,
     label,
+    name,
     placeholder: placeholder || format.toUpperCase(),
     tooltip,
   };
@@ -353,6 +356,7 @@ DatePicker.propTypes = {
     nextMonth: PropTypes.string,
   }),
   locale: PropTypes.string,
+  name: PropTypes.string,
   onBlur: PropTypes.func,
   onChange: PropTypes.func,
   placeholder: PropTypes.string,
