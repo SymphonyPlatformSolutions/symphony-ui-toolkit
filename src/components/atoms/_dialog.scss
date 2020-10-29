@@ -26,33 +26,34 @@ $z-index-200: 200;
   background: $--tk-dialog-background-color;
   outline: none;
   border-radius: 2px;
+  width: 480px; // Default medium
   @extend .tk-py-3;
   @extend .tk-px-4;
 
-  &__small {
+  /* Size variants */
+  &--small {
     width: 320px;
   }
-  &__medium {
+  
+  &--medium {
     width: 480px;
   }
-  &__large {
+
+  &--large {
+    width: 640px;
+  }
+
+  &--full-width {
     width: 100%;
   }
-
+  /* Subcomponents */
   &__header {
-    @extend .tk-mb-1h;
+    min-height: 16px;
+  }
+  &__title {
+   @extend .tk-typography--h1;
   }
 
-  &__body {
-    overflow-y: auto;
-  }
-
-  &__footer {
-    display: flex;
-    justify-content: flex-end;
-    @extend .tk-mt-3;
-  }
-  
   &__close {
     position: absolute;
     top: 24px; 
@@ -67,8 +68,27 @@ $z-index-200: 200;
     color: $--tk-dialog-cross-color;
     @extend .tk-p-0;
 
+    &:before {
+      font-family: 'tk-icons';
+      font-size: 14px;
+      @include tk-icon-cross;
+    }
+
     &:hover {
       color: $--tk-dialog-hover-cross-color;
     }
   }
+  
+  &__body {
+    max-height: calc(100vh - 225px);
+    min-height: 32px;
+    overflow-y: auto;
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: flex-end;
+    @extend .tk-mt-2;
+  }
+  
 }
