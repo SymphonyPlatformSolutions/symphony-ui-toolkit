@@ -73,6 +73,7 @@ export const MoreExamples: React.SFC = () => {
         <DatePicker
           format="yyyy年MM月dd日"
           locale="ja"
+          todayButton="今日"
         />
       </div>
       <hr />

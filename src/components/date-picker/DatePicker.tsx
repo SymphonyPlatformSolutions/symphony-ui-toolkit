@@ -26,6 +26,7 @@ import {
   getMonths,
   getWeekdaysLong,
   getWeekdaysShort,
+  getFirstDayOfWeek
 } from './utils/dateUtils';
 
 import { matchDay } from './utils/matchDayUtils';
@@ -341,6 +342,7 @@ const DatePicker: FunctionComponent<DatePickerComponentProps> = ({
             months={getMonths(now, getLocale)}
             weekdaysLong={getWeekdaysLong(now, getLocale)}
             weekdaysShort={getWeekdaysShort(now, getLocale)}
+            firstDayOfWeek={getFirstDayOfWeek(now, getLocale)}
             fixedWeeks
           ></DayPicker>
         </DatePickerContainer>
