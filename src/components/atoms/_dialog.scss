@@ -1,11 +1,8 @@
-$z-index-100: 100;
-$z-index-200: 200;
-
 .tk-dialog-backdrop {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: $z-index-100;
+  z-index: $z-index-dialog-backdrop;
   width: 100vw;
   height: 100vh;
   box-sizing: border-box;
@@ -19,7 +16,7 @@ $z-index-200: 200;
 
 .tk-dialog {
   position: relative;
-  z-index: $z-index-200;
+  z-index: $z-index-dialog;
   box-sizing: border-box;
   min-width: 296px;
   box-shadow: 0 2px 4px 0 $--tk-dialog-box-shadow-color;
@@ -58,7 +55,7 @@ $z-index-200: 200;
     position: absolute;
     top: 24px; 
     right: 32px;
-    z-index: $z-index-200;
+    z-index: $z-index-dialog;
     box-shadow: none;
     box-sizing: border-box;
     border: none;
@@ -80,12 +77,14 @@ $z-index-200: 200;
   }
   
   &__body {
+    position: relative;
     max-height: calc(100vh - 225px);
     min-height: 32px;
     overflow-y: auto;
   }
 
   &__footer {
+    position: relative;
     display: flex;
     justify-content: flex-end;
     @extend .tk-mt-2;

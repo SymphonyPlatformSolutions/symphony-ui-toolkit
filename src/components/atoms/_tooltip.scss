@@ -2,7 +2,7 @@ $fontSize: 14;
 $backgroundColor: $scolor-graphite-plus-48;
 
 .tk-tooltip {
-  z-index: 1;
+  z-index: $z-index-tooltip;
   display: flex;
   justify-content: space-between;
   flex-direction: column;
