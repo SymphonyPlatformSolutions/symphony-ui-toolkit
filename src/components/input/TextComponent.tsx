@@ -79,7 +79,8 @@ const TextComponent: React.FC<TextComponentPropsWithType> = ({
   onClick,
   onFocus,
   onKeyDown,
-  ...rest }) => {
+  ...rest
+}) => {
   const [showTooltip, setShowTooltip] = useState(false);
   const [hideText, setHideText] = useState(masked || false);
 
@@ -164,7 +165,15 @@ const TextComponent: React.FC<TextComponentPropsWithType> = ({
           disabled={disabled}
           {...rest}
         />
-        {iconElement && type == Types.TEXTFIELD ? iconElement : null}
+        {iconElement && type == Types.TEXTFIELD
+        // Clone the iconElement in order to attach className 'tk-input__icon' 
+          ? React.cloneElement(iconElement, {
+            className: classNames(
+              'tk-input__icon',
+              iconElement.props.className
+            ),
+          })
+          : null}
         {type == Types.TEXTFIELD ? (
           <button
             className="tk-input__hide"

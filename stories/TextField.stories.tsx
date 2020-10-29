@@ -57,7 +57,7 @@ export const TextFields: React.SFC = () => {
         </p>
         <TextField
           iconElement={
-            <Icon iconName={'calendar'} className="tk-input__icon" />
+            <Icon iconName={'calendar'}  />
           }
         ></TextField>
       </div>
@@ -70,7 +70,6 @@ export const TextFields: React.SFC = () => {
         <TextField
           iconElement={
             <Icon
-              className="tk-input__icon"
               iconName={'calendar'}
               tabIndex={0}
               onClick={() => logChange('clicked')}
