@@ -276,7 +276,7 @@ const DatePicker: FunctionComponent<DatePickerComponentProps> = ({
           })}
           iconElement={
             <Icon
-              className={classNames('tk-input__icon', {
+              className={classNames({
                 active: showPicker,
               })}
               disabled={disabled}

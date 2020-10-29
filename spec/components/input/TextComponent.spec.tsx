@@ -71,7 +71,7 @@ describe('TextComponent Component', () => {
     });
     describe('should handle icon props', () => {
       const iconProps = {
-        className: 'tk-input__icon my-custom-class',
+        className: 'my-custom-class',
         iconName: 'calendar',
         tabIndex: 0,
         onClick: jest.fn(),
@@ -90,6 +90,7 @@ describe('TextComponent Component', () => {
         const wrapperIcon = wrapper.find('Icon');
         expect(wrapperIcon.length).toBe(1);
         expect(wrapperIcon.prop('iconName')).toBe(iconProps.iconName);
+        expect(wrapperIcon.prop('className')).toContain('tk-input__icon');
         expect(wrapperIcon.prop('className')).toContain(iconProps.className);
         expect(wrapperIcon.prop('tabIndex')).toBe(iconProps.tabIndex);
         expect(wrapperIcon.prop('onClick')).toBe(iconProps.onClick);
