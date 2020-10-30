@@ -7,7 +7,7 @@
   height: 100vh;
   box-sizing: border-box;
   /* has to be rgba so as not to cascade the opacity */
-  background: rgba(0, 0, 0, 0.85);
+  background: $--tk-dialog-backdrop-color;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -19,7 +19,7 @@
   z-index: $z-index-dialog;
   box-sizing: border-box;
   min-width: 296px;
-  box-shadow: 0 2px 4px 0 $--tk-dialog-box-shadow-color;
+  box-shadow: 0px 0px 4px rgba(0, 0, 40, 0.12), 0px 8px 24px rgba(0, 0, 40, 0.24);;
   background: $--tk-dialog-background-color;
   outline: none;
   border-radius: 2px;
