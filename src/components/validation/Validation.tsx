@@ -17,14 +17,24 @@ const ValidationPropTypes = {
   validateOnInit: PropTypes.string,
 };
 
+type errorMesage = string | { [key: string]: string };
+
 interface ValidationProps {
-  validator: ValidatorFn | ValidatorFn[];
-  errorMessage: string | { [key: string]: string };
-  onValidationChanged?: (isValid: boolean) => void;
+  onValidationChanged?: (isValid: boolean, errorsMap?: {[id:string] : boolean}) => void;
   validateOnInit?: string;
+  validator?: ValidatorFn | ValidatorFn[];
+  errorMessage?: errorMesage;
+  errors?: errorMesage[];
+}
+interface ValidationPropsUncontrolled extends ValidationProps {
+  validator: ValidatorFn | ValidatorFn[];
+  errorMessage: errorMesage;
+}
+interface ValidationPropsControlled extends ValidationProps {
+  errors: errorMesage[];
 }
 
-class Validation extends React.Component<ValidationProps> {
+class Validation extends React.Component<ValidationPropsControlled | ValidationPropsUncontrolled> {
   public static propTypes = ValidationPropTypes;
 
   public state: any = {
@@ -34,8 +44,13 @@ class Validation extends React.Component<ValidationProps> {
   };
 
   componentDidMount() {
-    if (this.props.validateOnInit) {
+    if (this.props.validateOnInit || this.props.errors) {
       this.validate(this.props.validateOnInit);
+    }
+    if(this.props.errors && (this.props.errorMessage || this.props.validator) ) {
+      throw new Error (`The Validation Component 'props' are not compatible. You can either use the Validation Component on a Controlled mode or Uncontrolled. \n
+      For Uncontrolled mode use: errorMessage and validator 'props'.\n
+      For Controlled mode use: errors 'props'.\n `); 
     }
   }
 
@@ -67,10 +82,11 @@ class Validation extends React.Component<ValidationProps> {
   public async validate(value: string): Promise<string[]> {
     let errors;
     let valid = true;
-    const errorMessages = [];
+    let errorMessages = [];
+    let errorsMap;
     if (this.props.validator) {
       if (this.props.validator instanceof Array) {
-        const errorsMap = await Promise.all(
+         errorsMap = await Promise.all(
           this.props.validator.map((validator) => validator(value))
         );
         errors = errorsMap.reduce((prev, curr) => ({ ...prev, ...curr }), {});
@@ -92,6 +108,12 @@ class Validation extends React.Component<ValidationProps> {
           }
         }
       });
+    }
+    if(this.props.errors) {
+      errorsMap = { ...this.props.errors };
+      errorMessages = this.props.errors;
+      valid = !valid;
+      this.props.onValidationChanged(valid, errorsMap);
     }
     this.setState({ isValid: valid, errors: errorMessages, lastValue: value });
     return errorMessages;
@@ -127,7 +149,7 @@ class Validation extends React.Component<ValidationProps> {
       );
     } else {
       const child = React.Children.only(children);
-      childWithValidation = this.getChildWithValidation(child);
+      childWithValidation = this.props.validator ? this.getChildWithValidation(child) : child;
     }
 
     return (
