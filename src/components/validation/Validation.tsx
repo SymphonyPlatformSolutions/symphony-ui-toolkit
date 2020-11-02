@@ -45,7 +45,7 @@ class Validation extends React.Component<ValidationPropsControlled | ValidationP
 
   componentDidMount() {
     if (this.props.validateOnInit || this.props.errors) {
-      this.validate(this.props.validateOnInit);
+      this.updateState(this.props.validateOnInit);
     }
     if(this.props.errors && (this.props.errorMessage || this.props.validator) ) {
       throw new Error (`The Validation Component 'props' are not compatible. You can either use the Validation Component on a Controlled mode or Uncontrolled. \n
@@ -65,13 +65,13 @@ class Validation extends React.Component<ValidationPropsControlled | ValidationP
     }
     return React.cloneElement(child as any, {
       onChange: (event: any) => {
-        this.validate(event.target.value);
+        this.updateState(event.target.value);
         if (child.props.onChange) {
           child.props.onChange(event);
         }
       },
       onBlur: (event: any) => {
-        this.validate(event.target.value);
+        this.updateState(event.target.value);
         if (child.props.onBlur) {
           child.props.onBlur(event);
         }
@@ -79,27 +79,27 @@ class Validation extends React.Component<ValidationPropsControlled | ValidationP
     });
   }
 
-  public async validate(value: string): Promise<string[]> {
-    let errors;
+  public async updateState(value: string): Promise<string[]> {
+    let errorsMap;
     let valid = true;
     let errorMessages = [];
-    let errorsMap;
+    let validationResults;
     if (this.props.validator) {
       if (this.props.validator instanceof Array) {
-         errorsMap = await Promise.all(
+        validationResults = await Promise.all(
           this.props.validator.map((validator) => validator(value))
         );
-        errors = errorsMap.reduce((prev, curr) => ({ ...prev, ...curr }), {});
+        errorsMap = validationResults.reduce((prev, curr) => ({ ...prev, ...curr }), {});
       } else {
-        errors = await this.props.validator(value);
+        errorsMap = await this.props.validator(value);
       }
-      valid = !errors || isEmpty(errors);
+      valid = !errorsMap || isEmpty(errorsMap);
       if (this.props.onValidationChanged && valid !== this.state.isValid) {
-        this.props.onValidationChanged(valid);
+        this.props.onValidationChanged(valid, errorsMap);
       }
     }
     if (!valid && this.props.errorMessage) {
-      Object.entries(errors).forEach(([errorId, errorVal]) => {
+      Object.entries(errorsMap).forEach(([errorId, errorVal]) => {
         if (errorVal) {
           if (this.props.errorMessage instanceof Object) {
             errorMessages.push(this.props.errorMessage[errorId]);
@@ -110,10 +110,7 @@ class Validation extends React.Component<ValidationPropsControlled | ValidationP
       });
     }
     if(this.props.errors) {
-      errorsMap = { ...this.props.errors };
       errorMessages = this.props.errors;
-      valid = !valid;
-      this.props.onValidationChanged(valid, errorsMap);
     }
     this.setState({ isValid: valid, errors: errorMessages, lastValue: value });
     return errorMessages;
@@ -130,7 +127,7 @@ class Validation extends React.Component<ValidationPropsControlled | ValidationP
    * Force validation to refresh, and return isValid state when triggered (used in Elements form before submission)
    */
   public async refreshValidation(): Promise<boolean> {
-    await this.validate(this.state.lastValue);
+    await this.updateState(this.state.lastValue);
     return this.state.isValid;
   }
 
