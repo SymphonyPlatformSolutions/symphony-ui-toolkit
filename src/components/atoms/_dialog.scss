@@ -1,0 +1,105 @@
+.tk-dialog-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: $z-index-dialog-backdrop;
+  width: 100vw;
+  height: 100vh;
+  box-sizing: border-box;
+  background: $--tk-dialog-backdrop-color;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  @extend .tk-p-2;
+}
+
+.tk-dialog {
+  position: relative;
+  z-index: $z-index-dialog;
+  box-sizing: border-box;
+  min-width: 296px;
+  box-shadow: 0px 0px 4px $scolor-dialog-box-shadow-bottom, 0px 8px 24px $scolor-dialog-box-shadow-sides;
+  background: $--tk-dialog-background-color;
+  outline: none;
+  border-radius: 2px;
+  width: 480px; // Default medium
+  @extend .tk-py-3;
+  @extend .tk-px-4;
+
+  /* Size variants */
+  &--small {
+    width: 320px;
+  }
+  
+  &--medium {
+    width: 480px;
+  }
+
+  &--large {
+    width: 640px;
+  }
+
+  &--full-width {
+    width: 100%;
+  }
+  /* Subcomponents */
+  &__header {
+    min-height: 16px;
+  }
+  &__title {
+   @extend .tk-pr-2;
+   @extend .tk-typography--h1;
+  }
+
+  &__close {
+    position: absolute;
+    top: toEm(32); 
+    right: 32px;
+    z-index: $z-index-dialog;
+    box-shadow: none;
+    box-sizing: border-box;
+    border: none;
+    background: none;
+    display: block;
+    cursor: pointer;
+    color: $--tk-dialog-cross-color;
+    @extend .tk-p-0;
+
+    &:before {
+      font-family: 'tk-icons';
+      font-size: 14px;
+      @include tk-icon-cross;
+    }
+
+    &:hover {
+      color: $--tk-dialog-hover-cross-color;
+    }
+  }
+  
+  &__body {
+    position: relative;
+    max-height: calc(100vh - 225px);
+    min-height: 32px;
+    overflow-x: auto;
+    overflow-y: scroll;
+    @extend .tk-pr-1;
+    @extend .tk-py-1;
+    
+    &::-webkit-scrollbar {
+      width: 5px;
+    }
+    &::-webkit-scrollbar-thumb {
+      border-radius: 5px;
+      background-color: $scolor-dialog-scrollbar-box-shadow;
+    }
+
+  }
+
+  &__footer {
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    @extend .tk-mt-2;
+  }
+  
+}
