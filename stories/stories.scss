@@ -88,3 +88,8 @@ pre {
 .dark pre {
   background-color: $scolor-graphite-plus-24;
 }
+
+.header-dialog {
+  display: flex;
+  justify-content: space-between;
+}
