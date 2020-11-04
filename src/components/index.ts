@@ -9,7 +9,7 @@ import Tooltip from './tooltip';
 import Icon from './icon';
 import Validation from './validation';
 import VirtualizedList from './virtualized-list';
-import Modal from './modal';
+import { Modal, ModalTitle, ModalHeader, ModalBody, ModalFooter } from './modal';
 import Typography from './typography';
 
 export {
@@ -27,5 +27,9 @@ export {
   VirtualizedList,
   Link,
   Modal,
+  ModalTitle,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
   Typography,
 };
