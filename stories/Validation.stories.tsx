@@ -4,8 +4,13 @@ import { DatePicker, TextArea, TextField, Validation } from '../src/components';
 import { Validators } from '../src/core/validators/validators';
 
 export const Validations = () => {
-  const logChange = (value) => {
-    console.log('Component is valid:', value);
+  const logChange = (value, errorsMap) => {
+    if(!value) {
+      console.log('Component is valid:', value);
+    }
+    if(errorsMap) {
+      console.log('Errors Map:', errorsMap);
+    }
   };
   return (
     <div style={{ width: '50%' }}>
@@ -92,6 +97,15 @@ export const Validations = () => {
         validateOnInit={'A value to validate'}
       >
         <TextField value={'A value to validate'} placeholder="Magic word" />
+      </Validation>
+      <h2>Controlled validation</h2>
+      <p>Give to the Validation component the <strong>list of error messages</strong> with <strong>errors</strong> prop:
+      </p>
+      <Validation
+        onValidationChanged={logChange}
+        errors={['This user name already exists', 'This field is required']}
+      >
+        <TextField  placeholder="Name" />
       </Validation>
       <h2>Can be attached to anything</h2>
       <p>The Validation component wraps the component to be validated.</p>

@@ -17,14 +17,24 @@ const ValidationPropTypes = {
   validateOnInit: PropTypes.string,
 };
 
+type errorMessage = string | { [key: string]: string };
+
 interface ValidationProps {
-  validator: ValidatorFn | ValidatorFn[];
-  errorMessage: string | { [key: string]: string };
-  onValidationChanged?: (isValid: boolean) => void;
+  onValidationChanged?: (isValid: boolean, errorsMap?: {[id:string] : boolean}) => void;
   validateOnInit?: string;
+  validator?: ValidatorFn | ValidatorFn[];
+  errorMessage?: errorMessage;
+  errors?: errorMessage[];
+}
+interface ValidationPropsUncontrolled extends ValidationProps {
+  validator: ValidatorFn | ValidatorFn[];
+  errorMessage: errorMessage;
+}
+interface ValidationPropsControlled extends ValidationProps {
+  errors: errorMessage[];
 }
 
-class Validation extends React.Component<ValidationProps> {
+class Validation extends React.Component<ValidationPropsControlled | ValidationPropsUncontrolled> {
   public static propTypes = ValidationPropTypes;
 
   public state: any = {
@@ -34,8 +44,13 @@ class Validation extends React.Component<ValidationProps> {
   };
 
   componentDidMount() {
-    if (this.props.validateOnInit) {
-      this.validate(this.props.validateOnInit);
+    if (this.props.validateOnInit || this.props.errors) {
+      this.updateState(this.props.validateOnInit);
+    }
+    if(this.props.errors && (this.props.errorMessage || this.props.validator) ) {
+      throw new Error (`The Validation Component 'props' are not compatible. You can either use the Validation Component on a Controlled mode or Uncontrolled. \n
+      For Uncontrolled mode use: errorMessage and validator 'props'.\n
+      For Controlled mode use: errors 'props'.\n `); 
     }
   }
 
@@ -50,13 +65,13 @@ class Validation extends React.Component<ValidationProps> {
     }
     return React.cloneElement(child as any, {
       onChange: (event: any) => {
-        this.validate(event.target.value);
+        this.updateState(event.target.value);
         if (child.props.onChange) {
           child.props.onChange(event);
         }
       },
       onBlur: (event: any) => {
-        this.validate(event.target.value);
+        this.updateState(event.target.value);
         if (child.props.onBlur) {
           child.props.onBlur(event);
         }
@@ -64,26 +79,27 @@ class Validation extends React.Component<ValidationProps> {
     });
   }
 
-  public async validate(value: string): Promise<string[]> {
-    let errors;
+  public async updateState(value: string): Promise<string[]> {
+    let errorsMap;
     let valid = true;
-    const errorMessages = [];
+    let errorMessages = [];
+    let validationResults;
     if (this.props.validator) {
       if (this.props.validator instanceof Array) {
-        const errorsMap = await Promise.all(
+        validationResults = await Promise.all(
           this.props.validator.map((validator) => validator(value))
         );
-        errors = errorsMap.reduce((prev, curr) => ({ ...prev, ...curr }), {});
+        errorsMap = validationResults.reduce((prev, curr) => ({ ...prev, ...curr }), {});
       } else {
-        errors = await this.props.validator(value);
+        errorsMap = await this.props.validator(value);
       }
-      valid = !errors || isEmpty(errors);
+      valid = !errorsMap || isEmpty(errorsMap);
       if (this.props.onValidationChanged && valid !== this.state.isValid) {
-        this.props.onValidationChanged(valid);
+        this.props.onValidationChanged(valid, errorsMap);
       }
     }
     if (!valid && this.props.errorMessage) {
-      Object.entries(errors).forEach(([errorId, errorVal]) => {
+      Object.entries(errorsMap).forEach(([errorId, errorVal]) => {
         if (errorVal) {
           if (this.props.errorMessage instanceof Object) {
             errorMessages.push(this.props.errorMessage[errorId]);
@@ -92,6 +108,9 @@ class Validation extends React.Component<ValidationProps> {
           }
         }
       });
+    }
+    if(this.props.errors) {
+      errorMessages = this.props.errors;
     }
     this.setState({ isValid: valid, errors: errorMessages, lastValue: value });
     return errorMessages;
@@ -108,7 +127,7 @@ class Validation extends React.Component<ValidationProps> {
    * Force validation to refresh, and return isValid state when triggered (used in Elements form before submission)
    */
   public async refreshValidation(): Promise<boolean> {
-    await this.validate(this.state.lastValue);
+    await this.updateState(this.state.lastValue);
     return this.state.isValid;
   }
 
@@ -127,7 +146,7 @@ class Validation extends React.Component<ValidationProps> {
       );
     } else {
       const child = React.Children.only(children);
-      childWithValidation = this.getChildWithValidation(child);
+      childWithValidation = this.props.validator ? this.getChildWithValidation(child) : child;
     }
 
     return (
