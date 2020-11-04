@@ -1,2 +1,2 @@
-import Modal from './Modal';
-export default Modal;
+import { Modal, ModalTitle, ModalHeader, ModalBody, ModalFooter } from './Modal';
+export { Modal, ModalTitle, ModalHeader, ModalBody, ModalFooter };
