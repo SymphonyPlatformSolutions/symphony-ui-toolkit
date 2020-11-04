@@ -17,21 +17,21 @@ const ValidationPropTypes = {
   validateOnInit: PropTypes.string,
 };
 
-type errorMesage = string | { [key: string]: string };
+type errorMessage = string | { [key: string]: string };
 
 interface ValidationProps {
   onValidationChanged?: (isValid: boolean, errorsMap?: {[id:string] : boolean}) => void;
   validateOnInit?: string;
   validator?: ValidatorFn | ValidatorFn[];
-  errorMessage?: errorMesage;
-  errors?: errorMesage[];
+  errorMessage?: errorMessage;
+  errors?: errorMessage[];
 }
 interface ValidationPropsUncontrolled extends ValidationProps {
   validator: ValidatorFn | ValidatorFn[];
-  errorMessage: errorMesage;
+  errorMessage: errorMessage;
 }
 interface ValidationPropsControlled extends ValidationProps {
-  errors: errorMesage[];
+  errors: errorMessage[];
 }
 
 class Validation extends React.Component<ValidationPropsControlled | ValidationPropsUncontrolled> {
