@@ -12,6 +12,25 @@ export const Validations = () => {
       console.log('Errors Map:', errorsMap);
     }
   };
+  const now = new Date();
+  const disabledDays = [
+    new Date(now.getFullYear(), now.getMonth(), now.getDate() + 7),
+    {
+      before: new Date(now.getFullYear(), now.getMonth() - 1, now.getDate()),
+    },
+    {
+      after: new Date(now.getFullYear(), now.getMonth() + 1, now.getDate()),
+    },
+    {
+      after: new Date(now.getFullYear(), now.getMonth(), now.getDate() + 15),
+      before: new Date(now.getFullYear(), now.getMonth(), now.getDate() + 20),
+    },
+    {
+      from: new Date(now.getFullYear(), now.getMonth(), now.getDate() + 22),
+      to: new Date(now.getFullYear(), now.getMonth(), now.getDate() + 24),
+    },
+  ];
+  
   return (
     <div style={{ width: '50%' }}>
       <h1>Validation</h1>
@@ -57,12 +76,13 @@ export const Validations = () => {
       <Validation
         onValidationChanged={logChange}
         validator={Validators.Required}
-        errorMessage={'This field is mandatory'}
+        errorMessage={'Wrong date or format'}
       >
         <DatePicker
           todayButton="today"
           tooltip="Depart date"
           label="Expense"
+          disabledDays={disabledDays}
         ></DatePicker>
       </Validation>
       <h2>Multiple validators</h2>

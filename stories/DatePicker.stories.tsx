@@ -1,5 +1,5 @@
 import React from 'react';
-import { DatePicker, TextField } from '../src/components';
+import { DatePicker, TextField, Icon } from '../src/components';
 
 const Template = (args) => {
   return <DatePicker {...args} />;
@@ -148,7 +148,7 @@ export const MoreExamples: React.SFC = () => {
 export default {
   title: 'DatePicker',
   component: DatePicker,
-  subcomponents: { TextField },
+  subcomponents: { TextField, Icon },
   decorators: [
     (Story) => (
       <div style={{ minHeight: '300px' }}>

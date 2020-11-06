@@ -26,7 +26,7 @@ import {
   getMonths,
   getWeekdaysLong,
   getWeekdaysShort,
-  getFirstDayOfWeek
+  getFirstDayOfWeek,
 } from './utils/dateUtils';
 
 import { matchDay } from './utils/matchDayUtils';
@@ -74,7 +74,7 @@ type DatePickerComponentProps = {
   todayButton?: string;
   tooltip?: string;
   showOverlay?: boolean;
-  onBlur?: () => any;
+  onBlur?: (event) => any;
   onChange?: (event) => any;
 };
 
@@ -172,11 +172,18 @@ const DatePicker: FunctionComponent<DatePickerComponentProps> = ({
     }
   };
 
-  function handleEventClickOutside(ref) {
+  function handleEventClickOutside(ref, selectedDate) {
     useEffect(() => {
       function handleClickOutside(event) {
         if (ref.current && !ref.current.contains(event.target)) {
           setShowPicker(false);
+          if (onBlur) {
+            onBlur({
+              target: {
+                value: selectedDate,
+              },
+            });
+          }
         }
       }
 
@@ -186,7 +193,7 @@ const DatePicker: FunctionComponent<DatePickerComponentProps> = ({
         // Unbind the event listener on clean up
         document.removeEventListener('mousedown', handleClickOutside);
       };
-    }, [ref]);
+    }, [ref, selectedDate]);
   }
 
   const handleHeaderChange = (date) => {
@@ -249,7 +256,7 @@ const DatePicker: FunctionComponent<DatePickerComponentProps> = ({
     setSelectedDate(computeDate(newDate));
 
     if (onChange) {
-      onChange(e);
+      onChange({ target: { value: computeDate(newDate) } });
     }
   };
 
@@ -265,7 +272,7 @@ const DatePicker: FunctionComponent<DatePickerComponentProps> = ({
     tooltip,
   };
 
-  handleEventClickOutside(refContainer);
+  handleEventClickOutside(refContainer, selectedDate);
 
   return (
     <div className={'tk-datepicker'} ref={refContainer}>
@@ -290,7 +297,6 @@ const DatePicker: FunctionComponent<DatePickerComponentProps> = ({
           }
           value={inputValue || ''}
           onChange={handleInputChange}
-          onBlur={onBlur}
           onFocus={() => setShowPicker(true)}
           onKeyDown={(e) => handleKeyDownInput(e, setShowPicker)}
         ></TextField>
