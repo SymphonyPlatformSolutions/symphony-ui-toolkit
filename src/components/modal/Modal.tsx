@@ -35,7 +35,7 @@ export const Modal: React.FC<ModalProps> = (props: ModalProps) => {
   )
 
   return (
-    <div className={containerClasses}>
+    <div className={containerClasses} onClick={props.onClose}>
       <div className={sizeClasses}>
         {props.closeButton &&  <button className={buildClass('close')} onClick={props.onClose}/>}
         {props.children}
