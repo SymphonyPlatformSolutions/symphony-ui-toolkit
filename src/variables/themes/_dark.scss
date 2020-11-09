@@ -35,9 +35,13 @@
 
   --tk-table-hover-color: #{$scolor-graphite-plus-24};
 
-  --tk-dialog-background-color:#{$scolor-graphite-plus-48};
-  --tk-dialog-box-shadow-color:#{$scolor-graphite-minus-24};
-  --tk-dialog-cross-color:#{$scolor-graphite-minus-48};
-  --tk-dialog-cross-hover-color:#{$scolor-graphite-plus-72};
-  --tk-dialog-backdrop-color:#{$scolor-dialog-backdrop-dark};
+  --tk-dialog-background-color: #{$scolor-graphite-plus-48};
+  --tk-dialog-box-shadow-color: #{$scolor-graphite-minus-24};
+  --tk-dialog-cross-color: #{$scolor-graphite-minus-48};
+  --tk-dialog-cross-hover-color: #{$scolor-graphite-plus-72};
+  --tk-dialog-backdrop-color: #{$scolor-dialog-backdrop-dark};
+
+  --tk-list-background-color: #{$scolor-graphite-plus-48};
+  --tk-list-hover-color: #{$scolor-graphite-plus-24};
+  --tk-list-selected-color: #{$scolor-graphite-minus-88};
 }

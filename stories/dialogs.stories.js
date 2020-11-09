@@ -52,7 +52,6 @@ export const smallDialog = () => `
         <input id="input" type="text" class="tk-input" placeholder="Type something..." />
       </div>
     </div>
-    <hr/>
     </div>
     <div class="tk-dialog__footer">
       <button class="tk-button tk-button--tertiary">Cancel</button>

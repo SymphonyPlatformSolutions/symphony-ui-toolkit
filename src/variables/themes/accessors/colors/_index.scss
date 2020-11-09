@@ -81,3 +81,8 @@ $--tk-dialog-box-shadow-color: var(--tk-dialog-box-shadow-color, $scolor-graphit
 $--tk-dialog-cross-color: var(--tk-dialog-cross-color, $scolor-graphite-minus-24);
 $--tk-dialog-hover-cross-color: var(--tk-dialog-hover-cross-color, $scolor-graphite);
 $--tk-dialog-backdrop-color: var(--tk-dialog-backdrop-color, $scolor-dialog-backdrop);
+
+/** ======== List ======== */
+$--tk-list-background-color: var(--tk-list-background-color, $scolor-white);
+$--tk-list-hover-color: var(--tk-list-hover-color,$scolor-graphite-minus-72);
+$--tk-list-selected-color: var(--tk-list-selected-color,$scolor-graphite-minus-24);

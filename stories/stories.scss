@@ -88,6 +88,9 @@ pre {
 .dark pre {
   background-color: $scolor-graphite-plus-24;
 }
+.sb-heading, .sb-errordisplay_code pre{
+  background-color: #3e4249;
+}
 
 .header-dialog {
   display: flex;
