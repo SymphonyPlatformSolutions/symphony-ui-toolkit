@@ -24,21 +24,28 @@ export const ModalBody: React.FC<ModalContentProps> = ({children}: ModalContentP
 
 export const ModalFooter: React.FC<ModalContentProps> = ({children}: ModalContentProps) => <div className={buildClass('footer')}>{children}</div>
 
-export const Modal: React.FC<ModalProps> = (props: ModalProps) => {
+export const Modal: React.FC<ModalProps> = ({
+  size,
+  className,
+  children,
+  closeButton,
+  onClose,
+  ...rest
+}: ModalProps) => {
   const containerClasses = classNames(
-    props.className,
+    className,
     `${prefix}-backdrop`
   )
   const sizeClasses = classNames(
     prefix,
-    `${prefix}--${props.size}`
+    `${prefix}--${size}`
   )
 
   return (
-    <div className={containerClasses} onClick={props.onClose}>
+    <div className={containerClasses} onClick={onClose} {...rest}>
       <div className={sizeClasses}>
-        {props.closeButton &&  <button className={buildClass('close')} onClick={props.onClose}/>}
-        {props.children}
+        {closeButton &&  <button className={buildClass('close')} onClick={onClose}/>}
+        {children}
       </div>
     </div>
   )
