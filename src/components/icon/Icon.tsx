@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 import React, { FunctionComponent } from 'react';
 
 export type IconProps = {
@@ -24,17 +25,16 @@ const Icon: FunctionComponent<IconProps> = ({
   forwardRef,
   tabIndex,
 }) => {
+  const click = onClick ? onClick : handleClick;
   return (
-    <span
-      ref={forwardRef}
-      tabIndex={tabIndex}
-      className={className}
-      style={{ cursor: !disabled && (onClick || handleClick) && 'pointer' }}
-      onClick={!disabled ? onClick : null}
+    <i
+      className={classnames(`tk-icon-${iconName}`, className)}
+      onClick={!disabled ? click : null}
       onKeyDown={!disabled ? onKeyDown : null}
-    >
-      <i className={`tk-icon-${iconName}`} onClick={handleClick} />
-    </span>
+      ref={forwardRef}
+      style={{ cursor: !disabled && click && 'pointer' }}
+      tabIndex={tabIndex}
+    />
   );
 };
 
