@@ -4,10 +4,7 @@ import React from 'react';
 import Icon from '../icon/Icon';
 import { addMonths, addYears } from 'date-fns';
 
-import {
-  ajustLoopNavigation,
-  propagateOnlyEnterTab,
-} from './utils/datePickerUtils';
+import { Keys, cancelEvent } from './utils/keyUtils';
 
 const Header = ({ date, dir, labels, months, onChange, parentRef }) => {
   const changeYear = (amount: number) => {
@@ -18,58 +15,70 @@ const Header = ({ date, dir, labels, months, onChange, parentRef }) => {
     onChange(addMonths(date, amount));
   };
 
-  const captionHeader = `${months[date.getMonth()]} ${date.getFullYear()}`;
+  /**
+   * Change the behaviour of 'Tab' and 'Shift + Tab' event of an html element
+   * Used to allow loop navigation "'Today Button' --> Header (<<) --> Header (<)"
+   */
+  const ajustLoopNavigation = (event) => {
+    if (event.key === Keys.TAB) {
+      cancelEvent(event);
+      if (event.shiftKey) {
+        const elClassPrevious = parentRef.querySelector('.tk-daypicker-today');
+        elClassPrevious.focus();
+      } else {
+        const elClassNext = parentRef.querySelector(
+          '.tk-daypicker-header--prevMonth'
+        );
+        elClassNext.focus();
+      }
+    }
+  };
+  debugger;
+
+  const textHeader = `${months[date.getMonth()]} ${date.getFullYear()}`;
   return (
-    <div className="DayPicker-Caption" role="heading">
-      <div className="DayPicker-Caption--heading" role="heading">
-        <div>
-          <button
-            aria-label={labels.previousYear}
-            className="DayPicker-Caption--prevYear"
-            onClick={() => changeYear(-1)}
-            onKeyDown={(e) =>
-              ajustLoopNavigation(
-                e,
-                parentRef,
-                '.DayPicker-Caption--prevMonth',
-                '.DayPicker-TodayButton'
-              )
-            }
-          >
-            <Icon
-              iconName={dir === 'ltr' ? 'chevron-left' : 'chevron-right'}
-            ></Icon>
-          </button>
-          <button
-            aria-label={labels.previousMonth}
-            className="DayPicker-Caption--prevMonth"
-            onClick={() => changeMonth(-1)}
-            onKeyDown={propagateOnlyEnterTab}
-          >
-            <Icon iconName={dir === 'ltr' ? 'left' : 'right'}></Icon>
-          </button>
-        </div>
-        <div className="DayPicker-Caption--text">{captionHeader}</div>
-        <div>
-          <button
-            aria-label={labels.nextMonth}
-            className="DayPicker-Caption--nextMonth"
-            onClick={() => changeMonth(1)}
-            onKeyDown={propagateOnlyEnterTab}
-          >
-            <Icon iconName={dir === 'ltr' ? 'right' : 'left'}></Icon>
-          </button>
-          <button
-            aria-label={labels.nextYear}
-            className="DayPicker-Caption--nextYear"
-            onClick={() => changeYear(1)}
-            onKeyDown={propagateOnlyEnterTab}
-          >
-            <Icon
-              iconName={dir === 'ltr' ? 'chevron-right' : 'chevron-left'}
-            ></Icon>
-          </button>
-        </div>
+    <div
+      className="tk-daypicker-header"
+      role="heading"
+      style={{ direction: dir }}
+    >
+      <div>
+        <button
+          aria-label={labels.previousYear}
+          className="tk-daypicker-header--prevYear"
+          onClick={() => changeYear(-1)}
+          onKeyDown={ajustLoopNavigation}
+        >
+          <Icon
+            iconName={dir === 'rtl' ? 'chevron-right' : 'chevron-left'}
+          ></Icon>
+        </button>
+        <button
+          aria-label={labels.previousMonth}
+          className="tk-daypicker-header--prevMonth"
+          onClick={() => changeMonth(-1)}
+        >
+          <Icon iconName={dir === 'rtl' ? 'right' : 'left'}></Icon>
+        </button>
+      </div>
+      <div className="tk-daypicker-header--text">{textHeader}</div>
+      <div>
+        <button
+          aria-label={labels.nextMonth}
+          className="tk-daypicker-header--nextMonth"
+          onClick={() => changeMonth(1)}
+        >
+          <Icon iconName={dir === 'rtl' ? 'left' : 'right'}></Icon>
+        </button>
+        <button
+          aria-label={labels.nextYear}
+          className="tk-daypicker-header--nextYear"
+          onClick={() => changeYear(1)}
+        >
+          <Icon
+            iconName={dir === 'rtl' ? 'chevron-left' : 'chevron-right'}
+          ></Icon>
+        </button>
       </div>
     </div>
   );

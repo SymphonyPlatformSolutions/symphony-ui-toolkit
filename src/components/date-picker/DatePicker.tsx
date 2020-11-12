@@ -6,13 +6,9 @@ import { usePopper } from 'react-popper';
 
 import { CSSTransition } from 'react-transition-group';
 
-import DayPicker, {
-  DayModifiers,
-  LocaleUtils,
-  Modifier,
-} from 'react-day-picker';
+import { DayModifiers, Modifier } from 'react-day-picker';
 
-import 'react-day-picker/lib/style.css';
+import DayPicker from './DayPicker';
 
 import TextField from '../input/TextField';
 import Icon from '../icon/Icon';
@@ -21,29 +17,17 @@ import styled from 'styled-components';
 
 import { PopperContainer, popperProps } from '../common/popperUtils';
 
-import {
-  formatDay,
-  getMonths,
-  getWeekdaysLong,
-  getWeekdaysShort,
-  getFirstDayOfWeek,
-} from './utils/dateUtils';
 
 import { matchDay } from './utils/matchDayUtils';
 
 import {
-  handleKeyDownCell,
   handleKeyDownIcon,
   handleKeyDownInput,
-  handleKeyDownPicker,
 } from './utils/keyUtils';
 
-import { addLoopNavigation, removeTabIndex } from './utils/datePickerUtils';
 import { modifierPropTypes } from './utils/propTypesUtils';
 
 import { format as formatDate, isValid, parse } from 'date-fns';
-
-import Header from './Header';
 
 const DatePickerContainer = styled.div`
   z-index: 2;
@@ -144,8 +128,6 @@ const DatePicker: FunctionComponent<DatePickerComponentProps> = ({
 
   const [showPicker, setShowPicker] = useState(showOverlay || false);
 
-  const [divToFocus, setDivToFocus] = useState(null);
-
   const [inputValue, setInputValue] = useState(
     computeDate(date) ? formatDate(date, format, { locale: getLocale }) : null
   );
@@ -154,23 +136,7 @@ const DatePicker: FunctionComponent<DatePickerComponentProps> = ({
   const refPicker = useRef(null);
   const refIcon = useRef(null);
 
-  useEffect(() => {
-    // setTimeout force to wait for the react-day-picker to re-render
-    setTimeout(() => {
-      focusDiv(divToFocus);
-    });
-  }, [divToFocus]);
 
-  const focusDiv = (divToFocus) => {
-    if (refPicker.current) {
-      if (divToFocus) {
-        const dayNodes = refPicker.current.dayPicker.querySelectorAll(
-          '.DayPicker-Day'
-        );
-        dayNodes[divToFocus.value - 1].focus();
-      }
-    }
-  };
 
   function handleEventClickOutside(ref, selectedDate) {
     useEffect(() => {
@@ -215,22 +181,6 @@ const DatePicker: FunctionComponent<DatePickerComponentProps> = ({
     }
   };
 
-  /** DayPicker adjustment */
-  addLoopNavigation(
-    refPicker,
-    '.DayPicker-TodayButton',
-    '.DayPicker-Caption--prevYear',
-    '.DayPicker-Day:not(.DayPicker-Day--outside)'
-  );
-
-  removeTabIndex(refPicker, '.DayPicker-wrapper');
-
-  /** `now` to handle locale dictionary (months, weekdaysLong, weekdaysShort attributes) */
-  const now = new Date();
-  const localeUtils = {
-    ...LocaleUtils,
-    formatDay: (d: Date) => formatDay(d, getLocale),
-  };
 
   const handleInputChange = (e) => {
     const newValue = e.target.value;
@@ -264,6 +214,13 @@ const DatePicker: FunctionComponent<DatePickerComponentProps> = ({
     setShowPicker(!showPicker);
   };
 
+  const handleOnClose = () => {
+    setShowPicker(false);
+    if (refIcon.current) {
+      refIcon.current.focus();
+    }
+  }
+
   const textfieldProps = {
     disabled,
     label,
@@ -292,7 +249,7 @@ const DatePicker: FunctionComponent<DatePickerComponentProps> = ({
               forwardRef={refIcon}
               tabIndex={0}
               onClick={() => handleClickIcon()}
-              onKeyDown={(e) => handleKeyDownIcon(e, showPicker, refPicker)}
+              onKeyDown={(e) => handleKeyDownIcon(e, showPicker, refPicker, handleOnClose)}
             ></Icon>
           }
           value={inputValue || ''}
@@ -309,47 +266,22 @@ const DatePicker: FunctionComponent<DatePickerComponentProps> = ({
         <DatePickerContainer
           role="tooltip"
           ref={setPopperElement}
-          style={{ ...styles.popper, direction: dir }}
+          style={{ ...styles.popper }}
           {...attributes.popper}
         >
           <DayPicker
-            aria-labelledby={label}
             ref={refPicker}
+            aria-labelledby={label}
             selectedDays={selectedDate}
             disabledDays={disabledDays}
             dir={dir}
-            todayButton={todayButton}
+            locale={getLocale}
             month={navigationDate}
-            captionElement={({ date }) => (
-              <Header
-                date={date}
-                dir={dir}
-                months={getMonths(now, getLocale)}
-                onChange={handleHeaderChange}
-                labels={labels}
-                parentRef={refPicker}
-              />
-            )}
-            onKeyDown={(e) => handleKeyDownPicker(e, setShowPicker, refIcon)}
-            onDayKeyDown={(day, modifiers, e) =>
-              handleKeyDownCell(
-                day,
-                e,
-                setNavigationDate,
-                setDivToFocus,
-                focusDiv,
-                getLocale
-              )
-            }
+            todayButton={todayButton}
+            labels={labels}
+            onMonthChange={handleHeaderChange}
             onDayClick={handleDayClick}
-            onTodayButtonClick={handleDayClick}
-            locale={locale}
-            localeUtils={localeUtils}
-            months={getMonths(now, getLocale)}
-            weekdaysLong={getWeekdaysLong(now, getLocale)}
-            weekdaysShort={getWeekdaysShort(now, getLocale)}
-            firstDayOfWeek={getFirstDayOfWeek(now, getLocale)}
-            fixedWeeks
+            onClose={handleOnClose}
           ></DayPicker>
         </DatePickerContainer>
       </CSSTransition>

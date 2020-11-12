@@ -5,9 +5,11 @@ import {
   endOfYear,
   format,
   getDay,
+  getDaysInMonth,
+  lastDayOfMonth,
   startOfMonth,
   startOfWeek,
-  startOfYear
+  startOfYear,
 } from 'date-fns';
 
 /**
@@ -38,14 +40,14 @@ export function getWeekdaysShort(date: Date, locale: Locale): string[] {
 
 /**
  * Return a list of translated weekdays, always starting by Sunday
- * @param date 
- * @param locale 
- * @param pattern 
+ * @param date
+ * @param locale
+ * @param pattern
  */
 function getWeekdays(date: Date, locale: Locale, pattern: string): string[] {
   const arr = eachDayOfInterval({
-    start: startOfWeek(date), // not providing locale param because react-day-picker expect a list starting by Sunday
-    end: endOfWeek(date), // not providing locale param because react-day-picker expect a list starting by Sunday
+    start: startOfWeek(date, { locale }),
+    end: endOfWeek(date, { locale }),
   });
 
   return arr.map((item) => {
@@ -57,9 +59,25 @@ export function getFirstDayOfWeek(date: Date, locale: Locale) {
   return getDay(startOfWeek(date, { locale }));
 }
 
-export function daysNeededForLastMonth(date: Date, locale: Locale) {
+export function getDaysNeededForLastMonth(date: Date, locale: Locale) {
   const firstDayOfWeek = startOfWeek(date, { locale });
 
   const startDate = startOfMonth(date);
   return (((getDay(startDate) - getDay(firstDayOfWeek)) % 7) + 7) % 7; // get positive modulo
+}
+
+export function getDaysNeededForNextMonth(date: Date, locale: Locale) {
+  const daysNeededForLastMonth = getDaysNeededForLastMonth(date, locale);
+  const endDate = lastDayOfMonth(date);
+
+  let daysNeededForNextMonth =
+    7 - (getDay(endDate) + 1) > 6 ? 0 : 7 - getDay(endDate) - 1;
+  if (daysNeededForLastMonth + getDaysInMonth(date) <= 35) {
+    daysNeededForNextMonth += 7;
+  }
+  return daysNeededForNextMonth;
+}
+
+export function toArray(length: number): Array<number> {
+  return Array.from({ length }, (x, i) => i);
 }
