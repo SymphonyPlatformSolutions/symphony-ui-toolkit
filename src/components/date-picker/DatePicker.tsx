@@ -201,7 +201,7 @@ const DatePicker: FunctionComponent<DatePickerComponentProps> = ({
 
 
 const handleKeyDownIcon = (
-  e
+  e: React.KeyboardEvent
 ): void => {
   switch (e.key) {
     case Keys.TAB:
@@ -217,7 +217,7 @@ const handleKeyDownIcon = (
       break;
     case Keys.ENTER:
       cancelEvent(e);
-      e.target.click();
+      handleClickIcon();
       break;
     case Keys.ESC:
       cancelEvent(e);

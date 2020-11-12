@@ -81,7 +81,6 @@
     "eslint-plugin-react": "^7.20.0",
     "eslint-plugin-react-hooks": "^2.5.1",
     "html-react-parser": "^0.14.0",
-    "identity-obj-proxy": "^3.0.0",
     "jest": "^26.0.1",
     "markdown-loader": "^6.0.0",
     "react": "^16.13.1",

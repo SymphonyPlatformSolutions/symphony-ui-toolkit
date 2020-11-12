@@ -70,7 +70,7 @@ class DayPicker extends Component<
 
     this.state = {
       today: startOfToday(),
-      currentMonth: props.month || new Date(),
+      currentMonth: props.month || props.selectedDays || new Date(),
     };
 
     this.handleKeyDownContainer = this.handleKeyDownContainer.bind(this);
@@ -146,7 +146,7 @@ class DayPicker extends Component<
     }
   }
 
-  handleKeyDownCell(e, date: Date): void {
+  handleKeyDownCell(e: React.KeyboardEvent, date: Date, modifers): void {
     const { locale, dir } = this.props;
     const { currentMonth } = this.state;
     if (e.key !== Keys.ESC) {
@@ -158,16 +158,19 @@ class DayPicker extends Component<
     let nextCell;
     switch (e.key) {
       case Keys.TAB:
-        if (e.shiftKey) {
-          this.dayPicker
-            .querySelector('.tk-daypicker-header--nextYear')
-            .focus();
-        } else {
-          this.dayPicker.querySelector('.tk-daypicker-today').focus();
+        if (this.dayPicker) {
+          if (e.shiftKey) {
+            this.dayPicker
+              .querySelector('.tk-daypicker-header--nextYear')
+              .focus();
+          } else {
+            this.dayPicker.querySelector('.tk-daypicker-today').focus();
+          }
         }
         break;
       case Keys.ENTER:
-        e.target.click();
+        const { onDayClick } = this.props;
+        onDayClick(date, modifers);
         break;
       case Keys.PAGE_UP:
         if (e.shiftKey) {
@@ -221,13 +224,18 @@ class DayPicker extends Component<
       case Keys.TAB:
         if (!e.shiftKey) {
           cancelEvent(e);
-          this.dayPicker
-            .querySelector('.tk-daypicker-header--prevYear')
-            .focus();
+          if (this.dayPicker) {
+            this.dayPicker
+              .querySelector('.tk-daypicker-header--prevYear')
+              .focus();
+          }
         }
         break;
       case Keys.ENTER:
-        e.target.click();
+        cancelEvent(e);
+        const { disabledDays, onDayClick } = this.props;
+        const { today } = this.state;
+        onDayClick(today, { disabled: matchDay(today, disabledDays) });
         break;
     }
   }
@@ -337,7 +345,12 @@ class DayPicker extends Component<
                 },
                 { 'tk-daypicker-day--disabled': isDisabled }
               )}
-              onKeyDown={(e) => this.handleKeyDownCell(e, cellDate)}
+              onKeyDown={(e) =>
+                this.handleKeyDownCell(e, cellDate, {
+                  disabled: isDisabled,
+                  selected: isSelected,
+                })
+              }
               onClick={() =>
                 onDayClick(cellDate, {
                   disabled: isDisabled,

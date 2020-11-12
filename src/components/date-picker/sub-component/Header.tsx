@@ -20,16 +20,23 @@ const Header = ({ date, dir, labels, months, onChange, parentRef }) => {
    * Used to allow loop navigation "'Today Button' --> Header (<<) --> Header (<)"
    */
   const ajustLoopNavigation = (event) => {
+    if (!parentRef) {
+      return;
+    }
     if (event.key === Keys.TAB) {
       cancelEvent(event);
       if (event.shiftKey) {
         const elClassPrevious = parentRef.querySelector('.tk-daypicker-today');
-        elClassPrevious.focus();
+        if (elClassPrevious) {
+          elClassPrevious.focus();
+        }
       } else {
         const elClassNext = parentRef.querySelector(
           '.tk-daypicker-header--prevMonth'
         );
-        elClassNext.focus();
+        if (elClassNext) {
+          elClassNext.focus();
+        }
       }
     }
   };
