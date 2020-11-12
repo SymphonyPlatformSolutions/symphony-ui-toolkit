@@ -47,7 +47,7 @@ describe('Key Utils', () => {
       it(`should handle ${test.key} shift=${test.shiftKey} on cell`,  () => {
         const event = createEvent({ key: test.key, shiftKey: test.shiftKey });
         const wrapper = shallow(
-          <div onKeyDown={(e) => handleKeyDownCell(new Date(), e, setMethod, setMethod2, {})} />
+          <div onKeyDown={(e) => handleKeyDownCell(new Date(), e, setMethod, setMethod2, ()=>{}, {})} />
         );
         wrapper.simulate('keyDown', event);
         expect(setMethod).toHaveBeenCalledTimes(test.called);
