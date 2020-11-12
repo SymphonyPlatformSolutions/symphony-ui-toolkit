@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import Icon from '../icon/Icon';
+import Icon from '../../icon/Icon';
 import { addMonths, addYears } from 'date-fns';
 
-import { Keys, cancelEvent } from './utils/keyUtils';
+import { Keys, cancelEvent } from '../utils/keyUtils';
 
 const Header = ({ date, dir, labels, months, onChange, parentRef }) => {
   const changeYear = (amount: number) => {
@@ -33,7 +33,6 @@ const Header = ({ date, dir, labels, months, onChange, parentRef }) => {
       }
     }
   };
-  debugger;
 
   const textHeader = `${months[date.getMonth()]} ${date.getFullYear()}`;
   return (

@@ -6,9 +6,9 @@ import { usePopper } from 'react-popper';
 
 import { CSSTransition } from 'react-transition-group';
 
-import { DayModifiers, Modifier } from 'react-day-picker';
+import { DayModifiers, Modifier } from './model/Modifiers';
 
-import DayPicker from './DayPicker';
+import DayPicker from './sub-component/DayPicker';
 
 import TextField from '../input/TextField';
 import Icon from '../icon/Icon';
@@ -17,13 +17,9 @@ import styled from 'styled-components';
 
 import { PopperContainer, popperProps } from '../common/popperUtils';
 
-
 import { matchDay } from './utils/matchDayUtils';
 
-import {
-  handleKeyDownIcon,
-  handleKeyDownInput,
-} from './utils/keyUtils';
+import { cancelEvent, Keys } from './utils/keyUtils';
 
 import { modifierPropTypes } from './utils/propTypesUtils';
 
@@ -136,8 +132,6 @@ const DatePicker: FunctionComponent<DatePickerComponentProps> = ({
   const refPicker = useRef(null);
   const refIcon = useRef(null);
 
-
-
   function handleEventClickOutside(ref, selectedDate) {
     useEffect(() => {
       function handleClickOutside(event) {
@@ -162,10 +156,6 @@ const DatePicker: FunctionComponent<DatePickerComponentProps> = ({
     }, [ref, selectedDate]);
   }
 
-  const handleHeaderChange = (date) => {
-    setNavigationDate(date);
-  };
-
   const handleDayClick = (date: Date, modifiers: DayModifiers) => {
     if (modifiers.disabled) {
       return;
@@ -180,7 +170,6 @@ const DatePicker: FunctionComponent<DatePickerComponentProps> = ({
       onChange({ target: { value: inputValue } });
     }
   };
-
 
   const handleInputChange = (e) => {
     const newValue = e.target.value;
@@ -210,6 +199,52 @@ const DatePicker: FunctionComponent<DatePickerComponentProps> = ({
     }
   };
 
+
+const handleKeyDownIcon = (
+  e
+): void => {
+  switch (e.key) {
+    case Keys.TAB:
+      if (!e.shiftKey && showPicker && refPicker.current && refPicker.current.dayPicker) {
+        cancelEvent(e);
+        const elCell = refPicker.current.dayPicker.querySelector(
+          '.tk-daypicker-day[tabindex="0"]'
+        );
+        if (elCell) {
+          elCell.focus();
+        }
+      }
+      break;
+    case Keys.ENTER:
+      cancelEvent(e);
+      e.target.click();
+      break;
+    case Keys.ESC:
+      cancelEvent(e);
+      handleOnClose();
+      break;
+    default:
+      break;
+  }
+}
+
+const handleKeyDownInput = (
+  e: React.KeyboardEvent,
+): void => {
+  switch (e.key) {
+    case Keys.ENTER:
+      cancelEvent(e);
+      setShowPicker((showPicker) => !showPicker);
+      break;
+    case Keys.ESC:
+      cancelEvent(e);
+      setShowPicker(false);
+      break;
+    default:
+      break;
+  }
+}
+
   const handleClickIcon = () => {
     setShowPicker(!showPicker);
   };
@@ -219,7 +254,7 @@ const DatePicker: FunctionComponent<DatePickerComponentProps> = ({
     if (refIcon.current) {
       refIcon.current.focus();
     }
-  }
+  };
 
   const textfieldProps = {
     disabled,
@@ -249,13 +284,15 @@ const DatePicker: FunctionComponent<DatePickerComponentProps> = ({
               forwardRef={refIcon}
               tabIndex={0}
               onClick={() => handleClickIcon()}
-              onKeyDown={(e) => handleKeyDownIcon(e, showPicker, refPicker, handleOnClose)}
+              onKeyDown={
+                handleKeyDownIcon
+              }
             ></Icon>
           }
           value={inputValue || ''}
           onChange={handleInputChange}
           onFocus={() => setShowPicker(true)}
-          onKeyDown={(e) => handleKeyDownInput(e, setShowPicker)}
+          onKeyDown={handleKeyDownInput}
         ></TextField>
       </div>
       <CSSTransition
@@ -279,7 +316,6 @@ const DatePicker: FunctionComponent<DatePickerComponentProps> = ({
             month={navigationDate}
             todayButton={todayButton}
             labels={labels}
-            onMonthChange={handleHeaderChange}
             onDayClick={handleDayClick}
             onClose={handleOnClose}
           ></DayPicker>

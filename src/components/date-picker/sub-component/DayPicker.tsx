@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
+import { DayModifiers, Modifier } from '../model/Modifiers';
+import { modifierPropTypes } from '../utils/propTypesUtils';
+
 import Header from './Header';
-import { Keys, cancelEvent } from './utils/keyUtils';
+import { Keys, cancelEvent } from '../utils/keyUtils';
 
 import {
   formatDay,
@@ -13,9 +16,9 @@ import {
   getDaysNeededForLastMonth,
   getDaysNeededForNextMonth,
   toArray,
-} from './utils/dateUtils';
+} from '../utils/dateUtils';
 
-import { matchDay } from './utils/matchDayUtils';
+import { matchDay } from '../utils/matchDayUtils';
 
 import {
   addDays,
@@ -33,35 +36,22 @@ import {
 } from 'date-fns';
 
 type DayPickerComponentProps = {
-  // className?: string;
-  selectedDays?: Date;
-  disabledDays?: any; //Modifier | Modifier[];
-  // disabled?: boolean;
   dir?: 'ltr' | 'rtl';
+  disabledDays?: Modifier | Modifier[];
   format?: string;
-  highlightedDays?: any; //Modifier | Modifier[];
-  // initialMonth?: Date;
-  // label?: string;
+  highlightedDays?: Modifier | Modifier[];
   labels?: {
     previousYear: string;
     nextYear: string;
     previousMonth: string;
     nextMonth: string;
   };
-  // name?: string;
-  // placeholder?: string;
   locale?: Locale;
-  // placement?: 'top' | 'bottom' | 'right' | 'left';
-  // todayButton?: string;
-  // tooltip?: string;
-  // showOverlay?: boolean;
-  // onBlur?: (event) => any;
-  // onChange?: (event) => any;
+  month?: Date;
+  selectedDays?: Date;
+  todayButton?: string;
   onClose?: () => any;
   onDayClick?: (date: Date, modifiers) => any;
-  onMonthChange?: (event) => any;
-  month?: Date;
-  todayButton?: string;
 };
 
 type DayPickerComponentState = {
@@ -98,7 +88,7 @@ class DayPicker extends Component<
     }
   }
 
-  focusDiv(index) {
+  focusDiv(index: number) {
     if (index) {
       if (this.dayPicker) {
         const dayNodes = this.dayPicker.querySelectorAll(
@@ -109,32 +99,32 @@ class DayPicker extends Component<
     }
   }
 
-  monthNavigation(date, nextCell) {
-    this.setState({ currentMonth: nextCell }, () =>
-      this.focusDiv(this.boundFocusDay(date, nextCell))
+  monthNavigation(date: Date, nextDate: Date) {
+    this.setState({ currentMonth: nextDate }, () =>
+      this.focusDiv(this.boundFocusDay(date, nextDate))
     );
   }
 
-  arrowNavigation(date, nextCell) {
-    const delta = differenceInCalendarMonths(nextCell, date);
+  arrowNavigation(date: Date, nextDate: Date) {
+    const delta = differenceInCalendarMonths(nextDate, date);
     if (delta !== 0) {
-      this.monthNavigation(nextCell, nextCell);
+      this.monthNavigation(nextDate, nextDate);
     } else {
-      this.focusDiv(this.boundFocusDay(nextCell, nextCell));
+      this.focusDiv(this.boundFocusDay(nextDate, nextDate));
     }
   }
 
-  boundFocusDay(date, nextCell) {
+  boundFocusDay(date: Date, nextDate: Date) {
     const { locale } = this.props;
 
-    const minBound = getDaysNeededForLastMonth(nextCell, locale);
+    const minBound = getDaysNeededForLastMonth(nextDate, locale);
     // if the day to focus is an "outside day", then focus the first (or last) day
     return Math.min(
       Math.max(
         minBound + 1,
         date.getDate() + getDaysNeededForLastMonth(date, locale)
       ),
-      minBound + getDaysInMonth(nextCell)
+      minBound + getDaysInMonth(nextDate)
     );
   }
 
@@ -264,6 +254,23 @@ class DayPicker extends Component<
     );
   }
 
+  renderOutsideDay(days: number): JSX.Element[] {
+    const { locale } = this.props;
+    const { currentMonth } = this.state;
+    return toArray(days).map((cell) => {
+      const cellName = formatDay(setDate(currentMonth, cell + 1), locale);
+      return (
+        <div
+          key={cellName}
+          aria-label={cellName}
+          aria-selected="false"
+          className="tk-daypicker-day--outside"
+          tabIndex={-1}
+        ></div>
+      );
+    });
+  }
+
   renderBody() {
     const {
       dir,
@@ -290,18 +297,8 @@ class DayPicker extends Component<
     const todayDateString = lightFormat(today, 'yyyy-MM-dd');
     return (
       <div className="tk-daypicker-body" role="grid" style={{ direction: dir }}>
-        {toArray(daysNeededForLastMonth).map((cell) => {
-          const cellName = formatDay(setDate(currentMonth, cell + 1), locale);
-          return (
-            <div
-              key={cellName}
-              aria-label={cellName}
-              aria-selected="false"
-              className="tk-daypicker-day--outside"
-              tabIndex={-1}
-            ></div>
-          );
-        })}
+        {this.renderOutsideDay(daysNeededForLastMonth)}
+
         {toArray(daysInMonth).map((cell) => {
           const cellNumber = cell + 1;
           const cellDate = setDate(currentMonth, cellNumber);
@@ -352,19 +349,7 @@ class DayPicker extends Component<
             </div>
           );
         })}
-        {toArray(daysNeededForNextMonth).map((cell) => {
-          // TODO refact with Last
-          const cellName = formatDay(setDate(currentMonth, cell + 1), locale);
-          return (
-            <div
-              key={cellName}
-              aria-label={cellName}
-              aria-selected="false"
-              className="tk-daypicker-day--outside"
-              tabIndex={-1}
-            ></div>
-          );
-        })}
+        {this.renderOutsideDay(daysNeededForNextMonth)}
       </div>
     );
   }
@@ -418,32 +403,24 @@ class DayPicker extends Component<
       </div>
     );
   }
+  static propTypes = {
+    dir: PropTypes.oneOf(['ltr', 'rtl']),
+    disabledDays: PropTypes.oneOfType(modifierPropTypes),
+    format: PropTypes.string,
+    highlightedDays: PropTypes.oneOfType(modifierPropTypes),
+    labels: PropTypes.exact({
+      previousYear: PropTypes.string,
+      previousMonth: PropTypes.string,
+      nextYear: PropTypes.string,
+      nextMonth: PropTypes.string,
+    }),
+    locale: PropTypes.any,
+    month: PropTypes.instanceOf(Date),
+    selectedDays: PropTypes.instanceOf(Date),
+    todayButton: PropTypes.string,
+    onClose: PropTypes.func,
+    onDayClick: PropTypes.func,
+  };
 }
-
-// DayPicker.propTypes = {
-//   // className: PropTypes.string,
-//   date: PropTypes.instanceOf(Date),
-//   // format: PropTypes.string,
-//   dir: PropTypes.oneOf(['ltr', 'rtl']),
-//   // disabled: PropTypes.bool,
-//   // disabledDays: PropTypes.oneOfType(modifierPropTypes),
-//   // initialMonth: PropTypes.instanceOf(Date),
-//   // label: PropTypes.string,
-//   // labels: PropTypes.exact({
-//   //   previousYear: PropTypes.string,
-//   //   previousMonth: PropTypes.string,
-//   //   nextYear: PropTypes.string,
-//   //   nextMonth: PropTypes.string,
-//   // }),
-//   locale: PropTypes.string,
-//   // name: PropTypes.string,
-//   // onBlur: PropTypes.func,
-//   // onChange: PropTypes.func,
-//   // placeholder: PropTypes.string,
-//   // placement: PropTypes.oneOf(['top', 'bottom', 'right', 'left']),
-//   // todayButton: PropTypes.string,
-//   // tooltip: PropTypes.string,
-//   // showOverlay: PropTypes.bool,
-// };
 
 export default DayPicker;

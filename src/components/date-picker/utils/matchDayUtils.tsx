@@ -4,7 +4,7 @@ import {
   BeforeModifier,
   Modifier,
   RangeModifier
-} from 'react-day-picker';
+} from '../model/Modifiers';
 
 import { isSameDay, differenceInDays } from 'date-fns';
 
