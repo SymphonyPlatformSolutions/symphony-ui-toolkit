@@ -1,4 +1,4 @@
-# 💄 SymphonyBDK - UI Toolkit Components
+# ⚛️SymphonyBDK - UI Toolkit Components
 
 The React components library of Symphony's design system
 
@@ -21,18 +21,21 @@ yarn
 yarn start
 ```
 
-## 🛸 Tests and coverage
+## 🧪 Tests and coverage
 
 ```
 yarn test
 ```
 
-## Setup on your React project
+## 🏎️ Setup on your React project
 
 ```
 yarn add @symphony/uitoolkit-components
 ```
 
 ```
-import {Button} from '@symphony/uitoolkit-components';
+import Button from '@symphony/uitoolkit-components/components/button';
 ```
+
+## 📦 Releasing from GitHub
+Full releasing manual [here](https://perzoinc.atlassian.net/wiki/spaces/DevX/pages/1303478933/UIToolkit+releasing+and+versioning) 
