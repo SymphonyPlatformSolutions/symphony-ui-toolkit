@@ -1,4 +1,4 @@
-# 💄 SymphonyBDK - UI Toolkit Components
+# ⚛️SymphonyBDK - UI Toolkit Components
 
 The React components library of Symphony's design system
 
