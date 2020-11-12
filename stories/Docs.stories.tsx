@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import GettingStartedDoc from '../docs/getting-started.md';
 
 import ReactHtmlParser from 'html-react-parser';

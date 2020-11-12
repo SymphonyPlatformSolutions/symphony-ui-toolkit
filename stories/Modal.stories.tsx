@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { Button, Icon, Modal, Typography } from '../src/components';
 import { ModalBody, ModalFooter, ModalHeader, ModalTitle } from '../src/components';
 

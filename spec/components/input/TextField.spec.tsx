@@ -1,5 +1,5 @@
 import { shallow } from 'enzyme';
-import React from 'react';
+import * as React from 'react';
 import { TextField } from '../../../src/components';
 import { TextComponent, Types } from '../../../src/components/input/TextComponent';
 

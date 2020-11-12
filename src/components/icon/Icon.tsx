@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
-import React, { FunctionComponent } from 'react';
-
+import * as React from 'react';
+import { FunctionComponent } from 'react';
 export type IconProps = {
   className?: string;
   disabled?: boolean;

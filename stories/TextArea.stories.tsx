@@ -1,5 +1,5 @@
 import { withKnobs, boolean, button, text } from '@storybook/addon-knobs';
-import React from 'react';
+import * as React from 'react';
 import { TextArea } from '../src/components';
 import { Validators } from '../src/core/validators/validators';
 

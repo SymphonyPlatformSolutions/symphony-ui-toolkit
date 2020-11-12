@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { Radio } from '../src/components';
 import LabelPlacements from '../src/components/selection/LabelPlacements';
 import { action } from '@storybook/addon-actions';

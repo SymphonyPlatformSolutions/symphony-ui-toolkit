@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import SelectionTypes from './SelectionTypes';
 import { SelectionInput, SelectionInputPropTypes } from './SelectionInput';
 
