@@ -38,3 +38,6 @@ src/
 ```
 yarn start
 ```
+
+## 📦 Releasing from GitHub
+Full releasing manual [here](https://perzoinc.atlassian.net/wiki/spaces/DevX/pages/1303478933/UIToolkit+releasing+and+versioning) 
