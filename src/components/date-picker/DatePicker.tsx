@@ -75,7 +75,7 @@ const DatePicker: FunctionComponent<DatePickerComponentProps> = ({
   },
   name,
   placeholder,
-  locale = 'en-US',
+  locale,
   placement = 'bottom',
   todayButton = 'Today',
   tooltip,
@@ -122,7 +122,7 @@ const DatePicker: FunctionComponent<DatePickerComponentProps> = ({
   );
 
   // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const getLocale: Locale = require(`date-fns/locale/${locale}/index.js`);
+  const getLocale: Locale = require(`date-fns/locale/${locale || 'en-US'}/index.js`);
 
   const [showPicker, setShowPicker] = useState(showOverlay || false);
 

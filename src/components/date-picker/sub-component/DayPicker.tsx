@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import { DayModifiers, Modifier } from '../model/Modifiers';
+import { Modifier } from '../model/Modifiers';
 import { modifierPropTypes } from '../utils/propTypesUtils';
 
 import Header from './Header';
