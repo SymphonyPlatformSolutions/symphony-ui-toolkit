@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { shallow } from 'enzyme';
 
 import CropContent from '../../../src/components/crop-content/CropContent';

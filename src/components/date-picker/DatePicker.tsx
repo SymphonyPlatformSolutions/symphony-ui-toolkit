@@ -1,5 +1,6 @@
-import PropTypes from 'prop-types';
-import React, { FunctionComponent, useEffect, useRef, useState } from 'react';
+import * as PropTypes from 'prop-types';
+import * as React from 'react';
+import { FunctionComponent, useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 
 import { usePopper } from 'react-popper';

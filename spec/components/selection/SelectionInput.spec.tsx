@@ -1,5 +1,5 @@
 import { shallow } from 'enzyme';
-import React from 'react';
+import * as React from 'react';
 import SelectionTypes from '../../../src/components/selection/SelectionTypes';
 
 import { SelectionInput } from '../../../src/components/selection/SelectionInput';

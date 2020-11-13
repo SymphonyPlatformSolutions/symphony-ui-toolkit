@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { TextComponentPropTypes, TextComponentProps, TextComponent, Types } from './TextComponent';
 
 const TextField:React.FC<TextComponentProps> = (props) => {

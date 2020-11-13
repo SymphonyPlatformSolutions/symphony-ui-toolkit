@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { Button, Checkbox, Radio } from '../src/components';
 import Icon from '../src/components/icon/Icon';
 import './stories.scss';

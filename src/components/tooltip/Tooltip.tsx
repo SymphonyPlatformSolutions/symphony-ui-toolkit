@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import { useState } from 'react';
+import * as PropTypes from 'prop-types';
 import { usePopper } from 'react-popper';
 import { CSSTransition } from 'react-transition-group';
 import styled from 'styled-components';

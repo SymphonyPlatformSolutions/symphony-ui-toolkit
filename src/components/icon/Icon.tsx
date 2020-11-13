@@ -1,6 +1,7 @@
-import PropTypes from 'prop-types';
+import * as PropTypes from 'prop-types';
+import * as React from 'react';
+import { FunctionComponent } from 'react';
 import classnames from 'classnames';
-import React, { FunctionComponent } from 'react';
 
 export type IconProps = {
   className?: string;

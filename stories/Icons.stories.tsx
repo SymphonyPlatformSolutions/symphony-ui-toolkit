@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import Icon from '../src/components/icon/Icon';
 
 export const Icons: React.SFC = () => (

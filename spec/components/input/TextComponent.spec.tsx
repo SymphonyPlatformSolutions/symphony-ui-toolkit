@@ -1,5 +1,5 @@
 import { shallow } from 'enzyme';
-import React from 'react';
+import * as React from 'react';
 import { TextComponent, Types } from '../../../src/components/input/TextComponent';
 
 import Icon from '../../../src/components/icon/Icon';
