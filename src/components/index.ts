@@ -9,6 +9,8 @@ import Tooltip from './tooltip';
 import Icon from './icon';
 import Validation from './validation';
 import VirtualizedList from './virtualized-list';
+import { Modal, ModalTitle, ModalHeader, ModalBody, ModalFooter } from './modal';
+import Typography from './typography';
 
 export {
   Button,
@@ -23,5 +25,11 @@ export {
   Validation,
   Icon,
   VirtualizedList,
-  Link
+  Link,
+  Modal,
+  ModalTitle,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Typography,
 };
