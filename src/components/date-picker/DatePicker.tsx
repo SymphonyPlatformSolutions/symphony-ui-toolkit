@@ -53,6 +53,7 @@ type DatePickerComponentProps = {
   placement?: 'top' | 'bottom' | 'right' | 'left';
   todayButton?: string;
   tooltip?: string;
+  tooltipCloseLabel?: string;
   showOverlay?: boolean;
   onBlur?: (event) => any;
   onChange?: (event) => any;
@@ -78,6 +79,7 @@ const DatePicker: FunctionComponent<DatePickerComponentProps> = ({
   placement = 'bottom',
   todayButton = 'Today',
   tooltip,
+  tooltipCloseLabel = 'Got it',
   showOverlay,
   onBlur,
   onChange,
@@ -116,7 +118,7 @@ const DatePicker: FunctionComponent<DatePickerComponentProps> = ({
 
   const [selectedDate, setSelectedDate] = useState(computeDate(date));
   const [navigationDate, setNavigationDate] = useState(
-    initialMonth || date || new Date()
+    initialMonth || computeDate(date) || new Date()
   );
 
   // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -274,6 +276,7 @@ const handleKeyDownInput = (
           className={classNames({
             active: showPicker,
           })}
+          tooltipCloseLabel={tooltipCloseLabel}
           iconElement={
             <Icon
               className={classNames({
@@ -348,6 +351,7 @@ DatePicker.propTypes = {
   placement: PropTypes.oneOf(['top', 'bottom', 'right', 'left']),
   todayButton: PropTypes.string,
   tooltip: PropTypes.string,
+  tooltipCloseLabel: PropTypes.string,
   showOverlay: PropTypes.bool,
 };
 

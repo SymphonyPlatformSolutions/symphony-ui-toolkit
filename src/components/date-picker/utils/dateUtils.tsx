@@ -39,7 +39,7 @@ export function getWeekdaysShort(date: Date, locale: Locale): string[] {
 }
 
 /**
- * Return a list of translated weekdays, always starting by Sunday
+ * Return a list of translated weekdays, the starting day depends on locale
  * @param date
  * @param locale
  * @param pattern
