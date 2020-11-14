@@ -1,0 +1,87 @@
+$avatar-sizes: ("xsmall": 16px, "small": 24px, "medium": 32px, "large": 40px, "xlarge": 80px, "xxlarge": 160px);
+
+.tk-avatar {
+  width: map-get($avatar-sizes, "medium");
+  height: map-get($avatar-sizes, "medium");
+  display: flex;
+  position: relative;
+  border-radius: 50%; // Default rounded avatar
+  align-items: center;
+  justify-content: center;
+
+  img {
+    border-radius: inherit;
+    color: transparent;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    text-align: center;
+    text-indent: 10000px;
+  }
+
+  &--square {
+    border-radius: 4px;
+  }
+
+  &--rounded {
+    border-radius: 50%;
+  }
+
+  // Handle different sizes
+  @each $size,
+  $size-value in $avatar-sizes {
+    &--#{$size} {
+      width: $size-value;
+      height: $size-value;
+      font-size: $size-value/2;
+    
+      &+.tk-avatar--border {
+        border-style: solid;
+        border-color: $--tk-avatar-border-color;
+        border-width: medium;
+
+
+        @debug($size-value);
+
+
+        @if($size-value <  map-get($avatar-sizes, "medium")) {
+          border-width: thin;
+        } 
+        @else if($size-value >  map-get($avatar-sizes, "large")) {
+          border-width: thick;
+        }
+      
+      }
+    }
+  }
+}
+
+
+// &--badge {
+// height: 10px;
+// min-width: 10px;
+// bottom:-3px;
+// right:-8px;
+// padding: 3px;
+// border: 2px solid $scolor-white;
+// border-radius: 8px;
+// display: flex;
+// align-items: center;
+// justify-content: center;
+// position: absolute;
+// color:$scolor-white;
+// &.status {
+//   top: -8px;
+// }
+
+//   @if($size-value >= 80px) {
+//     height: 16px;
+//     min-width: 16px;
+//   }
+//   i {
+//     font-size: 10px;
+//     @if($size-value >= 80px) {
+//       font-size: 16px;
+//     }       
+//   }
+// }
