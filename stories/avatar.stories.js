@@ -7,7 +7,7 @@ export default {
 
 export const Avatars = () => `
 <h2>Rounded avatars</h2>
-<div class="tk-m-5h" style="display:flex; justify-content: space-between; width:60%">
+<div class="tk-m-5h" style="display:flex; justify-content: space-between; width:75%">
   <div class="tk-avatar tk-avatar--xxlarge">
     <img alt="avatar" src=${personAvatar}>
   </div>
@@ -29,7 +29,7 @@ export const Avatars = () => `
 </div>
 
 <h2>Square avatars</h2>
-<div class="tk-m-5h" style="display:flex; justify-content: space-between; width:60%">
+<div class="tk-m-5h" style="display:flex; justify-content: space-between; width:75%">
   <div class="tk-avatar tk-avatar--square tk-avatar--xxlarge">
     <img alt="avatar" src=${personAvatar}>
   </div>
@@ -51,9 +51,7 @@ export const Avatars = () => `
 </div>
 
 <h2>Bordered avatars</h2>
-<div>
-  <div>
-  </div>
+<div class="tk-m-5h" style="display:flex; justify-content: space-between; width:75%">
   <div class="tk-avatar tk-avatar--square tk-avatar--xxlarge tk-avatar--border tk-text-color--primary">
     AL
   </div>
@@ -73,7 +71,7 @@ export const Avatars = () => `
     AL
   </div>
 </div>
-<div class="tk-m-5h" style="display:flex; justify-content: space-between; width:60%">
+<div class="tk-m-5h" style="display:flex; justify-content: space-between; width:75%">
   <div class="tk-avatar tk-avatar--xxlarge tk-avatar--border tk-text-color--primary">
     AL
   </div>
@@ -92,7 +90,4 @@ export const Avatars = () => `
     AL
   </div>
 </div>
-
-<div class="tk-avatar tk-avatar--border tk-avatar--xsmall">hola</div>
-<div class="tk-avatar tk-avatar--border tk-avatar--xsmall">hola</div>
 `
