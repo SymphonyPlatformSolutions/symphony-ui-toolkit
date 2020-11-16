@@ -9,7 +9,7 @@ module.exports = {
 
     // Make whatever fine-grained changes you need
     config.module.rules.push({
-      test: /\.(woff|woff2|eot|ttf|svg)$/,
+      test: /\.(woff|woff2|eot|ttf|svg|png)$/,
       use: [
         {
           loader: 'file-loader',
