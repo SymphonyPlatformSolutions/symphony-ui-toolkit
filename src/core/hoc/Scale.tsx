@@ -19,10 +19,10 @@ const Scale: React.SFC<ScaleProps> = ({
     `${prefix}-${size}`,
   );
   return (
-    <div
+    <span
       className={classes}
       {...rest}>
-    </div>
+    </span>
   );
 };
 
