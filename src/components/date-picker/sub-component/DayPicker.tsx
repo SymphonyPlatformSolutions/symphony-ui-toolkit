@@ -274,7 +274,7 @@ class DayPicker extends Component<
           aria-selected="false"
           className="tk-daypicker-day--outside"
           tabIndex={-1}
-        ></div>
+        />
       );
     });
   }
@@ -303,6 +303,10 @@ class DayPicker extends Component<
       ? lightFormat(selectedDays, 'yyyy-MM-dd')
       : null;
     const todayDateString = lightFormat(today, 'yyyy-MM-dd');
+
+    const isSelectedDayVisible =
+      selectedDays &&
+      differenceInCalendarMonths(selectedDays, currentMonth) === 0;
     return (
       <div className="tk-daypicker-body" role="grid" style={{ direction: dir }}>
         {this.renderOutsideDay(daysNeededForLastMonth)}
@@ -317,7 +321,7 @@ class DayPicker extends Component<
           const isToday = itemDateString === todayDateString;
           const isDisabled = matchDay(cellDate, disabledDays);
           const isHighlighted = matchDay(cellDate, highlightedDays);
-          const isTabIndex = selectedDays
+          const isTabIndex = isSelectedDayVisible
             ? isSelected
               ? 0
               : -1

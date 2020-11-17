@@ -1,13 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { DatePicker, TextField, Icon } from '../src/components';
 
 const Template = (args) => {
-  return <DatePicker {...args} />;
+  const [date, setDate] = useState(null);
+
+  return (
+    <DatePicker
+      {...args}
+      date={date}
+      onChange={(e) => {
+        setDate(e.target.value);
+      }}
+    />
+  );
 };
 
 export const Default = Template.bind({});
 
 export const MoreExamples: React.SFC = () => {
+  const [date, setDate] = useState(new Date());
   const now = new Date();
   const disabledDays = [
     new Date(now.getFullYear(), now.getMonth(), now.getDate() + 7),
@@ -34,30 +45,59 @@ export const MoreExamples: React.SFC = () => {
       <h1>Date Picker</h1>
       <div>
         <p>Default Date Picker</p>
-        <DatePicker />
+        <DatePicker
+          date={date}
+          onChange={(e) => {
+            setDate(e.target.value);
+          }}
+        />
+        <button onClick={() => setDate(null)} />
       </div>
       <hr />
       <div style={{ marginBottom: '300px' }}>
         <p>
           Date Picker initially <strong>open</strong>
         </p>
-        <DatePicker showOverlay={true} />
+        <DatePicker
+          showOverlay={true}
+          date={date}
+          onChange={(e) => {
+            setDate(e.target.value);
+          }}
+        />
       </div>
       <hr />
       <div>
         <p>
           Date Picker with <strong>initial value</strong>
         </p>
-        <DatePicker date={new Date()} />
+        <DatePicker
+          date={date}
+          onChange={(e) => {
+            setDate(e.target.value);
+          }}
+        />
       </div>
       <hr />
       <div>
         <p>
           Date Picker with specific <strong>format</strong>
         </p>
-        <DatePicker format="dd/MM/yyyy" />
+        <DatePicker
+          format="dd/MM/yyyy"
+          date={date}
+          onChange={(e) => {
+            setDate(e.target.value);
+          }}
+        />
         <br />
-        <DatePicker format="MMM, dd yyyy" />
+        <DatePicker
+          format="MMM, dd yyyy"
+          date={date}
+          onChange={(e) => {
+            setDate(e.target.value);
+          }}
+        />
         <br />
         <DatePicker
           format="dd MMMM yyyy"
@@ -68,12 +108,20 @@ export const MoreExamples: React.SFC = () => {
             nextYear: 'Anno Scorso',
             nextMonth: 'Mese Scorso',
           }}
+          date={date}
+          onChange={(e) => {
+            setDate(e.target.value);
+          }}
         />
         <br />
         <DatePicker
           format="yyyy年MM月dd日"
           locale="ja"
           todayButton="今日"
+          date={date}
+          onChange={(e) => {
+            setDate(e.target.value);
+          }}
         />
       </div>
       <hr />
@@ -85,6 +133,10 @@ export const MoreExamples: React.SFC = () => {
           initialMonth={
             new Date(now.getFullYear(), now.getMonth() + 2, now.getDate())
           }
+          date={date}
+          onChange={(e) => {
+            setDate(e.target.value);
+          }}
         />
       </div>
       <hr />
@@ -93,7 +145,13 @@ export const MoreExamples: React.SFC = () => {
           Date Picker opening on specific <strong>placement</strong> (top) by
           default
         </p>
-        <DatePicker placement="top" />
+        <DatePicker
+          placement="top"
+          date={date}
+          onChange={(e) => {
+            setDate(e.target.value);
+          }}
+        />
       </div>
       <hr />
       <div>
@@ -109,12 +167,23 @@ export const MoreExamples: React.SFC = () => {
             nextYear: 'Anné Précédente',
             nextMonth: 'Mois Précédent',
           }}
+          date={date}
+          onChange={(e) => {
+            setDate(e.target.value);
+          }}
         />
         <p>
           Date Picker using <strong>locale</strong> (arabic) and{' '}
           <strong>right-to-left</strong>
         </p>
-        <DatePicker locale="ar-DZ" dir="rtl" />
+        <DatePicker
+          locale="ar-DZ"
+          dir="rtl"
+          date={date}
+          onChange={(e) => {
+            setDate(e.target.value);
+          }}
+        />
       </div>
       <hr />
       <div>
@@ -122,24 +191,49 @@ export const MoreExamples: React.SFC = () => {
           Date Picker with <strong>disabled days</strong> (date, before, after,
           and intervals)
         </p>
-        <DatePicker disabledDays={disabledDays} />
+        <DatePicker
+          disabledDays={disabledDays}
+          date={date}
+          onChange={(e) => {
+            setDate(e.target.value);
+          }}
+        />
         <p>
           Date Picker with <strong>every Wednesday</strong> disabled
           (daysOfWeek)
         </p>
-        <DatePicker disabledDays={disabledWednesday} />
+        <DatePicker
+          disabledDays={disabledWednesday}
+          date={date}
+          onChange={(e) => {
+            setDate(e.target.value);
+          }}
+        />
       </div>
       <hr />
       <div>
         <p>
           Date Picker using <strong>label</strong> and <strong>tooltip</strong>
         </p>
-        <DatePicker tooltip="Departure date" label="Expense" />
+        <DatePicker
+          tooltip="Departure date"
+          label="Expense"
+          date={date}
+          onChange={(e) => {
+            setDate(e.target.value);
+          }}
+        />
       </div>
       <hr />
       <div>
         <p>Disabled</p>
-        <DatePicker disabled={true} />
+        <DatePicker
+          disabled={true}
+          date={date}
+          onChange={(e) => {
+            setDate(e.target.value);
+          }}
+        />
       </div>
     </div>
   );
