@@ -80,8 +80,7 @@ class DayPicker extends Component<
   componentDidUpdate(prevProps) {
     // Changing the `month` props means changing the current displayed month
     if (
-      prevProps.month !== this.props.month &&
-      !isSameMonth(prevProps.month, this.props.month)
+      prevProps.month !== this.props.month
     ) {
       // eslint-disable-next-line react/no-did-update-set-state
       this.setState({ currentMonth: this.props.month || new Date() });
@@ -131,18 +130,19 @@ class DayPicker extends Component<
   handleKeyDownContainer(e: React.KeyboardEvent): void {
     const { onClose } = this.props;
     switch (e.key) {
-      case Keys.ESC:
-        onClose();
-      case Keys.PAGE_DOWN:
-      case Keys.PAGE_UP:
-      case Keys.HOME:
-      case Keys.END:
-      case Keys.ARROW_LEFT:
-      case Keys.ARROW_UP:
-      case Keys.ARROW_RIGHT:
-      case Keys.ARROW_DOWN:
-        cancelEvent(e);
-        break;
+    case Keys.ESC:
+      onClose();
+      // eslint-disable-next-line no-fallthrough
+    case Keys.PAGE_DOWN:
+    case Keys.PAGE_UP:
+    case Keys.HOME:
+    case Keys.END:
+    case Keys.ARROW_LEFT:
+    case Keys.ARROW_UP:
+    case Keys.ARROW_RIGHT:
+    case Keys.ARROW_DOWN:
+      cancelEvent(e);
+      break;
     }
   }
 
@@ -157,86 +157,91 @@ class DayPicker extends Component<
 
     let nextCell;
     switch (e.key) {
-      case Keys.TAB:
-        if (this.dayPicker) {
-          if (e.shiftKey) {
-            this.dayPicker
-              .querySelector('.tk-daypicker-header--nextYear')
-              .focus();
-          } else {
-            this.dayPicker.querySelector('.tk-daypicker-today').focus();
-          }
-        }
-        break;
-      case Keys.ENTER:
-        const { onDayClick } = this.props;
-        onDayClick(date, modifers);
-        break;
-      case Keys.PAGE_UP:
+    case Keys.TAB:
+      if (this.dayPicker) {
         if (e.shiftKey) {
-          this.monthNavigation(date, addYears(currentMonth, -1));
+          this.dayPicker
+            .querySelector('.tk-daypicker-header--nextYear')
+            .focus();
         } else {
-          this.monthNavigation(date, addMonths(currentMonth, -1));
+          this.dayPicker.querySelector('.tk-daypicker-today').focus();
         }
-        break;
-      case Keys.PAGE_DOWN:
-        if (e.shiftKey) {
-          this.monthNavigation(date, addYears(currentMonth, 1));
-        } else {
-          this.monthNavigation(date, addMonths(currentMonth, 1));
-        }
-        break;
-      case Keys.HOME:
-        const firstDayOfWeek = startOfWeek(date, { locale });
-        nextCell =
+      }
+      break;
+    case Keys.ENTER:
+      // eslint-disable-next-line no-case-declarations
+      const { onDayClick } = this.props;
+      onDayClick(date, modifers);
+      break;
+    case Keys.PAGE_UP:
+      if (e.shiftKey) {
+        this.monthNavigation(date, addYears(currentMonth, -1));
+      } else {
+        this.monthNavigation(date, addMonths(currentMonth, -1));
+      }
+      break;
+    case Keys.PAGE_DOWN:
+      if (e.shiftKey) {
+        this.monthNavigation(date, addYears(currentMonth, 1));
+      } else {
+        this.monthNavigation(date, addMonths(currentMonth, 1));
+      }
+      break;
+    case Keys.HOME:
+      // eslint-disable-next-line no-case-declarations
+      const firstDayOfWeek = startOfWeek(date, { locale });
+      nextCell =
           firstDayOfWeek.getDate() <= date.getDate()
             ? firstDayOfWeek
             : setDate(date, 1);
-        this.focusDiv(this.boundFocusDay(nextCell, nextCell));
-        break;
-      case Keys.END:
-        const lastDayOfWeek = endOfWeek(date, { locale });
-        nextCell =
+      this.focusDiv(this.boundFocusDay(nextCell, nextCell));
+      break;
+    case Keys.END:
+      // eslint-disable-next-line no-case-declarations
+      const lastDayOfWeek = endOfWeek(date, { locale });
+      nextCell =
           date.getDate() <= lastDayOfWeek.getDate()
             ? lastDayOfWeek
             : lastDayOfMonth(date);
-        this.focusDiv(this.boundFocusDay(nextCell, nextCell));
-        break;
-      case Keys.ARROW_LEFT:
-        this.arrowNavigation(date, addDays(date, -1 * direction));
-        break;
-      case Keys.ARROW_UP:
-        this.arrowNavigation(date, addDays(date, -7));
-        break;
-      case Keys.ARROW_RIGHT:
-        this.arrowNavigation(date, addDays(date, 1 * direction));
-        break;
-      case Keys.ARROW_DOWN:
-        this.arrowNavigation(date, addDays(date, 7));
-        break;
-      default:
-        break;
+      this.focusDiv(this.boundFocusDay(nextCell, nextCell));
+      break;
+    case Keys.ARROW_LEFT:
+      this.arrowNavigation(date, addDays(date, -1 * direction));
+      break;
+    case Keys.ARROW_UP:
+      this.arrowNavigation(date, addDays(date, -7));
+      break;
+    case Keys.ARROW_RIGHT:
+      this.arrowNavigation(date, addDays(date, 1 * direction));
+      break;
+    case Keys.ARROW_DOWN:
+      this.arrowNavigation(date, addDays(date, 7));
+      break;
+    default:
+      break;
     }
   }
 
   handleKeyDownFooter(e): void {
     switch (e.key) {
-      case Keys.TAB:
-        if (!e.shiftKey) {
-          cancelEvent(e);
-          if (this.dayPicker) {
-            this.dayPicker
-              .querySelector('.tk-daypicker-header--prevYear')
-              .focus();
-          }
-        }
-        break;
-      case Keys.ENTER:
+    case Keys.TAB:
+      if (!e.shiftKey) {
         cancelEvent(e);
-        const { disabledDays, onDayClick } = this.props;
-        const { today } = this.state;
-        onDayClick(today, { disabled: matchDay(today, disabledDays) });
-        break;
+        if (this.dayPicker) {
+          this.dayPicker
+            .querySelector('.tk-daypicker-header--prevYear')
+            .focus();
+        }
+      }
+      break;
+    case Keys.ENTER:
+      cancelEvent(e);
+      // eslint-disable-next-line no-case-declarations
+      const { disabledDays, onDayClick } = this.props;
+      // eslint-disable-next-line no-case-declarations
+      const { today } = this.state;
+      onDayClick(today, { disabled: matchDay(today, disabledDays) });
+      break;
     }
   }
 
@@ -326,8 +331,8 @@ class DayPicker extends Component<
               ? 0
               : -1
             : cell === 0
-            ? 0
-            : -1; // focus on selected day otherwise first cell
+              ? 0
+              : -1; // focus on selected day otherwise first cell
 
           return (
             <div

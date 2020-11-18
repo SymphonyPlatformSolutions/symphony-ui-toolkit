@@ -1,29 +1,20 @@
 import PropTypes from 'prop-types';
-import React, {
-  FunctionComponent,
-  useEffect,
-  useRef,
-  useState,
-  useMemo,
-} from 'react';
+import React, { Component, createRef } from 'react';
 import classNames from 'classnames';
 
-import { usePopper } from 'react-popper';
-
-import { CSSTransition } from 'react-transition-group';
+import { createPopper } from '@popperjs/core';
 
 import { DayModifiers, Modifier } from './model/Modifiers';
 
 import DayPicker from './sub-component/DayPicker';
-import Validation from '../validation/Validation';
-// import { Validators } from '../../core/validators/validators';
+// import Validation from '../validation/Validation';
 
 import TextField from '../input/TextField';
 import Icon from '../icon/Icon';
 
 import styled from 'styled-components';
 
-import { PopperContainer, popperProps } from '../common/popperUtils';
+import { PopperContainer } from '../common/popperUtils';
 
 import { matchDay } from './utils/matchDayUtils';
 
@@ -43,10 +34,10 @@ const DatePickerContainer = styled.div`
 type DatePickerComponentProps = {
   className?: string;
   date?: Date;
-  // value?: string;
   disabledDays?: Modifier | Modifier[];
   disabled?: boolean;
   dir?: 'ltr' | 'rtl';
+  errorFormatMessage: string;
   format?: string;
   initialMonth?: Date;
   label?: string;
@@ -65,163 +56,236 @@ type DatePickerComponentProps = {
   tooltipCloseLabel?: string;
   showOverlay?: boolean;
   onBlur?: (event) => any;
-  onChange: (event) => any;
-  // onDateChange?: (event) => any;
+  onChange?: (event) => any;
 };
 
-const DatePicker: FunctionComponent<DatePickerComponentProps> = ({
-  date,
-  disabledDays,
-  disabled,
-  dir = 'ltr',
-  format = 'MM-dd-yyyy', // format is case sensitive, see https://date-fns.org/v2.16.1/docs/format
-  initialMonth,
-  label,
-  labels = {
-    previousYear: 'Previous Year',
-    nextYear: 'Next Year',
-    previousMonth: 'Previous Month',
-    nextMonth: 'Next Month',
-  },
-  name,
-  placeholder,
-  locale,
-  placement = 'bottom',
-  todayButton = 'Today',
-  tooltip,
-  tooltipCloseLabel = 'Got it',
-  showOverlay,
-  onBlur,
-  onChange,
-}) => {
-  const [popperElement, setPopperElement] = useState(null);
-  const [referenceElement, setReferenceElement] = useState(null);
-  const { styles, attributes } = usePopper(referenceElement, popperElement, {
-    placement: `${placement}-start` as
-      | 'bottom-start'
-      | 'top-start'
-      | 'right-start'
-      | 'left-start',
-    modifiers: [
-      {
-        name: 'flip',
-        options: {
-          fallbackPlacements: ['top-start', 'right-start', 'left-start'],
-        },
-      },
-      {
-        name: 'offset',
-        options: {
-          offset: [0, 4],
-        },
-      },
-    ],
-  });
+type DayPickerComponentState = {
+  locale: Locale;
+  navigationDate: Date;
+  inputValue: string;
+  showPicker: boolean;
+  refIcon: any;
+  refContainer: any;
+  popperElement: any;
+  referenceElement: any;
+};
 
-  const computeDate = (date) => {
-    // const date = new Date(value);
+class DatePicker extends Component<
+  DatePickerComponentProps,
+  DayPickerComponentState
+> {
+  static defaultProps = {
+    dir: 'ltr',
+    format: 'MM-dd-yyyy', // format is case sensitive, see https://date-fns.org/v2.16.1/docs/format
+    errorFormatMessage: 'The format or the date is incorrect',
+    labels: {
+      previousYear: 'Previous Year',
+      nextYear: 'Next Year',
+      previousMonth: 'Previous Month',
+      nextMonth: 'Next Month',
+    },
+    placement: 'bottom',
+    todayButton: 'Today',
+    tooltipCloseLabel: 'Got it',
+  };
+
+  static propTypes = {
+    className: PropTypes.string,
+    date: PropTypes.instanceOf(Date),
+    format: PropTypes.string,
+    dir: PropTypes.oneOf(['ltr', 'rtl']),
+    disabled: PropTypes.bool,
+    disabledDays: PropTypes.oneOfType(modifierPropTypes),
+    initialMonth: PropTypes.instanceOf(Date),
+    label: PropTypes.string,
+    labels: PropTypes.exact({
+      previousYear: PropTypes.string,
+      previousMonth: PropTypes.string,
+      nextYear: PropTypes.string,
+      nextMonth: PropTypes.string,
+    }),
+    locale: PropTypes.string,
+    name: PropTypes.string,
+    onBlur: PropTypes.func,
+    onChange: PropTypes.func.isRequired,
+    placeholder: PropTypes.string,
+    placement: PropTypes.oneOf(['top', 'bottom', 'right', 'left']),
+    todayButton: PropTypes.string,
+    tooltip: PropTypes.string,
+    tooltipCloseLabel: PropTypes.string,
+    showOverlay: PropTypes.bool,
+  };
+  refPicker = null;
+  dayPickerInstance = null;
+
+  constructor(props) {
+    super(props);
+
+    const { date, format, initialMonth, locale, showOverlay } = props;
+
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const getLocale: Locale = require(`date-fns/locale/${
+      locale || 'en-US'
+    }/index.js`);
+
+    this.state = {
+      navigationDate: initialMonth || this.computeDate(date) || new Date(),
+      locale: getLocale,
+      inputValue: this.computeDate(date)
+        ? formatDate(date, format, { locale: getLocale })
+        : null,
+      showPicker: false,
+      refIcon: createRef(),
+      refContainer: null,
+      popperElement: null,
+      referenceElement: null,
+    };
+
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleDayClick = this.handleDayClick.bind(this);
+    this.handleKeyDownIcon = this.handleKeyDownIcon.bind(this);
+    this.handleKeyDownIcon = this.handleKeyDownIcon.bind(this);
+    this.handleKeyDownInput = this.handleKeyDownInput.bind(this);
+    this.handleOnClose = this.handleOnClose.bind(this);
+
+    this.handleClickOutside = this.handleClickOutside.bind(this);
+
+    this.setRefContainer = this.setRefContainer.bind(this);
+    this.setPopperElement = this.setPopperElement.bind(this);
+    this.setReferenceElement = this.setReferenceElement.bind(this);
+
+    this.mountDayPickerInstance = this.mountDayPickerInstance.bind(this);
+    this.unmountDayPickerInstance = this.unmountDayPickerInstance.bind(this);
+  }
+
+  componentDidMount() {
+    document.addEventListener('mousedown', this.handleClickOutside);
+    if (this.props.showOverlay) {
+      this.setState({ showPicker: true });
+    }
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('mousedown', this.handleClickOutside);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.showPicker && !prevState.showPicker) {
+      this.mountDayPickerInstance();
+    } else if (!this.state.showPicker && prevState.showPicker) {
+      this.unmountDayPickerInstance();
+    }
+  }
+
+  /**
+   * Reset to default value and reset errors
+   */
+  public reset(date: Date): void {
+    const { format, onChange } = this.props;
+    const { locale } = this.state;
+    onChange({ target: { value: date } });
+    this.setState({
+      inputValue: this.computeDate(date)
+        ? formatDate(date, format, { locale: locale })
+        : null,
+    });
+  }
+
+  private handleClickOutside(event) {
+    const { refContainer } = this.state;
+    if (refContainer && !refContainer.contains(event.target)) {
+      const { date, onBlur } = this.props;
+      this.setState({ showPicker: false });
+      if (onBlur) {
+        onBlur({
+          target: {
+            value: date,
+          },
+        });
+      }
+    }
+  }
+
+  private setRefContainer(node) {
+    this.setState({ refContainer: node });
+  }
+  private setPopperElement(node) {
+    this.setState({ popperElement: node });
+  }
+  private setReferenceElement(node) {
+    this.setState({ referenceElement: node });
+  }
+
+  mountDayPickerInstance() {
+    const { placement } = this.props;
+    const { popperElement, referenceElement } = this.state;
+    this.dayPickerInstance = createPopper(referenceElement, popperElement, {
+      placement: `${placement}-start` as
+        | 'bottom-start'
+        | 'top-start'
+        | 'right-start'
+        | 'left-start',
+      modifiers: [
+        {
+          name: 'flip',
+          options: {
+            fallbackPlacements: ['top-start', 'right-start', 'left-start'],
+          },
+        },
+        {
+          name: 'offset',
+          options: {
+            offset: [0, 4],
+          },
+        },
+      ],
+    });
+  }
+
+  unmountDayPickerInstance() {
+    if (this.dayPickerInstance) {
+      this.dayPickerInstance.destroy();
+      Reflect.deleteProperty(this, 'dayPickerInstance');
+    }
+  }
+
+  private computeDate(date): Date {
+    const { disabledDays } = this.props;
     if (isValid(date) && !matchDay(date, disabledDays)) {
       return date;
     } else {
       return null;
     }
-  };
-
-  // const [selectedDate, setSelectedDate] = useState(computeDate(date));
-  const [navigationDate, setNavigationDate] = useState(
-    initialMonth || computeDate(date) || new Date()
-  );
-
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const getLocale: Locale = useMemo(
-    () => require(`date-fns/locale/${locale || 'en-US'}/index.js`),
-    [locale]
-  );
-
-  const [showPicker, setShowPicker] = useState(showOverlay || false);
-
-  const [inputValue, setInputValue] = useState(
-    // computeDate(value) ? value : null
-    computeDate(date) ? formatDate(date, format, { locale: getLocale }) : null
-  );
-
-  const refContainer = useRef(null);
-  const refPicker = useRef(null);
-  const refIcon = useRef(null);
-
-  // useEffect(() => {
-  //   // computeDate(date) ? formatDate(date, format, { locale: getLocale }) :
-
-  //   if (date === null) {
-  //     setInputValue('');
-  //   }
-  //   // setInputValue((inputValue) =>
-  //   //   computeDate(date)
-  //   //     ? formatDate(date, format, { locale: getLocale })
-  //   //     : inputValue
-  //   // );
-  // }, [date]);
-
-  function handleEventClickOutside(ref, date) {
-    useEffect(() => {
-      function handleClickOutside(event) {
-        if (ref.current && !ref.current.contains(event.target)) {
-          setShowPicker(false);
-          if (onBlur) {
-            onBlur({
-              target: {
-                value: date,
-              },
-            });
-          }
-        }
-      }
-
-      // Bind the event listener
-      document.addEventListener('mousedown', handleClickOutside);
-      return () => {
-        // Unbind the event listener on clean up
-        document.removeEventListener('mousedown', handleClickOutside);
-      };
-    }, [ref, date]);
   }
 
-  const handleDayClick = async (date: Date, modifiers: DayModifiers) => {
+  private async handleDayClick(date: Date, modifiers: DayModifiers) {
+    const { format, onChange } = this.props;
+    const { locale } = this.state;
     if (modifiers.disabled) {
       return;
     }
     const newDate = modifiers.selected ? undefined : date;
-    // setSelectedDate(newDate);
-    setNavigationDate(newDate);
+    const inputValue = formatDate(date, format, { locale: locale });
+    this.setState({
+      navigationDate: newDate,
+      inputValue: modifiers.selected ? undefined : inputValue,
+      showPicker: false,
+    });
 
-    const inputValue = formatDate(date, format, { locale: getLocale });
-    setInputValue(modifiers.selected ? undefined : inputValue);
-    setShowPicker(false);
     if (onChange) {
       onChange({
         target: { value: newDate },
       });
     }
-    // if (onChange) {
-    //   onChange({
-    //     target: { value: modifiers.selected ? undefined : inputValue },
-    //   });
-    // }
-    // if (onDateChange) {
-    //   onDateChange({
-    //     target: { value: newDate },
-    //   });
-    // }
-  };
+  }
 
-  const handleInputChange = (e) => {
-    // if (onChange) {
-    //   onChange(e);
-    // }
+  private handleInputChange(e): void {
+    const { format, onChange } = this.props;
+    const { locale } = this.state;
     const newValue = e.target.value;
-    setInputValue(newValue);
+    this.setState({ inputValue: newValue });
 
-    let newDate = parse(newValue, format, new Date(), { locale: getLocale });
+    let newDate = parse(newValue, format, new Date(), { locale: locale });
     // If year not typed, take the current year
     if (!isValid(newDate)) {
       // regex: remove -yyyy, yyyy-, /yyyy, yyyy/, .yyyy, ...
@@ -230,37 +294,26 @@ const DatePicker: FunctionComponent<DatePickerComponentProps> = ({
         format.replace(/[\W]?y{4}[\W]?/, ''),
         new Date(),
         {
-          locale: getLocale,
+          locale: locale,
         }
       );
     }
 
-    console.log('isValid(newDate)', isValid(newDate));
     if (isValid(newDate)) {
-      setNavigationDate(newDate);
+      this.setState({ navigationDate: newDate });
     }
-    // setSelectedDate(computeDate(newDate));
     if (onChange) {
-      // if (computeDate(newDate)) {
-      onChange({ target: { value: computeDate(newDate) } });
-      // }
+      onChange({ target: { value: this.computeDate(newDate) } });
     }
-    // if (onDateChange) {
-    //   onDateChange({ target: { value: computeDate(newDate) } });
-    // }
-  };
+  }
 
-  const handleKeyDownIcon = (e: React.KeyboardEvent): void => {
+  private handleKeyDownIcon(e: React.KeyboardEvent): void {
+    const { showPicker } = this.state;
     switch (e.key) {
       case Keys.TAB:
-        if (
-          !e.shiftKey &&
-          showPicker &&
-          refPicker.current &&
-          refPicker.current.dayPicker
-        ) {
+        if (!e.shiftKey && showPicker && this.refPicker) {
           cancelEvent(e);
-          const elCell = refPicker.current.dayPicker.querySelector(
+          const elCell = this.refPicker.dayPicker.querySelector(
             '.tk-daypicker-day[tabindex="0"]'
           );
           if (elCell) {
@@ -270,146 +323,141 @@ const DatePicker: FunctionComponent<DatePickerComponentProps> = ({
         break;
       case Keys.ENTER:
         cancelEvent(e);
-        handleClickIcon();
+        this.handleClickIcon();
         break;
       case Keys.ESC:
         cancelEvent(e);
-        handleOnClose();
+        this.handleOnClose();
         break;
       default:
         break;
     }
-  };
+  }
 
-  const handleKeyDownInput = (e: React.KeyboardEvent): void => {
+  private handleKeyDownInput(e: React.KeyboardEvent): void {
+    const { showPicker } = this.state;
     switch (e.key) {
       case Keys.ENTER:
         cancelEvent(e);
-        setShowPicker((showPicker) => !showPicker);
+        this.setState({ showPicker: !showPicker });
         break;
       case Keys.ESC:
         cancelEvent(e);
-        setShowPicker(false);
+        this.setState({ showPicker: false });
         break;
       default:
         break;
     }
-  };
+  }
 
-  const handleClickIcon = () => {
-    setShowPicker(!showPicker);
-  };
+  private handleClickIcon() {
+    const { showPicker } = this.state;
+    this.setState({ showPicker: !showPicker });
+  }
 
-  const handleOnClose = () => {
-    setShowPicker(false);
+  private handleOnClose() {
+    const { refIcon } = this.state;
+    this.setState({ showPicker: false });
     if (refIcon.current) {
       refIcon.current.focus();
     }
-  };
+  }
 
-  const textfieldProps = {
-    disabled,
-    label,
-    name,
-    placeholder: placeholder || format.toUpperCase(),
-    tooltip,
-  };
+  render() {
+    const {
+      date,
+      disabledDays,
+      disabled,
+      dir,
+      errorFormatMessage,
+      format,
+      label,
+      labels,
+      name,
+      placeholder,
+      todayButton,
+      tooltip,
+      tooltipCloseLabel,
+    } = this.props;
+    const {
+      inputValue,
+      locale,
+      navigationDate,
+      showPicker,
+      refIcon,
+    } = this.state;
+    const textfieldProps = {
+      disabled,
+      label,
+      name,
+      placeholder: placeholder || format.toUpperCase(),
+      tooltip,
+    };
 
-  handleEventClickOutside(refContainer, date);
-
-  return (
-    <div className={'tk-datepicker'} ref={refContainer}>
-      <div ref={setReferenceElement}>
-        {/* <Validation
-          onValidationChanged={fonctionTest}
-          errorMessage={'dateFormat error'}
-          validator={() =>
-            Promise.resolve(selectedDate ? null : { dateFormat: true })
-          }
-        > */}
-        <TextField
-          {...textfieldProps}
-          className={classNames({
-            active: showPicker,
-          })}
-          tooltipCloseLabel={tooltipCloseLabel}
-          iconElement={
-            <Icon
+    return (
+      <div className={'tk-datepicker'} ref={this.setRefContainer}>
+        <div ref={this.setReferenceElement}>
+          <span
+            className={classNames('tk-validation', {
+              'tk-validation--error':
+                inputValue && this.computeDate(date) === null,
+            })}
+          >
+            <TextField
+              {...textfieldProps}
               className={classNames({
                 active: showPicker,
               })}
-              disabled={disabled}
-              iconName={'calendar'}
-              forwardRef={refIcon}
-              tabIndex={0}
-              onClick={() => handleClickIcon()}
-              onKeyDown={handleKeyDownIcon}
-            ></Icon>
-          }
-          value={inputValue || ''}
-          // value={value}
-          onChange={handleInputChange}
-          onFocus={() => setShowPicker(true)}
-          onKeyDown={handleKeyDownInput}
-        ></TextField>
-        {/* </Validation> */}
-      </div>
-      <CSSTransition
-        {...popperProps}
-        in={showPicker}
-        classNames="DatePickerContainer"
-      >
+              tooltipCloseLabel={tooltipCloseLabel}
+              iconElement={
+                <Icon
+                  className={classNames({
+                    active: showPicker,
+                  })}
+                  disabled={disabled}
+                  iconName={'calendar'}
+                  forwardRef={refIcon}
+                  tabIndex={0}
+                  onClick={() => this.handleClickIcon()}
+                  onKeyDown={this.handleKeyDownIcon}
+                ></Icon>
+              }
+              value={inputValue || ''}
+              onChange={this.handleInputChange}
+              onFocus={() => this.setState({ showPicker: true })}
+              onKeyDown={this.handleKeyDownInput}
+            ></TextField>
+            {inputValue && this.computeDate(date) === null ? (
+              <ul className="tk-validation__errors">
+                <li>{errorFormatMessage}</li>
+              </ul>
+            ) : null}
+          </span>
+        </div>
         <DatePickerContainer
           role="tooltip"
-          ref={setPopperElement}
-          style={{ ...styles.popper }}
-          {...attributes.popper}
+          ref={this.setPopperElement}
+          className="DatePickerContainer"
+          style={{
+            display: showPicker ? 'block' : 'none',
+          }}
         >
           <DayPicker
-            ref={refPicker}
+            ref={(el) => (this.refPicker = el)}
             aria-labelledby={label}
-            selectedDays={date}
+            selectedDays={this.computeDate(date)}
             disabledDays={disabledDays}
             dir={dir}
-            locale={getLocale}
+            locale={locale}
             month={navigationDate}
             todayButton={todayButton}
             labels={labels}
-            onDayClick={handleDayClick}
-            onClose={handleOnClose}
+            onDayClick={this.handleDayClick}
+            onClose={this.handleOnClose}
           />
         </DatePickerContainer>
-      </CSSTransition>
-    </div>
-  );
-};
-
-DatePicker.propTypes = {
-  className: PropTypes.string,
-  date: PropTypes.instanceOf(Date),
-  // value: PropTypes.string.isRequired,
-  format: PropTypes.string,
-  dir: PropTypes.oneOf(['ltr', 'rtl']),
-  disabled: PropTypes.bool,
-  disabledDays: PropTypes.oneOfType(modifierPropTypes),
-  initialMonth: PropTypes.instanceOf(Date),
-  label: PropTypes.string,
-  labels: PropTypes.exact({
-    previousYear: PropTypes.string,
-    previousMonth: PropTypes.string,
-    nextYear: PropTypes.string,
-    nextMonth: PropTypes.string,
-  }),
-  locale: PropTypes.string,
-  name: PropTypes.string,
-  onBlur: PropTypes.func,
-  onChange: PropTypes.func.isRequired,
-  placeholder: PropTypes.string,
-  placement: PropTypes.oneOf(['top', 'bottom', 'right', 'left']),
-  todayButton: PropTypes.string,
-  tooltip: PropTypes.string,
-  tooltipCloseLabel: PropTypes.string,
-  showOverlay: PropTypes.bool,
-};
-
+      </div>
+    );
+  }
+}
 export default DatePicker;

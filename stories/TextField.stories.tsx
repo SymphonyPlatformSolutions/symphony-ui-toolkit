@@ -1,4 +1,4 @@
-import { boolean, button, text, withKnobs } from '@storybook/addon-knobs';
+import { button, withKnobs } from '@storybook/addon-knobs';
 import React, { useState, useRef } from 'react';
 import { TextField, Icon, Validation } from '../src/components';
 

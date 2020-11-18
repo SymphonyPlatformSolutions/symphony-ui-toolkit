@@ -1,4 +1,4 @@
-import { withKnobs, boolean, button, text } from '@storybook/addon-knobs';
+import { withKnobs, button } from '@storybook/addon-knobs';
 import React, { useRef, useState } from 'react';
 import { TextArea, Validation } from '../src/components';
 import { Validators } from '../src/core/validators/validators';
@@ -83,9 +83,9 @@ export const ChangeProgrammatically = () => {
   const reset = () => child.current.reset();
   
   const refresh = () =>
-  child.current
-  .refreshValidation()
-  .then((isValid) => console.log(isValid));
+    child.current
+      .refreshValidation()
+      .then((isValid) => console.log(isValid));
   button('Reset', reset);
   button('Refresh validation', refresh);
 

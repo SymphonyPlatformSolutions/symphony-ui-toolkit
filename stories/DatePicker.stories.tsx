@@ -20,6 +20,8 @@ export const Default = Template.bind({});
 export const MoreExamples: React.SFC = () => {
   const [date, setDate] = useState(new Date());
   const now = new Date();
+  const [pickerElement, setPickerElement] = useState(null);
+
   const disabledDays = [
     new Date(now.getFullYear(), now.getMonth(), now.getDate() + 7),
     {
@@ -46,13 +48,15 @@ export const MoreExamples: React.SFC = () => {
       <div>
         <p>Default Date Picker</p>
         <DatePicker
+          ref={setPickerElement}
           date={date}
           onChange={(e) => {
             setDate(e.target.value);
           }}
         />
-        <button onClick={() => setDate(null)} />
-      </div>
+        <br/>
+        <button onClick={() => pickerElement.reset(null)}>Reset value</button>
+        </div>
       <hr />
       <div style={{ marginBottom: '300px' }}>
         <p>
