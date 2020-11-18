@@ -21,17 +21,17 @@
 
     &--prevYear {
       margin-left: toEm(9, $fontSize);
-      @include styleDayPickerHeaderAction($scolor-electricity, 1.5em, auto);
+      @include styleDayPickerHeaderAction($scolor-electricity);
     }
     &--nextYear {
       margin-right: toEm(9, $fontSize);
-      @include styleDayPickerHeaderAction($scolor-electricity, auto, 1.5em);
+      @include styleDayPickerHeaderAction($scolor-electricity);
     }
     &--prevMonth {
-      @include styleDayPickerHeaderAction($scolor-electricity, 3em, auto);
+      @include styleDayPickerHeaderAction($scolor-electricity);
     }
     &--nextMonth {
-      @include styleDayPickerHeaderAction($scolor-electricity, auto, 3em);
+      @include styleDayPickerHeaderAction($scolor-electricity);
     }
     &--text {
       display: flex;
@@ -76,7 +76,6 @@
       border: none;
       cursor: pointer;
       border-radius: toEm(2, $fontSize);
-      // height: toEm(32, $fontSize);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -100,7 +99,6 @@
         visibility: hidden;
       }
       &--highlighted {
-        // TODO when design available
       }
     }
   }
