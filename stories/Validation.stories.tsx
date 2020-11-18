@@ -4,7 +4,7 @@ import { DatePicker, TextArea, TextField, Validation } from '../src/components';
 import { Validators } from '../src/core/validators/validators';
 
 export const Validations = () => {
-  const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState(null);
   const logChange = (value, errorsMap) => {
     if (!value) {
       console.log('Component is valid:', value);

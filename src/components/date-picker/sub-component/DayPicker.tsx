@@ -386,7 +386,7 @@ class DayPicker extends Component<
           tabIndex={0}
           aria-label={todayButton}
           onClick={() =>
-            onDayClick(today, { disabled: matchDay(today, disabledDays) })
+            onDayClick(today, {})
           }
           onKeyDown={this.handleKeyDownFooter}
         >

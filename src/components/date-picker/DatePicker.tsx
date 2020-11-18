@@ -192,16 +192,18 @@ class DatePicker extends Component<
   }
 
   private handleClickOutside(event) {
-    const { refContainer } = this.state;
+    const { refContainer, showPicker } = this.state;
     if (refContainer && !refContainer.contains(event.target)) {
       const { date, onBlur } = this.props;
-      this.setState({ showPicker: false });
-      if (onBlur) {
-        onBlur({
-          target: {
-            value: date,
-          },
-        });
+      if (showPicker) {
+        this.setState({ showPicker: false });
+        if (onBlur) {
+          onBlur({
+            target: {
+              value: date,
+            },
+          });
+        }
       }
     }
   }
