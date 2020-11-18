@@ -7,7 +7,7 @@
   },
   "main": "index.css",
   "scripts": {
-    "postinstall": "yarn build",
+    "prepare": "yarn build",
     "prestart": "yarn icons",
     "start": "start-storybook -p 6006 -c .storybook watch-css -s ./src",
     "prebuild": "yarn icons && sh src/scripts/generate-cdn.sh",
