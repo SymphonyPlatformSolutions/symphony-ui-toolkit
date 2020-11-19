@@ -1,8 +1,9 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import * as React from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import classNames from 'classnames';
 import shortid from 'shortid';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
+import * as PropTypes from 'prop-types';
 import Icon from '../icon';
 import Tooltip from '../tooltip';
 
@@ -128,7 +129,7 @@ const TextComponent: React.FC<TextComponentPropsWithType> = ({
                 closeLabel={tooltipCloseLabel}
                 onHintClose={handleClickIcon}
                 visible={showTooltip}
-                placement={null}
+                placement={'top'}
               >
                 <Icon iconName="info-round" onClick={handleClickIcon} />
               </Tooltip>

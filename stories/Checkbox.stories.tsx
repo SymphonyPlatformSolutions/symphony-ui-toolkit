@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { Checkbox } from '../src/components';
 import LabelPlacements from '../src/components/selection/LabelPlacements';
 import SelectionStatus from '../src/components/selection/SelectionStatus';

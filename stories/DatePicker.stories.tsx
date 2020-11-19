@@ -263,6 +263,7 @@ export const WithLabelAndTooltip: React.SFC = () => {
       </p>
       <DatePicker
         tooltip="Departure date"
+        tooltipCloseLabel="Got it"
         label="Expense"
         date={date}
         onChange={(e) => {

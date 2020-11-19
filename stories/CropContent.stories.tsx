@@ -1,5 +1,5 @@
 import { withKnobs, number } from '@storybook/addon-knobs';
-import React from 'react';
+import * as React from 'react';
 import { CropContent } from '../src/components';
 
 export const CropContentContainer: React.SFC = () => {

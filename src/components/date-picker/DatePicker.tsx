@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import * as PropTypes from 'prop-types';
 import React, { Component, createRef } from 'react';
 import classNames from 'classnames';
 
@@ -7,7 +7,6 @@ import { createPopper } from '@popperjs/core';
 import { DayModifiers, Modifier } from './model/Modifiers';
 
 import DayPicker from './sub-component/DayPicker';
-// import Validation from '../validation/Validation';
 
 import TextField from '../input/TextField';
 import Icon from '../icon/Icon';
@@ -17,6 +16,7 @@ import styled from 'styled-components';
 import { PopperContainer } from '../common/popperUtils';
 
 import { matchDay } from './utils/matchDayUtils';
+import { Direction } from './model/Direction';
 
 import { cancelEvent, Keys } from './utils/keyUtils';
 
@@ -36,7 +36,7 @@ type DatePickerComponentProps = {
   date?: Date;
   disabledDays?: Modifier | Modifier[];
   disabled?: boolean;
-  dir?: 'ltr' | 'rtl';
+  dir?: Direction;
   errorFormatMessage: string;
   format?: string;
   initialMonth?: Date;
@@ -121,7 +121,7 @@ class DatePicker extends Component<
   constructor(props) {
     super(props);
 
-    const { date, format, initialMonth, locale, showOverlay } = props;
+    const { date, format, initialMonth, locale } = props;
 
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     const getLocale: Locale = require(`date-fns/locale/${
@@ -312,43 +312,43 @@ class DatePicker extends Component<
   private handleKeyDownIcon(e: React.KeyboardEvent): void {
     const { showPicker } = this.state;
     switch (e.key) {
-      case Keys.TAB:
-        if (!e.shiftKey && showPicker && this.refPicker) {
-          cancelEvent(e);
-          const elCell = this.refPicker.dayPicker.querySelector(
-            '.tk-daypicker-day[tabindex="0"]'
-          );
-          if (elCell) {
-            elCell.focus();
-          }
+    case Keys.TAB:
+      if (!e.shiftKey && showPicker && this.refPicker) {
+        cancelEvent(e);
+        const elCell = this.refPicker.dayPicker.querySelector(
+          '.tk-daypicker-day[tabindex="0"]'
+        );
+        if (elCell) {
+          elCell.focus();
         }
-        break;
-      case Keys.ENTER:
-        cancelEvent(e);
-        this.handleClickIcon();
-        break;
-      case Keys.ESC:
-        cancelEvent(e);
-        this.handleOnClose();
-        break;
-      default:
-        break;
+      }
+      break;
+    case Keys.ENTER:
+      cancelEvent(e);
+      this.handleClickIcon();
+      break;
+    case Keys.ESC:
+      cancelEvent(e);
+      this.handleOnClose();
+      break;
+    default:
+      break;
     }
   }
 
   private handleKeyDownInput(e: React.KeyboardEvent): void {
     const { showPicker } = this.state;
     switch (e.key) {
-      case Keys.ENTER:
-        cancelEvent(e);
-        this.setState({ showPicker: !showPicker });
-        break;
-      case Keys.ESC:
-        cancelEvent(e);
-        this.setState({ showPicker: false });
-        break;
-      default:
-        break;
+    case Keys.ENTER:
+      cancelEvent(e);
+      this.setState({ showPicker: !showPicker });
+      break;
+    case Keys.ESC:
+      cancelEvent(e);
+      this.setState({ showPicker: false });
+      break;
+    default:
+      break;
     }
   }
 

@@ -1,12 +1,23 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 
 import Icon from '../../icon/Icon';
 import { addMonths, addYears } from 'date-fns';
 
 import { Keys, cancelEvent } from '../utils/keyUtils';
+import { Direction } from '../model/Direction';
+import { HeaderLabel } from '../model/HeaderLabel';
 
-const Header = ({ date, dir, labels, months, onChange, parentRef }) => {
+type HeaderProps = {
+  date: Date;
+  dir: Direction;
+  labels: HeaderLabel;
+  months: Array<string>;
+  onChange?: (event) => any;
+  parentRef?: any;
+}
+
+const Header: FunctionComponent<HeaderProps> = ({ date, dir, labels, months, onChange, parentRef }) => {
   const changeYear = (amount: number) => {
     onChange(addYears(date, amount));
   };
@@ -91,16 +102,15 @@ const Header = ({ date, dir, labels, months, onChange, parentRef }) => {
 };
 
 Header.propTypes = {
-  date: PropTypes.instanceOf(Date),
-  dir: PropTypes.oneOf(['rtl', 'ltr']),
-  labels: PropTypes.shape({
+  date: PropTypes.instanceOf(Date).isRequired,
+  dir: PropTypes.oneOf<Direction>(['rtl', 'ltr']).isRequired,
+  labels: PropTypes.exact({
     nextMonth: PropTypes.string.isRequired,
     previousMonth: PropTypes.string.isRequired,
     previousYear: PropTypes.string.isRequired,
     nextYear: PropTypes.string.isRequired,
-  }),
-  localeUtils: PropTypes.instanceOf(Object),
-  months: PropTypes.arrayOf(PropTypes.string),
+  }).isRequired,
+  months: PropTypes.arrayOf(PropTypes.string).isRequired,
   onChange: PropTypes.func,
   parentRef: PropTypes.any,
 };

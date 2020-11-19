@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { ExpandableCard, Button, CropContent } from '../src/components';
 
 export const ExpandableCardContainer: React.SFC = () => {

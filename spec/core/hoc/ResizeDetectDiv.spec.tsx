@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 
 import { shallow } from 'enzyme';
-import React from 'react';
+import * as React from 'react';
 import { ResizeDetectDivInternal } from '../../../src/core/hoc/ResizeDetectDiv';
 
 describe('ResizeDetectDiv Component', () => {

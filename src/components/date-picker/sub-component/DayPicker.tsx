@@ -3,9 +3,13 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import { Modifier } from '../model/Modifiers';
+import { HeaderLabel } from '../model/HeaderLabel';
+import { Direction } from '../model/Direction';
+
 import { modifierPropTypes } from '../utils/propTypesUtils';
 
 import Header from './Header';
+
 import { Keys, cancelEvent } from '../utils/keyUtils';
 
 import {
@@ -27,7 +31,6 @@ import {
   differenceInCalendarMonths,
   endOfWeek,
   lastDayOfMonth,
-  isSameMonth,
   lightFormat,
   getDaysInMonth,
   setDate,
@@ -36,16 +39,11 @@ import {
 } from 'date-fns';
 
 type DayPickerComponentProps = {
-  dir?: 'ltr' | 'rtl';
+  dir?: Direction;
   disabledDays?: Modifier | Modifier[];
   format?: string;
   highlightedDays?: Modifier | Modifier[];
-  labels?: {
-    previousYear: string;
-    nextYear: string;
-    previousMonth: string;
-    nextMonth: string;
-  };
+  labels?: HeaderLabel;
   locale?: Locale;
   month?: Date;
   selectedDays?: Date;
@@ -79,9 +77,7 @@ class DayPicker extends Component<
 
   componentDidUpdate(prevProps) {
     // Changing the `month` props means changing the current displayed month
-    if (
-      prevProps.month !== this.props.month
-    ) {
+    if (prevProps.month !== this.props.month) {
       // eslint-disable-next-line react/no-did-update-set-state
       this.setState({ currentMonth: this.props.month || new Date() });
     }
@@ -377,7 +373,7 @@ class DayPicker extends Component<
   }
 
   renderFooter() {
-    const { disabledDays, todayButton, onDayClick } = this.props;
+    const { todayButton, onDayClick } = this.props;
     const { today } = this.state;
     return (
       <div className="tk-daypicker-footer">
@@ -385,9 +381,7 @@ class DayPicker extends Component<
           className="tk-daypicker-today"
           tabIndex={0}
           aria-label={todayButton}
-          onClick={() =>
-            onDayClick(today, {})
-          }
+          onClick={() => onDayClick(today, {})}
           onKeyDown={this.handleKeyDownFooter}
         >
           {todayButton}
@@ -426,7 +420,7 @@ class DayPicker extends Component<
     );
   }
   static propTypes = {
-    dir: PropTypes.oneOf(['ltr', 'rtl']),
+    dir: PropTypes.oneOf<Direction>(['rtl', 'ltr']),
     disabledDays: PropTypes.oneOfType(modifierPropTypes),
     format: PropTypes.string,
     highlightedDays: PropTypes.oneOfType(modifierPropTypes),
