@@ -22,13 +22,13 @@
     "test-once": "jest"
   },
   "peerDependencies": {
-    "@symphony/uitoolkit-styles": "^1.x",
+    "@symphony/uitoolkit-styles": "^1.1.1",
     "react": ">=16.8.0",
     "react-dom": ">=16.8.0"
   },
   "dependencies": {
     "@popperjs/core": "^2.4.4",
-    "@symphony/uitoolkit-styles": "1.1.1-SNAPSHOT.1",
+    "@symphony/uitoolkit-styles": "1.1.1",
     "@types/classnames": "^2.2.10",
     "classnames": "^2.2.6",
     "date-fns": "^2.16.1",
