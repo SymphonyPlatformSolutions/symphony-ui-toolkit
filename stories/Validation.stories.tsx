@@ -1,17 +1,38 @@
 import { withKnobs } from '@storybook/addon-knobs';
-import * as React from 'react';
+import React, { useState } from 'react';
+
 import { DatePicker, TextArea, TextField, Validation } from '../src/components';
 import { Validators } from '../src/core/validators/validators';
 
 export const Validations = () => {
+  const [date, setDate] = useState(null);
   const logChange = (value, errorsMap) => {
-    if(!value) {
+    if (!value) {
       console.log('Component is valid:', value);
     }
-    if(errorsMap) {
+    if (errorsMap) {
       console.log('Errors Map:', errorsMap);
     }
   };
+  const now = new Date();
+  const disabledDays = [
+    new Date(now.getFullYear(), now.getMonth(), now.getDate() + 7),
+    {
+      before: new Date(now.getFullYear(), now.getMonth() - 1, now.getDate()),
+    },
+    {
+      after: new Date(now.getFullYear(), now.getMonth() + 1, now.getDate()),
+    },
+    {
+      after: new Date(now.getFullYear(), now.getMonth(), now.getDate() + 15),
+      before: new Date(now.getFullYear(), now.getMonth(), now.getDate() + 20),
+    },
+    {
+      from: new Date(now.getFullYear(), now.getMonth(), now.getDate() + 22),
+      to: new Date(now.getFullYear(), now.getMonth(), now.getDate() + 24),
+    },
+  ];
+
   return (
     <div style={{ width: '50%' }}>
       <h1>Validation</h1>
@@ -57,12 +78,17 @@ export const Validations = () => {
       <Validation
         onValidationChanged={logChange}
         validator={Validators.Required}
-        errorMessage={'This field is mandatory'}
+        errorMessage={'This field is required'}
       >
         <DatePicker
           todayButton="today"
-          tooltip="Depart date"
+          tooltip="Departure date"
           label="Expense"
+          disabledDays={disabledDays}
+          date={date}
+          onChange={(e) => {
+            setDate(e.target.value);
+          }}
         ></DatePicker>
       </Validation>
       <h2>Multiple validators</h2>
@@ -99,13 +125,16 @@ export const Validations = () => {
         <TextField value={'A value to validate'} placeholder="Magic word" />
       </Validation>
       <h2>Controlled validation</h2>
-      <p>Give to the Validation component the <strong>list of error messages</strong> with <strong>errors</strong> prop:
+      <p>
+        Give to the Validation component the{' '}
+        <strong>list of error messages</strong> with <strong>errors</strong>{' '}
+        prop:
       </p>
       <Validation
         onValidationChanged={logChange}
         errors={['This user name already exists', 'This field is required']}
       >
-        <TextField  placeholder="Name" />
+        <TextField placeholder="Name" />
       </Validation>
       <h2>Can be attached to anything</h2>
       <p>The Validation component wraps the component to be validated.</p>

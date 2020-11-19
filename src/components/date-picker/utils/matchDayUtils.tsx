@@ -1,12 +1,6 @@
-import {
-  AfterModifier,
-  BeforeAfterModifier,
-  BeforeModifier,
-  Modifier,
-  RangeModifier
-} from 'react-day-picker';
+import { Modifier } from '../model/Modifiers';
 
-import { isSameDay, differenceInDays } from 'date-fns';
+import { isSameDay, differenceInDays, isWithinInterval } from 'date-fns';
 
 function isDayAfter(day1: Date, day2: Date): boolean {
   return differenceInDays(day1, day2) > 0;
@@ -23,33 +17,23 @@ function matchDate(day: Date, matcher: Modifier): boolean {
 
 function matchDayInRange(day: Date, matcher: Modifier): boolean {
   if (!('from' in matcher) || !('to' in matcher)) return false;
-  const matchDayT: RangeModifier = {
-    from: matcher.from,
-    to: matcher.to,
-  };
-  if (differenceInDays(matchDayT.to, matchDayT.from) <= 0) return false;
-  return isDayBefore(day, matcher.to) && isDayAfter(day, matcher.from);
+  if (differenceInDays(matcher.to, matcher.from) <= 0) return false;
+  return isWithinInterval(day, { start: matcher.from, end: matcher.to });
 }
 
 function matchDayBefore(day: Date, matcher: Modifier): boolean {
   if ('after' in matcher || !('before' in matcher)) return false;
-  const matchDayT: BeforeModifier = { before: matcher.before };
-  return isDayBefore(day, matchDayT.before);
+  return isDayBefore(day, matcher.before);
 }
 
 function matchDayAfter(day: Date, matcher: Modifier): boolean {
   if ('before' in matcher || !('after' in matcher)) return false;
-  const matchDayT: AfterModifier = { after: matcher.after };
-  return isDayAfter(day, matchDayT.after);
+  return isDayAfter(day, matcher.after);
 }
 
 function matchDayBetween(day: Date, matcher: Modifier): boolean {
   if (!('after' in matcher) || !('before' in matcher)) return false;
-  const matchDayT: BeforeAfterModifier = {
-    before: matcher.before,
-    after: matcher.after,
-  };
-  if (differenceInDays(matchDayT.before, matchDayT.after) <= 0) return false;
+  if (differenceInDays(matcher.before, matcher.after) <= 0) return false;
   return isDayAfter(day, matcher.after) && isDayBefore(day, matcher.before);
 }
 

@@ -1,7 +1,6 @@
-import { boolean, button, text, withKnobs } from '@storybook/addon-knobs';
-import * as React from 'react';
-import { useState } from 'react';
-import { TextField, Icon } from '../src/components';
+import { button, withKnobs } from '@storybook/addon-knobs';
+import React, { useState, useRef } from 'react';
+import { TextField, Icon, Validation } from '../src/components';
 
 import { Validators } from '../src/core/validators/validators';
 
@@ -56,11 +55,7 @@ export const TextFields: React.SFC = () => {
         <p>
           Simple Text Field with an <strong>icon</strong>
         </p>
-        <TextField
-          iconElement={
-            <Icon iconName={'calendar'}  />
-          }
-        ></TextField>
+        <TextField iconElement={<Icon iconName={'calendar'} />}></TextField>
       </div>
       <hr />
       <div>
@@ -108,7 +103,11 @@ export const TextFields: React.SFC = () => {
         <p>
           Simple Text Field with a <strong>value</strong>
         </p>
-        <TextField placeholder="Type something" value={value} onChange={(e) => setValue(e.target.value)}></TextField>
+        <TextField
+          placeholder="Type something"
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+        ></TextField>
       </div>
       <hr />
       <div>
@@ -122,31 +121,31 @@ export const TextFields: React.SFC = () => {
 };
 
 export const ChangeProgrammatically = () => {
-  this.child = React.createRef();
+  const child = useRef(null);
 
-  const labelClear = 'Reset';
-  const reset = () => this.child.current.reset();
-  button(labelClear, reset);
+  const [value, setValue] = useState('');
 
-  const labelRefresh = 'Refresh validation';
+  const reset = () => child.current.reset();
   const refresh = () =>
-    this.child.current
-      .refreshValidation()
-      .then((isValid) => console.log(isValid));
-  button(labelRefresh, refresh);
+    child.current.refreshValidation().then((isValid) => console.log(isValid));
+
+  button('Reset', reset);
+  button('Refresh validation', refresh);
 
   return (
     <div style={{ width: '50%' }}>
       <p>Manipulate programmatically: Use knobs</p>
-      <TextField
-        ref={this.child}
-        placeholder="Firstname"
-        value={text('Default value', '')}
-        dirty={boolean('Dirty', false)}
-        errors={{ required: 'This field is mandatory' }}
+      <Validation
+        ref={child}
         validator={Validators.Required}
-        aria-label="Field"
-      ></TextField>
+        errorMessage={{ required: 'This field is mandatory' }}
+      >
+        <TextField
+          placeholder="Firstname"
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+        ></TextField>
+      </Validation>
     </div>
   );
 };

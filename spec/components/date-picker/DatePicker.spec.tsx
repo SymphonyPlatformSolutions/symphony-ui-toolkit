@@ -2,15 +2,13 @@ import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 import { act } from 'react-dom/test-utils';
 
-import DayPicker from 'react-day-picker';
-
 import DatePicker from '../../../src/components/date-picker/DatePicker';
+import DayPicker from '../../../src/components/date-picker/sub-component/DayPicker';
 import TextField from '../../../src/components/input/TextField';
 import Icon from '../../../src/components/icon/Icon';
 
 import { Keys } from '../../../src/components/date-picker/utils/keyUtils';
 
-//TODO: Uncomment expect assertion
 describe('DatePicker Component', () => {
   afterEach(() => {
     jest.restoreAllMocks();
@@ -67,8 +65,7 @@ describe('DatePicker Component', () => {
     expect(wrapperPicker.prop('aria-labelledby')).toBe(props.label);
     expect(wrapperPicker.prop('dir')).toBe('ltr');
     expect(wrapperPicker.prop('disabledDays')).toBe(props.disabledDays);
-    expect(wrapperPicker.prop('locale')).toBe('en-US');
-    expect(wrapperPicker.prop('fixedWeeks')).toBe(true);
+    expect(wrapperPicker.prop('locale')).not.toBeNull();
     expect(wrapperPicker.prop('selectedDays')).toBe(props.date);
     expect(wrapperPicker.prop('todayButton')).toBe('Today');
   });
@@ -100,185 +97,119 @@ describe('DatePicker Component', () => {
       const wrapper = mount(<DatePicker {...props} />);
       await act(async () => {
         wrapper
-          .find('.DayPicker-Day:not(.DayPicker-Day--outside)')
+          .find('.tk-daypicker-day:not(.tk-daypicker-day--outside)')
           .at(0)
           .simulate('click');
       });
 
       expect(props.onChange).toHaveBeenCalledTimes(1);
+      wrapper.unmount();
     });
     it('not when clicking on disabled cell', async () => {
       const props = createTestProps({
-        showOverlay: true,
         disabledDays: { daysOfWeek: [0, 1, 2, 3, 4, 5, 6] },
       });
       const wrapper = mount(<DatePicker {...props} />);
       await act(async () => {
         wrapper
-          .find('.DayPicker-Day:not(.DayPicker-Day--outside)')
+          .find('.tk-daypicker-day:not(.tk-daypicker-day--outside)')
           .at(0)
           .simulate('click');
       });
       expect(props.onChange).toHaveBeenCalledTimes(0);
+      wrapper.unmount();
     });
   });
-  it('should trigger onBlur', () => {
-    const props = createTestProps({});
-    const wrapper = shallow(<DatePicker {...props} />);
-    wrapper.find(TextField).simulate('blur');
-    expect(props.onBlur).toHaveBeenCalledTimes(1);
-  });
-
-  describe('should change month', async () => {
-    it('on Header click', async () => {
-      const wrapper = mount(
-        <DatePicker showOverlay={true} date={new Date(2020, 0, 1)} />
-      );
-      expect(
-        wrapper
-          .find('.DayPicker-Day:not(.DayPicker-Day--outside)')
-          .at(0)
-          .prop('aria-label')
-      ).toEqual('Wed Jan 01 2020');
-      await act(async () => {
-        wrapper.find('.DayPicker-Caption--prevYear').simulate('click');
-      });
-      // expect(wrapper.find('.DayPicker-Day:not(.DayPicker-Day--outside)').at(0).prop('aria-label')).toEqual("Sun Dec 01 2019");
-    });
-    it('on PAGE_UP', async () => {
-      const wrapper = mount(
-        <DatePicker showOverlay={true} date={new Date(2020, 0, 1)} />
-      );
-      expect(
-        wrapper
-          .find('.DayPicker-Day:not(.DayPicker-Day--outside)')
-          .at(0)
-          .prop('aria-label')
-      ).toEqual('Wed Jan 01 2020');
+  describe('should change focus', () => {
+    it('on TAB against icon', async () => {
+      const wrapper = mount(<DatePicker />);
       await act(async () => {
         wrapper
-          .find('.DayPicker-Day:not(.DayPicker-Day--outside)')
-          .at(0)
-          .simulate('keyDown', { key: Keys.PAGE_UP });
+          .find(TextField)
+          .find(Icon)
+          .simulate('keyDown', { key: Keys.TAB });
       });
-      // expect(wrapper.find('.DayPicker-Day:not(.DayPicker-Day--outside)').at(0).prop('aria-label')).toEqual("Sun Dec 01 2019");
-    });
-    it('on PAGE_DOWN', async () => {
-      const wrapper = mount(
-        <DatePicker showOverlay={true} date={new Date(2020, 0, 1)} />
-      );
-      expect(
-        wrapper
-          .find('.DayPicker-Day:not(.DayPicker-Day--outside)')
-          .at(0)
-          .prop('aria-label')
-      ).toEqual('Wed Jan 01 2020');
-      await act(async () => {
-        wrapper
-          .find('.DayPicker-Day:not(.DayPicker-Day--outside)')
-          .at(0)
-          .simulate('keyDown', { key: Keys.PAGE_DOWN });
-      });
-      // expect(
-      //   wrapper
-      //     .find('.DayPicker-Day:not(.DayPicker-Day--outside)')
-      //     .at(0)
-      //     .prop('aria-label')
-      // ).toEqual('Sat Feb 01 2020');
-    });
-  });
-
-  describe('should change focus', async () => {
-    it('on TAB', async () => {
-      const wrapper = mount(
-        <DatePicker showOverlay={true} date={new Date(2020, 0, 8)} />
-      );
-
-      await act(async () => {
-        const cell = wrapper
-          .find('.DayPicker-Day:not(.DayPicker-Day--outside)')
-          .at(0);
-        cell.simulate('focus');
-        cell.simulate('keyDown', { key: Keys.TAB });
-      });
-    });
-    it('on HOME', async () => {
-      const wrapper = mount(
-        <DatePicker showOverlay={true} date={new Date(2020, 0, 8)} />
-      );
-
-      await act(async () => {
-        const cell = wrapper
-          .find('.DayPicker-Day:not(.DayPicker-Day--outside)')
-          .at(0);
-        cell.simulate('focus');
-        cell.simulate('keyDown', { key: Keys.HOME });
-      });
-      // const cell5 =
-      wrapper.find('.DayPicker-Day:not(.DayPicker-Day--outside)').at(5);
-
-      // expect(cell5).toEqual(document.activeElement);
-    });
-    it('on END', async () => {
-      const wrapper = mount(
-        <DatePicker showOverlay={true} date={new Date(2020, 0, 8)} />
-      );
-
-      await act(async () => {
-        const cell = wrapper
-          .find('.DayPicker-Day:not(.DayPicker-Day--outside)')
-          .at(0);
-        cell.simulate('focus');
-        cell.simulate('keyDown', { key: Keys.END });
-      });
-      // const cell11 =
-      wrapper.find('.DayPicker-Day:not(.DayPicker-Day--outside)').at(11);
-      // expect(cell11).toEqual(document.activeElement);
+      wrapper.update();
+      wrapper.unmount();
     });
   });
 
   describe('should open overlay', () => {
-    it('on ENTER on TextField', () => {
-      const wrapper = shallow(<DatePicker />);
-      expect(wrapper.find('.DayPicker').length).toBe(0);
-      wrapper.find(TextField).simulate('keyDown', {
-        key: Keys.ENTER,
-        preventDefault: jest.fn(),
-        stopPropagation: jest.fn(),
-      });
-      // expect(wrapper.find('.DayPicker').length).toBe(1);
-    });
-    it('on focus TextField', () => {
-      const wrapper = shallow(<DatePicker />);
-      expect(wrapper.find('.DayPicker').length).toBe(0);
-      wrapper.find(TextField).simulate('focus');
-      // expect(wrapper.find('.DayPicker').length).toBe(1);
-    });
-    it('on ENTER on Icon', () => {
+    it('on ENTER on TextField', async () => {
       const wrapper = mount(<DatePicker />);
-      expect(wrapper.find('.DayPicker').length).toBe(0);
-      wrapper.find(Icon).simulate('keyDown', { key: Keys.ENTER });
-      // expect(wrapper.find('.DayPicker').length).toBe(1);
+      expect(wrapper.state('showPicker')).toBe(false);
+      await act(async () => {
+        wrapper.find('.tk-input').simulate('keyDown', {
+          key: Keys.ENTER,
+          preventDefault: jest.fn(),
+          stopPropagation: jest.fn(),
+        });
+      });
+      wrapper.update();
+      expect(wrapper.state('showPicker')).toBe(true);
+      wrapper.unmount();
+    });
+    it('on focus TextField', async () => {
+      const wrapper = mount(<DatePicker />);
+      expect(wrapper.state('showPicker')).toBe(false);
+      await act(async () => {
+        wrapper.find('.tk-input').simulate('focus');
+      });
+
+      wrapper.update();
+      expect(wrapper.state('showPicker')).toBe(true);
+      wrapper.unmount();
+    });
+    it('on ENTER on Icon', async () => {
+      const wrapper = mount(<DatePicker />);
+      expect(wrapper.state('showPicker')).toBe(false);
+      await act(async () => {
+        wrapper
+          .find(TextField)
+          .find('.tk-input__icon .tk-icon-calendar')
+          .simulate('keyDown', { key: Keys.ENTER });
+      });
+      wrapper.update();
+      expect(wrapper.state('showPicker')).toBe(true);
+      wrapper.unmount();
     });
     it('on icon click', async () => {
       const wrapper = mount(<DatePicker />);
-      expect(wrapper.find('.DayPicker').length).toBe(0);
+      expect(wrapper.state('showPicker')).toBe(false);
       await act(async () => {
-        wrapper.find(Icon).simulate('click');
+        wrapper
+          .find(TextField)
+          .find('.tk-input__icon .tk-icon-calendar')
+          .simulate('click');
       });
-      // expect(wrapper.find('.DayPicker').length).toBe(1);
+      wrapper.update();
+      expect(wrapper.state('showPicker')).toBe(true);
+      wrapper.unmount();
     });
   });
-  it('should close overlay on ESC', async () => {
-    const wrapper = mount(<DatePicker showOverlay={true} />);
-    expect(wrapper.find('.DayPicker').length).toBe(1);
-    await act(async () => {
-      wrapper.find(DayPicker).simulate('keyDown', { key: Keys.ESC });
+  describe('should close overlay on ESC', () => {
+    it('against TextField', async () => {
+      const wrapper = mount(<DatePicker showOverlay={true} />);
+      expect(wrapper.state('showPicker')).toBe(true);
+      await act(async () => {
+        wrapper.find('.tk-input').simulate('keyDown', { key: Keys.ESC });
+      });
+      wrapper.update();
+      expect(wrapper.state('showPicker')).toBe(false);
+      wrapper.unmount();
     });
-    // expect(wrapper.find('.DayPicker').length).toBe(0);
-    await act(async () => {
-      wrapper.find(TextField).simulate('keyDown', { key: Keys.ESC });
+    it('against Icon', async () => {
+      const wrapper = mount(<DatePicker showOverlay={true} />);
+      expect(wrapper.state('showPicker')).toBe(true);
+      await act(async () => {
+        wrapper
+          .find(TextField)
+          .find('.tk-input__icon .tk-icon-calendar')
+          .simulate('keyDown', { key: Keys.ESC });
+      });
+      wrapper.update();
+      expect(wrapper.state('showPicker')).toBe(false);
+      wrapper.unmount();
     });
-    // expect(wrapper.find('.DayPicker').length).toBe(0);
   });
 });

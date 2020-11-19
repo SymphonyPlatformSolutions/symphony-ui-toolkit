@@ -129,7 +129,7 @@ const TextComponent: React.FC<TextComponentPropsWithType> = ({
                 closeLabel={tooltipCloseLabel}
                 onHintClose={handleClickIcon}
                 visible={showTooltip}
-                placement={null}
+                placement={'top'}
               >
                 <Icon iconName="info-round" onClick={handleClickIcon} />
               </Tooltip>

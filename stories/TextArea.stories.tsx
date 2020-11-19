@@ -1,6 +1,6 @@
-import { withKnobs, boolean, button, text } from '@storybook/addon-knobs';
-import * as React from 'react';
-import { TextArea } from '../src/components';
+import { withKnobs, button } from '@storybook/addon-knobs';
+import React, { useRef, useState } from 'react';
+import { TextArea, Validation } from '../src/components';
 import { Validators } from '../src/core/validators/validators';
 
 const Template = (args) => {
@@ -76,31 +76,33 @@ export const TextAreas: React.SFC = () => {
 };
 
 export const ChangeProgrammatically = () => {
-  this.child = React.createRef();
+  const child = useRef(null);
 
-  const labelClear = 'Reset';
-  const reset = () => this.child.current.reset();
-  button(labelClear, reset);
+  const [value, setValue] = useState('');
 
-  const labelRefresh = 'Refresh validation';
+  const reset = () => child.current.reset();
+  
   const refresh = () =>
-    this.child.current
+    child.current
       .refreshValidation()
       .then((isValid) => console.log(isValid));
-  button(labelRefresh, refresh);
+  button('Reset', reset);
+  button('Refresh validation', refresh);
 
   return (
     <div style={{ width: '50%' }}>
       <p>Manipulate programmatically: Use knobs</p>
-      <TextArea
-        ref={this.child}
-        placeholder="Firstname"
-        value={text('Default value', '')}
-        dirty={boolean('Dirty', false)}
-        errors={{ required: 'This field is mandatory' }}
-        validator={Validators.Required}
-        aria-label="Field"
-      ></TextArea>
+      <Validation
+        ref={child}
+        validator={Validators.MinLength(3)}
+        errorMessage={'You need to enter 3 characters minimum'}
+      >
+        <TextArea
+          placeholder="Firstname"
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+        ></TextArea>
+      </Validation>
     </div>
   );
 };
