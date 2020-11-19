@@ -1,6 +1,9 @@
-@mixin styleDayPickerCaptionAction($colorFont, $left, $right) {
+@mixin styleDayPickerHeaderAction($colorFont) {
   cursor: pointer;
   color: $colorFont;
+  i {
+    font-size: toEm(16, $fontSize);
+  }
 
   /* remove button style **/
   background: none;
@@ -9,4 +12,3 @@
 	font: inherit;
 	cursor: pointer;
 }
-

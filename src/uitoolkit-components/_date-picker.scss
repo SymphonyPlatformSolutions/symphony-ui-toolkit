@@ -2,105 +2,117 @@
   position: relative;
 }
 
-.DayPicker {
+.tk-daypicker {
   box-shadow: 0 toEm(2, $fontSize) toEm(4, $fontSize) rgba(15, 27, 36, 0.12),
     0 toEm(12, $fontSize) toEm(28, $fontSize) rgba(15, 27, 36, 0.24);
   border-radius: toEm(8, $fontSize);
-
   color: $--tk-datepicker-default-color;
   background-color: $--tk-input-default-background-color;
+  font-size: toEm(14, $fontSize);
+  padding: toEm(20, $fontSize) toEm(16, $fontSize) toEm(16, $fontSize)
+    toEm(16, $fontSize);
 
-  .DayPicker-NavBar {
-    display: none;
-  }
-
-  .DayPicker-Weekday,
-  .DayPicker-Caption,
-  .DayPicker-TodayButton {
-    text-transform: uppercase;
-    font-size: toEm(12, $fontSize);;
-  }
-
-  .DayPicker-Weekday {
-    color: $--tk-input-default-active-color;
-    font-weight: 600;
-  }
-
-  .DayPicker-Footer {
-    display: flex;
-    justify-content: center;
-    .DayPicker-TodayButton {
-      cursor: pointer;
-      color: $scolor-electricity;
-      font-weight: 600;
-    }
-  }
-
-  .DayPicker-Caption {
+  .tk-daypicker-header {
     margin-bottom: toEm(12, $fontSize);
-    &--heading {
-      display: flex;
-      justify-content: space-between;
-    }
+    font-weight: 600;
+
+    display: flex;
+    justify-content: space-between;
 
     &--prevYear {
       margin-left: toEm(9, $fontSize);
-      @include styleDayPickerCaptionAction($scolor-electricity, 1.5em, auto);
+      @include styleDayPickerHeaderAction($scolor-electricity);
     }
     &--nextYear {
       margin-right: toEm(9, $fontSize);
-      @include styleDayPickerCaptionAction($scolor-electricity, auto, 1.5em);
+      @include styleDayPickerHeaderAction($scolor-electricity);
     }
     &--prevMonth {
-      @include styleDayPickerCaptionAction($scolor-electricity, 3em, auto);
+      @include styleDayPickerHeaderAction($scolor-electricity);
     }
     &--nextMonth {
-      @include styleDayPickerCaptionAction($scolor-electricity, auto, 3em);
+      @include styleDayPickerHeaderAction($scolor-electricity);
     }
     &--text {
       display: flex;
       justify-content: center;
+      align-self: center;
+      text-transform: uppercase;
+      font-size: toEm(12, $fontSize);
+      line-height: toEm(16, $fontSize);
     }
   }
 
-  .DayPicker-Day {
-    &:hover {
-      @include addBorder(toEm(2, $fontSize), $scolor-electricity);
-      box-sizing: border-box;
-      border-radius: toEm(2, $fontSize);
-    }
-    &--today {
-      color: $scolor-electricity;
-    }
-    &--selected {
-      background-color: $--tk-datepicker-selected-background-color;
-      color: $--tk-datepicker-selected-color;
-      border-radius: toEm(2, $fontSize);
-    }
-    &--disabled {
-      color: $--tk-input-default-inactive-color;
-    }
-    &--outside {
-      visibility: hidden;
-    }
-  }
-}
+  .tk-daypicker-weekday {
+    color: $--tk-input-default-active-color;
+    font-weight: 600;
+    display: grid;
+    grid-template-columns:
+      toEm(32, $fontSize) toEm(32, $fontSize) toEm(32, $fontSize)
+      toEm(32, $fontSize) toEm(32, $fontSize) toEm(32, $fontSize) toEm(32, $fontSize);
+    grid-template-rows: toEm(20, $fontSize);
 
-/** Unwanted css */
-.DayPicker {
-  &:not(.DayPicker--interactionDisabled)
-    .DayPicker-Day:not(.DayPicker-Day--disabled):not(.DayPicker-Day--selected):not(.DayPicker-Day--outside):hover {
-    background-color: transparent;
+    &--text {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-transform: uppercase;
+      font-size: toEm(12, $fontSize);
+      line-height: toEm(16, $fontSize);
+    }
   }
-  .DayPicker-Day {
-    &--selected {
-      &:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside):hover {
-        background-color: $scolor-electricity;
+
+  .tk-daypicker-body {
+    display: grid;
+    grid-template-columns:
+      toEm(32, $fontSize) toEm(32, $fontSize) toEm(32, $fontSize)
+      toEm(32, $fontSize) toEm(32, $fontSize) toEm(32, $fontSize) toEm(32, $fontSize);
+    grid-template-rows:
+      toEm(32, $fontSize) toEm(32, $fontSize) toEm(32, $fontSize)
+      toEm(32, $fontSize) toEm(32, $fontSize) toEm(32, $fontSize);
+    font-size: toEm(14, $fontSize);
+
+    .tk-daypicker-day {
+      border: none;
+      cursor: pointer;
+      border-radius: toEm(2, $fontSize);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      &:hover {
+        @include addBorder(toEm(2, $fontSize), $scolor-electricity);
+        box-sizing: border-box;
+        border-radius: toEm(2, $fontSize);
       }
-      &:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
-        background-color: $scolor-electricity;
+      &--today {
+        color: $scolor-electricity;
+      }
+      &--selected {
+        background-color: $--tk-datepicker-selected-background-color;
         color: $--tk-datepicker-selected-color;
+        border-radius: toEm(2, $fontSize);
       }
+      &--disabled {
+        color: $--tk-input-default-inactive-color;
+      }
+      &--outside {
+        visibility: hidden;
+      }
+      &--highlighted {
+      }
+    }
+  }
+
+  .tk-daypicker-footer {
+    display: flex;
+    justify-content: center;
+    .tk-daypicker-today {
+      cursor: pointer;
+      color: $scolor-electricity;
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: toEm(12, $fontSize);
+      line-height: toEm(16, $fontSize);
     }
   }
 }
