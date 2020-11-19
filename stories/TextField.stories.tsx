@@ -144,7 +144,6 @@ export const ChangeProgrammatically = () => {
           placeholder="Firstname"
           value={value}
           onChange={(e) => setValue(e.target.value)}
-          // value={text('Default value', '')}
         ></TextField>
       </Validation>
     </div>

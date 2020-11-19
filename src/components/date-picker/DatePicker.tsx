@@ -32,6 +32,7 @@ const DatePickerContainer = styled.div`
 `;
 
 type DatePickerComponentProps = {
+  id?: string;
   className?: string;
   date?: Date;
   disabledDays?: Modifier | Modifier[];
@@ -367,6 +368,7 @@ class DatePicker extends Component<
 
   render() {
     const {
+      id,
       date,
       disabledDays,
       disabled,
@@ -389,11 +391,13 @@ class DatePicker extends Component<
       refIcon,
     } = this.state;
     const textfieldProps = {
+      id,
       disabled,
       label,
       name,
       placeholder: placeholder || format.toUpperCase(),
       tooltip,
+      tooltipCloseLabel
     };
 
     return (
@@ -410,7 +414,6 @@ class DatePicker extends Component<
               className={classNames({
                 active: showPicker,
               })}
-              tooltipCloseLabel={tooltipCloseLabel}
               iconElement={
                 <Icon
                   className={classNames({

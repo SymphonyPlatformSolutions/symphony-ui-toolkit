@@ -266,6 +266,7 @@ export const WithLabelAndTooltip: React.SFC = () => {
         tooltipCloseLabel="Got it"
         label="Expense"
         date={date}
+        id={'date-picker-unique'}
         onChange={(e) => {
           setDate(e.target.value);
         }}
