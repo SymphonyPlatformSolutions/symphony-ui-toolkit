@@ -11,6 +11,7 @@ import Validation from './validation';
 import VirtualizedList from './virtualized-list';
 import { Modal, ModalTitle, ModalHeader, ModalBody, ModalFooter } from './modal';
 import Typography from './typography';
+import Loader from './loader';
 
 export {
   Button,
@@ -32,4 +33,5 @@ export {
   ModalBody,
   ModalFooter,
   Typography,
+  Loader,
 };
