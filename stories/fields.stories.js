@@ -97,10 +97,10 @@ export const TextField = () => {
       </div>
     `;
 };
- const Select = () => { return `
+export const Select = () => { return `
 <h3>Default</h3>
-<div class="tk-input__container">
-  <select type="text" class="tk-input" value="Text" style="width:200px">
+<div class="tk-select__container">
+  <select type="text" class="tk-select" value="Text" style="width:200px">
     <option>Item 1</option>
     <option>Item 2</option>
     <option>Item 3</option>
@@ -108,50 +108,50 @@ export const TextField = () => {
   <i></i>
 </div>
 
-<div class="tk-input-group tk-mt-2">
-  <div class="tk-input-group__header">
+<div class="tk-select-group tk-mt-2">
+  <div class="tk-select-group__header">
     <label for="input">Field label</label>
   </div>
-  <div class="tk-input__container">
-    <select type="text" class="tk-input" value="Text" style="width:200px">
+  <div class="tk-select__container">
+    <select type="text" class="tk-select" value="Text" style="width:200px">
       <option>Item 1</option>
       <option>Item 2</option>
       <option>Item 3</option>
     </select>
     <i></i>
   </div>
-  <div class="tk-input__helper">This is a helper.</div>
+  <div class="tk-select__helper">This is a helper.</div>
 </div>
 <div>
 
   <h3>Disabled</h3>
-  <div class="tk-input__container">
-    <select type="text" class="tk-input" value="Text" style="width:200px" disabled>
+  <div class="tk-select__container">
+    <select type="text" class="tk-select" value="Text" style="width:200px" disabled>
       <option>Item 1</option>
     </select>
     <i></i>
   </div>
 
-  <div class="tk-input-group tk-mt-2">
-    <div class="tk-input-group__header">
+  <div class="tk-select-group tk-mt-2">
+    <div class="tk-select-group__header">
       <label for="input">Field label</label>
     </div>
-    <div class="tk-input__container">
-      <select type="text" class="tk-input tk-input--expanded" value="Text" style="width:200px" disabled>
+    <div class="tk-select__container">
+      <select type="text" class="tk-select tk-select--expanded" value="Text" style="width:200px" disabled>
         <option>Item 1</option>
         <option>Item 2</option>
         <option>Item 3</option>
       </select>
       <i></i>
     </div>
-    <div class="tk-input__helper">This is a helper.</div>
+    <div class="tk-select__helper">This is a helper.</div>
   </div>
 </div>
 
 <h3>Error</h3>
 <span class="tk-validation tk-validation--error">
-  <div class="tk-input__container">
-    <select type="text" class="tk-input" value="Text" style="width:200px">
+  <div class="tk-select__container">
+    <select type="text" class="tk-select" value="Text" style="width:200px">
       <option>Item 1</option>
       <option>Item 2</option>
       <option>Item 3</option>
@@ -161,12 +161,12 @@ export const TextField = () => {
 </span>
 
 <span class="tk-validation tk-validation--error">
-  <div class="tk-input-group tk-mt-2">
-    <div class="tk-input-group__header">
+  <div class="tk-select-group tk-mt-2">
+    <div class="tk-select-group__header">
       <label for="input">Field label</label>
     </div>
-    <div class="tk-input__container">
-      <select type="text" class="tk-input" value="Text" style="width:200px">
+    <div class="tk-select__container">
+      <select type="text" class="tk-select" value="Text" style="width:200px">
         <option>Item 1</option>
         <option>Item 2</option>
         <option>Item 3</option>
@@ -174,7 +174,7 @@ export const TextField = () => {
       <i></i>
     </div>
   </div>
-  <div class="tk-input__helper">This is a helper.</div>
+  <div class="tk-select__helper">This is a helper.</div>
 </span>
 
 `};
@@ -191,22 +191,22 @@ export const TextArea = () => {
     <textarea class="tk-input" cols="50" rows="5" disabled></textarea>`;
 };
 
-const OptionsList = () => {
+export const DropdownList = () => {
 return `
 <div class="tk-m-4">
-  <h2>Options list</h2>
+  <h2>Dropdown list</h2>
   <p> To use a custom dropdown list you can use the following component:</p>
-  <div class="tk-list-box tk-mt-2" style="width:256px">
-    <div class="tk-list-option">Option 1</div>
-    <div class="tk-list-option">Option 2</div>
-    <div class="tk-list-option">Option 3
-      <i class="tk-list-option--selected"></i>
+  <div class="tk-select--custom-dropdown tk-mt-2" style="width:256px">
+    <div class="tk-select--custom-dropdown__option">Option 1</div>
+    <div class="tk-select--custom-dropdown__option">Option 2</div>
+    <div class="tk-select--custom-dropdown__option">Option 3
+      <i class="tk-select--custom-dropdown__option--selected"></i>
     </div>
-    <div class="tk-list-option">Option 4</div>
-    <div class="tk-list-option">Option 5</div>
-    <div class="tk-list-option">Option 7</div>
-    <div class="tk-list-option">Option 8</div>
-    <div class="tk-list-option">Example of long list option with two lines</div>
+    <div class="tk-select--custom-dropdown__option">Option 4</div>
+    <div class="tk-select--custom-dropdown__option">Option 5</div>
+    <div class="tk-select--custom-dropdown__option">Option 7</div>
+    <div class="tk-select--custom-dropdown__option">Option 8</div>
+    <div class="tk-select--custom-dropdown__option">Example of long list option with two lines</div>
   </div>
 </div>
 `}
