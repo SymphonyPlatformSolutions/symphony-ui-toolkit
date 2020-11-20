@@ -176,6 +176,21 @@ class DatePicker extends Component<
     } else if (!this.state.showPicker && prevState.showPicker) {
       this.unmountDayPickerInstance();
     }
+    // update dynamically if locale change
+    if (this.props.locale !== prevProps.locale) {
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      const getLocale = require(`date-fns/locale/${
+        this.props.locale || 'en-US'
+      }/index.js`);
+      this.setState({
+        locale: getLocale,
+        inputValue: this.computeDate(this.props.date)
+          ? formatDate(this.props.date, this.props.format, {
+            locale: getLocale,
+          })
+          : null,
+      });
+    }
   }
 
   /**
@@ -397,7 +412,7 @@ class DatePicker extends Component<
       name,
       placeholder: placeholder || format.toUpperCase(),
       tooltip,
-      tooltipCloseLabel
+      tooltipCloseLabel,
     };
 
     return (
