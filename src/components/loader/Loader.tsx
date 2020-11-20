@@ -7,7 +7,7 @@ const prefix = 'tk-loader';
 type LoaderProps = {
   className?: string;
   type?: 'spinner';
-  variant?: 'primary' | 'attention' | 'warning' | 'ok' | 'text';
+  variant?: 'primary' | 'attention' | 'warning' | 'ok';
 };
 
 const Loader: React.SFC<LoaderProps> = ({
@@ -33,12 +33,11 @@ const Loader: React.SFC<LoaderProps> = ({
 
 Loader.defaultProps = {
   type: 'spinner',
-  variant: 'text', 
 };
 
 Loader.propTypes = {
   className: PropTypes.string,
   type: PropTypes.oneOf(['spinner']),
-  variant: PropTypes.oneOf(['primary', 'attention', 'warning', 'ok', 'text']),
+  variant: PropTypes.oneOf(['primary', 'attention', 'warning', 'ok']),
 }
 export default Loader;
