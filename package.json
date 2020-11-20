@@ -38,7 +38,7 @@
     "react-virtualized": "^9.22.2",
     "shortid": "^2.2.15",
     "styled-components": "^5.1.1",
-    "@symphony/uitoolkit-styles": "https://github.com/SymphonyOSF/symphony-bdk-ui-toolkit-styles.git#master"
+    "@symphony/uitoolkit-styles": "SymphonyOSF/symphony-bdk-ui-toolkit-styles.git#master"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
