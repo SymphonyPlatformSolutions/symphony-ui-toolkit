@@ -1,35 +1,20 @@
-$avatar-sizes: ("xsmall": 16px, "small": 24px, "medium": 32px, "large": 40px, "xlarge": 80px, "xxlarge": 160px);
+$avatar-sizes: ("xsmall": toEm(16), "small": toEm(24), "medium":  toEm(32), "large":  toEm(40), "xlarge":  toEm(80), "xxlarge":  toEm(160));
 
 .tk-avatar {
   width: map-get($avatar-sizes, "medium");
   height: map-get($avatar-sizes, "medium");
-  display: flex;
+  display: inline-flex;
   position: relative;
   border-radius: 50%; // Default rounded avatar
   align-items: center;
   justify-content: center;
-
-  img {
-    border-radius: inherit;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  &--square {
-    border-radius: 4px;
-  }
-
-  &--rounded {
-    border-radius: 50%;
-  }
+  user-select: none;
 
   @each $size,
   $size-value in $avatar-sizes {
     &--#{$size} {
       width: $size-value;
       height: $size-value;
-      font-size: $size-value/2;
 
       &[class*="--border"] {
         border-style: solid;
@@ -44,20 +29,63 @@ $avatar-sizes: ("xsmall": 16px, "small": 24px, "medium": 32px, "large": 40px, "x
           border-width: thick;
         }
       }
-
-      // .tk-avatar__badge {
-      //   position: absolute;
-      //   font-size: 14px;
-
-      //   &--bottom {
-      //     @if($size-value > map-get($avatar-sizes, "xlarge")) {
-      //       left: 140px;
-      //       top: 140px;
-      //     }
-
-      //     &--top {}
-      //   }
-      // }
     }
   }
+
+  .tk-badge {
+    overflow: hidden;
+    position: absolute;
+    z-index: $z-index-badge;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+
+    &--bottom {
+      right: 13.64%;
+      bottom: 13.64%;
+      transform: translate(50%, 50%);
+    }
+
+    &--top {
+      right: 14.64%;
+      top: 14.64%;
+      transform: translate(50%, -50%);
+    }
+  }
+
+  &--square {
+    border-radius: 4px;
+    &[class*="--border"]img.tk-avatar {
+      border-radius: 0;
+    }
+
+    .tk-badge--bottom {
+      right: 0;
+      bottom: 10%;
+    }
+
+    .tk-badge--top {
+      top: 0;
+      right: 2%;
+    }
+  }
+
+  &--rounded {
+    border-radius: 50%;
+  }
+
+  & > img {
+    border-radius: inherit;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    z-index: $z-index-avatar;
+  }
+
+  &__clip-path {
+    position: absolute;
+    width: 0;
+    height: 0;
+  }
+
 }
