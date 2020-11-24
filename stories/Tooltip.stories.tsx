@@ -44,9 +44,10 @@ const addExplanation = (explanation) => (Story) => (
 export const Standard = Template.bind({});
 
 Standard.args = {
+  children: <input type="text" name="fname" />,
   description: 'Some text',
   placement: 'top',
-  children: <input type="text" name="fname" />,
+  visible: true,
 };
 
 export const WithACloseAction = Template.bind({});

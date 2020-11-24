@@ -7,6 +7,9 @@ import styled from 'styled-components';
 
 import { PopperContainer, popperProps } from '../common/popperUtils';
 
+import useOnclickOutside from 'react-cool-onclickoutside';
+import { showTooltipOnClick, showTooltipOnHover } from './helpers'
+
 const SpanStyled = styled.span`
   display: inline-block;
 `;
@@ -51,6 +54,7 @@ type TooltipProps = {
   id: string;
   onHintClose: () => void;
   placement: 'top' | 'bottom' | 'left' | 'right';
+  type?: 'hint' | 'tooltip'
   visible: boolean;
 };
 
@@ -69,6 +73,7 @@ const Tooltip: React.SFC<TooltipProps> = ({
   id,
   onHintClose,
   placement,
+  type,
   visible,
   ...otherProps
 }) => {
@@ -76,6 +81,13 @@ const Tooltip: React.SFC<TooltipProps> = ({
   const [referenceElement, setReferenceElement] = useState(null);
   const [showHover, setShowHover] = useState(false);
   const [showClick, setShowClick] = useState(false);
+
+  const ref = useOnclickOutside(() => {
+    setShowClick(false);
+  }, {
+    disabled: !showClick,
+  });
+  
   const { styles, attributes } = usePopper(referenceElement, popperElement, {
     placement: placement || 'top',
     modifiers: [
@@ -95,88 +107,49 @@ const Tooltip: React.SFC<TooltipProps> = ({
   });
 
   return (
-    <SpanStyled ref={setReferenceElement}>
-      { displayTrigger === 'hover' ? showTooltipOnHover(otherProps.children, setShowHover) : showTooltipOnClick(otherProps.children, showClick, setShowClick) }
-      <CSSTransition
-        {...popperProps}
-        in={visible || showHover || showClick}
-        classNames="TooltipContainer"
-      >
-        <TooltipContainer
-          id={id}
-          role="tooltip"
-          ref={setPopperElement}
-          className="tk-tooltip"
-          style={styles.popper}
-          {...attributes.popper}
+    <div ref={ref}>
+      <SpanStyled ref={setReferenceElement}>
+        { displayTrigger === 'hover' ? showTooltipOnHover(otherProps.children, setShowHover) : showTooltipOnClick(otherProps.children, showClick, setShowClick) }
+        <CSSTransition
+          {...popperProps}
+          in={visible || showHover || showClick}
+          classNames="TooltipContainer"
         >
-          <span className="tk-tooltip__description">{description}</span>
-          <div
-            className="tooltip__arrowContainer"
-            style={styles.arrow}
-            data-popper-arrow
+          <TooltipContainer
+            id={id}
+            role="tooltip"
+            ref={setPopperElement}
+            className={ type === 'tooltip' ? 'tk-tooltip' : 'tk-tooltip' }
+            style={styles.popper}
+            {...attributes.popper}
           >
-            <div className="tooltip__arrow tk-tooltip__arrow" />
-          </div>
-          <div className="tk-tooltip__footer">
-            {closeLabel ? (
-              <TooltipClose className="tk-tooltip__close" onClick={onHintClose}>
-                {closeLabel}
-              </TooltipClose>
-            ) : null}
-          </div>
-        </TooltipContainer>
-      </CSSTransition>
-    </SpanStyled>
+            <span className="tk-tooltip__description">{description}</span>
+            <div
+              className="tooltip__arrowContainer"
+              style={styles.arrow}
+              data-popper-arrow
+            >
+              <div className="tooltip__arrow tk-tooltip__arrow" />
+            </div>
+            { type !== 'tooltip' &&
+                <div className="tk-tooltip__footer">
+                  {closeLabel ? (
+                    <TooltipClose className="tk-tooltip__close" onClick={onHintClose}>
+                      {closeLabel}
+                    </TooltipClose>
+                  ) : null}
+                </div>
+            }
+          </TooltipContainer>
+        </CSSTransition>
+      </SpanStyled>
+    </div>
   );
 };
 
-const showTooltipOnHover = (children: React.ReactNode, setShowHover: React.Dispatch<React.SetStateAction<boolean>>) => {
-  return React.Children.map(
-    children, child => {
-      if (React.isValidElement(child)) {
-        return React.cloneElement(child, {
-          onMouseEnter: () => {
-            setShowHover(true)
-            if (child.props.onMouseEnter) {
-              child.props.onMouseEnter(event);
-            }
-          },
-          onMouseLeave: () => {
-            setShowHover(false)
-            if (child.props.onMouseLeave) {
-              child.props.onMouseLeave(event);
-            }
-          }
-        })
-      } else {
-        return <span onMouseEnter={ () => setShowHover(true)} onMouseLeave={ () => setShowHover(false)} > { child } </span>
-      }
-    }
-  )
-}
-
-const showTooltipOnClick = (children: React.ReactNode, showClick: boolean, setShowClick: React.Dispatch<React.SetStateAction<boolean>>) => {
-  return React.Children.map(
-    children, child => {
-      if (React.isValidElement(child)) {
-        return React.cloneElement(child, {
-          onClick: () => {
-            setShowClick(!showClick);
-            if (child.props.onMouseClick) {
-              child.props.onClick(event);
-            }
-          }
-        })
-      } else {
-        return <span onClick={ () => setShowClick(!showClick)}> { child } </span>
-      }
-    }
-  )
-}
-
 Tooltip.defaultProps = {
   displayTrigger: 'click',
+  type: 'hint',
 };
 
 Tooltip.propTypes = {
@@ -186,6 +159,7 @@ Tooltip.propTypes = {
   id: PropTypes.string,
   onHintClose: PropTypes.func,
   placement: PropTypes.oneOf(['top', 'bottom', 'left', 'right']),
+  type: PropTypes.oneOf(['hint', 'tooltip']),
   visible: PropTypes.bool,
 };
 

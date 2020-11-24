@@ -10355,6 +10355,11 @@ react-color@^2.17.0:
     reactcss "^1.2.0"
     tinycolor2 "^1.4.1"
 
+react-cool-onclickoutside@^1.5.8:
+  version "1.5.8"
+  resolved "https://repo.symphony.com/artifactory/api/npm/npm-virtual-dev/react-cool-onclickoutside/-/react-cool-onclickoutside-1.5.8.tgz#8b1c68c1bed69ff6875518f480ac17391770a9ec"
+  integrity sha1-ixxowb7Wn/aHVRj0gKwXORdwqew=
+
 react-dev-utils@^10.0.0:
   version "10.2.1"
   resolved "https://repo.symphony.com/artifactory/api/npm/npm-virtual-dev/react-dev-utils/-/react-dev-utils-10.2.1.tgz#f6de325ae25fa4d546d09df4bb1befdc6dd19c19"
