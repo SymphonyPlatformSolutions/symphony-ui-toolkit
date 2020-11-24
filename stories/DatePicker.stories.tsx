@@ -208,7 +208,7 @@ export const WithDisabledDate: React.SFC = () => {
   const [date2, setDate2] = useState(null);
 
   const disabledDays = [
-    new Date(now.getFullYear(), now.getMonth(), now.getDate() + 7),
+    new Date(now.getFullYear(), now.getMonth(), now.getDate() + 2),
     {
       before: new Date(now.getFullYear(), now.getMonth() - 1, now.getDate()),
     },
@@ -253,6 +253,56 @@ export const WithDisabledDate: React.SFC = () => {
   );
 };
 
+export const WithHighlightedDate: React.SFC = () => {
+  const [date1, setDate1] = useState(null);
+  const [date2, setDate2] = useState(null);
+
+  const highlightedDays = [
+    new Date(now.getFullYear(), now.getMonth(), now.getDate() + 2),
+    {
+      before: new Date(now.getFullYear(), now.getMonth() - 1, now.getDate()),
+    },
+    {
+      after: new Date(now.getFullYear(), now.getMonth() + 1, now.getDate()),
+    },
+    {
+      after: new Date(now.getFullYear(), now.getMonth(), now.getDate() + 15),
+      before: new Date(now.getFullYear(), now.getMonth(), now.getDate() + 20),
+    },
+    {
+      from: new Date(now.getFullYear(), now.getMonth(), now.getDate() + 22),
+      to: new Date(now.getFullYear(), now.getMonth(), now.getDate() + 24),
+    },
+  ];
+
+  const highlightedWednesday = [{ daysOfWeek: [3] }]; // Sunday 0, Monday 1, ... Saturday 6
+  return (
+    <div>
+      <p>
+        Date Picker with <strong>highlighted days</strong> (date, before, after,
+        and intervals)
+      </p>
+      <DatePicker
+        highlightedDays={highlightedDays}
+        date={date1}
+        onChange={(e) => {
+          setDate1(e.target.value);
+        }}
+      />
+      <p>
+        Date Picker with <strong>every Wednesday</strong> highlighted (daysOfWeek)
+      </p>
+      <DatePicker
+        highlightedDays={highlightedWednesday}
+        date={date2}
+        onChange={(e) => {
+          setDate2(e.target.value);
+        }}
+      />
+    </div>
+  );
+};
+
 export const WithLabelAndTooltip: React.SFC = () => {
   const [date, setDate] = useState(null);
 
@@ -275,7 +325,7 @@ export const WithLabelAndTooltip: React.SFC = () => {
   );
 };
 
-export const DisabledStatus: React.SFC = () => {
+export const DisabledState: React.SFC = () => {
   const [date, setDate] = useState(null);
 
   return (

@@ -24,8 +24,9 @@ import { modifierPropTypes } from './utils/propTypesUtils';
 
 import { format as formatDate, isValid, parse } from 'date-fns';
 
+// z-index: 4; equivalent to $z-index-tooltip
 const DatePickerContainer = styled.div`
-  z-index: 2;
+  z-index: 4; 
   &.DatePickerContainer {
     ${PopperContainer}
   }
@@ -40,6 +41,7 @@ type DatePickerComponentProps = {
   dir?: Direction;
   errorFormatMessage: string;
   format?: string;
+  highlightedDays?: Modifier | Modifier[];
   initialMonth?: Date;
   label?: string;
   labels?: {
@@ -97,6 +99,7 @@ class DatePicker extends Component<
     dir: PropTypes.oneOf(['ltr', 'rtl']),
     disabled: PropTypes.bool,
     disabledDays: PropTypes.oneOfType(modifierPropTypes),
+    highlightedDays: PropTypes.oneOfType(modifierPropTypes),
     initialMonth: PropTypes.instanceOf(Date),
     label: PropTypes.string,
     labels: PropTypes.exact({
@@ -390,6 +393,7 @@ class DatePicker extends Component<
       dir,
       errorFormatMessage,
       format,
+      highlightedDays,
       label,
       labels,
       name,
@@ -468,6 +472,7 @@ class DatePicker extends Component<
             selectedDays={this.computeDate(date)}
             disabledDays={disabledDays}
             dir={dir}
+            highlightedDays={highlightedDays}
             locale={locale}
             month={navigationDate}
             todayButton={todayButton}
