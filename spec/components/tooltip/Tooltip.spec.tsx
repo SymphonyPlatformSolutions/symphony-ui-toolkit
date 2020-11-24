@@ -13,15 +13,14 @@ describe('Tooltip Component', () => {
       const description = 'Tooltip';
       const closeLabel = 'CLOSE';
       const visible = true;
-      const referenceElement = {};
       const wrapper = shallow(
         <Tooltip
-          id={id}
-          description={description}
           closeLabel={closeLabel}
-          visible={visible}
+          description={description}
+          id={id}
           onHintClose={zone.onClick}
-          referenceElement={referenceElement}
+          placement="top"
+          visible={visible}
         ></Tooltip>
       );
       expect(wrapper.find('.tk-tooltip').length).toBe(1);
