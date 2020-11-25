@@ -119,7 +119,7 @@ const Tooltip: React.SFC<TooltipProps> = ({
             id={id}
             role="tooltip"
             ref={setPopperElement}
-            className={ type === 'tooltip' ? 'tk-tooltip' : 'tk-tooltip' }
+            className={ type === 'tooltip' ? 'tk-tooltip' : 'tk-hint' }
             style={styles.popper}
             {...attributes.popper}
           >
