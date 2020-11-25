@@ -30,7 +30,7 @@ export const BasicIndicator: React.FC<BasicIndicatorProps> = ({position, variant
   return (
     <span
       className={classes}
-      style={{width:"30%", height:"30%", borderRadius:"50%"}}
+      style={{width:'30%', height:'30%', borderRadius:'50%'}}
     >
     </span>
   )

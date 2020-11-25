@@ -5,8 +5,8 @@ import { mount } from 'enzyme';
 describe('Avatar', () => {
   it('should render the content with correct class and without crash', () => {
     const wrapper = mount(
-      <Avatar size='small' variant='square'>
-        <span style={{fontSize:"10px"}}>AB</span>
+      <Avatar size="small" variant="square">
+        <span style={{fontSize:'10px'}}>AB</span>
       </Avatar>
     )
     expect(wrapper.find('Avatar').length).toBe(1);
@@ -15,9 +15,9 @@ describe('Avatar', () => {
 
   it('should render indicator with the correct position class', () => {
     const wrapper = mount(
-      <Avatar variant='round' size='xlarge'>
+      <Avatar variant="round" size="xlarge">
         <img src={'some url'} alt="avatar"/>
-        <BasicIndicator position='top' variant='attention'/>
+        <BasicIndicator position="top" variant="attention"/>
       </Avatar>
     )
     expect(wrapper.find('BasicIndicator').length).toBe(1);

@@ -10,19 +10,19 @@ const SquaredAvatar: React.FC = () => {
   return (
     <div>
       <h2>Squared avatars</h2>
-      <div className='flex-row'>
-        <div className='flex-col'>
-          <Avatar variant='square' size='large'>
+      <div className="flex-row">
+        <div className="flex-col">
+          <Avatar variant="square" size="large">
             <img src={img1} alt="avatar"/>
           </Avatar>
         </div>
-        <div className='flex-col'>
-          <Avatar variant='square' size='large'>
+        <div className="flex-col">
+          <Avatar variant="square" size="large">
             <img src={img2} alt="avatar"/>
           </Avatar>
         </div>
-        <div className='flex-col'>
-          <Avatar variant='square' size='large'>
+        <div className="flex-col">
+          <Avatar variant="square" size="large">
             <img src={img3} alt="avatar"/>
           </Avatar>
         </div>
@@ -35,19 +35,19 @@ const RoundedAvatar: React.FC = () => {
   return (
     <div>
       <h2>Rounded avatars</h2>
-      <div className='flex-row'>
-        <div className='flex-col'>
-          <Avatar variant='round' size='large'>
+      <div className="flex-row">
+        <div className="flex-col">
+          <Avatar variant="round" size="large">
             <img src={img1} alt="avatar"/>
           </Avatar>
         </div>
-        <div className='flex-col'>
-          <Avatar variant='round' size='large'>
+        <div className="flex-col">
+          <Avatar variant="round" size="large">
             <img src={img2} alt="avatar"/>
           </Avatar>
         </div>
-        <div className='flex-col'>
-          <Avatar variant='round' size='large'>
+        <div className="flex-col">
+          <Avatar variant="round" size="large">
             <img src={img3} alt="avatar"/>
           </Avatar>
         </div>
@@ -60,38 +60,38 @@ const BoarderedAvatar: React.FC = () => {
   return (
     <div>
       <h2>Bordered avatars</h2>
-      <div className='flex-row'>
-        <div className='flex-col'>
-          <Avatar variant='square' size='xlarge' bordered>
+      <div className="flex-row">
+        <div className="flex-col">
+          <Avatar variant="square" size="xlarge" bordered>
             <img src={img1} alt="avatar"/>
           </Avatar>
         </div>
-        <div className='flex-col'>
-          <Avatar variant='square' size='xlarge' bordered>
-            <span style={{fontSize:"40px"}}>AB</span>
+        <div className="flex-col">
+          <Avatar variant="square" size="xlarge" bordered>
+            <span style={{fontSize:'40px'}}>AB</span>
           </Avatar>
         </div>
-        <div className='flex-col'>
-          <Avatar variant='square' size='xlarge' bordered>
+        <div className="flex-col">
+          <Avatar variant="square" size="xlarge" bordered>
             <div style={{fontSize: '36px'}}>
-              <Icon iconName='call'/>
+              <Icon iconName="call"/>
             </div>
           </Avatar>
         </div>
-        <div className='flex-col'>
-          <Avatar variant='round' size='xlarge' bordered>
+        <div className="flex-col">
+          <Avatar variant="round" size="xlarge" bordered>
             <img src={img3} alt="avatar"/>
           </Avatar>
         </div>
-        <div className='flex-col'>
-          <Avatar variant='round' size='xlarge' bordered>
-            <span style={{fontSize:"40px"}}>AB</span>
+        <div className="flex-col">
+          <Avatar variant="round" size="xlarge" bordered>
+            <span style={{fontSize:'40px'}}>AB</span>
           </Avatar>
         </div>
-        <div className='flex-col'>
-          <Avatar variant='round' size='xlarge' bordered>
+        <div className="flex-col">
+          <Avatar variant="round" size="xlarge" bordered>
             <div style={{fontSize: '36px'}}>
-              <Icon iconName='call'/>
+              <Icon iconName="call"/>
             </div>
           </Avatar>
         </div>
@@ -104,34 +104,34 @@ const Sizes: React.FC = () => {
   return (
     <div>
       <h2>Sizes</h2>
-      <div className='flex-row'>
-        <div className='flex-col'>
-          <Avatar variant='round' size='xxlarge' bordered>
+      <div className="flex-row">
+        <div className="flex-col">
+          <Avatar variant="round" size="xxlarge" bordered>
             <img src={img3} alt="avatar"/>
           </Avatar>
         </div>
-        <div className='flex-col'>
-          <Avatar variant='round' size='xlarge' bordered>
+        <div className="flex-col">
+          <Avatar variant="round" size="xlarge" bordered>
             <img src={img3} alt="avatar"/>
           </Avatar>
         </div>
-        <div className='flex-col'>
-          <Avatar variant='round' size='large' bordered>
+        <div className="flex-col">
+          <Avatar variant="round" size="large" bordered>
             <img src={img3} alt="avatar"/>
           </Avatar>
         </div>
-        <div className='flex-col'>
-          <Avatar variant='round' size='medium' bordered>
+        <div className="flex-col">
+          <Avatar variant="round" size="medium" bordered>
             <img src={img3} alt="avatar"/>
           </Avatar>
         </div>
-        <div className='flex-col'>
-          <Avatar variant='round' size='small' bordered>
+        <div className="flex-col">
+          <Avatar variant="round" size="small" bordered>
             <img src={img3} alt="avatar"/>
           </Avatar>
         </div>
-        <div className='flex-col'>
-          <Avatar variant='round' size='xsmall' bordered>
+        <div className="flex-col">
+          <Avatar variant="round" size="xsmall" bordered>
             <img src={img3} alt="avatar"/>
           </Avatar>
         </div>
@@ -144,41 +144,41 @@ const AvatarWithTopBadge: React.FC = () => {
   return (
     <div>
       <h2>Badge on the top</h2>
-      <div className='flex-row'>
-        <div className='flex-col'>
-          <Avatar variant='round' size='xlarge' bordered>
+      <div className="flex-row">
+        <div className="flex-col">
+          <Avatar variant="round" size="xlarge" bordered>
             <img src={img1} alt="avatar"/>
-            <BasicIndicator position='top' variant='attention'/>
+            <BasicIndicator position="top" variant="attention"/>
           </Avatar>
         </div>
-        <div className='flex-col'>
-          <Avatar variant='round' size='xlarge' bordered>
+        <div className="flex-col">
+          <Avatar variant="round" size="xlarge" bordered>
             <img src={img2} alt="avatar"/>
-            <BasicIndicator position='top' variant='ok'/>
+            <BasicIndicator position="top" variant="ok"/>
           </Avatar>
         </div>
-        <div className='flex-col'>
-          <Avatar variant='round' size='large' bordered>
+        <div className="flex-col">
+          <Avatar variant="round" size="large" bordered>
             <img src={img3} alt="avatar"/>
-            <BasicIndicator position='top' variant='warning'/>
+            <BasicIndicator position="top" variant="warning"/>
           </Avatar>
         </div>
-        <div className='flex-col'>
-          <Avatar variant='round' size='medium' bordered>
+        <div className="flex-col">
+          <Avatar variant="round" size="medium" bordered>
             <img src={img1} alt="avatar"/>
-            <BasicIndicator position='top' variant='attention'/>
+            <BasicIndicator position="top" variant="attention"/>
           </Avatar>
         </div>
-        <div className='flex-col'>
-          <Avatar variant='round' size='small' bordered>
+        <div className="flex-col">
+          <Avatar variant="round" size="small" bordered>
             <img src={img2} alt="avatar"/>
-            <BasicIndicator position='top' variant='ok'/>
+            <BasicIndicator position="top" variant="ok"/>
           </Avatar>
         </div>
-        <div className='flex-col'>
-          <Avatar variant='round' size='xsmall' bordered>
+        <div className="flex-col">
+          <Avatar variant="round" size="xsmall" bordered>
             <img src={img3} alt="avatar"/>
-            <BasicIndicator position='top' variant='warning'/>
+            <BasicIndicator position="top" variant="warning"/>
           </Avatar>
         </div>
       </div>
@@ -190,41 +190,41 @@ const AvatarWithBottomBadge: React.FC = () => {
   return (
     <div>
       <h2>Badge on the bottom</h2>
-      <div className='flex-row'>
-        <div className='flex-col'>
-          <Avatar variant='round' size='xxlarge' bordered>
+      <div className="flex-row">
+        <div className="flex-col">
+          <Avatar variant="round" size="xxlarge" bordered>
             <img src={img1} alt="avatar"/>
-            <BasicIndicator position='bottom' variant='attention'/>
+            <BasicIndicator position="bottom" variant="attention"/>
           </Avatar>
         </div>
-        <div className='flex-col'>
-          <Avatar variant='round' size='xlarge' bordered>
+        <div className="flex-col">
+          <Avatar variant="round" size="xlarge" bordered>
             <img src={img2} alt="avatar"/>
-            <BasicIndicator position='bottom' variant='ok'/>
+            <BasicIndicator position="bottom" variant="ok"/>
           </Avatar>
         </div>
-        <div className='flex-col'>
-          <Avatar variant='round' size='large' bordered>
+        <div className="flex-col">
+          <Avatar variant="round" size="large" bordered>
             <img src={img3} alt="avatar"/>
-            <BasicIndicator position='bottom' variant='warning'/>
+            <BasicIndicator position="bottom" variant="warning"/>
           </Avatar>
         </div>
-        <div className='flex-col'>
-          <Avatar variant='round' size='medium' bordered>
+        <div className="flex-col">
+          <Avatar variant="round" size="medium" bordered>
             <img src={img1} alt="avatar"/>
-            <BasicIndicator position='bottom' variant='attention'/>
+            <BasicIndicator position="bottom" variant="attention"/>
           </Avatar>
         </div>
-        <div className='flex-col'>
-          <Avatar variant='round' size='small' bordered>
+        <div className="flex-col">
+          <Avatar variant="round" size="small" bordered>
             <img src={img2} alt="avatar"/>
-            <BasicIndicator position='bottom' variant='ok'/>
+            <BasicIndicator position="bottom" variant="ok"/>
           </Avatar>
         </div>
-        <div className='flex-col'>
-          <Avatar variant='round' size='xsmall' bordered>
+        <div className="flex-col">
+          <Avatar variant="round" size="xsmall" bordered>
             <img src={img3} alt="avatar"/>
-            <BasicIndicator position='bottom' variant='warning'/>
+            <BasicIndicator position="bottom" variant="warning"/>
           </Avatar>
         </div>
       </div>
@@ -236,11 +236,11 @@ const AvatarWithAdvancedBadge = () => {
   return (
     <div>
       <h2>Advanced use cases</h2>
-      <p>To have a specific shapes for the Avatar component you can create your own clip-plath and include as a url. Use a svg with the class 'tk-avatar__clip-path' for your own clip-path and reference the svg ID on the avatar. See the examples below. </p>
+      <p>To have a specific shapes for the Avatar component you can create your own clip-plath and include as a url. Use a svg with the class &lsquo;tk-avatar__clip-path&rsquo; for your own clip-path and reference the svg ID on the avatar. See the examples below.</p>
       <h3>Icon badge</h3>
-      <div className='flex-row'>
-        <div className='flex-col'>
-          <Avatar size='xlarge' variant='round'>
+      <div className="flex-row">
+        <div className="flex-col">
+          <Avatar size="xlarge" variant="round">
             <svg className="tk-avatar__clip-path" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
               <clipPath id="avatar_badge" clipPathUnits="objectBoundingBox">
                 <path id="avatar-presence-clip-path" d="M 0.6635 0.9727 C 0.6594 0.9478 0.6563 0.9156 0.6563 0.875 C 0.6563 0.8159
@@ -251,33 +251,33 @@ const AvatarWithAdvancedBadge = () => {
                 </path>
               </clipPath>
             </svg>
-            <img alt="avatar" src={img1} style={{clipPath:"url(#avatar_badge)"}}/>
-            <AvatarBadge position='bottom' className='tk-text-color--warning avatarBadge'>
-              <Icon iconName='busy'/>
+            <img alt="avatar" src={img1} style={{clipPath:'url(#avatar_badge)'}}/>
+            <AvatarBadge position="bottom" className="tk-text-color--warning avatarBadge">
+              <Icon iconName="busy"/>
             </AvatarBadge>
           </Avatar>
         </div>
-        <div className='flex-col'>
-          <Avatar size='xlarge' variant='round'>
-            <img alt="avatar" src={img2} style={{clipPath:"url(#avatar_badge)"}}/>
-            <AvatarBadge position='bottom' className='tk-text-color--offline avatarBadge'>
-              <Icon iconName='offline'/>
+        <div className="flex-col">
+          <Avatar size="xlarge" variant="round">
+            <img alt="avatar" src={img2} style={{clipPath:'url(#avatar_badge)'}}/>
+            <AvatarBadge position="bottom" className="tk-text-color--offline avatarBadge">
+              <Icon iconName="offline"/>
             </AvatarBadge>
           </Avatar>
         </div>
-        <div className='flex-col'>
-          <Avatar size='xlarge' variant='round'>
-            <img alt="avatar" src={img3} style={{clipPath:"url(#avatar_badge)"}}/>
-            <AvatarBadge position='bottom' className='tk-text-color--ok avatarBadge'>
-              <Icon iconName='online'/>
+        <div className="flex-col">
+          <Avatar size="xlarge" variant="round">
+            <img alt="avatar" src={img3} style={{clipPath:'url(#avatar_badge)'}}/>
+            <AvatarBadge position="bottom" className="tk-text-color--ok avatarBadge">
+              <Icon iconName="online"/>
             </AvatarBadge>
           </Avatar>
         </div>
-        <div className='flex-col'>
-          <Avatar size='xlarge' variant='round'>
-            <img alt="avatar" src={img1} style={{clipPath:"url(#avatar_badge)"}}/>
-            <AvatarBadge position='bottom' className='tk-text-color--attention avatarBadge'>
-              <Icon iconName='idle'/>
+        <div className="flex-col">
+          <Avatar size="xlarge" variant="round">
+            <img alt="avatar" src={img1} style={{clipPath:'url(#avatar_badge)'}}/>
+            <AvatarBadge position="bottom" className="tk-text-color--attention avatarBadge">
+              <Icon iconName="idle"/>
             </AvatarBadge>
           </Avatar>
         </div>
