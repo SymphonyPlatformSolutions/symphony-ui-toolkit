@@ -2,6 +2,7 @@ export enum Keys {
   TAB = 'Tab',
   ENTER = 'Enter',
   ESC = 'Escape',
+  SPACE = ' ',
   PAGE_UP = 'PageUp',
   PAGE_DOWN = 'PageDown',
   HOME = 'Home',

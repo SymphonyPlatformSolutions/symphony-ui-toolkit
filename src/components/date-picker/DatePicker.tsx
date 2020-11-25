@@ -148,7 +148,6 @@ class DatePicker extends Component<
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleDayClick = this.handleDayClick.bind(this);
     this.handleKeyDownIcon = this.handleKeyDownIcon.bind(this);
-    this.handleKeyDownIcon = this.handleKeyDownIcon.bind(this);
     this.handleKeyDownInput = this.handleKeyDownInput.bind(this);
     this.handleOnClose = this.handleOnClose.bind(this);
 
@@ -342,6 +341,7 @@ class DatePicker extends Component<
         }
       }
       break;
+    case Keys.SPACE:
     case Keys.ENTER:
       cancelEvent(e);
       this.handleClickIcon();
@@ -358,12 +358,16 @@ class DatePicker extends Component<
   private handleKeyDownInput(e: React.KeyboardEvent): void {
     const { showPicker } = this.state;
     switch (e.key) {
+    case Keys.SPACE:
     case Keys.ENTER:
       cancelEvent(e);
       this.setState({ showPicker: !showPicker });
       break;
     case Keys.ESC:
       cancelEvent(e);
+      this.setState({ showPicker: false });
+      break;
+    case Keys.TAB:
       this.setState({ showPicker: false });
       break;
     default:
