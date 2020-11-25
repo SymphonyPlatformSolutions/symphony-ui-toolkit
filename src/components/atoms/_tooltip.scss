@@ -1,38 +1,20 @@
 $fontSize: 14;
-$backgroundColor: $scolor-graphite-plus-48;
 
 .tk-tooltip {
-  z-index: $z-index-tooltip;
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
-  border-radius: 8px;
-  background-color: $backgroundColor;
-  font-size: #{$fontSize}px;
-  padding: toEm(16, $fontSize);
-  text-align: left;
+  background-color: $scolor-midnight;
+  border: 1px solid $scolor-dialog-backdrop;
+  border-radius: 11px;
   color: $scolor-graphite-minus-96;
-  line-height: toEm(20, $fontSize);
-  white-space: pre-line;
-  min-width: toEm(200, $fontSize);
-  max-width: toEm(500, $fontSize);
-
-  &__arrow {
-    $arrowSize:toEm(24,$fontSize);
-    width: $arrowSize;
-    height: $arrowSize;
-    background-color: $backgroundColor;
-  }
-
-  &__footer {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: toEm(8, $fontSize);
-  }
-
-  &__close {
-    color: $scolor-white;
-    text-transform: uppercase;
-    padding: toEm(8, $fontSize) toEm(16, $fontSize);
-  }
+  display: flex;
+  flex-direction: column;
+  font-size: #{$fontSize}px;
+  justify-content: space-between;
+  line-height: toEm(16, $fontSize);
+  padding-bottom: toEm(2, $fontSize);
+  padding-left: toEm(8, $fontSize);
+  padding-right: toEm(8, $fontSize);
+  padding-top: toEm(2, $fontSize);
+  text-align: center;
+  width: fit-content;
+  z-index: $z-index-tooltip;
 }
