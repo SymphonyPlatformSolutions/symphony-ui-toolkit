@@ -23,6 +23,7 @@ module.exports = {
     'jsx-quotes': ['error', 'prefer-double'],
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
-    indent: ['error', 2]
+    indent: ['error', 2],
+    '@typescript-eslint/no-var-requires': 0,
   }
 };
