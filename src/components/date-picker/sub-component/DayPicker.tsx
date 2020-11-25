@@ -165,6 +165,7 @@ class DayPicker extends Component<
       }
       break;
     case Keys.SPACE:
+    case Keys.SPACEBAR:
     case Keys.ENTER:
       // eslint-disable-next-line no-case-declarations
       const { onDayClick } = this.props;
@@ -232,6 +233,7 @@ class DayPicker extends Component<
       }
       break;
     case Keys.SPACE:
+    case Keys.SPACEBAR:
     case Keys.ENTER:
       cancelEvent(e);
       // eslint-disable-next-line no-case-declarations

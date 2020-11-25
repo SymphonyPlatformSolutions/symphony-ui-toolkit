@@ -42,7 +42,7 @@ describe('DayPicker Component', () => {
   });
 
   describe('should trigger onChange', () => {
-    test.each([[Keys.ENTER], [Keys.SPACE]])('on cell with key %p', (key) => {
+    test.each([[Keys.ENTER], [Keys.SPACE], [Keys.SPACEBAR]])('on cell with key %p', (key) => {
       const props = createTestProps({});
       const wrapper = shallow(<DayPicker {...props} />);
       expect(props.onDayClick).toHaveBeenCalledTimes(0);
@@ -63,7 +63,7 @@ describe('DayPicker Component', () => {
       expect(props.onDayClick).toHaveBeenCalledTimes(2);
     });
 
-    test.each([[Keys.ENTER], [Keys.SPACE]])('on footer with key %p', (key) => {
+    test.each([[Keys.ENTER], [Keys.SPACE], [Keys.SPACEBAR]])('on footer with key %p', (key) => {
       const props = createTestProps({});
       const wrapper = shallow(<DayPicker {...props} />);
       expect(props.onDayClick).toHaveBeenCalledTimes(0);

@@ -3,6 +3,7 @@ export enum Keys {
   ENTER = 'Enter',
   ESC = 'Escape',
   SPACE = ' ',
+  SPACEBAR = 'Spacebar', // Older browsers may return "Spacebar" instead of " " for the Space Bar key. Firefox did so until version 37, as did Internet Explorer 9, 10, and 11.
   PAGE_UP = 'PageUp',
   PAGE_DOWN = 'PageDown',
   HOME = 'Home',

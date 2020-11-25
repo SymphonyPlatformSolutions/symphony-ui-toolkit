@@ -342,6 +342,7 @@ class DatePicker extends Component<
       }
       break;
     case Keys.SPACE:
+    case Keys.SPACEBAR:
     case Keys.ENTER:
       cancelEvent(e);
       this.handleClickIcon();
@@ -359,6 +360,7 @@ class DatePicker extends Component<
     const { showPicker } = this.state;
     switch (e.key) {
     case Keys.SPACE:
+    case Keys.SPACEBAR:
     case Keys.ENTER:
       cancelEvent(e);
       this.setState({ showPicker: !showPicker });
