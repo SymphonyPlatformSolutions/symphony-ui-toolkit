@@ -100,7 +100,10 @@ const Tooltip: React.SFC<TooltipProps> = ({
       {
         name: 'offset',
         options: {
-          offset: [0, 15],
+          offset: [
+            0,
+            type === 'hint' ? 15 : 9
+          ],
         },
       },
     ],
@@ -123,22 +126,24 @@ const Tooltip: React.SFC<TooltipProps> = ({
             style={styles.popper}
             {...attributes.popper}
           >
-            <span className="tk-tooltip__description">{description}</span>
-            <div
-              className="tooltip__arrowContainer"
-              style={styles.arrow}
-              data-popper-arrow
-            >
-              <div className="tooltip__arrow tk-tooltip__arrow" />
-            </div>
-            { type !== 'tooltip' &&
-                <div className="tk-tooltip__footer">
+            <span className="tk-hint__description">{description}</span>
+            { type === 'hint' &&
+              <>
+                <div
+                  className="tooltip__arrowContainer"
+                  style={styles.arrow}
+                  data-popper-arrow
+                >
+                  <div className="tooltip__arrow tk-hint__arrow" />
+                </div>
+                <div className="tk-hint__footer">
                   {closeLabel ? (
-                    <TooltipClose className="tk-tooltip__close" onClick={onHintClose}>
+                    <TooltipClose className="tk-hint__close" onClick={onHintClose}>
                       {closeLabel}
                     </TooltipClose>
                   ) : null}
                 </div>
+              </>
             }
           </TooltipContainer>
         </CSSTransition>
