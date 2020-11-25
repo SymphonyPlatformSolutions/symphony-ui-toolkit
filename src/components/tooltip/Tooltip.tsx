@@ -7,6 +7,9 @@ import styled from 'styled-components';
 
 import { PopperContainer, popperProps } from '../common/popperUtils';
 
+import useOnclickOutside from 'react-cool-onclickoutside';
+import { showTooltipOnClick, showTooltipOnHover } from './helpers'
+
 const SpanStyled = styled.span`
   display: inline-block;
 `;
@@ -44,6 +47,17 @@ const TooltipClose = styled.span`
   cursor: pointer;
 `;
 
+type TooltipProps = {
+  closeLabel: string;
+  description: string;
+  displayTrigger?: 'click' | 'hover';
+  id: string;
+  onHintClose: () => void;
+  placement: 'top' | 'bottom' | 'left' | 'right';
+  type?: 'hint' | 'tooltip'
+  visible: boolean;
+};
+
 /**
  * Tooltip component
  * @param id CSS ID
@@ -52,17 +66,28 @@ const TooltipClose = styled.span`
  * @param onHintClose Function to call on close action
  * @constructor
  */
-const Tooltip = ({
-  id,
-  description,
+const Tooltip: React.SFC<TooltipProps> = ({
   closeLabel,
-  visible,
+  description,
+  displayTrigger,
+  id,
   onHintClose,
   placement,
+  type,
+  visible,
   ...otherProps
 }) => {
   const [popperElement, setPopperElement] = useState(null);
   const [referenceElement, setReferenceElement] = useState(null);
+  const [showHover, setShowHover] = useState(false);
+  const [showClick, setShowClick] = useState(false);
+
+  const ref = useOnclickOutside(() => {
+    setShowClick(false);
+  }, {
+    disabled: !showClick,
+  });
+  
   const { styles, attributes } = usePopper(referenceElement, popperElement, {
     placement: placement || 'top',
     modifiers: [
@@ -75,56 +100,72 @@ const Tooltip = ({
       {
         name: 'offset',
         options: {
-          offset: [0, 15],
+          offset: [
+            0,
+            type === 'hint' ? 15 : 9
+          ],
         },
       },
     ],
   });
 
   return (
-    <SpanStyled ref={setReferenceElement}>
-      {otherProps.children}
-      <CSSTransition
-        {...popperProps}
-        in={visible}
-        classNames="TooltipContainer"
-      >
-        <TooltipContainer
-          id={id}
-          role="tooltip"
-          ref={setPopperElement}
-          className="tk-tooltip"
-          style={styles.popper}
-          {...attributes.popper}
+    <div ref={ref}>
+      <SpanStyled ref={setReferenceElement}>
+        { displayTrigger === 'hover' ? showTooltipOnHover(otherProps.children, setShowHover) : showTooltipOnClick(otherProps.children, showClick, setShowClick) }
+        <CSSTransition
+          {...popperProps}
+          in={visible || showHover || showClick}
+          classNames="TooltipContainer"
         >
-          <span className="tk-tooltip__description">{description}</span>
-          <div
-            className="tooltip__arrowContainer"
-            style={styles.arrow}
-            data-popper-arrow
+          <TooltipContainer
+            id={id}
+            role="tooltip"
+            ref={setPopperElement}
+            className={ type === 'tooltip' ? 'tk-tooltip' : 'tk-hint' }
+            style={styles.popper}
+            {...attributes.popper}
           >
-            <div className="tooltip__arrow tk-tooltip__arrow" />
-          </div>
-          <div className="tk-tooltip__footer">
-            {closeLabel ? (
-              <TooltipClose className="tk-tooltip__close" onClick={onHintClose}>
-                {closeLabel}
-              </TooltipClose>
-            ) : null}
-          </div>
-        </TooltipContainer>
-      </CSSTransition>
-    </SpanStyled>
+            <span className="tk-hint__description">{description}</span>
+            { type === 'hint' &&
+              <>
+                <div
+                  className="tooltip__arrowContainer"
+                  style={styles.arrow}
+                  data-popper-arrow
+                >
+                  <div className="tooltip__arrow tk-hint__arrow" />
+                </div>
+                <div className="tk-hint__footer">
+                  {closeLabel ? (
+                    <TooltipClose className="tk-hint__close" onClick={onHintClose}>
+                      {closeLabel}
+                    </TooltipClose>
+                  ) : null}
+                </div>
+              </>
+            }
+          </TooltipContainer>
+        </CSSTransition>
+      </SpanStyled>
+    </div>
   );
 };
 
+Tooltip.defaultProps = {
+  displayTrigger: 'click',
+  type: 'hint',
+};
+
 Tooltip.propTypes = {
-  id: PropTypes.string,
-  description: PropTypes.string.isRequired,
   closeLabel: PropTypes.string,
-  visible: PropTypes.bool.isRequired,
+  description: PropTypes.string.isRequired,
+  displayTrigger: PropTypes.oneOf(['click', 'hover']),
+  id: PropTypes.string,
   onHintClose: PropTypes.func,
-  placement: PropTypes.string,
+  placement: PropTypes.oneOf(['top', 'bottom', 'left', 'right']),
+  type: PropTypes.oneOf(['hint', 'tooltip']),
+  visible: PropTypes.bool,
 };
 
 export default Tooltip;

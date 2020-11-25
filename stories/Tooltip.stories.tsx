@@ -44,9 +44,10 @@ const addExplanation = (explanation) => (Story) => (
 export const Standard = Template.bind({});
 
 Standard.args = {
+  children: <input type="text" name="fname" />,
   description: 'Some text',
   placement: 'top',
-  children: <input type="text" name="fname" />,
+  visible: true,
 };
 
 export const WithACloseAction = Template.bind({});
@@ -69,47 +70,38 @@ ShowHide.argTypes = {
 };
 
 export const OnClick = (args) => {
-  const [showTooltip, setShowTooltip] = useState(true);
-
-  const handleClick = () => {
-    setShowTooltip(!showTooltip);
-  };
-
   return (
-    <Tooltip {...args} visible={showTooltip} onHintClose={handleClick}>
-      <Icon iconName="info-round" onClick={handleClick} />
+    <Tooltip {...args}>
+      <Icon iconName="info-round"/>
     </Tooltip>
   );
 };
+
 OnClick.args = {
   description: 'Click on the icon',
+  displayTrigger: 'click',
   closeLabel: 'Close',
   placement: 'top',
   children: <button type={'button'}>A button</button>,
 };
 
+OnClick.decorators = [addExplanation('Click the icon to see the tooltip')];
+
 export const OnHover = (args) => {
-  const [showTooltip, setShowTooltip] = useState(false);
-
-  const handleClick = () => {
-    setShowTooltip(!showTooltip);
-  };
-
   return (
-    <Tooltip {...args} visible={showTooltip} onHintClose={handleClick}>
-      <span
-        onMouseEnter={() => setShowTooltip(true)}
-        onMouseLeave={() => setShowTooltip(false)}
-      >
+    <Tooltip {...args}>
+      <span>
         <Icon iconName="info-round" />
       </span>
     </Tooltip>
   );
 };
+
 OnHover.args = {
-  description: 'Message appears on hover',
-  placement: 'top',
   children: <button type={'button'}>A button</button>,
+  description: 'Message appears on hover',
+  displayTrigger: 'hover',
+  placement: 'top',
 };
 OnHover.decorators = [addExplanation('Hover the icon to see the tooltip')];
 
@@ -138,7 +130,7 @@ export const OnATextArea = Template.bind({});
 OnATextArea.args = {
   description: 'Attached on a text area',
   placement: 'top',
-  children: <textarea name="aTextArea" rows="4" cols="50" value="Some text" />,
+  children: <textarea name="aTextArea" rows={4} cols={50} value="Some text" />,
 };
 
 export const OnAnIcon = Template.bind({});

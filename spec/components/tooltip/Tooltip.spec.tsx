@@ -13,25 +13,24 @@ describe('Tooltip Component', () => {
       const description = 'Tooltip';
       const closeLabel = 'CLOSE';
       const visible = true;
-      const referenceElement = {};
       const wrapper = shallow(
         <Tooltip
-          id={id}
-          description={description}
           closeLabel={closeLabel}
-          visible={visible}
+          description={description}
+          id={id}
           onHintClose={zone.onClick}
-          referenceElement={referenceElement}
+          placement="top"
+          visible={visible}
         ></Tooltip>
       );
-      expect(wrapper.find('.tk-tooltip').length).toBe(1);
-      expect(wrapper.find('.tk-tooltip').prop('id')).toEqual(id);
-      expect(wrapper.find('.tk-tooltip__description').text()).toEqual(
+      expect(wrapper.find('.tk-hint').length).toBe(1);
+      expect(wrapper.find('.tk-hint').prop('id')).toEqual(id);
+      expect(wrapper.find('.tk-hint__description').text()).toEqual(
         description
       );
-      expect(wrapper.find('.tk-tooltip__footer').text()).toEqual(closeLabel);
+      expect(wrapper.find('.tk-hint__footer').text()).toEqual(closeLabel);
       wrapper
-        .find('.tk-tooltip__close')
+        .find('.tk-hint__close')
         .simulate('click', { target: { value: '' } });
       expect(click).toHaveBeenCalledTimes(1);
     });
