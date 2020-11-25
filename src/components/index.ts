@@ -12,6 +12,7 @@ import VirtualizedList from './virtualized-list';
 import { Modal, ModalTitle, ModalHeader, ModalBody, ModalFooter } from './modal';
 import Typography from './typography';
 import Loader from './loader';
+import { Avatar, BasicIndicator, AvatarBadge } from './avatar';
 
 export {
   Button,
@@ -34,4 +35,7 @@ export {
   ModalFooter,
   Typography,
   Loader,
+  Avatar,
+  BasicIndicator,
+  AvatarBadge
 };
