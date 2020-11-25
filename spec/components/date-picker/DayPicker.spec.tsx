@@ -42,7 +42,7 @@ describe('DayPicker Component', () => {
   });
 
   describe('should trigger onChange', () => {
-    it('on cell', () => {
+    test.each([[Keys.ENTER], [Keys.SPACE], [Keys.SPACEBAR]])('on cell with key %p', (key) => {
       const props = createTestProps({});
       const wrapper = shallow(<DayPicker {...props} />);
       expect(props.onDayClick).toHaveBeenCalledTimes(0);
@@ -57,12 +57,13 @@ describe('DayPicker Component', () => {
         .simulate(
           'keyDown',
           createKeyboardEvent({
-            key: Keys.ENTER,
+            key,
           })
         );
       expect(props.onDayClick).toHaveBeenCalledTimes(2);
     });
-    it('on footer', () => {
+
+    test.each([[Keys.ENTER], [Keys.SPACE], [Keys.SPACEBAR]])('on footer with key %p', (key) => {
       const props = createTestProps({});
       const wrapper = shallow(<DayPicker {...props} />);
       expect(props.onDayClick).toHaveBeenCalledTimes(0);
@@ -71,7 +72,7 @@ describe('DayPicker Component', () => {
       wrapper.find('.tk-daypicker-today').simulate(
         'keyDown',
         createKeyboardEvent({
-          key: Keys.ENTER,
+          key,
         })
       );
       expect(props.onDayClick).toHaveBeenCalledTimes(2);
@@ -169,7 +170,6 @@ describe('DayPicker Component', () => {
         })
       );
       // expect(document.activeElement).toBe(...);
-
     });
     it('on ARROWS', async () => {
       const props = createTestProps({});

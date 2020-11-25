@@ -24,8 +24,9 @@ import { modifierPropTypes } from './utils/propTypesUtils';
 
 import { format as formatDate, isValid, parse } from 'date-fns';
 
+// z-index: 4; equivalent to $z-index-tooltip
 const DatePickerContainer = styled.div`
-  z-index: 2;
+  z-index: 4; 
   &.DatePickerContainer {
     ${PopperContainer}
   }
@@ -40,6 +41,7 @@ type DatePickerComponentProps = {
   dir?: Direction;
   errorFormatMessage: string;
   format?: string;
+  highlightedDays?: Modifier | Modifier[];
   initialMonth?: Date;
   label?: string;
   labels?: {
@@ -97,6 +99,7 @@ class DatePicker extends Component<
     dir: PropTypes.oneOf(['ltr', 'rtl']),
     disabled: PropTypes.bool,
     disabledDays: PropTypes.oneOfType(modifierPropTypes),
+    highlightedDays: PropTypes.oneOfType(modifierPropTypes),
     initialMonth: PropTypes.instanceOf(Date),
     label: PropTypes.string,
     labels: PropTypes.exact({
@@ -144,7 +147,6 @@ class DatePicker extends Component<
 
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleDayClick = this.handleDayClick.bind(this);
-    this.handleKeyDownIcon = this.handleKeyDownIcon.bind(this);
     this.handleKeyDownIcon = this.handleKeyDownIcon.bind(this);
     this.handleKeyDownInput = this.handleKeyDownInput.bind(this);
     this.handleOnClose = this.handleOnClose.bind(this);
@@ -339,6 +341,8 @@ class DatePicker extends Component<
         }
       }
       break;
+    case Keys.SPACE:
+    case Keys.SPACEBAR:
     case Keys.ENTER:
       cancelEvent(e);
       this.handleClickIcon();
@@ -355,12 +359,17 @@ class DatePicker extends Component<
   private handleKeyDownInput(e: React.KeyboardEvent): void {
     const { showPicker } = this.state;
     switch (e.key) {
+    case Keys.SPACE:
+    case Keys.SPACEBAR:
     case Keys.ENTER:
       cancelEvent(e);
       this.setState({ showPicker: !showPicker });
       break;
     case Keys.ESC:
       cancelEvent(e);
+      this.setState({ showPicker: false });
+      break;
+    case Keys.TAB:
       this.setState({ showPicker: false });
       break;
     default:
@@ -390,6 +399,7 @@ class DatePicker extends Component<
       dir,
       errorFormatMessage,
       format,
+      highlightedDays,
       label,
       labels,
       name,
@@ -468,6 +478,7 @@ class DatePicker extends Component<
             selectedDays={this.computeDate(date)}
             disabledDays={disabledDays}
             dir={dir}
+            highlightedDays={highlightedDays}
             locale={locale}
             month={navigationDate}
             todayButton={todayButton}

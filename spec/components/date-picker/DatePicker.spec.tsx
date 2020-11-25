@@ -69,6 +69,14 @@ describe('DatePicker Component', () => {
     expect(wrapperPicker.prop('selectedDays')).toBe(props.date);
     expect(wrapperPicker.prop('todayButton')).toBe('Today');
   });
+  it('should update locale when locale props change', () => {
+    const spy = jest.spyOn(DatePicker.prototype, 'componentDidUpdate');
+    const props = createTestProps({});
+    const wrapper = shallow(<DatePicker {...props} />);
+    expect(spy).toHaveBeenCalledTimes(0);
+    wrapper.setProps({ locale: 'ja' });
+    expect(spy).toHaveBeenCalled();
+  });
   it('should not pass date if part of disabled date', () => {
     const props = createTestProps({
       disabledDays: { after: new Date(0, 0, 0) },
@@ -135,12 +143,12 @@ describe('DatePicker Component', () => {
   });
 
   describe('should open overlay', () => {
-    it('on ENTER on TextField', async () => {
+    test.each([[Keys.ENTER], [Keys.SPACE], [Keys.SPACEBAR]])('on %p on TextField', async (key) => {
       const wrapper = mount(<DatePicker />);
       expect(wrapper.state('showPicker')).toBe(false);
       await act(async () => {
         wrapper.find('.tk-input').simulate('keyDown', {
-          key: Keys.ENTER,
+          key,
           preventDefault: jest.fn(),
           stopPropagation: jest.fn(),
         });
@@ -160,14 +168,14 @@ describe('DatePicker Component', () => {
       expect(wrapper.state('showPicker')).toBe(true);
       wrapper.unmount();
     });
-    it('on ENTER on Icon', async () => {
+    test.each([[Keys.ENTER], [Keys.SPACE], [Keys.SPACEBAR]])('on %p on TextField', async (key) => {
       const wrapper = mount(<DatePicker />);
       expect(wrapper.state('showPicker')).toBe(false);
       await act(async () => {
         wrapper
           .find(TextField)
           .find('.tk-input__icon .tk-icon-calendar')
-          .simulate('keyDown', { key: Keys.ENTER });
+          .simulate('keyDown', { key });
       });
       wrapper.update();
       expect(wrapper.state('showPicker')).toBe(true);
@@ -188,11 +196,11 @@ describe('DatePicker Component', () => {
     });
   });
   describe('should close overlay on ESC', () => {
-    it('against TextField', async () => {
+    test.each([[Keys.ESC], [Keys.TAB]])('against TextField with %p', async (key) => {
       const wrapper = mount(<DatePicker showOverlay={true} />);
       expect(wrapper.state('showPicker')).toBe(true);
       await act(async () => {
-        wrapper.find('.tk-input').simulate('keyDown', { key: Keys.ESC });
+        wrapper.find('.tk-input').simulate('keyDown', { key });
       });
       wrapper.update();
       expect(wrapper.state('showPicker')).toBe(false);
@@ -211,5 +219,13 @@ describe('DatePicker Component', () => {
       expect(wrapper.state('showPicker')).toBe(false);
       wrapper.unmount();
     });
+  });
+  it('should reset date picker', async () => {
+    const props = createTestProps({});
+    const wrapper = shallow(<DatePicker {...props} />);
+
+    expect(props.onChange).toHaveBeenCalledTimes(0);
+    (wrapper.instance() as DatePicker).reset(props.date);
+    expect(props.onChange).toHaveBeenCalledTimes(1);
   });
 });
