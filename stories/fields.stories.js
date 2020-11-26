@@ -197,16 +197,16 @@ return `
   <h2>Dropdown list</h2>
   <p> To use a custom dropdown list you can use the following component:</p>
   <div class="tk-select--custom-dropdown tk-mt-2" style="width:256px">
-    <div class="tk-select--custom-dropdown__option">Option 1</div>
-    <div class="tk-select--custom-dropdown__option">Option 2</div>
-    <div class="tk-select--custom-dropdown__option">Option 3
-      <i class="tk-select--custom-dropdown__option--selected"></i>
+    <div class="tk-select--custom-dropdown__item">Option 1</div>
+    <div class="tk-select--custom-dropdown__item">Option 2</div>
+    <div class="tk-select--custom-dropdown__item">Option 3
+      <i class="tk-select--custom-dropdown--selected"></i>
     </div>
-    <div class="tk-select--custom-dropdown__option">Option 4</div>
-    <div class="tk-select--custom-dropdown__option">Option 5</div>
-    <div class="tk-select--custom-dropdown__option">Option 7</div>
-    <div class="tk-select--custom-dropdown__option">Option 8</div>
-    <div class="tk-select--custom-dropdown__option">Example of long list option with two lines</div>
+    <div class="tk-select--custom-dropdown__item">Option 4</div>
+    <div class="tk-select--custom-dropdown__item">Option 5</div>
+    <div class="tk-select--custom-dropdown__item">Option 7</div>
+    <div class="tk-select--custom-dropdown__item">Option 8</div>
+    <div class="tk-select--custom-dropdown__item">Example of long list option with two lines</div>
   </div>
 </div>
 `}

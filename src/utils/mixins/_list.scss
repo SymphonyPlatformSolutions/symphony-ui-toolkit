@@ -1,0 +1,31 @@
+$list-font-size-icon: 16px;
+
+@mixin listStyle {
+  background-color: $--tk-list-background-color;
+  text-align: left;
+  border: 1px solid $scolor-list-box-shadow;
+  border-radius: 8px;
+  box-shadow: 0px 2px 4px $scolor-list-box-shadow;
+
+  &--selected::before {
+    position: absolute;
+    right: 16px;
+    font-style: normal;
+    font-family: 'tk-icons';
+    color: $--tk-list-selected-color;
+    font-size: $list-font-size-icon;
+    @include tk-icon-check;
+  }
+
+  &__item {
+    position: relative;
+    color: $--tk-main-text-color;
+    display: block;
+    cursor: pointer;
+    @extend .tk-pl-2;
+
+    &:hover {
+      background-color: $--tk-list-hover-color;
+    }
+  }
+}

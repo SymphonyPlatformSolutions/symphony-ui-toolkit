@@ -1,0 +1,33 @@
+.tk-dropdown-menu {
+  @include listStyle;
+  z-index: $z-index-dropdown-menu;
+  @extend .tk-py-1;
+
+  &__icon {
+    color: $--tk-list-selected-color;
+    font-size:$list-font-size-icon;
+    @extend .tk-pr-1;
+  }
+
+  &__item {
+    @extend .tk-pr-4h;
+    @extend .tk-py-1;
+  }
+
+  &--expandable::before {
+    position: absolute;
+    right: 16px;
+    font-style: normal;
+    font-family: 'tk-icons';
+    font-size: $list-font-size-icon;
+    color: $scolor-electricity;
+    @include tk-icon-right;
+  }
+}
+
+.tk-dropdown-menu-divider {
+  height: 0;
+  margin: .4em 0;
+  overflow: hidden;
+  border-top: 1px solid $--tk-list-divider-color;
+}

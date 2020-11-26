@@ -36,38 +36,15 @@ select.tk-select {
 }
 
 .tk-select--custom-dropdown {
+  @include listStyle;
+  @extend .tk-py-1;
   max-height: 288px;
-  background-color: $--tk-select-background-color;
-  text-align: left;
-  border: 1px solid $scolor-list-box-shadow;
-  border-radius: 8px;
   overflow-x: auto;
   overflow-y: scroll;
   z-index: $z-index-input;
-  box-shadow: 0px 2px 4px $scolor-list-box-shadow;
-  @extend .tk-py-1;
-}
 
-.tk-select--custom-dropdown__option {
-  position: relative;
-  color: $--tk-main-text-color;
-  display: block;
-  cursor: pointer;
-  @extend .tk-py-1h;
-  @extend .tk-pl-2;
-  @extend .tk-pr-2h;
-
-  &:hover {
-    background-color: $--tk-table-hover-color;
-  }
-
-  &--selected::before {
-    position: absolute;
-    right: 20px;
-    font-style: normal;
-    font-family: 'tk-icons';
-    color: $--tk-select-selected-color;
-    font-size: 16px;
-    @include tk-icon-check;
+  &__item {
+    @extend .tk-py-1h;
+    @extend .tk-pr-2h;
   }
 }
