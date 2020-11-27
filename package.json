@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "@popperjs/core": "^2.4.4",
-    "@symphony/uitoolkit-styles": "1.2.0-SNAPSHOT.1",
+    "@symphony/uitoolkit-styles": "SymphonyOSF/symphony-bdk-ui-toolkit-styles#relative-modal",
     "@types/classnames": "^2.2.10",
     "classnames": "^2.2.6",
     "date-fns": "^2.16.1",
