@@ -1,13 +1,16 @@
 import * as React from 'react';
 import ResizeDetectDiv from '../../core/hoc/ResizeDetectDiv';
-import * as PropTypes from 'prop-types';
 
 type CropContentProps = {
   children?: React.ReactNode;
+   /** Height of crop; this property determines the number of visible lines. */
   cropHeight?: string;
+  /** Optional CSS class name */
   className?: string;
+  /** If true, the crop will be collapsed initially. */
   initCollapsed?: boolean;
-  style?: any;
+  /** Optional inline style */
+  style?: React.CSSProperties;
 };
 
 export default class CropContent extends React.Component<CropContentProps> {
@@ -77,8 +80,8 @@ export default class CropContent extends React.Component<CropContentProps> {
     );
   }
 
-  static propTypes = {
-    cropHeight: PropTypes.string,
-    initCollapsed: PropTypes.bool
+  static defaultProps = {
+    cropHeight: '80px',
+    initCollapsed: true
   };
 }

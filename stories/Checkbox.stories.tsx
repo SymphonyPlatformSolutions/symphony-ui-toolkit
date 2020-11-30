@@ -190,5 +190,4 @@ export const Checkboxes = () => {
 export default {
   title: 'Checkbox',
   component: Checkbox,
-  decorators: [],
 };

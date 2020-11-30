@@ -1,9 +1,8 @@
 import * as React from 'react';
 import Icon from '../src/components/icon/Icon';
 
-export const Icons: React.SFC = () => (
+export const Icons: React.FC = () => (
   <div>
-    <h1>Icons</h1>
     <div className="preview">
       <Icon iconName="accent"></Icon>
       <br></br>

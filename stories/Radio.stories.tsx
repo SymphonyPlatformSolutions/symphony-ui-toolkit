@@ -4,6 +4,17 @@ import LabelPlacements from '../src/components/selection/LabelPlacements';
 import { action } from '@storybook/addon-actions';
 import SelectionStatus from '../src/components/selection/SelectionStatus';
 
+const Template = (args) => {
+  return <Radio {...args} />;
+};
+
+export const Default = Template.bind({});
+Default.args = {
+  name: 'simple-radio',
+  value: 'radio-1',
+  label: 'radio',
+};
+
 export const Radios = () => {
   return (
     <div style={{ width: '50%' }}>

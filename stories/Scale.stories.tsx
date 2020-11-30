@@ -5,7 +5,14 @@ import './stories.scss';
 import '../src/styles';
 import Scale from '../src/core/hoc/Scale';
 
-export const Size: React.SFC = () => (
+
+const Template = (args) => {
+  return <Scale {...args}><Button variant="primary">Some text</Button></Scale>;
+};
+
+export const Default = Template.bind({});
+
+export const Size: React.FC = () => (
   <div>
     <h1 className="tk-pt-2">Scaled Components</h1>
     <p>All the components from the UI Toolkit can be scaled. To scale a component you need to add the  <span className="tk-text-color--primary">Scale</span> component as the parent of any other component and indicate the prefered size.</p>

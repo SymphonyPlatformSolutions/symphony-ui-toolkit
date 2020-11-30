@@ -5,17 +5,21 @@ import classNames from 'classnames';
 const prefix = 'tk-button';
 
 type ButtonProps = {
+  /** If true, add an Icon component as children */
   iconButton?: boolean;
+   /** Content of the button*/
   children?: React.ReactNode;
   className?: string;
   disabled?: boolean;
+  /** If true, substitutes the button text by an animated loader */
   loading?: boolean;
   type?: 'button' | 'reset' | 'submit';
+   /** The variant to use*/
   variant?: 'primary' | 'secondary' | 'tertiary' | 'destructive';
   onClick?: (event: React.MouseEvent<HTMLElement>) => void;
 };
 
-const Button: React.SFC<ButtonProps> = ({
+const Button: React.FC<ButtonProps> = ({
   children,
   className,
   iconButton,

@@ -6,11 +6,13 @@ const prefix = 'tk-loader';
 
 type LoaderProps = {
   className?: string;
+  /** Constantly animates, use when loading progress is unknown */
   type?: 'spinner';
+  /** The variant to use */
   variant?: 'primary' | 'attention' | 'warning' | 'ok';
 };
 
-const Loader: React.SFC<LoaderProps> = ({
+const Loader: React.FC<LoaderProps> = ({
   className,
   variant,
   type,
