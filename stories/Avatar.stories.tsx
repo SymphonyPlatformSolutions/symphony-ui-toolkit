@@ -6,16 +6,7 @@ const img1 = require('./static/avatar.png');
 const img2 = require('./static/avatar1.png');
 const img3 = require('./static/avatar2.png');
 
-const Template = (args) => {
-  return <Avatar {...args} />;
-};
 
-export const Default = Template.bind({});
-// Default.args = {
-//   name: 'simple-radio',
-//   value: 'radio-1',
-//   label: 'radio',
-// };
 const SquaredAvatar: React.FC = () => {
   return (
     <div>
