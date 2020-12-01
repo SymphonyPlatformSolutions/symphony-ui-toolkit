@@ -359,8 +359,6 @@ class DatePicker extends Component<
   private handleKeyDownInput(e: React.KeyboardEvent): void {
     const { showPicker } = this.state;
     switch (e.key) {
-    case Keys.SPACE:
-    case Keys.SPACEBAR:
     case Keys.ENTER:
       cancelEvent(e);
       this.setState({ showPicker: !showPicker });

@@ -143,7 +143,7 @@ describe('DatePicker Component', () => {
   });
 
   describe('should open overlay', () => {
-    test.each([[Keys.ENTER], [Keys.SPACE], [Keys.SPACEBAR]])('on %p on TextField', async (key) => {
+    test.each([[Keys.ENTER]])('on %p on TextField', async (key) => {
       const wrapper = mount(<DatePicker />);
       expect(wrapper.state('showPicker')).toBe(false);
       await act(async () => {
@@ -168,7 +168,7 @@ describe('DatePicker Component', () => {
       expect(wrapper.state('showPicker')).toBe(true);
       wrapper.unmount();
     });
-    test.each([[Keys.ENTER], [Keys.SPACE], [Keys.SPACEBAR]])('on %p on TextField', async (key) => {
+    test.each([[Keys.ENTER], [Keys.SPACE], [Keys.SPACEBAR]])('on %p on Icon', async (key) => {
       const wrapper = mount(<DatePicker />);
       expect(wrapper.state('showPicker')).toBe(false);
       await act(async () => {

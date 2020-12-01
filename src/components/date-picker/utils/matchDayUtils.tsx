@@ -1,13 +1,13 @@
 import { Modifier } from '../model/Modifiers';
 
-import { isSameDay, differenceInDays, isWithinInterval } from 'date-fns';
+import { differenceInDays, isSameDay, isAfter, isBefore, isWithinInterval } from 'date-fns';
 
 function isDayAfter(day1: Date, day2: Date): boolean {
-  return differenceInDays(day1, day2) > 0;
+  return isAfter(day1, day2) && !isSameDay(day1, day2);
 }
 
 function isDayBefore(day1: Date, day2: Date): boolean {
-  return differenceInDays(day1, day2) < 0;
+  return isBefore(day1, day2) && !isSameDay(day1, day2);
 }
 
 function matchDate(day: Date, matcher: Modifier): boolean {
