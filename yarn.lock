@@ -2363,7 +2363,7 @@
 
 "@symphony/uitoolkit-styles@https://github.com/SymphonyOSF/symphony-bdk-ui-toolkit-styles.git":
   version "1.2.0"
-  resolved "https://github.com/SymphonyOSF/symphony-bdk-ui-toolkit-styles.git#1a1c2e8a81df721cbea854e18c84c0a862d0989a"
+  resolved "https://github.com/SymphonyOSF/symphony-bdk-ui-toolkit-styles.git#670b8d5174e8d0b80390f5188ca4b0bd46e2a369"
 
 "@types/anymatch@*":
   version "1.3.1"
