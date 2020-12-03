@@ -2361,9 +2361,9 @@
     "@svgr/plugin-svgo" "^5.5.0"
     loader-utils "^2.0.0"
 
-"@symphony/uitoolkit-styles@SymphonyOSF/symphony-bdk-ui-toolkit-styles#relative-modal":
-  version "1.2.0-SNAPSHOT.1"
-  resolved "git+ssh://git@github.com/SymphonyOSF/symphony-bdk-ui-toolkit-styles.git#2da044f47f3b0f6d70b13642db28426a33372868"
+"@symphony/uitoolkit-styles@https://github.com/SymphonyOSF/symphony-bdk-ui-toolkit-styles.git":
+  version "1.2.0"
+  resolved "https://github.com/SymphonyOSF/symphony-bdk-ui-toolkit-styles.git#1a1c2e8a81df721cbea854e18c84c0a862d0989a"
 
 "@types/anymatch@*":
   version "1.3.1"
