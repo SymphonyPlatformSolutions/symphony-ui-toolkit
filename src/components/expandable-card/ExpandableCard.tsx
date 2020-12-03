@@ -1,5 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
+import * as PropTypes from 'prop-types';
 
 type ExpandableCardProps = {
   children?: React.ReactNode;
@@ -75,6 +76,10 @@ export default class ExpandableCard extends React.Component<
       </div>
     );
   }
+  static propTypes = {
+    initCollapsed: PropTypes.bool,
+    header: PropTypes.node.isRequired
+  };
 
  static defaultProps = {
    initCollapsed: true

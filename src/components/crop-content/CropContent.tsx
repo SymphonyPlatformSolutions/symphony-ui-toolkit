@@ -1,5 +1,6 @@
 import * as React from 'react';
 import ResizeDetectDiv from '../../core/hoc/ResizeDetectDiv';
+import * as PropTypes from 'prop-types';
 
 type CropContentProps = {
   children?: React.ReactNode;
@@ -79,7 +80,10 @@ export default class CropContent extends React.Component<CropContentProps> {
       </ResizeDetectDiv>
     );
   }
-
+  static propTypes = {
+    cropHeight: PropTypes.string,
+    initCollapsed: PropTypes.bool
+  }
   static defaultProps = {
     cropHeight: '80px',
     initCollapsed: true

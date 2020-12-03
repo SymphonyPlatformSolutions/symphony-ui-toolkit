@@ -11,7 +11,7 @@ type ButtonProps = {
   children?: React.ReactNode;
   className?: string;
   disabled?: boolean;
-  /** If true, substitutes the button text by an animated loader */
+  /** If true, substitutes the button content by an animated loader */
   loading?: boolean;
   type?: 'button' | 'reset' | 'submit';
    /** The variant to use*/
