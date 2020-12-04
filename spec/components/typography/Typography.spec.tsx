@@ -13,7 +13,7 @@ describe('Typography Component', () => {
       expect(wrapper.hasClass('tk-typography tk-typography--h1 tk-typography--bold')).toBe(true);
     });
     it('should render several variantes to the typography component', () => {
-      const wrapper = shallow(<Typography type="h1" variant={["bold", "italic"]}>Close me</Typography>);
+      const wrapper = shallow(<Typography type="h1" variant={['bold', 'italic']}>Close me</Typography>);
       expect(wrapper.hasClass('tk-typography tk-typography--h1 tk-typography--bold tk-typography--italic')).toBe(true);
     });
   });
