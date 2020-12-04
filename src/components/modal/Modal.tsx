@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 type ModalProps = {
@@ -36,7 +35,7 @@ export const ModalFooter: React.FC<ModalContentProps> = ({
   children,
 }: ModalContentProps) => <div className={buildClass('footer')}>{children}</div>;
 
-export const Modal: React.FC<ModalProps> = ({
+const Modal: React.FC<ModalProps> = ({
   size,
   className,
   children,
@@ -66,6 +65,4 @@ export const Modal: React.FC<ModalProps> = ({
     : null;
 };
 
-Modal.propTypes = {
-  size: PropTypes.oneOf(['small', 'medium', 'large', 'full-width']),
-};
+export default Modal;

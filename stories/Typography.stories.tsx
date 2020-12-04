@@ -2,9 +2,19 @@ import * as React from 'react';
 import Typography from '../src/components/typography';
 
 
-export const TypographyUtils: React.SFC = () => (
+const Template = (args) => {
+  return <Typography {...args}>Title h1 italic and bold</Typography>;
+};
+
+export const Titles = Template.bind({});
+Titles.args = {
+  type: 'h1',
+  variant: ['italic', 'bold'],
+};
+
+
+export const TypographyUtils: React.FC = () => (
   <div>
-    <h1 className="tk-mb-4h">Typography</h1>
     <div className="flex-row tk-mb-3h">
       <Typography className="w-5" type="h1">H1</Typography>
       <Typography type="h1">Big Titles</Typography>
@@ -41,6 +51,6 @@ export const TypographyUtils: React.SFC = () => (
 );
 
 export default {
-  title: 'Typrography',
+  title: 'Typography',
   component: Typography,
 };

@@ -1,22 +1,27 @@
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
-import { FunctionComponent } from 'react';
 import classnames from 'classnames';
 
 export type IconProps = {
-  className?: string;
-  disabled?: boolean;
+  /** Required; Designates a specific icon */
   iconName: string;
+  /** Optional CSS class name */
+  className?: string;
+  /** If true, the icon will be disabled */
+  disabled?: boolean;
   forwardRef?: any;
   tabIndex?: number;
+  /** Callback when mouse click */
   onClick?: (event: React.MouseEvent<HTMLElement>) => void;
+ /** deprecated; use onClick */
   handleClick?: (
     event: React.MouseEvent<HTMLElement>
-  ) => void /** deprecated, please use onClick */;
+  ) => void;
+  /** Keyboard Event */
   onKeyDown?: (event) => any;
 };
 
-const Icon: FunctionComponent<IconProps> = ({
+const Icon: React.FC<IconProps> = ({
   className,
   disabled,
   iconName,

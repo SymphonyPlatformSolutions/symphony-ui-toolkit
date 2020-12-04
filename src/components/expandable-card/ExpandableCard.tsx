@@ -1,11 +1,14 @@
-import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import styled from 'styled-components';
+import * as PropTypes from 'prop-types';
 
 type ExpandableCardProps = {
   children?: React.ReactNode;
+  /** Content of the header */
   header: React.ReactNode;
+  /** Optional CSS class name */
   className?: string;
+   /** If true, the expandable card will be collapsed initially. */
   initCollapsed?: boolean;
 };
 // styled components, if it grows put in a sibling file
@@ -73,9 +76,12 @@ export default class ExpandableCard extends React.Component<
       </div>
     );
   }
-
   static propTypes = {
     initCollapsed: PropTypes.bool,
     header: PropTypes.node.isRequired
   };
+
+ static defaultProps = {
+   initCollapsed: true
+ };
 }
