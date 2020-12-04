@@ -1,11 +1,14 @@
 import * as React from 'react';
 import addons from '@storybook/addons';
-import { addParameters } from '@storybook/react';
+import { addParameters, forceReRender } from '@storybook/react';
 import { themes } from '@storybook/theming';
+
+let globalDarkMode = undefined;
 
 setTimeout(() => init());
 
 addParameters({
+  viewMode: 'docs',
   darkMode: {
     // Override the default dark theme
     dark: { ...themes.dark, appContentBg: '#1A1C1D' },
@@ -16,12 +19,32 @@ const init = () => {
   const darkClass = 'dark';
   const channel = addons.getChannel();
   channel.on('DARK_MODE', (isDark) => {
-    if (isDark) {
-      document.body.classList.add(darkClass);
-    } else {
-      document.body.classList.remove(darkClass);
+    if (isDark !== globalDarkMode) {
+      if (isDark) {
+        document.body.classList.add(darkClass);
+        addParameters({
+          docs: {
+            theme: themes.dark,
+          },
+        });
+      } else {
+        document.body.classList.remove(darkClass);
+        addParameters({
+          docs: {
+            theme: themes.light,
+          },
+        });
+      }
+      globalDarkMode = isDark;
+      forceReRender();
     }
   });
 };
 
-export const decorators = [(Story) => <div className="tk-text-color tk-m-4"><Story/></div>];
+export const decorators = [
+  (Story) => (
+    <div className="tk-text-color tk-m-4">
+      <Story />
+    </div>
+  ),
+];
