@@ -9,11 +9,13 @@ const Template = (args) => {
 };
 
 export const Default = Template.bind({});
+
 Default.args = {
   children: 'Some Text',
+  variant:'secondary'
 };
 
-export const Buttons: React.SFC = () => (
+export const Buttons: React.FC = () => (
   <div>
     <h2>Primary</h2>
     <div style={{ display: 'flex', margin: 16 }}>
@@ -121,4 +123,5 @@ export default {
   title: 'Button',
   component: Button,
   subcomponents: { Icon },
+  argTypes: { onClick: { action: 'clicked' } },
 };

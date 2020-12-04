@@ -5,12 +5,19 @@ import { TextField, Icon, Validation } from '../src/components';
 import { Validators } from '../src/core/validators/validators';
 
 const Template = (args) => {
-  return <TextField {...args} />;
+  return   <TextField {...args}/>
 };
 
 export const Default = Template.bind({});
 
-export const TextFields: React.SFC = () => {
+Default.args = {
+  label: 'I have many props',
+  tooltip: 'This is a \n tooltip',
+  masked: true,
+  iconElement: <Icon iconName="message"/>,
+};
+
+export const TextFields: React.FC = () => {
   const logChange = (value) => {
     console.info(value);
   };
@@ -19,7 +26,6 @@ export const TextFields: React.SFC = () => {
 
   return (
     <div style={{ width: '50%' }}>
-      <h1>Text Field</h1>
       <div>
         <p>
           Simple Text Field with a <strong>placeholder</strong>

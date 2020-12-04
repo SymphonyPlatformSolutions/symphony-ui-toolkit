@@ -1,8 +1,10 @@
 import * as React from 'react';
 
 type LinkProps = {
-  children?: React.ReactNode;
+  /** Required; Denotes the target URL */
   url: string;
+  /** Content of the link*/
+  children?: React.ReactNode;
 }
 
 const Link: React.FC<LinkProps> = ({
