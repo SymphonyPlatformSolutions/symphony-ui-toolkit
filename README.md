@@ -45,4 +45,4 @@ Full releasing manual [here](https://perzoinc.atlassian.net/wiki/spaces/DevX/pag
 
 ## 🧩 Theming components
 
-Read detailed guide on [theming-guide.md](https://github.com/SymphonyOSF/symphony-bdk-ui-toolkit-styles/blob/master/docs/getting-started.md)
+Read detailed guide on [theming-guide.md](https://github.com/SymphonyOSF/symphony-bdk-ui-toolkit-styles/blob/master/docs/theming-guide.md)
