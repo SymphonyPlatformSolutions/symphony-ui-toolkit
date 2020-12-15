@@ -188,6 +188,6 @@ export const Checkboxes = () => {
 };
 
 export default {
-  title: 'Checkbox',
+  title: 'Components/Input/Checkbox',
   component: Checkbox,
 };

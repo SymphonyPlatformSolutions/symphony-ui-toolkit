@@ -60,6 +60,6 @@ export const CropContentContainer = () => {
 };
 
 export default {
-  title: 'Crop Content',
+  title: 'Components/Containers/Crop Content',
   component: CropContent
 };

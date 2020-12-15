@@ -39,7 +39,7 @@ function noRowsRenderer() {
   )
 }
 
-export const Lists: React.FC = () => (
+export const VirtualizedLists: React.FC = () => (
   <div style = {{display: 'flex'}}>
     <div>
       <h3>List with content</h3>
@@ -71,7 +71,7 @@ export const Lists: React.FC = () => (
 );
 
 export default {
-  title: 'VirtualizedList',
+  title: 'Utils/Virtualized Lists',
   component: VirtualizedList,
 }
 

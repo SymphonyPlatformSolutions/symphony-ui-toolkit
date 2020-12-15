@@ -66,7 +66,7 @@ export const InitiallyExpandedCard: React.SFC = () => {
 };
 
 export default {
-  title: 'Expandable card',
+  title: 'Components/Containers/Expandable card',
   component: ExpandableCard,
   subcomponents: { CropContent },
 };

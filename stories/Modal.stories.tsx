@@ -100,7 +100,7 @@ export const FullPageModal: React.FC = () => {
 };
 
 export default {
-  title: 'Modal',
+  title: 'Components/Modal',
   component: Modal,
   decorators: [
     (Story) => (

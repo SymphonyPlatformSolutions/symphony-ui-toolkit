@@ -1,5 +1,5 @@
 module.exports = {
-  stories: ['../stories/**/*.stories.tsx'],
+  stories: ['../stories/**/*.stories.mdx', '../stories/**/*.stories.tsx'],
   addons: [
     '@storybook/addon-actions',
     '@storybook/addon-links',
@@ -12,7 +12,8 @@ module.exports = {
     '@storybook/preset-scss',
   ],
   webpackFinal: async (config) => {
-    config.module.rules.push({
+    config.module.rules.push(
+      {
       test: /\.(ts|tsx)$/,
       use: [
         {
@@ -20,7 +21,7 @@ module.exports = {
         },
       ],
     },
-    {
+    { 
       test: /\.md$/,
       use: [
           {
