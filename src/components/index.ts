@@ -13,6 +13,7 @@ import { Modal, ModalTitle, ModalHeader, ModalBody, ModalFooter } from './modal'
 import Typography from './typography';
 import Loader from './loader';
 import { Avatar, BasicIndicator, AvatarBadge } from './avatar';
+import { DropdownMenu, DropdownMenuItem, DropdownMenuDivider } from './dropdown-menu';
 
 export {
   Button,
@@ -37,5 +38,8 @@ export {
   Loader,
   Avatar,
   BasicIndicator,
-  AvatarBadge
+  AvatarBadge,
+  DropdownMenu,
+  DropdownMenuItem,
+  DropdownMenuDivider
 };

@@ -1,0 +1,16 @@
+.dropdownMenu {
+    width: 200px;
+}
+
+.withRightIcon {
+    display: flex;
+    align-items: center;
+}
+
+.rightIcon {
+    margin-left: auto;
+}
+
+.leftIcon {
+    margin-right: 10px;
+}
