@@ -101,3 +101,10 @@ pre {
   border: 1px solid currentColor;
   padding:24px;
 }
+
+.themed-primary-btn {
+  --tk-button-color-primary-default: orange;
+  --tk-button-color-primary-active: red;
+  --tk-button-color-primary-hover: green;
+  --tk-button-color-primary-text: white;
+}
