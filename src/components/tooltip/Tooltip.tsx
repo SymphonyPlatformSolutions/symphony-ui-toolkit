@@ -49,7 +49,7 @@ const TooltipClose = styled.span`
 
 export type TooltipProps = {
   closeLabel: string;
-  /** Text to display in the tooltip */
+  /** Text or Element to display in the tooltip */
   description: string | JSX.Element;
   displayTrigger?: 'click' | 'hover';
   /** CSS ID */
