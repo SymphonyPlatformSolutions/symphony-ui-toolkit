@@ -343,7 +343,7 @@ export const DisabledState: React.SFC = () => {
 };
 
 export default {
-  title: 'DatePicker',
+  title: 'Components/Input/DatePicker',
   component: DatePicker,
   subcomponents: { TextField, Icon },
   decorators: [

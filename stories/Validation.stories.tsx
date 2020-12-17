@@ -168,7 +168,7 @@ export const Validations = () => {
 };
 
 export default {
-  title: 'Validations',
+  title: 'Components/Input/Validations',
   component: Validation,
   subcomponents: { TextField, TextArea },
   decorators: [withKnobs],

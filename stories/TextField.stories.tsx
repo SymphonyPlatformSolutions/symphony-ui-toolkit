@@ -157,7 +157,7 @@ export const ChangeProgrammatically = () => {
 };
 
 export default {
-  title: 'TextField',
+  title: 'Components/Input/TextField',
   component: TextField,
   subcomponents: { Icon },
   decorators: [withKnobs],

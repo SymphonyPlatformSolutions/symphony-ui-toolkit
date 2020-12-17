@@ -309,6 +309,6 @@ export const AvatarWithBadges: React.FC = () => {
 }
 
 export default {
-  title: 'Avatar',
+  title: 'Components/Avatar',
   component: Avatars,
 }

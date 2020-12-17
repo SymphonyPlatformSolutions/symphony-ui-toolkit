@@ -120,7 +120,7 @@ export const Buttons: React.FC = () => (
 );
 
 export default {
-  title: 'Button',
+  title: 'Components/Button',
   component: Button,
   subcomponents: { Icon },
   argTypes: { onClick: { action: 'clicked' } },

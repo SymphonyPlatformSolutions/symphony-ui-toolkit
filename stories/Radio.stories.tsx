@@ -140,7 +140,7 @@ export const Radios = () => {
 };
 
 export default {
-  title: 'Radio',
+  title: 'Components/Input/Radio',
   component: Radio,
   decorators: [],
 };
