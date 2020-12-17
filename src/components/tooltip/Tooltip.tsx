@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useState } from 'react';
-import * as PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { usePopper } from 'react-popper';
 import { CSSTransition } from 'react-transition-group';
 import styled from 'styled-components';
@@ -47,10 +47,10 @@ const TooltipClose = styled.span`
   cursor: pointer;
 `;
 
-type TooltipProps = {
+export type TooltipProps = {
   closeLabel: string;
   /** Text to display in the tooltip */
-  description: string;
+  description: string | JSX.Element;
   displayTrigger?: 'click' | 'hover';
   /** CSS ID */
   id: string;
@@ -108,7 +108,9 @@ const Tooltip: React.FC<TooltipProps> = ({
   return (
     <div ref={ref}>
       <SpanStyled ref={setReferenceElement}>
-        { displayTrigger === 'hover' ? showTooltipOnHover(otherProps.children, setShowHover) : showTooltipOnClick(otherProps.children, showClick, setShowClick) }
+        { displayTrigger === 'hover' && showTooltipOnHover(otherProps.children, setShowHover) }
+        { displayTrigger === 'click' && showTooltipOnClick(otherProps.children, showClick, setShowClick) }
+        { displayTrigger === undefined && otherProps.children }
         <CSSTransition
           {...popperProps}
           in={visible || showHover || showClick}
@@ -149,13 +151,12 @@ const Tooltip: React.FC<TooltipProps> = ({
 };
 
 Tooltip.defaultProps = {
-  displayTrigger: 'click',
   type: 'hint',
 };
 
 Tooltip.propTypes = {
   closeLabel: PropTypes.string,
-  description: PropTypes.string.isRequired,
+  description: PropTypes.oneOfType([PropTypes.string, PropTypes.element]).isRequired,
   displayTrigger: PropTypes.oneOf(['click', 'hover']),
   id: PropTypes.string,
   onHintClose: PropTypes.func,
