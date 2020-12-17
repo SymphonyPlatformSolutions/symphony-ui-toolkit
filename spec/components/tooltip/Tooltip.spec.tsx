@@ -3,7 +3,7 @@ import Tooltip from '../../../src/components/tooltip';
 import userEvent from '@testing-library/user-event';
 import { render, screen, waitForElementToBeRemoved } from '@testing-library/react'
 
-describe.only('Tooltip', () => {
+describe('Tooltip', () => {
 
   let closeLabel: string;
   let description: string | JSX.Element;
