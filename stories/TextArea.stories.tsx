@@ -108,7 +108,7 @@ export const ChangeProgrammatically = () => {
 };
 
 export default {
-  title: 'TextArea',
+  title: 'Components/Input/TextArea',
   component: TextArea,
   decorators: [withKnobs],
 };

@@ -678,6 +678,6 @@ export const Icons: React.FC = () => (
 );
 
 export default {
-  title: 'Icons',
+  title: 'Components/Icon',
   component: Icon,
 };

@@ -24,6 +24,6 @@ export const Links: React.FC = () => (
 )
 
 export default {
-  title: 'Link',
+  title: 'Components/Link',
   component: Link,
 }

@@ -39,6 +39,6 @@ export const Spinner: React.FC = () => (
 );
 
 export default {
-  title: 'Loader',
+  title: 'Components/Loader',
   component: Loader,
 };

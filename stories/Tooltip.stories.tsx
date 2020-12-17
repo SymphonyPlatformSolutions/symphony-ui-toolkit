@@ -4,7 +4,7 @@ import { Tooltip } from '../src/components';
 import Icon from '../src/components/icon';
 
 export default {
-  title: 'Tooltip',
+  title: 'Components/Tooltip',
   component: Tooltip,
   decorators: [
     (Story) => (

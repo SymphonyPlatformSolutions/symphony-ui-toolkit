@@ -191,7 +191,7 @@ export const Size: React.FC = () => (
 );
 
 export default {
-  title: 'Scaled components',
+  title: 'Utils/Scaled components',
   component: Scale,
   subcomponents: { Icon }
 };
