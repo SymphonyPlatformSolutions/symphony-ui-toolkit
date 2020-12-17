@@ -1,8 +1,8 @@
 export default {
-  title: 'Tables',
+  title: 'Components/Table',
 };
 
-export const Tables = () =>
+export const Table = () =>
   `<h1>Tables</h1>
   <h2 class="tk-mt-4h">Spacing default</h2>
   <table class="tk-table">

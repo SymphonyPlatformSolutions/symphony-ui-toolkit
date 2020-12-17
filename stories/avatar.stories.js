@@ -4,7 +4,7 @@ import avatar1  from './static/avatar1.png';
 import avatar2  from './static/avatar2.png';
 
 export default {
-  title: 'Avatar',
+  title: 'Components/Avatar',
 };
 
 export const Avatars = () => `

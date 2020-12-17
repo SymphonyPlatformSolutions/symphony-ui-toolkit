@@ -1,5 +1,5 @@
 export default {
-  title: 'Button',
+  title: 'Components/Button',
 };
 
 export const Button = () => `

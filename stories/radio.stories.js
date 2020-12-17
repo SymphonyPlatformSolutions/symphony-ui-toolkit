@@ -1,5 +1,5 @@
 export default {
-  title: "Radio",
+  title: "Components/Inputs/Radio",
 };
 
 export const Radio = () => {

@@ -15,7 +15,7 @@ const generateIcons = () => {
   fs.readFile(`${DIST_FONTS}tk-icons.html`, 'utf8', function(err, data) {
     const iconsHtml = data.substring(data.indexOf('<body>') + 6, data.indexOf('</body>'));
     const iconsStorybook =
-      "export default { title: 'Icons'}; export const Icon = () => `" + iconsHtml + '`';
+      "export default { title: 'Components/Icon'}; export const Icon = () => `" + iconsHtml + '`';
     fs.writeFileSync('stories/icons.stories.js', iconsStorybook);
   });
   console.info('Auto-generated icons.stories.js ✅');

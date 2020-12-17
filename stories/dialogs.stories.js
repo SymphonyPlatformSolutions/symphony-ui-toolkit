@@ -1,5 +1,5 @@
 export default {
-  title: 'Dialogs',
+  title: 'Components/Dialogs',
 };
 
 export const smallDialog = () => `

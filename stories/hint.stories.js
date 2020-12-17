@@ -1,5 +1,5 @@
 export default {
-  title: 'Hint',
+  title: 'Components/Hint',
 };
 
 export const Hint = () => {

@@ -1,5 +1,5 @@
 export default {
-  title: 'Checkbox',
+  title: 'Components/Inputs/Checkbox',
 };
 
 export const Checkbox = () => {

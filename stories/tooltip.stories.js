@@ -1,5 +1,5 @@
 export default {
-    title: 'Tooltip',
+    title: 'Components/Tooltip',
 };
 
 export const Tooltip = () => {
