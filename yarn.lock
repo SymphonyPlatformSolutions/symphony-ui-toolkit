@@ -2361,27 +2361,6 @@
     "@svgr/plugin-svgo" "^5.5.0"
     loader-utils "^2.0.0"
 
-"@symphony/i18n-react@^0.1.13":
-  version "0.1.13"
-  resolved "https://repo.symphony.com/artifactory/api/npm/npm-virtual-dev/@symphony/i18n-react/-/@symphony/i18n-react-0.1.13.tgz#625f130808fa9dd7f8bb8ed4920a8a277d181b98"
-  integrity sha1-Yl8TCAj6ndf4u47UkgqKJ30YG5g=
-  dependencies:
-    "@symphony/i18n" "0.1.18"
-
-"@symphony/i18n@0.1.18":
-  version "0.1.18"
-  resolved "https://repo.symphony.com/artifactory/api/npm/npm-virtual-dev/@symphony/i18n/-/@symphony/i18n-0.1.18.tgz#38c08c5a83a64a3a690658fb6ca6a78106e7ebd4"
-  integrity sha1-OMCMWoOmSjppBlj7bKangQbn69Q=
-  dependencies:
-    fs-extra "7.0.0"
-    jsonschema "1.2.4"
-    messageformat "1.1.1"
-    messageformat-parser "^3.0.0"
-    moment "2.19.3"
-    strip-json-comments "^2.0.1"
-    underscore "1.9.1"
-    xmlbuilder "^10.1.1"
-
 "@symphony/uitoolkit-styles@https://github.com/SymphonyOSF/symphony-bdk-ui-toolkit-styles.git":
   version "1.2.0"
   resolved "https://github.com/SymphonyOSF/symphony-bdk-ui-toolkit-styles.git#670b8d5174e8d0b80390f5188ca4b0bd46e2a369"
@@ -3099,15 +3078,15 @@
   resolved "https://repo.symphony.com/artifactory/api/npm/npm-virtual-dev/@xtuc/long/-/long-4.2.2.tgz#d291c6a4e97989b5c61d9acf396ae4fe133a718d"
   integrity sha1-0pHGpOl5ibXGHZrPOWrk/hM6cY0=
 
+"@yarnpkg/lockfile@^1.1.0":
+  version "1.1.0"
+  resolved "https://repo.symphony.com/artifactory/api/npm/npm-virtual-dev/@yarnpkg/lockfile/-/lockfile-1.1.0.tgz#e77a97fbd345b76d83245edcd17d393b1b41fb31"
+  integrity sha1-53qX+9NFt22DJF7c0X05OxtB+zE=
+
 abab@^2.0.3:
   version "2.0.5"
   resolved "https://repo.symphony.com/artifactory/api/npm/npm-virtual-dev/abab/-/abab-2.0.5.tgz#c0b678fb32d60fc1219c784d6a826fe385aeb79a"
   integrity sha1-wLZ4+zLWD8EhnHhNaoJv44Wut5o=
-
-abbrev@1:
-  version "1.1.1"
-  resolved "https://repo.symphony.com/artifactory/api/npm/npm-virtual-dev/abbrev/-/abbrev-1.1.1.tgz#f8f2c887ad10bf67f634f005b6987fed3179aac8"
-  integrity sha1-+PLIh60Qv2f2NPAFtph/7TF5qsg=
 
 accepts@~1.3.7:
   version "1.3.7"
@@ -4768,6 +4747,11 @@ commander@^5.0.0:
   version "5.1.0"
   resolved "https://repo.symphony.com/artifactory/api/npm/npm-virtual-dev/commander/-/commander-5.1.0.tgz#46abbd1652f8e059bddaef99bbdcb2ad9cf179ae"
   integrity sha1-Rqu9FlL44Fm92u+Zu9yyrZzxea4=
+
+commander@^6.1.0:
+  version "6.2.1"
+  resolved "https://repo.symphony.com/artifactory/api/npm/npm-virtual-dev/commander/-/commander-6.2.1.tgz#0792eb682dfbc325999bb2b84fddddba110ac73c"
+  integrity sha1-B5LraC37wyWZm7K4T93duhEKxzw=
 
 commondir@^1.0.1:
   version "1.0.1"
@@ -6670,15 +6654,6 @@ from2@^2.1.0:
     inherits "^2.0.1"
     readable-stream "^2.0.0"
 
-fs-extra@7.0.0:
-  version "7.0.0"
-  resolved "https://repo.symphony.com/artifactory/api/npm/npm-virtual-dev/fs-extra/-/fs-extra-7.0.0.tgz#8cc3f47ce07ef7b3593a11b9fb245f7e34c041d6"
-  integrity sha1-jMP0fOB+97NZOhG5+yRffjTAQdY=
-  dependencies:
-    graceful-fs "^4.1.2"
-    jsonfile "^4.0.0"
-    universalify "^0.1.0"
-
 fs-extra@^0.30.0:
   version "0.30.0"
   resolved "https://repo.symphony.com/artifactory/api/npm/npm-virtual-dev/fs-extra/-/fs-extra-0.30.0.tgz#f233ffcc08d4da7d432daa449776989db1df93f0"
@@ -6901,18 +6876,6 @@ glob@^7.0.0, glob@^7.1.1, glob@^7.1.2, glob@^7.1.3, glob@^7.1.4, glob@^7.1.6:
     inflight "^1.0.4"
     inherits "2"
     minimatch "^3.0.4"
-    once "^1.3.0"
-    path-is-absolute "^1.0.0"
-
-glob@~7.0.6:
-  version "7.0.6"
-  resolved "https://repo.symphony.com/artifactory/api/npm/npm-virtual-dev/glob/-/glob-7.0.6.tgz#211bafaf49e525b8cd93260d14ab136152b3f57a"
-  integrity sha1-IRuvr0nlJbjNkyYNFKsTYVKz9Xo=
-  dependencies:
-    fs.realpath "^1.0.0"
-    inflight "^1.0.4"
-    inherits "2"
-    minimatch "^3.0.2"
     once "^1.3.0"
     path-is-absolute "^1.0.0"
 
@@ -8567,13 +8530,6 @@ jsonfile@^2.1.0:
   optionalDependencies:
     graceful-fs "^4.1.6"
 
-jsonfile@^4.0.0:
-  version "4.0.0"
-  resolved "https://repo.symphony.com/artifactory/api/npm/npm-virtual-dev/jsonfile/-/jsonfile-4.0.0.tgz#8771aae0799b64076b76640fca058f9c10e33ecb"
-  integrity sha1-h3Gq4HmbZAdrdmQPygWPnBDjPss=
-  optionalDependencies:
-    graceful-fs "^4.1.6"
-
 jsonfile@^6.0.1:
   version "6.1.0"
   resolved "https://repo.symphony.com/artifactory/api/npm/npm-virtual-dev/jsonfile/-/jsonfile-6.1.0.tgz#bc55b2634793c679ec6403094eb13698a6ec0aae"
@@ -8582,11 +8538,6 @@ jsonfile@^6.0.1:
     universalify "^2.0.0"
   optionalDependencies:
     graceful-fs "^4.1.6"
-
-jsonschema@1.2.4:
-  version "1.2.4"
-  resolved "https://repo.symphony.com/artifactory/api/npm/npm-virtual-dev/jsonschema/-/jsonschema-1.2.4.tgz#a46bac5d3506a254465bc548876e267c6d0d6464"
-  integrity sha1-pGusXTUGolRGW8VIh24mfG0NZGQ=
 
 jsprim@^1.2.2:
   version "1.4.1"
@@ -8898,13 +8849,6 @@ make-error@1.x:
   resolved "https://repo.symphony.com/artifactory/api/npm/npm-virtual-dev/make-error/-/make-error-1.3.6.tgz#2eb2e37ea9b67c4891f684a1394799af484cf7a2"
   integrity sha1-LrLjfqm2fEiR9oShOUeZr0hM96I=
 
-make-plural@^4.1.1:
-  version "4.3.0"
-  resolved "https://repo.symphony.com/artifactory/api/npm/npm-virtual-dev/make-plural/-/make-plural-4.3.0.tgz#f23de08efdb0cac2e0c9ba9f315b0dff6b4c2735"
-  integrity sha1-8j3gjv2wysLgybqfMVsN/2tMJzU=
-  optionalDependencies:
-    minimist "^1.2.0"
-
 makeerror@1.0.x:
   version "1.0.11"
   resolved "https://repo.symphony.com/artifactory/api/npm/npm-virtual-dev/makeerror/-/makeerror-1.0.11.tgz#e01a5c9109f2af79660e4e8b9587790184f5a96c"
@@ -9071,27 +9015,6 @@ merge2@^1.2.3:
   version "1.4.1"
   resolved "https://repo.symphony.com/artifactory/api/npm/npm-virtual-dev/merge2/-/merge2-1.4.1.tgz#4368892f885e907455a6fd7dc55c0c9d404990ae"
   integrity sha1-Q2iJL4hekHRVpv19xVwMnUBJkK4=
-
-messageformat-parser@^1.1.0:
-  version "1.1.0"
-  resolved "https://repo.symphony.com/artifactory/api/npm/npm-virtual-dev/messageformat-parser/-/messageformat-parser-1.1.0.tgz#13ba2250a76bbde8e0fca0dbb3475f95c594a90a"
-  integrity sha1-E7oiUKdrvejg/KDbs0dflcWUqQo=
-
-messageformat-parser@^3.0.0:
-  version "3.0.0"
-  resolved "https://repo.symphony.com/artifactory/api/npm/npm-virtual-dev/messageformat-parser/-/messageformat-parser-3.0.0.tgz#38ae9348eb4834ab19b3a8d682af7babb335f37a"
-  integrity sha1-OK6TSOtINKsZs6jWgq97q7M183o=
-
-messageformat@1.1.1:
-  version "1.1.1"
-  resolved "https://repo.symphony.com/artifactory/api/npm/npm-virtual-dev/messageformat/-/messageformat-1.1.1.tgz#ceaa2e6c86929d4807058275a7372b1bd963bdf6"
-  integrity sha1-zqoubIaSnUgHBYJ1pzcrG9ljvfY=
-  dependencies:
-    glob "~7.0.6"
-    make-plural "^4.1.1"
-    messageformat-parser "^1.1.0"
-    nopt "~3.0.6"
-    reserved-words "^0.1.2"
 
 methods@~1.1.2:
   version "1.1.2"
@@ -9270,11 +9193,6 @@ mkdirp@^0.5.1, mkdirp@^0.5.3, mkdirp@~0.5.1:
   integrity sha1-2Rzv1i0UNsoPQWIOJRKI1CAJne8=
   dependencies:
     minimist "^1.2.5"
-
-moment@2.19.3:
-  version "2.19.3"
-  resolved "https://repo.symphony.com/artifactory/api/npm/npm-virtual-dev/moment/-/moment-2.19.3.tgz#bdb99d270d6d7fda78cc0fbace855e27fe7da69f"
-  integrity sha1-vbmdJw1tf9p4zA+6zoVeJ/59pp8=
 
 moo@^0.5.0:
   version "0.5.1"
@@ -9481,13 +9399,6 @@ node-releases@^1.1.52, node-releases@^1.1.66:
   version "1.1.67"
   resolved "https://repo.symphony.com/artifactory/api/npm/npm-virtual-dev/node-releases/-/node-releases-1.1.67.tgz#28ebfcccd0baa6aad8e8d4d8fe4cbc49ae239c12"
   integrity sha1-KOv8zNC6pqrY6NTY/ky8Sa4jnBI=
-
-nopt@~3.0.6:
-  version "3.0.6"
-  resolved "https://repo.symphony.com/artifactory/api/npm/npm-virtual-dev/nopt/-/nopt-3.0.6.tgz#c6465dbf08abcd4db359317f79ac68a646b28ff9"
-  integrity sha1-xkZdvwirzU2zWTF/eaxopkayj/k=
-  dependencies:
-    abbrev "1"
 
 normalize-package-data@^2.3.2, normalize-package-data@^2.5.0:
   version "2.5.0"
@@ -11232,11 +11143,6 @@ require-main-filename@^2.0.0:
   resolved "https://repo.symphony.com/artifactory/api/npm/npm-virtual-dev/require-main-filename/-/require-main-filename-2.0.0.tgz#d0b329ecc7cc0f61649f62215be69af54aa8989b"
   integrity sha1-0LMp7MfMD2Fkn2IhW+aa9UqomJs=
 
-reserved-words@^0.1.2:
-  version "0.1.2"
-  resolved "https://repo.symphony.com/artifactory/api/npm/npm-virtual-dev/reserved-words/-/reserved-words-0.1.2.tgz#00a0940f98cd501aeaaac316411d9adc52b31ab1"
-  integrity sha1-AKCUD5jNUBrqqsMWQR2a3FKzGrE=
-
 resize-observer-polyfill@^1.5.1:
   version "1.5.1"
   resolved "https://repo.symphony.com/artifactory/api/npm/npm-virtual-dev/resize-observer-polyfill/-/resize-observer-polyfill-1.5.1.tgz#0e9020dd3d21024458d4ebd27e23e40269810464"
@@ -12063,11 +11969,6 @@ strip-indent@^3.0.0:
   dependencies:
     min-indent "^1.0.0"
 
-strip-json-comments@^2.0.1:
-  version "2.0.1"
-  resolved "https://repo.symphony.com/artifactory/api/npm/npm-virtual-dev/strip-json-comments/-/strip-json-comments-2.0.1.tgz#3c531942e908c2697c0ec344858c286c7ca0a60a"
-  integrity sha1-PFMZQukIwml8DsNEhYwobHygpgo=
-
 strip-json-comments@^3.1.0, strip-json-comments@^3.1.1:
   version "3.1.1"
   resolved "https://repo.symphony.com/artifactory/api/npm/npm-virtual-dev/strip-json-comments/-/strip-json-comments-3.1.1.tgz#31f1281b3832630434831c310c01cccda8cbe006"
@@ -12611,11 +12512,6 @@ typescript@^3.9.3:
   resolved "https://repo.symphony.com/artifactory/api/npm/npm-virtual-dev/typescript/-/typescript-3.9.7.tgz#98d600a5ebdc38f40cb277522f12dc800e9e25fa"
   integrity sha1-mNYApevcOPQMsndSLxLcgA6eJfo=
 
-underscore@1.9.1:
-  version "1.9.1"
-  resolved "https://repo.symphony.com/artifactory/api/npm/npm-virtual-dev/underscore/-/underscore-1.9.1.tgz#06dce34a0e68a7babc29b365b8e74b8925203961"
-  integrity sha1-BtzjSg5op7q8KbNluOdLiSUgOWE=
-
 unfetch@^4.1.0:
   version "4.2.0"
   resolved "https://repo.symphony.com/artifactory/api/npm/npm-virtual-dev/unfetch/-/unfetch-4.2.0.tgz#7e21b0ef7d363d8d9af0fb929a5555f6ef97a3be"
@@ -12750,11 +12646,6 @@ unist-util-visit@2.0.3, unist-util-visit@^2.0.0:
     "@types/unist" "^2.0.0"
     unist-util-is "^4.0.0"
     unist-util-visit-parents "^3.0.0"
-
-universalify@^0.1.0:
-  version "0.1.2"
-  resolved "https://repo.symphony.com/artifactory/api/npm/npm-virtual-dev/universalify/-/universalify-0.1.2.tgz#b646f69be3942dabcecc9d6639c80dc105efaa66"
-  integrity sha1-tkb2m+OULavOzJ1mOcgNwQXvqmY=
 
 universalify@^1.0.0:
   version "1.0.0"
@@ -13252,11 +13143,6 @@ xml-name-validator@^3.0.0:
   resolved "https://repo.symphony.com/artifactory/api/npm/npm-virtual-dev/xml-name-validator/-/xml-name-validator-3.0.0.tgz#6ae73e06de4d8c6e47f9fb181f78d648ad457c6a"
   integrity sha1-auc+Bt5NjG5H+fsYH3jWSK1FfGo=
 
-xmlbuilder@^10.1.1:
-  version "10.1.1"
-  resolved "https://repo.symphony.com/artifactory/api/npm/npm-virtual-dev/xmlbuilder/-/xmlbuilder-10.1.1.tgz#8cae6688cc9b38d850b7c8d3c0a4161dcaf475b0"
-  integrity sha1-jK5miMybONhQt8jTwKQWHcr0dbA=
-
 xmlchars@^2.2.0:
   version "2.2.0"
   resolved "https://repo.symphony.com/artifactory/api/npm/npm-virtual-dev/xmlchars/-/xmlchars-2.2.0.tgz#060fe1bcb7f9c76fe2a17db86a9bc3ab894210cb"
@@ -13321,6 +13207,15 @@ yargs@^15.4.1:
     which-module "^2.0.0"
     y18n "^4.0.0"
     yargs-parser "^18.1.2"
+
+yarn-deduplicate@^3.1.0:
+  version "3.1.0"
+  resolved "https://repo.symphony.com/artifactory/api/npm/npm-virtual-dev/yarn-deduplicate/-/yarn-deduplicate-3.1.0.tgz#3018d93e95f855f236a215b591fe8bc4bcabba3e"
+  integrity sha1-MBjZPpX4VfI2ohW1kf6LxLyruj4=
+  dependencies:
+    "@yarnpkg/lockfile" "^1.1.0"
+    commander "^6.1.0"
+    semver "^7.3.2"
 
 zwitch@^1.0.0:
   version "1.0.5"
