@@ -89,9 +89,13 @@
         position: relative;
         &::after {
           font-size: toEm(10, $fontSize)  ;
-          content: '•';
+          content: '';
           position: absolute;
-          bottom: toEm(1, $fontSize);
+          bottom: 0;
+          height: .45em;
+          width: .45em;
+          background-color: currentColor;
+          border-radius: 50%;
         }
       }
       &--highlighted {
