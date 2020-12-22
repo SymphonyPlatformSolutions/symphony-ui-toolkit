@@ -1,6 +1,6 @@
 import { shallow } from 'enzyme';
 import * as React from 'react';
-import { TextField, Validation } from '../../../src/components';
+import { DatePicker, TextField, Validation } from '../../../src/components';
 import { Validators } from '../../../src/core/validators/validators';
 
 describe('Validation Component', () => {
@@ -81,6 +81,47 @@ describe('Validation Component', () => {
       expect(blur).toHaveBeenCalledWith(mockEvent);
       await validate;
       expect(validate).toHaveBeenCalledWith(mockEvent.target.value);
+    });
+    it('validation should be called when the child component send onValidationChanged', async () => {
+      const zone = {
+        onValidationChanged: () => null,
+      };
+      const validationChanged = jest.spyOn(zone, 'onValidationChanged');
+      const wrapper = shallow(
+        <Validation>
+          <DatePicker
+            onValidationChanged={zone.onValidationChanged}
+            onChange={() => null}
+          />
+        </Validation>
+      );
+      expect(validationChanged).toHaveBeenCalledTimes(0);
+      wrapper.find('DatePicker').simulate('validationChanged');
+      expect(validationChanged).toHaveBeenCalledTimes(1);
+    });
+    it('validation should be called with custom error message', async () => {
+      const zone = {
+        onValidationChanged: () => ({ format: 'default error message' }),
+      };
+      const validationChanged = jest.spyOn(zone, 'onValidationChanged');
+      const wrapper = shallow(
+        <Validation
+          errorMessage={{
+            format: 'custom format error',
+            disabledDate: 'custom disabled date error',
+            maxDate: 'custom max date error',
+            minDate: 'custom min date error',
+          }}
+        >
+          <DatePicker
+            onValidationChanged={zone.onValidationChanged}
+            onChange={() => null}
+          />
+        </Validation>
+      );
+      expect(validationChanged).toHaveBeenCalledTimes(0);
+      wrapper.find('DatePicker').simulate('validationChanged');
+      expect(validationChanged).toHaveBeenCalledTimes(1);
     });
     it('validation should be called at initialization if validateOnInit is defined', async () => {
       const validate = jest.spyOn(Validation.prototype, 'updateState');
@@ -171,14 +212,15 @@ describe('Validation Component', () => {
       validator: Validators.Required,
     };
     const wrapper = shallow(
-      <Validation  errors={['Required.', 'This is not a valid name']}>
+      <Validation errors={['Required.', 'This is not a valid name']}>
         <TextField />
       </Validation>
     );
     wrapper.render();
     const validator = jest.spyOn(zone, 'validator');
-    expect(wrapper.find('.tk-validation__errors').text()).toEqual('Required.This is not a valid name');
+    expect(wrapper.find('.tk-validation__errors').text()).toEqual(
+      'Required.This is not a valid name'
+    );
     expect(validator).not.toHaveBeenCalled();
   });
-  
 });

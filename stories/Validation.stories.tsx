@@ -78,7 +78,7 @@ export const Validations = () => {
       <Validation
         onValidationChanged={logChange}
         validator={Validators.Required}
-        errorMessage={'This field is required'}
+        errorMessage={{ required: 'This field is required' }}
       >
         <DatePicker
           todayButton="today"
@@ -109,8 +109,9 @@ export const Validations = () => {
           minlength: 'Please type at least 3 numbers',
         }}
       >
-        <TextField onChange={logChange} label="Number" placeholder="Age" />
+        <TextField label="Number" placeholder="Age" />
       </Validation>
+
       <h2>Validation at initialization</h2>
       <p>
         Using <strong>validateOnInit</strong> parameter, you can give to the
@@ -135,6 +136,30 @@ export const Validations = () => {
         errors={['This user name already exists', 'This field is required']}
       >
         <TextField placeholder="Name" />
+      </Validation>
+      <h2>Customise children validation message</h2>
+      <p>
+        If the child component send its validation on onValidationChanged, the error message can be <strong>customised</strong>. For example, the Date Picker provide the following type of errors: <strong>format, disabledDate, maxDate, minDate.</strong>.
+      </p>
+      <Validation
+        onValidationChanged={logChange}
+        errorMessage={{
+          format: 'Le format est incorrect',
+          disabledDate: 'La date n\'est pas disponible',
+          maxDate: 'La date est ...',
+          minDate: 'La date est trop ancienne',
+        }}
+      >
+        <DatePicker
+          todayButton="today"
+          tooltip="Departure date"
+          label="Expense"
+          disabledDays={disabledDays}
+          date={date}
+          onChange={(e) => {
+            setDate(e.target.value);
+          }}
+        ></DatePicker>
       </Validation>
       <h2>Can be attached to anything</h2>
       <p>The Validation component wraps the component to be validated.</p>
