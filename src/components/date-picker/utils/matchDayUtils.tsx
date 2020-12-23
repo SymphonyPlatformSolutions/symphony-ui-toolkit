@@ -51,7 +51,7 @@ function matchFunction(day: Date, matcher: Modifier): boolean {
  * Return `true` if a day matches a day matcher.
  */
 export function matchDay(day: Date, matcher: Modifier | Modifier[]): boolean {
-  if (!matcher) return false;
+  if (!matcher || !day) return false;
   let matchers: Modifier[];
 
   if (Array.isArray(matcher)) {

@@ -95,6 +95,9 @@ export function toArray(length: number): Array<number> {
 }
 
 export function autocompleteDate(value: string, format: string, locale: Locale): Date {
+  if (!value) {
+    return null;
+  }
   const date = parse(value, format, new Date(), { locale: locale });
   // If year not typed, take the current year
   if (!isValid(date)) {

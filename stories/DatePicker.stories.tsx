@@ -309,7 +309,9 @@ export const WithValidationComponent: React.SFC = () => {
     <div>
       <p>The DatePicker component own an internal validation. To be able to display the error message, the Date Picker need to be wrapped by a <strong>Validation</strong> component. 
       </p>
-      <Validation onValidationChanged={logChange}>
+      <Validation
+        onValidationChanged={logChange}
+      >
         <DatePicker
           disabledDays={disabledDays}
           date={date1}

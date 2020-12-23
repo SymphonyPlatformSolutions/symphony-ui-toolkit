@@ -77,7 +77,7 @@ export const Validations = () => {
       </p>
       <Validation
         onValidationChanged={logChange}
-        validator={Validators.Required}
+        validator={[Validators.Required]}
         errorMessage={{ required: 'This field is required' }}
       >
         <DatePicker
@@ -139,11 +139,15 @@ export const Validations = () => {
       </Validation>
       <h2>Customise children validation message</h2>
       <p>
-        A component owning internal validation should expose it&apos;s validation
-        with <strong>onValidationChanged</strong> props. In our example, the Date
-        Picker provide the following type of errors:{' '}
-        <strong>format, disabledDate, maxDate, minDate</strong>.<br/>
-        Any component owning internal validation should follow the contract <strong>onValidationChanged: (errors: ErrorMessages) {'=>'} any;</strong>.
+        A component owning internal validation should expose it&apos;s
+        validation with <strong>onValidationChanged</strong> props. In our
+        example, the Date Picker provide the following type of errors:{' '}
+        <strong>format, disabledDate, maxDate, minDate</strong>.<br />
+        Any component owning internal validation should follow the contract{' '}
+        <strong>
+          onValidationChanged: (errors: ErrorMessages) {'=>'} any;
+        </strong>
+        .
       </p>
       <Validation
         onValidationChanged={logChange}

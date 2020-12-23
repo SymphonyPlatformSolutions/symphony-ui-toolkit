@@ -18,7 +18,6 @@ const ValidationPropTypes = {
 };
 
 export type ErrorMessages = string | { [key: string]: string };
-
 interface ValidationProps {
   onValidationChanged?: (
     isValid: boolean,
@@ -27,14 +26,14 @@ interface ValidationProps {
   validateOnInit?: string;
   validator?: ValidatorFn | ValidatorFn[];
   errorMessage?: ErrorMessages;
-  errors?: ErrorMessages[];
+  errors?: string[];
 }
 interface ValidationPropsUncontrolled extends ValidationProps {
-  validator: ValidatorFn | ValidatorFn[];
-  errorMessage: ErrorMessages;
+  validator: ValidatorFn | ValidatorFn[]; // object of {'error name1': boolean, 'error name2': boolean, ...}
+  errorMessage: ErrorMessages; // dictionnary of {'error name1': 'error text1', 'error name2': 'error text2', ...}
 }
 interface ValidationPropsControlled extends ValidationProps {
-  errors: ErrorMessages[];
+  errors: string[]; // list of ['error text1', 'error text2'] to display
 }
 
 class Validation extends React.Component<
@@ -79,15 +78,15 @@ class Validation extends React.Component<
         }
       },
       onBlur: (event: any) => {
-        this.setState({ lastValue: event.target.value });
+        this.updateState(event.target.value);
         if (child.props.onBlur) {
           child.props.onBlur(event);
         }
       },
-      onValidationChanged: (errors: ErrorMessages) => {
-        this.setState({ errorsChildMap: errors })
+      onValidationChanged: (errorsChildMap: ErrorMessages) => {
+        this.setState({ errorsChildMap })
         if (child.props.onValidationChanged) {
-          child.props.onValidationChanged(errors);
+          child.props.onValidationChanged(errorsChildMap);
         }        
       },
     });

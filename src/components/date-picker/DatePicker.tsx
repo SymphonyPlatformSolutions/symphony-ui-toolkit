@@ -281,7 +281,7 @@ class DatePicker extends Component<
 
   private computeDate(date): Date {
     const { disabledDays } = this.props;
-    if (isValid(date) && !matchDay(date, disabledDays)) {
+    if (date && isValid(date) && !matchDay(date, disabledDays)) {
       return date;
     } else {
       return null;
@@ -290,6 +290,10 @@ class DatePicker extends Component<
 
   private computeError(date): ErrorMessages {
     const { disabledDays } = this.props;
+
+    if (!date) {
+      return null;
+    }
 
     if (!isValid(date)) {
       return { format: 'The date format is incorrect' };
@@ -337,7 +341,7 @@ class DatePicker extends Component<
 
     const newDate = autocompleteDate(newValue, format, locale);
 
-    if (isValid(newDate)) {
+    if (newDate && isValid(newDate)) {
       this.setState({ navigationDate: newDate });
     }
     if (onValidationChanged) {
