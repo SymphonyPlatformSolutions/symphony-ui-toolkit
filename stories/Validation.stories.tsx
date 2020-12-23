@@ -77,8 +77,8 @@ export const Validations = () => {
       </p>
       <Validation
         onValidationChanged={logChange}
-        validator={Validators.Required}
-        errorMessage={'This field is required'}
+        validator={[Validators.Required]}
+        errorMessage={{ required: 'This field is required' }}
       >
         <DatePicker
           todayButton="today"
@@ -109,8 +109,9 @@ export const Validations = () => {
           minlength: 'Please type at least 3 numbers',
         }}
       >
-        <TextField onChange={logChange} label="Number" placeholder="Age" />
+        <TextField label="Number" placeholder="Age" />
       </Validation>
+
       <h2>Validation at initialization</h2>
       <p>
         Using <strong>validateOnInit</strong> parameter, you can give to the
@@ -135,6 +136,38 @@ export const Validations = () => {
         errors={['This user name already exists', 'This field is required']}
       >
         <TextField placeholder="Name" />
+      </Validation>
+      <h2>Customise children validation message</h2>
+      <p>
+        A component owning internal validation should expose it&apos;s
+        validation with <strong>onValidationChanged</strong> props. In our
+        example, the Date Picker provide the following type of errors:{' '}
+        <strong>format, disabledDate, maxDate, minDate</strong>.<br />
+        Any component owning internal validation should follow the contract{' '}
+        <strong>
+          onValidationChanged: (errors: ErrorMessages) {'=>'} any;
+        </strong>
+        .
+      </p>
+      <Validation
+        onValidationChanged={logChange}
+        errorMessage={{
+          format: 'Le format est incorrect',
+          disabledDate: 'La date n\'est pas disponible',
+          maxDate: 'La date est ...',
+          minDate: 'La date est trop ancienne',
+        }}
+      >
+        <DatePicker
+          todayButton="today"
+          tooltip="Departure date"
+          label="Expense"
+          disabledDays={disabledDays}
+          date={date}
+          onChange={(e) => {
+            setDate(e.target.value);
+          }}
+        ></DatePicker>
       </Validation>
       <h2>Can be attached to anything</h2>
       <p>The Validation component wraps the component to be validated.</p>
@@ -170,6 +203,6 @@ export const Validations = () => {
 export default {
   title: 'Components/Input/Validations',
   component: Validation,
-  subcomponents: { TextField, TextArea },
+  subcomponents: { TextField, TextArea, DatePicker },
   decorators: [withKnobs],
 };

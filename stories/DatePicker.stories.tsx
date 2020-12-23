@@ -1,7 +1,22 @@
 import React, { useState } from 'react';
-import { DatePicker, TextField, Icon, Link, Button } from '../src/components';
+import {
+  DatePicker,
+  TextField,
+  Icon,
+  Link,
+  Button,
+  Validation,
+} from '../src/components';
 
 const now = new Date();
+const logChange = (value, errorsMap) => {
+  if (!value) {
+    console.log('Component is valid:', value);
+  }
+  if (errorsMap) {
+    console.log('Errors Map:', errorsMap);
+  }
+};
 
 const Template = (args) => {
   const [date, setDate] = useState(null);
@@ -207,6 +222,8 @@ export const WithDisabledDate: React.SFC = () => {
   const [date1, setDate1] = useState(null);
   const [date2, setDate2] = useState(null);
 
+  const [pickerElement, setPickerElement] = useState(null);
+
   const disabledDays = [
     new Date(now.getFullYear(), now.getMonth(), now.getDate() + 2),
     {
@@ -232,23 +249,101 @@ export const WithDisabledDate: React.SFC = () => {
         Date Picker with <strong>disabled days</strong> (date, before, after,
         and intervals)
       </p>
-      <DatePicker
-        disabledDays={disabledDays}
-        date={date1}
-        onChange={(e) => {
-          setDate1(e.target.value);
-        }}
-      />
+      <Validation onValidationChanged={logChange}>
+        <DatePicker
+          disabledDays={disabledDays}
+          date={date1}
+          onChange={(e) => {
+            setDate1(e.target.value);
+          }}
+          ref={setPickerElement}
+        />
+      </Validation>
+
+      <Button onClick={() => pickerElement.reset(null)} variant="tertiary">
+        Reset value
+      </Button>
+      <br />
       <p>
         Date Picker with <strong>every Wednesday</strong> disabled (daysOfWeek)
       </p>
-      <DatePicker
-        disabledDays={disabledWednesday}
-        date={date2}
-        onChange={(e) => {
-          setDate2(e.target.value);
+      <Validation onValidationChanged={logChange}>
+        <DatePicker
+          disabledDays={disabledWednesday}
+          date={date2}
+          onChange={(e) => {
+            setDate2(e.target.value);
+          }}
+        />
+      </Validation>
+      <p>Note: To be able to display the error message, the Date Picker need to be wrapped by a <strong>Validation</strong> component. </p>
+    </div>
+  );
+};
+
+export const WithValidationComponent: React.SFC = () => {
+  const [date1, setDate1] = useState(null);
+  const [date2, setDate2] = useState(null);
+
+  const [pickerElement, setPickerElement] = useState(null);
+
+  const disabledDays = [
+    new Date(now.getFullYear(), now.getMonth(), now.getDate() + 2),
+    {
+      before: new Date(now.getFullYear(), now.getMonth() - 1, now.getDate()),
+    },
+    {
+      after: new Date(now.getFullYear(), now.getMonth() + 1, now.getDate()),
+    },
+    {
+      after: new Date(now.getFullYear(), now.getMonth(), now.getDate() + 15),
+      before: new Date(now.getFullYear(), now.getMonth(), now.getDate() + 20),
+    },
+    {
+      from: new Date(now.getFullYear(), now.getMonth(), now.getDate() + 22),
+      to: new Date(now.getFullYear(), now.getMonth(), now.getDate() + 24),
+    },
+  ];
+
+  return (
+    <div>
+      <p>The DatePicker component own an internal validation. To be able to display the error message, the Date Picker need to be wrapped by a <strong>Validation</strong> component. 
+      </p>
+      <Validation
+        onValidationChanged={logChange}
+      >
+        <DatePicker
+          disabledDays={disabledDays}
+          date={date1}
+          onChange={(e) => {
+            setDate1(e.target.value);
+          }}
+          ref={setPickerElement}
+        />
+      </Validation>
+
+      <Button onClick={() => pickerElement.reset(null)} variant="tertiary">
+        Reset value
+      </Button>
+
+      <p>The following error message can be customised: <strong>format, disabledDate, maxDate, minDate.</strong></p>
+      <Validation
+        onValidationChanged={logChange}
+        errorMessage={{
+          format: 'Le format est incorrect',
+          disabledDate: 'La date n\'est pas disponible',
+          maxDate: 'La date est ...',
+          minDate: 'La date est trop ancienne',
         }}
-      />
+      >
+        <DatePicker
+          disabledDays={disabledDays}
+          date={date2}
+          onChange={(e) => {
+            setDate2(e.target.value);
+          }}
+        />
+      </Validation>
     </div>
   );
 };
@@ -290,7 +385,8 @@ export const WithHighlightedDate: React.SFC = () => {
         }}
       />
       <p>
-        Date Picker with <strong>every Wednesday</strong> highlighted (daysOfWeek)
+        Date Picker with <strong>every Wednesday</strong> highlighted
+        (daysOfWeek)
       </p>
       <DatePicker
         highlightedDays={highlightedWednesday}

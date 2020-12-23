@@ -6,7 +6,9 @@ import {
   format,
   getDay,
   getDaysInMonth,
+  isValid,
   lastDayOfMonth,
+  parse,
   startOfMonth,
   startOfWeek,
   startOfYear,
@@ -90,4 +92,25 @@ export function getDaysNeededForNextMonth(date: Date, locale: Locale) {
 
 export function toArray(length: number): Array<number> {
   return Array.from({ length }, (x, i) => i);
+}
+
+export function autocompleteDate(value: string, format: string, locale: Locale): Date {
+  if (!value) {
+    return null;
+  }
+  const date = parse(value, format, new Date(), { locale: locale });
+  // If year not typed, take the current year
+  if (!isValid(date)) {
+    // regex: remove -yyyy, yyyy-, /yyyy, yyyy/, .yyyy, ...
+    const autocompletedDate = parse(
+      value,
+      format.replace(/[\W]?y{4}[\W]?/, ''),
+      new Date(),
+      {
+        locale: locale,
+      }
+    );
+    return autocompletedDate;
+  }
+  return date;
 }

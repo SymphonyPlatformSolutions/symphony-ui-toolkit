@@ -17,28 +17,33 @@ const ValidationPropTypes = {
   validateOnInit: PropTypes.string,
 };
 
-type errorMessage = string | { [key: string]: string };
-
+export type ErrorMessages = string | { [key: string]: string };
 interface ValidationProps {
-  onValidationChanged?: (isValid: boolean, errorsMap?: {[id:string] : boolean}) => void;
+  onValidationChanged?: (
+    isValid: boolean,
+    errorsMap?: { [id: string]: boolean }
+  ) => void;
   validateOnInit?: string;
   validator?: ValidatorFn | ValidatorFn[];
-  errorMessage?: errorMessage;
-  errors?: errorMessage[];
+  errorMessage?: ErrorMessages;
+  errors?: string[];
 }
 interface ValidationPropsUncontrolled extends ValidationProps {
-  validator: ValidatorFn | ValidatorFn[];
-  errorMessage: errorMessage;
+  validator: ValidatorFn | ValidatorFn[]; // object of {'error name1': boolean, 'error name2': boolean, ...}
+  errorMessage: ErrorMessages; // dictionnary of {'error name1': 'error text1', 'error name2': 'error text2', ...}
 }
 interface ValidationPropsControlled extends ValidationProps {
-  errors: errorMessage[];
+  errors: string[]; // list of ['error text1', 'error text2'] to display
 }
 
-class Validation extends React.Component<ValidationPropsControlled | ValidationPropsUncontrolled> {
+class Validation extends React.Component<
+  ValidationPropsControlled | ValidationPropsUncontrolled | ValidationProps
+> {
   public static propTypes = ValidationPropTypes;
 
   public state: any = {
     errors: [],
+    errorsChildMap: null,
     isValid: null,
     lastValue: null,
   };
@@ -47,10 +52,12 @@ class Validation extends React.Component<ValidationPropsControlled | ValidationP
     if (this.props.validateOnInit || this.props.errors) {
       this.updateState(this.props.validateOnInit);
     }
-    if(this.props.errors && (this.props.errorMessage || this.props.validator) ) {
-      throw new Error (`The Validation Component 'props' are not compatible. You can either use the Validation Component on a Controlled mode or Uncontrolled. \n
-      For Uncontrolled mode use: errorMessage and validator 'props'.\n
-      For Controlled mode use: errors 'props'.\n `); 
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    // call updateState whenever value or errorsChildMap change
+    if (prevState.lastValue !== this.state.lastValue || prevState.errorsChildMap !== this.state.errorsChildMap) {
+      this.updateState(this.state.lastValue);
     }
   }
 
@@ -65,7 +72,7 @@ class Validation extends React.Component<ValidationPropsControlled | ValidationP
     }
     return React.cloneElement(child as any, {
       onChange: (event: any) => {
-        this.updateState(event.target.value);
+        this.setState({ lastValue: event.target.value });
         if (child.props.onChange) {
           child.props.onChange(event);
         }
@@ -76,44 +83,77 @@ class Validation extends React.Component<ValidationPropsControlled | ValidationP
           child.props.onBlur(event);
         }
       },
+      onValidationChanged: (errorsChildMap: ErrorMessages) => {
+        this.setState({ errorsChildMap })
+        if (child.props.onValidationChanged) {
+          child.props.onValidationChanged(errorsChildMap);
+        }        
+      },
     });
   }
 
   public async updateState(value: string): Promise<string[]> {
-    let errorsMap;
+    let errorsMap = {};
     let valid = true;
-    let errorMessages = [];
+    let errors = [];
     let validationResults;
     if (this.props.validator) {
       if (this.props.validator instanceof Array) {
         validationResults = await Promise.all(
           this.props.validator.map((validator) => validator(value))
         );
-        errorsMap = validationResults.reduce((prev, curr) => ({ ...prev, ...curr }), {});
+        errorsMap = validationResults.reduce(
+          (prev, curr) => ({ ...prev, ...curr }),
+          {}
+        );
       } else {
         errorsMap = await this.props.validator(value);
       }
-      valid = !errorsMap || isEmpty(errorsMap);
-      if (this.props.onValidationChanged && valid !== this.state.isValid) {
-        this.props.onValidationChanged(valid, errorsMap);
-      }
     }
+
+    valid = (!errorsMap || isEmpty(errorsMap)) && !this.state.errorsChildMap;
+    if (this.props.onValidationChanged && valid !== this.state.isValid) {
+      this.props.onValidationChanged(valid, errorsMap);
+    }
+
+    // compute props errors
     if (!valid && this.props.errorMessage) {
       Object.entries(errorsMap).forEach(([errorId, errorVal]) => {
         if (errorVal) {
           if (this.props.errorMessage instanceof Object) {
-            errorMessages.push(this.props.errorMessage[errorId]);
+            errors.push(this.props.errorMessage[errorId]);
           } else {
-            errorMessages.push(this.props.errorMessage);
+            errors.push(this.props.errorMessage);
           }
         }
       });
     }
-    if(this.props.errors) {
-      errorMessages = this.props.errors;
+
+    // compute child errors
+    if (!valid && this.state.errorsChildMap) {
+      Object.entries(this.state.errorsChildMap).forEach(
+        ([errorId, errorVal]) => {
+          if (errorVal) {
+            if (
+              this.props.errorMessage instanceof Object &&
+              this.props.errorMessage[errorId]
+            ) {
+              // get message error from props if exists in errorMessage
+              errors.push(this.props.errorMessage[errorId]);
+            } else {
+              // otherwise display the default one
+              errors.push(errorVal);
+            }
+          }
+        }
+      );
     }
-    this.setState({ isValid: valid, errors: errorMessages, lastValue: value });
-    return errorMessages;
+
+    if (this.props.errors) {
+      errors = this.props.errors;
+    }
+    this.setState({ isValid: valid, errors, lastValue: value });
+    return errors;
   }
 
   /**
@@ -146,17 +186,18 @@ class Validation extends React.Component<ValidationPropsControlled | ValidationP
       );
     } else {
       const child = React.Children.only(children);
-      childWithValidation = this.props.validator ? this.getChildWithValidation(child) : child;
+      childWithValidation = this.getChildWithValidation(child);
     }
 
+    const hasErrors = this.state.errors && this.state.errors.length;
     return (
       <span
         className={classNames('tk-validation', {
-          'tk-validation--error': this.state.errors && this.state.errors.length,
+          'tk-validation--error': hasErrors,
         })}
       >
         {childWithValidation}
-        {this.state.errors && this.state.errors.length ? (
+        {hasErrors ? (
           <ul className="tk-validation__errors">
             {this.state.errors.map((error, index) => (
               <li key={index}>{error}</li>

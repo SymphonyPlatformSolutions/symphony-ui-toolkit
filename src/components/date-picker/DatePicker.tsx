@@ -15,18 +15,22 @@ import styled from 'styled-components';
 
 import { PopperContainer } from '../common/popperUtils';
 
-import { matchDay } from './utils/matchDayUtils';
+import { matchDay, matchDayMin, matchDayMax } from './utils/matchDayUtils';
 import { Direction } from './model/Direction';
 
 import { cancelEvent, Keys } from './utils/keyUtils';
 
 import { modifierPropTypes } from './utils/propTypesUtils';
 
-import { format as formatDate, isValid, parse } from 'date-fns';
+import { autocompleteDate } from './utils/dateUtils';
+
+import { format as formatDate, isValid } from 'date-fns';
+
+import { ErrorMessages } from '../validation/Validation';
 
 // z-index: 4; equivalent to $z-index-tooltip
 const DatePickerContainer = styled.div`
-  z-index: 4; 
+  z-index: 4;
   &.DatePickerContainer {
     ${PopperContainer}
   }
@@ -39,7 +43,6 @@ type DatePickerComponentProps = {
   disabledDays?: Modifier | Modifier[];
   disabled?: boolean;
   dir?: Direction;
-  errorFormatMessage: string;
   format?: string;
   highlightedDays?: Modifier | Modifier[];
   initialMonth?: Date;
@@ -60,6 +63,7 @@ type DatePickerComponentProps = {
   showOverlay?: boolean;
   onBlur?: (event) => any;
   onChange?: (event) => any;
+  onValidationChanged?: (errors: ErrorMessages) => any;
 };
 
 type DayPickerComponentState = {
@@ -80,7 +84,6 @@ class DatePicker extends Component<
   static defaultProps = {
     dir: 'ltr',
     format: 'MM-dd-yyyy', // format is case sensitive, see https://date-fns.org/v2.16.1/docs/format
-    errorFormatMessage: 'The format or the date is incorrect',
     labels: {
       previousYear: 'Previous Year',
       nextYear: 'Next Year',
@@ -112,6 +115,7 @@ class DatePicker extends Component<
     name: PropTypes.string,
     onBlur: PropTypes.func,
     onChange: PropTypes.func.isRequired,
+    onValidationChanged: PropTypes.func,
     placeholder: PropTypes.string,
     placement: PropTypes.oneOf(['top', 'bottom', 'right', 'left']),
     todayButton: PropTypes.string,
@@ -199,9 +203,15 @@ class DatePicker extends Component<
    * Reset to default value and reset errors
    */
   public reset(date: Date): void {
-    const { format, onChange } = this.props;
+    const { format, onChange, onValidationChanged } = this.props;
     const { locale } = this.state;
-    onChange({ target: { value: date } });
+    if (onValidationChanged) {
+      onValidationChanged(null);
+    }
+    if (onChange) {
+      onChange({ target: { value: date } });
+    }
+
     this.setState({
       inputValue: this.computeDate(date)
         ? formatDate(date, format, { locale: locale })
@@ -271,15 +281,35 @@ class DatePicker extends Component<
 
   private computeDate(date): Date {
     const { disabledDays } = this.props;
-    if (isValid(date) && !matchDay(date, disabledDays)) {
+    if (date && isValid(date) && !matchDay(date, disabledDays)) {
       return date;
     } else {
       return null;
     }
   }
 
+  private computeError(date): ErrorMessages {
+    const { disabledDays } = this.props;
+
+    if (!date) {
+      return null;
+    }
+
+    if (!isValid(date)) {
+      return { format: 'The date format is incorrect' };
+    } else if (matchDayMax(date, disabledDays)) {
+      return { maxDate: 'Date too far in the future' };
+    } else if (matchDayMin(date, disabledDays)) {
+      return { minDate: 'Date too far in the past' };
+    } else if (matchDay(date, disabledDays)) {
+      return { disabledDate: 'This date is not available' };
+    } else {
+      return null;
+    }
+  }
+
   private async handleDayClick(date: Date, modifiers: DayModifiers) {
-    const { format, onChange } = this.props;
+    const { format, onChange, onValidationChanged } = this.props;
     const { locale } = this.state;
     if (modifiers.disabled) {
       return;
@@ -292,6 +322,9 @@ class DatePicker extends Component<
       showPicker: false,
     });
 
+    if (onValidationChanged) {
+      onValidationChanged(this.computeError(newDate));
+    }
     if (onChange) {
       onChange({
         target: { value: newDate },
@@ -300,31 +333,24 @@ class DatePicker extends Component<
   }
 
   private handleInputChange(e): void {
-    const { format, onChange } = this.props;
+    const { format, onChange, onValidationChanged } = this.props;
     const { locale } = this.state;
+
     const newValue = e.target.value;
     this.setState({ inputValue: newValue });
 
-    let newDate = parse(newValue, format, new Date(), { locale: locale });
-    // If year not typed, take the current year
-    if (!isValid(newDate)) {
-      // regex: remove -yyyy, yyyy-, /yyyy, yyyy/, .yyyy, ...
-      newDate = parse(
-        newValue,
-        format.replace(/[\W]?y{4}[\W]?/, ''),
-        new Date(),
-        {
-          locale: locale,
-        }
-      );
-    }
+    const newDate = autocompleteDate(newValue, format, locale);
 
-    if (isValid(newDate)) {
+    if (newDate && isValid(newDate)) {
       this.setState({ navigationDate: newDate });
+    }
+    if (onValidationChanged) {
+      onValidationChanged(this.computeError(newDate));
     }
     if (onChange) {
       onChange({ target: { value: this.computeDate(newDate) } });
     }
+
   }
 
   private handleKeyDownIcon(e: React.KeyboardEvent): void {
@@ -395,7 +421,6 @@ class DatePicker extends Component<
       disabledDays,
       disabled,
       dir,
-      errorFormatMessage,
       format,
       highlightedDays,
       label,
@@ -426,41 +451,29 @@ class DatePicker extends Component<
     return (
       <div className={'tk-datepicker'} ref={this.setRefContainer}>
         <div ref={this.setReferenceElement}>
-          <span
-            className={classNames('tk-validation', {
-              'tk-validation--error':
-                inputValue && this.computeDate(date) === null,
+          <TextField
+            {...textfieldProps}
+            className={classNames({
+              active: showPicker,
             })}
-          >
-            <TextField
-              {...textfieldProps}
-              className={classNames({
-                active: showPicker,
-              })}
-              iconElement={
-                <Icon
-                  className={classNames({
-                    active: showPicker,
-                  })}
-                  disabled={disabled}
-                  iconName={'calendar'}
-                  forwardRef={refIcon}
-                  tabIndex={0}
-                  onClick={() => this.handleClickIcon()}
-                  onKeyDown={this.handleKeyDownIcon}
-                ></Icon>
-              }
-              value={inputValue || ''}
-              onChange={this.handleInputChange}
-              onFocus={() => this.setState({ showPicker: true })}
-              onKeyDown={this.handleKeyDownInput}
-            ></TextField>
-            {inputValue && this.computeDate(date) === null ? (
-              <ul className="tk-validation__errors">
-                <li>{errorFormatMessage}</li>
-              </ul>
-            ) : null}
-          </span>
+            iconElement={
+              <Icon
+                className={classNames({
+                  active: showPicker,
+                })}
+                disabled={disabled}
+                iconName={'calendar'}
+                forwardRef={refIcon}
+                tabIndex={0}
+                onClick={() => this.handleClickIcon()}
+                onKeyDown={this.handleKeyDownIcon}
+              ></Icon>
+            }
+            value={inputValue || ''}
+            onChange={this.handleInputChange}
+            onFocus={() => this.setState({ showPicker: true })}
+            onKeyDown={this.handleKeyDownInput}
+          ></TextField>
         </div>
         <DatePickerContainer
           role="tooltip"
