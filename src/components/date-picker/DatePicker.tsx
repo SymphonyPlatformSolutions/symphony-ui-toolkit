@@ -26,7 +26,7 @@ import { autocompleteDate } from './utils/dateUtils';
 
 import { format as formatDate, isValid } from 'date-fns';
 
-import { errorMessage } from '../validation/Validation';
+import { ErrorMessages } from '../validation/Validation';
 
 // z-index: 4; equivalent to $z-index-tooltip
 const DatePickerContainer = styled.div`
@@ -63,7 +63,7 @@ type DatePickerComponentProps = {
   showOverlay?: boolean;
   onBlur?: (event) => any;
   onChange?: (event) => any;
-  onValidationChanged?: (errors) => any;
+  onValidationChanged?: (errors: ErrorMessages) => any;
 };
 
 type DayPickerComponentState = {
@@ -288,7 +288,7 @@ class DatePicker extends Component<
     }
   }
 
-  private computeError(date): errorMessage {
+  private computeError(date): ErrorMessages {
     const { disabledDays } = this.props;
 
     if (!isValid(date)) {

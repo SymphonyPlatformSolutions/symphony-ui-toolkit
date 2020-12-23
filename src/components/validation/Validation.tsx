@@ -17,7 +17,7 @@ const ValidationPropTypes = {
   validateOnInit: PropTypes.string,
 };
 
-export type errorMessage = string | { [key: string]: string }; // todo: put in another file?
+export type ErrorMessages = string | { [key: string]: string };
 
 interface ValidationProps {
   onValidationChanged?: (
@@ -26,15 +26,15 @@ interface ValidationProps {
   ) => void;
   validateOnInit?: string;
   validator?: ValidatorFn | ValidatorFn[];
-  errorMessage?: errorMessage;
-  errors?: errorMessage[];
+  errorMessage?: ErrorMessages;
+  errors?: ErrorMessages[];
 }
 interface ValidationPropsUncontrolled extends ValidationProps {
   validator: ValidatorFn | ValidatorFn[];
-  errorMessage: errorMessage;
+  errorMessage: ErrorMessages;
 }
 interface ValidationPropsControlled extends ValidationProps {
-  errors: errorMessage[];
+  errors: ErrorMessages[];
 }
 
 class Validation extends React.Component<
@@ -53,14 +53,6 @@ class Validation extends React.Component<
     if (this.props.validateOnInit || this.props.errors) {
       this.updateState(this.props.validateOnInit);
     }
-    // if (
-    //   this.props.errors &&
-    //   (this.props.errorMessage || this.props.validator)
-    // ) {
-    //   throw new Error(`The Validation Component 'props' are not compatible. You can either use the Validation Component on a Controlled mode or Uncontrolled. \n
-    //   For Uncontrolled mode use: errorMessage and validator 'props'.\n
-    //   For Controlled mode use: errors 'props'.\n `);
-    // }
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -92,7 +84,7 @@ class Validation extends React.Component<
           child.props.onBlur(event);
         }
       },
-      onValidationChanged: (errors: errorMessage) => {
+      onValidationChanged: (errors: ErrorMessages) => {
         this.setState({ errorsChildMap: errors })
         if (child.props.onValidationChanged) {
           child.props.onValidationChanged(errors);
@@ -104,7 +96,7 @@ class Validation extends React.Component<
   public async updateState(value: string): Promise<string[]> {
     let errorsMap = {};
     let valid = true;
-    let errorMessages = [];
+    let errors = [];
     let validationResults;
     if (this.props.validator) {
       if (this.props.validator instanceof Array) {
@@ -130,9 +122,9 @@ class Validation extends React.Component<
       Object.entries(errorsMap).forEach(([errorId, errorVal]) => {
         if (errorVal) {
           if (this.props.errorMessage instanceof Object) {
-            errorMessages.push(this.props.errorMessage[errorId]);
+            errors.push(this.props.errorMessage[errorId]);
           } else {
-            errorMessages.push(this.props.errorMessage);
+            errors.push(this.props.errorMessage);
           }
         }
       });
@@ -148,10 +140,10 @@ class Validation extends React.Component<
               this.props.errorMessage[errorId]
             ) {
               // get message error from props if exists in errorMessage
-              errorMessages.push(this.props.errorMessage[errorId]);
+              errors.push(this.props.errorMessage[errorId]);
             } else {
               // otherwise display the default one
-              errorMessages.push(errorVal);
+              errors.push(errorVal);
             }
           }
         }
@@ -159,10 +151,10 @@ class Validation extends React.Component<
     }
 
     if (this.props.errors) {
-      errorMessages = this.props.errors;
+      errors = this.props.errors;
     }
-    this.setState({ isValid: valid, errors: errorMessages, lastValue: value });
-    return errorMessages;
+    this.setState({ isValid: valid, errors, lastValue: value });
+    return errors;
   }
 
   /**
@@ -195,9 +187,6 @@ class Validation extends React.Component<
       );
     } else {
       const child = React.Children.only(children);
-      // childWithValidation = this.props.validator
-      //   ? this.getChildWithValidation(child)
-      //   : child;
       childWithValidation = this.getChildWithValidation(child);
     }
 

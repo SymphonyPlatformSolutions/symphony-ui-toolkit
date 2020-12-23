@@ -139,7 +139,11 @@ export const Validations = () => {
       </Validation>
       <h2>Customise children validation message</h2>
       <p>
-        If the child component send its validation on onValidationChanged, the error message can be <strong>customised</strong>. For example, the Date Picker provide the following type of errors: <strong>format, disabledDate, maxDate, minDate.</strong>.
+        A component owning internal validation should expose it&apos;s validation
+        with <strong>onValidationChanged</strong> props. In our example, the Date
+        Picker provide the following type of errors:{' '}
+        <strong>format, disabledDate, maxDate, minDate</strong>.<br/>
+        Any component owning internal validation should follow the contract <strong>onValidationChanged: (errors: ErrorMessages) {'=>'} any;</strong>.
       </p>
       <Validation
         onValidationChanged={logChange}
@@ -195,6 +199,6 @@ export const Validations = () => {
 export default {
   title: 'Components/Input/Validations',
   component: Validation,
-  subcomponents: { TextField, TextArea },
+  subcomponents: { TextField, TextArea, DatePicker },
   decorators: [withKnobs],
 };
