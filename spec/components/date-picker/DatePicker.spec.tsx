@@ -38,6 +38,7 @@ describe('DatePicker Component', () => {
       showOverlay: false,
       onBlur: jest.fn(),
       onChange: jest.fn(),
+      onValidationChanged: jest.fn(),
       ...props,
     };
   }
@@ -128,6 +129,42 @@ describe('DatePicker Component', () => {
       wrapper.unmount();
     });
   });
+  describe('should trigger onValidationChanged', () => {
+    it('when typing on field', () => {
+      const props = createTestProps({
+        disabledDays: [
+          { daysOfWeek: [0, 1] }, // Disable all Sunday and Monday
+          { before: new Date('01-01-2020') },
+          { after: new Date('01-01-2021') },
+        ],
+      });
+      const wrapper = shallow(<DatePicker {...props} />);
+      wrapper
+        .find(TextField)
+        .simulate('change', { target: { value: 'incorrect format' } });
+      expect(props.onValidationChanged).toHaveBeenCalledWith({
+        format: 'The date format is incorrect',
+      });
+      wrapper
+        .find(TextField)
+        .simulate('change', { target: { value: '12-06-2020' } }); // Sunday
+      expect(props.onValidationChanged).toHaveBeenCalledWith({
+        disabledDate: 'This date is not available',
+      });
+      wrapper
+        .find(TextField)
+        .simulate('change', { target: { value: '12-06-2019' } });
+      expect(props.onValidationChanged).toHaveBeenCalledWith({
+        minDate: 'Date too far in the past',
+      });
+      wrapper
+        .find(TextField)
+        .simulate('change', { target: { value: '12-06-2021' } });
+      expect(props.onValidationChanged).toHaveBeenCalledWith({
+        maxDate: 'Date too far in the future',
+      });
+    });
+  });
   describe('should change focus', () => {
     it('on TAB against icon', async () => {
       const wrapper = mount(<DatePicker />);
@@ -168,19 +205,22 @@ describe('DatePicker Component', () => {
       expect(wrapper.state('showPicker')).toBe(true);
       wrapper.unmount();
     });
-    test.each([[Keys.ENTER], [Keys.SPACE], [Keys.SPACEBAR]])('on %p on Icon', async (key) => {
-      const wrapper = mount(<DatePicker />);
-      expect(wrapper.state('showPicker')).toBe(false);
-      await act(async () => {
-        wrapper
-          .find(TextField)
-          .find('.tk-input__icon .tk-icon-calendar')
-          .simulate('keyDown', { key });
-      });
-      wrapper.update();
-      expect(wrapper.state('showPicker')).toBe(true);
-      wrapper.unmount();
-    });
+    test.each([[Keys.ENTER], [Keys.SPACE], [Keys.SPACEBAR]])(
+      'on %p on Icon',
+      async (key) => {
+        const wrapper = mount(<DatePicker />);
+        expect(wrapper.state('showPicker')).toBe(false);
+        await act(async () => {
+          wrapper
+            .find(TextField)
+            .find('.tk-input__icon .tk-icon-calendar')
+            .simulate('keyDown', { key });
+        });
+        wrapper.update();
+        expect(wrapper.state('showPicker')).toBe(true);
+        wrapper.unmount();
+      }
+    );
     it('on icon click', async () => {
       const wrapper = mount(<DatePicker />);
       expect(wrapper.state('showPicker')).toBe(false);
@@ -196,16 +236,19 @@ describe('DatePicker Component', () => {
     });
   });
   describe('should close overlay on ESC', () => {
-    test.each([[Keys.ESC], [Keys.TAB]])('against TextField with %p', async (key) => {
-      const wrapper = mount(<DatePicker showOverlay={true} />);
-      expect(wrapper.state('showPicker')).toBe(true);
-      await act(async () => {
-        wrapper.find('.tk-input').simulate('keyDown', { key });
-      });
-      wrapper.update();
-      expect(wrapper.state('showPicker')).toBe(false);
-      wrapper.unmount();
-    });
+    test.each([[Keys.ESC], [Keys.TAB]])(
+      'against TextField with %p',
+      async (key) => {
+        const wrapper = mount(<DatePicker showOverlay={true} />);
+        expect(wrapper.state('showPicker')).toBe(true);
+        await act(async () => {
+          wrapper.find('.tk-input').simulate('keyDown', { key });
+        });
+        wrapper.update();
+        expect(wrapper.state('showPicker')).toBe(false);
+        wrapper.unmount();
+      }
+    );
     it('against Icon', async () => {
       const wrapper = mount(<DatePicker showOverlay={true} />);
       expect(wrapper.state('showPicker')).toBe(true);
