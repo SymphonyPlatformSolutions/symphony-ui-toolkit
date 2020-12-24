@@ -2361,9 +2361,10 @@
     "@svgr/plugin-svgo" "^5.5.0"
     loader-utils "^2.0.0"
 
-"@symphony/uitoolkit-styles@https://github.com/SymphonyOSF/symphony-bdk-ui-toolkit-styles.git":
-  version "1.2.0"
-  resolved "https://github.com/SymphonyOSF/symphony-bdk-ui-toolkit-styles.git#670b8d5174e8d0b80390f5188ca4b0bd46e2a369"
+"@symphony/uitoolkit-styles@1.2.1":
+  version "1.2.1"
+  resolved "https://repo.symphony.com/artifactory/api/npm/npm-virtual-dev/@symphony/uitoolkit-styles/-/@symphony/uitoolkit-styles-1.2.1.tgz#320f0716eb56004fb05ae1b17124b26073625ab7"
+  integrity sha1-Mg8HFutWAE+wWuGxcSSyYHNiWrc=
 
 "@testing-library/dom@^7.28.1", "@testing-library/dom@^7.29.0":
   version "7.29.0"
