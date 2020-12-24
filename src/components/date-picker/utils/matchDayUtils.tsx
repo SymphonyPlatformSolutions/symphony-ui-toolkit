@@ -51,7 +51,7 @@ function matchFunction(day: Date, matcher: Modifier): boolean {
  * Return `true` if a day matches a day matcher.
  */
 export function matchDay(day: Date, matcher: Modifier | Modifier[]): boolean {
-  if (!matcher) return false;
+  if (!matcher || !day) return false;
   let matchers: Modifier[];
 
   if (Array.isArray(matcher)) {
@@ -70,6 +70,48 @@ export function matchDay(day: Date, matcher: Modifier | Modifier[]): boolean {
       matchDayBetween(day, dayMatcher) ||
       matchDayOfWeek(day, dayMatcher) ||
       matchFunction(day, dayMatcher)
+    );
+  });
+}
+
+/**
+ * Return `true` if a day is match the "before" assertion (equivalent to "minimum")
+ */
+export function matchDayMin(day: Date, matcher: Modifier | Modifier[]): boolean {
+  if (!matcher) return false;
+  let matchers: Modifier[];
+
+  if (Array.isArray(matcher)) {
+    matchers = matcher;
+  } else {
+    matchers = [matcher];
+  }
+
+  return matchers.some((dayMatcher: Modifier) => {
+    if (!dayMatcher) return false;
+    return (
+      matchDayBefore(day, dayMatcher)
+    );
+  });
+}
+
+/**
+ * Return `true` if a day is match the "after" assertion (equivalent to "maximum")
+ */
+export function matchDayMax(day: Date, matcher: Modifier | Modifier[]): boolean {
+  if (!matcher) return false;
+  let matchers: Modifier[];
+
+  if (Array.isArray(matcher)) {
+    matchers = matcher;
+  } else {
+    matchers = [matcher];
+  }
+
+  return matchers.some((dayMatcher: Modifier) => {
+    if (!dayMatcher) return false;
+    return (
+      matchDayAfter(day, dayMatcher)
     );
   });
 }
