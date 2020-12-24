@@ -1,4 +1,8 @@
-import { matchDay } from '../../../src/components/date-picker/utils/matchDayUtils';
+import {
+  matchDay,
+  matchDayMax,
+  matchDayMin,
+} from '../../../src/components/date-picker/utils/matchDayUtils';
 
 describe('Match Day', () => {
   describe('day matcher', () => {
@@ -134,6 +138,42 @@ describe('Match Day', () => {
       const matcher = () => false;
       expect(matchDay(date, matcher)).toBeFalsy();
       expect(matchDay(date, [matcher])).toBeFalsy();
+    });
+  });
+  describe('date match the min bound and before', () => {
+    it('date min matcher should match', () => {
+      const date = new Date(2020, 5, 20);
+      const matcher = {
+        before: new Date(2020, 6, 20),
+      };
+      expect(matchDayMin(date, matcher)).toBeTruthy();
+      expect(matchDayMin(date, [matcher])).toBeTruthy();
+    });
+    it('date min matcher should not match', () => {
+      const date = new Date(2020, 7, 20);
+      const matcher = {
+        before: new Date(2020, 6, 20),
+      };
+      expect(matchDayMin(date, matcher)).toBeFalsy();
+      expect(matchDayMin(date, [matcher])).toBeFalsy();
+    });
+  });
+  describe('date match the max bound and after', () => {
+    it('date after matcher should match', () => {
+      const date = new Date(2020, 7, 20);
+      const matcher = {
+        after: new Date(2020, 6, 20),
+      };
+      expect(matchDayMax(date, matcher)).toBeTruthy();
+      expect(matchDayMax(date, [matcher])).toBeTruthy();
+    });
+    it('date before matcher should not match', () => {
+      const date = new Date(2020, 5, 20);
+      const matcher = {
+        after: new Date(2020, 6, 20),
+      };
+      expect(matchDayMax(date, matcher)).toBeFalsy();
+      expect(matchDayMax(date, [matcher])).toBeFalsy();
     });
   });
 });
