@@ -5,9 +5,9 @@ export const showTooltipOnClick = (children: React.ReactNode, showClick: boolean
     children, child => {
       if (React.isValidElement(child)) {
         return React.cloneElement(child, {
-          onClick: () => {
+          onClick: (event) => {
             setShowClick(!showClick);
-            if (child.props.onMouseClick) {
+            if (child.props.onClick) {
               child.props.onClick(event);
             }
           }
@@ -24,13 +24,13 @@ export const showTooltipOnHover = (children: React.ReactNode, setShowHover: Reac
     children, child => {
       if (React.isValidElement(child)) {
         return React.cloneElement(child, {
-          onMouseEnter: () => {
+          onMouseEnter: (event) => {
             setShowHover(true)
             if (child.props.onMouseEnter) {
               child.props.onMouseEnter(event);
             }
           },
-          onMouseLeave: () => {
+          onMouseLeave: (event) => {
             setShowHover(false)
             if (child.props.onMouseLeave) {
               child.props.onMouseLeave(event);

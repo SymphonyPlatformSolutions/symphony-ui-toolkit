@@ -48,18 +48,18 @@ const TooltipClose = styled.span`
 `;
 
 export type TooltipProps = {
-  closeLabel: string;
+  closeLabel?: string;
   /** Text or Element to display in the tooltip */
   description: string | JSX.Element;
   displayTrigger?: 'click' | 'hover';
   /** CSS ID */
-  id: string;
+  id?: string;
   /** Function to call on close action */
-  onHintClose: () => void;
+  onHintClose?: () => void;
   placement: 'top' | 'bottom' | 'left' | 'right';
   type?: 'hint' | 'tooltip';
-  /** if true,  the tooltip should be displayed */
-  visible: boolean;
+  /** if true, the tooltip should be displayed */
+  visible?: boolean;
 };
 
 const Tooltip: React.FC<TooltipProps> = ({
