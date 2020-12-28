@@ -5,7 +5,7 @@ import { Checkbox, Radio } from './selection';
 import CropContent from './crop-content';
 import DatePicker from './date-picker/DatePicker';
 import ExpandableCard from './expandable-card';
-import Tooltip from './tooltip';
+import Tooltip, { TooltipProps } from './tooltip';
 import Icon from './icon';
 import Validation from './validation';
 import VirtualizedList from './virtualized-list';
@@ -25,6 +25,7 @@ export {
   TextArea,
   TextField,
   Tooltip,
+  TooltipProps,
   Validation,
   Icon,
   VirtualizedList,
