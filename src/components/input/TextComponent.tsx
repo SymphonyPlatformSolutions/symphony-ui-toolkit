@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import classNames from 'classnames';
 import shortid from 'shortid';
 import styled from 'styled-components';
@@ -20,6 +20,7 @@ type TextComponentProps = {
   label?: string;
   masked?: boolean;
   placeholder?: string;
+  onInit?: (any) => any;
   onChange?: (event) => any;
   onClick?: () => any;
   onBlur?: () => any;
@@ -53,6 +54,7 @@ const TextComponentPropTypes = {
   label: PropTypes.string,
   masked: PropTypes.bool,
   placeholder: PropTypes.string,
+  onInit: PropTypes.func,
   onChange: PropTypes.func,
   onBlur: PropTypes.func,
   onClick: PropTypes.func,
@@ -75,6 +77,7 @@ const TextComponent: React.FC<TextComponentPropsWithType> = ({
   tooltip,
   tooltipCloseLabel,
   value,
+  onInit,
   onChange,
   onBlur,
   onClick,
@@ -84,6 +87,12 @@ const TextComponent: React.FC<TextComponentPropsWithType> = ({
 }) => {
   const [showTooltip, setShowTooltip] = useState(false);
   const [hideText, setHideText] = useState(masked || false);
+
+  useEffect(()=> {
+    if(onInit){
+      onInit(value);
+    }
+  },[]);
 
   // Generate unique ID if not provided
   const ariaId = useMemo(() => {
@@ -167,7 +176,7 @@ const TextComponent: React.FC<TextComponentPropsWithType> = ({
           {...rest}
         />
         {iconElement && type == Types.TEXTFIELD
-        // Clone the iconElement in order to attach className 'tk-input__icon' 
+        // Clone the iconElement in order to attach className 'tk-input__icon'
           ? React.cloneElement(iconElement, {
             className: classNames(
               'tk-input__icon',
