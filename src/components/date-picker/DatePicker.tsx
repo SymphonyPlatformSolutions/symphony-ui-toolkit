@@ -27,6 +27,7 @@ import { autocompleteDate } from './utils/dateUtils';
 import { format as formatDate, isValid } from 'date-fns';
 
 import { ErrorMessages } from '../validation/Validation';
+import { InputBaseProps, InputBasePropTypes } from '../input/TextComponent';
 
 // z-index: 4; equivalent to $z-index-tooltip
 const DatePickerContainer = styled.div`
@@ -64,12 +65,9 @@ type DatePickerComponentProps = {
   onBlur?: (event) => any;
   onChange?: (event) => any;
   onValidationChanged?: (errors: ErrorMessages) => any;
-  onCopy?: (event) => any;
-  onCut?: (event) => any;
-  onDrag?: (event) => any;
 };
 
-type DayPickerComponentState = {
+type DatePickerComponentState = {
   locale: Locale;
   navigationDate: Date;
   inputValue: string;
@@ -81,8 +79,8 @@ type DayPickerComponentState = {
 };
 
 class DatePicker extends Component<
-  DatePickerComponentProps,
-  DayPickerComponentState
+  DatePickerComponentProps & InputBaseProps,
+  DatePickerComponentState
 > {
   static defaultProps = {
     dir: 'ltr',
@@ -117,9 +115,6 @@ class DatePicker extends Component<
     locale: PropTypes.string,
     name: PropTypes.string,
     onBlur: PropTypes.func,
-    onCopy: PropTypes.func,
-    onCut: PropTypes.func,
-    onDrag: PropTypes.func,
     onChange: PropTypes.func.isRequired,
     onValidationChanged: PropTypes.func,
     placeholder: PropTypes.string,
@@ -128,6 +123,7 @@ class DatePicker extends Component<
     tooltip: PropTypes.string,
     tooltipCloseLabel: PropTypes.string,
     showOverlay: PropTypes.bool,
+    ...InputBasePropTypes
   };
   refPicker = null;
   dayPickerInstance = null;
@@ -356,7 +352,6 @@ class DatePicker extends Component<
     if (onChange) {
       onChange({ target: { value: this.computeDate(newDate) } });
     }
-
   }
 
   private handleKeyDownIcon(e: React.KeyboardEvent): void {
