@@ -64,6 +64,9 @@ type DatePickerComponentProps = {
   onBlur?: (event) => any;
   onChange?: (event) => any;
   onValidationChanged?: (errors: ErrorMessages) => any;
+  onCopy?: (event) => any;
+  onCut?: (event) => any;
+  onDrag?: (event) => any;
 };
 
 type DayPickerComponentState = {
@@ -114,6 +117,9 @@ class DatePicker extends Component<
     locale: PropTypes.string,
     name: PropTypes.string,
     onBlur: PropTypes.func,
+    onCopy: PropTypes.func,
+    onCut: PropTypes.func,
+    onDrag: PropTypes.func,
     onChange: PropTypes.func.isRequired,
     onValidationChanged: PropTypes.func,
     placeholder: PropTypes.string,
@@ -430,6 +436,9 @@ class DatePicker extends Component<
       todayButton,
       tooltip,
       tooltipCloseLabel,
+      onCopy,
+      onCut,
+      onDrag,
     } = this.props;
     const {
       inputValue,
@@ -446,6 +455,9 @@ class DatePicker extends Component<
       placeholder: placeholder || format.toUpperCase(),
       tooltip,
       tooltipCloseLabel,
+      onCopy,
+      onCut,
+      onDrag,
     };
 
     return (
