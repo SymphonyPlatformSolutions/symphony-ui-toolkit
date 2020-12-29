@@ -15,7 +15,7 @@ import styled from 'styled-components';
 
 import { PopperContainer } from '../common/popperUtils';
 
-import { matchDay, matchDayMin, matchDayMax } from './utils/matchDayUtils';
+import { matchDay, matchDayMax, matchDayMin } from './utils/matchDayUtils';
 import { Direction } from './model/Direction';
 
 import { cancelEvent, Keys } from './utils/keyUtils';
@@ -61,6 +61,7 @@ type DatePickerComponentProps = {
   tooltip?: string;
   tooltipCloseLabel?: string;
   showOverlay?: boolean;
+  onInit?: (value) => any;
   onBlur?: (event) => any;
   onChange?: (event) => any;
   onValidationChanged?: (errors: ErrorMessages) => any;
@@ -113,6 +114,7 @@ class DatePicker extends Component<
     }),
     locale: PropTypes.string,
     name: PropTypes.string,
+    onInit: PropTypes.func,
     onBlur: PropTypes.func,
     onChange: PropTypes.func.isRequired,
     onValidationChanged: PropTypes.func,
@@ -166,9 +168,13 @@ class DatePicker extends Component<
   }
 
   componentDidMount() {
+    const {onInit, date} = this.props;
     document.addEventListener('mousedown', this.handleClickOutside);
     if (this.props.showOverlay) {
       this.setState({ showPicker: true });
+    }
+    if(onInit){
+      onInit(this.computeDate(date));
     }
   }
 
