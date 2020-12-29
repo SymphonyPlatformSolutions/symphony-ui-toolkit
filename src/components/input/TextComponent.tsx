@@ -12,6 +12,12 @@ enum Types {
   TEXTFIELD = 'TextField',
 }
 
+export type InputBaseProps = {
+  onCopy?: (event) => any;
+  onCut?: (event) => any;
+  onDrag?: (event) => any;
+} 
+
 type TextComponentProps = {
   className?: string;
   disabled?: boolean;
@@ -31,7 +37,7 @@ type TextComponentProps = {
   value?: string;
 };
 
-type TextComponentPropsWithType = TextComponentProps & {
+type TextComponentPropsWithType = TextComponentProps & InputBaseProps & {
   type: Types;
 };
 
@@ -45,6 +51,12 @@ const TextComponentTooltip = styled.div`
   margin-left: auto;
   font-size: 16px;
 `;
+
+export const InputBasePropTypes = {
+  onCopy: PropTypes.func,
+  onCut: PropTypes.func,
+  onDrag: PropTypes.func,
+}
 
 const TextComponentPropTypes = {
   className: PropTypes.string,
@@ -203,6 +215,7 @@ const TextComponent: React.FC<TextComponentPropsWithType> = ({
 
 TextComponent.propTypes = {
   ...TextComponentPropTypes,
+  ...InputBasePropTypes,
   type: PropTypes.oneOf(Object.values(Types)).isRequired,
 };
 
