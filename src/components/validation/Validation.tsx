@@ -92,9 +92,6 @@ class Validation extends React.Component<
       },
       onValidationChanged: (errorsChildMap: ErrorMessages) => {
         this.setState({ errorsChildMap })
-        if (child.props.onValidationChanged) {
-          child.props.onValidationChanged(errorsChildMap);
-        }
       },
     });
   }
