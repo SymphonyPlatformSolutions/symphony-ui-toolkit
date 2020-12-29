@@ -30,7 +30,7 @@ interface ValidationProps {
 }
 interface ValidationPropsUncontrolled extends ValidationProps {
   validator: ValidatorFn | ValidatorFn[]; // object of {'error name1': boolean, 'error name2': boolean, ...}
-  errorMessage: ErrorMessages; // dictionnary of {'error name1': 'error text1', 'error name2': 'error text2', ...}
+  errorMessage: ErrorMessages; // dictionary of {'error name1': 'error text1', 'error name2': 'error text2', ...}
 }
 interface ValidationPropsControlled extends ValidationProps {
   errors: string[]; // list of ['error text1', 'error text2'] to display
@@ -45,6 +45,7 @@ class Validation extends React.Component<
     errors: [],
     errorsChildMap: null,
     isValid: null,
+    initialValue: null,
     lastValue: null,
   };
 
@@ -71,6 +72,12 @@ class Validation extends React.Component<
       console.error('Child is not a valid React element', child);
     }
     return React.cloneElement(child as any, {
+      onInit: (value: any) => {
+        this.setState({ initialValue: value, lastValue: value });
+        if (child.props.onInit) {
+          child.props.onInit(value);
+        }
+      },
       onChange: (event: any) => {
         this.setState({ lastValue: event.target.value });
         if (child.props.onChange) {
@@ -84,7 +91,7 @@ class Validation extends React.Component<
         }
       },
       onValidationChanged: (errorsChildMap: ErrorMessages) => {
-        this.setState({ errorsChildMap })    
+        this.setState({ errorsChildMap })
       },
     });
   }
@@ -157,7 +164,7 @@ class Validation extends React.Component<
    * Reset to default value and reset errors
    */
   public reset(): void {
-    this.setState({ isValid: null, errors: [] });
+    this.setState({ lastValue: this.state.initialValue, isValid: null, errors: [] });
   }
 
   /**

@@ -173,10 +173,11 @@ export const Validations = () => {
       <p>The Validation component wraps the component to be validated.</p>
       <p>
         To be able to validate the component, the child component must take in
-        parameters two methods: <strong>onChange</strong> and{' '}
-        <strong>onBlur</strong> methods.
+        parameters three methods: <strong>onInit</strong>, <strong>onChange</strong> and <strong>onBlur</strong> methods.
       </p>
       <p>
+        When the component is initialized, call the onInit method with the initial value of the component.
+        Call onInit method when the component is initialized by passing the value of the component as a parameter.
         Call onChange method when the child&apos;s value changes and call onBlur
         method when it loses the focus.
       </p>
