@@ -45,6 +45,7 @@ class Validation extends React.Component<
     errors: [],
     errorsChildMap: null,
     isValid: null,
+    initialValue: null,
     lastValue: null,
   };
 
@@ -72,7 +73,7 @@ class Validation extends React.Component<
     }
     return React.cloneElement(child as any, {
       onInit: (value: any) => {
-        this.setState({ lastValue: value });
+        this.setState({ initialValue: value, lastValue: value });
         if (child.props.onInit) {
           child.props.onInit(value);
         }
@@ -166,7 +167,7 @@ class Validation extends React.Component<
    * Reset to default value and reset errors
    */
   public reset(): void {
-    this.setState({ isValid: null, errors: [] });
+    this.setState({ lastValue: this.state.initialValue, isValid: null, errors: [] });
   }
 
   /**
