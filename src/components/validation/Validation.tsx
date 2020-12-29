@@ -73,6 +73,9 @@ class Validation extends React.Component<
     return React.cloneElement(child as any, {
       onInit: (value: any) => {
         this.setState({ lastValue: value });
+        if (child.props.onInit) {
+          child.props.onInit(value);
+        }
       },
       onChange: (event: any) => {
         this.setState({ lastValue: event.target.value });
