@@ -83,27 +83,19 @@ describe('Validation Component', () => {
       expect(validate).toHaveBeenCalledWith(mockEvent.target.value);
     });
     it('validation should be called when the child component send onValidationChanged', async () => {
-      const zone = {
-        onValidationChanged: () => null,
-      };
-      const validationChanged = jest.spyOn(zone, 'onValidationChanged');
+      const mockEvent = { format: 'this message is displayed' };
+
       const wrapper = shallow(
         <Validation>
-          <DatePicker
-            onValidationChanged={zone.onValidationChanged}
-            onChange={() => null}
-          />
+          <DatePicker onChange={() => null} />
         </Validation>
       );
-      expect(validationChanged).toHaveBeenCalledTimes(0);
-      wrapper.find('DatePicker').simulate('validationChanged');
-      expect(validationChanged).toHaveBeenCalledTimes(1);
+      wrapper.find('DatePicker').simulate('validationChanged', mockEvent);
+      expect(wrapper.find('.tk-validation__errors').text()).toEqual('this message is displayed');
     });
     it('validation should be called with custom error message', async () => {
-      const zone = {
-        onValidationChanged: () => ({ format: 'default error message' }),
-      };
-      const validationChanged = jest.spyOn(zone, 'onValidationChanged');
+      const mockEvent = { format: 'this is message is overriden' };
+
       const wrapper = shallow(
         <Validation
           errorMessage={{
@@ -113,15 +105,11 @@ describe('Validation Component', () => {
             minDate: 'custom min date error',
           }}
         >
-          <DatePicker
-            onValidationChanged={zone.onValidationChanged}
-            onChange={() => null}
-          />
+          <DatePicker onChange={() => null} />
         </Validation>
       );
-      expect(validationChanged).toHaveBeenCalledTimes(0);
-      wrapper.find('DatePicker').simulate('validationChanged');
-      expect(validationChanged).toHaveBeenCalledTimes(1);
+      wrapper.find('DatePicker').simulate('validationChanged', mockEvent);
+      expect(wrapper.find('.tk-validation__errors').text()).toEqual('custom format error');
     });
     it('validation should be called at initialization if validateOnInit is defined', async () => {
       const validate = jest.spyOn(Validation.prototype, 'updateState');
