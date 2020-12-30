@@ -175,7 +175,7 @@ class DatePicker extends Component<
     if (this.props.showOverlay) {
       this.setState({ showPicker: true });
     }
-    if(onInit){
+    if(onInit && date){
       onInit(this.computeDate(date));
     }
   }

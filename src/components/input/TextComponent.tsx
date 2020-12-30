@@ -16,7 +16,7 @@ export type InputBaseProps = {
   onCopy?: (event) => any;
   onCut?: (event) => any;
   onDrag?: (event) => any;
-} 
+}
 
 type TextComponentProps = {
   className?: string;
@@ -101,7 +101,7 @@ const TextComponent: React.FC<TextComponentPropsWithType> = ({
   const [hideText, setHideText] = useState(masked || false);
 
   useEffect(()=> {
-    if(onInit){
+    if(onInit && value){
       onInit(value);
     }
   },[]);
