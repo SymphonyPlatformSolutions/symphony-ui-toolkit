@@ -103,7 +103,7 @@ export const ModalWithCloseHandler: React.FC = () => {
   const handleClose = () => {alert('This will close the modal!')}
   return (
     <Modal size="medium" closeButton show onClose={handleClose}>
-      <ModalTitle>Medium modal with Close handler</ModalTitle>
+      <ModalTitle>Medium modal with onClose prop</ModalTitle>
       <ModalBody>{body}</ModalBody>
       <ModalFooter>{footer}</ModalFooter>
     </Modal>
