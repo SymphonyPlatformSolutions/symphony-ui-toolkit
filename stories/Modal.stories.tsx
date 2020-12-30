@@ -99,6 +99,17 @@ export const FullPageModal: React.FC = () => {
   );
 };
 
+export const ModalWithCloseHandler: React.FC = () => {
+  const handleClose = () => {alert('This will close the modal!')}
+  return (
+    <Modal size="medium" closeButton show onClose={handleClose}>
+      <ModalTitle>Medium modal with Close handler</ModalTitle>
+      <ModalBody>{body}</ModalBody>
+      <ModalFooter>{footer}</ModalFooter>
+    </Modal>
+  );
+};
+
 export default {
   title: 'Components/Modal',
   component: Modal,
