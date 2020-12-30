@@ -47,9 +47,11 @@ const Modal: React.FC<ModalProps> = ({
 }: ModalProps) => {
   const containerClasses = classNames(className, `${prefix}-backdrop`);
   const sizeClasses = classNames(prefix, `${prefix}--${size}`);
+  const handleContentClick = (ev: React.MouseEvent<HTMLElement>) => ev.stopPropagation();
+
   const domResult = (
     <div {...rest} className={containerClasses} onClick={onClose}>
-      <div className={sizeClasses}>
+      <div className={sizeClasses} onClick={handleContentClick}>
         {closeButton && (
           <button className={buildClass('close')} onClick={onClose} />
         )}
