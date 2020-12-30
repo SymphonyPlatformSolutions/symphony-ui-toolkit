@@ -4,6 +4,12 @@ import { isEmpty } from 'lodash';
 import classNames from 'classnames';
 import { ValidatorFn } from '../../core/validators/validators';
 
+enum ACTION {
+  RESET = 'reset',
+  ON_INIT = 'onInit',
+  ON_CHANGE= 'onChange',
+}
+
 const ValidationPropTypes = {
   validator: PropTypes.oneOfType([
     PropTypes.func,
@@ -47,6 +53,7 @@ class Validation extends React.Component<
     isValid: null,
     initialValue: null,
     lastValue: null,
+    lastAction: null,
   };
 
   componentDidMount() {
@@ -57,7 +64,7 @@ class Validation extends React.Component<
 
   componentDidUpdate(prevProps, prevState) {
     // call updateState whenever value or errorsChildMap change
-    if (prevState.lastValue !== this.state.lastValue || prevState.errorsChildMap !== this.state.errorsChildMap) {
+    if (this.state.lastAction !== ACTION.RESET && this.state !== ACTION.ON_INIT && prevState.lastValue !== this.state.lastValue || prevState.errorsChildMap !== this.state.errorsChildMap) {
       this.updateState(this.state.lastValue);
     }
   }
@@ -73,13 +80,13 @@ class Validation extends React.Component<
     }
     return React.cloneElement(child as any, {
       onInit: (value: any) => {
-        this.setState({ initialValue: value, lastValue: value });
+        this.setState({ initialValue: value, lastValue: value, lastAction: ACTION.ON_INIT });
         if (child.props.onInit) {
           child.props.onInit(value);
         }
       },
       onChange: (event: any) => {
-        this.setState({ lastValue: event.target.value });
+        this.setState({ lastValue: event.target.value, lastAction: ACTION.ON_CHANGE });
         if (child.props.onChange) {
           child.props.onChange(event);
         }
@@ -164,7 +171,7 @@ class Validation extends React.Component<
    * Reset to default value and reset errors
    */
   public reset(): void {
-    this.setState({ lastValue: this.state.initialValue, isValid: null, errors: [] });
+    this.setState({ lastValue: this.state.initialValue, lastAction: ACTION.RESET, isValid: null, errors: [] });
   }
 
   /**
