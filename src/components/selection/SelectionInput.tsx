@@ -48,8 +48,11 @@ const SelectionInput: React.FC<SelectionInputPropsWithType> = ({
   // Default labelPlacement on right if not provided
   labelPlacement = labelPlacement || LabelPlacements.RIGHT;
 
-  // Used for the keyboard navigation
   const [isFocused, setFocus] = useState(false);
+
+  // Used for the keyboard navigation
+  // focus-visible: true when the focus was obtained by keyboard navigation (like :focus-visible pseudo class)
+  const [isFocusVisible, setFocusVisible] = useState(false);
 
   // Accessibility keyboard navigation
   useEffect(() => {
@@ -70,7 +73,27 @@ const SelectionInput: React.FC<SelectionInputPropsWithType> = ({
     return () => {
       window.removeEventListener('keydown', keyPressHandler);
     };
-  }, [isFocused, onClick]);
+  }, [isFocused, isFocusVisible, onClick]);
+
+  useEffect(() => {
+    const keyUpHandler = (event) => {
+      if (isFocused &&
+        // Tab and Shift+Tab navigation
+        ((event.code === 'Tab' || event.keyCode == 9) ||
+        // Arrow navigation in Radio Component
+        type === SelectionTypes.RADIO &&
+           ((event.code === 'ArrowLeft' || event.keyCode == 37) ||
+            (event.code === 'ArrowUp' || event.keyCode == 38) ||
+            (event.code === 'ArrowRight' || event.keyCode == 39) ||
+            (event.code === 'ArrowDown' || event.keyCode == 40) ))) {
+        setFocusVisible(true);
+      }
+    };
+    window.addEventListener('keyup', keyUpHandler);
+    return () => {
+      window.removeEventListener('keyup', keyUpHandler);
+    };
+  }, [isFocused, isFocusVisible]);
 
   // Component gets focus
   const onFocusHandler = () => {
@@ -80,6 +103,7 @@ const SelectionInput: React.FC<SelectionInputPropsWithType> = ({
   // Component loses focus.
   const onBlurHandler = () => {
     setFocus(false);
+    setFocusVisible(false)
   };
 
   const tkClassName = `tk-${type.valueOf()}`;
@@ -91,6 +115,7 @@ const SelectionInput: React.FC<SelectionInputPropsWithType> = ({
         `${tkClassName}__labelPlacement--${labelPlacement}`,
         {
           [`${tkClassName}--focused`]: isFocused,
+          [`${tkClassName}--focus-visible`]: isFocusVisible,
           [`${tkClassName}--mixed`]: status === SelectionStatus.MIXED,
         }
       )}
