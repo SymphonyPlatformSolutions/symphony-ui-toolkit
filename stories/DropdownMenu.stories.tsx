@@ -73,6 +73,6 @@ export const DropdownList: React.FC = () => {
 }
 
 export default {
-  title: 'Dropdown Menu',
-  component: DropdownList
+  title: 'Components/Dropdown Menu',
+  component: DropdownList,
 }
