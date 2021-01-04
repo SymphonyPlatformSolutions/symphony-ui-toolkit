@@ -127,7 +127,7 @@ export function toArray(length: number): Array<number> {
   return Array.from({ length }, (x, i) => i);
 }
 
-export function getSiblingOrCurrent(elem, selector, direction: string, maxStepToCheck: number) {
+export function getSiblingOrCurrent(elem, selector: string, direction: 'nextElementSibling' | 'previousElementSibling', maxStepToCheck: number) {
   let sibling = elem; // get current first
 
   // If there's no selector, return the first sibling

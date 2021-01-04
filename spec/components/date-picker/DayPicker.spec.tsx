@@ -110,7 +110,7 @@ describe('DayPicker Component', () => {
           .prop('aria-label')
       ).toEqual('Tue Jan 01 2019');
     });
-    it('on PAGE_UP', async () => {
+    test.each([[{ key: Keys.PAGE_UP }, 'Sun Dec 01 2019'], [{ key: Keys.PAGE_UP, shiftKey:true }, 'Tue Jan 01 2019'], [{ key: Keys.PAGE_DOWN }, 'Sat Feb 01 2020'], [{ key: Keys.PAGE_DOWN, shiftKey:true }, 'Fri Jan 01 2021'],])('on %p', (event, expected) => {
       const props = createTestProps({});
       const wrapper = shallow(<DayPicker {...props} />);
       expect(
@@ -122,33 +122,13 @@ describe('DayPicker Component', () => {
       wrapper
         .find('.tk-daypicker-day:not(.tk-daypicker-day--outside)')
         .at(0)
-        .simulate('keyDown', createKeyboardEvent({ key: Keys.PAGE_UP }));
+        .simulate('keyDown', createKeyboardEvent(event));
       expect(
         wrapper
           .find('.tk-daypicker-day:not(.tk-daypicker-day--outside)')
           .at(0)
           .prop('aria-label')
-      ).toEqual('Sun Dec 01 2019');
-    });
-    it('on PAGE_DOWN', async () => {
-      const props = createTestProps({});
-      const wrapper = shallow(<DayPicker {...props} />);
-      expect(
-        wrapper
-          .find('.tk-daypicker-day:not(.tk-daypicker-day--outside)')
-          .at(0)
-          .prop('aria-label')
-      ).toEqual('Wed Jan 01 2020');
-      wrapper
-        .find('.tk-daypicker-day:not(.tk-daypicker-day--outside)')
-        .at(0)
-        .simulate('keyDown', createKeyboardEvent({ key: Keys.PAGE_DOWN }));
-      expect(
-        wrapper
-          .find('.tk-daypicker-day:not(.tk-daypicker-day--outside)')
-          .at(0)
-          .prop('aria-label')
-      ).toEqual('Sat Feb 01 2020');
+      ).toEqual(expected);
     });
   });
 
