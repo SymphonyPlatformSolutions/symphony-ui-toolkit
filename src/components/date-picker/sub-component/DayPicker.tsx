@@ -14,12 +14,14 @@ import { Keys, cancelEvent } from '../utils/keyUtils';
 
 import {
   formatDay,
+  getBoundedDay,
   getMonths,
   getWeekdaysLong,
   getWeekdaysShort,
   getDaysNeededForLastMonth,
   getDaysNeededForNextMonth,
   toArray,
+  getSiblingOrCurrent,
 } from '../utils/dateUtils';
 
 import { matchDay } from '../utils/matchDayUtils';
@@ -36,6 +38,8 @@ import {
   setDate,
   startOfToday,
   startOfWeek,
+  startOfMonth,
+  isBefore,
 } from 'date-fns';
 
 type DayPickerComponentProps = {
@@ -56,6 +60,10 @@ type DayPickerComponentState = {
   today: Date;
   currentMonth: Date;
 };
+
+const DAYS_SELECTOR = '.tk-daypicker-day--outside, .tk-daypicker-day';
+const DAYS_VISIBLE_SELECTOR = '.tk-daypicker-day';
+const DAYS_ENABLED_SELECTOR = '.tk-daypicker-day:not(.tk-daypicker-day--disabled)';
 
 class DayPicker extends Component<
   DayPickerComponentProps,
@@ -83,62 +91,91 @@ class DayPicker extends Component<
     }
   }
 
-  focusDiv(index: number) {
+  focusCell(index: number) {
     if (index) {
       if (this.dayPicker) {
         const dayNodes = this.dayPicker.querySelectorAll(
-          '.tk-daypicker-day--outside, .tk-daypicker-day'
+          DAYS_SELECTOR
         );
         dayNodes[index - 1].focus();
       }
     }
   }
 
+  focusOnlyEnabledCell(
+    date: Date,
+    action: 'next' | 'previous',
+    maxStepCheck: number,
+    needToChangeMonth = true
+  ) {
+    const { locale } = this.props;
+    const index = date.getDate();
+    if (index) {
+      if (this.dayPicker) {
+        const dayNodes = this.dayPicker.querySelectorAll(DAYS_VISIBLE_SELECTOR);
+        const currentCell = dayNodes[index - 1];
+        const classNode =
+          action === 'next'
+            ? 'nextElementSibling'
+            : 'previousElementSibling';
+        let enabledCell = getSiblingOrCurrent(
+          currentCell,
+          DAYS_ENABLED_SELECTOR,
+          classNode,
+          maxStepCheck
+        );
+        if (enabledCell) {
+          enabledCell.focus();
+        } else {
+          if (needToChangeMonth) { // when called through arrow navigation
+            const step = action === 'next' ? 1 : -1;
+            const nextMonth = addMonths(date, step);
+            this.monthNavigation(startOfMonth(nextMonth), nextMonth);
+          } else { // when called through HOME/END navigation
+            this.focusCell(getBoundedDay(startOfMonth(date), date, locale))
+          }
+        }
+      }
+    }
+  }
+
   monthNavigation(date: Date, nextDate: Date) {
+    const { locale } = this.props;
     this.setState({ currentMonth: nextDate }, () =>
-      this.focusDiv(this.boundFocusDay(date, nextDate))
+      this.focusCell(getBoundedDay(date, nextDate, locale))
     );
   }
 
   arrowNavigation(date: Date, nextDate: Date) {
     const delta = differenceInCalendarMonths(nextDate, date);
+    const action = isBefore(date, nextDate) ? 'next' : 'previous';
     if (delta !== 0) {
-      this.monthNavigation(nextDate, nextDate);
+      this.setState({ currentMonth: nextDate }, () =>
+        this.focusOnlyEnabledCell(nextDate, action, null, false)
+      );
     } else {
-      this.focusDiv(this.boundFocusDay(nextDate, nextDate));
+      this.focusOnlyEnabledCell(nextDate, action, null);
     }
   }
 
-  boundFocusDay(date: Date, nextDate: Date) {
-    const { locale } = this.props;
 
-    const minBound = getDaysNeededForLastMonth(nextDate, locale);
-    // if the day to focus is an "outside day", then focus the first (or last) day
-    return Math.min(
-      Math.max(
-        minBound + 1,
-        date.getDate() + getDaysNeededForLastMonth(date, locale)
-      ),
-      minBound + getDaysInMonth(nextDate)
-    );
-  }
 
   handleKeyDownContainer(e: React.KeyboardEvent): void {
     const { onClose } = this.props;
     switch (e.key) {
-    case Keys.ESC:
-      onClose();
+      case Keys.ESC:
+        onClose();
       // eslint-disable-next-line no-fallthrough
-    case Keys.PAGE_DOWN:
-    case Keys.PAGE_UP:
-    case Keys.HOME:
-    case Keys.END:
-    case Keys.ARROW_LEFT:
-    case Keys.ARROW_UP:
-    case Keys.ARROW_RIGHT:
-    case Keys.ARROW_DOWN:
-      cancelEvent(e);
-      break;
+      case Keys.PAGE_DOWN:
+      case Keys.PAGE_UP:
+      case Keys.HOME:
+      case Keys.END:
+      case Keys.ARROW_LEFT:
+      case Keys.ARROW_UP:
+      case Keys.ARROW_RIGHT:
+      case Keys.ARROW_DOWN:
+        cancelEvent(e);
+        break;
     }
   }
 
@@ -150,98 +187,98 @@ class DayPicker extends Component<
     }
 
     const direction = dir === 'ltr' ? 1 : -1;
-
+    const MAX_STEP_TO_CHECK = 7;
     let nextCell;
     switch (e.key) {
-    case Keys.TAB:
-      if (this.dayPicker) {
-        if (e.shiftKey) {
-          this.dayPicker
-            .querySelector('.tk-daypicker-header--nextYear')
-            .focus();
-        } else {
-          this.dayPicker.querySelector('.tk-daypicker-today').focus();
+      case Keys.TAB:
+        if (this.dayPicker) {
+          if (e.shiftKey) {
+            this.dayPicker
+              .querySelector('.tk-daypicker-header--nextYear')
+              .focus();
+          } else {
+            this.dayPicker.querySelector('.tk-daypicker-today').focus();
+          }
         }
-      }
-      break;
-    case Keys.SPACE:
-    case Keys.SPACEBAR:
-    case Keys.ENTER:
-      // eslint-disable-next-line no-case-declarations
-      const { onDayClick } = this.props;
-      onDayClick(date, modifers);
-      break;
-    case Keys.PAGE_UP:
-      if (e.shiftKey) {
-        this.monthNavigation(date, addYears(currentMonth, -1));
-      } else {
-        this.monthNavigation(date, addMonths(currentMonth, -1));
-      }
-      break;
-    case Keys.PAGE_DOWN:
-      if (e.shiftKey) {
-        this.monthNavigation(date, addYears(currentMonth, 1));
-      } else {
-        this.monthNavigation(date, addMonths(currentMonth, 1));
-      }
-      break;
-    case Keys.HOME:
-      // eslint-disable-next-line no-case-declarations
-      const firstDayOfWeek = startOfWeek(date, { locale });
-      nextCell =
+        break;
+      case Keys.SPACE:
+      case Keys.SPACEBAR:
+      case Keys.ENTER:
+        // eslint-disable-next-line no-case-declarations
+        const { onDayClick } = this.props;
+        onDayClick(date, modifers);
+        break;
+      case Keys.PAGE_UP:
+        if (e.shiftKey) {
+          this.monthNavigation(date, addYears(currentMonth, -1));
+        } else {
+          this.monthNavigation(date, addMonths(currentMonth, -1));
+        }
+        break;
+      case Keys.PAGE_DOWN:
+        if (e.shiftKey) {
+          this.monthNavigation(date, addYears(currentMonth, 1));
+        } else {
+          this.monthNavigation(date, addMonths(currentMonth, 1));
+        }
+        break;
+      case Keys.HOME:
+        // eslint-disable-next-line no-case-declarations
+        const firstDayOfWeek = startOfWeek(date, { locale });
+        nextCell =
           firstDayOfWeek.getDate() <= date.getDate()
             ? firstDayOfWeek
-            : setDate(date, 1);
-      this.focusDiv(this.boundFocusDay(nextCell, nextCell));
-      break;
-    case Keys.END:
-      // eslint-disable-next-line no-case-declarations
-      const lastDayOfWeek = endOfWeek(date, { locale });
-      nextCell =
+            : startOfMonth(date);
+        this.focusOnlyEnabledCell(nextCell, 'next', MAX_STEP_TO_CHECK);
+        break;
+      case Keys.END:
+        // eslint-disable-next-line no-case-declarations
+        const lastDayOfWeek = endOfWeek(date, { locale });
+        nextCell =
           date.getDate() <= lastDayOfWeek.getDate()
             ? lastDayOfWeek
             : lastDayOfMonth(date);
-      this.focusDiv(this.boundFocusDay(nextCell, nextCell));
-      break;
-    case Keys.ARROW_LEFT:
-      this.arrowNavigation(date, addDays(date, -1 * direction));
-      break;
-    case Keys.ARROW_UP:
-      this.arrowNavigation(date, addDays(date, -7));
-      break;
-    case Keys.ARROW_RIGHT:
-      this.arrowNavigation(date, addDays(date, 1 * direction));
-      break;
-    case Keys.ARROW_DOWN:
-      this.arrowNavigation(date, addDays(date, 7));
-      break;
-    default:
-      break;
+        this.focusOnlyEnabledCell(nextCell, 'previous', MAX_STEP_TO_CHECK);
+        break;
+      case Keys.ARROW_LEFT:
+        this.arrowNavigation(date, addDays(date, -1 * direction));
+        break;
+      case Keys.ARROW_UP:
+        this.arrowNavigation(date, addDays(date, -7));
+        break;
+      case Keys.ARROW_RIGHT:
+        this.arrowNavigation(date, addDays(date, 1 * direction));
+        break;
+      case Keys.ARROW_DOWN:
+        this.arrowNavigation(date, addDays(date, 7));
+        break;
+      default:
+        break;
     }
   }
 
   handleKeyDownFooter(e): void {
     switch (e.key) {
-    case Keys.TAB:
-      if (!e.shiftKey) {
-        cancelEvent(e);
-        if (this.dayPicker) {
-          this.dayPicker
-            .querySelector('.tk-daypicker-header--prevYear')
-            .focus();
+      case Keys.TAB:
+        if (!e.shiftKey) {
+          cancelEvent(e);
+          if (this.dayPicker) {
+            this.dayPicker
+              .querySelector('.tk-daypicker-header--prevYear')
+              .focus();
+          }
         }
-      }
-      break;
-    case Keys.SPACE:
-    case Keys.SPACEBAR:
-    case Keys.ENTER:
-      cancelEvent(e);
-      // eslint-disable-next-line no-case-declarations
-      const { disabledDays, onDayClick } = this.props;
-      // eslint-disable-next-line no-case-declarations
-      const { today } = this.state;
-      onDayClick(today, { disabled: matchDay(today, disabledDays) });
-      break;
+        break;
+      case Keys.SPACE:
+      case Keys.SPACEBAR:
+      case Keys.ENTER:
+        cancelEvent(e);
+        // eslint-disable-next-line no-case-declarations
+        const { disabledDays, onDayClick } = this.props;
+        // eslint-disable-next-line no-case-declarations
+        const { today } = this.state;
+        onDayClick(today, { disabled: matchDay(today, disabledDays) });
+        break;
     }
   }
 
@@ -326,19 +363,20 @@ class DayPicker extends Component<
           const isToday = itemDateString === todayDateString;
           const isDisabled = matchDay(cellDate, disabledDays);
           const isHighlighted = matchDay(cellDate, highlightedDays);
+          const ariaSelected = isDisabled ? undefined : isSelected;
           const isTabIndex = isSelectedDayVisible
             ? isSelected
               ? 0
               : -1
             : cell === 0
-              ? 0
-              : -1; // focus on selected day otherwise first cell
+            ? 0
+            : -1; // focus on selected day otherwise first cell
 
           return (
             <div
               key={cellName}
               aria-label={cellName}
-              aria-selected={isSelected}
+              aria-selected={ariaSelected}
               tabIndex={isTabIndex}
               role="gridcell"
               className={classNames(

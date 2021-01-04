@@ -189,6 +189,21 @@ describe('DayPicker Component', () => {
       // expect(document.activeElement).toBe(...);
       wrapper.unmount();
     });
+    it('on ARROWS should skip disabled cells', async () => {
+      const props = createTestProps({ date: new Date('10-08-2020'), disabledDays: [new Date('10-07-2020'), new Date('10-09-2020')]});
+      const wrapper = shallow(<DayPicker {...props} />);
+      const cell = wrapper
+        .find('.tk-daypicker-day.tk-daypicker-day--selected');
+
+      cell.simulate('focus');
+      cell.simulate('keyDown', createKeyboardEvent({ key: Keys.ARROW_RIGHT }));
+      // expect(document.activeElement).toBe(...);
+      cell.simulate('keyDown', createKeyboardEvent({ key: Keys.ARROW_LEFT }));
+      // expect(document.activeElement).toBe(...);
+      cell.simulate('keyDown', createKeyboardEvent({ key: Keys.ARROW_LEFT }));
+      // expect(document.activeElement).toBe(...);
+      wrapper.unmount();
+    });
   });
   it('on TAB against day picker', async () => {
     const props = createTestProps({});
