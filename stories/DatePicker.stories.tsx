@@ -227,10 +227,10 @@ export const WithDisabledDate: React.SFC = () => {
   const disabledDays = [
     new Date(now.getFullYear(), now.getMonth(), now.getDate() + 2),
     {
-      before: new Date(now.getFullYear(), now.getMonth() - 1, now.getDate()),
+      before: new Date(now.getFullYear(), now.getMonth() - 1, now.getDate() + 5),
     },
     {
-      after: new Date(now.getFullYear(), now.getMonth() + 1, now.getDate()),
+      after: new Date(now.getFullYear(), now.getMonth() + 1, now.getDate() + 5),
     },
     {
       after: new Date(now.getFullYear(), now.getMonth(), now.getDate() + 15),

@@ -90,8 +90,16 @@ export function getDaysNeededForNextMonth(date: Date, locale: Locale) {
   return daysNeededForNextMonth;
 }
 
-export function toArray(length: number): Array<number> {
-  return Array.from({ length }, (x, i) => i);
+export function getBoundedDay(date: Date, nextDate: Date, locale: Locale) {
+  const minBound = getDaysNeededForLastMonth(nextDate, locale);
+  // if the day to focus is an "outside day", then focus the first (or last) day
+  return Math.min(
+    Math.max(
+      minBound + 1,
+      date.getDate() + getDaysNeededForLastMonth(date, locale)
+    ),
+    minBound + getDaysInMonth(nextDate)
+  );
 }
 
 export function autocompleteDate(value: string, format: string, locale: Locale): Date {
@@ -113,4 +121,24 @@ export function autocompleteDate(value: string, format: string, locale: Locale):
     return autocompletedDate;
   }
   return date;
+}
+
+export function toArray(length: number): Array<number> {
+  return Array.from({ length }, (x, i) => i);
+}
+
+export function getSiblingOrCurrent(elem, selector: string, direction: 'nextElementSibling' | 'previousElementSibling', maxStepToCheck: number) {
+  let sibling = elem; // get current first
+
+  // If there's no selector, return the first sibling
+  if (!selector) return sibling;
+
+  // If the sibling matches our selector, use it
+  // If not, jump to the next sibling and continue the loop
+  let index = 0;
+  while (sibling && index < (maxStepToCheck || Number.MAX_SAFE_INTEGER)) {
+    if (sibling.matches(selector)) return sibling;
+    sibling = sibling[direction];
+    index++;
+  }
 }
