@@ -73,7 +73,7 @@ const SelectionInput: React.FC<SelectionInputPropsWithType> = ({
     return () => {
       window.removeEventListener('keydown', keyPressHandler);
     };
-  }, [isFocused, isFocusVisible, onClick]);
+  }, [isFocused, onClick]);
 
   useEffect(() => {
     const keyUpHandler = (event) => {
