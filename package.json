@@ -1,6 +1,6 @@
 {
   "name": "@symphony/uitoolkit-components",
-  "version": "1.2.1-SNAPSHOT.6",
+  "version": "1.2.1",
   "description": "React components for the Symphony UI design system",
   "publishConfig": {
     "registry": "https://repo.symphony.com/artifactory/api/npm/npm-local-dev2"
@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "@popperjs/core": "^2.4.4",
-    "@symphony/uitoolkit-styles": "1.2.1",
+    "@symphony/uitoolkit-styles": "1.2.2",
     "@types/classnames": "^2.2.10",
     "classnames": "^2.2.6",
     "date-fns": "^2.16.1",

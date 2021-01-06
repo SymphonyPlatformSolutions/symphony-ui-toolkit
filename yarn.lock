@@ -2361,10 +2361,10 @@
     "@svgr/plugin-svgo" "^5.5.0"
     loader-utils "^2.0.0"
 
-"@symphony/uitoolkit-styles@1.2.1":
-  version "1.2.1"
-  resolved "https://repo.symphony.com/artifactory/api/npm/npm-virtual-dev/@symphony/uitoolkit-styles/-/@symphony/uitoolkit-styles-1.2.1.tgz#320f0716eb56004fb05ae1b17124b26073625ab7"
-  integrity sha1-Mg8HFutWAE+wWuGxcSSyYHNiWrc=
+"@symphony/uitoolkit-styles@1.2.2":
+  version "1.2.2"
+  resolved "https://repo.symphony.com/artifactory/api/npm/npm-virtual-dev/@symphony/uitoolkit-styles/-/@symphony/uitoolkit-styles-1.2.2.tgz#db4668a2854d75abc11107071db4b6c4ae091891"
+  integrity sha1-20ZoooVNdavBEQcHHbS2xK4JGJE=
 
 "@testing-library/dom@^7.28.1", "@testing-library/dom@^7.29.0":
   version "7.29.0"
