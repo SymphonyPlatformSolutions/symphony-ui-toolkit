@@ -4,6 +4,7 @@ import SelectionTypes from '../../../src/components/selection/SelectionTypes';
 
 import { SelectionInput } from '../../../src/components/selection/SelectionInput';
 import { act } from 'react-dom/test-utils';
+import { Keys } from '../../../src/components/date-picker/utils/keyUtils';
 
 describe('SelectionInput Component', () => {
   describe('SelectionInput test suite => ', () => {
@@ -91,7 +92,7 @@ describe('SelectionInput Component', () => {
 
       act(() => {
         // Simulate a click on 'Space' keyboard touch
-        map['keydown']({ code: 'Space', preventDefault:  jest.fn()});
+        map['keydown']({ key: Keys.SPACE, preventDefault: jest.fn() });
       });
 
       wrapper.update();
@@ -131,7 +132,7 @@ describe('SelectionInput Component', () => {
 
       act(() => {
         // Simulate a click on 'Tab' keyboard touch
-        map['keyup']({ code: 'Tab' });
+        map['keyup']({ key: Keys.TAB });
       });
 
       wrapper.update();

@@ -6,6 +6,7 @@ import shortid from 'shortid';
 import SelectionTypes from './SelectionTypes';
 import SelectionStatus from './SelectionStatus';
 import LabelPlacements from './LabelPlacements';
+import { Keys } from '../date-picker/utils/keyUtils';
 
 interface SelectionInputProps {
   id?: string;
@@ -63,7 +64,7 @@ const SelectionInput: React.FC<SelectionInputPropsWithType> = ({
         onClick &&
         !disabled &&
         isFocused &&
-        (event.code === 'Space' || event.keyCode === 32)
+        (event.key === Keys.SPACE || event.key === Keys.SPACEBAR)
       ) {
         onClick(event);
         event.preventDefault();
@@ -77,15 +78,17 @@ const SelectionInput: React.FC<SelectionInputPropsWithType> = ({
 
   useEffect(() => {
     const keyUpHandler = (event) => {
-      if (isFocused &&
+      if (
+        isFocused &&
         // Tab and Shift+Tab navigation
-        ((event.code === 'Tab' || event.keyCode == 9) ||
-        // Arrow navigation in Radio Component
-        type === SelectionTypes.RADIO &&
-           ((event.code === 'ArrowLeft' || event.keyCode == 37) ||
-            (event.code === 'ArrowUp' || event.keyCode == 38) ||
-            (event.code === 'ArrowRight' || event.keyCode == 39) ||
-            (event.code === 'ArrowDown' || event.keyCode == 40) ))) {
+        (event.key === Keys.TAB ||
+          // Arrow navigation in Radio Component
+          (type === SelectionTypes.RADIO &&
+            (event.key === Keys.ARROW_LEFT ||
+              event.key === Keys.ARROW_UP ||
+              event.key === Keys.ARROW_RIGHT ||
+              event.key === Keys.ARROW_DOWN)))
+      ) {
         setFocusVisible(true);
       }
     };
@@ -103,7 +106,7 @@ const SelectionInput: React.FC<SelectionInputPropsWithType> = ({
   // Component loses focus.
   const onBlurHandler = () => {
     setFocus(false);
-    setFocusVisible(false)
+    setFocusVisible(false);
   };
 
   const tkClassName = `tk-${type.valueOf()}`;
