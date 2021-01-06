@@ -6,6 +6,7 @@ import shortid from 'shortid';
 import SelectionTypes from './SelectionTypes';
 import SelectionStatus from './SelectionStatus';
 import LabelPlacements from './LabelPlacements';
+import { Keys } from '../date-picker/utils/keyUtils';
 
 interface SelectionInputProps {
   id?: string;
@@ -48,8 +49,11 @@ const SelectionInput: React.FC<SelectionInputPropsWithType> = ({
   // Default labelPlacement on right if not provided
   labelPlacement = labelPlacement || LabelPlacements.RIGHT;
 
-  // Used for the keyboard navigation
   const [isFocused, setFocus] = useState(false);
+
+  // Used for the keyboard navigation
+  // focus-visible: true when the focus was obtained by keyboard navigation (like :focus-visible pseudo class)
+  const [isFocusVisible, setFocusVisible] = useState(false);
 
   // Accessibility keyboard navigation
   useEffect(() => {
@@ -60,7 +64,7 @@ const SelectionInput: React.FC<SelectionInputPropsWithType> = ({
         onClick &&
         !disabled &&
         isFocused &&
-        (event.code === 'Space' || event.keyCode === 32)
+        (event.key === Keys.SPACE || event.key === Keys.SPACEBAR)
       ) {
         onClick(event);
         event.preventDefault();
@@ -72,6 +76,28 @@ const SelectionInput: React.FC<SelectionInputPropsWithType> = ({
     };
   }, [isFocused, onClick]);
 
+  useEffect(() => {
+    const keyUpHandler = (event) => {
+      if (
+        isFocused &&
+        // Tab and Shift+Tab navigation
+        (event.key === Keys.TAB ||
+          // Arrow navigation in Radio Component
+          (type === SelectionTypes.RADIO &&
+            (event.key === Keys.ARROW_LEFT ||
+              event.key === Keys.ARROW_UP ||
+              event.key === Keys.ARROW_RIGHT ||
+              event.key === Keys.ARROW_DOWN)))
+      ) {
+        setFocusVisible(true);
+      }
+    };
+    window.addEventListener('keyup', keyUpHandler);
+    return () => {
+      window.removeEventListener('keyup', keyUpHandler);
+    };
+  }, [isFocused, isFocusVisible]);
+
   // Component gets focus
   const onFocusHandler = () => {
     setFocus(true);
@@ -80,9 +106,23 @@ const SelectionInput: React.FC<SelectionInputPropsWithType> = ({
   // Component loses focus.
   const onBlurHandler = () => {
     setFocus(false);
+    setFocusVisible(false);
   };
 
   const tkClassName = `tk-${type.valueOf()}`;
+
+  // Define 'checked' or 'defaultChecked' props depending if the component is a controlled component or not
+  const checkedProps = {};
+  if (status) {
+    // Either 'checked' or 'defaultChecked' props must be defined but not both at the same time
+    if (onChange) {
+      // Controlled Component
+      checkedProps['checked'] = status === SelectionStatus.CHECKED;
+    } else {
+      // Uncontrolled Component
+      checkedProps['defaultChecked'] = status === SelectionStatus.CHECKED;
+    }
+  }
 
   return (
     <div
@@ -91,6 +131,7 @@ const SelectionInput: React.FC<SelectionInputPropsWithType> = ({
         `${tkClassName}__labelPlacement--${labelPlacement}`,
         {
           [`${tkClassName}--focused`]: isFocused,
+          [`${tkClassName}--focus-visible`]: isFocusVisible,
           [`${tkClassName}--mixed`]: status === SelectionStatus.MIXED,
         }
       )}
@@ -103,7 +144,7 @@ const SelectionInput: React.FC<SelectionInputPropsWithType> = ({
           type={type}
           name={name}
           value={value}
-          checked={status === SelectionStatus.CHECKED ? true : null}
+          {...checkedProps}
           disabled={disabled}
           onFocus={onFocusHandler}
           onBlur={onBlurHandler}

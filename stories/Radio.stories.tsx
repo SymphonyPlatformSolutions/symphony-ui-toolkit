@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from 'react';
 import { Radio } from '../src/components';
 import LabelPlacements from '../src/components/selection/LabelPlacements';
 import { action } from '@storybook/addon-actions';
@@ -16,6 +17,8 @@ Default.args = {
 };
 
 export const Radios = () => {
+  const [radioChecked, setRadioChecked] = useState('controlled-radio-2');
+
   return (
     <div style={{ width: '50%' }}>
       <h1>Radio</h1>
@@ -53,7 +56,7 @@ export const Radios = () => {
             name="placement-label"
             value="top"
             labelPlacement={LabelPlacements.TOP}
-          ></Radio>
+          />
         </div>
         <div className="d-inline-block">
           <Radio
@@ -61,7 +64,7 @@ export const Radios = () => {
             name="placement-label"
             value="left"
             labelPlacement={LabelPlacements.LEFT}
-          ></Radio>
+          />
         </div>
         <div className="d-inline-block">
           <Radio
@@ -69,7 +72,7 @@ export const Radios = () => {
             name="placement-label"
             value="bottom"
             labelPlacement={LabelPlacements.BOTTOM}
-          ></Radio>
+          />
         </div>
         <div className="d-inline-block">
           <Radio
@@ -77,7 +80,7 @@ export const Radios = () => {
             name="placement-label"
             value="right"
             labelPlacement={LabelPlacements.RIGHT}
-          ></Radio>
+          />
         </div>
       </div>
       <div>
@@ -94,17 +97,33 @@ export const Radios = () => {
       <div>
         <h2>Controlled checked state</h2>
         <p>
-          In the following example the state of the radio has a fixed value
-          defined with <strong>checked</strong> attribute. This can be useful if
-          you want the parent component to control the checked state of the
-          radio.
+          In the following example the state of the radio has a value defined
+          with <strong>status</strong> attribute. This can be useful if you want
+          the parent component to control the checked state of the radio. Define
+          the method <strong>onChange</strong> if you want to control the Radio
+          component.
         </p>
         <Radio
-          label="Controlled Radio"
+          label="Controlled Radio 1"
           name="controlled-radio"
           value="controlled-radio-1"
-          status={SelectionStatus.CHECKED}
-          onChange={action('onChange controlled-radio-1')}
+          status={
+            radioChecked === 'controlled-radio-1'
+              ? SelectionStatus.CHECKED
+              : SelectionStatus.UNCHECKED
+          }
+          onChange={() => setRadioChecked('controlled-radio-1')}
+        />
+        <Radio
+          label="Controlled Radio 2"
+          name="controlled-radio"
+          value="controlled-radio-2"
+          status={
+            radioChecked === 'controlled-radio-2'
+              ? SelectionStatus.CHECKED
+              : SelectionStatus.UNCHECKED
+          }
+          onChange={() => setRadioChecked('controlled-radio-2')}
         />
       </div>
       <div>
