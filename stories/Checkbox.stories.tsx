@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from 'react';
 import { Checkbox } from '../src/components';
 import LabelPlacements from '../src/components/selection/LabelPlacements';
 import SelectionStatus from '../src/components/selection/SelectionStatus';
@@ -16,6 +17,8 @@ Default.args = {
 };
 
 export const Checkboxes = () => {
+  const [isChecked, setIsChecked] = useState(true);
+
   return (
     <div style={{ width: '50%' }}>
       <h1>Checkbox</h1>
@@ -148,17 +151,20 @@ export const Checkboxes = () => {
       <div>
         <h2>Controlled checked state</h2>
         <p>
-          In the following example the state of the checkbox has a fixed value
-          defined with <strong>status</strong> attribute. This can be useful if
-          you want the parent component to control the checked state of the
-          checkbox.
+          In the following example the state of the checkbox has a value defined
+          with <strong>status</strong> attribute. This can be useful if you want
+          the parent component to control the checked state of the checkbox.
+          Define the method <strong>onChange</strong> if you want to control the
+          Checkbox component.
         </p>
         <Checkbox
           label="Controlled Checkbox"
           name="controller-checkbox"
           value="controlled-checkbox-1"
-          status={SelectionStatus.CHECKED}
-          onChange={action('onChange controlled-checkbox-1')}
+          status={
+            isChecked ? SelectionStatus.CHECKED : SelectionStatus.UNCHECKED
+          }
+          onChange={() => setIsChecked(!isChecked)}
         />
       </div>
       <div>

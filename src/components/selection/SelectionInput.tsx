@@ -111,6 +111,19 @@ const SelectionInput: React.FC<SelectionInputPropsWithType> = ({
 
   const tkClassName = `tk-${type.valueOf()}`;
 
+  // Define 'checked' or 'defaultChecked' props depending if the component is a controlled component or not
+  const checkedProps = {};
+  if (status) {
+    // Either 'checked' or 'defaultChecked' props must be defined but not both at the same time
+    if (onChange) {
+      // Controlled Component
+      checkedProps['checked'] = status === SelectionStatus.CHECKED;
+    } else {
+      // Uncontrolled Component
+      checkedProps['defaultChecked'] = status === SelectionStatus.CHECKED;
+    }
+  }
+
   return (
     <div
       className={classNames(
@@ -131,7 +144,7 @@ const SelectionInput: React.FC<SelectionInputPropsWithType> = ({
           type={type}
           name={name}
           value={value}
-          checked={status === SelectionStatus.CHECKED ? true : null}
+          {...checkedProps}
           disabled={disabled}
           onFocus={onFocusHandler}
           onBlur={onBlurHandler}
