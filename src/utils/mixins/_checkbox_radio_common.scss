@@ -6,7 +6,7 @@
 
   // Exceptional margin for outline focus display
   $focusMargin: toEm(2, $fontSize);
-  margin: $focusMargin;
+  margin: $focusMargin 0;
   padding: $focusMargin;
 
   &--focus-visible {
