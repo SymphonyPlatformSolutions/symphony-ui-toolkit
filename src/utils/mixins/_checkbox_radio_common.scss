@@ -4,10 +4,9 @@
   color: $--tk-input-default-active-color;
   min-height: toEm(20, $fontSize);
 
-  // Exceptional margin for outline focus display
-  $focusMargin: toEm(2, $fontSize);
-  margin: $focusMargin 0;
-  padding: $focusMargin;
+  // Padding for outline focus display
+  $focusPadding: toEm(2, $fontSize);
+  padding: $focusPadding;
 
   &--focus-visible {
     @include browserOutline();
