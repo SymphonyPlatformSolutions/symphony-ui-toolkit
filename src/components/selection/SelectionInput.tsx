@@ -4,7 +4,7 @@ import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import shortid from 'shortid';
 import SelectionTypes from './SelectionTypes';
-import SelectionStatus from './SelectionStatus';
+import SelectionStatus, { getCheckedValue } from './SelectionStatus';
 import LabelPlacements from './LabelPlacements';
 import { Keys } from '../date-picker/utils/keyUtils';
 
@@ -50,6 +50,9 @@ const SelectionInput: React.FC<SelectionInputPropsWithType> = ({
   labelPlacement = labelPlacement || LabelPlacements.RIGHT;
 
   const [isFocused, setFocus] = useState(false);
+
+  // Use in a data attribute to provide the checked information on the root node of the component
+  const [isChecked, setIsChecked] = useState(getCheckedValue(status));
 
   // Used for the keyboard navigation
   // focus-visible: true when the focus was obtained by keyboard navigation (like :focus-visible pseudo class)
@@ -98,6 +101,10 @@ const SelectionInput: React.FC<SelectionInputPropsWithType> = ({
     };
   }, [isFocused, isFocusVisible]);
 
+  useEffect(() => {
+    setIsChecked(getCheckedValue(status));
+  }, [status]);
+
   // Component gets focus
   const onFocusHandler = () => {
     setFocus(true);
@@ -107,6 +114,16 @@ const SelectionInput: React.FC<SelectionInputPropsWithType> = ({
   const onBlurHandler = () => {
     setFocus(false);
     setFocusVisible(false);
+  };
+
+  const onChangeHandler = (event) => {
+    setIsChecked(
+      event && event.target && getCheckedValue(event.target.checked)
+    );
+    if (onChange) {
+      // Forward the event to the onChange method defined by the user
+      onChange(event);
+    }
   };
 
   const tkClassName = `tk-${type.valueOf()}`;
@@ -136,6 +153,7 @@ const SelectionInput: React.FC<SelectionInputPropsWithType> = ({
         }
       )}
       tab-index="-1"
+      data-checked={isChecked}
     >
       <div className={`${tkClassName}__inputContainer`}>
         <input
@@ -149,7 +167,7 @@ const SelectionInput: React.FC<SelectionInputPropsWithType> = ({
           onFocus={onFocusHandler}
           onBlur={onBlurHandler}
           onClick={onClick}
-          onChange={onChange}
+          onChange={onChangeHandler}
           required={required}
           tabIndex={tabIndex}
           {...otherProps}
