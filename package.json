@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "@popperjs/core": "^2.4.4",
-    "@symphony/uitoolkit-styles": "1.2.3-SNAPSHOT.2",
+    "@symphony/uitoolkit-styles": "1.2.3-SNAPSHOT.3",
     "@types/classnames": "^2.2.10",
     "classnames": "^2.2.6",
     "date-fns": "^2.16.1",
@@ -42,8 +42,7 @@
     "react-transition-group": "^4.4.1",
     "react-virtualized": "^9.22.2",
     "shortid": "^2.2.15",
-    "styled-components": "^5.1.1",
-    "yarn-deduplicate": "^3.1.0"
+    "styled-components": "^5.1.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
@@ -100,6 +99,7 @@
     "style-loader": "^1.2.1",
     "ts-jest": "^26.0.0",
     "ts-loader": "^7.0.5",
-    "typescript": "^3.9.3"
+    "typescript": "^3.9.3",
+    "yarn-deduplicate": "^3.1.0"
   }
 }
