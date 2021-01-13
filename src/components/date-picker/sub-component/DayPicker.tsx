@@ -388,7 +388,7 @@ class DayPicker extends Component<
                   'tk-daypicker-day--today': isToday,
                 },
                 {
-                  'tk-daypicker-day--highlighted': isHighlighted,
+                  'tk-daypicker-day--highlighted': isHighlighted && !isDisabled,
                 },
                 { 'tk-daypicker-day--disabled': isDisabled }
               )}
