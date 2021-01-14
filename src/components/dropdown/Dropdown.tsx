@@ -4,7 +4,20 @@ import Select from 'react-select';
 
 const prefix = 'tk-select';
 
-type DropdownProps = {
+export interface CustomRenderProps<T> {
+  data: T;
+}
+export interface DefaultOptions {
+  label: string;
+  value: string;
+}
+export interface groupedOptions extends DefaultOptions {
+  label: string;
+  value: string;
+}
+
+
+export type DropdownProps = {
   options: any;
   className?: string;
   closeMenuOnSelect?: boolean;
@@ -13,7 +26,6 @@ type DropdownProps = {
   isLoading?: boolean;
   isMultiSelect?: boolean;
   isInputClearable?: boolean;
-  isTagClearable?: boolean;
   id?: string;
   placeHolder?: string;
   label?: string
@@ -47,7 +59,7 @@ class Dropdown extends React.Component<DropdownProps, DropdownState> {
 
   render() {
     const { selectedOption, hideSelectedOptions, closeMenuOnSelect, displayArrowIndicator } = this.state;
-    const { isMultiSelect, isDisabled, placeHolder, options, id, defaultValue, onBlur, isInputClearable, label, optionRenderer, tagRemoveRenderer, isTagClearable } = this.props;
+    const { isMultiSelect, isDisabled, placeHolder, options, id, defaultValue, onBlur, isInputClearable, label, optionRenderer, tagRemoveRenderer } = this.props;
 
     return (
       <div>
@@ -56,7 +68,6 @@ class Dropdown extends React.Component<DropdownProps, DropdownState> {
           tagRemoveRenderer={tagRemoveRenderer}
           optionRenderer={optionRenderer}
           isClearable={isInputClearable}
-          isTagClearable={isTagClearable}
           label={label}
           components={{ DropdownIndicator, Control, SingleValue, Option, MultiValue, MultiValueRemove }}
           defaultValue={defaultValue}
@@ -81,7 +92,6 @@ class Dropdown extends React.Component<DropdownProps, DropdownState> {
     isMultiSelect: false,
     isLoading: false,
     isInputClearable: false,
-    isTagClearable: true,
   }
 }
 
