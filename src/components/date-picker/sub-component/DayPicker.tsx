@@ -32,6 +32,7 @@ import {
   addYears,
   differenceInCalendarMonths,
   endOfWeek,
+  endOfMonth,
   lastDayOfMonth,
   lightFormat,
   getDaysInMonth,
@@ -102,6 +103,19 @@ class DayPicker extends Component<
     }
   }
 
+  getEnabledCell(index, action, maxStepCheck) {
+    const dayNodes = this.dayPicker.querySelectorAll(DAYS_VISIBLE_SELECTOR);
+    const currentCell = dayNodes[index - 1];
+    const siblingDirection =
+      action === 'next' ? 'nextElementSibling' : 'previousElementSibling';
+    return getSiblingOrCurrent(
+      currentCell,
+      DAYS_ENABLED_SELECTOR,
+      siblingDirection,
+      maxStepCheck
+    );
+  }
+
   focusOnlyEnabledCell(
     date: Date,
     action: 'next' | 'previous',
@@ -112,27 +126,31 @@ class DayPicker extends Component<
     const index = date.getDate();
     if (index) {
       if (this.dayPicker) {
-        const dayNodes = this.dayPicker.querySelectorAll(DAYS_VISIBLE_SELECTOR);
-        const currentCell = dayNodes[index - 1];
-        const siblingDirection =
-          action === 'next'
-            ? 'nextElementSibling'
-            : 'previousElementSibling';
-        const enabledCell = getSiblingOrCurrent(
-          currentCell,
-          DAYS_ENABLED_SELECTOR,
-          siblingDirection,
-          maxStepCheck
-        );
+        const enabledCell = this.getEnabledCell(index, action, maxStepCheck);
         if (enabledCell) {
           enabledCell.focus();
         } else {
-          if (needToChangeMonth) { // when called through arrow navigation
+          if (needToChangeMonth) {
+            // when called through arrow navigation
+            // when changing month, focus the first available date, if exists
             const step = action === 'next' ? 1 : -1;
             const nextMonth = addMonths(date, step);
-            this.monthNavigation(startOfMonth(nextMonth), nextMonth);
-          } else { // when called through HOME/END navigation
-            this.focusCell(getBoundedDay(startOfMonth(date), date, locale))
+            this.setState({ currentMonth: nextMonth }, () => {
+              // we need to use the callback to be sure the date picker is re-rendered with the new month
+              const index = action === 'next' ? 1 : endOfMonth(nextMonth).getDate();
+              const enabledCell = this.getEnabledCell(index, action, maxStepCheck);
+              if (enabledCell) {
+                enabledCell.focus();
+              } else {
+                // if all cell are disabled, focus the first day of month
+                this.focusCell(
+                  getBoundedDay(startOfMonth(nextMonth), nextMonth, locale)
+                );
+              }
+            });
+          } else {
+            // when called through HOME/END navigation
+            this.focusCell(getBoundedDay(startOfMonth(date), date, locale));
           }
         }
       }
@@ -157,8 +175,6 @@ class DayPicker extends Component<
       this.focusOnlyEnabledCell(nextDate, action, null);
     }
   }
-
-
 
   handleKeyDownContainer(e: React.KeyboardEvent): void {
     const { onClose } = this.props;
