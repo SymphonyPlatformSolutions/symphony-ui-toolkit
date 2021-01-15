@@ -1,39 +1,41 @@
 html {
-  font-family: 'SymphonyLato', 'Lato', 'Segoe UI', 'Helvetica Neue', 'Verdana',
-    'Arial', sans-serif;
-  font-size: 14px;
+    font-family: 'SymphonyLato', 'Lato', 'Segoe UI', 'Helvetica Neue', 'Verdana', 'Arial', sans-serif;
+    font-size: 14px;
 }
-
 
 // Layout utils
 .flex-container {
-  overflow-x: hidden;
+    overflow-x: hidden;
 }
 
 .flex-row {
-  display: flex;
-  margin-right: -16px;
-
-  .flex-col {
-    flex-direction: column;
-    padding: 16px;
-  }
+    display: flex;
+    margin-right: -16px;
+    .flex-col {
+        flex-direction: column;
+        padding: 16px;
+    }
 }
 
 // inline block container for presentation
 .d-inline-block {
-  display: inline-block;
+    display: inline-block;
 }
 
 // Icons preview
 .preview {
-  width: 100px;
-  display: inline-block;
-  margin: 20px;
-  text-align: center;
+    width: 100px;
+    display: inline-block;
+    margin: 20px;
+    text-align: center;
 }
 
 // Width percentages
 .w-5 {
-  width: 5%;
+    width: 5%;
+}
+
+.tk-tag-remove:hover {
+    background-color: #3e4249;
+    color: #eaebec;
 }
