@@ -14,6 +14,7 @@ import Typography from './typography';
 import Card from './card';
 import Loader from './loader';
 import { Avatar, BasicIndicator, AvatarBadge } from './avatar';
+import Dropdown from './dropdown';
 import { DropdownMenu, DropdownMenuItem, DropdownMenuDivider } from './dropdown-menu';
 
 /** Deprecated, components should be imported individually to allow tree shaking */
@@ -46,4 +47,5 @@ export {
   DropdownMenuItem,
   DropdownMenuDivider,
   Card,
+  Dropdown,
 };
