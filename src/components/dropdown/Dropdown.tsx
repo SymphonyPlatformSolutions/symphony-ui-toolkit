@@ -7,34 +7,36 @@ const prefix = 'tk-select';
 export interface CustomRenderProps<T> {
   data: T;
 }
-export interface DefaultOptions {
+export interface SelectOptions {
   label: string;
   value: string;
 }
-export interface groupedOptions extends DefaultOptions {
-  label: string;
-  value: string;
-}
-
 
 export type DropdownProps = {
   options: any;
-  className?: string;
+  /** Close the expanded menu when the user selects an option */
   closeMenuOnSelect?: boolean;
+  /** Hide the selected option from the list */
   hideSelectedOptions?: boolean;
-  isDisabled?: boolean;
-  isLoading?: boolean;
-  isMultiSelect?: boolean;
+  /** Enables the indicator to clear the value from the Dropdown */
   isInputClearable?: boolean;
+  /** Enables the indicator to expand the Dropdown */
+  displayArrowIndicator?: boolean;
+  isDisabled?: boolean;
+  isMultiSelect?: boolean;
   id?: string;
   placeHolder?: string;
   label?: string
   defaultValue?: any;
   onBlur?: any;
+  className?: string;
+  /** Used to override the default appearance of the list items. */
   optionRenderer?: React.ReactNode;
+  /** Used to override the default appearance of the dropdown select input item/s */
   tagRenderer?: React.ReactNode;
+   /** Used to override the default appearance of the remove button from the selected input items. (It only applies with isMultiSelect = true) */
   tagRemoveRenderer?: React.ReactNode;
-  displayArrowIndicator?: boolean;
+  
 }
 
 type DropdownState = {
@@ -87,10 +89,10 @@ class Dropdown extends React.Component<DropdownProps, DropdownState> {
       </div>
     );
   }
+  
   static defaultProps = {
     isDisabled: false,
     isMultiSelect: false,
-    isLoading: false,
     isInputClearable: false,
   }
 }
