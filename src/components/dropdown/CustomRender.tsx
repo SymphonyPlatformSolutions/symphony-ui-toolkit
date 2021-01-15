@@ -4,6 +4,10 @@ import  { components } from 'react-select';
 import * as PropTypes from 'prop-types';
 import { CustomRenderProps, SelectOptions } from './Dropdown';
 
+
+/** The following components are defined to customize 
+ * the appereace of the react-select library components **/
+
 export const Option = props => {
   const OptionRender = props?.selectProps?.optionRenderer;
   return (<div> {OptionRender ?
