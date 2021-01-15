@@ -1,0 +1,14 @@
+.tk-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  border: 1px solid $--tk-card-border-color;
+  box-sizing: border-box;
+  border-radius: 8px;
+  &:hover {
+    box-shadow: 0px 0px 16px $--tk-card-hover-color, 0px 0px 8px $--tk-card-hover-side-color;
+    border: 1px solid $--tk-card-border-color;
+  }
+}

@@ -80,6 +80,15 @@ until we have a design for them in the UI Toolkit. */
   background-color: $scolor-graphite-minus-96;
 }
 
+.card-row {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.card-description {
+  font-size: 12px;
+}
+
 // Docs
 pre {
   background-color: $scolor-graphite-minus-88;
