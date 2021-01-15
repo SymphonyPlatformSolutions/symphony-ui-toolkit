@@ -2,7 +2,7 @@ import Icon from '../icon';
 import * as React from 'react';
 import  { components } from 'react-select';
 import * as PropTypes from 'prop-types';
-import { CustomRenderProps, DefaultOptions } from './Dropdown';
+import { CustomRenderProps, SelectOptions } from './Dropdown';
 
 export const Option = props => {
   const OptionRender = props?.selectProps?.optionRenderer;
@@ -97,7 +97,7 @@ export const customRenderOptions = [
   { value: '8', label: 'flags' }
 ];
 
-export const IconPicker = (props: CustomRenderProps<DefaultOptions>) => {
+export const IconPicker = (props: CustomRenderProps<SelectOptions>) => {
   return (
     <div>
       {props.data.label}
