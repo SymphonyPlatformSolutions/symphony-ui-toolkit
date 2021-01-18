@@ -80,6 +80,13 @@ until we have a design for them in the UI Toolkit. */
   background-color: $scolor-graphite-minus-96;
 }
 
+.card-icon {
+ @extend .tk-color-action-primary;
+}
+.card-description {
+  font-size: 12px;
+}
+
 // Docs
 pre {
   background-color: $scolor-graphite-minus-88;

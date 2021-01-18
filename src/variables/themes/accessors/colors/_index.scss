@@ -89,3 +89,8 @@ $--tk-list-divider-color: var(--tk-list-divider-color,$scolor-graphite-minus-88)
 
 /** ======== Avatar ======== */
 $--tk-avatar-border-color: var(--tk-avatar-border-color,$scolor-graphite-minus-88);
+
+/** ======== Card ======== */
+$--tk-card-border-color: var(--tk-card-border-color,$scolor-graphite-minus-72);
+$--tk-card-hover-color: var(--tk-card-hover-color,$scolor-card-shadow);
+$--tk-card-hover-side-color: var(--tk-card-hover-side-color,$scolor-card-shadow);
