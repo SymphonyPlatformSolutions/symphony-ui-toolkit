@@ -14,6 +14,7 @@ import Typography from './typography';
 import Loader from './loader';
 import { Avatar, BasicIndicator, AvatarBadge } from './avatar';
 import Dropdown from './dropdown';
+import Card from './card';
 import { DropdownMenu, DropdownMenuItem, DropdownMenuDivider } from './dropdown-menu';
 
 export {
@@ -44,5 +45,6 @@ export {
   DropdownMenu,
   DropdownMenuItem,
   DropdownMenuDivider,
-  Dropdown
+  Dropdown,
+  Card,
 };
