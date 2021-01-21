@@ -15,7 +15,9 @@ It adds a layer of logic above the visual part already implemented in UIToolkit 
 
 &nbsp;&nbsp;UIToolkit Styles library provides a first implementation of each component as much as CSS could handle. This way every component could have a simple implementation using plain CSS, and an advanced one using React.  
 &nbsp;&nbsp;So the answer is simply both, this way non react users could make benefit from Symphony's Design System.  
-&nbsp;&nbsp;In Some cases though, some styles are only useful to react components, that's why UIToolkit styles has a dedicated UItoolkit Components directory if your styles imply theming. Though if your React Component-only styles imply just positioning no need to pollute UIToolkit Styles and use JSS instead
+&nbsp;&nbsp;In Some cases though, some styles are only useful to react components, that's why UIToolkit styles has a dedicated UItoolkit Components directory if your styles imply theming.
+
+> NOTE: if your React Component-only styles imply just positioning no need to pollute UIToolkit Styles and use JSS instead
 
 ## Defining a new component
 
