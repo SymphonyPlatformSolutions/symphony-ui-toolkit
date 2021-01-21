@@ -39,6 +39,7 @@ In order to keep consistency between components the following aspects are to be 
 - Every component should be tested at least to 80%
 - Even if Enzyme exists we'll use from now on only Testing Library
 - Using any is not forbidden ... but avoid it as much as you can
+- While defining you component's props, extend existing React.HTMLProps and only specify those you specifically need for your component
 
 ## Pull requests
 
