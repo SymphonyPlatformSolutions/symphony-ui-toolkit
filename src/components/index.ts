@@ -16,6 +16,7 @@ import Loader from './loader';
 import { Avatar, BasicIndicator, AvatarBadge } from './avatar';
 import { DropdownMenu, DropdownMenuItem, DropdownMenuDivider } from './dropdown-menu';
 
+/** Deprecated, components should be imported individually to allow tree shaking */
 export {
   Button,
   Checkbox,
