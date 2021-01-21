@@ -5,7 +5,7 @@ import {
   DropdownMenuDivider,
 } from '../src/components/dropdown-menu';
 import { Icon } from '../src/components';
-import 'styles/dropdownMenu.stories.css';
+import './styles/dropdownMenu.stories.css';
 
 const Default: React.FC = () => {
   return (

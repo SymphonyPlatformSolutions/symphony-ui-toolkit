@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Avatar, Icon, BasicIndicator, AvatarBadge } from '../src/components';
-import 'styles/avatar.stories.css';
+import './styles/avatar.stories.css';
 
 const img1 = require('./static/avatar.png');
 const img2 = require('./static/avatar1.png');
