@@ -1,7 +1,11 @@
 import * as React from 'react';
-import { DropdownMenu, DropdownMenuItem, DropdownMenuDivider } from '../src/components/dropdown-menu';
+import {
+  DropdownMenu,
+  DropdownMenuItem,
+  DropdownMenuDivider,
+} from '../src/components/dropdown-menu';
 import { Icon } from '../src/components';
-import '../src/styles/dropdownMenu.stories.css';
+import 'styles/dropdownMenu.stories.css';
 
 const Default: React.FC = () => {
   return (
@@ -10,17 +14,19 @@ const Default: React.FC = () => {
       <DropdownMenu className="dropdownMenu">
         <DropdownMenuItem>New direct chat</DropdownMenuItem>
         <DropdownMenuItem>New room...</DropdownMenuItem>
-        <DropdownMenuDivider/>
+        <DropdownMenuDivider />
         <DropdownMenuItem>Cut</DropdownMenuItem>
-        <DropdownMenuItem className="withRightIcon">Copy <Icon iconName="check" className="rightIcon"/></DropdownMenuItem>
+        <DropdownMenuItem className="withRightIcon">
+          Copy <Icon iconName="check" className="rightIcon" />
+        </DropdownMenuItem>
         <DropdownMenuItem>Paste</DropdownMenuItem>
-        <DropdownMenuDivider/>
+        <DropdownMenuDivider />
         <DropdownMenuItem>Full screen</DropdownMenuItem>
         <DropdownMenuItem>Minimize</DropdownMenuItem>
       </DropdownMenu>
     </div>
-  )
-}
+  );
+};
 
 const WithIcons: React.FC = () => {
   return (
@@ -28,51 +34,51 @@ const WithIcons: React.FC = () => {
       <h3>With icons</h3>
       <DropdownMenu className="dropdownMenu">
         <DropdownMenuItem>
-          <Icon iconName="plus" className="leftIcon"/>
+          <Icon iconName="plus" className="leftIcon" />
           New direct chat
         </DropdownMenuItem>
         <DropdownMenuItem>
-          <Icon iconName="chats" className="leftIcon"/>
+          <Icon iconName="chats" className="leftIcon" />
           New room...
         </DropdownMenuItem>
-        <DropdownMenuDivider/>
+        <DropdownMenuDivider />
         <DropdownMenuItem>
-          <Icon iconName="minus-round" className="leftIcon"/>
+          <Icon iconName="minus-round" className="leftIcon" />
           Cut
         </DropdownMenuItem>
         <DropdownMenuItem className="withRightIcon">
-          <Icon iconName="copy" className="leftIcon"/>
+          <Icon iconName="copy" className="leftIcon" />
           Copy
-          <Icon iconName="check" className="rightIcon"/>
+          <Icon iconName="check" className="rightIcon" />
         </DropdownMenuItem>
         <DropdownMenuItem>
-          <Icon iconName="forward" className="leftIcon"/>
+          <Icon iconName="forward" className="leftIcon" />
           Paste
         </DropdownMenuItem>
-        <DropdownMenuDivider/>
+        <DropdownMenuDivider />
         <DropdownMenuItem>
-          <Icon iconName="fullscreen-on" className="leftIcon"/>
+          <Icon iconName="fullscreen-on" className="leftIcon" />
           Full screen
         </DropdownMenuItem>
         <DropdownMenuItem>
-          <Icon iconName="fullscreen-off" className="leftIcon"/>
+          <Icon iconName="fullscreen-off" className="leftIcon" />
           Minimize
         </DropdownMenuItem>
       </DropdownMenu>
     </div>
-  )
-}
+  );
+};
 
 export const DropdownList: React.FC = () => {
   return (
     <div className="flex-row">
-      <Default/>
-      <WithIcons/>
+      <Default />
+      <WithIcons />
     </div>
-  )
-}
+  );
+};
 
 export default {
   title: 'Components/Dropdown Menu',
   component: DropdownList,
-}
+};
