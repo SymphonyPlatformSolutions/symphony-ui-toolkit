@@ -36,7 +36,9 @@ export type DropdownProps = {
   tagRenderer?: React.ReactNode;
    /** Used to override the default appearance of the remove button from the selected input items. (It only applies with isMultiSelect = true) */
   tagRemoveRenderer?: React.ReactNode;
-  
+  placement?: 'top' | 'bottom' | 'right' | 'left';
+  /* It renders an icon on the left side of the dropdown input*/
+  iconName?: string;
 }
 
 type DropdownState = {
@@ -61,7 +63,7 @@ class Dropdown extends React.Component<DropdownProps, DropdownState> {
 
   render() {
     const { selectedOption, hideSelectedOptions, closeMenuOnSelect, displayArrowIndicator } = this.state;
-    const { isMultiSelect, isDisabled, placeHolder, options, id, defaultValue, onBlur, isInputClearable, label, optionRenderer, tagRemoveRenderer } = this.props;
+    const { isMultiSelect, isDisabled, placeHolder, options, id, defaultValue, onBlur, isInputClearable, label, optionRenderer, tagRemoveRenderer, iconName } = this.props;
 
     return (
       <div>
@@ -85,6 +87,8 @@ class Dropdown extends React.Component<DropdownProps, DropdownState> {
           placeholder={placeHolder}
           isMulti={isMultiSelect}
           isDisabled={isDisabled}
+          iconName={iconName}
+          
         />
       </div>
     );
@@ -94,6 +98,7 @@ class Dropdown extends React.Component<DropdownProps, DropdownState> {
     isDisabled: false,
     isMultiSelect: false,
     isInputClearable: false,
+    placement: 'bottom'
   }
 }
 

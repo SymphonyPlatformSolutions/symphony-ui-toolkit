@@ -69,7 +69,7 @@ export const DropdownIndicator = props => {
     (<div>{props?.selectProps?.isMulti && props?.selectProps?.displayArrowIndicator ?
       <components.DropdownIndicator {...props} /> : <components.DropdownIndicator {...props} className="tk-d-none" />}</div>) :
     <components.DropdownIndicator {...props}>
-      <Icon iconName={props?.selectProps.menuIsOpen ? 'drop-up' : 'drop-down'} className="tk-text-color"></Icon>
+      <Icon iconName={props?.selectProps.menuIsOpen ? 'drop-up' : 'drop-down'} className="tk-select__single-value"></Icon>
     </components.DropdownIndicator>}</div>
   );
 };
@@ -78,14 +78,30 @@ DropdownIndicator.propTypes = {
   selectProps: PropTypes.object
 }
 
-export const Control = props => {
+export const Control = ({ children, ...props }) => {
+
+  const iconName = props.selectProps.iconName;
+  console.log('im here', children);
   return (<div className="tk-input-group__header">
     {<label className="tk-label tk-mb-h">{props?.selectProps?.label}</label>}
-    <components.Control {...props} /></div>);
+    {iconName ?
+      <components.Control {...props} className="tk-input__container">
+        <div className="tk-input__icon">
+          <Icon
+            iconName={iconName}
+            tabIndex={0}
+          ></Icon>
+        </div>
+        {children}
+      </components.Control> :  <components.Control {...props}>{children}</components.Control>}
+
+  </div>
+  );
 }
 
 Control.propTypes = {
-  selectProps: PropTypes.object
+  selectProps: PropTypes.object,
+  children: PropTypes.element
 }
 
 export const customRenderOptions = [
