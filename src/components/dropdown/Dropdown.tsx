@@ -1,66 +1,58 @@
-import {Option, SingleValue, MultiValueContainer, MultiValue,DropdownIndicator, MultiValueRemove, Control, ClearIndicator, } from './CustomRender';
 import * as React from 'react';
 import Select from 'react-select';
+import { ClearIndicator, Control, DefaultOptionRenderer, DefaultTagRenderer, DropdownIndicator, MultiValueContainerOverride, MultiValueRemove, SingleValue } from './CustomRender';
+import { DropdownOption, LabelValue, OptionRendererProps, TagRendererProps } from './interfaces';
 
+// css baseclass prefix
 const prefix = 'tk-select';
 
-export interface TagRendererProps<T> {
-  data: T;
-  removeProps?: {onClick: () => any};
-}
-export interface OptionRendererProps<T> {
-  data: T;
-}
-export interface SelectedValue {
-  label: string;
-  value: string;
-  name?:string;
-}
-export interface IconPickerOptions {
-  label: string,
-  options: SelectedValue[],
-}
-export interface TimeZoneOptions {
-  label: string,
-  value?: string,
-  options?: SelectedValue[],
-}
-
-export type DropdownProps = {
-  options: any;
-  /** Close the expanded menu when the user selects an option */
+export type DropdownProps<T> = {
+  options: DropdownOption<T>[];
+  defaultValue?: T;
+  /** Enables the indicator to expand the Dropdown */
   displayArrowIndicator?: boolean;
   isDisabled?: boolean;
-  isMultiSelect?: boolean;
+  // isMultiSelect?: boolean;
   id?: string;
   placeHolder?: string;
   label?: string
-  defaultValue?: any;
-  onBlur?: any;
+  onBlur?: (e)=>any;
+  // onChange?: (value:T|T[])=>any;
   className?: string;
   /** Used to override the default appearance of the list items. */
-  optionRenderer?: React.ReactNode;
+  optionRenderer?: React.Component<OptionRendererProps<T>, any> | React.FunctionComponent<OptionRendererProps<T>>;
   /** Used to override the default appearance of the dropdown select input item/s */
-  tagRenderer?: React.ReactNode;
+  tagRenderer?: React.Component<TagRendererProps<T>, any> | React.FunctionComponent<TagRendererProps<T>>;
   placement?: 'top' | 'bottom' | 'right' | 'left';
   /* It renders an icon on the left side of the dropdown input*/
   iconName?: string;
+  /** Close the expanded menu when the user selects an option */
   closeMenuOnSelect?: boolean;
   /** Hide the selected option from the list */
   hideSelectedOptions?: boolean;
-  /** Enables the indicator to clear the value from the Dropdown */
+  /** Enables the indicator to fully clear the selected content */
   isInputClearable?: boolean;
-  /** Enables the indicator to expand the Dropdown */
+  /** Allows the usage of the component in controlled value mode */
+  value?: T
+} & (OnChangeMultiProps<T> | OnChangeSingleProps<T>);
+
+type OnChangeMultiProps<T> = {
+  isMultiSelect:true;
+  onChange?: (value:T[])=>any;
+}
+type OnChangeSingleProps<T> = {
+  isMultiSelect?:false;
+  onChange?: (value:T)=>any;
 }
 
-type DropdownState = {
-  selectedOption: any;
+type DropdownState<T> = {
+  selectedOption: T;
   closeMenuOnSelect?: boolean;
   hideSelectedOptions?: boolean;
   displayArrowIndicator?: boolean;
 }
 
-class Dropdown extends React.Component<DropdownProps, DropdownState> {
+class Dropdown<T=LabelValue> extends React.Component<DropdownProps<T>, DropdownState<T>> {
 
   state = {
     selectedOption: null,
@@ -69,13 +61,15 @@ class Dropdown extends React.Component<DropdownProps, DropdownState> {
     displayArrowIndicator: !!(!this.props?.isMultiSelect || this.props?.displayArrowIndicator)
   };
 
-  handleChange = selectedOption => {
-    this.setState({ selectedOption });
+  handleChange = (selectedOption) => {
+    if(this.props.onChange){
+      this.props.onChange(selectedOption);
+    }
   };
 
   render() {
-    const { selectedOption, hideSelectedOptions, closeMenuOnSelect, displayArrowIndicator } = this.state;
-    const { isMultiSelect, isDisabled, placeHolder, options, id, defaultValue, onBlur, isInputClearable, label, optionRenderer, iconName,tagRenderer, } = this.props;
+    const { hideSelectedOptions, closeMenuOnSelect, displayArrowIndicator } = this.state;
+    const { isMultiSelect, isDisabled, placeHolder, options, id, defaultValue, onBlur, isInputClearable, label, optionRenderer, iconName,tagRenderer, value} = this.props;
 
     return (
       <div>
@@ -85,13 +79,22 @@ class Dropdown extends React.Component<DropdownProps, DropdownState> {
           tagRenderer={tagRenderer}
           isClearable={isInputClearable}
           label={label}
-          components={{ DropdownIndicator, Control, SingleValue, Option, MultiValueContainer,MultiValue, ClearIndicator, MultiValueRemove}}
+          components={{ 
+            DropdownIndicator, 
+            Control, 
+            SingleValue, 
+            Option: DefaultOptionRenderer, 
+            MultiValueContainer: MultiValueContainerOverride,
+            MultiValue: DefaultTagRenderer, 
+            ClearIndicator, 
+            MultiValueRemove
+          }}
           defaultValue={defaultValue}
           id={id}
           className={prefix}
           closeMenuOnSelect={closeMenuOnSelect}
           classNamePrefix={prefix}
-          value={selectedOption}
+          value={value}
           onChange={this.handleChange}
           onBlur={onBlur}
           options={options}
