@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { Dropdown, Icon, Typography } from '../src/components';
-import { customRenderOptions, IconPicker } from '../src/components/dropdown/CustomRender';
+import { iconData, IconPickerOption, IconPickerTag } from '../src/components/dropdown/CustomRender';
+import { IconPickerOptions, SelectedValue, TimeZoneOptions } from '../src/components/dropdown/Dropdown';
 
-const defaultOptions = [
+const defaultOptions: SelectedValue[] = [
   { label: 'Option 1', value: '1' },
   { label: 'Option 2', value: '2' },
   { label: 'Option 3', value: '3' },
@@ -12,22 +13,22 @@ const defaultOptions = [
   { label: 'Option 7', value: '7' }
 ];
 
-const multiSelectOptions = [
+const personSelectorOptions: IconPickerOptions[] = [
   {
     label: 'FREQUENT CONTACTS',
     options: [
-      { label: 'Emma Jones', value: '1' },
-      { label: 'Mehmet Guest', value: '2' },
-      { label: 'Charleigh Whitworth', value: '3' },
-      { label: 'Hugo Svein', value: '4' },
-      { label: 'Alena Fedrick', value: '5' },
-      { label: 'Philip Earl', value: '6' },
-      { label: 'Junita Torrey', value: '7' }
+      { label: 'Emma Jones', value: '1', name: 'a' },
+      { label: 'Mehmet Guest', value: '2', name: 'a' },
+      { label: 'Charleigh Whitworth', value: '3', name: 'a' },
+      { label: 'Hugo Svein', value: '4' , name: 'a'},
+      { label: 'Alena Fedrick', value: '5', name: 'a' },
+      { label: 'Philip Earl', value: '6' , name: 'a'},
+      { label: 'Junita Torrey', value: '7', name: 'a' }
     ]
   }
 ];
 
-const timeOptions = [
+const timeZoneOptions: TimeZoneOptions[] = [
   { label: '(GMT +03:00) Tanzania', value: '8' },
   { label: '(GMT +03:00) Uganda', value: '9' },
   {
@@ -40,14 +41,6 @@ const timeOptions = [
     ]
   }
 ];
-
-const tagRemove: React.ReactNode = () => {
-  return (
-    <div className="">
-      <Icon iconName="cross" />
-    </div>
-  );
-};
 
 const Template = (args) => {
   return (
@@ -66,7 +59,7 @@ export const Select: React.FC = () => (
   <div>
     <h2>Dropdown</h2>
     <h3>Default</h3>
-    <Dropdown options={timeOptions} iconName="recent"/>
+    <Dropdown options={timeZoneOptions} iconName="recent"/>
     <p className="tk-mt-4">
 			With <Typography variant="bold">placeholder</Typography>
     </p>
@@ -91,9 +84,9 @@ export const Select: React.FC = () => (
       <Typography variant="bold">tagRenderer </Typography>props.
     </p>
     <Dropdown
-      options={customRenderOptions}
-      optionRenderer={IconPicker}
-      tagRenderer={IconPicker}
+      options={iconData}
+      optionRenderer={IconPickerOption}
+      tagRenderer={IconPickerTag}
       placeHolder="Select an icon.."
       label="Icon"
     />
@@ -104,7 +97,7 @@ export const Multiselect: React.FC = () => (
   <div>
     <h2>Multiselect</h2>
     <h3>Default</h3>
-    <Dropdown options={multiSelectOptions} isMultiSelect placeHolder="Search for People" />
+    <Dropdown options={personSelectorOptions} isMultiSelect placeHolder="Search for People" isInputClearable/>
     <p className="tk-mt-4">
 			With <Typography variant="bold">label</Typography>
     </p>
@@ -131,15 +124,14 @@ export const Multiselect: React.FC = () => (
     <p>
 			You can replace the default components with your own, using the
       <Typography variant="bold"> optionRenderer</Typography> and
-      <Typography variant="bold"> tagRenderer</Typography> and <Typography variant="bold"> tagRemoveRenderer</Typography> props.
+      <Typography variant="bold"> tagRenderer</Typography> props.
     </p>
     <Dropdown
-      options={customRenderOptions}
-      optionRenderer={IconPicker}
-      tagRenderer={IconPicker}
-      tagRemoveRenderer={tagRemove}
+      options={iconData}
+      optionRenderer={IconPickerOption}
+      tagRenderer={IconPickerTag}
       placeHolder="Select an icon.."
-      label="Icon"
+      label="Icon ana"
       isMultiSelect
       iconName="emoticon"
     />

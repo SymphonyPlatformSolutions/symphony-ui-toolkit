@@ -2,10 +2,19 @@ import Icon from '../icon';
 import * as React from 'react';
 import  { components } from 'react-select';
 import * as PropTypes from 'prop-types';
-import { CustomRenderProps, SelectOptions } from './Dropdown';
+import { IconPickerOptions, OptionRendererProps, SelectedValue, TagRendererProps } from './Dropdown';
 
+const stopPropagation = (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+  console.info('Stop propagation');
+}
 
-/** The following components are defined to customize 
+const onTagRemoveClick = (e, props) => {
+  props?.removeProps?.onClick();
+}
+
+/** The following components are defined to override 
  * the appereace of the react-select library components **/
 
 export const Option = props => {
@@ -35,34 +44,41 @@ SingleValue.propTypes = {
 }
 
 export const MultiValue = props => {
-  const ValueRender = props.selectProps.optionRenderer;
+  const ValueRender = props.selectProps?.tagRenderer;
   return (<div> {ValueRender ?
-    <components.MultiValue {...props}>
-      <ValueRender {...props} />
+    <components.MultiValue {...props} className="tk-tag">
+      <div onMouseDown={stopPropagation}>
+        <ValueRender {...props}/>
+      </div>
     </components.MultiValue>
-    : <components.MultiValue {...props} />}</div>)
+    : <components.MultiValue {...props} >
+      <div onMouseDown={stopPropagation} >
+        <span>Arreglame Anna</span>
+        <Icon iconName="cross" onClick={e => onTagRemoveClick(e,props)}/>
+      </div>
+    </components.MultiValue>}</div>
+  );
 }
 
 MultiValue.propTypes = {
   selectProps: PropTypes.object
 }
 
-export const MultiValueRemove = props => {
-  const TagRemove = props.selectProps.tagRemoveRenderer;
-  return (<div className="tk-d-flex"> {(TagRemove ?
-    <div className="tk-d-flex tk-tag-remove">
-      <components.MultiValueRemove {...props} >
-        <TagRemove {...props} className="tk-tag-remove"/>
-      </components.MultiValueRemove> </div> :
-    <components.MultiValueRemove {...props}>
-      <Icon iconName="cross" />
-    </components.MultiValueRemove>)}</div>
+export const MultiValueContainer = ({ children, ...props }) => {
+  return (
+    <components.MultiValueContainer {...props}>
+      <div>{children}</div>
+    </components.MultiValueContainer>
   );
-};
+}
 
-MultiValueRemove.propTypes = {
+MultiValueContainer.propTypes = {
   selectProps: PropTypes.object
 }
+
+export const MultiValueRemove = () => {
+  return ('');
+};
 
 export const DropdownIndicator = props => {
   return (<div>{props?.selectProps?.isMulti ?
@@ -78,14 +94,24 @@ DropdownIndicator.propTypes = {
   selectProps: PropTypes.object
 }
 
-export const Control = ({ children, ...props }) => {
+export const ClearIndicator = props => {
+  return (
+    <components.ClearIndicator {...props}>
+      <Icon iconName="cross-round"></Icon>
+    </components.ClearIndicator>
+  );
+};
 
+ClearIndicator.propTypes = {
+  selectProps: PropTypes.object
+}
+
+export const Control = ({ children, ...props }) => {
   const iconName = props.selectProps.iconName;
-  console.log('im here', children);
   return (<div className="tk-input-group__header">
     {<label className="tk-label tk-mb-h">{props?.selectProps?.label}</label>}
     {iconName ?
-      <components.Control {...props} className="tk-input__container">
+      <components.Control {...props} className="tk-input__container" >
         <div className="tk-input__icon">
           <Icon
             iconName={iconName}
@@ -93,8 +119,9 @@ export const Control = ({ children, ...props }) => {
           ></Icon>
         </div>
         {children}
-      </components.Control> :  <components.Control {...props}>{children}</components.Control>}
-
+      </components.Control> : <components.Control {...props} >
+      {children}
+      </components.Control>}
   </div>
   );
 }
@@ -104,7 +131,7 @@ Control.propTypes = {
   children: PropTypes.element
 }
 
-export const customRenderOptions = [
+export const iconData: SelectedValue[] = [
   { value: '1', label: 'app' },
   { value: '2', label: 'bot' },
   { value: '9', label: 'hide' },
@@ -117,15 +144,32 @@ export const customRenderOptions = [
   { value: '8', label: 'flags' }
 ];
 
-export const IconPicker = (props: CustomRenderProps<SelectOptions>) => {
+export const IconPickerTag = (props: TagRendererProps<IconPickerOptions>) => {
+  const {data, removeProps} = props;
   return (
     <div>
-      {props.data.label}
-      <Icon className="tk-pl-1" iconName={props.data.label} />
+      {data.label}
+      <Icon className="tk-pl-1" iconName={data.label} />
+      <Icon className="tk-pl-1" iconName="cross" onClick={removeProps?.onClick} />
     </div>
   );
 };
 
-IconPicker.propTypes = {
-  data: PropTypes.object
+IconPickerTag.propTypes = {
+  data: PropTypes.object,
+  removeProps: PropTypes.object,
+}
+
+export const IconPickerOption = (props: OptionRendererProps<IconPickerOptions>) => {
+  const {data} = props;
+  return (
+    <div>
+      {data.label}
+      <Icon className="tk-pl-1" iconName={data.label} />
+    </div>
+  );
+};
+
+IconPickerOption.propTypes = {
+  data: PropTypes.object,
 }
