@@ -1,70 +1,59 @@
-import Icon from '../icon';
 import * as React from 'react';
-import  { components } from 'react-select';
-import * as PropTypes from 'prop-types';
-import { IconPickerOptions, OptionRendererProps, SelectedValue, TagRendererProps } from './Dropdown';
+import { components } from 'react-select';
+import Icon from '../icon';
 
+/**
+ * Useful to stop propagating on mouse down events in custom renderers
+ * This way Dropdown won't be opened with custom delete
+ * @param e Propagated event
+ */
 const stopPropagation = (e) => {
   e.preventDefault();
   e.stopPropagation();
-  console.info('Stop propagation');
-}
-
-const onTagRemoveClick = (e, props) => {
-  props?.removeProps?.onClick();
 }
 
 /** The following components are defined to override 
  * the appereace of the react-select library components **/
 
-export const Option = props => {
-  const OptionRender = props?.selectProps?.optionRenderer;
-  return (<div> {OptionRender ?
+export const DefaultOptionRenderer = (props:any) => {
+  const OptionRenderer = props?.selectProps?.optionRenderer;
+  const rendererProps = {data: props.data}
+  return (<div> {OptionRenderer ?
     <components.Option {...props} >
-      <OptionRender {...props} />
+      <OptionRenderer {...rendererProps} />
     </components.Option> : <components.Option {...props} />}</div>
   );
 };
 
-Option.propTypes = {
-  selectProps: PropTypes.object
-}
-
-export const SingleValue = props => {
-  const ValueRender = props.selectProps.optionRenderer;
-  return (<div> {ValueRender ?
+export const SingleValue = (props:any) => {
+  const OptionRenderer = props.selectProps.optionRenderer;
+  const rendererProps = {data: props.data}
+  return (<div> {OptionRenderer ?
     <components.SingleValue {...props}>
-      <ValueRender {...props} />
+      <OptionRenderer {...rendererProps} />
     </components.SingleValue> : <components.SingleValue {...props} />}</div>
   );
 };
 
-SingleValue.propTypes = {
-  selectProps: PropTypes.object
-}
-
-export const MultiValue = props => {
-  const ValueRender = props.selectProps?.tagRenderer;
-  return (<div> {ValueRender ?
+export const DefaultTagRenderer = (props:any) => {
+  const TagRender = props.selectProps?.tagRenderer;
+  const rendererProps = {remove: props.removeProps.onClick, data:props.data};
+  return (<div> {TagRender ?
     <components.MultiValue {...props} className="tk-tag">
       <div onMouseDown={stopPropagation}>
-        <ValueRender {...props}/>
+        <TagRender {...rendererProps}/>
       </div>
     </components.MultiValue>
     : <components.MultiValue {...props} >
       <div onMouseDown={stopPropagation} >
-        <span>Arreglame Anna</span>
-        <Icon iconName="cross" onClick={e => onTagRemoveClick(e,props)}/>
+        <span className="tk-pr-1">{props.data?.label}</span>
+        <Icon iconName="cross" onClick={() => props.removeProps.onClick()}/>
       </div>
     </components.MultiValue>}</div>
   );
 }
 
-MultiValue.propTypes = {
-  selectProps: PropTypes.object
-}
-
-export const MultiValueContainer = ({ children, ...props }) => {
+export const MultiValueContainerOverride = ({ children, ...props }:any) => {
   return (
     <components.MultiValueContainer {...props}>
       <div>{children}</div>
@@ -72,15 +61,9 @@ export const MultiValueContainer = ({ children, ...props }) => {
   );
 }
 
-MultiValueContainer.propTypes = {
-  selectProps: PropTypes.object
-}
+export const MultiValueRemove = ()=>{return null};
 
-export const MultiValueRemove = () => {
-  return ('');
-};
-
-export const DropdownIndicator = props => {
+export const DropdownIndicator = (props:any) => {
   return (<div>{props?.selectProps?.isMulti ?
     (<div>{props?.selectProps?.isMulti && props?.selectProps?.displayArrowIndicator ?
       <components.DropdownIndicator {...props} /> : <components.DropdownIndicator {...props} className="tk-d-none" />}</div>) :
@@ -90,11 +73,7 @@ export const DropdownIndicator = props => {
   );
 };
 
-DropdownIndicator.propTypes = {
-  selectProps: PropTypes.object
-}
-
-export const ClearIndicator = props => {
+export const ClearIndicator = (props:any) => {
   return (
     <components.ClearIndicator {...props}>
       <Icon iconName="cross-round"></Icon>
@@ -102,11 +81,7 @@ export const ClearIndicator = props => {
   );
 };
 
-ClearIndicator.propTypes = {
-  selectProps: PropTypes.object
-}
-
-export const Control = ({ children, ...props }) => {
+export const Control = ({ children, ...props }:any) => {
   const iconName = props.selectProps.iconName;
   return (<div className="tk-input-group__header">
     {<label className="tk-label tk-mb-h">{props?.selectProps?.label}</label>}
@@ -120,56 +95,8 @@ export const Control = ({ children, ...props }) => {
         </div>
         {children}
       </components.Control> : <components.Control {...props} >
-      {children}
+        {children}
       </components.Control>}
   </div>
   );
-}
-
-Control.propTypes = {
-  selectProps: PropTypes.object,
-  children: PropTypes.element
-}
-
-export const iconData: SelectedValue[] = [
-  { value: '1', label: 'app' },
-  { value: '2', label: 'bot' },
-  { value: '9', label: 'hide' },
-  { value: '10', label: 'link' },
-  { value: '3', label: 'adjust' },
-  { value: '4', label: 'archive' },
-  { value: '5', label: 'cashtag' },
-  { value: '6', label: 'emoticon' },
-  { value: '7', label: 'following' },
-  { value: '8', label: 'flags' }
-];
-
-export const IconPickerTag = (props: TagRendererProps<IconPickerOptions>) => {
-  const {data, removeProps} = props;
-  return (
-    <div>
-      {data.label}
-      <Icon className="tk-pl-1" iconName={data.label} />
-      <Icon className="tk-pl-1" iconName="cross" onClick={removeProps?.onClick} />
-    </div>
-  );
-};
-
-IconPickerTag.propTypes = {
-  data: PropTypes.object,
-  removeProps: PropTypes.object,
-}
-
-export const IconPickerOption = (props: OptionRendererProps<IconPickerOptions>) => {
-  const {data} = props;
-  return (
-    <div>
-      {data.label}
-      <Icon className="tk-pl-1" iconName={data.label} />
-    </div>
-  );
-};
-
-IconPickerOption.propTypes = {
-  data: PropTypes.object,
 }

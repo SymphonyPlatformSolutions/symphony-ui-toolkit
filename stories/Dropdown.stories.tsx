@@ -1,9 +1,8 @@
 import * as React from 'react';
 import { Dropdown, Icon, Typography } from '../src/components';
-import { iconData, IconPickerOption, IconPickerTag } from '../src/components/dropdown/CustomRender';
-import { IconPickerOptions, SelectedValue, TimeZoneOptions } from '../src/components/dropdown/Dropdown';
+import { DropdownOption, LabelValue, TagRendererProps, OptionRendererProps } from '../src/components/dropdown/interfaces';
 
-const defaultOptions: SelectedValue[] = [
+const defaultOptions: LabelValue[] = [
   { label: 'Option 1', value: '1' },
   { label: 'Option 2', value: '2' },
   { label: 'Option 3', value: '3' },
@@ -13,7 +12,13 @@ const defaultOptions: SelectedValue[] = [
   { label: 'Option 7', value: '7' }
 ];
 
-const personSelectorOptions: IconPickerOptions[] = [
+interface Person {
+  label:string;
+  value:string;
+  name: string;
+}
+
+const personSelectorOptions: DropdownOption<Person>[] = [
   {
     label: 'FREQUENT CONTACTS',
     options: [
@@ -28,7 +33,7 @@ const personSelectorOptions: IconPickerOptions[] = [
   }
 ];
 
-const timeZoneOptions: TimeZoneOptions[] = [
+const timeZoneOptions: DropdownOption<LabelValue>[] = [
   { label: '(GMT +03:00) Tanzania', value: '8' },
   { label: '(GMT +03:00) Uganda', value: '9' },
   {
@@ -41,6 +46,46 @@ const timeZoneOptions: TimeZoneOptions[] = [
     ]
   }
 ];
+
+/** Icon custom renderers */
+interface Icon {
+  displayName:string;
+  value:string;
+}
+
+const iconData: Icon[] = [
+  { value: '1', displayName: 'app' },
+  { value: '2', displayName: 'bot' },
+  { value: '9', displayName: 'hide' },
+  { value: '10', displayName: 'link' },
+  { value: '3', displayName: 'adjust' },
+  { value: '4', displayName: 'archive' },
+  { value: '5', displayName: 'cashtag' },
+  { value: '6', displayName: 'emoticon' },
+  { value: '7', displayName: 'following' },
+  { value: '8', displayName: 'flags' }
+];
+
+const IconPickerTagRenderer = (props: TagRendererProps<Icon>) => {
+  const {data, remove} = props;
+  return (
+    <div>
+      {data.displayName}
+      <Icon className="tk-pl-1" iconName={data.displayName} />
+      <Icon className="tk-ml-1" iconName="cross" onClick={remove} />
+    </div>
+  );
+};
+
+const IconPickerOptionRenderer = (props: OptionRendererProps<Icon>) => {
+  const {data} = props;
+  return (
+    <div>
+      {data.displayName}
+      <Icon className="tk-pl-1" iconName={data.displayName} />
+    </div>
+  );
+};
 
 const Template = (args) => {
   return (
@@ -59,7 +104,7 @@ export const Select: React.FC = () => (
   <div>
     <h2>Dropdown</h2>
     <h3>Default</h3>
-    <Dropdown options={timeZoneOptions} iconName="recent"/>
+    <Dropdown options={timeZoneOptions} iconName="recent" onChange={(value)=>{console.info(value)}}/>
     <p className="tk-mt-4">
 			With <Typography variant="bold">placeholder</Typography>
     </p>
@@ -85,8 +130,8 @@ export const Select: React.FC = () => (
     </p>
     <Dropdown
       options={iconData}
-      optionRenderer={IconPickerOption}
-      tagRenderer={IconPickerTag}
+      optionRenderer={IconPickerOptionRenderer}
+      tagRenderer={IconPickerTagRenderer}
       placeHolder="Select an icon.."
       label="Icon"
     />
@@ -128,17 +173,18 @@ export const Multiselect: React.FC = () => (
     </p>
     <Dropdown
       options={iconData}
-      optionRenderer={IconPickerOption}
-      tagRenderer={IconPickerTag}
+      optionRenderer={IconPickerOptionRenderer}
+      tagRenderer={IconPickerTagRenderer}
       placeHolder="Select an icon.."
       label="Icon ana"
       isMultiSelect
       iconName="emoticon"
+      onChange={(value)=>console.info('SELECTED VALUE',value)}
     />
   </div>
 );
 
 export default {
-  title: 'Components/Dropdown',
+  title: 'Components/Input/Dropdown',
   component: Dropdown
 };
