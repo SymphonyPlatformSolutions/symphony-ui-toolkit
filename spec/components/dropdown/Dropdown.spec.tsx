@@ -1,8 +1,8 @@
 import * as React from 'react';
 import userEvent from '@testing-library/user-event';
 import { render, screen } from '@testing-library/react';
-import Dropdown from '../../../src/components/dropdown';
 import '@testing-library/jest-dom/extend-expect';
+import { Dropdown } from '../../../src/components/dropdown';
 
 const CustomComponent = (props) => {
   if (props.data){
