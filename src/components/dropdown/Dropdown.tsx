@@ -1,26 +1,34 @@
-import {Option, SingleValue, MultiValue, DropdownIndicator, MultiValueRemove, Control} from './CustomRender';
+import {Option, SingleValue, MultiValueContainer, MultiValue,DropdownIndicator, MultiValueRemove, Control, ClearIndicator, } from './CustomRender';
 import * as React from 'react';
 import Select from 'react-select';
 
 const prefix = 'tk-select';
 
-export interface CustomRenderProps<T> {
+export interface TagRendererProps<T> {
+  data: T;
+  removeProps?: {onClick: () => any};
+}
+export interface OptionRendererProps<T> {
   data: T;
 }
-export interface SelectOptions {
+export interface SelectedValue {
   label: string;
   value: string;
+  name?:string;
+}
+export interface IconPickerOptions {
+  label: string,
+  options: SelectedValue[],
+}
+export interface TimeZoneOptions {
+  label: string,
+  value?: string,
+  options?: SelectedValue[],
 }
 
 export type DropdownProps = {
   options: any;
   /** Close the expanded menu when the user selects an option */
-  closeMenuOnSelect?: boolean;
-  /** Hide the selected option from the list */
-  hideSelectedOptions?: boolean;
-  /** Enables the indicator to clear the value from the Dropdown */
-  isInputClearable?: boolean;
-  /** Enables the indicator to expand the Dropdown */
   displayArrowIndicator?: boolean;
   isDisabled?: boolean;
   isMultiSelect?: boolean;
@@ -34,11 +42,15 @@ export type DropdownProps = {
   optionRenderer?: React.ReactNode;
   /** Used to override the default appearance of the dropdown select input item/s */
   tagRenderer?: React.ReactNode;
-   /** Used to override the default appearance of the remove button from the selected input items. (It only applies with isMultiSelect = true) */
-  tagRemoveRenderer?: React.ReactNode;
   placement?: 'top' | 'bottom' | 'right' | 'left';
   /* It renders an icon on the left side of the dropdown input*/
   iconName?: string;
+  closeMenuOnSelect?: boolean;
+  /** Hide the selected option from the list */
+  hideSelectedOptions?: boolean;
+  /** Enables the indicator to clear the value from the Dropdown */
+  isInputClearable?: boolean;
+  /** Enables the indicator to expand the Dropdown */
 }
 
 type DropdownState = {
@@ -63,17 +75,17 @@ class Dropdown extends React.Component<DropdownProps, DropdownState> {
 
   render() {
     const { selectedOption, hideSelectedOptions, closeMenuOnSelect, displayArrowIndicator } = this.state;
-    const { isMultiSelect, isDisabled, placeHolder, options, id, defaultValue, onBlur, isInputClearable, label, optionRenderer, tagRemoveRenderer, iconName } = this.props;
+    const { isMultiSelect, isDisabled, placeHolder, options, id, defaultValue, onBlur, isInputClearable, label, optionRenderer, iconName,tagRenderer, } = this.props;
 
     return (
       <div>
         <Select
           displayArrowIndicator={displayArrowIndicator}
-          tagRemoveRenderer={tagRemoveRenderer}
           optionRenderer={optionRenderer}
+          tagRenderer={tagRenderer}
           isClearable={isInputClearable}
           label={label}
-          components={{ DropdownIndicator, Control, SingleValue, Option, MultiValue, MultiValueRemove }}
+          components={{ DropdownIndicator, Control, SingleValue, Option, MultiValueContainer,MultiValue, ClearIndicator, MultiValueRemove}}
           defaultValue={defaultValue}
           id={id}
           className={prefix}
@@ -88,7 +100,6 @@ class Dropdown extends React.Component<DropdownProps, DropdownState> {
           isMulti={isMultiSelect}
           isDisabled={isDisabled}
           iconName={iconName}
-          
         />
       </div>
     );

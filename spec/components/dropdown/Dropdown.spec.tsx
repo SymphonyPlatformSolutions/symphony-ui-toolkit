@@ -4,7 +4,7 @@ import { render, screen } from '@testing-library/react';
 import Dropdown from '../../../src/components/dropdown';
 import { DropdownProps } from '../../../src/components/dropdown/Dropdown';
 import '@testing-library/jest-dom/extend-expect';
-import { customRenderOptions, IconPicker } from '../../../src/components/dropdown/CustomRender';
+import { iconData, IconPickerTag } from '../../../src/components/dropdown/CustomRender';
 
 describe('Dropdown component test suite =>', () => {
   const dropdownProps: DropdownProps = {
@@ -44,7 +44,7 @@ describe('Dropdown component test suite =>', () => {
       const { getByText } = render(
         <Dropdown
           isMultiSelect
-          options={customRenderOptions}
+          options={iconData}
           optionRenderer={IconPicker}
           displayArrowIndicator
           tagRenderer={IconPicker}
@@ -87,7 +87,7 @@ describe('Dropdown component test suite =>', () => {
       const { getByText } = render(
         <Dropdown
           isMultiSelect
-          options={customRenderOptions}
+          options={iconData}
           optionRenderer={IconPicker}
           displayArrowIndicator
           tagRenderer={IconPicker}
