@@ -12,18 +12,15 @@ export type DropdownProps<T> = {
   /** Enables the indicator to expand the Dropdown */
   displayArrowIndicator?: boolean;
   isDisabled?: boolean;
-  // isMultiSelect?: boolean;
   id?: string;
   placeHolder?: string;
   label?: string
   onBlur?: (e)=>any;
-  // onChange?: (value:T|T[])=>any;
   className?: string;
   /** Used to override the default appearance of the list items. */
   optionRenderer?: React.Component<OptionRendererProps<T>, any> | React.FunctionComponent<OptionRendererProps<T>>;
   /** Used to override the default appearance of the dropdown select input item/s */
   tagRenderer?: React.Component<TagRendererProps<T>, any> | React.FunctionComponent<TagRendererProps<T>>;
-  placement?: 'top' | 'bottom' | 'right' | 'left';
   /* It renders an icon on the left side of the dropdown input*/
   iconName?: string;
   /** Close the expanded menu when the user selects an option */
@@ -111,8 +108,7 @@ class Dropdown<T=LabelValue> extends React.Component<DropdownProps<T>, DropdownS
   static defaultProps = {
     isDisabled: false,
     isMultiSelect: false,
-    isInputClearable: false,
-    placement: 'bottom'
+    isInputClearable: false
   }
 }
 
