@@ -23,7 +23,7 @@ const Template = (args) => {
       <ExpandableCard {...args}
         header={
           <div>
-            An example of a header with a <Link url={'https://www.symphony.com'}>link</Link>
+            An example of a header with a An example of a header with a An example of a header with a An example of a header with a An example of a header with a An example of a header with a  <Link url={'https://www.symphony.com'}>link</Link>
           </div>
         }
       >

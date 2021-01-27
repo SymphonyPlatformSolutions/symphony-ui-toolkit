@@ -13,15 +13,18 @@ type ExpandableCardProps = {
 };
 // styled components, if it grows put in a sibling file
 const HeaderDiv = styled.div`
+  margin-bottom: 8px;
   & > div {
-    display: inline-block;
+    display: inline;
     margin-right: 8px;
-    margin-bottom: 8px;
+    & > * {
+      display: inline;
+    }
   }
   & > .tk-link.toggle {
     margin-left: 8px;
     text-decoration: none;
-    display: inline-block;
+    display: inline;
   }
   & > .tk-icon-top {
     &::before {
