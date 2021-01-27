@@ -185,6 +185,6 @@ export const Multiselect: React.FC = () => (
 );
 
 export default {
-  title: 'Components/Input/Dropdown',
+  title: 'Components/Input/Dropdown (beta)',
   component: Dropdown
 };
