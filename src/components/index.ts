@@ -16,12 +16,15 @@ import Loader from './loader';
 import { Avatar, BasicIndicator, AvatarBadge } from './avatar';
 import { DropdownMenu, DropdownMenuItem, DropdownMenuDivider } from './dropdown-menu';
 
-/** Deprecated, components should be imported individually to allow tree shaking */
 export {
   Button,
+  Card,
   Checkbox,
   CropContent,
   DatePicker,
+  DropdownMenu,
+  DropdownMenuItem,
+  DropdownMenuDivider,
   ExpandableCard,
   Radio,
   TextArea,
@@ -42,8 +45,7 @@ export {
   Avatar,
   BasicIndicator,
   AvatarBadge,
-  DropdownMenu,
-  DropdownMenuItem,
-  DropdownMenuDivider,
-  Card,
 };
+
+/* Let's move into exporting everything with interfaces */ 
+export * from './dropdown';

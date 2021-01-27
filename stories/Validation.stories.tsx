@@ -1,7 +1,7 @@
 import { withKnobs } from '@storybook/addon-knobs';
 import React, { useState } from 'react';
 
-import { DatePicker, TextArea, TextField, Validation } from '../src/components';
+import { DatePicker, Dropdown, TextArea, TextField, Validation } from '../src/components';
 import { Validators } from '../src/core/validators/validators';
 
 export const Validations = () => {
@@ -37,8 +37,9 @@ export const Validations = () => {
     <div style={{ width: '50%' }}>
       <h1>Validation</h1>
       <h2>Single validator</h2>
+      <h3>Text Field</h3>
       <p>
-        Text Field with <strong>Required validator</strong>
+        with <strong>Required validator</strong>
       </p>
       <Validation
         onValidationChanged={logChange}
@@ -53,7 +54,7 @@ export const Validations = () => {
         />
       </Validation>
       <p>
-        Text Field with <strong>MinLength validator</strong>
+        with <strong>MinLength validator</strong>
       </p>
       <Validation
         onValidationChanged={logChange}
@@ -72,8 +73,9 @@ export const Validations = () => {
       >
         <TextField placeholder="Magic word" />
       </Validation>
+      <h3>Date Picker</h3>
       <p>
-        Date Picker with <strong>Required validator</strong>
+        with <strong>Required validator</strong>
       </p>
       <Validation
         onValidationChanged={logChange}
@@ -90,6 +92,19 @@ export const Validations = () => {
             setDate(e.target.value);
           }}
         ></DatePicker>
+      </Validation>
+      <h3>Dropdown</h3>
+      <p>
+        with <strong>Required validator</strong>
+      </p>
+      <Validation
+        onValidationChanged={logChange}
+        validator={[Validators.Required]}
+        errorMessage={{ required: 'This field is required' }}
+      >
+        <Dropdown options={[{value:'1', label: 'option 1'},{value:'2', label: 'option 2'} ]}>
+        
+        </Dropdown>
       </Validation>
       <h2>Multiple validators</h2>
       <p>
