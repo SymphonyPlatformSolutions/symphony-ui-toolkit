@@ -5,7 +5,7 @@
 
   &__icon {
     color: $--tk-list-selected-color;
-    font-size:$list-font-size-icon;
+    font-size: $list-font-size-icon;
     @extend .tk-pr-1;
   }
 
@@ -18,7 +18,7 @@
     position: absolute;
     right: 16px;
     font-style: normal;
-    font-family: 'tk-icons';
+    font-family: "tk-icons";
     font-size: $list-font-size-icon;
     color: $scolor-electricity;
     @include tk-icon-right;
@@ -27,7 +27,7 @@
 
 .tk-dropdown-menu-divider {
   height: 0;
-  margin: .4em 0;
+  margin: 0.4em 0;
   overflow: hidden;
   border-top: 1px solid $--tk-list-divider-color;
 }

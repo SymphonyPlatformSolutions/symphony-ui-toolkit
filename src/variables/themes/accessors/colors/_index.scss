@@ -83,12 +83,19 @@ $--tk-dialog-backdrop-color: var(--tk-dialog-backdrop-color, $scolor-dialog-back
 
 /** ======== List ======== */
 $--tk-list-background-color: var(--tk-list-background-color, $scolor-white);
-$--tk-list-hover-color: var(--tk-list-hover-color,$scolor-graphite-minus-88);
-$--tk-list-selected-color: var(--tk-list-selected-color,$scolor-graphite-minus-24);
-$--tk-list-divider-color: var(--tk-list-divider-color,$scolor-graphite-minus-88);
+$--tk-list-hover-color: var(--tk-list-hover-color, $scolor-graphite-minus-88);
+$--tk-list-selected-color: var(--tk-list-selected-color, $scolor-graphite-minus-24);
+$--tk-list-divider-color: var(--tk-list-divider-color, $scolor-graphite-minus-88);
+$--tk-list-tag-color: var(--tk-list-tag-color, $scolor-graphite-minus-89);
+$--tk-tag-border-color: var(--tk-tag-border-color, $scolor-graphite-minus-24);
+$--tk-tag-background-color: var(--tk-tag-background-color, $scolor-graphite-minus-88);
+$--tk-tag-border-disabled-color: var(--tk-tag-border-disabled-color, $scolor-graphite-minus-48);
+$--tk-tag-backgroung-disabled-color: var(--tk-tag-border-disabled-color, $scolor-graphite-minus-96);
+$--tk-tag-border-hover-color: var(--tk-tag-border-hover-color, $scolor-graphite-minus-24);
+$--tk-tag-background-hover-color: var(--tk-tag-background-hover-color, $scolor-graphite-minus-88);
 
 /** ======== Avatar ======== */
-$--tk-avatar-border-color: var(--tk-avatar-border-color,$scolor-graphite-minus-88);
+$--tk-avatar-border-color: var(--tk-avatar-border-color, $scolor-graphite-minus-88);
 
 /** ======== Card ======== */
 $--tk-card-border-color: var(--tk-card-border-color,$scolor-graphite-minus-72);

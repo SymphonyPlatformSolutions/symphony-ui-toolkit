@@ -11,7 +11,7 @@ $list-font-size-icon: 16px;
     position: absolute;
     right: 16px;
     font-style: normal;
-    font-family: 'tk-icons';
+    font-family: "tk-icons";
     color: $--tk-list-selected-color;
     font-size: $list-font-size-icon;
     @include tk-icon-check;
