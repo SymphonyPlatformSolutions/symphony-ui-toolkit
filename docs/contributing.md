@@ -33,6 +33,16 @@ In order to keep consistency between components the following aspects are to be 
 - Using any is not forbidden ... but avoid it as much as you can
 - While defining you component's props, extend existing React.HTMLProps and only specify those you specifically need for your component
 
+## Exporting your component: from component to lib root
+
+There is a consist way to export component and it's interfaces, so while creating your component
+
+- Make sure you add an index at the root of your component folder
+- Your index should export by Default the component
+- The index should also export the component and interfaces - no better example than the plain ol' Button
+- Finally export the component from the components/index.ts  
+  ex: `export * from './button'`
+
 ## Pull requests
 
 In order to have a clear pull request the following items are strongly recommended:

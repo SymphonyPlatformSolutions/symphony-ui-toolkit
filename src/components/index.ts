@@ -1,4 +1,3 @@
-import Button from './button';
 import Link from './link';
 import { TextArea, TextField } from './input';
 import { Checkbox, Radio } from './selection';
@@ -17,7 +16,6 @@ import { Avatar, BasicIndicator, AvatarBadge } from './avatar';
 import { DropdownMenu, DropdownMenuItem, DropdownMenuDivider } from './dropdown-menu';
 
 export {
-  Button,
   Card,
   Checkbox,
   CropContent,
@@ -48,4 +46,5 @@ export {
 };
 
 /* Let's move into exporting everything with interfaces */ 
+export * from './button';
 export * from './dropdown';
