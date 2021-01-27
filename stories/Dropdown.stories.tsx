@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { Dropdown, Icon, Typography } from '../src/components';
-import { DropdownOption, LabelValue, TagRendererProps, OptionRendererProps } from '../src/components/dropdown/interfaces';
+import { Dropdown, DropdownOption, Icon, LabelValue, OptionRendererProps, TagRendererProps, Typography } from '../src/components';
 
 const defaultOptions: LabelValue[] = [
   { label: 'Option 1', value: '1' },

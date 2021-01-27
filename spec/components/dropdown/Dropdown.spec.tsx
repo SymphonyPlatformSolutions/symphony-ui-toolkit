@@ -2,12 +2,15 @@ import * as React from 'react';
 import userEvent from '@testing-library/user-event';
 import { render, screen } from '@testing-library/react';
 import Dropdown from '../../../src/components/dropdown';
-import { DropdownProps } from '../../../src/components/dropdown/Dropdown';
 import '@testing-library/jest-dom/extend-expect';
-import { iconData, IconPickerTag } from '../../../src/components/dropdown/CustomRender';
 
+const CustomComponent = (props) => {
+  if (props.data){
+    return (<div>{props?.data?.label}</div>);
+  }
+}
 describe('Dropdown component test suite =>', () => {
-  const dropdownProps: DropdownProps = {
+  const dropdownProps = {
     options: [],
     id: 'testId'
   };
@@ -44,17 +47,17 @@ describe('Dropdown component test suite =>', () => {
       const { getByText } = render(
         <Dropdown
           isMultiSelect
-          options={iconData}
-          optionRenderer={IconPicker}
+          options={dropdownProps.options}
+          optionRenderer={CustomComponent}
           displayArrowIndicator
-          tagRenderer={IconPicker}
+          tagRenderer={CustomComponent}
         />
       );
       const input = screen.getByRole('textbox');
       userEvent.click(input);
-      const option = screen.getByText('app');
+      const option = screen.getByText('banana');
       userEvent.click(option);
-      expect(getByText('app')).toBeTruthy();
+      expect(getByText('banana')).toBeTruthy();
     });
   });
 
@@ -87,17 +90,17 @@ describe('Dropdown component test suite =>', () => {
       const { getByText } = render(
         <Dropdown
           isMultiSelect
-          options={iconData}
-          optionRenderer={IconPicker}
+          options={dropdownProps.options}
+          optionRenderer={CustomComponent}
           displayArrowIndicator
-          tagRenderer={IconPicker}
+          tagRenderer={CustomComponent}
         />
       );
       const input = screen.getByRole('textbox');
       userEvent.click(input);
-      const option = screen.getByText('app');
+      const option = screen.getByText('banana');
       userEvent.click(option);
-      expect(getByText('app')).toBeTruthy();
+      expect(getByText('banana')).toBeTruthy();
     });
   });
 });
