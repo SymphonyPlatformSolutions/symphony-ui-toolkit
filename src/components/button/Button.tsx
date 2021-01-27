@@ -4,7 +4,7 @@ import classNames from 'classnames';
 
 const prefix = 'tk-button';
 
-type ButtonProps = {
+export type ButtonProps = {
   /** If true, add an Icon component as children */
   iconButton?: boolean;
    /** Content of the button*/
@@ -19,7 +19,7 @@ type ButtonProps = {
   onClick?: (event: React.MouseEvent<HTMLElement>) => void;
 };
 
-const Button: React.FC<ButtonProps> = ({
+export const Button: React.FC<ButtonProps> = ({
   children,
   className,
   iconButton,
