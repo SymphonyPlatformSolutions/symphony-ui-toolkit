@@ -26,6 +26,7 @@ export type DropdownProps<T> = {
   /** Enables the indicator to expand the Dropdown */
   displayArrowIndicator?: boolean;
   isDisabled?: boolean;
+  isOptionDisabled?: (option) => boolean;
   id?: string;
   placeHolder?: string;
   label?: string;
@@ -98,6 +99,7 @@ class Dropdown<T = LabelValue> extends React.Component<
     const {
       isMultiSelect,
       isDisabled,
+      isOptionDisabled,
       placeHolder,
       options,
       id,
@@ -142,6 +144,7 @@ class Dropdown<T = LabelValue> extends React.Component<
           placeholder={placeHolder}
           isMulti={isMultiSelect}
           isDisabled={isDisabled}
+          isOptionDisabled={isOptionDisabled}
           iconName={iconName}
         />
       </div>
