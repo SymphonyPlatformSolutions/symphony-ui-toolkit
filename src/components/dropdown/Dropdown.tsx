@@ -1,7 +1,21 @@
 import * as React from 'react';
 import Select from 'react-select';
-import { ClearIndicator, Control, DefaultOptionRenderer, DefaultTagRenderer, DropdownIndicator, MultiValueContainerOverride, MultiValueRemove, SingleValue } from './CustomRender';
-import { DropdownOption, LabelValue, OptionRendererProps, TagRendererProps } from './interfaces';
+import {
+  ClearIndicator,
+  Control,
+  DefaultOptionRenderer,
+  DefaultTagRenderer,
+  DropdownIndicator,
+  MultiValueContainerOverride,
+  MultiValueRemove,
+  SingleValue,
+} from './CustomRender';
+import {
+  DropdownOption,
+  LabelValue,
+  OptionRendererProps,
+  TagRendererProps,
+} from './interfaces';
 
 // css baseclass prefix
 const prefix = 'tk-select';
@@ -14,13 +28,17 @@ export type DropdownProps<T> = {
   isDisabled?: boolean;
   id?: string;
   placeHolder?: string;
-  label?: string
-  onBlur?: (e)=>any;
+  label?: string;
+  onBlur?: (e) => any;
   className?: string;
   /** Used to override the default appearance of the list items. */
-  optionRenderer?: React.Component<OptionRendererProps<T>, any> | React.FunctionComponent<OptionRendererProps<T>>;
+  optionRenderer?:
+    | React.Component<OptionRendererProps<T>, any>
+    | React.FunctionComponent<OptionRendererProps<T>>;
   /** Used to override the default appearance of the dropdown select input item/s */
-  tagRenderer?: React.Component<TagRendererProps<T>, any> | React.FunctionComponent<TagRendererProps<T>>;
+  tagRenderer?:
+    | React.Component<TagRendererProps<T>, any>
+    | React.FunctionComponent<TagRendererProps<T>>;
   /* It renders an icon on the left side of the dropdown input*/
   iconName?: string;
   /** Close the expanded menu when the user selects an option */
@@ -30,43 +48,68 @@ export type DropdownProps<T> = {
   /** Enables the indicator to fully clear the selected content */
   isInputClearable?: boolean;
   /** Allows the usage of the component in controlled value mode */
-  value?: T
+  value?: T;
 } & (OnChangeMultiProps<T> | OnChangeSingleProps<T>);
 
 type OnChangeMultiProps<T> = {
-  isMultiSelect:true;
-  onChange?: (value:T[])=>any;
-}
+  isMultiSelect: true;
+  onChange?: (value: T[]) => any;
+};
 type OnChangeSingleProps<T> = {
-  isMultiSelect?:false;
-  onChange?: (value:T)=>any;
-}
+  isMultiSelect?: false;
+  onChange?: (value: T) => any;
+};
 
 type DropdownState<T> = {
   selectedOption: T;
   closeMenuOnSelect?: boolean;
   hideSelectedOptions?: boolean;
   displayArrowIndicator?: boolean;
-}
+};
 
-class Dropdown<T=LabelValue> extends React.Component<DropdownProps<T>, DropdownState<T>> {
-
+class Dropdown<T = LabelValue> extends React.Component<
+  DropdownProps<T>,
+  DropdownState<T>
+> {
   state = {
     selectedOption: null,
-    hideSelectedOptions: (this.props?.isMultiSelect || !!this.props?.hideSelectedOptions),
-    closeMenuOnSelect: !!(!this.props?.isMultiSelect || this.props?.closeMenuOnSelect),
-    displayArrowIndicator: !!(!this.props?.isMultiSelect || this.props?.displayArrowIndicator)
+    hideSelectedOptions:
+      this.props?.isMultiSelect || !!this.props?.hideSelectedOptions,
+    closeMenuOnSelect: !!(
+      !this.props?.isMultiSelect || this.props?.closeMenuOnSelect
+    ),
+    displayArrowIndicator: !!(
+      !this.props?.isMultiSelect || this.props?.displayArrowIndicator
+    ),
   };
 
   handleChange = (selectedOption) => {
-    if(this.props.onChange){
+    if (this.props.onChange) {
       this.props.onChange(selectedOption);
     }
   };
 
   render() {
-    const { hideSelectedOptions, closeMenuOnSelect, displayArrowIndicator } = this.state;
-    const { isMultiSelect, isDisabled, placeHolder, options, id, defaultValue, onBlur, isInputClearable, label, optionRenderer, iconName,tagRenderer, value} = this.props;
+    const {
+      hideSelectedOptions,
+      closeMenuOnSelect,
+      displayArrowIndicator,
+    } = this.state;
+    const {
+      isMultiSelect,
+      isDisabled,
+      placeHolder,
+      options,
+      id,
+      defaultValue,
+      onBlur,
+      isInputClearable,
+      label,
+      optionRenderer,
+      iconName,
+      tagRenderer,
+      value,
+    } = this.props;
 
     return (
       <div>
@@ -76,15 +119,15 @@ class Dropdown<T=LabelValue> extends React.Component<DropdownProps<T>, DropdownS
           tagRenderer={tagRenderer}
           isClearable={isInputClearable}
           label={label}
-          components={{ 
-            DropdownIndicator, 
-            Control, 
-            SingleValue, 
-            Option: DefaultOptionRenderer, 
+          components={{
+            DropdownIndicator,
+            Control,
+            SingleValue,
+            Option: DefaultOptionRenderer,
             MultiValueContainer: MultiValueContainerOverride,
-            MultiValue: DefaultTagRenderer, 
-            ClearIndicator, 
-            MultiValueRemove
+            MultiValue: DefaultTagRenderer,
+            ClearIndicator,
+            MultiValueRemove,
           }}
           defaultValue={defaultValue}
           id={id}
@@ -104,12 +147,12 @@ class Dropdown<T=LabelValue> extends React.Component<DropdownProps<T>, DropdownS
       </div>
     );
   }
-  
+
   static defaultProps = {
     isDisabled: false,
     isMultiSelect: false,
-    isInputClearable: false
-  }
+    isInputClearable: false,
+  };
 }
 
 export default Dropdown;
