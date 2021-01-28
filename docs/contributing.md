@@ -1,4 +1,4 @@
-# Contributing to UIToolkit Components
+# 💪 Contributing to UIToolkit Components
 
 The following is a set of guidelines for contributing to UIToolkit Components library. These are mostly guidelines, not rules, so feel free to suggest improvements of the following
 

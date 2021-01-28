@@ -38,4 +38,9 @@ import Button from '@symphony/uitoolkit-components/components/button';
 ```
 
 ## 📦 Releasing from GitHub
-Full releasing manual [here](https://perzoinc.atlassian.net/wiki/spaces/DevX/pages/1303478933/UIToolkit+releasing+and+versioning) 
+
+Full releasing manual [here](https://perzoinc.atlassian.net/wiki/spaces/DevX/pages/1303478933/UIToolkit+releasing+and+versioning)
+
+## 💪 Contributing
+
+Read detailed guide on [contribution process](https://github.com/SymphonyOSF/symphony-bdk-ui-toolkit-components/blob/master/docs/contributing.md)
