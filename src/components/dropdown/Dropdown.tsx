@@ -6,6 +6,7 @@ import {
   DefaultOptionRenderer,
   DefaultTagRenderer,
   DropdownIndicator,
+  Input,
   MultiValueContainerOverride,
   MultiValueRemove,
   SingleValue,
@@ -27,6 +28,7 @@ export type DropdownProps<T> = {
   displayArrowIndicator?: boolean;
   isDisabled?: boolean;
   isOptionDisabled?: (option) => boolean;
+  isOptionSelected?: (option) => boolean;
   id?: string;
   placeHolder?: string;
   label?: string;
@@ -50,7 +52,23 @@ export type DropdownProps<T> = {
   isInputClearable?: boolean;
   /** Allows the usage of the component in controlled value mode */
   value?: T;
-} & (OnChangeMultiProps<T> | OnChangeSingleProps<T>);
+} & TimePickerProps &
+  (OnChangeMultiProps<T> | OnChangeSingleProps<T>);
+
+type TimePickerProps = {
+  inputValue?: string;
+  hoursKeyEvent?: any;
+  onKeyDown?: any;
+  onKeyUp?: any;
+  onInputChange?: any;
+  components?: any;
+  hours?: any;
+  setHours?: any;
+  minutes?: any;
+  setMinutes?: any;
+  seconds?: any;
+  setSeconds?: any;
+};
 
 type OnChangeMultiProps<T> = {
   isMultiSelect: true;
@@ -84,12 +102,6 @@ class Dropdown<T = LabelValue> extends React.Component<
     ),
   };
 
-  handleChange = (selectedOption) => {
-    if (this.props.onChange) {
-      this.props.onChange(selectedOption);
-    }
-  };
-
   render() {
     const {
       hideSelectedOptions,
@@ -100,17 +112,22 @@ class Dropdown<T = LabelValue> extends React.Component<
       isMultiSelect,
       isDisabled,
       isOptionDisabled,
+      isOptionSelected,
+      components,
       placeHolder,
       options,
       id,
       defaultValue,
       onBlur,
+      onChange,
+      onKeyDown,
       isInputClearable,
       label,
       optionRenderer,
       iconName,
       tagRenderer,
       value,
+      ...otherProps
     } = this.props;
 
     return (
@@ -122,9 +139,11 @@ class Dropdown<T = LabelValue> extends React.Component<
           isClearable={isInputClearable}
           label={label}
           components={{
+            ...components,
             DropdownIndicator,
             Control,
             SingleValue,
+            Input,
             Option: DefaultOptionRenderer,
             MultiValueContainer: MultiValueContainerOverride,
             MultiValue: DefaultTagRenderer,
@@ -137,15 +156,18 @@ class Dropdown<T = LabelValue> extends React.Component<
           closeMenuOnSelect={closeMenuOnSelect}
           classNamePrefix={prefix}
           value={value}
-          onChange={this.handleChange}
+          onChange={onChange}
           onBlur={onBlur}
+          onKeyDown={onKeyDown}
           options={options}
           hideSelectedOptions={hideSelectedOptions}
           placeholder={placeHolder}
           isMulti={isMultiSelect}
           isDisabled={isDisabled}
           isOptionDisabled={isOptionDisabled}
+          isOptionSelected={isOptionSelected}
           iconName={iconName}
+          {...otherProps}
         />
       </div>
     );
