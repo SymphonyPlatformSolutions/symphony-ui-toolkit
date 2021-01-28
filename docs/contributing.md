@@ -1,4 +1,4 @@
-# Contributing to UIToolkit Components
+# 💪 Contributing to UIToolkit Components
 
 The following is a set of guidelines for contributing to UIToolkit Components library. These are mostly guidelines, not rules, so feel free to suggest improvements of the following
 
@@ -32,6 +32,15 @@ In order to keep consistency between components the following aspects are to be 
 - Even if Enzyme exists we'll use from now on only Testing Library
 - Using any is not forbidden ... but avoid it as much as you can
 - While defining you component's props, extend existing React.HTMLProps and only specify those you specifically need for your component
+- All components should expose their props interface and should be commented so they're represented correctly by Storybook's docs plugin
+
+## Documentation
+
+Documenting every component is very important for UItoolkit and it's done in two main parts
+
+- The stories : every story of a component provides an example of using a feature
+- The Docs : Docs plugin provides a playground canvas deduced from the stories. So every component should be compatible with it
+  > Find a starter guide [here](https://perzoinc.atlassian.net/wiki/spaces/DevX/pages/1312526766/UI-toolkit+-+Tutorial+-+Using+Storybook+DocsPage)
 
 ## Exporting your component: from component to lib root
 
