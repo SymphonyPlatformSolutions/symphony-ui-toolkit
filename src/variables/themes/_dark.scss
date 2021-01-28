@@ -52,4 +52,10 @@
   --tk-card-border-color: #{$scolor-graphite-plus-24};
   --tk-card-hover-color: #{$scolor-card-shadow-bottom};
   --tk-card-hover-side-color: #{$scolor-card-shadow-left};
+
+  --tk-nav-color-default: #{$scolor-graphite-minus-48};
+  --tk-nav-color-hover: #{$scolor-graphite-minus-72};
+  --tk-nav-color-active: #{$scolor-white};
+  --tk-nav-color-disabled: #{$scolor-graphite-minus-48};
+  --tk-nav-color-border-bottom: #{$scolor-graphite-minus-48};
 }
