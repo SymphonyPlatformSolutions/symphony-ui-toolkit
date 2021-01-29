@@ -183,15 +183,18 @@ const handleKeyDown = (
     event.key === Keys.ARROW_DOWN ||
     event.key === Keys.TAB
   ) {
-    console.log('handleKeyDown', event);
+    console.log('handleKeyDown', event.target);
 
-    handleKeyboardNavigation(
-      event,
-      setInputValue,
-      setHours,
-      setMinutes,
-      setSeconds
-    );
+    if (event.target && event.target.tagName === 'INPUT') {
+      // Handle keyboard navigation only if the focus is on the focus (not on the icon)
+      handleKeyboardNavigation(
+        event,
+        setInputValue,
+        setHours,
+        setMinutes,
+        setSeconds
+      );
+    }
   } else if (event.key === Keys.ENTER) {
     console.log('ENTER !!!!');
     // TODO Close the Dropdown menu if it's open
@@ -242,6 +245,10 @@ const isTimeSelected = (
   seconds,
   disabledTimes
 ): boolean => {
+  if (!option) {
+    return false;
+  }
+
   console.log('isTimeSelected', option, hours, minutes, seconds, disabledTimes);
   console.log('option.value.hours === hours', option.value.hours === hours);
   console.log(
@@ -285,13 +292,16 @@ const TimePicker: React.FC<TimePickerProps> = ({
   const [inputValue, setInputValue] = useState('');
 
   useEffect(() => {
-    const newSelectedOption = times.find(
+    let newSelectedOption = times.find(
       (time) =>
         time.value.hours === hours &&
         time.value.minutes === minutes &&
         time.value.seconds === seconds
     );
-    console.log('Select new selectedOption', newSelectedOption);
+    if (!newSelectedOption) {
+      // If not found, then we set an empty object {} otherwise the React-Select lib keep the last selected option
+      newSelectedOption = {};
+    }
     setSelectedOption(newSelectedOption);
   }, [hours, minutes, seconds]);
 
@@ -329,7 +339,6 @@ const TimePicker: React.FC<TimePickerProps> = ({
           setSeconds(getNumberOn2Digits(option.value.seconds));
           setInputValue(option.label); // Todo don't use label
         }}
-        // components={{ Input: TimeInput2 }}
         onKeyDown={(event) =>
           handleKeyDown(event, setInputValue, setHours, setMinutes, setSeconds)
         }
@@ -341,6 +350,10 @@ const TimePicker: React.FC<TimePickerProps> = ({
           ) {
             console.log('--> setInputValue', newValue);
             setInputValue(newValue);
+            // Remove selected hours/minutes/seconds
+            setHours('');
+            setMinutes('');
+            setSeconds('');
           }
         }}
         inputValue={inputValue}
