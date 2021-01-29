@@ -56,17 +56,9 @@ export type DropdownProps<T> = {
 
 type TimePickerProps = {
   inputValue?: string;
-  hoursKeyEvent?: any;
   onKeyDown?: any;
-  onKeyUp?: any;
   onInputChange?: any;
   components?: any;
-  hours?: any;
-  setHours?: any;
-  minutes?: any;
-  setMinutes?: any;
-  seconds?: any;
-  setSeconds?: any;
 };
 
 type OnChangeMultiProps<T> = {
@@ -165,6 +157,10 @@ class Dropdown<T = LabelValue> extends React.Component<
           isOptionDisabled={isOptionDisabled}
           isOptionSelected={isOptionSelected}
           iconName={iconName}
+          // filterOption={(option, data) => {
+          //   console.log(option, data);
+          //   return true;
+          // }}
           {...otherProps}
         />
       </div>

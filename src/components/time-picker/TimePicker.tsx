@@ -69,17 +69,24 @@ const getTimes = (
   return times;
 };
 
-const handleKeyboardNavigation = (
-  event,
-  setInputValue,
-  setHours,
-  setMinutes,
-  setSeconds
-) => {
+/**
+ * Return the next value to use for hours or minutes or seconds
+ * @param value
+ * @param increment
+ * @param limit
+ */
+const getNextValue = (value, increment, limit = 59) => {
+  const newValue = value + increment;
+  if (newValue > limit) return 0;
+  if (newValue < 0) return limit;
+  return newValue;
+};
+
+const handleKeyboardNavigation = (event, setInputValue) => {
   const currentValue = event.target.value;
   if (!isTimeValid(currentValue, FORMAT_HH_MM_SS_24)) {
     // If the time is not valid, let the default keyboard navigation
-    // the dropdown menu
+    // to use the dropdown menu
     return;
   }
 
@@ -104,35 +111,24 @@ const handleKeyboardNavigation = (
 
       if (cursor < 3) {
         // Hours
-        hours += increment;
-        hours = hours > 0 ? hours : 0;
-        newValue = `${getNumberOn2Digits(hours)}:${getNumberOn2Digits(
-          minutes
-        )}:${getNumberOn2Digits(seconds)}`;
+        hours = getNextValue(hours, increment, 23);
         cursorStart = 0;
         cursorEnd = 2;
-        // event.target.setSelectionRange(0, 2);
       } else if (cursor < 6) {
         // Minutes
-        minutes += increment;
-        minutes = minutes > 0 ? minutes : 0;
-        newValue = `${getNumberOn2Digits(hours)}:${getNumberOn2Digits(
-          minutes
-        )}:${getNumberOn2Digits(seconds)}`;
-        // event.target.setSelectionRange(3, 5);
+        minutes = getNextValue(minutes, increment);
         cursorStart = 3;
         cursorEnd = 5;
       } else if (cursor < 9) {
         // Seconds
-        seconds += increment;
-        seconds = seconds > 0 ? seconds : 0;
-        newValue = `${getNumberOn2Digits(hours)}:${getNumberOn2Digits(
-          minutes
-        )}:${getNumberOn2Digits(seconds)}`;
-        // event.target.setSelectionRange(6, 8);
+        seconds = getNextValue(seconds, increment);
         cursorStart = 6;
         cursorEnd = 8;
       }
+
+      newValue = `${getNumberOn2Digits(hours)}:${getNumberOn2Digits(
+        minutes
+      )}:${getNumberOn2Digits(seconds)}`;
 
       event.target.value = newValue;
       setInputValue(newValue);
@@ -179,13 +175,7 @@ const handleKeyboardNavigation = (
   }
 };
 
-const handleKeyDown = (
-  event,
-  setInputValue,
-  setHours,
-  setMinutes,
-  setSeconds
-) => {
+const handleKeyDown = (event, setInputValue) => {
   if (
     event.key === Keys.ARROW_UP ||
     event.key === Keys.ARROW_DOWN ||
@@ -195,13 +185,7 @@ const handleKeyDown = (
 
     if (event.target && event.target.tagName === 'INPUT') {
       // Handle keyboard navigation only if the focus is on the focus (not on the icon)
-      handleKeyboardNavigation(
-        event,
-        setInputValue,
-        setHours,
-        setMinutes,
-        setSeconds
-      );
+      handleKeyboardNavigation(event, setInputValue);
     }
   } else if (event.key === Keys.ENTER) {
     console.log('ENTER !!!!');
@@ -281,6 +265,9 @@ const isTimeSelected = (
   );
 };
 
+// Specific Input to fix input not displayed in React-Select
+// See https://github.com/JedWatson/react-select/issues/3068
+// See https://github.com/JedWatson/react-select/discussions/4302
 const TimePickerInput = (props) => (
   <components.Input {...props} isHidden={false} />
 );
@@ -300,7 +287,6 @@ const TimePicker: React.FC<TimePickerProps> = ({
   strict,
   disabled,
   disabledTimes,
-  ...otherProps
 }) => {
   const [hours, setHours] = useState('00');
   const [minutes, setMinutes] = useState('00');
@@ -357,9 +343,7 @@ const TimePicker: React.FC<TimePickerProps> = ({
           setSeconds(getNumberOn2Digits(option.value.seconds));
           setInputValue(option.label); // Todo don't use label
         }}
-        onKeyDown={(event) =>
-          handleKeyDown(event, setInputValue, setHours, setMinutes, setSeconds)
-        }
+        onKeyDown={(event) => handleKeyDown(event, setInputValue)}
         components={{ Input: TimePickerInput }}
         onInputChange={(newValue, metadata) => {
           console.log('onInputChange', newValue, metadata);
