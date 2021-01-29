@@ -76,6 +76,13 @@ const handleKeyboardNavigation = (
   setMinutes,
   setSeconds
 ) => {
+  const currentValue = event.target.value;
+  if (!isTimeValid(currentValue, FORMAT_HH_MM_SS_24)) {
+    // If the time is not valid, let the default keyboard navigation
+    // the dropdown menu
+    return;
+  }
+
   // Get cursor position
   const cursor = event.target.selectionStart;
   if (event.key === Keys.ARROW_UP || event.key === Keys.ARROW_DOWN) {
@@ -87,7 +94,7 @@ const handleKeyboardNavigation = (
     let cursorStart = null;
     let cursorEnd = null;
 
-    const matches = event.target.value.split(':');
+    const matches = currentValue.split(':');
     if (matches.length === 3) {
       let hours = parseInt(matches[0], 10);
       let minutes = parseInt(matches[1], 10);
@@ -203,9 +210,15 @@ const handleKeyDown = (
   }
 };
 
-const isTimeValid = (time) => {
-  // TODO Return true if the time is valid, false otherwise
-  return true;
+const FORMAT_HH_MM_12 = /^(0[1-9]|1[0-2]):[0-5][0-9]$/;
+const FORMAT_HH_MM_SS_12 = /^(0[1-9]|1[0-2]):[0-5][0-9]:[0-5][0-9]$/;
+const FORMAT_HH_MM_12_A = /^(0[1-9]|1[0-2]):[0-5][0-9] ?[AaPp][Mm]$/;
+const FORMAT_HH_MM_SS_12_A = /^(0[1-9]|1[0-2]):[0-5][0-9]:[0-5][0-9] ?[AaPp][Mm]$/;
+const FORMAT_HH_MM_24 = /^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/;
+const FORMAT_HH_MM_SS_24 = /^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]$/;
+
+const isTimeValid = (time, format = null): boolean => {
+  return time.match(format);
 };
 
 function matchExactTime(time, matcher): boolean {
