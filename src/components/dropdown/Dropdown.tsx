@@ -6,7 +6,6 @@ import {
   DefaultOptionRenderer,
   DefaultTagRenderer,
   DropdownIndicator,
-  Input,
   MultiValueContainerOverride,
   MultiValueRemove,
   SingleValue,
@@ -139,16 +138,15 @@ class Dropdown<T = LabelValue> extends React.Component<
           isClearable={isInputClearable}
           label={label}
           components={{
-            ...components,
             DropdownIndicator,
             Control,
             SingleValue,
-            Input,
             Option: DefaultOptionRenderer,
             MultiValueContainer: MultiValueContainerOverride,
             MultiValue: DefaultTagRenderer,
             ClearIndicator,
             MultiValueRemove,
+            ...components,
           }}
           defaultValue={defaultValue}
           id={id}

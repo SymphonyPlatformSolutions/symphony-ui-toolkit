@@ -1,6 +1,7 @@
 import * as PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
 import { Dropdown } from '../index';
+import { components } from 'react-select';
 
 import { Keys } from '../date-picker/utils/keyUtils';
 
@@ -267,6 +268,10 @@ const isTimeSelected = (
   );
 };
 
+const TimePickerInput = (props) => (
+  <components.Input {...props} isHidden={false} />
+);
+
 const getNumberOn2Digits = (number) =>
   number.toLocaleString(undefined, { minimumIntegerDigits: 2 });
 
@@ -342,6 +347,7 @@ const TimePicker: React.FC<TimePickerProps> = ({
         onKeyDown={(event) =>
           handleKeyDown(event, setInputValue, setHours, setMinutes, setSeconds)
         }
+        components={{ Input: TimePickerInput }}
         onInputChange={(newValue, metadata) => {
           console.log('onInputChange', newValue, metadata);
           if (

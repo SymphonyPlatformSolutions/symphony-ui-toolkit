@@ -136,11 +136,11 @@ export const Control = ({ children, ...props }: any) => {
     </div>
   );
 };
-
-export const Input = (props: any) => {
-  const onKeyUp = props?.selectProps?.onKeyUp;
-  return <components.Input {...props} onKeyUp={onKeyUp} />;
-};
+//
+// export const Input = (props: any) => {
+//   const onKeyUp = props?.selectProps?.onKeyUp;
+//   return <components.Input {...props} onKeyUp={onKeyUp} />;
+// };
 
 export const TimeInput = (props) => {
   // const hoursKeyEvent = props?.selectProps?.hoursKeyEvent;
