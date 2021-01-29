@@ -15,14 +15,14 @@ li.tk-nav {
     display: block;
     margin: 0.5rem 0.75rem;
     color: $--tk-nav-color-default;
+    border-bottom: 3px solid transparent;
     &--active {
       color: $--tk-nav-color-active;
-      padding-bottom: 4px;
-      border-bottom: 3px solid $scolor-electricity !important;
+      border-bottom-color: $scolor-electricity !important;
     }
     &:hover {
       color: $--tk-nav-color-hover;
-      border-bottom: 3px solid $--tk-nav-color-border-bottom;
+      border-bottom-color: $--tk-nav-color-border-bottom;
     }
   }
 }
