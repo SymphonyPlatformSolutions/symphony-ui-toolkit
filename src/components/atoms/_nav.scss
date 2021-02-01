@@ -1,0 +1,30 @@
+ul.tk-nav {
+  &--tabs {
+    width: 100%;
+    list-style: none;
+    display: flex;
+    padding-inline-start: 0;
+  }
+}
+
+li.tk-nav {
+  &-item {
+    margin-left:0;
+    cursor: pointer;
+    text-transform: uppercase;
+    text-decoration: none;
+    background-color: transparent;
+    display: block;
+    margin: 0.5rem 0.75rem;
+    color: $--tk-nav-color-default;
+    border-bottom: 3px solid transparent;
+    &--active {
+      color: $--tk-nav-color-active;
+      border-bottom-color: $scolor-electricity !important;
+    }
+    &:hover {
+      color: $--tk-nav-color-hover;
+      border-bottom-color: $--tk-nav-color-border-bottom;
+    }
+  }
+}

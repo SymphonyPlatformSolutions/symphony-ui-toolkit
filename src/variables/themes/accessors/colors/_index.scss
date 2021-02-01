@@ -101,3 +101,10 @@ $--tk-avatar-border-color: var(--tk-avatar-border-color, $scolor-graphite-minus-
 $--tk-card-border-color: var(--tk-card-border-color,$scolor-graphite-minus-72);
 $--tk-card-hover-color: var(--tk-card-hover-color,$scolor-card-shadow);
 $--tk-card-hover-side-color: var(--tk-card-hover-side-color,$scolor-card-shadow);
+
+/** ======== Nav ======== */
+$--tk-nav-color-default: var(--tk-nav-color-default,$scolor-graphite-minus-24);
+$--tk-nav-color-hover: var(--tk-nav-color-hover,$scolor-graphite);
+$--tk-nav-color-active: var(--tk-nav-color-active,$scolor-black);
+$--tk-nav-color-disabled: var(--tk-nav-color-active,$scolor-graphite-minus-24);
+$--tk-nav-color-border-bottom: var(--tk-nav-color-border-bottom,$scolor-graphite-minus-72);
