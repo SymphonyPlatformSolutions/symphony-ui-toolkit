@@ -44,7 +44,7 @@ export const NavigationWithContent: React.FC = () => {
         onActiveTabChange={onActiveTabChange}
         activeItemId={activeItemId}
       />
-      <div>
+      <div className="tk-ml-2">
         {activeItemId === 0 ? (
           <div>Content item {activeItemId}</div>
         ) : (
