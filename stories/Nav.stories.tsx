@@ -36,7 +36,6 @@ export const NavigationWithContent: React.FC = () => {
 
   const onActiveTabChange = (id: number) => {
     setActiveItemId(id);
-    console.log('lets start our test from the beggining!');
   };
   return (
     <div>
