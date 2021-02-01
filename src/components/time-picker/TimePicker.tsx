@@ -62,6 +62,25 @@ const getTimes = (
 };
 
 /**
+ * Split time from a ISO time string
+ * @param time Example hh:mm:ss (on 24 hours)
+ *
+ */
+const getTimeFromISO = (time: string) => {
+  // TODO : Check if time is valid
+  if (!time) {
+    return null;
+  }
+
+  const matches = time.split(':');
+
+  const hours = matches[0];
+  const minutes = matches[1];
+  const seconds = matches[2];
+
+  return { hours, minutes, seconds };
+};
+/**
  * Return the next value to use for hours or minutes or seconds
  * @param value
  * @param increment
@@ -271,14 +290,25 @@ const TimePicker: React.FC<TimePickerProps> = ({
   format,
   strict,
   disabled,
-  disabledTimes,
+  disabledTimes = [],
 }) => {
-  const [hours, setHours] = useState('00');
-  const [minutes, setMinutes] = useState('00');
-  const [seconds, setSeconds] = useState('00');
-  const [selectedOption, setSelectedOption] = useState({});
+  const [hours, setHours] = useState('');
+  const [minutes, setMinutes] = useState('');
+  const [seconds, setSeconds] = useState('');
+  const [selectedOption, setSelectedOption] = useState(null);
 
   const [inputValue, setInputValue] = useState('');
+
+  useEffect(() => {
+    // TODO: Check if the time is valid to the format
+    setInputValue(value);
+    const tmpTime = getTimeFromISO(value);
+    if (tmpTime) {
+      setHours(tmpTime.hours);
+      setHours(tmpTime.minutes);
+      setHours(tmpTime.seconds);
+    }
+  }, [value]);
 
   useEffect(() => {
     let newSelectedOption = times.find(
@@ -288,11 +318,14 @@ const TimePicker: React.FC<TimePickerProps> = ({
         time.value.seconds === seconds
     );
     if (!newSelectedOption) {
-      // If not found, then we set an empty object {} otherwise the React-Select lib keep the last selected option
-      newSelectedOption = {};
+      newSelectedOption = null;
     }
     setSelectedOption(newSelectedOption);
   }, [hours, minutes, seconds]);
+
+  if (step < 600 || step > 43200) {
+    // Todo : Raised error value not supported
+  }
 
   const times = getTimes(
     format,
@@ -313,6 +346,7 @@ const TimePicker: React.FC<TimePickerProps> = ({
       <Dropdown
         iconName="recent"
         id={id}
+        name={name}
         label="TimePicker"
         placeHolder={placeholder}
         options={times}
@@ -366,7 +400,7 @@ export type TimePickerProps = {
 
 TimePicker.propTypes = {
   id: PropTypes.string,
-  name: PropTypes.string.isRequired,
+  name: PropTypes.string,
   value: PropTypes.string,
   placeholder: PropTypes.string,
   min: PropTypes.string,
