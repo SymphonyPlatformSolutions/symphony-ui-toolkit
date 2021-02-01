@@ -29,6 +29,7 @@ export type DropdownProps<T> = {
   isOptionDisabled?: (option) => boolean;
   isOptionSelected?: (option) => boolean;
   id?: string;
+  name?: string;
   placeHolder?: string;
   label?: string;
   onBlur?: (e) => any;
@@ -108,6 +109,7 @@ class Dropdown<T = LabelValue> extends React.Component<
       placeHolder,
       options,
       id,
+      name,
       defaultValue,
       onBlur,
       onChange,
@@ -142,6 +144,7 @@ class Dropdown<T = LabelValue> extends React.Component<
           }}
           defaultValue={defaultValue}
           id={id}
+          name={name}
           className={prefix}
           closeMenuOnSelect={closeMenuOnSelect}
           classNamePrefix={prefix}
