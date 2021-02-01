@@ -5,15 +5,7 @@ import { components } from 'react-select';
 
 import { Keys } from '../date-picker/utils/keyUtils';
 
-const formatTimeISO = (time) => {
-  return (
-    time.hours.toString().padStart(2, '0') +
-    ':' +
-    time.minutes.toString().padStart(2, '0') +
-    ':' +
-    time.seconds.toString().padStart(2, '0')
-  );
-};
+import { TIME_FORMAT, formatTimeISO } from '../date-picker/utils/timeUtils';
 
 const formatISOToSeconds = (time) => {
   // TODO : Do better (check, algo use Date ?)
@@ -84,7 +76,7 @@ const getNextValue = (value, increment, limit = 59) => {
 
 const handleKeyboardNavigation = (event, setInputValue) => {
   const currentValue = event.target.value;
-  if (!isTimeValid(currentValue, FORMAT_HH_MM_SS_24)) {
+  if (!isTimeValid(currentValue, TIME_FORMAT.HH_MM_SS_24)) {
     // If the time is not valid, let the default keyboard navigation
     // to use the dropdown menu
     return;
@@ -193,13 +185,6 @@ const handleKeyDown = (event, setInputValue) => {
     // Or forbid this action if 'strict' attribute is set to true
   }
 };
-
-const FORMAT_HH_MM_12 = /^(0[1-9]|1[0-2]):[0-5][0-9]$/;
-const FORMAT_HH_MM_SS_12 = /^(0[1-9]|1[0-2]):[0-5][0-9]:[0-5][0-9]$/;
-const FORMAT_HH_MM_12_A = /^(0[1-9]|1[0-2]):[0-5][0-9] ?[AaPp][Mm]$/;
-const FORMAT_HH_MM_SS_12_A = /^(0[1-9]|1[0-2]):[0-5][0-9]:[0-5][0-9] ?[AaPp][Mm]$/;
-const FORMAT_HH_MM_24 = /^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/;
-const FORMAT_HH_MM_SS_24 = /^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]$/;
 
 const isTimeValid = (time, format = null): boolean => {
   return time.match(format);
