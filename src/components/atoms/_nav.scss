@@ -3,11 +3,13 @@ ul.tk-nav {
     width: 100%;
     list-style: none;
     display: flex;
+    padding-inline-start: 0;
   }
 }
 
 li.tk-nav {
   &-item {
+    margin-left:0;
     cursor: pointer;
     text-transform: uppercase;
     text-decoration: none;
