@@ -6,7 +6,7 @@ type NavProps = {
   items: NavItem[];
   /** If is not defined, the first item will be active by default. */
   activeItemId?: number;
-  onActiveTabChange?: (id: number) => void;
+  onActiveTabChange?: (navItem: NavItem) => void;
 };
 type NavState = {
   activeNavItemId;
@@ -24,10 +24,10 @@ class Nav extends React.Component<NavProps, NavState> {
     activeNavItemId: this.props?.activeItemId || 0,
   }
 
-  onClick = (e: React.MouseEvent<HTMLElement>, key: number) => {
-    this.setState({ activeNavItemId: key});
+  onClick = (e: React.MouseEvent<HTMLElement>, navItem: NavItem) => {
+    this.setState({ activeNavItemId: navItem.id});
     if(this.props.onActiveTabChange) {
-      this.props.onActiveTabChange(key);
+      this.props.onActiveTabChange(navItem);
     }
   };
 
@@ -42,7 +42,7 @@ class Nav extends React.Component<NavProps, NavState> {
             {items.map((item, key) => (
               <li
                 key={key}
-                onClick={(e) => this.onClick(e, key)}
+                onClick={(e) => this.onClick(e, item)}
                 className={
                   activeNavItemId === key
                     ? 'tk-nav-item tk-nav-item--active'

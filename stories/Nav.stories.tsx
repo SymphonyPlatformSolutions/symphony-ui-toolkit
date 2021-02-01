@@ -34,8 +34,8 @@ Default.args = {
 export const NavigationWithContent: React.FC = () => {
   const [activeItemId, setActiveItemId] = useState(1);
 
-  const onActiveTabChange = (id: number) => {
-    setActiveItemId(id);
+  const onActiveTabChange = (navItem: NavItem) => {
+    setActiveItemId(navItem.id);
   };
   return (
     <div>
