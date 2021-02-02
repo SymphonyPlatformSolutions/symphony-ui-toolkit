@@ -34,6 +34,11 @@ WithFormat.args = {
   value: 'hh:mm a',
 };
 
+export const WithStrict = Template.bind({});
+WithValue.args = {
+  strict: true,
+};
+
 export const WithStep = Template.bind({});
 WithStep.args = {
   step: 600,
@@ -47,6 +52,11 @@ DisabledTimes.args = {
     { time: '09:30:00' },
     { from: '13:30:00', to: '15:45:00' },
   ],
+};
+
+export const Disabled = Template.bind({});
+Disabled.args = {
+  disabled: true,
 };
 
 export default {

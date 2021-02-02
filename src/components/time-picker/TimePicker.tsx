@@ -5,7 +5,12 @@ import { components } from 'react-select';
 
 import { Keys } from '../date-picker/utils/keyUtils';
 
-import { TIME_FORMAT, formatTimeISO } from '../date-picker/utils/timeUtils';
+import {
+  FIELD,
+  TIME_FORMAT,
+  formatTimeISO,
+  getOptionValue,
+} from './utils/timeUtils';
 
 const formatISOToSeconds = (time) => {
   // TODO : Do better (check, algo use Date ?)
@@ -50,11 +55,18 @@ const getTimes = (
 ): Array<any> => {
   const times = [];
   // TODO: use min to calculate initial value of currentTime
-  for (let currentTime = min; currentTime <= max; currentTime += step) {
+  for (
+    let currentTime = min, index = 0;
+    currentTime <= max;
+    currentTime += step, index++
+  ) {
     const time = splitTime(currentTime);
     times.push({
       label: formatTimeToDisplay(time),
-      value: time,
+      value: {
+        index, // Save the index of the Option, to easily access to the previous/next option if needed
+        ...time,
+      },
       // value: formatTimeISO(time),
     });
   }
@@ -80,6 +92,7 @@ const getTimeFromISO = (time: string) => {
 
   return { hours, minutes, seconds };
 };
+
 /**
  * Return the next value to use for hours or minutes or seconds
  * @param value
@@ -93,7 +106,12 @@ const getNextValue = (value, increment, limit = 59) => {
   return newValue;
 };
 
-const handleKeyboardNavigation = (event, setInputValue) => {
+const handleKeyboardNavigation = (
+  event,
+  setInputValue,
+  selectedOption,
+  options
+) => {
   const currentValue = event.target.value;
   if (!isTimeValid(currentValue, TIME_FORMAT.HH_MM_SS_24)) {
     // If the time is not valid, let the default keyboard navigation
@@ -107,32 +125,53 @@ const handleKeyboardNavigation = (event, setInputValue) => {
     // Set 'defaultPrevented' to true otherwise the navigation is enable in the Dropdown menu
     event.preventDefault();
 
-    const increment = event.key === Keys.ARROW_UP ? 1 : -1;
-
     let cursorStart = null;
     let cursorEnd = null;
 
     const matches = currentValue.split(':');
     if (matches.length === 3) {
-      let hours = parseInt(matches[0], 10);
-      let minutes = parseInt(matches[1], 10);
-      let seconds = parseInt(matches[2], 10);
+      let hours = matches[0];
+      let minutes = matches[1];
+      let seconds = matches[2];
+      const time = {
+        hours,
+        minutes,
+        seconds,
+      };
 
       let newValue = null;
 
       if (cursor < 3) {
         // Hours
-        hours = getNextValue(hours, increment, 23);
+        hours = getOptionValue(
+          event.key,
+          FIELD.HOURS,
+          time,
+          selectedOption,
+          options
+        );
         cursorStart = 0;
         cursorEnd = 2;
       } else if (cursor < 6) {
         // Minutes
-        minutes = getNextValue(minutes, increment);
+        minutes = getOptionValue(
+          event.key,
+          FIELD.MINUTES,
+          time,
+          selectedOption,
+          options
+        );
         cursorStart = 3;
         cursorEnd = 5;
       } else if (cursor < 9) {
         // Seconds
-        seconds = getNextValue(seconds, increment);
+        seconds = getOptionValue(
+          event.key,
+          FIELD.SECONDS,
+          time,
+          selectedOption,
+          options
+        );
         cursorStart = 6;
         cursorEnd = 8;
       }
@@ -186,7 +225,7 @@ const handleKeyboardNavigation = (event, setInputValue) => {
   }
 };
 
-const handleKeyDown = (event, setInputValue) => {
+const handleKeyDown = (event, setInputValue, selectedOption, options) => {
   if (
     event.key === Keys.ARROW_UP ||
     event.key === Keys.ARROW_DOWN ||
@@ -196,7 +235,7 @@ const handleKeyDown = (event, setInputValue) => {
 
     if (event.target && event.target.tagName === 'INPUT') {
       // Handle keyboard navigation only if the focus is on the focus (not on the icon)
-      handleKeyboardNavigation(event, setInputValue);
+      handleKeyboardNavigation(event, setInputValue, selectedOption, options);
     }
   } else if (event.key === Keys.ENTER) {
     console.log('ENTER !!!!');
@@ -300,6 +339,15 @@ const TimePicker: React.FC<TimePickerProps> = ({
   const [inputValue, setInputValue] = useState('');
 
   useEffect(() => {
+    const tmpTime = getTimeFromISO(inputValue);
+    if (tmpTime) {
+      setHours(tmpTime.hours);
+      setHours(tmpTime.minutes);
+      setHours(tmpTime.seconds);
+    }
+  }, [inputValue]);
+
+  useEffect(() => {
     // TODO: Check if the time is valid to the format
     setInputValue(value);
     const tmpTime = getTimeFromISO(value);
@@ -311,7 +359,7 @@ const TimePicker: React.FC<TimePickerProps> = ({
   }, [value]);
 
   useEffect(() => {
-    let newSelectedOption = times.find(
+    let newSelectedOption = options.find(
       (time) =>
         time.value.hours === hours &&
         time.value.minutes === minutes &&
@@ -327,7 +375,7 @@ const TimePicker: React.FC<TimePickerProps> = ({
     // Todo : Raised error value not supported
   }
 
-  const times = getTimes(
+  const options = getTimes(
     format,
     formatISOToSeconds(min),
     formatISOToSeconds(max),
@@ -344,12 +392,13 @@ const TimePicker: React.FC<TimePickerProps> = ({
         Clock--{hours}:{minutes}:{seconds}--
       </span>
       <Dropdown
+        isDisabled={disabled}
         iconName="recent"
         id={id}
         name={name}
         label="TimePicker"
         placeHolder={placeholder}
-        options={times}
+        options={options}
         value={selectedOption}
         isOptionDisabled={(option) => isTimeDisabled(option, disabledTimes)}
         isOptionSelected={(option) => {
@@ -362,7 +411,9 @@ const TimePicker: React.FC<TimePickerProps> = ({
           setSeconds(getNumberOn2Digits(option.value.seconds));
           setInputValue(option.label); // Todo don't use label
         }}
-        onKeyDown={(event) => handleKeyDown(event, setInputValue)}
+        onKeyDown={(event) =>
+          handleKeyDown(event, setInputValue, selectedOption, options)
+        }
         components={{ Input: TimePickerInput }}
         onInputChange={(newValue, metadata) => {
           console.log('onInputChange', newValue, metadata);
@@ -379,6 +430,10 @@ const TimePicker: React.FC<TimePickerProps> = ({
           }
         }}
         inputValue={inputValue}
+        filterOption={(option, data) => {
+          console.log(option, data);
+          return true;
+        }}
       />
     </div>
   );
