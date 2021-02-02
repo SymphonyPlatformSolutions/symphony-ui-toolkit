@@ -48,29 +48,29 @@ const timeZoneOptions: DropdownOption<LabelValue>[] = [
 
 /** Icon custom renderers */
 interface Icon {
-  displayName:string;
+  label:string;
   value:string;
 }
 
 const iconData: Icon[] = [
-  { value: '1', displayName: 'app' },
-  { value: '2', displayName: 'bot' },
-  { value: '9', displayName: 'hide' },
-  { value: '10', displayName: 'link' },
-  { value: '3', displayName: 'adjust' },
-  { value: '4', displayName: 'archive' },
-  { value: '5', displayName: 'cashtag' },
-  { value: '6', displayName: 'emoticon' },
-  { value: '7', displayName: 'following' },
-  { value: '8', displayName: 'flags' }
+  { value: '1', label: 'app' },
+  { value: '2', label: 'bot' },
+  { value: '9', label: 'hide' },
+  { value: '10', label: 'link' },
+  { value: '3', label: 'adjust' },
+  { value: '4', label: 'archive' },
+  { value: '5', label: 'cashtag' },
+  { value: '6', label: 'emoticon' },
+  { value: '7', label: 'following' },
+  { value: '8', label: 'flags' }
 ];
 
 const IconPickerTagRenderer = (props: TagRendererProps<Icon>) => {
   const {data, remove} = props;
   return (
     <div>
-      {data.displayName}
-      <Icon className="tk-pl-1" iconName={data.displayName} />
+      {data.label}
+      <Icon className="tk-pl-1" iconName={data.label} />
       <Icon className="tk-ml-1" iconName="cross" onClick={remove} />
     </div>
   );
@@ -80,8 +80,8 @@ const IconPickerOptionRenderer = (props: OptionRendererProps<Icon>) => {
   const {data} = props;
   return (
     <div>
-      {data.displayName}
-      <Icon className="tk-pl-1" iconName={data.displayName} />
+      {data.label}
+      <Icon className="tk-pl-1" iconName={data.label} />
     </div>
   );
 };
@@ -175,7 +175,7 @@ export const Multiselect: React.FC = () => (
       optionRenderer={IconPickerOptionRenderer}
       tagRenderer={IconPickerTagRenderer}
       placeHolder="Select an icon.."
-      label="Icon ana"
+      label="Icon"
       isMultiSelect
       iconName="emoticon"
       onChange={(value)=>console.info('SELECTED VALUE',value)}
