@@ -1148,7 +1148,7 @@
     "@emotion/utils" "0.11.3"
     babel-plugin-emotion "^10.0.27"
 
-"@emotion/hash@0.8.0":
+"@emotion/hash@0.8.0", "@emotion/hash@^0.8.0":
   version "0.8.0"
   resolved "https://repo.symphony.com/artifactory/api/npm/npm-virtual-dev/@emotion/hash/-/hash-0.8.0.tgz#bbbff68978fefdbe68ccb533bc8cbe1d1afb5413"
   integrity sha1-u7/2iXj+/b5ozLUzvIy+HRr7VBM=
@@ -1165,6 +1165,11 @@
   resolved "https://repo.symphony.com/artifactory/api/npm/npm-virtual-dev/@emotion/memoize/-/memoize-0.7.4.tgz#19bf0f5af19149111c40d98bb0cf82119f5d9eeb"
   integrity sha1-Gb8PWvGRSREcQNmLsM+CEZ9dnus=
 
+"@emotion/memoize@^0.7.4":
+  version "0.7.5"
+  resolved "https://repo.symphony.com/artifactory/api/npm/npm-virtual-dev/@emotion/memoize/-/memoize-0.7.5.tgz#2c40f81449a4e554e9fc6396910ed4843ec2be50"
+  integrity sha1-LED4FEmk5VTp/GOWkQ7UhD7CvlA=
+
 "@emotion/serialize@^0.11.15", "@emotion/serialize@^0.11.16":
   version "0.11.16"
   resolved "https://repo.symphony.com/artifactory/api/npm/npm-virtual-dev/@emotion/serialize/-/serialize-0.11.16.tgz#dee05f9e96ad2fb25a5206b6d759b2d1ed3379ad"
@@ -1175,6 +1180,17 @@
     "@emotion/unitless" "0.7.5"
     "@emotion/utils" "0.11.3"
     csstype "^2.5.7"
+
+"@emotion/serialize@^1.0.0":
+  version "1.0.0"
+  resolved "https://repo.symphony.com/artifactory/api/npm/npm-virtual-dev/@emotion/serialize/-/serialize-1.0.0.tgz#1a61f4f037cf39995c97fc80ebe99abc7b191ca9"
+  integrity sha1-GmH08DfPOZlcl/yA6+mavHsZHKk=
+  dependencies:
+    "@emotion/hash" "^0.8.0"
+    "@emotion/memoize" "^0.7.4"
+    "@emotion/unitless" "^0.7.5"
+    "@emotion/utils" "^1.0.0"
+    csstype "^3.0.2"
 
 "@emotion/sheet@0.9.4":
   version "0.9.4"
@@ -1204,7 +1220,7 @@
   resolved "https://repo.symphony.com/artifactory/api/npm/npm-virtual-dev/@emotion/stylis/-/stylis-0.8.5.tgz#deacb389bd6ee77d1e7fcaccce9e16c5c7e78e04"
   integrity sha1-3qyzib1u530ef8rMzp4WxcfnjgQ=
 
-"@emotion/unitless@0.7.5", "@emotion/unitless@^0.7.4":
+"@emotion/unitless@0.7.5", "@emotion/unitless@^0.7.4", "@emotion/unitless@^0.7.5":
   version "0.7.5"
   resolved "https://repo.symphony.com/artifactory/api/npm/npm-virtual-dev/@emotion/unitless/-/unitless-0.7.5.tgz#77211291c1900a700b8a78cfafda3160d76949ed"
   integrity sha1-dyESkcGQCnALinjPr9oxYNdpSe0=
@@ -1213,6 +1229,11 @@
   version "0.11.3"
   resolved "https://repo.symphony.com/artifactory/api/npm/npm-virtual-dev/@emotion/utils/-/utils-0.11.3.tgz#a759863867befa7e583400d322652a3f44820924"
   integrity sha1-p1mGOGe++n5YNADTImUqP0SCCSQ=
+
+"@emotion/utils@^1.0.0":
+  version "1.0.0"
+  resolved "https://repo.symphony.com/artifactory/api/npm/npm-virtual-dev/@emotion/utils/-/utils-1.0.0.tgz#abe06a83160b10570816c913990245813a2fd6af"
+  integrity sha1-q+BqgxYLEFcIFskTmQJFgTov1q8=
 
 "@emotion/weak-memoize@0.2.5":
   version "0.2.5"
@@ -2719,6 +2740,13 @@
     "@types/react" "*"
     "@types/reactcss" "*"
 
+"@types/react-dom@*":
+  version "17.0.0"
+  resolved "https://repo.symphony.com/artifactory/api/npm/npm-virtual-dev/@types/react-dom/-/react-dom-17.0.0.tgz#b3b691eb956c4b3401777ee67b900cb28415d95a"
+  integrity sha1-s7aR65VsSzQBd37me5AMsoQV2Vo=
+  dependencies:
+    "@types/react" "*"
+
 "@types/react-dom@^16.9.8":
   version "16.9.9"
   resolved "https://repo.symphony.com/artifactory/api/npm/npm-virtual-dev/@types/react-dom/-/react-dom-16.9.9.tgz#d2d0a6f720a0206369ccbefff752ba37b9583136"
@@ -2733,10 +2761,27 @@
   dependencies:
     "@types/react" "*"
 
+"@types/react-select@^4.0.11":
+  version "4.0.11"
+  resolved "https://repo.symphony.com/artifactory/api/npm/npm-virtual-dev/@types/react-select/-/react-select-4.0.11.tgz#9a9079f52775c7cb63e8db5f095360400ce47933"
+  integrity sha1-mpB59Sd1x8tj6NtfCVNgQAzkeTM=
+  dependencies:
+    "@emotion/serialize" "^1.0.0"
+    "@types/react" "*"
+    "@types/react-dom" "*"
+    "@types/react-transition-group" "*"
+
 "@types/react-syntax-highlighter@11.0.4":
   version "11.0.4"
   resolved "https://repo.symphony.com/artifactory/api/npm/npm-virtual-dev/@types/react-syntax-highlighter/-/react-syntax-highlighter-11.0.4.tgz#d86d17697db62f98046874f62fdb3e53a0bbc4cd"
   integrity sha1-2G0XaX22L5gEaHT2L9s+U6C7xM0=
+  dependencies:
+    "@types/react" "*"
+
+"@types/react-transition-group@*":
+  version "4.4.0"
+  resolved "https://repo.symphony.com/artifactory/api/npm/npm-virtual-dev/@types/react-transition-group/-/react-transition-group-4.4.0.tgz#882839db465df1320e4753e6e9f70ca7e9b4d46d"
+  integrity sha1-iCg520Zd8TIOR1Pm6fcMp+m01G0=
   dependencies:
     "@types/react" "*"
 
