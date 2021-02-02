@@ -8,110 +8,26 @@ import { Keys } from '../date-picker/utils/keyUtils';
 import {
   FIELD,
   TIME_FORMAT,
-  formatTimeISO,
+  formatISOToSeconds,
+  getTimes,
+  getTimeFromISO,
+  isTimeDisabled,
+  isTimeSelected,
+  isTimeValid,
   getOptionValue,
+  getSteps,
+  getNumberOn2Digits,
 } from './utils/timeUtils';
 
-const formatISOToSeconds = (time) => {
-  // TODO : Do better (check, algo use Date ?)
-  const matches = time.split(':'); // split it at the colons
-  return +matches[0] * 60 * 60 + +matches[1] * 60 + +matches[2];
-};
-
 /**
- * Return the time formatted with the locale settings of the user
- * @param time
- */
-const formatTimeToDisplay = (time) => {
-  const date = new Date();
-  date.setHours(time.hours, time.minutes, time.seconds);
-  return date.toLocaleTimeString();
-};
-
-/**
- * Split a time given only in seconds into { hours, minutes, seconds }
- * @param time In seconds
- * @return { hours, minutes, seconds }
- */
-const splitTime = (time: number): any => {
-  const hours = Math.floor(time / 60 / 60);
-  const minutes = Math.floor(time / 60) - hours * 60;
-  const seconds = time % 60;
-  return {
-    hours: getNumberOn2Digits(hours),
-    minutes: getNumberOn2Digits(minutes),
-    seconds: getNumberOn2Digits(seconds),
-  };
-};
-
-/**
+ * Handle Keyboard navigation in the input Text field
  *
+ * @param event Keyboard event
+ * @param setInputValue Callback to update the input value saved in the state
+ * @param options Dropdown options
+ * @param steps Steps to used when the user presses arrow up/down keys
  */
-const getTimes = (
-  format: string,
-  min: number,
-  max: number,
-  step: number
-): Array<any> => {
-  const times = [];
-  // TODO: use min to calculate initial value of currentTime
-  for (
-    let currentTime = min, index = 0;
-    currentTime <= max;
-    currentTime += step, index++
-  ) {
-    const time = splitTime(currentTime);
-    times.push({
-      label: formatTimeToDisplay(time),
-      value: {
-        index, // Save the index of the Option, to easily access to the previous/next option if needed
-        ...time,
-      },
-      // value: formatTimeISO(time),
-    });
-  }
-  return times;
-};
-
-/**
- * Split time from a ISO time string
- * @param time Example hh:mm:ss (on 24 hours)
- *
- */
-const getTimeFromISO = (time: string) => {
-  // TODO : Check if time is valid
-  if (!time) {
-    return null;
-  }
-
-  const matches = time.split(':');
-
-  const hours = matches[0];
-  const minutes = matches[1];
-  const seconds = matches[2];
-
-  return { hours, minutes, seconds };
-};
-
-/**
- * Return the next value to use for hours or minutes or seconds
- * @param value
- * @param increment
- * @param limit
- */
-const getNextValue = (value, increment, limit = 59) => {
-  const newValue = value + increment;
-  if (newValue > limit) return 0;
-  if (newValue < 0) return limit;
-  return newValue;
-};
-
-const handleKeyboardNavigation = (
-  event,
-  setInputValue,
-  selectedOption,
-  options
-) => {
+const handleKeyboardNavigation = (event, setInputValue, options, steps) => {
   const currentValue = event.target.value;
   if (!isTimeValid(currentValue, TIME_FORMAT.HH_MM_SS_24)) {
     // If the time is not valid, let the default keyboard navigation
@@ -139,17 +55,9 @@ const handleKeyboardNavigation = (
         seconds,
       };
 
-      let newValue = null;
-
       if (cursor < 3) {
         // Hours
-        hours = getOptionValue(
-          event.key,
-          FIELD.HOURS,
-          time,
-          selectedOption,
-          options
-        );
+        hours = getOptionValue(event.key, FIELD.HOURS, time, options, steps);
         cursorStart = 0;
         cursorEnd = 2;
       } else if (cursor < 6) {
@@ -158,8 +66,8 @@ const handleKeyboardNavigation = (
           event.key,
           FIELD.MINUTES,
           time,
-          selectedOption,
-          options
+          options,
+          steps
         );
         cursorStart = 3;
         cursorEnd = 5;
@@ -169,19 +77,19 @@ const handleKeyboardNavigation = (
           event.key,
           FIELD.SECONDS,
           time,
-          selectedOption,
-          options
+          options,
+          steps
         );
         cursorStart = 6;
         cursorEnd = 8;
       }
 
-      newValue = `${getNumberOn2Digits(hours)}:${getNumberOn2Digits(
-        minutes
-      )}:${getNumberOn2Digits(seconds)}`;
-
+      // Update value in the Input text field
+      const newValue = `${hours}:${minutes}:${seconds}`;
       event.target.value = newValue;
       setInputValue(newValue);
+
+      // Update cursor selection
       event.target.selectionStart = cursor;
       event.target.setSelectionRange(cursorStart, cursorEnd); // TODO : Select minutes / hours / seconds
     }
@@ -225,17 +133,15 @@ const handleKeyboardNavigation = (
   }
 };
 
-const handleKeyDown = (event, setInputValue, selectedOption, options) => {
+const handleKeyDown = (event, setInputValue, options, steps) => {
   if (
     event.key === Keys.ARROW_UP ||
     event.key === Keys.ARROW_DOWN ||
     event.key === Keys.TAB
   ) {
-    console.log('handleKeyDown', event.target);
-
     if (event.target && event.target.tagName === 'INPUT') {
       // Handle keyboard navigation only if the focus is on the focus (not on the icon)
-      handleKeyboardNavigation(event, setInputValue, selectedOption, options);
+      handleKeyboardNavigation(event, setInputValue, options, steps);
     }
   } else if (event.key === Keys.ENTER) {
     console.log('ENTER !!!!');
@@ -244,79 +150,12 @@ const handleKeyDown = (event, setInputValue, selectedOption, options) => {
   }
 };
 
-const isTimeValid = (time, format = null): boolean => {
-  return time.match(format);
-};
-
-function matchExactTime(time, matcher): boolean {
-  if (!('time' in matcher)) return false;
-  return formatTimeISO(time) === matcher.time;
-}
-
-function matchTimeInRange(time, matcher): boolean {
-  if (!('from' in matcher) || !('to' in matcher)) return false;
-  return (
-    matcher.from <= formatTimeISO(time) && formatTimeISO(time) <= matcher.to
-  );
-}
-
-/**
- * Return `true` if the given time matches to a disabled time.
- */
-const isTimeDisabled = (time, disabledTimes): boolean => {
-  let disabledTimesAsArray;
-  if (Array.isArray(disabledTimes)) {
-    disabledTimesAsArray = disabledTimes;
-  } else {
-    disabledTimesAsArray = [disabledTimes];
-  }
-
-  return disabledTimesAsArray.some((disabledTime) => {
-    return (
-      matchExactTime(time.value, disabledTime) ||
-      matchTimeInRange(time.value, disabledTime)
-    );
-  });
-};
-
-const isTimeSelected = (
-  option,
-  hours,
-  minutes,
-  seconds,
-  disabledTimes
-): boolean => {
-  if (!option) {
-    return false;
-  }
-
-  console.log('isTimeSelected', option, hours, minutes, seconds, disabledTimes);
-  console.log('option.value.hours === hours', option.value.hours === hours);
-  console.log(
-    'option.value.minutes === minutes',
-    option.value.minutes === minutes
-  );
-  console.log(
-    'option.value.seconds === seconds',
-    option.value.seconds === seconds
-  );
-  return (
-    option.value.hours === hours &&
-    option.value.minutes === minutes &&
-    option.value.seconds === seconds &&
-    !isTimeDisabled(option, disabledTimes)
-  );
-};
-
 // Specific Input to fix input not displayed in React-Select
 // See https://github.com/JedWatson/react-select/issues/3068
 // See https://github.com/JedWatson/react-select/discussions/4302
 const TimePickerInput = (props) => (
   <components.Input {...props} isHidden={false} />
 );
-
-const getNumberOn2Digits = (number) =>
-  number.toLocaleString(undefined, { minimumIntegerDigits: 2 });
 
 const TimePicker: React.FC<TimePickerProps> = ({
   id,
@@ -331,6 +170,7 @@ const TimePicker: React.FC<TimePickerProps> = ({
   disabled,
   disabledTimes = [],
 }) => {
+  // const [time, setTime] = useState(null);
   const [hours, setHours] = useState('');
   const [minutes, setMinutes] = useState('');
   const [seconds, setSeconds] = useState('');
@@ -342,8 +182,8 @@ const TimePicker: React.FC<TimePickerProps> = ({
     const tmpTime = getTimeFromISO(inputValue);
     if (tmpTime) {
       setHours(tmpTime.hours);
-      setHours(tmpTime.minutes);
-      setHours(tmpTime.seconds);
+      setMinutes(tmpTime.minutes);
+      setSeconds(tmpTime.seconds);
     }
   }, [inputValue]);
 
@@ -375,12 +215,15 @@ const TimePicker: React.FC<TimePickerProps> = ({
     // Todo : Raised error value not supported
   }
 
+  // TODO: Memoize getTimes and getSteps
   const options = getTimes(
     format,
     formatISOToSeconds(min),
     formatISOToSeconds(max),
     step
   );
+
+  const steps = getSteps(options);
 
   return (
     <div>
@@ -405,17 +248,19 @@ const TimePicker: React.FC<TimePickerProps> = ({
           return isTimeSelected(option, hours, minutes, seconds, disabledTimes);
         }}
         onChange={(option) => {
+          // Called when the user select an option in the Dropdown menu
           console.log('Select new value:', option);
-          setHours(getNumberOn2Digits(option.value.hours));
-          setMinutes(getNumberOn2Digits(option.value.minutes));
-          setSeconds(getNumberOn2Digits(option.value.seconds));
-          setInputValue(option.label); // Todo don't use label
+          setHours(option.value.hours);
+          setMinutes(option.value.minutes);
+          setSeconds(option.value.seconds);
+          setInputValue(option.label);
         }}
         onKeyDown={(event) =>
-          handleKeyDown(event, setInputValue, selectedOption, options)
+          handleKeyDown(event, setInputValue, options, steps)
         }
         components={{ Input: TimePickerInput }}
         onInputChange={(newValue, metadata) => {
+          // Called when the user set a new value in the Input field
           console.log('onInputChange', newValue, metadata);
           if (
             metadata.action === 'set-value' ||
@@ -430,10 +275,7 @@ const TimePicker: React.FC<TimePickerProps> = ({
           }
         }}
         inputValue={inputValue}
-        filterOption={(option, data) => {
-          console.log(option, data);
-          return true;
-        }}
+        filterOption={(option, data) => true}
       />
     </div>
   );

@@ -11,6 +11,7 @@
     "esModuleInterop": true,
     "noImplicitAny": false,
     "strictNullChecks": false,
+    "downlevelIteration": true
   },
   "include": ["src/**/*.ts", "spec/**/*.ts", "stories/**/*.ts"],
   "exclude": ["node_modules", "coverage"],

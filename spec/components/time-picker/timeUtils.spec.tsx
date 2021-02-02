@@ -1,12 +1,13 @@
 import {
   FIELD,
-  findBestMatchingOption,
+  // findBestMatchingOption,
   getOptionValue,
+  getSteps,
 } from '../../../src/components/time-picker/utils/timeUtils';
 import { Keys } from '../../../src/components/date-picker/utils/keyUtils';
 
 describe('Time Utils', () => {
-  // Example, with a step of 1h 30min 15s (5 415 seconds)
+  // Example, with a step of 1h 30min 00s (5 400 seconds)
   const options = [
     {
       label: '10:00:00',
@@ -14,21 +15,23 @@ describe('Time Utils', () => {
     },
     {
       label: '11:30:15',
-      value: { index: 1, hours: '11', minutes: '30', seconds: '15' },
+      value: { index: 1, hours: '11', minutes: '30', seconds: '00' },
     },
     {
       label: '13:00:30',
-      value: { index: 2, hours: '13', minutes: '00', seconds: '30' },
+      value: { index: 2, hours: '13', minutes: '00', seconds: '00' },
     },
     {
       label: '14:30:45',
-      value: { index: 3, hours: '14', minutes: '30', seconds: '45' },
+      value: { index: 3, hours: '14', minutes: '30', seconds: '00' },
     },
     {
-      label: '16:01:00',
-      value: { index: 4, hours: '16', minutes: '01', seconds: '00' },
+      label: '16:00:00',
+      value: { index: 4, hours: '16', minutes: '00', seconds: '00' },
     },
   ];
+
+  const steps = getSteps(options);
 
   test.each([
     [
@@ -45,9 +48,9 @@ describe('Time Utils', () => {
     ],
     [
       FIELD.HOURS,
-      { hours: '16', minutes: '01', seconds: '00' },
+      { hours: '16', minutes: '00', seconds: '00' },
       options[4],
-      '16',
+      '10',
     ],
   ])(
     'getNextValue when field is %p, with value %p',
@@ -56,8 +59,8 @@ describe('Time Utils', () => {
         Keys.ARROW_UP,
         fieldType,
         inputValue,
-        selectedOption,
-        options
+        options,
+        steps
       );
       expect(result).toEqual(expected);
     }
@@ -80,13 +83,13 @@ describe('Time Utils', () => {
       FIELD.MINUTES,
       { hours: '10', minutes: '00', seconds: '00' },
       options[4],
-      '01',
+      '30',
     ],
     [
       FIELD.MINUTES,
-      { hours: '10', minutes: '00', seconds: '00' },
+      { hours: '10', minutes: '20', seconds: '00' },
       options[4],
-      '01',
+      '30',
     ],
   ])(
     'getNextValue when field is %p, with value %p',
@@ -95,8 +98,8 @@ describe('Time Utils', () => {
         Keys.ARROW_UP,
         fieldType,
         inputValue,
-        selectedOption,
-        options
+        options,
+        steps
       );
       expect(result).toEqual(expected);
     }
@@ -104,7 +107,7 @@ describe('Time Utils', () => {
 
   test.each([
     [FIELD.HOURS, { hours: '12', minutes: '20', seconds: '00' }, null, '11'],
-    [FIELD.MINUTES, { hours: '10', minutes: '00', seconds: '00' }, null, '00'],
+    [FIELD.MINUTES, { hours: '10', minutes: '00', seconds: '00' }, null, '30'],
     [FIELD.MINUTES, { hours: '10', minutes: '20', seconds: '00' }, null, '00'],
   ])(
     'getNextValue when SelectedOption is null and field is %p, with value %p',
@@ -113,8 +116,8 @@ describe('Time Utils', () => {
         Keys.ARROW_DOWN,
         fieldType,
         inputValue,
-        selectedOption,
-        options
+        options,
+        steps
       );
       expect(result).toEqual(expected);
     }
@@ -125,7 +128,7 @@ describe('Time Utils', () => {
       FIELD.HOURS,
       { hours: '10', minutes: '00', seconds: '00' },
       options[0],
-      '10',
+      '16',
     ],
     [
       FIELD.HOURS,
@@ -146,8 +149,8 @@ describe('Time Utils', () => {
         Keys.ARROW_DOWN,
         fieldType,
         inputValue,
-        selectedOption,
-        options
+        options,
+        steps
       );
       expect(result).toEqual(expected);
     }
@@ -157,7 +160,7 @@ describe('Time Utils', () => {
     [FIELD.HOURS, { hours: '12', minutes: '20', seconds: '00' }, null, '13'],
     [FIELD.MINUTES, { hours: '10', minutes: '00', seconds: '00' }, null, '30'],
     [FIELD.MINUTES, { hours: '10', minutes: '20', seconds: '00' }, null, '30'],
-    [FIELD.MINUTES, { hours: '16', minutes: '01', seconds: '00' }, null, '30'],
+    [FIELD.MINUTES, { hours: '16', minutes: '00', seconds: '00' }, null, '30'],
   ])(
     'getPreviousValue when SelectedOption is null and field is %p, with value %p',
     (fieldType, inputValue, selectedOption, expected) => {
@@ -165,36 +168,72 @@ describe('Time Utils', () => {
         Keys.ARROW_UP,
         fieldType,
         inputValue,
-        selectedOption,
-        options
+        options,
+        steps
+      );
+      expect(result).toEqual(expected);
+    }
+  );
+
+  // test.each([
+  //   [Keys.ARROW_UP, { hours: '11', minutes: '30', seconds: '15' }, options[1]],
+  //   [Keys.ARROW_UP, { hours: '11', minutes: '40', seconds: '00' }, options[1]],
+  //   [Keys.ARROW_UP, { hours: '08', minutes: '00', seconds: '00' }, options[0]],
+  //   [
+  //     Keys.ARROW_DOWN,
+  //     { hours: '11', minutes: '30', seconds: '15' },
+  //     options[1],
+  //   ],
+  //   [
+  //     Keys.ARROW_DOWN,
+  //     { hours: '11', minutes: '40', seconds: '00' },
+  //     options[2],
+  //   ],
+  //   [
+  //     Keys.ARROW_DOWN,
+  //     { hours: '20', minutes: '00', seconds: '00' },
+  //     options[4],
+  //   ],
+  // ])(
+  //   'findBestMatchingOption when key is %p and field is %p',
+  //   (key, inputValue, expected) => {
+  //     const result = findBestMatchingOption(key, inputValue, options);
+  //     expect(result).toEqual(expected);
+  //   }
+  // );
+
+  test.each([
+    [FIELD.SECONDS, { hours: '12', minutes: '20', seconds: '00' }, null, '01'],
+    [FIELD.SECONDS, { hours: '12', minutes: '20', seconds: '45' }, null, '46'],
+    [FIELD.SECONDS, { hours: '12', minutes: '20', seconds: '59' }, null, '00'],
+  ])(
+    'getPreviousValue when SelectedOption is null and field is %p, with value %p',
+    (fieldType, inputValue, selectedOption, expected) => {
+      const result = getOptionValue(
+        Keys.ARROW_UP,
+        fieldType,
+        inputValue,
+        options,
+        steps
       );
       expect(result).toEqual(expected);
     }
   );
 
   test.each([
-    [Keys.ARROW_UP, { hours: '11', minutes: '30', seconds: '15' }, options[1]],
-    [Keys.ARROW_UP, { hours: '11', minutes: '40', seconds: '00' }, options[1]],
-    [Keys.ARROW_UP, { hours: '08', minutes: '00', seconds: '00' }, options[0]],
-    [
-      Keys.ARROW_DOWN,
-      { hours: '11', minutes: '30', seconds: '15' },
-      options[1],
-    ],
-    [
-      Keys.ARROW_DOWN,
-      { hours: '11', minutes: '40', seconds: '00' },
-      options[2],
-    ],
-    [
-      Keys.ARROW_DOWN,
-      { hours: '20', minutes: '00', seconds: '00' },
-      options[4],
-    ],
+    [FIELD.SECONDS, { hours: '12', minutes: '20', seconds: '00' }, null, '59'],
+    [FIELD.SECONDS, { hours: '12', minutes: '20', seconds: '45' }, null, '44'],
+    [FIELD.SECONDS, { hours: '12', minutes: '20', seconds: '59' }, null, '58'],
   ])(
-    'findBestMatchingOption when key is %p and field is %p',
-    (key, inputValue, expected) => {
-      const result = findBestMatchingOption(key, inputValue, options);
+    'getPreviousValue when SelectedOption is null and field is %p, with value %p',
+    (fieldType, inputValue, selectedOption, expected) => {
+      const result = getOptionValue(
+        Keys.ARROW_DOWN,
+        fieldType,
+        inputValue,
+        options,
+        steps
+      );
       expect(result).toEqual(expected);
     }
   );
