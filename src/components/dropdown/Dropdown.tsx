@@ -56,6 +56,7 @@ export type DropdownProps<T> = {
   (OnChangeMultiProps<T> | OnChangeSingleProps<T>);
 
 type TimePickerProps = {
+  filterOption?: any;
   inputValue?: string;
   onKeyDown?: any;
   onInputChange?: any;
@@ -120,6 +121,7 @@ class Dropdown<T = LabelValue> extends React.Component<
       iconName,
       tagRenderer,
       value,
+      filterOption,
       ...otherProps
     } = this.props;
 
@@ -160,10 +162,7 @@ class Dropdown<T = LabelValue> extends React.Component<
           isOptionDisabled={isOptionDisabled}
           isOptionSelected={isOptionSelected}
           iconName={iconName}
-          // filterOption={(option, data) => {
-          //   console.log(option, data);
-          //   return true;
-          // }}
+          filterOption={filterOption}
           {...otherProps}
         />
       </div>
