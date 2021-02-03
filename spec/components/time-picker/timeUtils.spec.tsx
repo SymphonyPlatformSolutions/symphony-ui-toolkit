@@ -1,10 +1,12 @@
 import {
   FIELD,
+  formatISOTimeToSeconds,
   getFormattedTime,
-  getOptionValue,
   getISOTimeFromLocalTime,
+  getOptionValue,
   getSteps,
   isOptionSelected,
+  isTimeValid,
 } from '../../../src/components/time-picker/utils/timeUtils';
 import { Keys } from '../../../src/components/date-picker/utils/keyUtils';
 
@@ -270,4 +272,27 @@ describe('Time Utils', () => {
       expect(result).toEqual(expected);
     }
   );
+
+  test.each([
+    ['00:00:00', 0],
+    ['00:00:10', 10],
+    ['00:01:10', 70],
+    ['01:01:10', 3670],
+  ])('formatISOTimeToSeconds with time %p', (time, expected) => {
+    const result = formatISOTimeToSeconds(time);
+    expect(result).toEqual(expected);
+  });
+
+  test.each([
+    ['15:30:00', 'HH:mm:ss', true],
+    ['15:30', 'HH:mm', true],
+    ['15:30:00', 'hh:mm', false], // 12 hours format
+    ['15:30:00', 'hh:mm:ss', false],
+    ['99:99:99', 'HH:mm:ss', false],
+    ['zdsqdqsqd', 'HH:mm:ss', false],
+    ['15:30:00', null, true],
+  ])('isTimeValid with time %p', (time, format, expected) => {
+    const result = isTimeValid(time, format);
+    expect(result).toEqual(expected);
+  });
 });

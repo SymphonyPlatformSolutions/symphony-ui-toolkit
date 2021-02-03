@@ -1,29 +1,80 @@
 import { Keys } from '../../date-picker/utils/keyUtils';
-import {
-  format as formatTime,
-  formatISO as formatISOTime,
-  parse as parseTime,
-  isValid,
-} from 'date-fns';
+import { format as formatTime, parse as parseTime, isValid } from 'date-fns';
 
-export const TIME_FORMAT = {
-  HH_MM_12: /^(0[1-9]|1[0-2]):[0-5][0-9]$/,
-  HH_MM_SS_12: /^(0[1-9]|1[0-2]):[0-5][0-9]:[0-5][0-9]$/,
-  HH_MM_12_A: /^(0[1-9]|1[0-2]):[0-5][0-9] ?[AaPp][Mm]$/,
-  HH_MM_SS_12_A: /^(0[1-9]|1[0-2]):[0-5][0-9]:[0-5][0-9] ?[AaPp][Mm]$/,
-  HH_MM_24: /^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/,
-  HH_MM_SS_24: /^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]$/,
+// export const TIME_FORMAT = {
+//   HH_MM_12: /^(0[1-9]|1[0-2]):[0-5][0-9]$/,
+//   HH_MM_SS_12: /^(0[1-9]|1[0-2]):[0-5][0-9]:[0-5][0-9]$/,
+//   HH_MM_12_A: /^(0[1-9]|1[0-2]):[0-5][0-9] ?[AaPp][Mm]$/,
+//   HH_MM_SS_12_A: /^(0[1-9]|1[0-2]):[0-5][0-9]:[0-5][0-9] ?[AaPp][Mm]$/,
+//   HH_MM_24: /^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/,
+//   HH_MM_SS_24: /^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]$/,
+// };
+
+export enum TIME_FORMAT {
+  HH_MM_12 = 'hh:mm',
+  HH_MM_SS_12 = 'hh:mm:ss',
+  HH_MM_A_12 = 'hh:mm a',
+  HH_MM_SS_A_12 = 'hh:mm a',
+  HH_MM_24 = 'HH:mm',
+  HH_MM_SS_24 = 'HH:mm:ss',
+}
+
+export enum FIELD {
+  HOURS = 'hours',
+  MINUTES = 'minutes',
+  SECONDS = 'seconds',
+  AMPM = 'ampm',
+}
+
+/*
+ * Detects browser's locale 24h time preference
+ * It works by checking whether hour output contains a space ('1 AM' or '01')
+ */
+const isBrowserLocale24h = () =>
+  !new Intl.DateTimeFormat(undefined, { hour: 'numeric' })
+    .format(0)
+    .match(/AM/);
+
+/**
+ * Return true if the time is valid to the format given in parameter.
+ *
+ * @param time
+ * @param format
+ */
+export const isTimeValid = (time: string, format: string = null): boolean => {
+  if (!time) {
+    return false;
+  }
+
+  if (format === null) {
+    format = isBrowserLocale24h
+      ? TIME_FORMAT.HH_MM_SS_24
+      : TIME_FORMAT.HH_MM_A_12;
+  }
+
+  const date = parseTime(time, format, new Date());
+
+  // If parsing failed, Invalid Date will be returned.
+  // Invalid Date is a Date, whose time value is NaN.
+  // Time value of Date: http://es5.github.io/#x15.9.1.1
+  return !isNaN(date.getTime());
 };
 
-export const isTimeValid = (time, format = null): boolean => {
-  return time.match(format);
-};
-
+/**
+ * Return true if the time is equal to the time in the matcher
+ * @param time Object {hours, minutes, seconds}
+ * @param matcher Object {time: 'HH:mm:ss'}
+ */
 export function matchExactTime(time, matcher): boolean {
   if (!('time' in matcher)) return false;
   return formatTimeISO(time) === matcher.time;
 }
 
+/**
+ * Returns true if the range contains the time
+ * @param time Object {hours, minutes, seconds}
+ * @param matcher Object {from: 'HH:mm:ss', to: 'HH:mm:ss'}
+ */
 export function matchTimeInRange(time, matcher): boolean {
   if (!('from' in matcher) || !('to' in matcher)) return false;
   return (
@@ -33,7 +84,7 @@ export function matchTimeInRange(time, matcher): boolean {
 
 /**
  * Format time in ISO time format 'HH:MM:SS' on 24 hours
- * @param time
+ * @param time Object {hours, minutes, seconds}
  */
 export const formatTimeISO = (time) => {
   return (
@@ -45,18 +96,27 @@ export const formatTimeISO = (time) => {
   );
 };
 
-export const getNumberOn2Digits = (number) =>
-  number.toLocaleString(undefined, { minimumIntegerDigits: 2 });
-
 /**
  * Convert ISO time to seconds
- * @param time HH:MM:ss
+ *
+ * @param time A string compliant to the format HH:MM:ss (on 24 hours)
  */
-export const formatISOToSeconds = (time) => {
-  // TODO : Do better (check, algo use Date ?)
-  const matches = time.split(':'); // split it at the colons
-  return +matches[0] * 60 * 60 + +matches[1] * 60 + +matches[2];
+export const formatISOTimeToSeconds = (time: string): number => {
+  const date = parseTime(time, TIME_FORMAT.HH_MM_SS_24, 0);
+  if (isNaN(date.getTime())) {
+    //Invalid Time
+    return null;
+  }
+  return date.getHours() * 60 * 60 + date.getMinutes() * 60 + date.getSeconds();
 };
+
+/**
+ * Return the number in a string with 2 digits
+ * Examples: '01', '23', '00', ...
+ * @param number
+ */
+export const getNumberOn2Digits = (number): string =>
+  number.toLocaleString(undefined, { minimumIntegerDigits: 2 });
 
 /**
  * Return the options to use in the DropDown menu
@@ -85,36 +145,20 @@ export const getOptions = (
         index, // Save the index of the Option, for easy access to the previous/next option if needed
         ...time,
       },
-      // value: formatTimeISO(time),
     });
   }
   return options;
 };
 
 /**
- * Split time from a ISO time string
- * @param time Example hh:mm:ss (on 24 hours)
- *
+ * Return `true` if the given option matches to a disabled time, false otherwise
+ * @param option
+ * @param disabledTimes Example '20:40:00' or ['20:40:00', '12:00:00', {from:'10:00:00', to:'11:00:00'}]
  */
-export const getTimeFromISO = (time: string) => {
-  // TODO : Check if time is valid
-  if (!time) {
-    return null;
-  }
-
-  const matches = time.split(':');
-
-  const hours = matches[0];
-  const minutes = matches[1];
-  const seconds = matches[2];
-
-  return { hours, minutes, seconds };
-};
-
-/**
- * Return `true` if the given time matches to a disabled time.
- */
-export const isTimeDisabled = (time, disabledTimes): boolean => {
+export const isOptionDisabled = (
+  option,
+  disabledTimes: string | Array<any>
+): boolean => {
   let disabledTimesAsArray;
   if (Array.isArray(disabledTimes)) {
     disabledTimesAsArray = disabledTimes;
@@ -124,20 +168,11 @@ export const isTimeDisabled = (time, disabledTimes): boolean => {
 
   return disabledTimesAsArray.some((disabledTime) => {
     return (
-      matchExactTime(time.value, disabledTime) ||
-      matchTimeInRange(time.value, disabledTime)
+      matchExactTime(option.value, disabledTime) ||
+      matchTimeInRange(option.value, disabledTime)
     );
   });
 };
-
-//--------------
-
-export enum FIELD {
-  HOURS = 'hours',
-  MINUTES = 'minutes',
-  SECONDS = 'seconds',
-  AMPM = 'ampm',
-}
 
 /**
  * Return true if the option is matching with the hours/minutes/seconds and not appears in the disabledTimes
@@ -159,14 +194,17 @@ export const isOptionSelected = (
   option.value.hours === hours &&
   option.value.minutes === minutes &&
   option.value.seconds === seconds &&
-  !isTimeDisabled(option, disabledTimes);
+  !isOptionDisabled(option, disabledTimes);
 
 /**
  * Get ISO time in an object {hours, minutes, seconds} from a given local time and format
  * @param time
  * @param format (optional) Use HH:mm:ss per default (on 24 hours)
  */
-export const getISOTimeFromLocalTime = (time: string, format = 'HH:mm:ss') => {
+export const getISOTimeFromLocalTime = (
+  time: string,
+  format: string = TIME_FORMAT.HH_MM_SS_24
+) => {
   if (!time || !format) {
     return null;
   }

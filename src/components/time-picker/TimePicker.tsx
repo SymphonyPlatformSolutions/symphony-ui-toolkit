@@ -8,16 +8,14 @@ import { Keys } from '../date-picker/utils/keyUtils';
 import {
   FIELD,
   TIME_FORMAT,
-  formatISOToSeconds,
+  formatISOTimeToSeconds,
   getOptions,
   getISOTimeFromLocalTime,
-  getTimeFromISO,
-  isTimeDisabled,
+  isOptionDisabled,
   isOptionSelected,
   isTimeValid,
   getOptionValue,
   getSteps,
-  getNumberOn2Digits,
 } from './utils/timeUtils';
 
 // Specific Input to fix input not displayed in React-Select
@@ -100,8 +98,8 @@ const TimePicker: React.FC<TimePickerProps> = ({
   // TODO: Memoize getTimes and getSteps
   const options = getOptions(
     format,
-    formatISOToSeconds(min),
-    formatISOToSeconds(max),
+    formatISOTimeToSeconds(min),
+    formatISOTimeToSeconds(max),
     step
   );
 
@@ -129,7 +127,7 @@ const TimePicker: React.FC<TimePickerProps> = ({
         placeHolder={placeholder}
         options={options}
         value={selectedOption}
-        isOptionDisabled={(option) => isTimeDisabled(option, disabledTimes)}
+        isOptionDisabled={(option) => isOptionDisabled(option, disabledTimes)}
         isOptionSelected={(option) =>
           isOptionSelected(option, hours, minutes, seconds, disabledTimes)
         }
@@ -139,7 +137,7 @@ const TimePicker: React.FC<TimePickerProps> = ({
           setSelectedOption(option);
         }}
         onKeyDown={(event) =>
-          handleKeyDown(event, setInputValue, options, steps)
+          handleKeyDown(event, setInputValue, options, steps, format)
         }
         components={{ Input: TimePickerInput }}
         onInputChange={(newValue, metadata) => {
@@ -201,10 +199,17 @@ TimePicker.propTypes = {
  * @param setInputValue Callback to update the input value saved in the state
  * @param options Dropdown options
  * @param steps Steps to used when the user presses arrow up/down keys
+ * @param format (optional) Format to parse the input, if not provided it will use the local user settings
  */
-const handleKeyboardNavigation = (event, setInputValue, options, steps) => {
+const handleKeyboardNavigation = (
+  event,
+  setInputValue,
+  options,
+  steps,
+  format
+) => {
   const currentValue = event.target.value;
-  if (!isTimeValid(currentValue, TIME_FORMAT.HH_MM_SS_24)) {
+  if (!isTimeValid(currentValue, format)) {
     // If the time is not valid, let the default keyboard navigation
     // to use the dropdown menu
     return;
@@ -308,7 +313,7 @@ const handleKeyboardNavigation = (event, setInputValue, options, steps) => {
   }
 };
 
-const handleKeyDown = (event, setInputValue, options, steps) => {
+const handleKeyDown = (event, setInputValue, options, steps, format) => {
   if (
     event.key === Keys.ARROW_UP ||
     event.key === Keys.ARROW_DOWN ||
@@ -316,7 +321,7 @@ const handleKeyDown = (event, setInputValue, options, steps) => {
   ) {
     if (event.target && event.target.tagName === 'INPUT') {
       // Handle keyboard navigation only if the focus is on the focus (not on the icon)
-      handleKeyboardNavigation(event, setInputValue, options, steps);
+      handleKeyboardNavigation(event, setInputValue, options, steps, format);
     }
   } else if (event.key === Keys.ENTER) {
     console.log('ENTER !!!!');
