@@ -59,6 +59,11 @@ Disabled.args = {
   disabled: true,
 };
 
+export const WithFormat = Template.bind({});
+WithFormat.args = {
+  format: 'hh:mm:ss a',
+};
+
 export default {
   title: 'Components/TimePicker',
   component: TimePicker,

@@ -2,7 +2,9 @@ import {
   FIELD,
   getFormattedTime,
   getOptionValue,
+  getISOTimeFromLocalTime,
   getSteps,
+  isOptionSelected,
 } from '../../../src/components/time-picker/utils/timeUtils';
 import { Keys } from '../../../src/components/date-picker/utils/keyUtils';
 
@@ -14,15 +16,15 @@ describe('Time Utils', () => {
       value: { index: 0, hours: '10', minutes: '00', seconds: '00' },
     },
     {
-      label: '11:30:15',
+      label: '11:30:00',
       value: { index: 1, hours: '11', minutes: '30', seconds: '00' },
     },
     {
-      label: '13:00:30',
+      label: '13:00:00',
       value: { index: 2, hours: '13', minutes: '00', seconds: '00' },
     },
     {
-      label: '14:30:45',
+      label: '14:30:00',
       value: { index: 3, hours: '14', minutes: '30', seconds: '00' },
     },
     {
@@ -201,6 +203,7 @@ describe('Time Utils', () => {
       expect(result).toEqual(expected);
     }
   );
+
   test.each([
     [{ hours: '14', minutes: '30', seconds: '20' }, 'HH:mm', '14:30'],
     [{ hours: '14', minutes: '30', seconds: '20' }, 'hh:mm', '02:30'],
@@ -218,6 +221,48 @@ describe('Time Utils', () => {
     'getFormattedTime with time %p and format %p',
     (time, format, expected) => {
       const result = getFormattedTime(time, format);
+      expect(result).toEqual(expected);
+    }
+  );
+
+  test.each([
+    ['14:30:20', null, null],
+    [null, 'HH:mm:ss', null],
+    ['14:30:20', 'HH:mm:ss', { hours: '14', minutes: '30', seconds: '20' }],
+    [
+      '02:30:20 PM',
+      'hh:mm:ss a',
+      { hours: '14', minutes: '30', seconds: '20' },
+    ],
+  ])('getISOFromTime with time %p and format %p', (time, format, expected) => {
+    const result = getISOTimeFromLocalTime(time, format);
+    expect(result).toEqual(expected);
+  });
+
+  test.each([
+    [options[1], '11', '30', '00', [], true],
+    [options[1], '11', '50', '00', [], false],
+    [options[1], '12', '30', '00', [], false],
+    [options[1], '11', '30', '40', [], false],
+    [options[1], '11', '30', '40', ['11:30:00'], false],
+    [
+      options[1],
+      '11',
+      '30',
+      '40',
+      [{ from: '11:00:00', to: '12:00:00' }],
+      false,
+    ],
+  ])(
+    'isOptionSelected with option %p and format %p',
+    (option, hours, minutes, seconds, disabledTimes, expected) => {
+      const result = isOptionSelected(
+        option,
+        hours,
+        minutes,
+        seconds,
+        disabledTimes
+      );
       expect(result).toEqual(expected);
     }
   );

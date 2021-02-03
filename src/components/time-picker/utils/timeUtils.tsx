@@ -1,5 +1,10 @@
 import { Keys } from '../../date-picker/utils/keyUtils';
-import { format as formatTime, isValid } from 'date-fns';
+import {
+  format as formatTime,
+  formatISO as formatISOTime,
+  parse as parseTime,
+  isValid,
+} from 'date-fns';
 
 export const TIME_FORMAT = {
   HH_MM_12: /^(0[1-9]|1[0-2]):[0-5][0-9]$/,
@@ -129,35 +134,6 @@ export const isTimeDisabled = (time, disabledTimes): boolean => {
   });
 };
 
-export const isTimeSelected = (
-  option,
-  hours,
-  minutes,
-  seconds,
-  disabledTimes
-): boolean => {
-  if (!option) {
-    return false;
-  }
-
-  console.log('isTimeSelected', option, hours, minutes, seconds, disabledTimes);
-  console.log('option.value.hours === hours', option.value.hours === hours);
-  console.log(
-    'option.value.minutes === minutes',
-    option.value.minutes === minutes
-  );
-  console.log(
-    'option.value.seconds === seconds',
-    option.value.seconds === seconds
-  );
-  return (
-    option.value.hours === hours &&
-    option.value.minutes === minutes &&
-    option.value.seconds === seconds &&
-    !isTimeDisabled(option, disabledTimes)
-  );
-};
-
 //--------------
 
 export enum FIELD {
@@ -168,11 +144,50 @@ export enum FIELD {
 }
 
 /**
+ * Return true if the option is matching with the hours/minutes/seconds and not appears in the disabledTimes
+ * @param option
+ * @param hours
+ * @param minutes
+ * @param seconds
+ * @param disabledTimes
+ */
+export const isOptionSelected = (
+  option: any,
+  hours: string,
+  minutes: string,
+  seconds: string,
+  disabledTimes: string | Array<any>
+): boolean =>
+  option &&
+  option.value &&
+  option.value.hours === hours &&
+  option.value.minutes === minutes &&
+  option.value.seconds === seconds &&
+  !isTimeDisabled(option, disabledTimes);
+
+/**
+ * Get ISO time in an object {hours, minutes, seconds} from a given local time and format
+ * @param time
+ * @param format (optional) Use HH:mm:ss per default (on 24 hours)
+ */
+export const getISOTimeFromLocalTime = (time: string, format = 'HH:mm:ss') => {
+  if (!time || !format) {
+    return null;
+  }
+  const date = parseTime(time, format, 0);
+  return {
+    hours: getNumberOn2Digits(date.getHours()),
+    minutes: getNumberOn2Digits(date.getMinutes()),
+    seconds: getNumberOn2Digits(date.getSeconds()),
+  };
+};
+
+/**
  * Return the time formatted with the format if it's provided in parameter, else it will use the locale settings of the user
  * @param time Object with {hours, seconds, minutes}
  * @param format
  */
-export const getFormattedTime = (time, format = null) => {
+export const getFormattedTime = (time, format = null): string => {
   if (!time) {
     // Time null or undefined
     return null;

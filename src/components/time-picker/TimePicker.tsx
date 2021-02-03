@@ -10,9 +10,10 @@ import {
   TIME_FORMAT,
   formatISOToSeconds,
   getOptions,
+  getISOTimeFromLocalTime,
   getTimeFromISO,
   isTimeDisabled,
-  isTimeSelected,
+  isOptionSelected,
   isTimeValid,
   getOptionValue,
   getSteps,
@@ -28,6 +29,7 @@ const TimePickerInput = (props) => (
 
 const TimePicker: React.FC<TimePickerProps> = ({
   id,
+  label,
   name,
   value,
   placeholder,
@@ -48,24 +50,14 @@ const TimePicker: React.FC<TimePickerProps> = ({
   const [inputValue, setInputValue] = useState('');
 
   useEffect(() => {
-    const tmpTime = getTimeFromISO(inputValue);
-    if (tmpTime) {
-      setHours(tmpTime.hours);
-      setMinutes(tmpTime.minutes);
-      setSeconds(tmpTime.seconds);
+    // Called when the user select an option in the Dropdown menu
+    if (selectedOption) {
+      setHours(selectedOption.value.hours);
+      setMinutes(selectedOption.value.minutes);
+      setSeconds(selectedOption.value.seconds);
+      setInputValue(selectedOption.label);
     }
-  }, [inputValue]);
-
-  useEffect(() => {
-    // TODO: Check if the time is valid to the format
-    setInputValue(value);
-    const tmpTime = getTimeFromISO(value);
-    if (tmpTime) {
-      setHours(tmpTime.hours);
-      setHours(tmpTime.minutes);
-      setHours(tmpTime.seconds);
-    }
-  }, [value]);
+  }, [selectedOption]);
 
   useEffect(() => {
     let newSelectedOption = options.find(
@@ -80,6 +72,27 @@ const TimePicker: React.FC<TimePickerProps> = ({
     setSelectedOption(newSelectedOption);
   }, [hours, minutes, seconds]);
 
+  useEffect(() => {
+    // Called when the user enters a new date in the input field
+    const newTime = getISOTimeFromLocalTime(inputValue, format);
+    if (newTime) {
+      setHours(newTime.hours);
+      setMinutes(newTime.minutes);
+      setSeconds(newTime.seconds);
+    }
+  }, [inputValue]);
+
+  useEffect(() => {
+    // TODO: Check if the time is valid to the format
+    setInputValue(value);
+    const tmpTime = getTimeFromISO(value);
+    if (tmpTime) {
+      setHours(tmpTime.hours);
+      setHours(tmpTime.minutes);
+      setHours(tmpTime.seconds);
+    }
+  }, [value]);
+
   if (step < 600 || step > 43200) {
     // Todo : Raised error value not supported
   }
@@ -91,6 +104,10 @@ const TimePicker: React.FC<TimePickerProps> = ({
     formatISOToSeconds(max),
     step
   );
+
+  if (format) {
+    console.log('OPTIONS', options);
+  }
 
   const steps = getSteps(options);
 
@@ -108,21 +125,18 @@ const TimePicker: React.FC<TimePickerProps> = ({
         iconName="recent"
         id={id}
         name={name}
-        label="TimePicker"
+        label={label}
         placeHolder={placeholder}
         options={options}
         value={selectedOption}
         isOptionDisabled={(option) => isTimeDisabled(option, disabledTimes)}
-        isOptionSelected={(option) => {
-          return isTimeSelected(option, hours, minutes, seconds, disabledTimes);
-        }}
+        isOptionSelected={(option) =>
+          isOptionSelected(option, hours, minutes, seconds, disabledTimes)
+        }
         onChange={(option) => {
           // Called when the user select an option in the Dropdown menu
           console.log('Select new value:', option);
-          setHours(option.value.hours);
-          setMinutes(option.value.minutes);
-          setSeconds(option.value.seconds);
-          setInputValue(option.label);
+          setSelectedOption(option);
         }}
         onKeyDown={(event) =>
           handleKeyDown(event, setInputValue, options, steps)
@@ -152,7 +166,8 @@ const TimePicker: React.FC<TimePickerProps> = ({
 
 export type TimePickerProps = {
   id?: string;
-  name: string;
+  label?: string;
+  name?: string;
   value?: string;
   placeholder?: string;
   min?: string;
@@ -166,6 +181,7 @@ export type TimePickerProps = {
 
 TimePicker.propTypes = {
   id: PropTypes.string,
+  label: PropTypes.string,
   name: PropTypes.string,
   value: PropTypes.string,
   placeholder: PropTypes.string,
