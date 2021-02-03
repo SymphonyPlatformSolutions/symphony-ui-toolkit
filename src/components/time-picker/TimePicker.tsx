@@ -1,5 +1,5 @@
 import * as PropTypes from 'prop-types';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Dropdown } from '../index';
 import { components } from 'react-select';
 
@@ -91,19 +91,22 @@ const TimePicker: React.FC<TimePickerProps> = ({
     }
   }, [value]);
 
+  const options = useMemo(
+    () =>
+      getOptions(
+        format,
+        formatISOTimeToSeconds(min),
+        formatISOTimeToSeconds(max),
+        step
+      ),
+    [format, min, max, step]
+  );
+
+  const steps = useMemo(() => getSteps(options), [options]);
+
   if (step < 600 || step > 43200) {
     // Todo : Raised error value not supported
   }
-
-  // TODO: Memoize getTimes and getSteps
-  const options = getOptions(
-    format,
-    formatISOTimeToSeconds(min),
-    formatISOTimeToSeconds(max),
-    step
-  );
-
-  const steps = getSteps(options);
 
   return (
     <div>
