@@ -346,11 +346,12 @@ const handleKeyDown = (event, setInputValue, options, steps, format) => {
       // Handle keyboard navigation only if the focus is on the focus (not on the icon)
       handleKeyboardNavigation(event, setInputValue, options, steps, format);
     }
-  } else if (event.key === Keys.ENTER) {
-    console.log('ENTER !!!!');
-    // TODO Close the Dropdown menu if it's open
-    // Or forbid this action if 'strict' attribute is set to true
   }
+  // else if (event.key === Keys.ENTER) {
+  //   console.log('ENTER !!!!');
+  //   // TODO Close the Dropdown menu if it's open
+  //   // Or forbid this action if 'strict' attribute is set to true
+  // }
 };
 
 export default TimePicker;

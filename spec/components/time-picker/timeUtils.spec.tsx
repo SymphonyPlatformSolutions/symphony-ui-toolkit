@@ -232,6 +232,7 @@ describe('Time Utils', () => {
   );
 
   test.each([
+    ['09:00 A', 'hh:mm a', null],
     ['14:30:20', null, null],
     [null, 'HH:mm:ss', null],
     ['azerty', 'HH:mm:ss', null],
