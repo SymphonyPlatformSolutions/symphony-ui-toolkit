@@ -66,7 +66,7 @@ export const isTimeValid = (time: string, format: string = null): boolean => {
  * @param matcher Object {time: 'HH:mm:ss'}
  */
 export function matchExactTime(time, matcher): boolean {
-  if (!('time' in matcher)) return false;
+  if (time === null || !('time' in matcher)) return false;
   return formatTimeISO(time) === matcher.time;
 }
 
@@ -76,7 +76,7 @@ export function matchExactTime(time, matcher): boolean {
  * @param matcher Object {from: 'HH:mm:ss', to: 'HH:mm:ss'}
  */
 export function matchTimeInRange(time, matcher): boolean {
-  if (!('from' in matcher) || !('to' in matcher)) return false;
+  if (time === null || !('from' in matcher) || !('to' in matcher)) return false;
   return (
     matcher.from <= formatTimeISO(time) && formatTimeISO(time) <= matcher.to
   );

@@ -3,10 +3,13 @@ import {
   formatISOTimeToSeconds,
   getFormattedTime,
   getISOTimeFromLocalTime,
+  getOptions,
   getOptionValue,
   getSteps,
   isOptionSelected,
   isTimeValid,
+  matchExactTime,
+  matchTimeInRange,
 } from '../../../src/components/time-picker/utils/timeUtils';
 import { Keys } from '../../../src/components/date-picker/utils/keyUtils';
 
@@ -278,6 +281,7 @@ describe('Time Utils', () => {
     ['00:00:10', 10],
     ['00:01:10', 70],
     ['01:01:10', 3670],
+    ['azerty', null],
   ])('formatISOTimeToSeconds with time %p', (time, expected) => {
     const result = formatISOTimeToSeconds(time);
     expect(result).toEqual(expected);
@@ -291,8 +295,84 @@ describe('Time Utils', () => {
     ['99:99:99', 'HH:mm:ss', false],
     ['zdsqdqsqd', 'HH:mm:ss', false],
     ['15:30:00', null, true],
+    [null, 'HH:mm:ss', false],
   ])('isTimeValid with time %p', (time, format, expected) => {
     const result = isTimeValid(time, format);
     expect(result).toEqual(expected);
   });
+
+  test.each([
+    [{ hours: '14', minutes: '30', seconds: '20' }, { time: '14:30:20' }, true],
+    [
+      { hours: '15', minutes: '30', seconds: '20' },
+      { time: '14:30:20' },
+      false,
+    ],
+    [null, { time: '14:30:20' }, false],
+  ])(
+    'matchExactTime with time %p and matcher %p',
+    (time, matcher, expected) => {
+      const result = matchExactTime(time, matcher);
+      expect(result).toEqual(expected);
+    }
+  );
+
+  test.each([
+    [
+      { hours: '14', minutes: '30', seconds: '20' },
+      { from: '14:00:00', to: '15:00:00' },
+      true,
+    ],
+    [
+      { hours: '14', minutes: '00', seconds: '00' },
+      { from: '14:00:00', to: '15:00:00' },
+      true,
+    ],
+    [
+      { hours: '15', minutes: '00', seconds: '00' },
+      { from: '14:00:00', to: '15:00:00' },
+      true,
+    ],
+    [
+      { hours: '14', minutes: '00', seconds: '00' },
+      { from: '05:00:00', to: '06:00:00' },
+      false,
+    ],
+    [null, { from: '14:00:00', to: '15:00:00' }, false],
+  ])(
+    'matchTimeInRange with time %p and matcher %p',
+    (time, matcher, expected) => {
+      const result = matchTimeInRange(time, matcher);
+      expect(result).toEqual(expected);
+    }
+  );
+
+  test.each([
+    [
+      'HH:mm:ss',
+      0,
+      3600,
+      1800,
+      [
+        {
+          label: '00:00:00',
+          value: { index: 0, hours: '00', minutes: '00', seconds: '00' },
+        },
+        {
+          label: '00:30:00',
+          value: { index: 1, hours: '00', minutes: '30', seconds: '00' },
+        },
+        {
+          label: '01:00:00',
+          value: { index: 2, hours: '01', minutes: '00', seconds: '00' },
+        },
+      ],
+    ],
+  ])(
+    'getOptions with format %p, min %p, max %p, step %p',
+    (format, min, max, step, expected) => {
+      const result = getOptions(format, min, max, step);
+      expect(result).toEqual(expected);
+    }
+  );
 });

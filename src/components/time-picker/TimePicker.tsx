@@ -103,10 +103,6 @@ const TimePicker: React.FC<TimePickerProps> = ({
     step
   );
 
-  if (format) {
-    console.log('OPTIONS', options);
-  }
-
   const steps = getSteps(options);
 
   return (
