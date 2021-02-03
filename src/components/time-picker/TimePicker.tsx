@@ -63,7 +63,10 @@ const TimePicker: React.FC<TimePickerProps> = ({
         time.value.minutes === minutes &&
         time.value.seconds === seconds
     );
-    if (!newSelectedOption) {
+    if (
+      !newSelectedOption ||
+      isOptionDisabled(newSelectedOption, disabledTimes)
+    ) {
       newSelectedOption = null;
     }
     setSelectedOption(newSelectedOption);

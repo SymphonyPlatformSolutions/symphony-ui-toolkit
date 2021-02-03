@@ -155,6 +155,12 @@ export const isOptionDisabled = (
   option,
   disabledTimes: string | Array<any>
 ): boolean => {
+  if (!option) {
+    return true;
+  }
+  if (!disabledTimes || disabledTimes.length === 0) {
+    return false;
+  }
   let disabledTimesAsArray;
   if (Array.isArray(disabledTimes)) {
     disabledTimesAsArray = disabledTimes;
