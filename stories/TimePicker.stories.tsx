@@ -16,6 +16,7 @@ Default.args = {
   min: '09:00:00',
   max: '12:00:00',
   value: '09:30:00',
+  format: 'HH:mm',
   disabledTimes: [{ from: '10:00:00', to: '11:00:00' }, { time: '09:15:00' }],
 };
 
@@ -59,7 +60,7 @@ WithFormat.args = {
   format: 'hh:mm:ss a',
   min: '05:00:00',
   disabledTimes: [
-    { from: '02:00:00', to: '05:00:00' },
+    { from: '06:00:00', to: '06:30:00' },
     { time: '09:15:00' },
     { time: '09:30:00' },
     { from: '13:30:00', to: '15:45:00' },

@@ -6,6 +6,7 @@ import {
   getOptions,
   getOptionValue,
   getSteps,
+  getTimeFromString,
   isOptionSelected,
   isTimeValid,
   matchExactTime,
@@ -234,6 +235,7 @@ describe('Time Utils', () => {
     ['14:30:20', null, null],
     [null, 'HH:mm:ss', null],
     ['azerty', 'HH:mm:ss', null],
+    ['14:30:20', 'HH:mm:ss a', null], // HH and 'a' can't be at the same time
     ['14:30:20', 'HH:mm:ss', { hours: '14', minutes: '30', seconds: '20' }],
     [
       '02:30:20 PM',
@@ -375,4 +377,19 @@ describe('Time Utils', () => {
       expect(result).toEqual(expected);
     }
   );
+
+  test.each([
+    ['05:30:20 AM', { hours: '05', minutes: '30', seconds: '20', ampm: 'AM' }],
+    ['05:30 AM', { hours: '05', minutes: '30', ampm: 'AM' }],
+    ['05:30:20 PM', { hours: '05', minutes: '30', seconds: '20', ampm: 'PM' }],
+    ['18:40:10', { hours: '18', minutes: '40', seconds: '10' }],
+    ['18:40', { hours: '18', minutes: '40' }],
+    [null, null],
+    ['', null],
+    ['azerty', null],
+    ['99:99:99', null],
+  ])('getTimeFromString with inputText %p', (inputTime: string, expected) => {
+    const result = getTimeFromString(inputTime);
+    expect(result).toEqual(expected);
+  });
 });

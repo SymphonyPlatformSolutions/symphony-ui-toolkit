@@ -23,7 +23,7 @@ describe('TimePicker Component', () => {
       max: '16:00:00',
       // step: PropTypes.number,
       format: 'hh:mm:ss a',
-      strict: PropTypes.bool,
+      // strict: PropTypes.bool,
       // disabled: PropTypes.bool,
       // disabledTimes: PropTypes.array,
       ...props,

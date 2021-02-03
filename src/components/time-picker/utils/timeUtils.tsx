@@ -1,14 +1,10 @@
 import { Keys } from '../../date-picker/utils/keyUtils';
 import { format as formatTime, parse as parseTime, isValid } from 'date-fns';
 
-// export const TIME_FORMAT = {
-//   HH_MM_12: /^(0[1-9]|1[0-2]):[0-5][0-9]$/,
-//   HH_MM_SS_12: /^(0[1-9]|1[0-2]):[0-5][0-9]:[0-5][0-9]$/,
-//   HH_MM_12_A: /^(0[1-9]|1[0-2]):[0-5][0-9] ?[AaPp][Mm]$/,
-//   HH_MM_SS_12_A: /^(0[1-9]|1[0-2]):[0-5][0-9]:[0-5][0-9] ?[AaPp][Mm]$/,
-//   HH_MM_24: /^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/,
-//   HH_MM_SS_24: /^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]$/,
-// };
+export const TIME_REGEXPR = {
+  HH_MM_SS_12: /(?<hours>0[0-9]|1[0-2]):(?<minutes>[0-5][0-9])(?::(?<seconds>[0-5][0-9]))?(?:\s*(?<ampm>[AaPp][Mm]))?/,
+  HH_MM_SS_24: /(?<hours>0[0-9]|1[0-9]|2[0-3]):(?<minutes>[0-5][0-9])(?::(?<seconds>[0-5][0-9]))?/,
+};
 
 export enum TIME_FORMAT {
   HH_MM_12 = 'hh:mm',
@@ -209,20 +205,29 @@ export const getISOTimeFromLocalTime = (
     return null;
   }
 
-  const date = parseTime(time, format, 0);
+  try {
+    const date = parseTime(time, format, 0);
 
-  // If parsing failed, Invalid Date will be returned.
-  // Invalid Date is a Date, whose time value is NaN.
-  // Time value of Date: http://es5.github.io/#x15.9.1.1
-  if (isNaN(date.getTime())) {
-    return null;
+    // If parsing failed, Invalid Date will be returned.
+    // Invalid Date is a Date, whose time value is NaN.
+    // Time value of Date: http://es5.github.io/#x15.9.1.1
+    if (isNaN(date.getTime())) {
+      return null;
+    }
+
+    return {
+      hours: getNumberOn2Digits(date.getHours()),
+      minutes: getNumberOn2Digits(date.getMinutes()),
+      seconds: getNumberOn2Digits(date.getSeconds()),
+    };
+  } catch (error) {
+    if (error instanceof RangeError) {
+      console.error(error);
+      return null;
+    }
+    // Re-throw the error not handled
+    throw error;
   }
-
-  return {
-    hours: getNumberOn2Digits(date.getHours()),
-    minutes: getNumberOn2Digits(date.getMinutes()),
-    seconds: getNumberOn2Digits(date.getSeconds()),
-  };
 };
 
 /**
@@ -322,7 +327,10 @@ export const getOptionValue = (
     return getNumberOn2Digits(nextValue);
   } else if (field === FIELD.AMPM) {
     // Loop on 'AM'/'PM'
-    return inputValue[FIELD.AMPM] === 'AM' ? 'PM' : 'AM';
+    return inputValue[FIELD.AMPM] &&
+      inputValue[FIELD.AMPM].toUpperCase() === 'AM'
+      ? 'PM'
+      : 'AM';
   }
   for (
     let index = key === Keys.ARROW_UP ? 0 : steps[field].length - 1;
@@ -340,4 +348,37 @@ export const getOptionValue = (
   return key === Keys.ARROW_UP
     ? steps[field][0]
     : steps[field][steps[field].length - 1];
+};
+
+/**
+ * Parse the string and return an object {hours, minutes, seconds, ampm}
+ *
+ * @param inputTime string (Example: '05:20:10 am', '07:30 AM', '06:00:00 PM', '18:20', '18:20:00'
+ * @return {hours: '...', minutes:'...', seconds:'...', ampm: 'AM'}
+ * Examples:
+ *   {hours: '05', minutes: '20', seconds: '10', ampm: 'am'}
+ *   {hours: '18', minutes: '20'}
+ */
+export const getTimeFromString = (inputTime: string) => {
+  if (!inputTime) {
+    return null;
+  }
+
+  const ampmRegExpr = /[AaPp][Mm]/;
+  let timeRegExpr = null;
+  if (inputTime.match(ampmRegExpr)) {
+    // 12 hours format
+    timeRegExpr = TIME_REGEXPR.HH_MM_SS_12;
+  } else {
+    // 24 hours format
+    timeRegExpr = TIME_REGEXPR.HH_MM_SS_24;
+  }
+
+  const result = inputTime.match(timeRegExpr);
+  if (!result) {
+    return null;
+  }
+
+  // Return an object {hours, minutes, seconds, ampm}
+  return { ...result.groups };
 };

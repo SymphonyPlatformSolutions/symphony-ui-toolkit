@@ -11,6 +11,7 @@ import {
   formatISOTimeToSeconds,
   getOptions,
   getISOTimeFromLocalTime,
+  getTimeFromString,
   isOptionDisabled,
   isOptionSelected,
   isTimeValid,
@@ -39,12 +40,10 @@ const TimePicker: React.FC<TimePickerProps> = ({
   disabled,
   disabledTimes = [],
 }) => {
-  // const [time, setTime] = useState(null);
   const [hours, setHours] = useState('');
   const [minutes, setMinutes] = useState('');
   const [seconds, setSeconds] = useState('');
   const [selectedOption, setSelectedOption] = useState(null);
-
   const [inputValue, setInputValue] = useState('');
 
   useEffect(() => {
@@ -216,6 +215,7 @@ const handleKeyboardNavigation = (
 
   // Get cursor position
   const cursor = event.target.selectionStart;
+  const time = getTimeFromString(currentValue);
   if (event.key === Keys.ARROW_UP || event.key === Keys.ARROW_DOWN) {
     // Set 'defaultPrevented' to true otherwise the navigation is enable in the Dropdown menu
     event.preventDefault();
@@ -223,23 +223,18 @@ const handleKeyboardNavigation = (
     let cursorStart = null;
     let cursorEnd = null;
 
-    const matches = currentValue.split(':');
-    if (matches.length === 3) {
-      let hours = matches[0];
-      let minutes = matches[1];
-      let seconds = matches[2];
-      const time = {
-        hours,
-        minutes,
-        seconds,
-      };
+    if (time) {
+      let hours = time.hours;
+      let minutes = time.minutes;
+      let seconds = time.seconds;
+      let ampm = time.ampm;
 
-      if (cursor < 3) {
+      if (hours && cursor < 3) {
         // Hours
         hours = getOptionValue(event.key, FIELD.HOURS, time, options, steps);
         cursorStart = 0;
         cursorEnd = 2;
-      } else if (cursor < 6) {
+      } else if (minutes && cursor < 6) {
         // Minutes
         minutes = getOptionValue(
           event.key,
@@ -250,7 +245,7 @@ const handleKeyboardNavigation = (
         );
         cursorStart = 3;
         cursorEnd = 5;
-      } else if (cursor < 9) {
+      } else if (seconds && cursor < 9) {
         // Seconds
         seconds = getOptionValue(
           event.key,
@@ -261,16 +256,26 @@ const handleKeyboardNavigation = (
         );
         cursorStart = 6;
         cursorEnd = 8;
+      } else if (ampm) {
+        ampm = getOptionValue(event.key, FIELD.AMPM, time, options, steps);
+        cursorStart = 9;
+        cursorEnd = 11;
       }
 
       // Update value in the Input text field
-      const newValue = `${hours}:${minutes}:${seconds}`;
+      let newValue = `${hours}:${minutes}`;
+      if (seconds) {
+        newValue += `:${seconds}`;
+      }
+      if (ampm) {
+        newValue += ` ${ampm}`;
+      }
       event.target.value = newValue;
       setInputValue(newValue);
 
       // Update cursor selection
       event.target.selectionStart = cursor;
-      event.target.setSelectionRange(cursorStart, cursorEnd); // TODO : Select minutes / hours / seconds
+      event.target.setSelectionRange(cursorStart, cursorEnd);
     }
   } else if (event.key === Keys.TAB) {
     // Manage Tab and Tab + Shift navigation
@@ -278,7 +283,7 @@ const handleKeyboardNavigation = (
     let end = null;
     if (cursor < 3) {
       if (event.shiftKey) {
-        // Got to previous component
+        // Go to previous component
       } else {
         // Select minutes
         start = 3;
@@ -289,21 +294,37 @@ const handleKeyboardNavigation = (
         // Select hours
         start = 0;
         end = 2;
-      } else {
-        // Select seconds
+      } else if (time.seconds || time.ampm) {
+        // Select seconds or ampm
         start = 6;
         end = 8;
       }
+      //else {
+      // Go to next component
+      //}
     } else if (cursor < 9) {
       if (event.shiftKey) {
         // Select minutes
         start = 3;
         end = 5;
-      } else {
-        // Got to next component
+      } else if (time.seconds && time.ampm) {
+        // Select ampm
+        start = 9;
+        end = 11;
       }
+      // else {
+      //  Go to next component
+      // }
+    } else {
+      if (event.shiftKey) {
+        // Select seconds
+        start = 6;
+        end = 8;
+      }
+      // else {
+      //  Go to next component
+      // }
     }
-    // TODO : Manage AM/PM and format
 
     if (start != null && end != null) {
       event.target.setSelectionRange(start, end);
