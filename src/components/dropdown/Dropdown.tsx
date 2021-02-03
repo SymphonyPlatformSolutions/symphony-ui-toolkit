@@ -15,7 +15,7 @@ export type DropdownProps<T> = {
   id?: string;
   placeHolder?: string;
   label?: string
-  onBlur?: (e)=>any;
+  onBlur?: (event)=>any;
   className?: string;
   /** Used to override the default appearance of the list items. */
   optionRenderer?: React.Component<OptionRendererProps<T>, any> | React.FunctionComponent<OptionRendererProps<T>>;
@@ -35,11 +35,11 @@ export type DropdownProps<T> = {
 
 type OnChangeMultiProps<T> = {
   isMultiSelect:true;
-  onChange?: (value:T[])=>any;
+  onChange?: (event)=>any;
 }
 type OnChangeSingleProps<T> = {
   isMultiSelect?:false;
-  onChange?: (value:T)=>any;
+  onChange?: (event)=>any;
 }
 
 type DropdownState<T> = {
@@ -60,13 +60,21 @@ class Dropdown<T=LabelValue> extends React.Component<DropdownProps<T>, DropdownS
 
   handleChange = (selectedOption) => {
     if(this.props.onChange){
-      this.props.onChange(selectedOption);
+      this.props.onChange({ target: { value: selectedOption } } );
     }
   };
 
+  handleBlur = () => {
+    const { value } = this.props;
+    if(this.props.onBlur){
+      this.props.onBlur({ target: { value: value } } );
+    }
+  };
+
+
   render() {
     const { hideSelectedOptions, closeMenuOnSelect, displayArrowIndicator } = this.state;
-    const { isMultiSelect, isDisabled, placeHolder, options, id, defaultValue, onBlur, isInputClearable, label, optionRenderer, iconName,tagRenderer, value} = this.props;
+    const { isMultiSelect, isDisabled, placeHolder, options, id, defaultValue, isInputClearable, label, optionRenderer, iconName,tagRenderer, value} = this.props;
 
     return (
       <div>
@@ -93,7 +101,7 @@ class Dropdown<T=LabelValue> extends React.Component<DropdownProps<T>, DropdownS
           classNamePrefix={prefix}
           value={value}
           onChange={this.handleChange}
-          onBlur={onBlur}
+          onBlur={this.handleBlur}
           options={options}
           hideSelectedOptions={hideSelectedOptions}
           placeholder={placeHolder}
