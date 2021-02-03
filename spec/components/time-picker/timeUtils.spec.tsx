@@ -228,16 +228,20 @@ describe('Time Utils', () => {
   test.each([
     ['14:30:20', null, null],
     [null, 'HH:mm:ss', null],
+    ['azerty', 'HH:mm:ss', null],
     ['14:30:20', 'HH:mm:ss', { hours: '14', minutes: '30', seconds: '20' }],
     [
       '02:30:20 PM',
       'hh:mm:ss a',
       { hours: '14', minutes: '30', seconds: '20' },
     ],
-  ])('getISOFromTime with time %p and format %p', (time, format, expected) => {
-    const result = getISOTimeFromLocalTime(time, format);
-    expect(result).toEqual(expected);
-  });
+  ])(
+    'getISOTimeFromLocalTime with time %p and format %p',
+    (time, format, expected) => {
+      const result = getISOTimeFromLocalTime(time, format);
+      expect(result).toEqual(expected);
+    }
+  );
 
   test.each([
     [options[1], '11', '30', '00', [], true],

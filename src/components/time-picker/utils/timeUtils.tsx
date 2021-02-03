@@ -15,10 +15,6 @@ export const TIME_FORMAT = {
   HH_MM_SS_24: /^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]$/,
 };
 
-// const isTimeValid = (time: string, format: RegExp): boolean => {
-//   return time.match(format);
-// };
-
 export const isTimeValid = (time, format = null): boolean => {
   return time.match(format);
 };
@@ -174,7 +170,16 @@ export const getISOTimeFromLocalTime = (time: string, format = 'HH:mm:ss') => {
   if (!time || !format) {
     return null;
   }
+
   const date = parseTime(time, format, 0);
+
+  // If parsing failed, Invalid Date will be returned.
+  // Invalid Date is a Date, whose time value is NaN.
+  // Time value of Date: http://es5.github.io/#x15.9.1.1
+  if (isNaN(date.getTime())) {
+    return null;
+  }
+
   return {
     hours: getNumberOn2Digits(date.getHours()),
     minutes: getNumberOn2Digits(date.getMinutes()),

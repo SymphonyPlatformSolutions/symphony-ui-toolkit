@@ -83,13 +83,13 @@ const TimePicker: React.FC<TimePickerProps> = ({
   }, [inputValue]);
 
   useEffect(() => {
-    // TODO: Check if the time is valid to the format
+    // Value prop has changed
     setInputValue(value);
-    const tmpTime = getTimeFromISO(value);
-    if (tmpTime) {
-      setHours(tmpTime.hours);
-      setHours(tmpTime.minutes);
-      setHours(tmpTime.seconds);
+    const newTime = getISOTimeFromLocalTime(value); // Without format it will be the ISO format
+    if (newTime) {
+      setHours(newTime.hours);
+      setHours(newTime.minutes);
+      setHours(newTime.seconds);
     }
   }, [value]);
 
