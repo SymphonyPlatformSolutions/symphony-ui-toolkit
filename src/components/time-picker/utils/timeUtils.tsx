@@ -1,4 +1,5 @@
 import { Keys } from '../../date-picker/utils/keyUtils';
+import { format as formatTime, isValid } from 'date-fns';
 
 export const TIME_FORMAT = {
   HH_MM_12: /^(0[1-9]|1[0-2]):[0-5][0-9]$/,
@@ -57,58 +58,36 @@ export const formatISOToSeconds = (time) => {
 };
 
 /**
- * Return the time formatted with the locale settings of the user
- * @param time
- */
-export const formatTimeToDisplay = (time) => {
-  const date = new Date();
-  date.setHours(time.hours, time.minutes, time.seconds);
-  return date.toLocaleTimeString();
-};
-
-/**
- * Split a time given only in seconds into { hours, minutes, seconds }
- * @param time In seconds
- * @return { hours, minutes, seconds }
- */
-export const splitTime = (time: number): any => {
-  const hours = Math.floor(time / 60 / 60);
-  const minutes = Math.floor(time / 60) - hours * 60;
-  const seconds = time % 60;
-  return {
-    hours: getNumberOn2Digits(hours),
-    minutes: getNumberOn2Digits(minutes),
-    seconds: getNumberOn2Digits(seconds),
-  };
-};
-
-/**
+ * Return the options to use in the DropDown menu
  *
+ * @param format Format used to display the time
+ * @param min Minimum value
+ * @param max Maximum value
+ * @param step Step in seconds
  */
-export const getTimes = (
+export const getOptions = (
   format: string,
   min: number,
   max: number,
   step: number
 ): Array<any> => {
-  const times = [];
-  // TODO: use min to calculate initial value of currentTime
+  const options = [];
   for (
     let currentTime = min, index = 0;
     currentTime <= max;
     currentTime += step, index++
   ) {
-    const time = splitTime(currentTime);
-    times.push({
-      label: formatTimeToDisplay(time),
+    const time = getTimeFromSeconds(currentTime);
+    options.push({
+      label: getFormattedTime(time, format),
       value: {
-        index, // Save the index of the Option, to easily access to the previous/next option if needed
+        index, // Save the index of the Option, for easy access to the previous/next option if needed
         ...time,
       },
       // value: formatTimeISO(time),
     });
   }
-  return times;
+  return options;
 };
 
 /**
@@ -185,16 +164,59 @@ export enum FIELD {
   HOURS = 'hours',
   MINUTES = 'minutes',
   SECONDS = 'seconds',
-  // TODO : AM-PM
+  AMPM = 'ampm',
 }
+
+/**
+ * Return the time formatted with the format if it's provided in parameter, else it will use the locale settings of the user
+ * @param time Object with {hours, seconds, minutes}
+ * @param format
+ */
+export const getFormattedTime = (time, format = null) => {
+  if (!time) {
+    // Time null or undefined
+    return null;
+  }
+  const date = new Date();
+  date.setHours(time.hours, time.minutes, time.seconds);
+
+  if (!isValid(date)) {
+    // Not valid
+    return null;
+  }
+
+  if (format === null) {
+    // Return time formatted with locale time (Example: 08:50 AM or 14:55:00 ...)
+    return date.toLocaleTimeString();
+  }
+  // Format time
+  return formatTime(date, format);
+};
+
+/**
+ * Split a time given only in seconds into { hours, minutes, seconds } on 24 hours format
+ *
+ * @param time In seconds
+ * @return { hours, minutes, seconds }
+ */
+export const getTimeFromSeconds = (time: number): any => {
+  const hours = Math.floor(time / 60 / 60);
+  const minutes = Math.floor(time / 60) - hours * 60;
+  const seconds = time % 60;
+  return {
+    hours: getNumberOn2Digits(hours),
+    minutes: getNumberOn2Digits(minutes),
+    seconds: getNumberOn2Digits(seconds),
+  };
+};
 
 /**
  * Returns all sorted values used in the options
  * Example:
  * {
- *   hours: ['10', '11', '14', '18'],
+ *   hours: ['02', '05', '06', '11'],
  *   minutes: ['00', '15', '30', '45'],
- *   seconds: ['00', '30']
+ *   seconds: ['00', '30'],
  * }
  * @param options
  */
@@ -233,12 +255,16 @@ export const getOptionValue = (
   steps: any
 ) => {
   if (field === FIELD.SECONDS) {
+    // Loop on seconds
     let seconds = parseInt(inputValue[FIELD.SECONDS], 10);
     let nextValue = key === Keys.ARROW_UP ? ++seconds : --seconds;
     // To not return -1 or 60
     nextValue = nextValue < 0 ? 59 : nextValue;
     nextValue = 59 < nextValue ? 0 : nextValue;
     return getNumberOn2Digits(nextValue);
+  } else if (field === FIELD.AMPM) {
+    // Loop on 'AM'/'PM'
+    return inputValue[FIELD.AMPM] === 'AM' ? 'PM' : 'AM';
   }
   for (
     let index = key === Keys.ARROW_UP ? 0 : steps[field].length - 1;

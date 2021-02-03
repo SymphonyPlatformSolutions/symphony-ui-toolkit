@@ -3,8 +3,14 @@ class Time {
   minutes: number;
   seconds: number;
 
+  format: any;
+
   constructor(time: string) {
     // TODO: Validate the string
+  }
+
+  toDisplay(): string {
+    return ''; // Use format
   }
 
   toString(): string {

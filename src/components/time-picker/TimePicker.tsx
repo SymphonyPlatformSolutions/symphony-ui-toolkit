@@ -9,7 +9,7 @@ import {
   FIELD,
   TIME_FORMAT,
   formatISOToSeconds,
-  getTimes,
+  getOptions,
   getTimeFromISO,
   isTimeDisabled,
   isTimeSelected,
@@ -18,6 +18,165 @@ import {
   getSteps,
   getNumberOn2Digits,
 } from './utils/timeUtils';
+
+// Specific Input to fix input not displayed in React-Select
+// See https://github.com/JedWatson/react-select/issues/3068
+// See https://github.com/JedWatson/react-select/discussions/4302
+const TimePickerInput = (props) => (
+  <components.Input {...props} isHidden={false} />
+);
+
+const TimePicker: React.FC<TimePickerProps> = ({
+  id,
+  name,
+  value,
+  placeholder,
+  min = '00:00:00',
+  max = '23:59:59',
+  step = 900,
+  format,
+  strict,
+  disabled,
+  disabledTimes = [],
+}) => {
+  // const [time, setTime] = useState(null);
+  const [hours, setHours] = useState('');
+  const [minutes, setMinutes] = useState('');
+  const [seconds, setSeconds] = useState('');
+  const [selectedOption, setSelectedOption] = useState(null);
+
+  const [inputValue, setInputValue] = useState('');
+
+  useEffect(() => {
+    const tmpTime = getTimeFromISO(inputValue);
+    if (tmpTime) {
+      setHours(tmpTime.hours);
+      setMinutes(tmpTime.minutes);
+      setSeconds(tmpTime.seconds);
+    }
+  }, [inputValue]);
+
+  useEffect(() => {
+    // TODO: Check if the time is valid to the format
+    setInputValue(value);
+    const tmpTime = getTimeFromISO(value);
+    if (tmpTime) {
+      setHours(tmpTime.hours);
+      setHours(tmpTime.minutes);
+      setHours(tmpTime.seconds);
+    }
+  }, [value]);
+
+  useEffect(() => {
+    let newSelectedOption = options.find(
+      (time) =>
+        time.value.hours === hours &&
+        time.value.minutes === minutes &&
+        time.value.seconds === seconds
+    );
+    if (!newSelectedOption) {
+      newSelectedOption = null;
+    }
+    setSelectedOption(newSelectedOption);
+  }, [hours, minutes, seconds]);
+
+  if (step < 600 || step > 43200) {
+    // Todo : Raised error value not supported
+  }
+
+  // TODO: Memoize getTimes and getSteps
+  const options = getOptions(
+    format,
+    formatISOToSeconds(min),
+    formatISOToSeconds(max),
+    step
+  );
+
+  const steps = getSteps(options);
+
+  return (
+    <div>
+      <span>SelectedOption--{JSON.stringify(selectedOption)}--</span>
+      <br />
+      <span>Input value--{inputValue}--</span>
+      <br />
+      <span>
+        Clock--{hours}:{minutes}:{seconds}--
+      </span>
+      <Dropdown
+        isDisabled={disabled}
+        iconName="recent"
+        id={id}
+        name={name}
+        label="TimePicker"
+        placeHolder={placeholder}
+        options={options}
+        value={selectedOption}
+        isOptionDisabled={(option) => isTimeDisabled(option, disabledTimes)}
+        isOptionSelected={(option) => {
+          return isTimeSelected(option, hours, minutes, seconds, disabledTimes);
+        }}
+        onChange={(option) => {
+          // Called when the user select an option in the Dropdown menu
+          console.log('Select new value:', option);
+          setHours(option.value.hours);
+          setMinutes(option.value.minutes);
+          setSeconds(option.value.seconds);
+          setInputValue(option.label);
+        }}
+        onKeyDown={(event) =>
+          handleKeyDown(event, setInputValue, options, steps)
+        }
+        components={{ Input: TimePickerInput }}
+        onInputChange={(newValue, metadata) => {
+          // Called when the user set a new value in the Input field
+          console.log('onInputChange', newValue, metadata);
+          if (
+            metadata.action === 'set-value' ||
+            metadata.action === 'input-change'
+          ) {
+            console.log('--> setInputValue', newValue);
+            setInputValue(newValue);
+            // Remove selected hours/minutes/seconds
+            setHours('');
+            setMinutes('');
+            setSeconds('');
+          }
+        }}
+        inputValue={inputValue}
+        filterOption={(option, data) => true}
+      />
+    </div>
+  );
+};
+
+export type TimePickerProps = {
+  id?: string;
+  name: string;
+  value?: string;
+  placeholder?: string;
+  min?: string;
+  max?: string;
+  step?: number;
+  format?: string;
+  strict?: boolean;
+  disabled?: boolean;
+  disabledTimes?: any;
+};
+
+TimePicker.propTypes = {
+  id: PropTypes.string,
+  name: PropTypes.string,
+  value: PropTypes.string,
+  placeholder: PropTypes.string,
+  min: PropTypes.string,
+  max: PropTypes.string,
+  step: PropTypes.number,
+  format: PropTypes.string,
+  strict: PropTypes.bool,
+  disabled: PropTypes.bool,
+  disabledTimes: PropTypes.array,
+};
 
 /**
  * Handle Keyboard navigation in the input Text field
@@ -148,165 +307,6 @@ const handleKeyDown = (event, setInputValue, options, steps) => {
     // TODO Close the Dropdown menu if it's open
     // Or forbid this action if 'strict' attribute is set to true
   }
-};
-
-// Specific Input to fix input not displayed in React-Select
-// See https://github.com/JedWatson/react-select/issues/3068
-// See https://github.com/JedWatson/react-select/discussions/4302
-const TimePickerInput = (props) => (
-  <components.Input {...props} isHidden={false} />
-);
-
-const TimePicker: React.FC<TimePickerProps> = ({
-  id,
-  name,
-  value,
-  placeholder,
-  min = '00:00:00',
-  max = '23:59:59',
-  step = 900,
-  format,
-  strict,
-  disabled,
-  disabledTimes = [],
-}) => {
-  // const [time, setTime] = useState(null);
-  const [hours, setHours] = useState('');
-  const [minutes, setMinutes] = useState('');
-  const [seconds, setSeconds] = useState('');
-  const [selectedOption, setSelectedOption] = useState(null);
-
-  const [inputValue, setInputValue] = useState('');
-
-  useEffect(() => {
-    const tmpTime = getTimeFromISO(inputValue);
-    if (tmpTime) {
-      setHours(tmpTime.hours);
-      setMinutes(tmpTime.minutes);
-      setSeconds(tmpTime.seconds);
-    }
-  }, [inputValue]);
-
-  useEffect(() => {
-    // TODO: Check if the time is valid to the format
-    setInputValue(value);
-    const tmpTime = getTimeFromISO(value);
-    if (tmpTime) {
-      setHours(tmpTime.hours);
-      setHours(tmpTime.minutes);
-      setHours(tmpTime.seconds);
-    }
-  }, [value]);
-
-  useEffect(() => {
-    let newSelectedOption = options.find(
-      (time) =>
-        time.value.hours === hours &&
-        time.value.minutes === minutes &&
-        time.value.seconds === seconds
-    );
-    if (!newSelectedOption) {
-      newSelectedOption = null;
-    }
-    setSelectedOption(newSelectedOption);
-  }, [hours, minutes, seconds]);
-
-  if (step < 600 || step > 43200) {
-    // Todo : Raised error value not supported
-  }
-
-  // TODO: Memoize getTimes and getSteps
-  const options = getTimes(
-    format,
-    formatISOToSeconds(min),
-    formatISOToSeconds(max),
-    step
-  );
-
-  const steps = getSteps(options);
-
-  return (
-    <div>
-      <span>SelectedOption--{JSON.stringify(selectedOption)}--</span>
-      <br />
-      <span>Input value--{inputValue}--</span>
-      <br />
-      <span>
-        Clock--{hours}:{minutes}:{seconds}--
-      </span>
-      <Dropdown
-        isDisabled={disabled}
-        iconName="recent"
-        id={id}
-        name={name}
-        label="TimePicker"
-        placeHolder={placeholder}
-        options={options}
-        value={selectedOption}
-        isOptionDisabled={(option) => isTimeDisabled(option, disabledTimes)}
-        isOptionSelected={(option) => {
-          return isTimeSelected(option, hours, minutes, seconds, disabledTimes);
-        }}
-        onChange={(option) => {
-          // Called when the user select an option in the Dropdown menu
-          console.log('Select new value:', option);
-          setHours(option.value.hours);
-          setMinutes(option.value.minutes);
-          setSeconds(option.value.seconds);
-          setInputValue(option.label);
-        }}
-        onKeyDown={(event) =>
-          handleKeyDown(event, setInputValue, options, steps)
-        }
-        components={{ Input: TimePickerInput }}
-        onInputChange={(newValue, metadata) => {
-          // Called when the user set a new value in the Input field
-          console.log('onInputChange', newValue, metadata);
-          if (
-            metadata.action === 'set-value' ||
-            metadata.action === 'input-change'
-          ) {
-            console.log('--> setInputValue', newValue);
-            setInputValue(newValue);
-            // Remove selected hours/minutes/seconds
-            setHours('');
-            setMinutes('');
-            setSeconds('');
-          }
-        }}
-        inputValue={inputValue}
-        filterOption={(option, data) => true}
-      />
-    </div>
-  );
-};
-
-export type TimePickerProps = {
-  id?: string;
-  name: string;
-  value?: string;
-  placeholder?: string;
-  min?: string;
-  max?: string;
-  step?: number;
-  format?: string;
-  strict?: boolean;
-  disabled?: boolean;
-  disabledTimes?: any;
-};
-
-TimePicker.propTypes = {
-  id: PropTypes.string,
-  name: PropTypes.string,
-  value: PropTypes.string,
-  placeholder: PropTypes.string,
-  min: PropTypes.string,
-  max: PropTypes.string,
-  step: PropTypes.number,
-  format: PropTypes.string,
-  strict: PropTypes.bool,
-  disabled: PropTypes.bool,
-  disabledTimes: PropTypes.array,
 };
 
 export default TimePicker;
