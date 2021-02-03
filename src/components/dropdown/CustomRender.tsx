@@ -17,7 +17,7 @@ const stopPropagation = (e) => {
 
 export const DefaultOptionRenderer = (props: any) => {
   const OptionRenderer = props?.selectProps?.optionRenderer;
-  const rendererProps = { data: props.data };
+  const rendererProps = { data: props.data, inputValue: props.selectProps?.inputValue };
   return (
     <div>
       {OptionRenderer ? (

@@ -4,11 +4,6 @@ import { Dropdown, DropdownOption, Icon, LabelValue, OptionRendererProps, TagRen
 const defaultOptions: LabelValue[] = [
   { label: 'Option 1', value: '1' },
   { label: 'Option 2', value: '2' },
-  { label: 'Option 3', value: '3' },
-  { label: 'Option 4', value: '4' },
-  { label: 'Option 5', value: '5' },
-  { label: 'Option 6', value: '6' },
-  { label: 'Option 7', value: '7' }
 ];
 
 interface Person {
@@ -48,29 +43,29 @@ const timeZoneOptions: DropdownOption<LabelValue>[] = [
 
 /** Icon custom renderers */
 interface Icon {
-  label:string;
+  displayName:string;
   value:string;
 }
 
-const iconData: Icon[] = [
-  { value: '1', label: 'app' },
-  { value: '2', label: 'bot' },
-  { value: '9', label: 'hide' },
-  { value: '10', label: 'link' },
-  { value: '3', label: 'adjust' },
-  { value: '4', label: 'archive' },
-  { value: '5', label: 'cashtag' },
-  { value: '6', label: 'emoticon' },
-  { value: '7', label: 'following' },
-  { value: '8', label: 'flags' }
+const iconData: DropdownOption<Icon>[] = [
+  { value: '1', displayName: 'app' },
+  { value: '2', displayName: 'bot' },
+  { value: '9', displayName: 'hide' },
+  { value: '10', displayName: 'link' },
+  { value: '3', displayName: 'adjust' },
+  { value: '4', displayName: 'archive' },
+  { value: '5', displayName: 'cashtag' },
+  { value: '6', displayName: 'emoticon' },
+  { value: '7', displayName: 'following' },
+  { value: '8', displayName: 'flags' }
 ];
 
 const IconPickerTagRenderer = (props: TagRendererProps<Icon>) => {
   const {data, remove} = props;
   return (
     <div>
-      {data.label}
-      <Icon className="tk-pl-1" iconName={data.label} />
+      {data.displayName}
+      <Icon className="tk-pl-1" iconName={data.displayName} />
       <Icon className="tk-ml-1" iconName="cross" onClick={remove} />
     </div>
   );
@@ -80,15 +75,21 @@ const IconPickerOptionRenderer = (props: OptionRendererProps<Icon>) => {
   const {data} = props;
   return (
     <div>
-      {data.label}
-      <Icon className="tk-pl-1" iconName={data.label} />
+      {data.displayName}
+      <Icon className="tk-pl-1" iconName={data.displayName} />
     </div>
   );
 };
 
+
+const filterFunction = (icon: Icon, input: string) => {
+  return !input || icon.displayName.indexOf(input)>-1 ;
+};
+
+
 const Template = (args) => {
   return (
-    <div style={{ minHeight: '260px' }}>
+    <div style={{ minHeight: '160px' }}>
       <Dropdown {...args} />
     </div>
   );
@@ -101,91 +102,65 @@ Default.args = {
 
 export const Select: React.FC = () => (
   <div>
-    <h2>Dropdown</h2>
-    <h3>Default</h3>
-    <Dropdown options={timeZoneOptions} iconName="recent" onChange={(value)=>{console.info(value)}}/>
+    <p>Let`s have a look on the different props than can be used to render the dropdown: </p>
     <p className="tk-mt-4">
-			With <Typography variant="bold">placeholder</Typography>
+			With <Typography variant="bold">placeholder</Typography>:
     </p>
-    <Dropdown options={defaultOptions} placeHolder="Select an option.." />
+    <Dropdown options={defaultOptions} placeHolder="Customized placeholder: Please select an option.." />
     <p className="tk-mt-4">
-			With <Typography variant="bold">label</Typography>
+			With <Typography variant="bold">label</Typography>:
     </p>
     <Dropdown options={defaultOptions} label="Field label" />
     <p className="tk-mt-4">
-			Clear selection with <Typography variant="bold">isClearable</Typography>
+			Clear selection with <Typography variant="bold">isClearable</Typography>:
     </p>
     <Dropdown options={defaultOptions} isInputClearable />
 
     <p className="tk-mt-4">
-			With <Typography variant="bold">noOptionMessage</Typography>
+			With <Typography variant="bold">noOptionMessage</Typography> customize the message that the dropdown will display when does not found any item on the list:
     </p>
-    <Dropdown options={defaultOptions} noOptionMessage="No options custom messagw" label="Field label" />
-    
-    <h3 className="tk-mt-4">Disabled dropdown</h3>
-    <Dropdown options={defaultOptions} placeHolder="No option available" isDisabled />
+    <Dropdown options={defaultOptions} noOptionMessage="No options custom message"/>
     <p className="tk-mt-4">
-			With <Typography variant="bold">label</Typography>
+			With <Typography variant="bold">isDisabled</Typography>:
     </p>
     <Dropdown options={defaultOptions} placeHolder="No option available" isDisabled label="Field label" />
-
-    <h3 className="tk-mt-4">Custom render</h3>
-    <p>
-    You can replace the default components with your own, using the <Typography variant="bold">optionRenderer </Typography>and{' '}
-      <Typography variant="bold">tagRenderer </Typography>props.
+    <p className="tk-mt-4">
+			With <Typography variant="bold">iconName</Typography> displays the specified icon on the left side of the dropdown:
     </p>
-    <Dropdown
-      options={iconData}
-      optionRenderer={IconPickerOptionRenderer}
-      tagRenderer={IconPickerTagRenderer}
-      placeHolder="Select an icon.."
-      label="Icon"
-    />
-  </div>
-);
-
-export const Multiselect: React.FC = () => (
-  <div>
-    <h2>Multiselect</h2>
-    <h3>Default</h3>
+    <Dropdown options={defaultOptions} iconName="app"/>
+    <h3 className="tk-mt-4">Grouped option list</h3>
+    <Dropdown options={timeZoneOptions} />
+    <h2 className="tk-mt-5h">MultiSelect</h2>
+    <p>The Dropdown component can handle multiple selections. It is enabled with the <Typography variant="bold">isMultiSelect</Typography> prop:</p>
     <Dropdown options={personSelectorOptions} isMultiSelect placeHolder="Search for People" isInputClearable/>
-    <p className="tk-mt-4">
-			With <Typography variant="bold">label</Typography>
-    </p>
-    <Dropdown options={defaultOptions} placeHolder="Search for People" label="Field label" isMultiSelect />
-    <p className="tk-mt-4">
-			Clear selection with <Typography variant="bold">isClearable</Typography>
-    </p>
-    <Dropdown options={defaultOptions} isInputClearable isMultiSelect />
-    <p className="tk-mt-4">
-			with <Typography variant="bold">displayArrowIndicator</Typography>
-    </p>
-    <Dropdown options={defaultOptions} isInputClearable isMultiSelect displayArrowIndicator />
-    <h3 className="tk-mt-4">Disabled dropdown</h3>
-    <Dropdown options={defaultOptions} placeHolder="No option available" isDisabled isMultiSelect />
-    <Dropdown
-      options={defaultOptions}
-      placeHolder="No option available"
-      isDisabled
-      label="Field label"
-      isMultiSelect
-    />
 
-    <h3 className="tk-mt-4">Custom render</h3>
+    <h2 className="tk-mt-5h">Customized selects</h2>
     <p>
-			You can replace the default components with your own, using the
-      <Typography variant="bold"> optionRenderer</Typography> and
-      <Typography variant="bold"> tagRenderer</Typography> props.
+    You can easily customize the appearance of the UIToolkit Dropdown and render your own components.
     </p>
+    <p className="tk-mt-4">With <Typography variant="bold"> optionRenderer </Typography>prop you can customize the rendering of the option list: </p>
     <Dropdown
       options={iconData}
       optionRenderer={IconPickerOptionRenderer}
-      tagRenderer={IconPickerTagRenderer}
       placeHolder="Select an icon.."
-      label="Icon ana"
+    />
+    <p className="tk-mt-4">With <Typography variant="bold"> tagRenderer </Typography>prop you can customize the rendering of the selected item/s: </p>
+    <Dropdown
+      options={iconData}
+      tagRenderer={IconPickerTagRenderer}
+      optionRenderer={IconPickerOptionRenderer}
       isMultiSelect
-      iconName="emoticon"
-      onChange={(value)=>console.info('SELECTED VALUE',value)}
+      placeHolder="Select an icon.."
+    />
+    <h2 className="tk-mt-5h">Custom Filter logic</h2>
+    <p>If you would like to rewrite the filtration logic from the ground up, simply declare a new <Typography variant="bold"> filterFunction </Typography> to be passed in as a prop:</p>
+    <Dropdown
+      options={iconData}
+      tagRenderer={IconPickerTagRenderer}
+      optionRenderer={IconPickerOptionRenderer}
+      isMultiSelect
+      placeHolder="Select an icon.."
+      filterFunction={filterFunction}
     />
   </div>
 );
