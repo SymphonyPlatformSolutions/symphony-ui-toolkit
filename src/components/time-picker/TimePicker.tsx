@@ -7,6 +7,7 @@ import { Keys } from '../date-picker/utils/keyUtils';
 
 import {
   FIELD,
+  formatTimeISO,
   formatISOTimeToSeconds,
   getOptions,
   getISOTimeFromLocalTime,
@@ -39,6 +40,7 @@ const TimePicker: React.FC<TimePickerProps> = ({
   strict,
   disabled,
   disabledTimes = [],
+  onChange,
 }) => {
   const [hours, setHours] = useState('');
   const [minutes, setMinutes] = useState('');
@@ -79,6 +81,19 @@ const TimePicker: React.FC<TimePickerProps> = ({
       setHours(newTime.hours);
       setMinutes(newTime.minutes);
       setSeconds(newTime.seconds);
+    }
+
+    // Called onChange prop
+    if (onChange) {
+      const data = {
+        target: {
+          value: {
+            input: inputValue,
+            iso: formatTimeISO(newTime),
+          },
+        },
+      };
+      onChange(data);
     }
   }, [inputValue]);
 
@@ -168,6 +183,7 @@ export type TimePickerProps = {
   strict?: boolean;
   disabled?: boolean;
   disabledTimes?: any;
+  onChange?: (event) => void;
 };
 
 TimePicker.propTypes = {
@@ -183,6 +199,7 @@ TimePicker.propTypes = {
   strict: PropTypes.bool,
   disabled: PropTypes.bool,
   disabledTimes: PropTypes.array,
+  onChange: PropTypes.func,
 };
 
 /**

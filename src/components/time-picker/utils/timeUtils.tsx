@@ -92,6 +92,16 @@ export function matchTimeInRange(time: Time, matcher): boolean {
  * @param time Time {hours, minutes, seconds}
  */
 export const formatTimeISO = (time: Time): string => {
+  if (
+    !time ||
+    time.hours === '' ||
+    time.minutes === '' ||
+    isNaN(Number(time.hours)) ||
+    isNaN(Number(time.minutes))
+  ) {
+    return null;
+  }
+
   return (
     time.hours.toString().padStart(2, '0') +
     ':' +

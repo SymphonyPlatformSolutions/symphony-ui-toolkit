@@ -1,6 +1,8 @@
 import * as React from 'react';
 import TimePicker from '../src/components/time-picker';
 import './styles/dropdownMenu.stories.css';
+import { action } from '@storybook/addon-actions';
+import { Checkbox } from '../src';
 
 const Template = (args) => {
   return (
@@ -66,6 +68,12 @@ WithFormat.args = {
     { time: '09:30:00' },
     { from: '13:30:00', to: '15:45:00' },
   ],
+};
+
+export const WithOnChange = Template.bind({});
+WithOnChange.args = {
+  format: 'hh:mm a',
+  onChange: (value) => console.log(value),
 };
 
 export default {
