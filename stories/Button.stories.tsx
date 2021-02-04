@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Button, Icon } from '../src/components';
-import './stories.scss';
 import '../src/styles';
+import './stories.scss';
 
 const Template = (args) => {
   return <Button {...args} />;
