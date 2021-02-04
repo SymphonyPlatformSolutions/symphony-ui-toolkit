@@ -27,8 +27,8 @@ export type DropdownProps<T> = {
   options: DropdownOption<T>[];
   /** Custom component used to override the default appearance of the list items. */
   optionRenderer?:
-  | React.Component<OptionRendererProps<T>, any>
-  | React.FunctionComponent<OptionRendererProps<T>>;
+    | React.Component<OptionRendererProps<T>, any>
+    | React.FunctionComponent<OptionRendererProps<T>>;
   /** Custom component used to override the default appearance of the dropdown select input item/s */
   tagRenderer?:
     | React.Component<TagRendererProps<T>, any>
@@ -55,7 +55,7 @@ export type DropdownProps<T> = {
   defaultValue?: T;
   /** Enables the indicator to expand the Dropdown */
   displayArrowIndicator?: boolean;
-   /** Default value selected on the Dropdown */
+  /** Default value selected on the Dropdown */
   id?: string;
   /** Optional CSS class name */
   className?: string;
@@ -70,7 +70,7 @@ export type DropdownProps<T> = {
 type OnChangeMultiProps<T> = {
   /** Support multiple selected options */
   isMultiSelect: true;
-   /** Handle change events on the Dropdown */
+  /** Handle change events on the Dropdown */
   onChange?: (value: T[]) => any;
 };
 type OnChangeSingleProps<T> = {
@@ -107,10 +107,11 @@ class Dropdown<T = LabelValue> extends React.Component<
     }
   };
 
-  handleFiltering =  (this.props.filterFunction) ?
-    (option: Option, input:string) => {
+  handleFiltering = this.props.filterFunction
+    ? (option: Option, input: string) => {
       return this.props.filterFunction(option.data, input);
-    } : undefined;
+    }
+    : undefined;
 
   render() {
     const {
@@ -133,7 +134,7 @@ class Dropdown<T = LabelValue> extends React.Component<
       tagRenderer,
       value,
       noOptionMessage,
-      isTypeAheadEnabled: isSearchable
+      isTypeAheadEnabled,
     } = this.props;
 
     return (
@@ -153,7 +154,7 @@ class Dropdown<T = LabelValue> extends React.Component<
             MultiValue: DefaultTagRenderer,
             ClearIndicator,
             MultiValueRemove,
-            NoOptionsMessage
+            NoOptionsMessage,
           }}
           defaultValue={defaultValue}
           id={id}
@@ -171,7 +172,7 @@ class Dropdown<T = LabelValue> extends React.Component<
           iconName={iconName}
           noOptionMessage={noOptionMessage}
           filterOption={this.handleFiltering}
-          isSearchable={isSearchable}
+          isSearchable={isTypeAheadEnabled}
         />
       </div>
     );
