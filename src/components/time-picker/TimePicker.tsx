@@ -112,13 +112,6 @@ const TimePicker: React.FC<TimePickerProps> = ({
 
   return (
     <div>
-      <span>SelectedOption--{JSON.stringify(selectedOption)}--</span>
-      <br />
-      <span>Input value--{inputValue}--</span>
-      <br />
-      <span>
-        Clock--{hours}:{minutes}:{seconds}--
-      </span>
       <Dropdown
         isDisabled={disabled}
         iconName="recent"
@@ -134,7 +127,6 @@ const TimePicker: React.FC<TimePickerProps> = ({
         }
         onChange={(option) => {
           // Called when the user select an option in the Dropdown menu
-          console.log('Select new value:', option);
           setSelectedOption(option);
         }}
         onKeyDown={(event) =>
@@ -143,12 +135,10 @@ const TimePicker: React.FC<TimePickerProps> = ({
         components={{ Input: TimePickerInput }}
         onInputChange={(newValue, metadata) => {
           // Called when the user set a new value in the Input field
-          console.log('onInputChange', newValue, metadata);
           if (
             metadata.action === 'set-value' ||
             metadata.action === 'input-change'
           ) {
-            console.log('--> setInputValue', newValue);
             setInputValue(newValue);
             // Remove selected hours/minutes/seconds
             setHours('');
@@ -347,11 +337,6 @@ const handleKeyDown = (event, setInputValue, options, steps, format) => {
       handleKeyboardNavigation(event, setInputValue, options, steps, format);
     }
   }
-  // else if (event.key === Keys.ENTER) {
-  //   console.log('ENTER !!!!');
-  //   // TODO Close the Dropdown menu if it's open
-  //   // Or forbid this action if 'strict' attribute is set to true
-  // }
 };
 
 export default TimePicker;
