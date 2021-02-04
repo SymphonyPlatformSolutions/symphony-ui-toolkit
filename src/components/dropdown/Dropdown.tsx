@@ -52,16 +52,17 @@ export type DropdownProps<T> = {
   isInputClearable?: boolean;
   /** Allows the usage of the component in controlled value mode */
   value?: T;
-} & TimePickerProps &
-  (OnChangeMultiProps<T> | OnChangeSingleProps<T>);
-
-type TimePickerProps = {
+  /** Custom method to filter whether an option should be displayed in the menu */
   filterOption?: any;
+  /** The value of the search input */
   inputValue?: string;
+  /** Handle key down events on the select */
   onKeyDown?: any;
+  /** Handle change events on the input */
   onInputChange?: any;
+  /** Allo to replace internal React-select components */
   components?: any;
-};
+} & (OnChangeMultiProps<T> | OnChangeSingleProps<T>);
 
 type OnChangeMultiProps<T> = {
   isMultiSelect: true;
