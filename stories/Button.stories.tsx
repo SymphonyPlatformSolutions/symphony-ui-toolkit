@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button, ButtonProps, Icon } from '../src/components';
+import { Button, Icon } from '../src/components';
 import './stories.scss';
 import '../src/styles';
 
@@ -11,7 +11,7 @@ export const Default = Template.bind({});
 
 Default.args = {
   children: 'Some Text',
-  variant:'primary'
+  variant: 'primary',
 };
 
 export const Buttons: React.FC = () => (

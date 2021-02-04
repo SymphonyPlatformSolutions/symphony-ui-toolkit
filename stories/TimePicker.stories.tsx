@@ -1,8 +1,6 @@
 import * as React from 'react';
 import TimePicker from '../src/components/time-picker';
 import './styles/dropdownMenu.stories.css';
-import { action } from '@storybook/addon-actions';
-import { Checkbox } from '../src';
 
 const Template = (args) => {
   return (
