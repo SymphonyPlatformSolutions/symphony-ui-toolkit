@@ -20,15 +20,10 @@ describe('TimePicker Component', () => {
       id: 'id-test',
       label: 'label-test',
       name: 'name-test',
-      // value: PropTypes.string,
       placeholder: 'placeholder-test',
       min: '08:00:00',
       max: '16:00:00',
-      // step: PropTypes.number,
       format: 'hh:mm:ss a',
-      // strict: PropTypes.bool,
-      // disabled: PropTypes.bool,
-      // disabledTimes: PropTypes.array,
       ...props,
     };
   }
