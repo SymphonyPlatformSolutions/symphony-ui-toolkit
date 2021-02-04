@@ -4,7 +4,7 @@ import './styles/dropdownMenu.stories.css';
 
 const Template = (args) => {
   return (
-    <div className="flex-col" style={{ width: '100%', height: '500px' }}>
+    <div className="flex-col" style={{ width: '100%', height: '350px' }}>
       <TimePicker {...args} />
     </div>
   );
