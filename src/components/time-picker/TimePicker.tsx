@@ -17,7 +17,7 @@ import {
   getOptionValue,
   getSteps,
   getUserFormat,
-} from './utils/timeUtils';
+} from './utils';
 
 // Specific Input to fix input not displayed in React-Select
 // See https://github.com/JedWatson/react-select/issues/3068
@@ -202,6 +202,7 @@ const handleKeyboardNavigation = (
   format
 ) => {
   const currentValue = event.target.value;
+
   if (!isTimeValid(currentValue, format)) {
     // If the time is not valid, let the default keyboard navigation
     // to use the dropdown menu
@@ -211,6 +212,7 @@ const handleKeyboardNavigation = (
   // Get cursor position
   const cursor = event.target.selectionStart;
   const time = getTimeFromString(currentValue);
+
   if (event.key === Keys.ARROW_UP || event.key === Keys.ARROW_DOWN) {
     // Set 'defaultPrevented' to true otherwise the navigation is enable in the Dropdown menu
     event.preventDefault();
@@ -345,7 +347,7 @@ const handleKeyDown = (
       // Handle keyboard navigation only if the focus is on the focus (not on the icon)
       handleKeyboardNavigation(event, setInputValue, options, steps, format);
     } else if (strict) {
-      // The user cis not allowed to set manually another value
+      // The user is not allowed to set manually another value
       event.preventDefault();
     }
   }
