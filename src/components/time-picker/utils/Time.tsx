@@ -1,19 +1,15 @@
 class Time {
-  hours: number;
-  minutes: number;
-  seconds: number;
+  hours: string;
+  minutes: string;
+  seconds: string;
+  ampm: string;
 
-  format: any;
-
-  constructor(time: string) {
-    // TODO: Validate the string
-  }
-
-  toDisplay(): string {
-    return ''; // Use format
-  }
-
-  toString(): string {
-    return `${this.hours}:${this.minutes}:${this.seconds}`;
+  constructor(hours: string, minutes: string, seconds?: string, ampm?: string) {
+    this.hours = hours;
+    this.minutes = minutes;
+    this.seconds = seconds;
+    this.ampm = ampm;
   }
 }
+
+export default Time;

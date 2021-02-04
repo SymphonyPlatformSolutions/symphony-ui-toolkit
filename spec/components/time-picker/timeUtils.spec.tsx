@@ -1,5 +1,6 @@
 import {
   FIELD,
+  Time,
   formatISOTimeToSeconds,
   getFormattedTime,
   getISOTimeFromLocalTime,
@@ -11,7 +12,7 @@ import {
   isTimeValid,
   matchExactTime,
   matchTimeInRange,
-} from '../../../src/components/time-picker/utils/timeUtils';
+} from '../../../src/components/time-picker/utils/';
 import { Keys } from '../../../src/components/date-picker/utils/keyUtils';
 
 describe('Time Utils', () => {
@@ -42,162 +43,32 @@ describe('Time Utils', () => {
   const steps = getSteps(options);
 
   test.each([
-    [
-      Keys.ARROW_UP,
-      FIELD.MINUTES,
-      { hours: '10', minutes: '00', seconds: '00' },
-      '30',
-    ],
-    [
-      Keys.ARROW_UP,
-      FIELD.MINUTES,
-      { hours: '11', minutes: '30', seconds: '15' },
-      '00',
-    ],
-    [
-      Keys.ARROW_UP,
-      FIELD.MINUTES,
-      { hours: '10', minutes: '00', seconds: '00' },
-      '30',
-    ],
-    [
-      Keys.ARROW_UP,
-      FIELD.MINUTES,
-      { hours: '10', minutes: '20', seconds: '00' },
-      '30',
-    ],
-    [
-      Keys.ARROW_UP,
-      FIELD.HOURS,
-      { hours: '11', minutes: '30', seconds: '15' },
-      '13',
-    ],
-    [
-      Keys.ARROW_UP,
-      FIELD.HOURS,
-      { hours: '13', minutes: '00', seconds: '30' },
-      '14',
-    ],
-    [
-      Keys.ARROW_UP,
-      FIELD.HOURS,
-      { hours: '16', minutes: '00', seconds: '00' },
-      '10',
-    ],
-    [
-      Keys.ARROW_UP,
-      FIELD.HOURS,
-      { hours: '12', minutes: '20', seconds: '00' },
-      '13',
-    ],
-    [
-      Keys.ARROW_UP,
-      FIELD.MINUTES,
-      { hours: '10', minutes: '00', seconds: '00' },
-      '30',
-    ],
-    [
-      Keys.ARROW_UP,
-      FIELD.MINUTES,
-      { hours: '10', minutes: '20', seconds: '00' },
-      '30',
-    ],
-    [
-      Keys.ARROW_UP,
-      FIELD.MINUTES,
-      { hours: '16', minutes: '00', seconds: '00' },
-      '30',
-    ],
-    [
-      Keys.ARROW_UP,
-      FIELD.SECONDS,
-      { hours: '12', minutes: '20', seconds: '00' },
-      '01',
-    ],
-    [
-      Keys.ARROW_UP,
-      FIELD.SECONDS,
-      { hours: '12', minutes: '20', seconds: '45' },
-      '46',
-    ],
-    [
-      Keys.ARROW_UP,
-      FIELD.SECONDS,
-      { hours: '12', minutes: '20', seconds: '59' },
-      '00',
-    ],
-    [
-      Keys.ARROW_DOWN,
-      FIELD.HOURS,
-      { hours: '10', minutes: '00', seconds: '00' },
-      '16',
-    ],
-    [
-      Keys.ARROW_DOWN,
-      FIELD.HOURS,
-      { hours: '13', minutes: '00', seconds: '30' },
-      '11',
-    ],
-    [
-      Keys.ARROW_DOWN,
-      FIELD.HOURS,
-      { hours: '10', minutes: '00', seconds: '00' },
-      '16',
-    ],
-    [
-      Keys.ARROW_DOWN,
-      FIELD.HOURS,
-      { hours: '12', minutes: '20', seconds: '00' },
-      '11',
-    ],
-    [
-      Keys.ARROW_DOWN,
-      FIELD.MINUTES,
-      { hours: '10', minutes: '00', seconds: '00' },
-      '30',
-    ],
-    [
-      Keys.ARROW_DOWN,
-      FIELD.MINUTES,
-      { hours: '10', minutes: '20', seconds: '00' },
-      '00',
-    ],
-    [
-      Keys.ARROW_DOWN,
-      FIELD.HOURS,
-      { hours: '12', minutes: '20', seconds: '00' },
-      '11',
-    ],
-    [
-      Keys.ARROW_DOWN,
-      FIELD.MINUTES,
-      { hours: '10', minutes: '00', seconds: '00' },
-      '30',
-    ],
-    [
-      Keys.ARROW_DOWN,
-      FIELD.MINUTES,
-      { hours: '10', minutes: '20', seconds: '00' },
-      '00',
-    ],
-    [
-      Keys.ARROW_DOWN,
-      FIELD.SECONDS,
-      { hours: '12', minutes: '20', seconds: '00' },
-      '59',
-    ],
-    [
-      Keys.ARROW_DOWN,
-      FIELD.SECONDS,
-      { hours: '12', minutes: '20', seconds: '45' },
-      '44',
-    ],
-    [
-      Keys.ARROW_DOWN,
-      FIELD.SECONDS,
-      { hours: '12', minutes: '20', seconds: '59' },
-      '58',
-    ],
+    [Keys.ARROW_UP, FIELD.MINUTES, new Time('10', '00', '00'), '30'],
+    [Keys.ARROW_UP, FIELD.MINUTES, new Time('11', '30', '15'), '00'],
+    [Keys.ARROW_UP, FIELD.MINUTES, new Time('10', '00', '00'), '30'],
+    [Keys.ARROW_UP, FIELD.MINUTES, new Time('10', '20', '00'), '30'],
+    [Keys.ARROW_UP, FIELD.HOURS, new Time('11', '30', '15'), '13'],
+    [Keys.ARROW_UP, FIELD.HOURS, new Time('13', '00', '30'), '14'],
+    [Keys.ARROW_UP, FIELD.HOURS, new Time('16', '00', '00'), '10'],
+    [Keys.ARROW_UP, FIELD.HOURS, new Time('12', '20', '00'), '13'],
+    [Keys.ARROW_UP, FIELD.MINUTES, new Time('10', '00', '00'), '30'],
+    [Keys.ARROW_UP, FIELD.MINUTES, new Time('10', '20', '00'), '30'],
+    [Keys.ARROW_UP, FIELD.MINUTES, new Time('16', '00', '00'), '30'],
+    [Keys.ARROW_UP, FIELD.SECONDS, new Time('12', '20', '00'), '01'],
+    [Keys.ARROW_UP, FIELD.SECONDS, new Time('12', '20', '45'), '46'],
+    [Keys.ARROW_UP, FIELD.SECONDS, new Time('12', '20', '59'), '00'],
+    [Keys.ARROW_DOWN, FIELD.HOURS, new Time('10', '00', '00'), '16'],
+    [Keys.ARROW_DOWN, FIELD.HOURS, new Time('13', '00', '30'), '11'],
+    [Keys.ARROW_DOWN, FIELD.HOURS, new Time('10', '00', '00'), '16'],
+    [Keys.ARROW_DOWN, FIELD.HOURS, new Time('12', '20', '00'), '11'],
+    [Keys.ARROW_DOWN, FIELD.MINUTES, new Time('10', '00', '00'), '30'],
+    [Keys.ARROW_DOWN, FIELD.MINUTES, new Time('10', '20', '00'), '00'],
+    [Keys.ARROW_DOWN, FIELD.HOURS, new Time('12', '20', '00'), '11'],
+    [Keys.ARROW_DOWN, FIELD.MINUTES, new Time('10', '00', '00'), '30'],
+    [Keys.ARROW_DOWN, FIELD.MINUTES, new Time('10', '20', '00'), '00'],
+    [Keys.ARROW_DOWN, FIELD.SECONDS, new Time('12', '20', '00'), '59'],
+    [Keys.ARROW_DOWN, FIELD.SECONDS, new Time('12', '20', '45'), '44'],
+    [Keys.ARROW_DOWN, FIELD.SECONDS, new Time('12', '20', '59'), '58'],
     [Keys.ARROW_UP, FIELD.AMPM, { ampm: 'AM' }, 'PM'],
     [Keys.ARROW_UP, FIELD.AMPM, { ampm: 'PM' }, 'AM'],
     [Keys.ARROW_DOWN, FIELD.AMPM, { ampm: 'AM' }, 'PM'],
@@ -211,21 +82,16 @@ describe('Time Utils', () => {
   );
 
   test.each([
-    [{ hours: '14', minutes: '30', seconds: '20' }, 'HH:mm', '14:30'],
-    [{ hours: '14', minutes: '30', seconds: '20' }, 'hh:mm', '02:30'],
-    [{ hours: '14', minutes: '30', seconds: '20' }, 'hh:mm a', '02:30 PM'],
-    [{ hours: '14', minutes: '30', seconds: '20' }, 'HH:mm:ss', '14:30:20'],
-    [{ hours: '14', minutes: '30', seconds: '20' }, 'hh:mm:ss', '02:30:20'],
+    [new Time('14', '30', '20'), 'HH:mm', '14:30'],
+    [new Time('14', '30', '20'), 'hh:mm', '02:30'],
+    [new Time('14', '30', '20'), 'hh:mm a', '02:30 PM'],
+    [new Time('14', '30', '20'), 'HH:mm:ss', '14:30:20'],
+    [new Time('14', '30', '20'), 'hh:mm:ss', '02:30:20'],
     [null, 'HH:mm:ss', null],
-    [{}, 'HH:mm:ss', null],
-    [
-      { hours: 'azerty', minutes: 'qsdfgh', seconds: 'wxcvb' },
-      'HH:mm:ss',
-      null,
-    ],
+    [new Time('azerty', 'qsdfgh', 'wxcvb'), 'HH:mm:ss', null],
   ])(
     'getFormattedTime with time %p and format %p',
-    (time, format, expected) => {
+    (time: Time, format: string, expected: string) => {
       const result = getFormattedTime(time, format);
       expect(result).toEqual(expected);
     }
@@ -237,12 +103,8 @@ describe('Time Utils', () => {
     [null, 'HH:mm:ss', null],
     ['azerty', 'HH:mm:ss', null],
     ['14:30:20', 'HH:mm:ss a', null], // HH and 'a' can't be at the same time
-    ['14:30:20', 'HH:mm:ss', { hours: '14', minutes: '30', seconds: '20' }],
-    [
-      '02:30:20 PM',
-      'hh:mm:ss a',
-      { hours: '14', minutes: '30', seconds: '20' },
-    ],
+    ['14:30:20', 'HH:mm:ss', new Time('14', '30', '20')],
+    ['02:30:20 PM', 'hh:mm:ss a', new Time('14', '30', '20')],
   ])(
     'getISOTimeFromLocalTime with time %p and format %p',
     (time, format, expected) => {
@@ -305,12 +167,8 @@ describe('Time Utils', () => {
   });
 
   test.each([
-    [{ hours: '14', minutes: '30', seconds: '20' }, { time: '14:30:20' }, true],
-    [
-      { hours: '15', minutes: '30', seconds: '20' },
-      { time: '14:30:20' },
-      false,
-    ],
+    [new Time('14', '30', '20'), { time: '14:30:20' }, true],
+    [new Time('15', '30', '20'), { time: '14:30:20' }, false],
     [null, { time: '14:30:20' }, false],
   ])(
     'matchExactTime with time %p and matcher %p',
@@ -321,26 +179,10 @@ describe('Time Utils', () => {
   );
 
   test.each([
-    [
-      { hours: '14', minutes: '30', seconds: '20' },
-      { from: '14:00:00', to: '15:00:00' },
-      true,
-    ],
-    [
-      { hours: '14', minutes: '00', seconds: '00' },
-      { from: '14:00:00', to: '15:00:00' },
-      true,
-    ],
-    [
-      { hours: '15', minutes: '00', seconds: '00' },
-      { from: '14:00:00', to: '15:00:00' },
-      true,
-    ],
-    [
-      { hours: '14', minutes: '00', seconds: '00' },
-      { from: '05:00:00', to: '06:00:00' },
-      false,
-    ],
+    [new Time('14', '30', '20'), { from: '14:00:00', to: '15:00:00' }, true],
+    [new Time('14', '00', '00'), { from: '14:00:00', to: '15:00:00' }, true],
+    [new Time('15', '00', '00'), { from: '14:00:00', to: '15:00:00' }, true],
+    [new Time('14', '00', '00'), { from: '05:00:00', to: '06:00:00' }, false],
     [null, { from: '14:00:00', to: '15:00:00' }, false],
   ])(
     'matchTimeInRange with time %p and matcher %p',
@@ -380,11 +222,11 @@ describe('Time Utils', () => {
   );
 
   test.each([
-    ['05:30:20 AM', { hours: '05', minutes: '30', seconds: '20', ampm: 'AM' }],
-    ['05:30 AM', { hours: '05', minutes: '30', ampm: 'AM' }],
-    ['05:30:20 PM', { hours: '05', minutes: '30', seconds: '20', ampm: 'PM' }],
-    ['18:40:10', { hours: '18', minutes: '40', seconds: '10' }],
-    ['18:40', { hours: '18', minutes: '40' }],
+    ['05:30:20 AM', new Time('05', '30', '20', 'AM')],
+    ['05:30 AM', new Time('05', '30', undefined, 'AM')],
+    ['05:30:20 PM', new Time('05', '30', '20', 'PM')],
+    ['18:40:10', new Time('18', '40', '10')],
+    ['18:40', new Time('18', '40')],
     [null, null],
     ['', null],
     ['azerty', null],
@@ -393,4 +235,16 @@ describe('Time Utils', () => {
     const result = getTimeFromString(inputTime);
     expect(result).toEqual(expected);
   });
+
+  // const getHours = (time: Time) => {
+  //   return time.hours;
+  // };
+  //
+  // test.each([[new Time('05', '30', '20'), '05']])(
+  //   'getHours with inputText %p',
+  //   (time: Time, expected) => {
+  //     const result = getHours(time);
+  //     expect(result).toEqual(expected);
+  //   }
+  // );
 });

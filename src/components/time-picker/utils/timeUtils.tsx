@@ -1,6 +1,8 @@
 import { Keys } from '../../date-picker/utils/keyUtils';
 import { format as formatTime, parse as parseTime, isValid } from 'date-fns';
 
+import Time from './Time';
+
 export const TIME_REGEXPR = {
   HH_MM_SS_12: /^(?<hours>0[0-9]|1[0-2]):(?<minutes>[0-5][0-9])(?::(?<seconds>[0-5][0-9]))?(?:\s*(?<ampm>[AaPp][Mm]))?$/,
   HH_MM_SS_24: /^(?<hours>0[0-9]|1[0-9]|2[0-3]):(?<minutes>[0-5][0-9])(?::(?<seconds>[0-5][0-9]))?$/,
@@ -58,20 +60,20 @@ export const isTimeValid = (time: string, format: string = null): boolean => {
 
 /**
  * Return true if the time is equal to the time in the matcher
- * @param time Object {hours, minutes, seconds}
+ * @param time Time {hours, minutes, seconds}
  * @param matcher Object {time: 'HH:mm:ss'}
  */
-export function matchExactTime(time, matcher): boolean {
+export function matchExactTime(time: Time, matcher): boolean {
   if (time === null || !('time' in matcher)) return false;
   return formatTimeISO(time) === matcher.time;
 }
 
 /**
  * Returns true if the range contains the time
- * @param time Object {hours, minutes, seconds}
+ * @param time Time {hours, minutes, seconds}
  * @param matcher Object {from: 'HH:mm:ss', to: 'HH:mm:ss'}
  */
-export function matchTimeInRange(time, matcher): boolean {
+export function matchTimeInRange(time: Time, matcher): boolean {
   if (time === null || !('from' in matcher) || !('to' in matcher)) return false;
   return (
     matcher.from <= formatTimeISO(time) && formatTimeISO(time) <= matcher.to
@@ -80,9 +82,9 @@ export function matchTimeInRange(time, matcher): boolean {
 
 /**
  * Format time in ISO time format 'HH:MM:SS' on 24 hours
- * @param time Object {hours, minutes, seconds}
+ * @param time Time {hours, minutes, seconds}
  */
-export const formatTimeISO = (time) => {
+export const formatTimeISO = (time: Time): string => {
   return (
     time.hours.toString().padStart(2, '0') +
     ':' +
@@ -111,7 +113,7 @@ export const formatISOTimeToSeconds = (time: string): number => {
  * Examples: '01', '23', '00', ...
  * @param number
  */
-export const getNumberOn2Digits = (number): string =>
+export const getNumberOn2Digits = (number: number): string =>
   number.toLocaleString(undefined, { minimumIntegerDigits: 2 });
 
 /**
@@ -206,7 +208,7 @@ export const isOptionSelected = (
 export const getISOTimeFromLocalTime = (
   time: string,
   format: string = TIME_FORMAT.HH_MM_SS_24
-) => {
+): Time => {
   if (!time || !format || !getTimeFromString(time)) {
     return null;
   }
@@ -221,11 +223,11 @@ export const getISOTimeFromLocalTime = (
       return null;
     }
 
-    return {
-      hours: getNumberOn2Digits(date.getHours()),
-      minutes: getNumberOn2Digits(date.getMinutes()),
-      seconds: getNumberOn2Digits(date.getSeconds()),
-    };
+    return new Time(
+      getNumberOn2Digits(date.getHours()),
+      getNumberOn2Digits(date.getMinutes()),
+      getNumberOn2Digits(date.getSeconds())
+    );
   } catch (error) {
     if (error instanceof RangeError) {
       console.error(error);
@@ -238,16 +240,20 @@ export const getISOTimeFromLocalTime = (
 
 /**
  * Return the time formatted with the format if it's provided in parameter, else it will use the locale settings of the user
- * @param time Object with {hours, seconds, minutes}
+ * @param time Time with {hours, seconds, minutes}
  * @param format
  */
-export const getFormattedTime = (time, format = null): string => {
+export const getFormattedTime = (time: Time, format = null): string => {
   if (!time) {
     // Time null or undefined
     return null;
   }
   const date = new Date();
-  date.setHours(time.hours, time.minutes, time.seconds);
+  date.setHours(
+    parseInt(time.hours, 10),
+    parseInt(time.minutes, 10),
+    parseInt(time.seconds, 10)
+  );
 
   if (!isValid(date)) {
     // Not valid
@@ -266,17 +272,17 @@ export const getFormattedTime = (time, format = null): string => {
  * Split a time given only in seconds into { hours, minutes, seconds } on 24 hours format
  *
  * @param time In seconds
- * @return { hours, minutes, seconds }
+ * @return Time { hours, minutes, seconds }
  */
-export const getTimeFromSeconds = (time: number): any => {
+export const getTimeFromSeconds = (time: number): Time => {
   const hours = Math.floor(time / 60 / 60);
   const minutes = Math.floor(time / 60) - hours * 60;
   const seconds = time % 60;
-  return {
-    hours: getNumberOn2Digits(hours),
-    minutes: getNumberOn2Digits(minutes),
-    seconds: getNumberOn2Digits(seconds),
-  };
+  return new Time(
+    getNumberOn2Digits(hours),
+    getNumberOn2Digits(minutes),
+    getNumberOn2Digits(seconds)
+  );
 };
 
 /**
@@ -365,7 +371,7 @@ export const getOptionValue = (
  *   {hours: '05', minutes: '20', seconds: '10', ampm: 'am'}
  *   {hours: '18', minutes: '20'}
  */
-export const getTimeFromString = (inputTime: string) => {
+export const getTimeFromString = (inputTime: string): Time => {
   if (!inputTime) {
     return null;
   }
@@ -386,5 +392,10 @@ export const getTimeFromString = (inputTime: string) => {
   }
 
   // Return an object {hours, minutes, seconds, ampm}
-  return { ...result.groups };
+  return new Time(
+    result.groups.hours, //null instead of undefined
+    result.groups.minutes,
+    result.groups.seconds,
+    result.groups.ampm
+  );
 };
