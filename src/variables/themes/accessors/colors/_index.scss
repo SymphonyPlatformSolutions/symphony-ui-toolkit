@@ -75,11 +75,11 @@ $--tk-datepicker-disabled-color: var(--tk-datepicker-disabled-color, $scolor-gra
 $--tk-table-hover-color: var(--tk-table-hover-color, $scolor-graphite-minus-72);
 
 /** ======== Dialog ======== */
+$dialog-backdrop: rgba($scolor-graphite-plus-72, 0.64);
 $--tk-dialog-background-color: var(--tk-dialog-background-color, $scolor-white);
-$--tk-dialog-box-shadow-color: var(--tk-dialog-box-shadow-color, $scolor-graphite-minus-72);
 $--tk-dialog-cross-color: var(--tk-dialog-cross-color, $scolor-graphite-minus-24);
 $--tk-dialog-hover-cross-color: var(--tk-dialog-hover-cross-color, $scolor-graphite);
-$--tk-dialog-backdrop-color: var(--tk-dialog-backdrop-color, $scolor-dialog-backdrop);
+$--tk-dialog-backdrop-color: var(--tk-dialog-backdrop-color, $dialog-backdrop);
 
 /** ======== List ======== */
 $--tk-list-background-color: var(--tk-list-background-color, $scolor-white);
@@ -98,9 +98,10 @@ $--tk-tag-background-hover-color: var(--tk-tag-background-hover-color, $scolor-g
 $--tk-avatar-border-color: var(--tk-avatar-border-color, $scolor-graphite-minus-88);
 
 /** ======== Card ======== */
+$card-shadow: rgba($scolor-black, 0.08);
 $--tk-card-border-color: var(--tk-card-border-color,$scolor-graphite-minus-72);
-$--tk-card-hover-color: var(--tk-card-hover-color,$scolor-card-shadow);
-$--tk-card-hover-side-color: var(--tk-card-hover-side-color,$scolor-card-shadow);
+$--tk-card-shadow-hover-color: var(--tk-card-shadow-hover-color,$card-shadow);
+$--tk-card-shadow-hover-side-color: var(--tk-card-shadow-hover-side-color,$card-shadow);
 
 /** ======== Nav ======== */
 $--tk-nav-color-default: var(--tk-nav-color-default,$scolor-graphite-minus-24);

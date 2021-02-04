@@ -28,16 +28,19 @@ $scolor-graphite-plus-48: #2b2d32;
 
 $scolor-graphite-plus-72: #17181b;
 
+$scolor-graphite-plus-89: #090a0b;
+
 $scolor-green: #5ad269;
 
 $scolor-orange: #f8c43f;
 
 $scolor-red: #ee3d3d;
 
-$scolor-white: #ffffff;
+$scolor-white: #fff;
 
-$scolor-black: #000000;
+$scolor-black: #000;
 
+// These colors should be removed from here, they don't belong
 // Shades of $scolor-electricity - missing precise percentage
 $scolor-elements-primary-hover: #29a0ff;
 $scolor-elements-primary-active: #0077d6;
@@ -64,14 +67,3 @@ $scolor-elements-destructive-hover: #f15c5c;
 $scolor-elements-destructive-active: #c83333;
 $scolor-elements-destructive-disabled: #fde8e8;
 $scolor-elements-destructive-disabled-dark: #561616;
-
-// rgba for transparency
-$scolor-dialog-backdrop: rgba(255,255,255, 0.4);
-$scolor-dialog-backdrop-dark: rgba(255,255,255, 0.1);
-$scolor-dialog-box-shadow-bottom: rgba(0, 0, 40, 0.12);
-$scolor-dialog-box-shadow-sides:  rgba(0, 0, 40, 0.24);
-$scolor-dialog-scrollbar-box-shadow: rgba(0, 0, 0, 0.5);
-$scolor-list-box-shadow:rgba(15, 27, 36, 0.12);
-$scolor-card-shadow-bottom: rgba(207, 208, 210, 0.25);
-$scolor-card-shadow-left: rgba(207, 208, 210, 0.08);
-$scolor-card-shadow:rgba(0, 0, 0, 0.08);

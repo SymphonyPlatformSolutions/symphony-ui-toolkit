@@ -1,3 +1,7 @@
+$dialog-box-shadow-bottom: rgba($scolor-midnight, 0.122);
+$dialog-box-shadow-sides: rgba($scolor-midnight, 0.24);
+$dialog-scrollbar-box-shadow: rgba($scolor-black, 0.5);
+
 .tk-dialog-backdrop {
   position: absolute;
   top: 0;
@@ -18,8 +22,8 @@
   z-index: $z-index-dialog;
   box-sizing: border-box;
   min-width: 296px;
-  box-shadow: 0px 0px 4px $scolor-dialog-box-shadow-bottom,
-    0px 8px 24px $scolor-dialog-box-shadow-sides;
+  box-shadow: 0px 0px 4px $dialog-box-shadow-bottom,
+    0px 8px 24px $dialog-box-shadow-sides;
   background: $--tk-dialog-background-color;
   outline: none;
   border-radius: 2px;
@@ -92,7 +96,7 @@
     }
     &::-webkit-scrollbar-thumb {
       border-radius: 5px;
-      background-color: $scolor-dialog-scrollbar-box-shadow;
+      background-color: $dialog-scrollbar-box-shadow;
     }
   }
 

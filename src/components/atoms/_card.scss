@@ -7,7 +7,7 @@
   border: 1px solid $--tk-card-border-color;
   box-sizing: border-box;
   &:hover {
-    box-shadow: 0px 0px 16px $--tk-card-hover-color, 0px 0px 8px $--tk-card-hover-side-color;
+    box-shadow: 0px 0px 16px $--tk-card-shadow-hover-color, 0px 0px 8px $--tk-card-shadow-hover-side-color;
     border: 1px solid $--tk-card-border-color;
   }
   &--header {

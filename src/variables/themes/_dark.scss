@@ -36,11 +36,11 @@
 
   --tk-table-hover-color: #{$scolor-graphite-plus-24};
 
+  // dialog
   --tk-dialog-background-color: #{$scolor-graphite-plus-48};
   --tk-dialog-box-shadow-color: #{$scolor-graphite-minus-24};
   --tk-dialog-cross-color: #{$scolor-graphite-minus-48};
   --tk-dialog-cross-hover-color: #{$scolor-graphite-plus-72};
-  --tk-dialog-backdrop-color: #{$scolor-dialog-backdrop-dark};
 
   --tk-list-background-color: #{$scolor-graphite-plus-48};
   --tk-list-hover-color: #{$scolor-graphite-plus-24};
@@ -56,9 +56,12 @@
 
   --tk-avatar-border-color: #{$scolor-graphite};
 
+  // Card component
+  $card-shadow-bottom: rgba($scolor-graphite-minus-72, 0.251);
+  $card-shadow-left: rgba($scolor-graphite-minus-72, 0.08);
   --tk-card-border-color: #{$scolor-graphite-plus-24};
-  --tk-card-hover-color: #{$scolor-card-shadow-bottom};
-  --tk-card-hover-side-color: #{$scolor-card-shadow-left};
+  --tk-card-shadow-hover-color: #{$card-shadow-bottom};
+  --tk-card-shadow-hover-side-color: #{$card-shadow-left};
 
   --tk-nav-color-default: #{$scolor-graphite-minus-48};
   --tk-nav-color-hover: #{$scolor-graphite-minus-72};
