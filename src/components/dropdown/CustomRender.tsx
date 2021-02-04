@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { components } from 'react-select';
-import * as PropTypes from 'prop-types';
 import Icon from '../icon';
 
 /**
@@ -93,10 +92,10 @@ export const DropdownIndicator = (props: any) => {
         <div>
           {props?.selectProps?.isMulti &&
           props?.selectProps?.displayArrowIndicator ? (
-            <components.DropdownIndicator {...props} />
-          ) : (
-            <components.DropdownIndicator {...props} className="tk-d-none" />
-          )}
+              <components.DropdownIndicator {...props} />
+            ) : (
+              <components.DropdownIndicator {...props} className="tk-d-none" />
+            )}
         </div>
       ) : (
         <components.DropdownIndicator {...props}>
@@ -135,100 +134,4 @@ export const Control = ({ children, ...props }: any) => {
       )}
     </div>
   );
-};
-//
-// export const Input = (props: any) => {
-//   const onKeyUp = props?.selectProps?.onKeyUp;
-//   return <components.Input {...props} onKeyUp={onKeyUp} />;
-// };
-
-export const TimeInput = (props) => {
-  // const hoursKeyEvent = props?.selectProps?.hoursKeyEvent;
-  const hours = props?.selectProps?.hours;
-  const setHours = props?.selectProps?.setHours;
-  const minutes = props?.selectProps?.minutes;
-  const setMinutes = props?.selectProps?.setMinutes;
-  const seconds = props?.selectProps?.seconds;
-  const setSeconds = props?.selectProps?.setSeconds;
-
-  const keyDownHandler = (event, setter) => {
-    console.log('hoursKeyDown !!!! ', event);
-    if (event.keyCode === 38) {
-      setter(event.target.value ? parseInt(event.target.value, 10) + 1 : 0);
-    } else if (event.keyCode === 40) {
-      setter(event.target.value ? parseInt(event.target.value, 10) - 1 : 0);
-    }
-  };
-
-  return (
-    <div>
-      <components.Input
-        className={'TextInput'}
-        {...props}
-        value={`${hours}:${minutes}:${seconds}`}
-      />
-      <input
-        aria-label="Hour"
-        autoComplete="off"
-        value={hours}
-        max="12"
-        min="1"
-        name="hour12"
-        type="number"
-        onChange={(event) =>
-          setHours
-            ? setHours(
-                event.target.value ? parseInt(event.target.value, 10) : 0
-              )
-            : null
-        }
-        onKeyDown={(event) => keyDownHandler(event, setHours)}
-      />
-      <span>:</span>
-      <input
-        aria-label="Minute"
-        autoComplete="off"
-        value={minutes}
-        max="59"
-        min="0"
-        name="minute"
-        type="number"
-        onChange={(event) =>
-          setMinutes
-            ? setMinutes(
-                event.target.value ? parseInt(event.target.value, 10) : 0
-              )
-            : null
-        }
-        onKeyDown={(event) => keyDownHandler(event, setMinutes)}
-      />
-      <span>:</span>
-      <input
-        aria-label="Second"
-        autoComplete="off"
-        value={seconds}
-        max="59"
-        min="0"
-        name="second"
-        type="number"
-        onChange={(event) =>
-          setSeconds
-            ? setSeconds(
-                event.target.value ? parseInt(event.target.value, 10) : 0
-              )
-            : null
-        }
-        onKeyDown={(event) => keyDownHandler(event, setSeconds)}
-      />
-    </div>
-  );
-};
-TimeInput.propTypes = {
-  setHours: PropTypes.func,
-  hours: PropTypes.number,
-  setMinutes: PropTypes.func,
-  minutes: PropTypes.number,
-  setSeconds: PropTypes.func,
-  seconds: PropTypes.number,
-  innerProps: PropTypes.any,
 };
