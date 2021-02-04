@@ -13,11 +13,11 @@ const Template = (args) => {
 export const Default = Template.bind({});
 Default.args = {
   name: 'test',
-  min: '09:00:00',
-  max: '12:00:00',
+  min: '08:00:00',
+  max: '19:00:00',
   value: '09:30:00',
   format: 'hh:mm a',
-  disabledTimes: [{ from: '10:00:00', to: '11:00:00' }, { time: '09:15:00' }],
+  disabledTimes: [{ from: '10:00:00', to: '10:15:00' }, { time: '09:15:00' }],
 };
 
 export const WithPlaceholder = Template.bind({});
