@@ -1,4 +1,4 @@
-# Contributing to UIToolkit Styles
+# 💪 Contributing to UIToolkit Styles
 
 The following is a set of guidelines for contributing to UIToolkit Styles library. These are mostly guidelines, not rules, so feel free to suggest improvements of the following
 
@@ -12,7 +12,7 @@ DevX team is the official owner of UIToolkit and the creation of any new compone
 
 - Discussing the creation of the new component by providing example use cases and contexts in UIToolkit Contributors room
 - Providing a clear design and description to devX team through a confluence document and a figma provided by UX team
-- The confluence page should document the CSS convention for using the component
+- The confluence page should document the CSS convention for using the component, the goal is to align on the simplest API to use.
 
 ## Structure and Styleguide
 
@@ -20,10 +20,16 @@ In order to keep consistency between components the following aspects are to be 
 
 - Components are all prefixed by tk- followed by component name, example:  
   _tk-button_
-- Variants of the component should use -- notation, example:  
-  _tk-button--primary_
+- As all components follow BEM convention the following rules apply:
+  - Variants of the component should use -- notation, example:  
+    _tk-button--primary_
+  - Subcomponents of a main component should append their name after two underscores, example: _tk-dialog\_\_body_
 - Atomic components (buttons, inputs) should go under atoms directory while composed ones (input group) should go under molecules
 - All components should implement light AND dark theme for this use static colors palette (variables/colors/statics) and theme accessors to be used in your component (variables/themes/accessors)
+
+## Documentation
+
+Documenting every component is very important for UItoolkit and it's done using storybook. Every separate story should represent a use case of the component
 
 ## Pull requests
 
