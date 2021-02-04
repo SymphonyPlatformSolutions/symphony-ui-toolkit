@@ -9,10 +9,8 @@ export const TIME_REGEXPR = {
 };
 
 export enum TIME_FORMAT {
-  HH_MM_12 = 'hh:mm',
-  HH_MM_SS_12 = 'hh:mm:ss',
   HH_MM_A_12 = 'hh:mm a',
-  HH_MM_SS_A_12 = 'hh:mm a',
+  HH_MM_SS_A_12 = 'hh:mm:ss a',
   HH_MM_24 = 'HH:mm',
   HH_MM_SS_24 = 'HH:mm:ss',
 }
@@ -24,7 +22,7 @@ export enum FIELD {
   AMPM = 'ampm',
 }
 
-/*
+/**
  * Detects browser's locale 24h time preference
  * It works by checking whether hour output contains a space ('1 AM' or '01')
  */
@@ -32,6 +30,15 @@ const isBrowserLocale24h = () =>
   !new Intl.DateTimeFormat(undefined, { hour: 'numeric' })
     .format(0)
     .match(/AM/);
+
+/**
+ * Return The user format depending on 12/24 hours
+ */
+export const getUserFormat = (): string => {
+  return isBrowserLocale24h()
+    ? TIME_FORMAT.HH_MM_SS_24
+    : TIME_FORMAT.HH_MM_SS_A_12;
+};
 
 /**
  * Return true if the time is valid to the format given in parameter.
@@ -260,7 +267,7 @@ export const getFormattedTime = (time: Time, format = null): string => {
     return null;
   }
 
-  if (format === null) {
+  if (!format) {
     // Return time formatted with locale time (Example: 08:50 AM or 14:55:00 ...)
     return date.toLocaleTimeString();
   }

@@ -7,7 +7,6 @@ import { Keys } from '../date-picker/utils/keyUtils';
 
 import {
   FIELD,
-  TIME_FORMAT,
   formatISOTimeToSeconds,
   getOptions,
   getISOTimeFromLocalTime,
@@ -17,6 +16,7 @@ import {
   isTimeValid,
   getOptionValue,
   getSteps,
+  getUserFormat,
 } from './utils/timeUtils';
 
 // Specific Input to fix input not displayed in React-Select
@@ -110,46 +110,48 @@ const TimePicker: React.FC<TimePickerProps> = ({
     // Todo : Raised error value not supported
   }
 
+  if (!placeholder) {
+    placeholder = format ? format : getUserFormat();
+  }
+
   return (
-    <div>
-      <Dropdown
-        isDisabled={disabled}
-        iconName="recent"
-        id={id}
-        name={name}
-        label={label}
-        placeHolder={placeholder}
-        options={options}
-        value={selectedOption}
-        isOptionDisabled={(option) => isOptionDisabled(option, disabledTimes)}
-        isOptionSelected={(option) =>
-          isOptionSelected(option, hours, minutes, seconds, disabledTimes)
+    <Dropdown
+      isDisabled={disabled}
+      iconName="recent"
+      id={id}
+      name={name}
+      label={label}
+      placeHolder={placeholder}
+      options={options}
+      value={selectedOption}
+      isOptionDisabled={(option) => isOptionDisabled(option, disabledTimes)}
+      isOptionSelected={(option) =>
+        isOptionSelected(option, hours, minutes, seconds, disabledTimes)
+      }
+      onChange={(option) => {
+        // Called when the user select an option in the Dropdown menu
+        setSelectedOption(option);
+      }}
+      onKeyDown={(event) =>
+        handleKeyDown(event, strict, setInputValue, options, steps, format)
+      }
+      components={{ Input: TimePickerInput }}
+      onInputChange={(newValue, metadata) => {
+        // Called when the user set a new value in the Input field
+        if (
+          metadata.action === 'set-value' ||
+          metadata.action === 'input-change'
+        ) {
+          setInputValue(newValue);
+          // Remove selected hours/minutes/seconds
+          setHours('');
+          setMinutes('');
+          setSeconds('');
         }
-        onChange={(option) => {
-          // Called when the user select an option in the Dropdown menu
-          setSelectedOption(option);
-        }}
-        onKeyDown={(event) =>
-          handleKeyDown(event, setInputValue, options, steps, format)
-        }
-        components={{ Input: TimePickerInput }}
-        onInputChange={(newValue, metadata) => {
-          // Called when the user set a new value in the Input field
-          if (
-            metadata.action === 'set-value' ||
-            metadata.action === 'input-change'
-          ) {
-            setInputValue(newValue);
-            // Remove selected hours/minutes/seconds
-            setHours('');
-            setMinutes('');
-            setSeconds('');
-          }
-        }}
-        inputValue={inputValue}
-        filterOption={(option, data) => true}
-      />
-    </div>
+      }}
+      inputValue={inputValue}
+      filterOption={() => true}
+    />
   );
 };
 
@@ -326,15 +328,25 @@ const handleKeyboardNavigation = (
   }
 };
 
-const handleKeyDown = (event, setInputValue, options, steps, format) => {
-  if (
-    event.key === Keys.ARROW_UP ||
-    event.key === Keys.ARROW_DOWN ||
-    event.key === Keys.TAB
-  ) {
-    if (event.target && event.target.tagName === 'INPUT') {
+const handleKeyDown = (
+  event,
+  strict,
+  setInputValue,
+  options,
+  steps,
+  format
+) => {
+  if (event.target && event.target.tagName === 'INPUT') {
+    if (
+      event.key === Keys.ARROW_UP ||
+      event.key === Keys.ARROW_DOWN ||
+      event.key === Keys.TAB
+    ) {
       // Handle keyboard navigation only if the focus is on the focus (not on the icon)
       handleKeyboardNavigation(event, setInputValue, options, steps, format);
+    } else if (strict) {
+      // The user cis not allowed to set manually another value
+      event.preventDefault();
     }
   }
 };
