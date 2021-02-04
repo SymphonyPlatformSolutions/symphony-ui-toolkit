@@ -13,7 +13,6 @@ import userEvent from '@testing-library/user-event';
 describe('TimePicker Component', () => {
   afterEach(() => {
     jest.clearAllMocks();
-    // jest.restoreAllMocks();
   });
   function createTestProps(props) {
     return {
