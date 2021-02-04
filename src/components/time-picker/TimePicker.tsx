@@ -150,7 +150,7 @@ const TimePicker: React.FC<TimePickerProps> = ({
       onKeyDown={(event) =>
         handleKeyDown(event, strict, setInputValue, options, steps, format)
       }
-      components={{ Input: TimePickerInput }}
+      components={{ Input: TimePickerInput, DropdownIndicator: () => null }}
       onInputChange={(newValue, metadata) => {
         // Called when the user set a new value in the Input field
         if (
