@@ -18,7 +18,7 @@ import { PopperContainer } from '../common/popperUtils';
 import { matchDay, matchDayMax, matchDayMin } from './utils/matchDayUtils';
 import { Direction } from './model/Direction';
 
-import { cancelEvent, Keys } from './utils/keyUtils';
+import { cancelEvent, Keys } from '../common/keyUtils';
 
 import { modifierPropTypes } from './utils/propTypesUtils';
 

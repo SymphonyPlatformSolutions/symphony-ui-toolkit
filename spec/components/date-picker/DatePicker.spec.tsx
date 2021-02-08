@@ -7,7 +7,7 @@ import DayPicker from '../../../src/components/date-picker/sub-component/DayPick
 import TextField from '../../../src/components/input/TextField';
 import Icon from '../../../src/components/icon/Icon';
 
-import { Keys } from '../../../src/components/date-picker/utils/keyUtils';
+import { Keys } from '../../../src/components/common/keyUtils';
 
 describe('DatePicker Component', () => {
   afterEach(() => {

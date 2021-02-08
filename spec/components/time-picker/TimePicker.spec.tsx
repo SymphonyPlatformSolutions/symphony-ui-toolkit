@@ -4,7 +4,7 @@ import { act } from 'react-dom/test-utils';
 
 import TimePicker from '../../../src/components/time-picker/TimePicker';
 
-import { Keys } from '../../../src/components/date-picker/utils/keyUtils';
+import { Keys } from '../../../src/components/common/keyUtils';
 import { Dropdown } from '../../../src';
 import { FIELD } from '../../../src/components/time-picker/utils';
 import { render, screen } from '@testing-library/react';

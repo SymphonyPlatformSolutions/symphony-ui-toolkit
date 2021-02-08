@@ -3,7 +3,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { Dropdown } from '../index';
 import { components } from 'react-select';
 
-import { Keys } from '../date-picker/utils/keyUtils';
+import { Keys } from '../common/keyUtils';
 
 import {
   FIELD,

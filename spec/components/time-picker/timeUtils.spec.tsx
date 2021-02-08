@@ -13,7 +13,7 @@ import {
   matchExactTime,
   matchTimeInRange,
 } from '../../../src/components/time-picker/utils/';
-import { Keys } from '../../../src/components/date-picker/utils/keyUtils';
+import { Keys } from '../../../src/components/common/keyUtils';
 
 describe('Time Utils', () => {
   // Example, with a step of 1h 30min 00s (5 400 seconds)
