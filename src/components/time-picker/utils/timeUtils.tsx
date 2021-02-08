@@ -174,7 +174,7 @@ export const getOptions = (
  */
 export const isTimeDisabled = (
   time: Time,
-  disabledTimes: string | Array<any>
+  disabledTimes: string | Array<string>
 ): boolean => {
   if (!time) {
     return true;
@@ -311,17 +311,22 @@ export const getTimeFromSeconds = (time: number): Time => {
  *   seconds: ['00', '30'],
  * }
  * @param options
+ * @param disabledTimes
  */
-export const getSteps = (options: Array<any>) => {
+export const getSteps = (options: Array<any>, disabledTimes: string | Array<string>) => {
   const hoursValues = new Set<string>();
   const minutesValues = new Set<string>();
   const secondsValues = new Set<string>();
 
   options.forEach((option) => {
-    const time = getTimeFromString(option.label);
-    hoursValues.add(time.hours);
-    minutesValues.add(time.minutes);
-    secondsValues.add(time.seconds);
+    if(!disabledTimes || disabledTimes.length === 0 || !isTimeDisabled(option.data, disabledTimes)) {
+      const time = getTimeFromString(option.label);
+      if (time) {
+        hoursValues.add(time.hours);
+        minutesValues.add(time.minutes);
+        secondsValues.add(time.seconds);
+      }
+    }
   });
 
   return {

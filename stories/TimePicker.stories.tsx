@@ -12,12 +12,6 @@ const Template = (args) => {
 
 export const Default = Template.bind({});
 Default.args = {
-  name: 'test',
-  min: '08:00:00',
-  max: '19:00:00',
-  value: '09:30:00',
-  format: 'hh:mm a',
-  disabledTimes: [{ from: '10:00:00', to: '10:15:00' }, { time: '09:15:00' }],
 };
 
 export const WithPlaceholder = Template.bind({});
@@ -42,13 +36,26 @@ WithStep.args = {
 
 export const DisabledTimes = Template.bind({});
 DisabledTimes.args = {
+  min: '08:00:00',
+  max: '19:00:00',
+  value: '09:30:00',
   disabledTimes: [
-    { from: '02:00:00', to: '05:00:00' },
-    { time: '09:15:00' },
-    { time: '09:30:00' },
-    { from: '13:30:00', to: '15:45:00' },
+    { from: '10:00:00', to: '11:00:00' },
+    { time: '15:00:00' },
+    { time: '16:30:00' },
+    { from: '17:30:00', to: '18:00:00' },
   ],
 };
+
+// export const Default = Template.bind({});
+// Default.args = {
+//   name: 'test',
+//   min: '08:00:00',
+//   max: '19:00:00',
+//   value: '09:30:00',
+//   format: 'hh:mm a',
+//   disabledTimes: [{ from: '10:00:00', to: '10:15:00' }, { time: '09:15:00' }],
+// };
 
 export const Disabled = Template.bind({});
 Disabled.args = {

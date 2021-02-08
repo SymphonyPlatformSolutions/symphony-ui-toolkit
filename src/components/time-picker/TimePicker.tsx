@@ -119,7 +119,7 @@ const TimePicker: React.FC<TimePickerProps> = ({
     [format, min, max, step]
   );
 
-  const steps = useMemo(() => getSteps(options), [options]);
+  const steps = useMemo(() => getSteps(options, disabledTimes), [options, disabledTimes]);
 
   if (step < 600 || step > 43200) {
     // Todo : Raised error value not supported

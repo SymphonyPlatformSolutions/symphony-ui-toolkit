@@ -8,7 +8,7 @@ import {
   getOptionValue,
   getSteps,
   getTimeFromString,
-  isOptionSelected,
+  isTimeSelected,
   isTimeValid,
   matchExactTime,
   matchTimeInRange,
@@ -20,23 +20,28 @@ describe('Time Utils', () => {
   const options = [
     {
       label: '10:00:00',
-      value: { index: 0, hours: '10', minutes: '00', seconds: '00' },
+      value: '10:00:00',
+      data: { index: 0, hours: '10', minutes: '00', seconds: '00' },
     },
     {
       label: '11:30:00',
-      value: { index: 1, hours: '11', minutes: '30', seconds: '00' },
+      value: '11:30:00',
+      data: { index: 1, hours: '11', minutes: '30', seconds: '00' },
     },
     {
       label: '13:00:00',
-      value: { index: 2, hours: '13', minutes: '00', seconds: '00' },
+      value: '13:00:00',
+      data: { index: 2, hours: '13', minutes: '00', seconds: '00' },
     },
     {
       label: '14:30:00',
-      value: { index: 3, hours: '14', minutes: '30', seconds: '00' },
+      value: '14:30:00',
+      data: { index: 3, hours: '14', minutes: '30', seconds: '00' },
     },
     {
       label: '16:00:00',
-      value: { index: 4, hours: '16', minutes: '00', seconds: '00' },
+      value: '16:00:00',
+      data: { index: 4, hours: '16', minutes: '00', seconds: '00' },
     },
   ];
 
@@ -54,11 +59,11 @@ describe('Time Utils', () => {
       },
     ],
   ])('getSteps with options %p', (options, expected) => {
-    const result = getSteps(options);
+    const result = getSteps(options, null);
     expect(result).toEqual(expected);
   });
 
-  const steps = getSteps(options);
+  const steps = getSteps(options, null);
 
   test.each([
     [Keys.ARROW_UP, FIELD.MINUTES, new Time('10', '00', '00'), '30'],
@@ -132,13 +137,13 @@ describe('Time Utils', () => {
   );
 
   test.each([
-    [options[1], '11', '30', '00', [], true],
-    [options[1], '11', '50', '00', [], false],
-    [options[1], '12', '30', '00', [], false],
-    [options[1], '11', '30', '40', [], false],
-    [options[1], '11', '30', '40', ['11:30:00'], false],
+    [new Time('11', '30', '00'), '11', '30', '00', [], true],
+    [new Time('11', '30', '00'), '11', '50', '00', [], false],
+    [new Time('11', '30', '00'), '12', '30', '00', [], false],
+    [new Time('11', '30', '00'), '11', '30', '40', [], false],
+    [new Time('11', '30', '00'), '11', '30', '40', ['11:30:00'], false],
     [
-      options[1],
+      new Time('11', '30', '00'),
       '11',
       '30',
       '40',
@@ -146,10 +151,10 @@ describe('Time Utils', () => {
       false,
     ],
   ])(
-    'isOptionSelected with option %p and format %p',
-    (option, hours, minutes, seconds, disabledTimes, expected) => {
-      const result = isOptionSelected(
-        option,
+    'isTimeSelected with option %p and format %p',
+    (time, hours, minutes, seconds, disabledTimes, expected) => {
+      const result = isTimeSelected(
+        time,
         hours,
         minutes,
         seconds,
@@ -219,15 +224,18 @@ describe('Time Utils', () => {
       [
         {
           label: '00:00:00',
-          value: { index: 0, hours: '00', minutes: '00', seconds: '00' },
+          value: '00:00:00',
+          data: { index: 0, hours: '00', minutes: '00', seconds: '00' },
         },
         {
           label: '00:30:00',
-          value: { index: 1, hours: '00', minutes: '30', seconds: '00' },
+          value: '00:30:00',
+          data: { index: 1, hours: '00', minutes: '30', seconds: '00' },
         },
         {
           label: '01:00:00',
-          value: { index: 2, hours: '01', minutes: '00', seconds: '00' },
+          value: '01:00:00',
+          data: { index: 2, hours: '01', minutes: '00', seconds: '00' },
         },
       ],
     ],
