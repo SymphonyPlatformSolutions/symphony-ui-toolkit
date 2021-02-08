@@ -39,7 +39,7 @@ export type DropdownProps<T> = {
   /** Decides if an item with data and current input value should be displayed in dropdown menu or not */
   filterFunction?: (data: T, inputValue: string) => boolean;
   /** Decides if an item with data and current input value should be disabled in dropdown menu or not */
-  isOptionDisabled?: (data: T) => any;
+  isOptionDisabled?: (data: T) => boolean;
   /** Decides if an item with data and current input value should be selected in dropdown menu or not */
   isOptionSelected?: (data: T) => boolean;
   /** If provided, it renders an icon on the left side of the dropdown input*/
