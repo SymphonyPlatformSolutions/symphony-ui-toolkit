@@ -2,6 +2,7 @@ import { Keys } from '../../date-picker/utils/keyUtils';
 import { format as formatTime, parse as parseTime, isValid } from 'date-fns';
 
 import Time from './Time';
+import { DropdownOption } from '../../dropdown';
 
 export const TIME_REGEXPR = {
   HH_MM_SS_12: /^(?<hours>0[0-9]|1[0-2]):(?<minutes>[0-5][0-9])(?::(?<seconds>[0-5][0-9]))?(?:\s*(?<ampm>[AaPp][Mm]))?$/,
@@ -146,8 +147,8 @@ export const getOptions = (
   min: number,
   max: number,
   step: number
-): Array<any> => {
-  const options = [];
+): Array<DropdownOption<any>> => {
+  const options: Array<DropdownOption<any>> = [];
   for (
     let currentTime = min, index = 0;
     currentTime <= max;
@@ -156,9 +157,10 @@ export const getOptions = (
     const time = getTimeFromSeconds(currentTime);
     options.push({
       label: getFormattedTime(time, format),
-      value: {
+      value: formatTimeISO(time),
+      data: {
         index, // Save the index of the Option, for easy access to the previous/next option if needed
-        ...time,
+        ...time, // hours, minutes, seconds
       },
     });
   }
@@ -166,15 +168,15 @@ export const getOptions = (
 };
 
 /**
- * Return `true` if the given option matches to a disabled time, false otherwise
- * @param option
+ * Return `true` if the given time matches to a disabled time, false otherwise
+ * @param time
  * @param disabledTimes Example '20:40:00' or ['20:40:00', '12:00:00', {from:'10:00:00', to:'11:00:00'}]
  */
-export const isOptionDisabled = (
-  option,
+export const isTimeDisabled = (
+  time: Time,
   disabledTimes: string | Array<any>
 ): boolean => {
-  if (!option) {
+  if (!time) {
     return true;
   }
   if (!disabledTimes || disabledTimes.length === 0) {
@@ -189,33 +191,31 @@ export const isOptionDisabled = (
 
   return disabledTimesAsArray.some((disabledTime) => {
     return (
-      matchExactTime(option.value, disabledTime) ||
-      matchTimeInRange(option.value, disabledTime)
+      matchExactTime(time, disabledTime) || matchTimeInRange(time, disabledTime)
     );
   });
 };
 
 /**
- * Return true if the option is matching with the hours/minutes/seconds and not appears in the disabledTimes
- * @param option
+ * Return true if the time is matching with the hours/minutes/seconds and not appears in the disabledTimes
+ * @param time
  * @param hours
  * @param minutes
  * @param seconds
  * @param disabledTimes
  */
-export const isOptionSelected = (
-  option: any,
+export const isTimeSelected = (
+  time: Time,
   hours: string,
   minutes: string,
   seconds: string,
   disabledTimes: string | Array<any>
 ): boolean =>
-  option &&
-  option.value &&
-  option.value.hours === hours &&
-  option.value.minutes === minutes &&
-  option.value.seconds === seconds &&
-  !isOptionDisabled(option, disabledTimes);
+  time &&
+  time.hours === hours &&
+  time.minutes === minutes &&
+  time.seconds === seconds &&
+  !isTimeDisabled(time, disabledTimes);
 
 /**
  * Get ISO time in an object {hours, minutes, seconds} from a given local time and format

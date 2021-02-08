@@ -12,8 +12,8 @@ import {
   getOptions,
   getISOTimeFromLocalTime,
   getTimeFromString,
-  isOptionDisabled,
-  isOptionSelected,
+  isTimeDisabled,
+  isTimeSelected,
   isTimeValid,
   getOptionValue,
   getSteps,
@@ -52,23 +52,23 @@ const TimePicker: React.FC<TimePickerProps> = ({
   useEffect(() => {
     // Called when the user select an option in the Dropdown menu
     if (selectedOption) {
-      setHours(selectedOption.value.hours);
-      setMinutes(selectedOption.value.minutes);
-      setSeconds(selectedOption.value.seconds);
+      setHours(selectedOption.data.hours);
+      setMinutes(selectedOption.data.minutes);
+      setSeconds(selectedOption.data.seconds);
       setInputValue(selectedOption.label);
     }
   }, [selectedOption]);
 
   useEffect(() => {
     let newSelectedOption = options.find(
-      (time) =>
-        time.value.hours === hours &&
-        time.value.minutes === minutes &&
-        time.value.seconds === seconds
+      (option) =>
+        option.data.hours === hours &&
+        option.data.minutes === minutes &&
+        option.data.seconds === seconds
     );
     if (
       !newSelectedOption ||
-      isOptionDisabled(newSelectedOption, disabledTimes)
+      isTimeDisabled(newSelectedOption.data, disabledTimes)
     ) {
       newSelectedOption = null;
     }
@@ -101,11 +101,10 @@ const TimePicker: React.FC<TimePickerProps> = ({
   useEffect(() => {
     // Value prop has changed
     const newTime = getISOTimeFromLocalTime(value); // Without format it will be the ISO format
-    setInputValue(getFormattedTime(newTime, format));
     if (newTime) {
-      setHours(newTime.hours);
-      setHours(newTime.minutes);
-      setHours(newTime.seconds);
+      setInputValue(getFormattedTime(newTime, format));
+    } else {
+      setInputValue('');
     }
   }, [value]);
 
@@ -140,9 +139,9 @@ const TimePicker: React.FC<TimePickerProps> = ({
       placeHolder={placeholder}
       options={options}
       value={selectedOption}
-      isOptionDisabled={(option) => isOptionDisabled(option, disabledTimes)}
-      isOptionSelected={(option) =>
-        isOptionSelected(option, hours, minutes, seconds, disabledTimes)
+      isOptionDisabled={(time) => isTimeDisabled(time, disabledTimes)}
+      isOptionSelected={(time) =>
+        isTimeSelected(time, hours, minutes, seconds, disabledTimes)
       }
       onChange={(option) => {
         // Called when the user select an option in the Dropdown menu
@@ -314,9 +313,6 @@ const handleKeyboardNavigation = (
         start = 6;
         end = 8;
       }
-      //else {
-      // Go to next component
-      //}
     } else if (cursor < 9) {
       if (event.shiftKey) {
         // Select minutes
@@ -327,18 +323,12 @@ const handleKeyboardNavigation = (
         start = 9;
         end = 11;
       }
-      // else {
-      //  Go to next component
-      // }
     } else {
       if (event.shiftKey) {
         // Select seconds
         start = 6;
         end = 8;
       }
-      // else {
-      //  Go to next component
-      // }
     }
 
     if (start != null && end != null) {
@@ -356,6 +346,7 @@ const handleKeyDown = (
   steps,
   format
 ) => {
+  // debugger;
   if (event.target && event.target.tagName === 'INPUT') {
     if (
       event.key === Keys.ARROW_UP ||

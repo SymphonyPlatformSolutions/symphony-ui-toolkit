@@ -37,8 +37,10 @@ export type DropdownProps<T> = {
   onBlur?: (e) => any;
   /** Decides if an item with data and current input value should be displayed in dropdown menu or not */
   filterFunction?: (data: T, inputValue: string) => boolean;
-  isOptionDisabled?: (option) => boolean;
-  isOptionSelected?: (option) => boolean;
+  /** Decides if an item with data and current input value should be disabled in dropdown menu or not */
+  isOptionDisabled?: (data: T) => any;
+  /** Decides if an item with data and current input value should be selected in dropdown menu or not */
+  isOptionSelected?: (data: T) => boolean;
   /** If provided, it renders an icon on the left side of the dropdown input*/
   iconName?: string;
   /** Allows the usage of the component in controlled value mode */
@@ -71,9 +73,9 @@ export type DropdownProps<T> = {
   /** The value of the search input */
   inputValue?: string;
   /** Handle key down events on the select */
-  onKeyDown?: any;
+  onKeyDown?: (event) => any;
   /** Handle change events on the input */
-  onInputChange?: any;
+  onInputChange?: (string, any) => any;
   /** Allo to replace internal React-select components */
   components?: any;
 } & (OnChangeMultiProps<T> | OnChangeSingleProps<T>);
@@ -119,9 +121,16 @@ class Dropdown<T = LabelValue> extends React.Component<
   };
 
   handleFiltering = this.props.filterFunction
-    ? (option: Option, input: string) => {
-        return this.props.filterFunction(option.data, input);
-      }
+    ? (option: Option, input: string) =>
+      this.props.filterFunction(option.data, input)
+    : undefined;
+
+  handleIsOptionDisabled = this.props.isOptionDisabled
+    ? (option: any) => this.props.isOptionDisabled(option.data)
+    : undefined;
+
+  handleIsOptionSelected = this.props.isOptionSelected
+    ? (option: any) => this.props.isOptionSelected(option.data)
     : undefined;
 
   render() {
@@ -133,8 +142,6 @@ class Dropdown<T = LabelValue> extends React.Component<
     const {
       isMultiSelect,
       isDisabled,
-      isOptionDisabled,
-      isOptionSelected,
       components,
       placeHolder,
       options,
@@ -142,7 +149,7 @@ class Dropdown<T = LabelValue> extends React.Component<
       name,
       defaultValue,
       onBlur,
-      onChange,
+      onInputChange,
       onKeyDown,
       isInputClearable,
       label,
@@ -150,9 +157,10 @@ class Dropdown<T = LabelValue> extends React.Component<
       iconName,
       tagRenderer,
       value,
+      inputValue,
       noOptionMessage,
       isTypeAheadEnabled,
-      ...otherProps
+      // ...otherProps
     } = this.props;
 
     return (
@@ -182,21 +190,22 @@ class Dropdown<T = LabelValue> extends React.Component<
           closeMenuOnSelect={closeMenuOnSelect}
           classNamePrefix={prefix}
           value={value}
-          onBlur={onBlur}
+          inputValue={inputValue}
           onChange={this.handleChange}
+          onBlur={onBlur}
+          onInputChange={onInputChange}
           onKeyDown={onKeyDown}
           options={options}
           hideSelectedOptions={hideSelectedOptions}
           placeholder={placeHolder}
           isMulti={isMultiSelect}
           isDisabled={isDisabled}
-          isOptionDisabled={isOptionDisabled}
-          isOptionSelected={isOptionSelected}
           iconName={iconName}
           noOptionMessage={noOptionMessage}
           filterOption={this.handleFiltering}
           isSearchable={isTypeAheadEnabled}
-          {...otherProps}
+          isOptionDisabled={this.handleIsOptionDisabled}
+          isOptionSelected={this.handleIsOptionSelected}
         />
       </div>
     );

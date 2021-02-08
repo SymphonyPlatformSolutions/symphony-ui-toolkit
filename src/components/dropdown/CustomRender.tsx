@@ -17,7 +17,10 @@ const stopPropagation = (e) => {
 
 export const DefaultOptionRenderer = (props: any) => {
   const OptionRenderer = props?.selectProps?.optionRenderer;
-  const rendererProps = { data: props.data, inputValue: props.selectProps?.inputValue };
+  const rendererProps = {
+    data: props.data,
+    inputValue: props.selectProps?.inputValue,
+  };
   return (
     <div>
       {OptionRenderer ? (
@@ -31,8 +34,21 @@ export const DefaultOptionRenderer = (props: any) => {
   );
 };
 
+// Specific Input to fix input not displayed in React-Select
+// See https://github.com/JedWatson/react-select/issues/3068
+// See https://github.com/JedWatson/react-select/discussions/4302
+const TimePickerInput = (props) => (
+  <components.Input {...props} isHidden={false} />
+);
+
+// export const Input = (props: any) => {
+//   const OptionRenderer = props.selectProps.optionRenderer;
+//   const rendererProps = { data: props.data };
+//   return <components.Input {...props} isHidden={false} />;
+// };
+
 export const SingleValue = (props: any) => {
-  const OptionRenderer = props.selectProps.optionRenderer;
+  const OptionRenderer = props.selectProps.inputRenderer;
   const rendererProps = { data: props.data };
   return (
     <div>
@@ -92,10 +108,10 @@ export const DropdownIndicator = (props: any) => {
         <div>
           {props?.selectProps?.isMulti &&
           props?.selectProps?.displayArrowIndicator ? (
-              <components.DropdownIndicator {...props} />
-            ) : (
-              <components.DropdownIndicator {...props} className="tk-d-none" />
-            )}
+            <components.DropdownIndicator {...props} />
+          ) : (
+            <components.DropdownIndicator {...props} className="tk-d-none" />
+          )}
         </div>
       ) : (
         <components.DropdownIndicator {...props}>
