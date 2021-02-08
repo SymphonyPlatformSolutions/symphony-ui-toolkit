@@ -7,8 +7,18 @@ import { ValidatorFn } from '../../core/validators/validators';
 enum ACTION {
   RESET = 'reset',
   ON_INIT = 'onInit',
-  ON_CHANGE= 'onChange',
+  ON_CHANGE = 'onChange',
 }
+
+export type EventWithValue<T> = { target: { value: T } };
+
+// Every component that want to be compatible with Validation Component should use this type
+export type ValidationEvent<T> = {
+  onChange?: (event: EventWithValue<T>) => any;
+  onBlur?: (event: EventWithValue<T>) => any;
+  onInit?: (value: T) => any;
+  onValidationChanged?: (errors: ErrorMessages) => any;
+};
 
 const ValidationPropTypes = {
   validator: PropTypes.oneOfType([
@@ -64,7 +74,12 @@ class Validation extends React.Component<
 
   componentDidUpdate(prevProps, prevState) {
     // call updateState whenever value or errorsChildMap change
-    if (this.state.lastAction !== ACTION.RESET && this.state !== ACTION.ON_INIT && prevState.lastValue !== this.state.lastValue || prevState.errorsChildMap !== this.state.errorsChildMap) {
+    if (
+      (this.state.lastAction !== ACTION.RESET &&
+        this.state !== ACTION.ON_INIT &&
+        prevState.lastValue !== this.state.lastValue) ||
+      prevState.errorsChildMap !== this.state.errorsChildMap
+    ) {
       this.updateState(this.state.lastValue);
     }
   }
@@ -80,13 +95,20 @@ class Validation extends React.Component<
     }
     return React.cloneElement(child as any, {
       onInit: (value: any) => {
-        this.setState({ initialValue: value, lastValue: value, lastAction: ACTION.ON_INIT });
+        this.setState({
+          initialValue: value,
+          lastValue: value,
+          lastAction: ACTION.ON_INIT,
+        });
         if (child.props.onInit) {
           child.props.onInit(value);
         }
       },
       onChange: (event: any) => {
-        this.setState({ lastValue: event.target.value, lastAction: ACTION.ON_CHANGE });
+        this.setState({
+          lastValue: event.target.value,
+          lastAction: ACTION.ON_CHANGE,
+        });
         if (child.props.onChange) {
           child.props.onChange(event);
         }
@@ -98,7 +120,7 @@ class Validation extends React.Component<
         }
       },
       onValidationChanged: (errorsChildMap: ErrorMessages) => {
-        this.setState({ errorsChildMap })
+        this.setState({ errorsChildMap });
       },
     });
   }
@@ -171,7 +193,12 @@ class Validation extends React.Component<
    * Reset to default value and reset errors
    */
   public reset(): void {
-    this.setState({ lastValue: this.state.initialValue, lastAction: ACTION.RESET, isValid: null, errors: [] });
+    this.setState({
+      lastValue: this.state.initialValue,
+      lastAction: ACTION.RESET,
+      isValid: null,
+      errors: [],
+    });
   }
 
   /**
