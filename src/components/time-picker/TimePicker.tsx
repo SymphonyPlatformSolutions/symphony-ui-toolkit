@@ -18,6 +18,7 @@ import {
   getOptionValue,
   getSteps,
   getUserFormat,
+  getFormattedTime,
 } from './utils';
 
 // Specific Input to fix input not displayed in React-Select
@@ -99,8 +100,8 @@ const TimePicker: React.FC<TimePickerProps> = ({
 
   useEffect(() => {
     // Value prop has changed
-    setInputValue(value);
     const newTime = getISOTimeFromLocalTime(value); // Without format it will be the ISO format
+    setInputValue(getFormattedTime(newTime, format));
     if (newTime) {
       setHours(newTime.hours);
       setHours(newTime.minutes);

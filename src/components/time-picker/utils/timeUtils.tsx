@@ -318,9 +318,10 @@ export const getSteps = (options: Array<any>) => {
   const secondsValues = new Set<string>();
 
   options.forEach((option) => {
-    hoursValues.add(option.value[FIELD.HOURS]);
-    minutesValues.add(option.value[FIELD.MINUTES]);
-    secondsValues.add(option.value[FIELD.SECONDS]);
+    const time = getTimeFromString(option.label);
+    hoursValues.add(time.hours);
+    minutesValues.add(time.minutes);
+    secondsValues.add(time.seconds);
   });
 
   return {

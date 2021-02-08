@@ -40,6 +40,24 @@ describe('Time Utils', () => {
     },
   ];
 
+  test.each([
+    [
+      [
+        { label: '09:30:35 AM' },
+        { label: '10:40:25 AM' },
+        { label: '05:50:12 PM' },
+      ],
+      {
+        hours: ['05', '09', '10'],
+        minutes: ['30', '40', '50'],
+        seconds: ['12', '25', '35'],
+      },
+    ],
+  ])('getSteps with options %p', (options, expected) => {
+    const result = getSteps(options);
+    expect(result).toEqual(expected);
+  });
+
   const steps = getSteps(options);
 
   test.each([
