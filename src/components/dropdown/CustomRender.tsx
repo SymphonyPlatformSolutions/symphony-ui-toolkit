@@ -103,10 +103,10 @@ export const DropdownIndicator = (props: any) => {
         <div>
           {props?.selectProps?.isMulti &&
           props?.selectProps?.displayArrowIndicator ? (
-            <components.DropdownIndicator {...props} />
-          ) : (
-            <components.DropdownIndicator {...props} className="tk-d-none" />
-          )}
+              <components.DropdownIndicator {...props} />
+            ) : (
+              <components.DropdownIndicator {...props} className="tk-d-none" />
+            )}
         </div>
       ) : (
         <components.DropdownIndicator {...props}>

@@ -129,9 +129,9 @@ export const WithValidationComponent: React.SFC = () => {
         onValidationChanged={logChange}
         errorMessage={{
           format: 'Le format est incorrect',
-          disabledTime: "L'heure n'est pas disponible",
-          maxTime: "L'heure est trop tard",
-          minTime: "L'heure est trop trop",
+          disabledTime: 'L\'heure n\'est pas disponible',
+          maxTime: 'L\'heure est trop tard',
+          minTime: 'L\'heure est trop trop',
         }}
       >
         <TimePicker
