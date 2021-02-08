@@ -17,7 +17,7 @@ const stopPropagation = (e) => {
 
 export const DefaultOptionRenderer = (props: any) => {
   const OptionRenderer = props?.selectProps?.optionRenderer;
-  const rendererProps = { data: props.data };
+  const rendererProps = { data: props.data, inputValue: props.selectProps?.inputValue };
   return (
     <div>
       {OptionRenderer ? (
@@ -131,6 +131,21 @@ export const Control = ({ children, ...props }: any) => {
         </components.Control>
       ) : (
         <components.Control {...props}>{children}</components.Control>
+      )}
+    </div>
+  );
+};
+
+export const NoOptionsMessage = (props: any) => {
+  const noOptionMessage = props.selectProps?.noOptionMessage;
+  return (
+    <div>
+      {noOptionMessage ? (
+        <components.NoOptionsMessage {...props}>
+          <div>{noOptionMessage}</div>
+        </components.NoOptionsMessage>
+      ) : (
+        <components.NoOptionsMessage {...props} />
       )}
     </div>
   );

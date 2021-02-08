@@ -9,6 +9,7 @@ const CustomComponent = (props) => {
     return (<div>{props?.data?.label}</div>);
   }
 }
+
 describe('Dropdown component test suite =>', () => {
   const dropdownProps = {
     options: [],
@@ -35,12 +36,14 @@ describe('Dropdown component test suite =>', () => {
     });
     
     it('should select first option', async () => {
-      const { getByText } = render(<Dropdown options={dropdownProps.options} />);
+      const { getByText } = render(<Dropdown options={dropdownProps.options} noOptionMessage="no options message"/>);
       const input = screen.getByRole('textbox');
       userEvent.click(input);
       const option = screen.getByText('banana');
       userEvent.click(option);
       expect(getByText('banana')).toBeTruthy();
+      userEvent.type(input, 'zz');
+      expect(screen.getByText('no options message')).toBeTruthy();
     });
     
     it('should render costum render dropdown', async () => {

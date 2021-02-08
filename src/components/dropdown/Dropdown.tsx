@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Select from 'react-select';
+import { Option } from 'react-select/src/filters';
 import {
   ClearIndicator,
   Control,
@@ -9,6 +10,7 @@ import {
   MultiValueContainerOverride,
   MultiValueRemove,
   SingleValue,
+  NoOptionsMessage,
 } from './CustomRender';
 import {
   DropdownOption,
@@ -21,39 +23,51 @@ import {
 const prefix = 'tk-select';
 
 export type DropdownProps<T> = {
+  /** Array of options that populate the dropdown menu */
   options: DropdownOption<T>[];
-  defaultValue?: T;
-  /** Enables the indicator to expand the Dropdown */
-  displayArrowIndicator?: boolean;
-  isDisabled?: boolean;
-  isOptionDisabled?: (option) => boolean;
-  isOptionSelected?: (option) => boolean;
-  id?: string;
-  name?: string;
-  placeHolder?: string;
-  label?: string;
-  onBlur?: (e) => any;
-  className?: string;
-  /** Used to override the default appearance of the list items. */
+  /** Custom component used to override the default appearance of the list items. */
   optionRenderer?:
     | React.Component<OptionRendererProps<T>, any>
     | React.FunctionComponent<OptionRendererProps<T>>;
-  /** Used to override the default appearance of the dropdown select input item/s */
+  /** Custom component used to override the default appearance of the dropdown select input item/s */
   tagRenderer?:
     | React.Component<TagRendererProps<T>, any>
     | React.FunctionComponent<TagRendererProps<T>>;
-  /* It renders an icon on the left side of the dropdown input*/
+  /** Handle blur events on the control */
+  onBlur?: (e) => any;
+  /** Decides if an item with data and current input value should be displayed in dropdown menu or not */
+  filterFunction?: (data: T, inputValue: string) => boolean;
+  isOptionDisabled?: (option) => boolean;
+  isOptionSelected?: (option) => boolean;
+  /** If provided, it renders an icon on the left side of the dropdown input*/
   iconName?: string;
+  /** Allows the usage of the component in controlled value mode */
+  value?: T;
+  /** Mesage to display if there isn't any match in the search input */
+  noOptionMessage?: string;
+  /** Is the dropdown disabled */
+  isDisabled?: boolean;
+  /** Placeholder text for the dropdown */
+  placeHolder?: string;
+  /** Label text for the dropdown */
+  label?: string;
+  /** If false, user can not type on the control Input */
+  isTypeAheadEnabled?: boolean;
+  /** Default value selected on the Dropdown */
+  defaultValue?: T;
+  /** Enables the indicator to expand the Dropdown */
+  displayArrowIndicator?: boolean;
+  /** Default value selected on the Dropdown */
+  id?: string;
+  name?: string;
+  /** Optional CSS class name */
+  className?: string;
   /** Close the expanded menu when the user selects an option */
   closeMenuOnSelect?: boolean;
   /** Hide the selected option from the list */
   hideSelectedOptions?: boolean;
-  /** Enables the indicator to fully clear the selected content */
+  /** Is the select value clearable */
   isInputClearable?: boolean;
-  /** Allows the usage of the component in controlled value mode */
-  value?: T;
-  /** Custom method to filter whether an option should be displayed in the menu */
-  filterOption?: any;
   /** The value of the search input */
   inputValue?: string;
   /** Handle key down events on the select */
@@ -65,7 +79,9 @@ export type DropdownProps<T> = {
 } & (OnChangeMultiProps<T> | OnChangeSingleProps<T>);
 
 type OnChangeMultiProps<T> = {
+  /** Support multiple selected options */
   isMultiSelect: true;
+  /** Handle change events on the Dropdown */
   onChange?: (value: T[]) => any;
 };
 type OnChangeSingleProps<T> = {
@@ -96,6 +112,18 @@ class Dropdown<T = LabelValue> extends React.Component<
     ),
   };
 
+  handleChange = (selectedOption) => {
+    if (this.props.onChange) {
+      this.props.onChange(selectedOption);
+    }
+  };
+
+  handleFiltering = this.props.filterFunction
+    ? (option: Option, input: string) => {
+        return this.props.filterFunction(option.data, input);
+      }
+    : undefined;
+
   render() {
     const {
       hideSelectedOptions,
@@ -122,7 +150,8 @@ class Dropdown<T = LabelValue> extends React.Component<
       iconName,
       tagRenderer,
       value,
-      filterOption,
+      noOptionMessage,
+      isTypeAheadEnabled,
       ...otherProps
     } = this.props;
 
@@ -143,6 +172,7 @@ class Dropdown<T = LabelValue> extends React.Component<
             MultiValue: DefaultTagRenderer,
             ClearIndicator,
             MultiValueRemove,
+            NoOptionsMessage,
             ...components,
           }}
           defaultValue={defaultValue}
@@ -152,8 +182,8 @@ class Dropdown<T = LabelValue> extends React.Component<
           closeMenuOnSelect={closeMenuOnSelect}
           classNamePrefix={prefix}
           value={value}
-          onChange={onChange}
           onBlur={onBlur}
+          onChange={this.handleChange}
           onKeyDown={onKeyDown}
           options={options}
           hideSelectedOptions={hideSelectedOptions}
@@ -163,7 +193,9 @@ class Dropdown<T = LabelValue> extends React.Component<
           isOptionDisabled={isOptionDisabled}
           isOptionSelected={isOptionSelected}
           iconName={iconName}
-          filterOption={filterOption}
+          noOptionMessage={noOptionMessage}
+          filterOption={this.handleFiltering}
+          isSearchable={isTypeAheadEnabled}
           {...otherProps}
         />
       </div>
@@ -174,6 +206,7 @@ class Dropdown<T = LabelValue> extends React.Component<
     isDisabled: false,
     isMultiSelect: false,
     isInputClearable: false,
+    isTypeAheadEnabled: true,
   };
 }
 

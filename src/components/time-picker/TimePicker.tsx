@@ -151,7 +151,7 @@ const TimePicker: React.FC<TimePickerProps> = ({
       onKeyDown={(event) =>
         handleKeyDown(event, strict, setInputValue, options, steps, format)
       }
-      components={{ Input: TimePickerInput, DropdownIndicator: () => null }}
+      components={{ Input: TimePickerInput }}
       onInputChange={(newValue, metadata) => {
         // Called when the user set a new value in the Input field
         if (
@@ -166,7 +166,7 @@ const TimePicker: React.FC<TimePickerProps> = ({
         }
       }}
       inputValue={inputValue}
-      filterOption={() => true}
+      filterFunction={() => true}
     />
   );
 };

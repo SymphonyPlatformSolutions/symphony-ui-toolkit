@@ -28,5 +28,5 @@ Content.args = {
 };
 
 export default {
-  title: 'Components/Card',
+  title: 'Components/Containers/Card',
 };
