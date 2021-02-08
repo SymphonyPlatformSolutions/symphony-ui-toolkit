@@ -105,38 +105,6 @@ describe('Tooltip', () => {
 
   it('should propagate onClick to Tooltip children properly when displayTrigger is click', async () => {
     displayTrigger = 'click'
-    const changeButtonText = () => {
-      const button = document.querySelector('#button')
-      button.textContent = 'Text Edited'
-    }
-
-    render(
-      <Tooltip
-        closeLabel={closeLabel}
-        description={description}
-        displayTrigger={ displayTrigger }
-        id={id}
-        onHintClose={ onHintClose }
-        placement="top"
-        visible={visible}
-      >
-        <button id="button" onClick={changeButtonText}>Tooltip toggles when I am clicked</button>
-      </Tooltip>
-    );
-
-    userEvent.click(screen.getByRole('button', {'name': /tooltip toggles when I am clicked/i}))
-
-    await waitFor(() => {
-      expect(screen.getByText(/tooltip$/i)).toBeInTheDocument()
-    })
-
-    await waitFor(() => {
-      expect(screen.getByText(/text edited$/i)).toBeInTheDocument()
-    })
-  })
-
-  it('should propagate onClick to Tooltip children properly when displayTrigger is click', async () => {
-    displayTrigger = 'click'
 
     render(
       <Tooltip
@@ -150,7 +118,7 @@ describe('Tooltip', () => {
       >
         <button
           id="button"
-          onClick={() => changeElementText('#button', 'text edited')}
+          onClick={() => changeElementText('#button', 'Text Edited')}
         >
           Tooltip toggles when I am clicked
         </button>
