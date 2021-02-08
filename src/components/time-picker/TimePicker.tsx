@@ -8,17 +8,25 @@ import {
   FIELD,
   formatTimeISO,
   formatISOTimeToSeconds,
-  getOptions,
+  getFormattedTime,
   getISOTimeFromLocalTime,
+  getOptions,
+  getOptionValue,
+  getSteps,
   getTimeFromString,
+  getUserFormat,
   isTimeDisabled,
   isTimeSelected,
   isTimeValid,
-  getOptionValue,
-  getSteps,
-  getUserFormat,
-  getFormattedTime,
+  Time,
 } from './utils';
+
+import { ErrorMessages } from '../validation/Validation';
+
+const enum STEP {
+  MIN_STEP_VALUE = 600,
+  MAX_STEP_VALUE = 43200,
+}
 
 const TimePicker: React.FC<TimePickerProps> = ({
   id,
@@ -34,6 +42,7 @@ const TimePicker: React.FC<TimePickerProps> = ({
   disabled,
   disabledTimes = [],
   onChange,
+  onValidationChanged,
 }) => {
   const [hours, setHours] = useState('');
   const [minutes, setMinutes] = useState('');
@@ -76,17 +85,19 @@ const TimePicker: React.FC<TimePickerProps> = ({
       setSeconds(newTime.seconds);
     }
 
+    if (onValidationChanged) {
+      onValidationChanged(
+        computeError(inputValue, newTime, min, max, disabledTimes)
+      );
+    }
+
     // Called onChange prop
     if (onChange) {
-      const data = {
+      onChange({
         target: {
-          value: {
-            input: inputValue,
-            iso: formatTimeISO(newTime),
-          },
+          value: inputValue,
         },
-      };
-      onChange(data);
+      });
     }
   }, [inputValue]);
 
@@ -96,7 +107,7 @@ const TimePicker: React.FC<TimePickerProps> = ({
     if (newTime) {
       setInputValue(getFormattedTime(newTime, format));
     } else {
-      setInputValue('');
+      setInputValue(value);
     }
   }, [value]);
 
@@ -111,10 +122,23 @@ const TimePicker: React.FC<TimePickerProps> = ({
     [format, min, max, step]
   );
 
-  const steps = useMemo(() => getSteps(options, disabledTimes), [options, disabledTimes]);
+  const steps = useMemo(() => getSteps(options, disabledTimes), [
+    options,
+    disabledTimes,
+  ]);
 
-  if (step < 600 || step > 43200) {
-    // Todo : Raised error value not supported
+  if (step < STEP.MIN_STEP_VALUE) {
+    const defaultStepValue = STEP.MIN_STEP_VALUE;
+    console.error(
+      `Invalid step value: Step value ${step} too small, the value ${defaultStepValue} will be used.`
+    );
+    step = defaultStepValue;
+  } else if (step > STEP.MAX_STEP_VALUE) {
+    const defaultStepValue = STEP.MAX_STEP_VALUE;
+    console.error(
+      `Invalid step value: Step value ${step} too big, the value ${defaultStepValue} will be used.`
+    );
+    step = defaultStepValue;
   }
 
   if (!placeholder) {
@@ -125,6 +149,7 @@ const TimePicker: React.FC<TimePickerProps> = ({
     <Dropdown
       isDisabled={disabled}
       iconName="recent"
+      displayArrowIndicator={false}
       id={id}
       name={name}
       label={label}
@@ -176,6 +201,7 @@ export type TimePickerProps = {
   disabled?: boolean;
   disabledTimes?: any;
   onChange?: (event) => void;
+  onValidationChanged?: (errors: ErrorMessages) => any;
 };
 
 TimePicker.propTypes = {
@@ -192,6 +218,41 @@ TimePicker.propTypes = {
   disabled: PropTypes.bool,
   disabledTimes: PropTypes.array,
   onChange: PropTypes.func,
+  onValidationChanged: PropTypes.func,
+};
+
+/**
+ * Test if the input value raised an error to the Validation component
+ * @param value Input value
+ * @param time Value parsed in ISO Time
+ * @param min Min Time value in ISO format
+ * @param max Max Time value in ISO format
+ * @param disabledTimes
+ */
+const computeError = (
+  value: string,
+  time: Time,
+  min: string,
+  max: string,
+  disabledTimes: string | Array<string>
+): ErrorMessages => {
+  if (!value) {
+    return null;
+  }
+
+  if (!time) {
+    return { format: 'The time format is incorrect' };
+  } else {
+    if (formatTimeISO(time) < min) {
+      return { maxTime: 'Time too early' };
+    } else if (max < formatTimeISO(time)) {
+      return { minTime: 'Time too late' };
+    } else if (isTimeDisabled(time, disabledTimes)) {
+      return { disabledTime: 'This time is not available' };
+    } else {
+      return null;
+    }
+  }
 };
 
 /**
@@ -338,7 +399,6 @@ const handleKeyDown = (
   steps,
   format
 ) => {
-  // debugger;
   if (event.target && event.target.tagName === 'INPUT') {
     if (
       event.key === Keys.ARROW_UP ||
