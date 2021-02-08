@@ -2,6 +2,8 @@ import { Keys } from '../../common/keyUtils';
 
 import { format as formatTime, parse as parseTime, isValid } from 'date-fns';
 
+import { matchExactTime, matchTimeInRange } from './matchTimeUtils';
+
 import Time from './Time';
 import { DropdownOption } from '../../dropdown';
 
@@ -66,28 +68,6 @@ export const isTimeValid = (time: string, format: string = null): boolean => {
   // Time value of Date: http://es5.github.io/#x15.9.1.1
   return !isNaN(date.getTime());
 };
-
-/**
- * Return true if the time is equal to the time in the matcher
- * @param time Time {hours, minutes, seconds}
- * @param matcher Object {time: 'HH:mm:ss'}
- */
-export function matchExactTime(time: Time, matcher): boolean {
-  if (time === null || !('time' in matcher)) return false;
-  return formatTimeISO(time) === matcher.time;
-}
-
-/**
- * Returns true if the range contains the time
- * @param time Time {hours, minutes, seconds}
- * @param matcher Object {from: 'HH:mm:ss', to: 'HH:mm:ss'}
- */
-export function matchTimeInRange(time: Time, matcher): boolean {
-  if (time === null || !('from' in matcher) || !('to' in matcher)) return false;
-  return (
-    matcher.from <= formatTimeISO(time) && formatTimeISO(time) <= matcher.to
-  );
-}
 
 /**
  * Format time in ISO time format 'HH:MM:SS' on 24 hours
@@ -314,13 +294,20 @@ export const getTimeFromSeconds = (time: number): Time => {
  * @param options
  * @param disabledTimes
  */
-export const getSteps = (options: Array<any>, disabledTimes: string | Array<string>) => {
+export const getSteps = (
+  options: Array<any>,
+  disabledTimes: string | Array<string>
+) => {
   const hoursValues = new Set<string>();
   const minutesValues = new Set<string>();
   const secondsValues = new Set<string>();
 
   options.forEach((option) => {
-    if(!disabledTimes || disabledTimes.length === 0 || !isTimeDisabled(option.data, disabledTimes)) {
+    if (
+      !disabledTimes ||
+      disabledTimes.length === 0 ||
+      !isTimeDisabled(option.data, disabledTimes)
+    ) {
       const time = getTimeFromString(option.label);
       if (time) {
         hoursValues.add(time.hours);
