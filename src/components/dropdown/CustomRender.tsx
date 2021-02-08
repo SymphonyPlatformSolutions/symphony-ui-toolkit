@@ -37,15 +37,10 @@ export const DefaultOptionRenderer = (props: any) => {
 // Specific Input to fix input not displayed in React-Select
 // See https://github.com/JedWatson/react-select/issues/3068
 // See https://github.com/JedWatson/react-select/discussions/4302
-const TimePickerInput = (props) => (
-  <components.Input {...props} isHidden={false} />
-);
-
-// export const Input = (props: any) => {
-//   const OptionRenderer = props.selectProps.optionRenderer;
-//   const rendererProps = { data: props.data };
-//   return <components.Input {...props} isHidden={false} />;
-// };
+export const Input = (props: any) => {
+  const inputAlwaysDisplayed = props?.selectProps?.inputAlwaysDisplayed;
+  return inputAlwaysDisplayed ? <components.Input {...props} isHidden={false} /> : <components.Input {...props}/>
+};
 
 export const SingleValue = (props: any) => {
   const OptionRenderer = props.selectProps.inputRenderer;

@@ -1,7 +1,6 @@
 import * as PropTypes from 'prop-types';
 import React, { useState, useEffect, useMemo } from 'react';
 import { Dropdown } from '../index';
-import { components } from 'react-select';
 
 import { Keys } from '../common/keyUtils';
 
@@ -20,13 +19,6 @@ import {
   getUserFormat,
   getFormattedTime,
 } from './utils';
-
-// Specific Input to fix input not displayed in React-Select
-// See https://github.com/JedWatson/react-select/issues/3068
-// See https://github.com/JedWatson/react-select/discussions/4302
-const TimePickerInput = (props) => (
-  <components.Input {...props} isHidden={false} />
-);
 
 const TimePicker: React.FC<TimePickerProps> = ({
   id,
@@ -150,7 +142,6 @@ const TimePicker: React.FC<TimePickerProps> = ({
       onKeyDown={(event) =>
         handleKeyDown(event, strict, setInputValue, options, steps, format)
       }
-      components={{ Input: TimePickerInput }}
       onInputChange={(newValue, metadata) => {
         // Called when the user set a new value in the Input field
         if (
@@ -165,6 +156,7 @@ const TimePicker: React.FC<TimePickerProps> = ({
         }
       }}
       inputValue={inputValue}
+      inputAlwaysDisplayed={true}
       filterFunction={() => true}
     />
   );

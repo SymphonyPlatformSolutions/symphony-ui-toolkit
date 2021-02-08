@@ -7,6 +7,7 @@ import {
   DefaultOptionRenderer,
   DefaultTagRenderer,
   DropdownIndicator,
+  Input,
   MultiValueContainerOverride,
   MultiValueRemove,
   SingleValue,
@@ -43,6 +44,8 @@ export type DropdownProps<T> = {
   isOptionSelected?: (data: T) => boolean;
   /** If provided, it renders an icon on the left side of the dropdown input*/
   iconName?: string;
+  /** If provided, it decides if the input should always be displayed even if the option is selected*/
+  inputAlwaysDisplayed?: boolean;
   /** Allows the usage of the component in controlled value mode */
   value?: T;
   /** Mesage to display if there isn't any match in the search input */
@@ -76,8 +79,6 @@ export type DropdownProps<T> = {
   onKeyDown?: (event) => any;
   /** Handle change events on the input */
   onInputChange?: (string, any) => any;
-  /** Allo to replace internal React-select components */
-  components?: any;
 } & (OnChangeMultiProps<T> | OnChangeSingleProps<T>);
 
 type OnChangeMultiProps<T> = {
@@ -142,7 +143,6 @@ class Dropdown<T = LabelValue> extends React.Component<
     const {
       isMultiSelect,
       isDisabled,
-      components,
       placeHolder,
       options,
       id,
@@ -155,12 +155,12 @@ class Dropdown<T = LabelValue> extends React.Component<
       label,
       optionRenderer,
       iconName,
+      inputAlwaysDisplayed,
       tagRenderer,
       value,
       inputValue,
       noOptionMessage,
       isTypeAheadEnabled,
-      // ...otherProps
     } = this.props;
 
     return (
@@ -175,13 +175,13 @@ class Dropdown<T = LabelValue> extends React.Component<
             DropdownIndicator,
             Control,
             SingleValue,
+            Input,
             Option: DefaultOptionRenderer,
             MultiValueContainer: MultiValueContainerOverride,
             MultiValue: DefaultTagRenderer,
             ClearIndicator,
             MultiValueRemove,
             NoOptionsMessage,
-            ...components,
           }}
           defaultValue={defaultValue}
           id={id}
@@ -191,6 +191,7 @@ class Dropdown<T = LabelValue> extends React.Component<
           classNamePrefix={prefix}
           value={value}
           inputValue={inputValue}
+          inputAlwaysDisplayed={inputAlwaysDisplayed}
           onChange={this.handleChange}
           onBlur={onBlur}
           onInputChange={onInputChange}
