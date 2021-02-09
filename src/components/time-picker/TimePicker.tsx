@@ -23,7 +23,7 @@ import {
 
 import { ErrorMessages } from '../validation/Validation';
 
-const enum STEP {
+enum STEP {
   MIN_STEP_VALUE = 600,
   MAX_STEP_VALUE = 43200,
 }
