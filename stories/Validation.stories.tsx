@@ -13,6 +13,7 @@ import { Validators } from '../src/core/validators/validators';
 export const Validations = () => {
   const [date, setDate] = useState(null);
   const [dropdown, setDropdown] = useState(null);
+  const [multiDropdown, setMultiDropdown] = useState(null);
   const logChange = (value, errorsMap) => {
     if (!value) {
       console.log('Component is valid:', value);
@@ -119,6 +120,27 @@ export const Validations = () => {
           onChange={(e) => {
             setDropdown(e.target.value);
           }}
+          isInputClearable
+        ></Dropdown>
+      </Validation>
+      <Validation
+        onValidationChanged={logChange}
+        validator={[Validators.Required]}
+        errorMessage={{ required: 'This field is required' }}
+      >
+        <Dropdown
+          value={multiDropdown}
+          placeHolder="Multi select..."
+          options={[
+            { value: '1', label: 'option 1' },
+            { value: '2', label: 'option 2' },
+            { value: '3', label: 'option 3' },
+          ]}
+          onChange={(e) => {
+            console.log(e);
+            setMultiDropdown(e.target.value);
+          }}
+          isMultiSelect
         ></Dropdown>
       </Validation>
       <h2>Multiple validators</h2>
@@ -183,7 +205,7 @@ export const Validations = () => {
         onValidationChanged={logChange}
         errorMessage={{
           format: 'Le format est incorrect',
-          disabledDate: 'La date n\'est pas disponible',
+          disabledDate: "La date n'est pas disponible",
           maxDate: 'La date est ...',
           minDate: 'La date est trop ancienne',
         }}

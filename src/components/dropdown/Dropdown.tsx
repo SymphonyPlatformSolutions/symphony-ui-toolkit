@@ -1,4 +1,7 @@
-import { EventWithValue, HasValidationProps } from 'components/validation/Validation';
+import {
+  EventWithValue,
+  HasValidationProps,
+} from 'components/validation/Validation';
 import * as React from 'react';
 import Select from 'react-select';
 import {
@@ -23,7 +26,6 @@ const prefix = 'tk-select';
 
 export type DropdownProps<T> = {
   options: DropdownOption<T>[];
-  defaultValue?: T;
   /** Enables the indicator to expand the Dropdown */
   displayArrowIndicator?: boolean;
   isDisabled?: boolean;
@@ -48,17 +50,20 @@ export type DropdownProps<T> = {
   hideSelectedOptions?: boolean;
   /** Enables the indicator to fully clear the selected content */
   isInputClearable?: boolean;
-  /** Allows the usage of the component in controlled value mode */
-  value?: T;
-} & HasValidationProps<T> & (OnChangeMultiProps<T> | OnChangeSingleProps<T>);
+}  & (OnChangeMultiProps<T> | OnChangeSingleProps<T>);
 
 type OnChangeMultiProps<T> = {
   isMultiSelect: true;
-  onChange?: (value: EventWithValue<T[]>) => any;
-};
+  defaultValue?: T[];
+  value?: T[];
+} & HasValidationProps<T[]>;
+
 type OnChangeSingleProps<T> = {
   isMultiSelect?: false;
-};
+  defaultValue?: T;
+  /** Allows the usage of the component in controlled value mode */
+  value?: T;
+} & HasValidationProps<T>;
 
 type DropdownState<T> = {
   selectedOption: T;
@@ -84,9 +89,9 @@ class Dropdown<T = LabelValue> extends React.Component<
   };
 
   componentDidMount() {
-    const {onInit, value } = this.props;
-    if(onInit && value ){
-      onInit(value);
+    const { onInit, value } = this.props;
+    if (onInit && value) {
+      onInit(value as any);
     }
   }
 
@@ -99,7 +104,7 @@ class Dropdown<T = LabelValue> extends React.Component<
   handleBlur = () => {
     const { value } = this.props;
     if (this.props.onBlur) {
-      this.props.onBlur({ target: { value: value } });
+      this.props.onBlur({ target: { value: value as any } });
     }
   };
 
