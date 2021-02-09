@@ -15,7 +15,6 @@ import {
   ModalBody,
   ModalFooter,
 } from './modal';
-import TimePicker from './time-picker';
 import Typography from './typography';
 import Card from './card';
 import Loader from './loader';
@@ -38,7 +37,6 @@ export {
   Radio,
   TextArea,
   TextField,
-  TimePicker,
   Tooltip,
   TooltipProps,
   Validation,
@@ -61,3 +59,4 @@ export {
 export * from './button';
 export * from './dropdown';
 export * from './nav';
+export * from './time-picker';

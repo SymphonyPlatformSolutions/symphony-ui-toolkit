@@ -28,7 +28,7 @@ enum STEP {
   MAX_STEP_VALUE = 43200,
 }
 
-const TimePicker: React.FC<TimePickerProps> = ({
+export const TimePicker: React.FC<TimePickerProps> = ({
   id,
   label,
   name,
