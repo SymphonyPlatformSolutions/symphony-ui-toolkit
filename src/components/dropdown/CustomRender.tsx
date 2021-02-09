@@ -43,7 +43,7 @@ export const Input = (props: any) => {
 };
 
 export const SingleValue = (props: any) => {
-  const OptionRenderer = props.selectProps.inputRenderer;
+  const OptionRenderer = props.selectProps.optionRenderer;
   const rendererProps = { data: props.data };
   return (
     <div>
