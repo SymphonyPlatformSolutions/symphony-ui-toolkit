@@ -69,7 +69,6 @@ textarea.tk-input {
 
     border-radius: toEm(4, $fontSize) 0 0 toEm(4, $fontSize);
     color: $scolor-white;
-    z-index: $z-index-input;
     @include addTransition();
 
   }
