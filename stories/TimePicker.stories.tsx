@@ -22,7 +22,14 @@ const Template = (args) => {
 };
 
 export const Default = Template.bind({});
-Default.args = {};
+Default.args = {
+  name: 'test',
+  min: '08:00:00',
+  max: '19:00:00',
+  value: '09:30:00',
+  format: 'hh:mm a',
+  disabledTimes: [{ from: '10:00:00', to: '10:15:00' }, { time: '09:15:00' }],
+};
 
 export const WithPlaceholder = Template.bind({});
 WithPlaceholder.args = {
