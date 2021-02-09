@@ -21,7 +21,7 @@ import {
   Time,
 } from './utils';
 
-import { ErrorMessages } from '../validation/Validation';
+import { ErrorMessages } from '../validation/interfaces';
 
 enum STEP {
   MIN_STEP_VALUE = 600,
@@ -160,7 +160,8 @@ export const TimePicker: React.FC<TimePickerProps> = ({
       isOptionSelected={(time) =>
         isTimeSelected(time, hours, minutes, seconds, disabledTimes)
       }
-      onChange={(option) => {
+      onChange={(newValue) => {
+        const option = newValue && newValue.target && newValue.target.value ? newValue.target.value : null;
         // Called when the user select an option in the Dropdown menu
         setSelectedOption(option);
       }}

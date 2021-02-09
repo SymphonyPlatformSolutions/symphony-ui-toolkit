@@ -3,12 +3,10 @@ import * as PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
 import classNames from 'classnames';
 import { ValidatorFn } from '../../core/validators/validators';
-
-enum ACTION {
-  RESET = 'reset',
-  ON_INIT = 'onInit',
-  ON_CHANGE= 'onChange',
-}
+import {
+  ACTION,
+  ErrorMessages,
+} from './interfaces';
 
 const ValidationPropTypes = {
   validator: PropTypes.oneOfType([
@@ -23,7 +21,6 @@ const ValidationPropTypes = {
   validateOnInit: PropTypes.string,
 };
 
-export type ErrorMessages = string | { [key: string]: string };
 interface ValidationProps {
   onValidationChanged?: (
     isValid: boolean,

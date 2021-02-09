@@ -19,6 +19,9 @@ import {
   OptionRendererProps,
   TagRendererProps,
 } from './interfaces';
+import {
+  HasValidationProps,
+} from '../validation/interfaces';
 
 // css baseclass prefix
 const prefix = 'tk-select';
@@ -46,8 +49,6 @@ export type DropdownProps<T> = {
   iconName?: string;
   /** If provided, it decides if the input should always be displayed even if the option is selected*/
   inputAlwaysDisplayed?: boolean;
-  /** Allows the usage of the component in controlled value mode */
-  value?: T;
   /** Mesage to display if there isn't any match in the search input */
   noOptionMessage?: string;
   /** Is the dropdown disabled */
@@ -58,8 +59,6 @@ export type DropdownProps<T> = {
   label?: string;
   /** If false, user can not type on the control Input */
   isTypeAheadEnabled?: boolean;
-  /** Default value selected on the Dropdown */
-  defaultValue?: T;
   /** Enables the indicator to expand the Dropdown */
   displayArrowIndicator?: boolean;
   /** Default value selected on the Dropdown */
@@ -84,13 +83,17 @@ export type DropdownProps<T> = {
 type OnChangeMultiProps<T> = {
   /** Support multiple selected options */
   isMultiSelect: true;
-  /** Handle change events on the Dropdown */
-  onChange?: (value: T[]) => any;
-};
+  defaultValue?: T[];
+  value?: T[];
+} & HasValidationProps<T[]>;
+
 type OnChangeSingleProps<T> = {
   isMultiSelect?: false;
-  onChange?: (value: T) => any;
-};
+  /** Default value selected on the Dropdown */
+  defaultValue?: T;
+  /** Allows the usage of the component in controlled value mode */
+  value?: T;
+} & HasValidationProps<T>;
 
 type DropdownState<T> = {
   selectedOption: T;
@@ -115,9 +118,23 @@ class Dropdown<T = LabelValue> extends React.Component<
     ),
   };
 
+  componentDidMount() {
+    const { onInit, value } = this.props;
+    if (onInit && value) {
+      onInit(value as any);
+    }
+  }
+
   handleChange = (selectedOption) => {
     if (this.props.onChange) {
-      this.props.onChange(selectedOption);
+      this.props.onChange({ target: { value: selectedOption } });
+    }
+  };
+
+  handleBlur = () => {
+    const { value } = this.props;
+    if (this.props.onBlur) {
+      this.props.onBlur({ target: { value: value as any } });
     }
   };
 
@@ -148,7 +165,6 @@ class Dropdown<T = LabelValue> extends React.Component<
       id,
       name,
       defaultValue,
-      onBlur,
       onInputChange,
       onKeyDown,
       isInputClearable,
@@ -193,7 +209,7 @@ class Dropdown<T = LabelValue> extends React.Component<
           inputValue={inputValue}
           inputAlwaysDisplayed={inputAlwaysDisplayed}
           onChange={this.handleChange}
-          onBlur={onBlur}
+          onBlur={this.handleBlur}
           onInputChange={onInputChange}
           onKeyDown={onKeyDown}
           options={options}
