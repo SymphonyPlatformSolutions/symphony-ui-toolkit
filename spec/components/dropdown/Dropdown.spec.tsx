@@ -1,8 +1,10 @@
 import * as React from 'react';
 import userEvent from '@testing-library/user-event';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor, waitForElementToBeRemoved } from '@testing-library/react';
 import Dropdown from '../../../src/components/dropdown';
 import '@testing-library/jest-dom/extend-expect';
+import { Button, Validation } from '../../../src/components';
+import { Validators } from '../../../src/core/validators/validators';
 
 const CustomComponent = (props) => {
   if (props.data){
@@ -104,6 +106,38 @@ describe('Dropdown component test suite =>', () => {
       const option = screen.getByText('banana');
       userEvent.click(option);
       expect(getByText('banana')).toBeTruthy();
+    });
+  });
+  describe('when is with Validation Component', () => {
+    it('should be triggered on Blur and on Change', async () => {
+      const { getByText } = render(<>
+        <Button>Outside target</Button>
+        <Validation
+          validator={[Validators.Required]}
+          errorMessage={{ required: 'This field is required' }}>
+          <Dropdown
+            isMultiSelect
+            options={dropdownProps.options}
+            optionRenderer={CustomComponent}
+            displayArrowIndicator
+            tagRenderer={CustomComponent}
+          />
+        </Validation>
+      </>
+      );
+      const input = screen.getByRole('textbox');
+      userEvent.click(input);
+      // on Blur
+      const button = screen.getByRole('button');
+      userEvent.click(button);
+      await waitFor(() => expect(getByText('This field is required')).toBeTruthy())
+
+      // on Change
+      userEvent.click(input);
+      const option = screen.getByText('banana');
+      userEvent.click(option);
+      expect(getByText('banana')).toBeTruthy();
+      waitForElementToBeRemoved(() => getByText('This field is required'));
     });
   });
 });
