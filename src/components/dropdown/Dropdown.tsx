@@ -78,17 +78,17 @@ export type DropdownProps<T> = {
   onKeyDown?: (event) => any;
   /** Handle change events on the input */
   onInputChange?: (string, any) => any;
-} & (OnChangeMultiProps<T> | OnChangeSingleProps<T>);
+} & (MultiModeProps<T> | SingleModeProps<T>);
 
-type OnChangeMultiProps<T> = {
+type MultiModeProps<T> = {
   /** Support multiple selected options */
   isMultiSelect: true;
   defaultValue?: T[];
   value?: T[];
 } & HasValidationProps<T[]>;
 
-type OnChangeSingleProps<T> = {
-  isMultiSelect?: false;
+type SingleModeProps<T> = {
+  isMultiSelect: false;
   /** Default value selected on the Dropdown */
   defaultValue?: T;
   /** Allows the usage of the component in controlled value mode */
