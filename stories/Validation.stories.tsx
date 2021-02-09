@@ -1,11 +1,19 @@
 import { withKnobs } from '@storybook/addon-knobs';
 import React, { useState } from 'react';
 
-import { DatePicker, Dropdown, TextArea, TextField, Validation } from '../src/components';
+import {
+  DatePicker,
+  Dropdown,
+  TextArea,
+  TextField,
+  Validation,
+} from '../src/components';
 import { Validators } from '../src/core/validators/validators';
 
 export const Validations = () => {
   const [date, setDate] = useState(null);
+  const [dropdown, setDropdown] = useState(null);
+  const [multiDropdown, setMultiDropdown] = useState(null);
   const logChange = (value, errorsMap) => {
     if (!value) {
       console.log('Component is valid:', value);
@@ -102,9 +110,37 @@ export const Validations = () => {
         validator={[Validators.Required]}
         errorMessage={{ required: 'This field is required' }}
       >
-        <Dropdown options={[{value:'1', label: 'option 1'},{value:'2', label: 'option 2'} ]}>
-        
-        </Dropdown>
+        <Dropdown
+          value={dropdown}
+          options={[
+            { value: '1', label: 'option 1' },
+            { value: '2', label: 'option 2' },
+            { value: '3', label: 'option 3' },
+          ]}
+          onChange={(e) => {
+            setDropdown(e.target.value);
+          }}
+          isInputClearable
+        ></Dropdown>
+      </Validation>
+      <Validation
+        onValidationChanged={logChange}
+        validator={[Validators.Required]}
+        errorMessage={{ required: 'This field is required' }}
+      >
+        <Dropdown
+          value={multiDropdown}
+          placeHolder="Multi select..."
+          options={[
+            { value: '1', label: 'option 1' },
+            { value: '2', label: 'option 2' },
+            { value: '3', label: 'option 3' },
+          ]}
+          onChange={(e) => {
+            setMultiDropdown(e.target.value);
+          }}
+          isMultiSelect
+        ></Dropdown>
       </Validation>
       <h2>Multiple validators</h2>
       <p>
@@ -188,12 +224,14 @@ export const Validations = () => {
       <p>The Validation component wraps the component to be validated.</p>
       <p>
         To be able to validate the component, the child component must take in
-        parameters three methods: <strong>onInit</strong>, <strong>onChange</strong> and <strong>onBlur</strong> methods.
+        parameters three methods: <strong>onInit</strong>,{' '}
+        <strong>onChange</strong> and <strong>onBlur</strong> methods.
       </p>
       <p>
-        When the component is initialized, call the onInit method with the initial value of the component.
-        Call onInit method when the component is initialized by passing the value of the component as a parameter.
-        Call onChange method when the child&apos;s value changes and call onBlur
+        When the component is initialized, call the onInit method with the
+        initial value of the component. Call onInit method when the component is
+        initialized by passing the value of the component as a parameter. Call
+        onChange method when the child&apos;s value changes and call onBlur
         method when it loses the focus.
       </p>
       <p>Here another example with a validation on a Text Area</p>
