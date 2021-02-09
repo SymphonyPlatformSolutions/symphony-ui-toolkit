@@ -261,16 +261,4 @@ describe('Time Utils', () => {
     const result = getTimeFromString(inputTime);
     expect(result).toEqual(expected);
   });
-
-  // const getHours = (time: Time) => {
-  //   return time.hours;
-  // };
-  //
-  // test.each([[new Time('05', '30', '20'), '05']])(
-  //   'getHours with inputText %p',
-  //   (time: Time, expected) => {
-  //     const result = getHours(time);
-  //     expect(result).toEqual(expected);
-  //   }
-  // );
 });
