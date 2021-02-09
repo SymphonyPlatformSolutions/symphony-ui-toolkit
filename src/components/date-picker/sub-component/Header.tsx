@@ -4,7 +4,7 @@ import React, { FunctionComponent } from 'react';
 import Icon from '../../icon/Icon';
 import { addMonths, addYears } from 'date-fns';
 
-import { Keys, cancelEvent } from '../utils/keyUtils';
+import { Keys, cancelEvent } from '../../common/keyUtils';
 import { Direction } from '../model/Direction';
 import { HeaderLabel } from '../model/HeaderLabel';
 

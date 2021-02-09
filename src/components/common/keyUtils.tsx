@@ -12,10 +12,10 @@ export enum Keys {
   ARROW_UP = 'ArrowUp',
   ARROW_RIGHT = 'ArrowRight',
   ARROW_DOWN = 'ArrowDown',
+  BACKSPACE = 'Backspace',
 }
 
 export function cancelEvent(e) {
   e.preventDefault();
   e.stopPropagation();
 }
-

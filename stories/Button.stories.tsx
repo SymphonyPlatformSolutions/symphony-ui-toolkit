@@ -11,7 +11,7 @@ export const Default = Template.bind({});
 
 Default.args = {
   children: 'Some Text',
-  variant:'primary'
+  variant: 'primary',
 };
 
 export const Buttons: React.FC = () => (

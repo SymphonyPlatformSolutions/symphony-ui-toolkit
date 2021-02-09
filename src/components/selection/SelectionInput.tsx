@@ -6,7 +6,7 @@ import shortid from 'shortid';
 import SelectionTypes from './SelectionTypes';
 import SelectionStatus, { getCheckedValue } from './SelectionStatus';
 import LabelPlacements from './LabelPlacements';
-import { Keys } from '../date-picker/utils/keyUtils';
+import { Keys } from '../common/keyUtils';
 
 interface SelectionInputProps {
   id?: string;

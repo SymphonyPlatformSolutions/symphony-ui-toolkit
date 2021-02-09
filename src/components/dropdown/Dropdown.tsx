@@ -7,6 +7,7 @@ import {
   DefaultOptionRenderer,
   DefaultTagRenderer,
   DropdownIndicator,
+  Input,
   MultiValueContainerOverride,
   MultiValueRemove,
   SingleValue,
@@ -40,8 +41,14 @@ export type DropdownProps<T> = {
   onBlur?: (e) => any;
   /** Decides if an item with data and current input value should be displayed in dropdown menu or not */
   filterFunction?: (data: T, inputValue: string) => boolean;
+  /** Decides if an item with data and current input value should be disabled in dropdown menu or not */
+  isOptionDisabled?: (data: T) => boolean;
+  /** Decides if an item with data and current input value should be selected in dropdown menu or not */
+  isOptionSelected?: (data: T) => boolean;
   /** If provided, it renders an icon on the left side of the dropdown input*/
   iconName?: string;
+  /** If provided, it decides if the input should always be displayed even if the option is selected*/
+  inputAlwaysDisplayed?: boolean;
   /** Mesage to display if there isn't any match in the search input */
   noOptionMessage?: string;
   /** Is the dropdown disabled */
@@ -56,6 +63,7 @@ export type DropdownProps<T> = {
   displayArrowIndicator?: boolean;
   /** Default value selected on the Dropdown */
   id?: string;
+  name?: string;
   /** Optional CSS class name */
   className?: string;
   /** Close the expanded menu when the user selects an option */
@@ -64,6 +72,12 @@ export type DropdownProps<T> = {
   hideSelectedOptions?: boolean;
   /** Is the select value clearable */
   isInputClearable?: boolean;
+  /** The value of the search input */
+  inputValue?: string;
+  /** Handle key down events on the select */
+  onKeyDown?: (event) => any;
+  /** Handle change events on the input */
+  onInputChange?: (string, any) => any;
 } & (OnChangeMultiProps<T> | OnChangeSingleProps<T>);
 
 type OnChangeMultiProps<T> = {
@@ -125,9 +139,16 @@ class Dropdown<T = LabelValue> extends React.Component<
   };
 
   handleFiltering = this.props.filterFunction
-    ? (option: Option, input: string) => {
-      return this.props.filterFunction(option.data, input);
-    }
+    ? (option: Option, input: string) =>
+      this.props.filterFunction(option.data, input)
+    : undefined;
+
+  handleIsOptionDisabled = this.props.isOptionDisabled
+    ? (option: any) => this.props.isOptionDisabled(option.data)
+    : undefined;
+
+  handleIsOptionSelected = this.props.isOptionSelected
+    ? (option: any) => this.props.isOptionSelected(option.data)
     : undefined;
 
   render() {
@@ -142,13 +163,18 @@ class Dropdown<T = LabelValue> extends React.Component<
       placeHolder,
       options,
       id,
+      name,
       defaultValue,
+      onInputChange,
+      onKeyDown,
       isInputClearable,
       label,
       optionRenderer,
       iconName,
+      inputAlwaysDisplayed,
       tagRenderer,
       value,
+      inputValue,
       noOptionMessage,
       isTypeAheadEnabled,
     } = this.props;
@@ -165,6 +191,7 @@ class Dropdown<T = LabelValue> extends React.Component<
             DropdownIndicator,
             Control,
             SingleValue,
+            Input,
             Option: DefaultOptionRenderer,
             MultiValueContainer: MultiValueContainerOverride,
             MultiValue: DefaultTagRenderer,
@@ -174,12 +201,17 @@ class Dropdown<T = LabelValue> extends React.Component<
           }}
           defaultValue={defaultValue}
           id={id}
+          name={name}
           className={prefix}
           closeMenuOnSelect={closeMenuOnSelect}
           classNamePrefix={prefix}
           value={value}
+          inputValue={inputValue}
+          inputAlwaysDisplayed={inputAlwaysDisplayed}
           onChange={this.handleChange}
           onBlur={this.handleBlur}
+          onInputChange={onInputChange}
+          onKeyDown={onKeyDown}
           options={options}
           hideSelectedOptions={hideSelectedOptions}
           placeholder={placeHolder}
@@ -189,6 +221,8 @@ class Dropdown<T = LabelValue> extends React.Component<
           noOptionMessage={noOptionMessage}
           filterOption={this.handleFiltering}
           isSearchable={isTypeAheadEnabled}
+          isOptionDisabled={this.handleIsOptionDisabled}
+          isOptionSelected={this.handleIsOptionSelected}
         />
       </div>
     );

@@ -4,7 +4,7 @@ import SelectionTypes from '../../../src/components/selection/SelectionTypes';
 
 import { SelectionInput } from '../../../src/components/selection/SelectionInput';
 import { act } from 'react-dom/test-utils';
-import { Keys } from '../../../src/components/date-picker/utils/keyUtils';
+import { Keys } from '../../../src/components/common/keyUtils';
 
 describe('SelectionInput Component', () => {
   describe('SelectionInput test suite => ', () => {

@@ -17,7 +17,10 @@ const stopPropagation = (e) => {
 
 export const DefaultOptionRenderer = (props: any) => {
   const OptionRenderer = props?.selectProps?.optionRenderer;
-  const rendererProps = { data: props.data, inputValue: props.selectProps?.inputValue };
+  const rendererProps = {
+    data: props.data,
+    inputValue: props.selectProps?.inputValue,
+  };
   return (
     <div>
       {OptionRenderer ? (
@@ -29,6 +32,14 @@ export const DefaultOptionRenderer = (props: any) => {
       )}
     </div>
   );
+};
+
+// Specific Input to fix input not displayed in React-Select
+// See https://github.com/JedWatson/react-select/issues/3068
+// See https://github.com/JedWatson/react-select/discussions/4302
+export const Input = (props: any) => {
+  const inputAlwaysDisplayed = props?.selectProps?.inputAlwaysDisplayed;
+  return inputAlwaysDisplayed ? <components.Input {...props} isHidden={false} /> : <components.Input {...props}/>
 };
 
 export const SingleValue = (props: any) => {
