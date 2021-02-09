@@ -1,4 +1,4 @@
-import { EventWithValue, ValidationEvent } from 'components/validation/Validation';
+import { EventWithValue, HasValidationProps } from 'components/validation/Validation';
 import * as React from 'react';
 import Select from 'react-select';
 import {
@@ -50,15 +50,14 @@ export type DropdownProps<T> = {
   isInputClearable?: boolean;
   /** Allows the usage of the component in controlled value mode */
   value?: T;
-} & ValidationEvent<T> & (OnChangeMultiProps<T> | OnChangeSingleProps<T>);
+} & HasValidationProps<T> & (OnChangeMultiProps<T> | OnChangeSingleProps<T>);
 
 type OnChangeMultiProps<T> = {
   isMultiSelect: true;
-  // onChange?: (value: EventWithValue<T>) => any;
+  onChange?: (value: EventWithValue<T[]>) => any;
 };
 type OnChangeSingleProps<T> = {
   isMultiSelect?: false;
-  onChange?: (value: EventWithValue<T[]>) => any;
 };
 
 type DropdownState<T> = {

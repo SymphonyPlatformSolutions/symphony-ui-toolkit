@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import * as PropTypes from 'prop-types';
 import Icon from '../icon';
 import Tooltip from '../tooltip';
-import { ValidationEvent } from 'components/validation/Validation';
+import { HasValidationProps } from 'components/validation/Validation';
 
 enum Types {
   TEXTAREA = 'TextArea',
@@ -33,7 +33,7 @@ type TextComponentProps = {
   tooltip?: string;
   tooltipCloseLabel?: string;
   value?: string;
-} & ValidationEvent<string>;
+} & HasValidationProps<string>;
 
 type TextComponentPropsWithType = TextComponentProps & InputBaseProps & {
   type: Types;

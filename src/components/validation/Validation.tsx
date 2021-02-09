@@ -12,8 +12,8 @@ enum ACTION {
 
 export type EventWithValue<T> = { target: { value: T } };
 
-// Every component that want to be compatible with Validation Component should use this type
-export type ValidationEvent<T> = {
+// Every component that want to be compatible with Validation Component should use this HasValidationProps props
+export type HasValidationProps<T> = {
   onChange?: (event: EventWithValue<T>) => any;
   onBlur?: (event: EventWithValue<T>) => any;
   onInit?: (value: T) => any;

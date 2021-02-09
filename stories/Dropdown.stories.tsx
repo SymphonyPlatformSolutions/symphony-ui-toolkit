@@ -103,7 +103,7 @@ export const Select: React.FC = () => (
   <div>
     <h2>Dropdown</h2>
     <h3>Default</h3>
-    <Dropdown options={timeZoneOptions} iconName="recent" onChange={(value)=>{console.info(value)}}/>
+    <Dropdown options={timeZoneOptions} iconName="world" onChange={(value)=>{console.info(value)}}/>
     <p className="tk-mt-4">
 			With <Typography variant="bold">placeholder</Typography>
     </p>
