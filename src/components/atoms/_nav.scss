@@ -9,9 +9,10 @@ ul.tk-nav {
   }
 }
 
+/* This should most probably be moved inside --tabs in order to support later more 
+kinds of nav */
 li.tk-nav {
   &-item {
-    margin-left:0;
     cursor: pointer;
     text-transform: uppercase;
     text-decoration: none;
@@ -20,6 +21,12 @@ li.tk-nav {
     margin: 0.5rem 0.75rem;
     color: $--tk-nav-color-default;
     border-bottom: 3px solid transparent;
+    &:first-child {
+      margin-left: 0;
+    }
+    &:last-child {
+      margin-right: 0;
+    }
     &--active {
       color: $--tk-nav-color-active;
       border-bottom-color: $scolor-electricity !important;
