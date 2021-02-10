@@ -23,7 +23,7 @@ export interface NavItem {
 export class Nav extends React.Component<NavProps, NavState> {
 
   state = {
-    activeNavItemId: this.props?.activeItemId || 0,
+    activeNavItemId: this.props?.activeItemId || this.props.items[0]?.id,
   }
 
   onClick = (e: React.MouseEvent<HTMLElement>, navItem: NavItem) => {
