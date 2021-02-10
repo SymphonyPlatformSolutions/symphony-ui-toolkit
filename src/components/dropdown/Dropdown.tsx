@@ -218,6 +218,7 @@ class Dropdown<T = LabelValue> extends React.Component<
           isSearchable={isTypeAheadEnabled}
           isOptionDisabled={this.handleIsOptionDisabled}
           isOptionSelected={this.handleIsOptionSelected}
+          menuPlacement="auto"
         />
       </div>
     );
