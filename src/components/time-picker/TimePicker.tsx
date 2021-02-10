@@ -171,7 +171,6 @@ export const TimePicker: React.FC<TimePickerProps> = ({
       onInputChange={(newValue, metadata) => {
         // Called when the user set a new value in the Input field
         if (
-          metadata.action === 'set-value' ||
           metadata.action === 'input-change'
         ) {
           setInputValue(newValue);
