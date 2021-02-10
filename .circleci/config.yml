@@ -14,7 +14,7 @@ jobs:
       - run: echo "always-auth=true" >> ~/.npmrc
       - run: yarn
       - run: yarn lint
-      - run: yarn test-once
+      # - run: yarn test-once
       - run: yarn build
       - run: bash ./publish.sh
       - run: rm -f ~/.npmrc
