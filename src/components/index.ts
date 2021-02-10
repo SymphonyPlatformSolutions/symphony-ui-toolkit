@@ -60,3 +60,4 @@ export * from './button';
 export * from './dropdown';
 export * from './nav';
 export * from './time-picker';
+export * from './scale';

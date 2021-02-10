@@ -1,11 +1,11 @@
 
 import * as React from 'react';
 
-type NavProps = {
+export type NavProps = {
   /** List of items displayed on the Navigation bar */
   items: NavItem[];
   /** If is not defined, the first item will be active by default. */
-  activeItemId?: number;
+  activeItemId?: number|string;
   onActiveTabChange?: (navItem: NavItem) => void;
 };
 type NavState = {
@@ -14,11 +14,13 @@ type NavState = {
 
 export interface NavItem {
   label: string;
-  id: number;
-  isDisabled?: boolean;
+  id: number|string;
+  
+  // Not supported so far keep until supported
+  // isDisabled?: boolean;
 }
 
-class Nav extends React.Component<NavProps, NavState> {
+export class Nav extends React.Component<NavProps, NavState> {
 
   state = {
     activeNavItemId: this.props?.activeItemId || 0,
@@ -39,15 +41,11 @@ class Nav extends React.Component<NavProps, NavState> {
       <div>
         <nav className="tk-nav">
           <ul className="tk-nav--tabs">
-            {items.map((item, key) => (
+            {items.map((item) => (
               <li
-                key={key}
+                key={item.id}
                 onClick={(e) => this.onClick(e, item)}
-                className={
-                  activeNavItemId === key
-                    ? 'tk-nav-item tk-nav-item--active'
-                    : 'tk-nav-item '
-                }
+                className={`tk-nav-item ${activeNavItemId === item.id? 'tk-nav-item--active':''}`}
               >
                 {item.label}
               </li>
