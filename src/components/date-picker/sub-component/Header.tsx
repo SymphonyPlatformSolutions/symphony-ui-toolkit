@@ -1,5 +1,6 @@
-import PropTypes from 'prop-types';
-import React, { FunctionComponent } from 'react';
+import { FunctionComponent } from 'react';
+import * as PropTypes from 'prop-types';
+import * as React from 'react';
 
 import Icon from '../../icon/Icon';
 import { addMonths, addYears } from 'date-fns';
