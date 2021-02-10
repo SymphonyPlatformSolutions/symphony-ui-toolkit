@@ -103,7 +103,7 @@ export const Select = () => { return `
   <select type="text" class="tk-select" value="Text" style="width:200px">
     <option>Item 1</option>
     <option>Item 2</option>
-    <option>Item 3</option>
+    <option>Item 3 with a very very very long text</option>
   </select>
   <i></i>
 </div>
@@ -116,7 +116,7 @@ export const Select = () => { return `
     <select type="text" class="tk-select" value="Text" style="width:200px">
       <option>Item 1</option>
       <option>Item 2</option>
-      <option>Item 3</option>
+      <option>Item 3 with a very very very long text</option>
     </select>
     <i></i>
   </div>
@@ -140,7 +140,7 @@ export const Select = () => { return `
       <select type="text" class="tk-select tk-select--expanded" value="Text" style="width:200px" disabled>
         <option>Item 1</option>
         <option>Item 2</option>
-        <option>Item 3</option>
+        <option>Item 3 with a very very very long text</option>
       </select>
       <i></i>
     </div>
@@ -154,7 +154,7 @@ export const Select = () => { return `
     <select type="text" class="tk-select" value="Text" style="width:200px">
       <option>Item 1</option>
       <option>Item 2</option>
-      <option>Item 3</option>
+      <option>Item 3 with a very very very long text</option>
     </select>
     <i></i>
   </div>
@@ -169,7 +169,7 @@ export const Select = () => { return `
       <select type="text" class="tk-select" value="Text" style="width:200px">
         <option>Item 1</option>
         <option>Item 2</option>
-        <option>Item 3</option>
+        <option>Item 3 with a very very very long text</option>
       </select>
       <i></i>
     </div>
