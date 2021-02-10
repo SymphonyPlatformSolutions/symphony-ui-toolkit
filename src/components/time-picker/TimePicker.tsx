@@ -148,6 +148,7 @@ export const TimePicker: React.FC<TimePickerProps> = ({
 
   return (
     <Dropdown
+      autoScrollToCurrent={true}
       isDisabled={disabled}
       iconName="recent"
       displayArrowIndicator={false}
