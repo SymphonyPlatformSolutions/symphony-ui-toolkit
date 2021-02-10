@@ -1,5 +1,6 @@
 import * as PropTypes from 'prop-types';
-import React, { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo } from 'react';
+import * as React from 'react';
 import { Dropdown } from '../index';
 
 import { Keys } from '../common/keyUtils';
