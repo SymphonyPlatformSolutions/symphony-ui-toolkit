@@ -108,14 +108,9 @@ class Dropdown<T = LabelValue> extends React.Component<
 > {
   state = {
     selectedOption: null,
-    hideSelectedOptions:
-      this.props?.isMultiSelect || !!this.props?.hideSelectedOptions,
-    closeMenuOnSelect: !!(
-      !this.props?.isMultiSelect || this.props?.closeMenuOnSelect
-    ),
-    displayArrowIndicator: !!(
-      !this.props?.isMultiSelect || this.props?.displayArrowIndicator
-    ),
+    hideSelectedOptions: this.props.hideSelectedOptions===undefined ? this.props?.isMultiSelect : this.props.hideSelectedOptions,
+    closeMenuOnSelect: this.props.closeMenuOnSelect===undefined ? !this.props?.isMultiSelect : this.props.closeMenuOnSelect,
+    displayArrowIndicator: this.props.displayArrowIndicator===undefined ? !this.props?.isMultiSelect : this.props.displayArrowIndicator,
   };
 
   componentDidMount() {
