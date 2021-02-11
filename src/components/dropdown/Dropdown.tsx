@@ -78,6 +78,13 @@ export type DropdownProps<T> = {
   onKeyDown?: (event) => any;
   /** Handle change events on the input */
   onInputChange?: (string, any) => any;
+  /** Whether the Dropdown menu is expanded */
+  menuIsOpen?: boolean,
+  /** Handle the menu opening */
+  onMenuOpen?: () => void,
+  /** Handle the menu closing */
+  onMenuClose?: () => void,
+
 } & (OnChangeMultiProps<T> | OnChangeSingleProps<T>);
 
 type OnChangeMultiProps<T> = {
@@ -177,6 +184,9 @@ class Dropdown<T = LabelValue> extends React.Component<
       inputValue,
       noOptionMessage,
       isTypeAheadEnabled,
+      menuIsOpen,
+      onMenuOpen,
+      onMenuClose,
     } = this.props;
 
     return (
@@ -223,6 +233,9 @@ class Dropdown<T = LabelValue> extends React.Component<
           isSearchable={isTypeAheadEnabled}
           isOptionDisabled={this.handleIsOptionDisabled}
           isOptionSelected={this.handleIsOptionSelected}
+          menuIsOpen={menuIsOpen}
+          onMenuOpen={onMenuOpen}
+          onMenuClose={onMenuClose}
         />
       </div>
     );
