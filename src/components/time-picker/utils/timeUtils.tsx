@@ -6,6 +6,7 @@ import { matchExactTime, matchTimeInRange } from './matchTimeUtils';
 
 import Time from './Time';
 import { DropdownOption } from '../../dropdown';
+import { DisabledTime } from '../interfaces';
 
 export const TIME_REGEXPR = {
   HH_MM_SS_12: /^(?<hours>0[0-9]|1[0-2]):(?<minutes>[0-5][0-9])(?::(?<seconds>[0-5][0-9]))?(?:\s*(?<ampm>[AaPp][Mm]))?$/,
@@ -155,12 +156,15 @@ export const getOptions = (
  */
 export const isTimeDisabled = (
   time: Time,
-  disabledTimes: string | Array<string>
+  disabledTimes: DisabledTime | Array<DisabledTime>
 ): boolean => {
   if (!time) {
     return true;
   }
-  if (!disabledTimes || disabledTimes.length === 0) {
+  if (
+    !disabledTimes ||
+    (Array.isArray(disabledTimes) && disabledTimes.length === 0)
+  ) {
     return false;
   }
   let disabledTimesAsArray;
@@ -190,7 +194,7 @@ export const isTimeSelected = (
   hours: string,
   minutes: string,
   seconds: string,
-  disabledTimes: string | Array<any>
+  disabledTimes: DisabledTime | Array<DisabledTime>
 ): boolean =>
   time &&
   time.hours === hours &&
@@ -296,18 +300,14 @@ export const getTimeFromSeconds = (time: number): Time => {
  */
 export const getSteps = (
   options: Array<any>,
-  disabledTimes: string | Array<string>
+  disabledTimes: DisabledTime | Array<DisabledTime>
 ) => {
   const hoursValues = new Set<string>();
   const minutesValues = new Set<string>();
   const secondsValues = new Set<string>();
 
   options.forEach((option) => {
-    if (
-      !disabledTimes ||
-      disabledTimes.length === 0 ||
-      !isTimeDisabled(option.data, disabledTimes)
-    ) {
+    if (!isTimeDisabled(option.data, disabledTimes)) {
       const time = getTimeFromString(option.label);
       if (time) {
         hoursValues.add(time.hours);

@@ -74,10 +74,19 @@ export type DropdownProps<T> = {
   isInputClearable?: boolean;
   /** The value of the search input */
   inputValue?: string;
+  /** Allows to scroll automatically to selected option */
+  autoScrollToCurrent?:boolean;
   /** Handle key down events on the select */
   onKeyDown?: (event) => any;
   /** Handle change events on the input */
   onInputChange?: (string, any) => any;
+  /** Whether the Dropdown menu is expanded */
+  menuIsOpen?: boolean,
+  /** Handle the menu opening */
+  onMenuOpen?: () => void,
+  /** Handle the menu closing */
+  onMenuClose?: () => void,
+
 } & (MultiModeProps<T> | SingleModeProps<T>);
 
 type MultiModeProps<T> = {
@@ -172,6 +181,10 @@ class Dropdown<T = LabelValue> extends React.Component<
       inputValue,
       noOptionMessage,
       isTypeAheadEnabled,
+      autoScrollToCurrent,
+      menuIsOpen,
+      onMenuOpen,
+      onMenuClose,
     } = this.props;
 
     return (
@@ -218,6 +231,11 @@ class Dropdown<T = LabelValue> extends React.Component<
           isSearchable={isTypeAheadEnabled}
           isOptionDisabled={this.handleIsOptionDisabled}
           isOptionSelected={this.handleIsOptionSelected}
+          menuPlacement="auto"
+          autoScrollToCurrent={autoScrollToCurrent}
+          menuIsOpen={menuIsOpen}
+          onMenuOpen={onMenuOpen}
+          onMenuClose={onMenuClose}
         />
       </div>
     );
@@ -228,6 +246,7 @@ class Dropdown<T = LabelValue> extends React.Component<
     isMultiSelect: false,
     isInputClearable: false,
     isTypeAheadEnabled: true,
+    autoScrollToCurrent: false
   };
 }
 

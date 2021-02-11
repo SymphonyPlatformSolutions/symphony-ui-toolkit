@@ -23,12 +23,18 @@ const Template = (args) => {
 
 export const Default = Template.bind({});
 Default.args = {
-  name: 'test',
+  id: 'timePickerId',
+  label: 'timePickerLabel',
+  name: 'timePickerName',
   min: '08:00:00',
   max: '19:00:00',
+  step: 900,
   value: '09:30:00',
   format: 'hh:mm a',
+  strict: false,
+  placeholder: 'Select a value',
   disabledTimes: [{ from: '10:00:00', to: '10:15:00' }, { time: '09:15:00' }],
+  onChange: (value) => console.log(value),
 };
 
 export const WithPlaceholder = Template.bind({});
