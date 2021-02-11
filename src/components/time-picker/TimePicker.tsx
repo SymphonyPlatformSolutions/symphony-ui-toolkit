@@ -50,6 +50,8 @@ export const TimePicker: React.FC<TimePickerProps> = ({
   const [selectedOption, setSelectedOption] = useState(null);
   const [inputValue, setInputValue] = useState('');
   const [menuIsOpen, setMenuIsOpen] = useState(false);
+  // Indicate if the user is navigating with arrow keys in the Dropdown menu
+  const [navigationInMenu, setNavigationInMenu] = useState(false)
 
   useEffect(() => {
     // Called when the user select an option in the Dropdown menu
@@ -169,7 +171,7 @@ export const TimePicker: React.FC<TimePickerProps> = ({
         setSelectedOption(option);
       }}
       onKeyDown={(event) =>
-        handleKeyDown(event, strict, setInputValue, options, steps, format, toggleMenu)
+        handleKeyDown(event, strict, setInputValue, options, steps, format, toggleMenu, navigationInMenu, setNavigationInMenu)
       }
       onInputChange={(newValue, metadata) => {
         // Called when the user set a new value in the Input field
@@ -268,22 +270,14 @@ const computeError = (
  * @param setInputValue Callback to update the input value saved in the state
  * @param options Dropdown options
  * @param steps Steps to used when the user presses arrow up/down keys
- * @param format (optional) Format to parse the input, if not provided it will use the local user settings
  */
 const handleKeyboardNavigation = (
   event,
   setInputValue,
   options,
   steps,
-  format
 ) => {
   const currentValue = event.target.value;
-
-  if (!isTimeValid(currentValue, format)) {
-    // If the time is not valid, let the default keyboard navigation
-    // to use the dropdown menu
-    return;
-  }
 
   // Get cursor position
   const cursor = event.target.selectionStart;
@@ -405,6 +399,8 @@ const handleKeyDown = (
   steps,
   format,
   toggleMenu,
+  navigationInMenu,
+  setNavigationInMenu
 ) => {
   if (event.target && event.target.tagName === 'INPUT') {
     if (
@@ -412,15 +408,21 @@ const handleKeyDown = (
       event.key === Keys.ARROW_DOWN ||
       event.key === Keys.TAB
     ) {
-      // Handle keyboard navigation only if the focus is on the focus (not on the icon)
-      handleKeyboardNavigation(event, setInputValue, options, steps, format);
+      const currentValue = event.target.value;
+      const isInputValid = isTimeValid(currentValue, format);
+      setNavigationInMenu(!isInputValid);
+      if(isInputValid){
+        // Handle keyboard navigation only if the focus is on the input (not on the icon)
+        handleKeyboardNavigation(event, setInputValue, options, steps);
+      }
     }
     else if(event.key === Keys.ENTER) {
       toggleMenu();
-      if(event.target.value && event.target.value.trim() !== ''){
+      if(!navigationInMenu && event.target.value && event.target.value.trim() !== ''){
         // To prevent the input value from being overwritten by the value of the focused Dropdown option
         event.preventDefault();
       }
+      setNavigationInMenu(false);
     }
     else if (strict) {
       // The user is not allowed to set manually another value
