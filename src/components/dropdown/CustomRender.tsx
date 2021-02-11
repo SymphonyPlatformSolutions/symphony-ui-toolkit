@@ -17,6 +17,14 @@ const stopPropagation = (e) => {
 
 export const DefaultOptionRenderer = (props: any) => {
   const OptionRenderer = props?.selectProps?.optionRenderer;
+  const isSelected = props.isSelected;
+  if(props.selectProps?.autoScrollToCurrent){ 
+    React.useEffect(() => {
+      if(props.isSelected){
+        const domItem = document.getElementById(props.innerProps.id);
+        !!domItem?.scrollIntoView && domItem.scrollIntoView({  block: 'nearest', inline: 'nearest' });
+      }
+    }, [isSelected]);}
   const rendererProps = {
     data: props.data,
     inputValue: props.selectProps?.inputValue,

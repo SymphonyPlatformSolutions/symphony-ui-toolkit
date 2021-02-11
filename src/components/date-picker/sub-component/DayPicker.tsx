@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import * as PropTypes from 'prop-types';
+import * as React from 'react';
 import classNames from 'classnames';
 
 import { Modifier } from '../model/Modifiers';
@@ -66,7 +66,7 @@ const DAYS_SELECTOR = '.tk-daypicker-day--outside, .tk-daypicker-day';
 const DAYS_VISIBLE_SELECTOR = '.tk-daypicker-day';
 const DAYS_ENABLED_SELECTOR = '.tk-daypicker-day:not(.tk-daypicker-day--disabled)';
 
-class DayPicker extends Component<
+class DayPicker extends React.Component<
   DayPickerComponentProps,
   DayPickerComponentState
 > {

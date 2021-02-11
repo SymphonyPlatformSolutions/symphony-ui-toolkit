@@ -74,6 +74,8 @@ export type DropdownProps<T> = {
   isInputClearable?: boolean;
   /** The value of the search input */
   inputValue?: string;
+  /** Allows to scroll automatically to selected option */
+  autoScrollToCurrent?:boolean;
   /** Handle key down events on the select */
   onKeyDown?: (event) => any;
   /** Handle change events on the input */
@@ -179,6 +181,7 @@ class Dropdown<T = LabelValue> extends React.Component<
       inputValue,
       noOptionMessage,
       isTypeAheadEnabled,
+      autoScrollToCurrent,
       menuIsOpen,
       onMenuOpen,
       onMenuClose,
@@ -228,6 +231,8 @@ class Dropdown<T = LabelValue> extends React.Component<
           isSearchable={isTypeAheadEnabled}
           isOptionDisabled={this.handleIsOptionDisabled}
           isOptionSelected={this.handleIsOptionSelected}
+          menuPlacement="auto"
+          autoScrollToCurrent={autoScrollToCurrent}
           menuIsOpen={menuIsOpen}
           onMenuOpen={onMenuOpen}
           onMenuClose={onMenuClose}
@@ -241,6 +246,7 @@ class Dropdown<T = LabelValue> extends React.Component<
     isMultiSelect: false,
     isInputClearable: false,
     isTypeAheadEnabled: true,
+    autoScrollToCurrent: false
   };
 }
 
