@@ -11,6 +11,13 @@ const CustomComponent = (props) => {
     return (<div>{props?.data?.label}</div>);
   }
 }
+const filterFunction = (element: any, input: string) => {
+  return !input || element.displayName.indexOf(input)>-1 ;
+};
+
+const onChange = () => {
+  console.log('');
+}
 
 describe('Dropdown component test suite =>', () => {
   const dropdownProps = {
@@ -26,15 +33,17 @@ describe('Dropdown component test suite =>', () => {
     it('should render the Dropdown component by default', async () => {
       const { getByText } = render(<Dropdown options={dropdownProps.options} />);
       expect(getByText('Select...')).toBeInTheDocument();
+      
     });
     
     it('should show/hide options menu', async () => {
-      const { getByText } = render(<Dropdown options={dropdownProps.options} />);
+      const { getByText } = render(<Dropdown options={dropdownProps.options} hideSelectedOptions closeMenuOnSelect/>);
       const input = screen.getByRole('textbox');
       userEvent.click(input);
       expect(getByText('banana')).toBeTruthy();
       expect(getByText('avocado')).toBeTruthy();
       expect(getByText('orange')).toBeTruthy();
+
     });
     
     it('should select first option', async () => {
@@ -49,13 +58,15 @@ describe('Dropdown component test suite =>', () => {
     });
     
     it('should render costum render dropdown', async () => {
-      const { getByText } = render(
+      const { container, getByText } = render(
         <Dropdown
           isMultiSelect
           options={dropdownProps.options}
           optionRenderer={CustomComponent}
           displayArrowIndicator
           tagRenderer={CustomComponent}
+          isInputClearable
+          onChange={onChange}
         />
       );
       const input = screen.getByRole('textbox');
@@ -63,6 +74,9 @@ describe('Dropdown component test suite =>', () => {
       const option = screen.getByText('banana');
       userEvent.click(option);
       expect(getByText('banana')).toBeTruthy();
+      const cross = container.querySelector('i')
+      userEvent.click(cross);
+      expect(getByText('Select...')).toBeTruthy();
     });
   });
 
@@ -74,7 +88,7 @@ describe('Dropdown component test suite =>', () => {
     });
     
     it('should show/hide options menu', async () => {
-      const { getByText } = render(<Dropdown options={dropdownProps.options} isMultiSelect />);
+      const { getByText } = render(<Dropdown options={dropdownProps.options} isMultiSelect filterFunction={filterFunction}/>);
       const input = screen.getByRole('textbox');
       userEvent.click(input);
       expect(getByText('banana')).toBeTruthy();

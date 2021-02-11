@@ -96,25 +96,37 @@ export const MultiValueRemove = () => {
   return null;
 };
 
+/**
+ * This component controls the behavior of the expandable arrow displayed on
+ * the right side of the Dropdown component. 
+ * 
+ * Default:
+ *    visible -> Simple select
+ *    hidden -> Multiple Select (isMulti prop)
+ * 
+ * The displayArrowIndicator prop from the Dropdown can override it
+ */
 export const DropdownIndicator = (props: any) => {
+  const {isMulti, displayArrowIndicator, menuIsOpen } = props?.selectProps;
   return (
     <div>
-      {props?.selectProps?.isMulti ? (
+      {isMulti ? (
         <div>
-          {props?.selectProps?.isMulti &&
-          props?.selectProps?.displayArrowIndicator ? (
-              <components.DropdownIndicator {...props} />
-            ) : (
-              <components.DropdownIndicator {...props} className="tk-d-none" />
-            )}
+          {displayArrowIndicator ? (
+            <components.DropdownIndicator {...props} />
+          ) : (
+            <components.DropdownIndicator {...props} className="tk-d-none" />
+          )}
         </div>
-      ) : (
-        <components.DropdownIndicator {...props}>
-          <Icon
-            iconName={props?.selectProps.menuIsOpen ? 'drop-up' : 'drop-down'}
-            className="tk-select__single-value"
-          ></Icon>
-        </components.DropdownIndicator>
+      ) : ( <div>
+        {displayArrowIndicator ?
+          <components.DropdownIndicator {...props}>
+            <Icon
+              iconName={menuIsOpen ? 'drop-up' : 'drop-down'}
+              className="tk-select__single-value"
+            ></Icon>
+          </components.DropdownIndicator> : <components.DropdownIndicator {...props} className="tk-d-none" />}
+      </div>
       )}
     </div>
   );

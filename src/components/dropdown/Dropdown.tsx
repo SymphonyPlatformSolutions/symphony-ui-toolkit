@@ -85,17 +85,17 @@ export type DropdownProps<T> = {
   /** Handle the menu closing */
   onMenuClose?: () => void,
 
-} & (OnChangeMultiProps<T> | OnChangeSingleProps<T>);
+} & (MultiModeProps<T> | SingleModeProps<T>);
 
-type OnChangeMultiProps<T> = {
+type MultiModeProps<T> = {
   /** Support multiple selected options */
   isMultiSelect: true;
   defaultValue?: T[];
   value?: T[];
 } & HasValidationProps<T[]>;
 
-type OnChangeSingleProps<T> = {
-  isMultiSelect?: false;
+type SingleModeProps<T> = {
+  isMultiSelect: false;
   /** Default value selected on the Dropdown */
   defaultValue?: T;
   /** Allows the usage of the component in controlled value mode */
@@ -115,14 +115,9 @@ class Dropdown<T = LabelValue> extends React.Component<
 > {
   state = {
     selectedOption: null,
-    hideSelectedOptions:
-      this.props?.isMultiSelect || !!this.props?.hideSelectedOptions,
-    closeMenuOnSelect: !!(
-      !this.props?.isMultiSelect || this.props?.closeMenuOnSelect
-    ),
-    displayArrowIndicator: !!(
-      !this.props?.isMultiSelect || this.props?.displayArrowIndicator
-    ),
+    hideSelectedOptions: this.props.hideSelectedOptions===undefined ? this.props?.isMultiSelect : this.props.hideSelectedOptions,
+    closeMenuOnSelect: this.props.closeMenuOnSelect===undefined ? !this.props?.isMultiSelect : this.props.closeMenuOnSelect,
+    displayArrowIndicator: this.props.displayArrowIndicator===undefined ? !this.props?.isMultiSelect : this.props.displayArrowIndicator,
   };
 
   componentDidMount() {
