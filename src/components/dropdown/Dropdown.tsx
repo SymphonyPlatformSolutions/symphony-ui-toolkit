@@ -74,6 +74,8 @@ export type DropdownProps<T> = {
   isInputClearable?: boolean;
   /** The value of the search input */
   inputValue?: string;
+  /** Maximum height of the menu before scrolling */
+  maxMenuHeight?: number;
   /** Allows to scroll automatically to selected option */
   autoScrollToCurrent?:boolean;
   /** Handle key down events on the select */
@@ -182,6 +184,7 @@ class Dropdown<T = LabelValue> extends React.Component<
       noOptionMessage,
       isTypeAheadEnabled,
       autoScrollToCurrent,
+      maxMenuHeight,
       menuIsOpen,
       onMenuOpen,
       onMenuClose,
@@ -232,6 +235,7 @@ class Dropdown<T = LabelValue> extends React.Component<
           isOptionDisabled={this.handleIsOptionDisabled}
           isOptionSelected={this.handleIsOptionSelected}
           menuPlacement="auto"
+          maxMenuHeight={maxMenuHeight}
           autoScrollToCurrent={autoScrollToCurrent}
           menuIsOpen={menuIsOpen}
           onMenuOpen={onMenuOpen}
