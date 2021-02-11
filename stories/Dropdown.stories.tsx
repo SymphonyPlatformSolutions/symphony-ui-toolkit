@@ -4,6 +4,7 @@ import { Dropdown, DropdownOption, Icon, LabelValue, OptionRendererProps, TagRen
 const defaultOptions: LabelValue[] = [
   { label: 'Option 1', value: '1' },
   { label: 'Option 2', value: '2' },
+  { label: 'Option 3 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse elementum gravida neque, suscipit ornare ex pulvinar id. Etiam vitae erat at dolor pharetra suscipit. Donec at nunc malesuada', value: '3' },
 ];
 
 interface Person {

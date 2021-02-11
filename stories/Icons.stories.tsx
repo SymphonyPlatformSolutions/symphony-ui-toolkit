@@ -670,6 +670,11 @@ export const Icons: React.FC = () => (
       <span>voice</span>
     </div>
     <div className="preview">
+      <Icon iconName="world"></Icon>
+      <br></br>
+      <span>world</span>
+    </div>
+    <div className="preview">
       <Icon iconName="zoom-out"></Icon>
       <br></br>
       <span>zoom-out</span>
