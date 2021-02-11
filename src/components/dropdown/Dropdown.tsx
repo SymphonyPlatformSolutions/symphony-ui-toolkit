@@ -80,6 +80,13 @@ export type DropdownProps<T> = {
   onKeyDown?: (event) => any;
   /** Handle change events on the input */
   onInputChange?: (string, any) => any;
+  /** Whether the Dropdown menu is expanded */
+  menuIsOpen?: boolean,
+  /** Handle the menu opening */
+  onMenuOpen?: () => void,
+  /** Handle the menu closing */
+  onMenuClose?: () => void,
+
 } & (MultiModeProps<T> | SingleModeProps<T>);
 
 type MultiModeProps<T> = {
@@ -174,7 +181,10 @@ class Dropdown<T = LabelValue> extends React.Component<
       inputValue,
       noOptionMessage,
       isTypeAheadEnabled,
-      autoScrollToCurrent
+      autoScrollToCurrent,
+      menuIsOpen,
+      onMenuOpen,
+      onMenuClose,
     } = this.props;
 
     return (
@@ -223,6 +233,9 @@ class Dropdown<T = LabelValue> extends React.Component<
           isOptionSelected={this.handleIsOptionSelected}
           menuPlacement="auto"
           autoScrollToCurrent={autoScrollToCurrent}
+          menuIsOpen={menuIsOpen}
+          onMenuOpen={onMenuOpen}
+          onMenuClose={onMenuClose}
         />
       </div>
     );

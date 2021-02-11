@@ -48,9 +48,21 @@ describe('Time Utils', () => {
   test.each([
     [
       [
-        { label: '09:30:35 AM' },
-        { label: '10:40:25 AM' },
-        { label: '05:50:12 PM' },
+        {
+          label: '09:30:35 AM',
+          value: '09:30:35',
+          data: { hours: '09', minutes: '30', seconds: '35' },
+        },
+        {
+          label: '10:40:25 AM',
+          value: '10:40:25',
+          data: { hours: '10', minutes: '40', seconds: '25' },
+        },
+        {
+          label: '05:50:12 PM',
+          value: '17:50:12',
+          data: { hours: '17', minutes: '50', seconds: '12' },
+        },
       ],
       {
         hours: ['05', '09', '10'],
