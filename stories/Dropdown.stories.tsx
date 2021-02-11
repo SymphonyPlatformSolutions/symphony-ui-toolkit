@@ -81,11 +81,9 @@ const IconPickerOptionRenderer = (props: OptionRendererProps<Icon>) => {
   );
 };
 
-
 const filterFunction = (icon: Icon, input: string) => {
   return !input || icon.displayName.indexOf(input)>-1 ;
 };
-
 
 const Template = (args) => {
   return (

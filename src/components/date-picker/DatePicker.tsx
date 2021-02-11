@@ -1,5 +1,6 @@
 import * as PropTypes from 'prop-types';
-import React, { Component, createRef } from 'react';
+import * as React from 'react';
+import { Component, createRef } from 'react';
 import classNames from 'classnames';
 
 import { createPopper } from '@popperjs/core';

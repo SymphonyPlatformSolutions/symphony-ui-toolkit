@@ -6,14 +6,25 @@
     "outDir": "./dist",
     "strict": true,
     "jsx": "react",
-    "rootDirs": ["src", "stories"],
+    "rootDirs": [
+      "src",
+      "stories"
+    ],
     "baseUrl": "src",
     "esModuleInterop": true,
     "noImplicitAny": false,
     "strictNullChecks": false,
-    "downlevelIteration": true
+    "downlevelIteration": true,
+    "allowSyntheticDefaultImports": false
   },
-  "include": ["src/**/*.ts", "spec/**/*.ts", "stories/**/*.ts"],
-  "exclude": ["node_modules", "coverage"],
+  "include": [
+    "src/**/*.ts",
+    "spec/**/*.ts",
+    "stories/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "coverage"
+  ],
   "jsx": "react"
 }
