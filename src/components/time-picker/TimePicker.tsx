@@ -49,6 +49,7 @@ export const TimePicker: React.FC<TimePickerProps> = ({
   const [seconds, setSeconds] = useState('');
   const [selectedOption, setSelectedOption] = useState(null);
   const [inputValue, setInputValue] = useState('');
+  const [menuIsOpen, setMenuIsOpen] = useState(false);
 
   useEffect(() => {
     // Called when the user select an option in the Dropdown menu
@@ -122,6 +123,8 @@ export const TimePicker: React.FC<TimePickerProps> = ({
     [format, min, max, step]
   );
 
+  const toggleMenu = () => setMenuIsOpen(!menuIsOpen);
+
   const steps = useMemo(() => getSteps(options, disabledTimes), [
     options,
     disabledTimes,
@@ -166,7 +169,7 @@ export const TimePicker: React.FC<TimePickerProps> = ({
         setSelectedOption(option);
       }}
       onKeyDown={(event) =>
-        handleKeyDown(event, strict, setInputValue, options, steps, format)
+        handleKeyDown(event, strict, setInputValue, options, steps, format, toggleMenu)
       }
       onInputChange={(newValue, metadata) => {
         // Called when the user set a new value in the Input field
@@ -183,6 +186,9 @@ export const TimePicker: React.FC<TimePickerProps> = ({
       inputValue={inputValue}
       inputAlwaysDisplayed={true}
       filterFunction={() => true}
+      menuIsOpen={menuIsOpen}
+      onMenuOpen={() => setMenuIsOpen(true)}
+      onMenuClose={() => setMenuIsOpen(false)}
     />
   );
 };
@@ -397,7 +403,8 @@ const handleKeyDown = (
   setInputValue,
   options,
   steps,
-  format
+  format,
+  toggleMenu,
 ) => {
   if (event.target && event.target.tagName === 'INPUT') {
     if (
@@ -407,7 +414,15 @@ const handleKeyDown = (
     ) {
       // Handle keyboard navigation only if the focus is on the focus (not on the icon)
       handleKeyboardNavigation(event, setInputValue, options, steps, format);
-    } else if (strict) {
+    }
+    else if(event.key === Keys.ENTER) {
+      toggleMenu();
+      if(event.target.value && event.target.value.trim() !== ''){
+        // To prevent the input value from being overwritten by the value of the focused Dropdown option
+        event.preventDefault();
+      }
+    }
+    else if (strict) {
       // The user is not allowed to set manually another value
       event.preventDefault();
     }
