@@ -21,6 +21,7 @@ import {
   Time,
 } from './utils';
 
+import { DisabledTime } from './interfaces';
 import { ErrorMessages } from '../validation/interfaces';
 
 enum STEP {
@@ -51,7 +52,7 @@ export const TimePicker: React.FC<TimePickerProps> = ({
   const [inputValue, setInputValue] = useState('');
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   // Indicate if the user is navigating with arrow keys in the Dropdown menu
-  const [navigationInMenu, setNavigationInMenu] = useState(false)
+  const [navigationInMenu, setNavigationInMenu] = useState(false);
 
   useEffect(() => {
     // Called when the user select an option in the Dropdown menu
@@ -166,18 +167,29 @@ export const TimePicker: React.FC<TimePickerProps> = ({
         isTimeSelected(time, hours, minutes, seconds, disabledTimes)
       }
       onChange={(newValue) => {
-        const option = newValue && newValue.target && newValue.target.value ? newValue.target.value : null;
+        const option =
+          newValue && newValue.target && newValue.target.value
+            ? newValue.target.value
+            : null;
         // Called when the user select an option in the Dropdown menu
         setSelectedOption(option);
       }}
       onKeyDown={(event) =>
-        handleKeyDown(event, strict, setInputValue, options, steps, format, toggleMenu, navigationInMenu, setNavigationInMenu)
+        handleKeyDown(
+          event,
+          strict,
+          setInputValue,
+          options,
+          steps,
+          format,
+          toggleMenu,
+          navigationInMenu,
+          setNavigationInMenu
+        )
       }
       onInputChange={(newValue, metadata) => {
         // Called when the user set a new value in the Input field
-        if (
-          metadata.action === 'input-change'
-        ) {
+        if (metadata.action === 'input-change') {
           setInputValue(newValue);
           // Remove selected hours/minutes/seconds
           setHours('');
@@ -207,7 +219,7 @@ export type TimePickerProps = {
   format?: string;
   strict?: boolean;
   disabled?: boolean;
-  disabledTimes?: any;
+  disabledTimes?: DisabledTime | Array<DisabledTime>;
   onChange?: (event) => void;
   onValidationChanged?: (errors: ErrorMessages) => any;
 };
@@ -242,7 +254,7 @@ const computeError = (
   time: Time,
   min: string,
   max: string,
-  disabledTimes: string | Array<string>
+  disabledTimes: DisabledTime | Array<DisabledTime>
 ): ErrorMessages => {
   if (!value) {
     return null;
@@ -271,12 +283,7 @@ const computeError = (
  * @param options Dropdown options
  * @param steps Steps to used when the user presses arrow up/down keys
  */
-const handleKeyboardNavigation = (
-  event,
-  setInputValue,
-  options,
-  steps,
-) => {
+const handleKeyboardNavigation = (event, setInputValue, options, steps) => {
   const currentValue = event.target.value;
 
   // Get cursor position
@@ -411,20 +418,22 @@ const handleKeyDown = (
       const currentValue = event.target.value;
       const isInputValid = isTimeValid(currentValue, format);
       setNavigationInMenu(!isInputValid);
-      if(isInputValid){
+      if (isInputValid) {
         // Handle keyboard navigation only if the focus is on the input (not on the icon)
         handleKeyboardNavigation(event, setInputValue, options, steps);
       }
-    }
-    else if(event.key === Keys.ENTER) {
+    } else if (event.key === Keys.ENTER) {
       toggleMenu();
-      if(!navigationInMenu && event.target.value && event.target.value.trim() !== ''){
+      if (
+        !navigationInMenu &&
+        event.target.value &&
+        event.target.value.trim() !== ''
+      ) {
         // To prevent the input value from being overwritten by the value of the focused Dropdown option
         event.preventDefault();
       }
       setNavigationInMenu(false);
-    }
-    else if (strict) {
+    } else if (strict) {
       // The user is not allowed to set manually another value
       event.preventDefault();
     }
