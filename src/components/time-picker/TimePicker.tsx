@@ -1,6 +1,7 @@
 import * as PropTypes from 'prop-types';
 import React, { useState, useEffect, useMemo } from 'react';
 import { Dropdown } from '../index';
+import { HasValidationProps } from 'components/validation/interfaces';
 
 import { Keys } from '../common/keyUtils';
 
@@ -220,9 +221,7 @@ export type TimePickerProps = {
   strict?: boolean;
   disabled?: boolean;
   disabledTimes?: DisabledTime | Array<DisabledTime>;
-  onChange?: (event) => void;
-  onValidationChanged?: (errors: ErrorMessages) => any;
-};
+} & HasValidationProps<string>;
 
 TimePicker.propTypes = {
   id: PropTypes.string,
