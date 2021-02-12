@@ -22,6 +22,7 @@ import {
 import {
   HasValidationProps,
 } from '../validation/interfaces';
+import LabelTooltipDecorator from '../label-tooltip-decorator/LabelTooltipDecorator'
 
 // css baseclass prefix
 const prefix = 'tk-select';
@@ -78,6 +79,10 @@ export type DropdownProps<T> = {
   maxMenuHeight?: number;
   /** Allows to scroll automatically to selected option */
   autoScrollToCurrent?:boolean;
+  /** Content text inside the tooltip */
+  tooltip?: string;
+  /** Text of the CTA to close the tooltip */
+  tooltipCloseLabel?: string;
   /** Handle key down events on the select */
   onKeyDown?: (event) => any;
   /** Handle change events on the input */
@@ -186,18 +191,26 @@ export class Dropdown<T = LabelValue> extends React.Component<
       autoScrollToCurrent,
       maxMenuHeight,
       menuIsOpen,
+      tooltip,
+      tooltipCloseLabel,
       onMenuOpen,
       onMenuClose,
     } = this.props;
 
     return (
       <div>
+        <LabelTooltipDecorator
+          id={id}
+          label={label}
+          placement={'top'}
+          tooltip={tooltip}
+          tooltipCloseLabel={tooltipCloseLabel}
+        />
         <Select
           displayArrowIndicator={displayArrowIndicator}
           optionRenderer={optionRenderer}
           tagRenderer={tagRenderer}
           isClearable={isInputClearable}
-          label={label}
           components={{
             DropdownIndicator,
             Control,
