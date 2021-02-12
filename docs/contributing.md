@@ -27,6 +27,11 @@ In order to keep consistency between components the following aspects are to be 
 - Atomic components (buttons, inputs) should go under atoms directory while composed ones (input group) should go under molecules
 - All components should implement light AND dark theme for this use static colors palette (variables/colors/statics) and theme accessors to be used in your component (variables/themes/accessors)
 
+## Icons
+- Adding new icons consists of adding a new file in the icons directory and the build process does the magic
+- The name of the icon should be in kebab-case
+> If your SVG contains an __evenodd__ filling rule it can't be added to the project as it won't render properly under windows. SVGs added should not contain this rule.
+
 ## Documentation
 
 Documenting every component is very important for UItoolkit and it's done using storybook. Every separate story should represent a use case of the component
