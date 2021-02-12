@@ -7,10 +7,8 @@
     "strict": true,
     "jsx": "react",
     "rootDirs": [
-      "src",
       "stories"
     ],
-    "baseUrl": "src",
     "esModuleInterop": true,
     "noImplicitAny": false,
     "strictNullChecks": false,

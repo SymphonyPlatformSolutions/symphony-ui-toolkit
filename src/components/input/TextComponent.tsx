@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import * as PropTypes from 'prop-types';
 import Icon from '../icon';
 import Tooltip from '../tooltip';
-import { HasValidationProps } from 'components/validation/interfaces';
+import { HasValidationProps } from '../validation/interfaces';
 
 enum Types {
   TEXTAREA = 'TextArea',

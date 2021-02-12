@@ -113,7 +113,7 @@ type DropdownState<T> = {
   displayArrowIndicator?: boolean;
 };
 
-class Dropdown<T = LabelValue> extends React.Component<
+export class Dropdown<T = LabelValue> extends React.Component<
   DropdownProps<T>,
   DropdownState<T>
 > {

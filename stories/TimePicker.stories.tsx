@@ -1,8 +1,8 @@
 import * as React from 'react';
-import {TimePicker} from '../src/components';
-import './styles/dropdownMenu.stories.css';
-import { Button, Validation } from '../src';
 import { useState } from 'react';
+import { Button, Validation } from '../src';
+import { TimePicker } from '../src/components';
+import './styles/dropdownMenu.stories.css';
 
 const logChange = (value, errorsMap) => {
   if (!value) {

@@ -1,15 +1,14 @@
+import { Dropdown } from '../dropdown';
+import { HasValidationProps } from '../validation/interfaces';
 import * as PropTypes from 'prop-types';
-import { useState, useEffect, useMemo } from 'react';
 import * as React from 'react';
-import { Dropdown } from '../index';
-import { HasValidationProps } from 'components/validation/interfaces';
-
+import { useEffect, useMemo, useState } from 'react';
 import { Keys } from '../common/keyUtils';
-
+import { ErrorMessages } from '../validation/interfaces';
+import { DisabledTime } from './interfaces';
 import {
   FIELD,
-  formatTimeISO,
-  formatISOTimeToSeconds,
+  formatISOTimeToSeconds, formatTimeISO,
   getFormattedTime,
   getISOTimeFromLocalTime,
   getOptions,
@@ -20,11 +19,8 @@ import {
   isTimeDisabled,
   isTimeSelected,
   isTimeValid,
-  Time,
+  Time
 } from './utils';
-
-import { DisabledTime } from './interfaces';
-import { ErrorMessages } from '../validation/interfaces';
 
 enum STEP {
   MIN_STEP_VALUE = 600,
