@@ -20,7 +20,8 @@
     "storybook-docs": "start-storybook --docs",
     "build-storybook": "build-storybook -c .storybook -o dist/storybook",
     "test": "jest --watchAll",
-    "test-once": "jest"
+    "test-once": "jest",
+    "check-circular": "madge --circular --extensions ts,tsx ./"
   },
   "peerDependencies": {
     "react": ">=16.8.0",
@@ -91,6 +92,7 @@
     "eslint-plugin-react-hooks": "^2.5.1",
     "html-react-parser": "^0.14.0",
     "jest": "^26.0.1",
+    "madge": "^4.0.0",
     "markdown-loader": "^6.0.0",
     "prettier": "^2.2.1",
     "react": "^16.13.1",
