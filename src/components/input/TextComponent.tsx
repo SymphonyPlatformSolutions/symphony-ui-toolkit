@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import * as PropTypes from 'prop-types';
+import { useEffect, useMemo, useState } from 'react';
 import classNames from 'classnames';
 import shortid from 'shortid';
-import styled from 'styled-components';
-import * as PropTypes from 'prop-types';
-import Icon from '../icon';
-import Tooltip from '../tooltip';
+
 import { HasValidationProps } from '../validation/interfaces';
+import { HasTooltipProps } from '../tooltip/interfaces';
+import LabelTooltipDecorator from '../label-tooltip-decorator/LabelTooltipDecorator'
 
 enum Types {
   TEXTAREA = 'TextArea',
@@ -30,25 +30,12 @@ type TextComponentProps = {
   onClick?: () => any;
   onFocus?: () => any;
   onKeyDown?: (event) => any;
-  tooltip?: string;
-  tooltipCloseLabel?: string;
   value?: string;
-} & HasValidationProps<string>;
+} & HasTooltipProps & HasValidationProps<string>;
 
 type TextComponentPropsWithType = TextComponentProps & InputBaseProps & {
   type: Types;
 };
-
-const TextComponentHeader = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-const TextComponentTooltip = styled.div`
-  display: inline-block;
-  margin-left: auto;
-  font-size: 16px;
-`;
 
 export const InputBasePropTypes = {
   onCopy: PropTypes.func,
@@ -95,7 +82,6 @@ const TextComponent: React.FC<TextComponentPropsWithType> = ({
   onKeyDown,
   ...rest
 }) => {
-  const [showTooltip, setShowTooltip] = useState(false);
   const [hideText, setHideText] = useState(masked || false);
 
   useEffect(()=> {
@@ -116,10 +102,6 @@ const TextComponent: React.FC<TextComponentPropsWithType> = ({
     setHideText(!hideText);
   };
 
-  const handleClickIcon = useCallback(() => {
-    setShowTooltip(!showTooltip);
-  }, [showTooltip]);
-
   let TagName;
   if (type == Types.TEXTAREA) {
     TagName = 'textarea';
@@ -133,29 +115,13 @@ const TextComponent: React.FC<TextComponentPropsWithType> = ({
         'tk-input-group--disabled': disabled,
       })}
     >
-      {label || tooltip ? (
-        <TextComponentHeader className="tk-input-group__header">
-          {label ? (
-            <label className="tk-label" htmlFor={id}>
-              {label}
-            </label>
-          ) : null}
-          {tooltip ? (
-            <TextComponentTooltip>
-              <Tooltip
-                id={ariaId}
-                description={tooltip}
-                closeLabel={tooltipCloseLabel}
-                onHintClose={handleClickIcon}
-                visible={showTooltip}
-                placement={'top'}
-              >
-                <Icon iconName="info-round" onClick={handleClickIcon} />
-              </Tooltip>
-            </TextComponentTooltip>
-          ) : null}
-        </TextComponentHeader>
-      ) : null}
+      <LabelTooltipDecorator
+        id={ariaId}
+        label={label}
+        placement={'top'}
+        tooltip={tooltip}
+        tooltipCloseLabel={tooltipCloseLabel}
+      />
       <div className="tk-input__container">
         <TagName
           id={id}
