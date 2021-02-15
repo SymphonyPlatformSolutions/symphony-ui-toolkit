@@ -28,6 +28,7 @@ import { autocompleteDate } from './utils/dateUtils';
 import { format as formatDate, isValid } from 'date-fns';
 
 import { ErrorMessages, HasValidationProps } from '../validation/interfaces';
+import { HasTooltipProps } from '../tooltip/interfaces';
 import { InputBaseProps, InputBasePropTypes } from '../input/TextComponent';
 
 // z-index: 4; equivalent to $z-index-tooltip
@@ -60,10 +61,8 @@ type DatePickerComponentProps = {
   locale?: string;
   placement?: 'top' | 'bottom' | 'right' | 'left';
   todayButton?: string;
-  tooltip?: string;
-  tooltipCloseLabel?: string;
   showOverlay?: boolean;
-} & HasValidationProps<Date>;
+} & HasTooltipProps & HasValidationProps<Date>;
 
 type DatePickerComponentState = {
   locale: Locale;

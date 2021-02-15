@@ -5,6 +5,7 @@ import classNames from 'classnames';
 import shortid from 'shortid';
 
 import { HasValidationProps } from '../validation/interfaces';
+import { HasTooltipProps } from '../tooltip/interfaces';
 import LabelTooltipDecorator from '../label-tooltip-decorator/LabelTooltipDecorator'
 
 enum Types {
@@ -29,10 +30,8 @@ type TextComponentProps = {
   onClick?: () => any;
   onFocus?: () => any;
   onKeyDown?: (event) => any;
-  tooltip?: string;
-  tooltipCloseLabel?: string;
   value?: string;
-} & HasValidationProps<string>;
+} & HasTooltipProps & HasValidationProps<string>;
 
 type TextComponentPropsWithType = TextComponentProps & InputBaseProps & {
   type: Types;
@@ -117,7 +116,7 @@ const TextComponent: React.FC<TextComponentPropsWithType> = ({
       })}
     >
       <LabelTooltipDecorator
-        id={id}
+        id={ariaId}
         label={label}
         placement={'top'}
         tooltip={tooltip}

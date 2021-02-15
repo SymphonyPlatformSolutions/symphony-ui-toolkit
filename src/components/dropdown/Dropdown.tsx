@@ -22,6 +22,7 @@ import {
 import {
   HasValidationProps,
 } from '../validation/interfaces';
+import { HasTooltipProps } from '../tooltip/interfaces';
 import LabelTooltipDecorator from '../label-tooltip-decorator/LabelTooltipDecorator'
 
 // css baseclass prefix
@@ -79,10 +80,6 @@ export type DropdownProps<T> = {
   maxMenuHeight?: number;
   /** Allows to scroll automatically to selected option */
   autoScrollToCurrent?:boolean;
-  /** Content text inside the tooltip */
-  tooltip?: string;
-  /** Text of the CTA to close the tooltip */
-  tooltipCloseLabel?: string;
   /** Handle key down events on the select */
   onKeyDown?: (event) => any;
   /** Handle change events on the input */
@@ -94,7 +91,7 @@ export type DropdownProps<T> = {
   /** Handle the menu closing */
   onMenuClose?: () => void,
 
-} & (MultiModeProps<T> | SingleModeProps<T>);
+} & HasTooltipProps & (MultiModeProps<T> | SingleModeProps<T>);
 
 type MultiModeProps<T> = {
   /** Support multiple selected options */

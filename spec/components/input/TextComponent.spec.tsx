@@ -1,5 +1,6 @@
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import * as React from 'react';
+
 import { TextComponent, Types } from '../../../src/components/input/TextComponent';
 
 import Icon from '../../../src/components/icon/Icon';
@@ -38,22 +39,25 @@ describe('TextComponent Component', () => {
     });
     it('should display a label if provided', () => {
       const id = 'textfield-1234567890';
-      let wrapper = shallow(<TextComponent type={Types.TEXTFIELD} />);
+      let wrapper = mount(<TextComponent type={Types.TEXTFIELD} />);
       expect(wrapper.find('label.tk-label').length).toBe(0);
-      wrapper = shallow(
+      wrapper = mount(
         <TextComponent type={Types.TEXTFIELD} label="LABEL" id={id} />
       );
       expect(wrapper.find('label.tk-label').text()).toEqual('LABEL');
       expect(wrapper.find(`label[htmlFor="${id}"]`)).toHaveLength(1);
+      wrapper.unmount();
     });
     it('should display a tooltip if provided', () => {
+      const id = 'textfield-1234567890';
       const tooltipText = 'Tooltip';
       const tooltipCloseLabel = 'Close';
-      let wrapper = shallow(<TextComponent type={Types.TEXTFIELD} />);
+      let wrapper = mount(<TextComponent type={Types.TEXTFIELD} />);
       expect(wrapper.find('Icon').length).toBe(0);
-      wrapper = shallow(
+      wrapper = mount(
         <TextComponent
           type={Types.TEXTFIELD}
+          id={id}
           tooltip={tooltipText}
           tooltipCloseLabel={tooltipCloseLabel}
           placeholder="Firstname"
@@ -62,12 +66,13 @@ describe('TextComponent Component', () => {
       );
       expect(wrapper.find('Icon').length).toBe(1);
       expect(wrapper.find('Icon').prop('iconName')).toBeDefined();
-      expect(wrapper.find('Tooltip').length).toBe(1);
-      expect(wrapper.find('Tooltip').prop('id')).toBeDefined();
-      expect(wrapper.find('Tooltip').prop('description')).toEqual(tooltipText);
-      expect(wrapper.find('Tooltip').prop('closeLabel')).toEqual(
+      expect(wrapper.find('LabelTooltipDecorator').length).toBe(1);
+      expect(wrapper.find('LabelTooltipDecorator').prop('id')).toBeDefined();
+      expect(wrapper.find('LabelTooltipDecorator').prop('tooltip')).toEqual(tooltipText);
+      expect(wrapper.find('LabelTooltipDecorator').prop('tooltipCloseLabel')).toEqual(
         tooltipCloseLabel
       );
+      wrapper.unmount();
     });
     describe('should handle icon props', () => {
       const iconProps = {
