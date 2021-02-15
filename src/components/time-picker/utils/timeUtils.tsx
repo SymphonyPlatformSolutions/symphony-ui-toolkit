@@ -7,8 +7,8 @@ import { DropdownOption } from '../../dropdown';
 import { DisabledTime } from '../interfaces';
 
 export const TIME_REGEXPR = {
-  HH_MM_SS_12: /^(?<hours>0[0-9]|1[0-2]):(?<minutes>[0-5][0-9])(?::(?<seconds>[0-5][0-9]))?(?:\s*(?<ampm>[AaPp][Mm]))?$/,
-  HH_MM_SS_24: /^(?<hours>0[0-9]|1[0-9]|2[0-3]):(?<minutes>[0-5][0-9])(?::(?<seconds>[0-5][0-9]))?$/,
+  HH_MM_SS_12: /^(0[0-9]|1[0-2]):([0-5][0-9]):?([0-5][0-9])?\s*([AaPp][Mm])?$/,
+  HH_MM_SS_24: /^(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9]):?([0-5][0-9])?$/,
 };
 
 export enum TIME_FORMAT {
@@ -395,17 +395,18 @@ export const getTimeFromString = (inputTime: string): Time => {
     timeRegExpr = TIME_REGEXPR.HH_MM_SS_24;
   }
 
-  const result = inputTime.match(timeRegExpr);
-  if (!result) {
+  const match = inputTime.match(timeRegExpr);
+  if (!match) {
     return null;
   }
+  const [, hours, minutes, seconds, ampm] = match;
 
   // Return an object {hours, minutes, seconds, ampm}
   return new Time(
-    result.groups.hours, //null instead of undefined
-    result.groups.minutes,
-    result.groups.seconds,
-    result.groups.ampm
+    hours,
+    minutes,
+    seconds,
+    ampm
   );
 };
 
