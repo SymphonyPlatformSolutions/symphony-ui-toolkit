@@ -13,7 +13,7 @@ import {
 const Template = (args) => {
   const parent = document.querySelector('div.docs-story') || document.body;
   return (
-    <Modal {...args} parentNode={parent}>
+    <Modal {...args} parentNode={parent} className="tk-text-color">
       <ModalTitle>Modal Title</ModalTitle>
       <ModalHeader>{header}</ModalHeader>
       <ModalBody>{body}</ModalBody>
@@ -28,7 +28,7 @@ Main.args = { show: true };
 const header = (
   <>
     <hr />
-    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+    <div style={{ display: 'flex', justifyContent: 'space-between' }} className="tk-text-color">
       <Icon iconName={'lock'} />
       <Icon iconName={'call'} />
       <Icon iconName={'app'} />
@@ -58,14 +58,12 @@ const footer = (
 
 export const SmallModal: React.FC = () => {
   return (
-    <div>
-      <Modal size="small" closeButton show>
-        <ModalTitle>Small modal with header</ModalTitle>
-        <ModalHeader>{header}</ModalHeader>
-        <ModalBody>{body}</ModalBody>
-        <ModalFooter>{footer}</ModalFooter>
-      </Modal>
-    </div>
+    <Modal size="small" closeButton show>
+      <ModalTitle>Small modal with header</ModalTitle>
+      <ModalHeader>{header}</ModalHeader>
+      <ModalBody>{body}</ModalBody>
+      <ModalFooter>{footer}</ModalFooter>
+    </Modal>
   );
 };
 

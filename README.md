@@ -1,6 +1,6 @@
 # ⚛️SymphonyBDK - UI Toolkit Components
 
-The React components library of Symphony's design system
+The React components library of Symphony`s design system
 
 ## Requirements
 
@@ -34,7 +34,7 @@ yarn add @symphony/uitoolkit-components
 ```
 
 ```
-import { Button } from '@symphony/uitoolkit-components/components';
+import { Button } from "@symphony/uitoolkit-components/components";
 ```
 
 ## 📦 Releasing from GitHub
