@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 import * as PropTypes from 'prop-types';
 import Icon from '../icon';
@@ -39,10 +39,6 @@ const LabelTooltipDecorator: React.FC<LabelTooltipDecoratorProps> = ({
 }) => {
   const [showTooltip, setShowTooltip] = useState(false);
 
-  const handleClickIcon = useCallback(() => {
-    setShowTooltip(!showTooltip);
-  }, [showTooltip]);
-
   return label || tooltip ? (
     <LabelTooltipDecoratorHeader className="tk-input-group__header">
       {label ? (
@@ -56,11 +52,11 @@ const LabelTooltipDecorator: React.FC<LabelTooltipDecoratorProps> = ({
             id={id}
             description={tooltip}
             closeLabel={tooltipCloseLabel}
-            onHintClose={handleClickIcon}
+            onHintClose={() => setShowTooltip(false)}
             visible={showTooltip}
             placement={placement || 'top'}
           >
-            <Icon iconName="info-round" onClick={handleClickIcon} />
+            <Icon iconName="info-round" onClick={() => setShowTooltip(!showTooltip)} />
           </Tooltip>
         </LabelTooltipDecoratorTooltip>
       ) : null}
