@@ -26,7 +26,7 @@ $dialog-scrollbar-box-shadow: rgba($scolor-black, 0.5);
     0px 8px 24px $dialog-box-shadow-sides;
   background: $--tk-dialog-background-color;
   outline: none;
-  border-radius: 2px;
+  border-radius: 8px;
   width: 480px; // Default medium
   @extend .tk-py-3;
   @extend .tk-px-4;
