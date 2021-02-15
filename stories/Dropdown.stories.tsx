@@ -111,6 +111,10 @@ export const Select: React.FC = () => (
     </p>
     <Dropdown options={defaultOptions} label="Field label" />
     <p className="tk-mt-4">
+			With <Typography variant="bold">tooltip</Typography>:
+    </p>
+    <Dropdown options={defaultOptions} tooltip="Hint to help the user" tooltipCloseLabel="Got it" />
+    <p className="tk-mt-4">
 			Clear selection with <Typography variant="bold">isClearable</Typography>:
     </p>
     <Dropdown options={defaultOptions} isInputClearable />

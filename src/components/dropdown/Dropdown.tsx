@@ -22,6 +22,8 @@ import {
 import {
   HasValidationProps,
 } from '../validation/interfaces';
+import { HasTooltipProps } from '../tooltip/interfaces';
+import LabelTooltipDecorator from '../label-tooltip-decorator/LabelTooltipDecorator'
 
 // css baseclass prefix
 const prefix = 'tk-select';
@@ -89,7 +91,7 @@ export type DropdownProps<T> = {
   /** Handle the menu closing */
   onMenuClose?: () => void,
 
-} & (MultiModeProps<T> | SingleModeProps<T>);
+} & HasTooltipProps & (MultiModeProps<T> | SingleModeProps<T>);
 
 type MultiModeProps<T> = {
   /** Support multiple selected options */
@@ -186,18 +188,26 @@ export class Dropdown<T = LabelValue> extends React.Component<
       autoScrollToCurrent,
       maxMenuHeight,
       menuIsOpen,
+      tooltip,
+      tooltipCloseLabel,
       onMenuOpen,
       onMenuClose,
     } = this.props;
 
     return (
       <div>
+        <LabelTooltipDecorator
+          id={id}
+          label={label}
+          placement={'top'}
+          tooltip={tooltip}
+          tooltipCloseLabel={tooltipCloseLabel}
+        />
         <Select
           displayArrowIndicator={displayArrowIndicator}
           optionRenderer={optionRenderer}
           tagRenderer={tagRenderer}
           isClearable={isInputClearable}
-          label={label}
           components={{
             DropdownIndicator,
             Control,

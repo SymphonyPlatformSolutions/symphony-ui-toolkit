@@ -12,8 +12,8 @@ export const Default = Template.bind({});
 
 Default.args = {
   label: 'I have many props',
-  tooltip: 'This is a \n tooltip',
-  masked: true,
+  tooltip: 'This is a tooltip \n with newline',
+  tooltipCloseLabel: 'Got it',
   iconElement: <Icon iconName="message"/>,
 };
 
