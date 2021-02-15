@@ -7,7 +7,7 @@ import { DropdownOption } from '../../dropdown';
 import { DisabledTime } from '../interfaces';
 
 export const TIME_REGEXPR = {
-  HH_MM_SS_12: /^(0[0-9]|1[0-2]):([0-5][0-9]):?([0-5][0-9])?\s*([AaPp][Mm])?$/,
+  HH_MM_SS_12: /^(0[0-9]|1[0-2]):([0-5][0-9]):?([0-5][0-9])?\s+([AaPp][Mm])?$/,
   HH_MM_SS_24: /^(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9]):?([0-5][0-9])?$/,
 };
 
@@ -395,11 +395,11 @@ export const getTimeFromString = (inputTime: string): Time => {
     timeRegExpr = TIME_REGEXPR.HH_MM_SS_24;
   }
 
-  const match = inputTime.match(timeRegExpr);
-  if (!match) {
+  const result = inputTime.match(timeRegExpr);
+  if (!result) {
     return null;
   }
-  const [, hours, minutes, seconds, ampm] = match;
+  const [, hours, minutes, seconds, ampm] = result;
 
   // Return an object {hours, minutes, seconds, ampm}
   return new Time(
