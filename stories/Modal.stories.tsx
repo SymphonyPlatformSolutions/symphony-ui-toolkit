@@ -13,7 +13,7 @@ import {
 const Template = (args) => {
   const parent = document.querySelector('div.docs-story') || document.body;
   return (
-    <Modal {...args} parentNode={parent} className="tk-text-color">
+    <Modal {...args} parentNode={parent}>
       <ModalTitle>Modal Title</ModalTitle>
       <ModalHeader>{header}</ModalHeader>
       <ModalBody>{body}</ModalBody>
