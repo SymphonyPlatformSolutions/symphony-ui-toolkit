@@ -32,10 +32,10 @@ To start using UI Toolkit Components you will need to import the styles definiti
 Start using by importing the component you need 
 
 ```bash
-import { Button } from '@symphony/uitoolkit-components';
+import { Button } from "@symphony/uitoolkit-components";
 
 const App = () => (
-  <Button onClick={()=>alert('UIToolkit is awesome!')}>
+  <Button onClick={()=>alert("UIToolkit is awesome!")}>
     Click me!
   </Button>
 );

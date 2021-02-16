@@ -58,14 +58,12 @@ const footer = (
 
 export const SmallModal: React.FC = () => {
   return (
-    <div>
-      <Modal size="small" closeButton show>
-        <ModalTitle>Small modal with header</ModalTitle>
-        <ModalHeader>{header}</ModalHeader>
-        <ModalBody>{body}</ModalBody>
-        <ModalFooter>{footer}</ModalFooter>
-      </Modal>
-    </div>
+    <Modal size="small" closeButton show>
+      <ModalTitle>Small modal with header</ModalTitle>
+      <ModalHeader>{header}</ModalHeader>
+      <ModalBody>{body}</ModalBody>
+      <ModalFooter>{footer}</ModalFooter>
+    </Modal>
   );
 };
 
