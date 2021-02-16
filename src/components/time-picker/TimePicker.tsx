@@ -28,24 +28,22 @@ enum STEP {
   MAX_STEP_VALUE = 43200,
 }
 
-export const TimePicker: React.FC<TimePickerProps> = (props) => {
-  const {
-    id,
-    label,
-    name,
-    value,
-    // placeholder,
-    min = '00:00:00',
-    max = '23:59:59',
-    // step = 900,
-    format,
-    strict,
-    disabled,
-    disabledTimes = [],
-    onChange,
-    onValidationChanged,
-  } = props;
-  let { step = 900, placeholder } = props;
+export const TimePicker: React.FC<TimePickerProps> = ({
+  id,
+  label,
+  name,
+  value,
+  placeholder,
+  min = '00:00:00',
+  max = '23:59:59',
+  step = 900,
+  format,
+  strict,
+  disabled,
+  disabledTimes = [],
+  onChange,
+  onValidationChanged,
+}) => {
   const [hours, setHours] = useState('');
   const [minutes, setMinutes] = useState('');
   const [seconds, setSeconds] = useState('');
@@ -97,7 +95,7 @@ export const TimePicker: React.FC<TimePickerProps> = (props) => {
 
       if (onValidationChanged) {
         onValidationChanged(
-          computeErrorFromTime(newTime, min, max, disabledTimes)
+          computeError(inputValue, newTime, min, max, disabledTimes)
         );
       }
 
@@ -202,10 +200,8 @@ export const TimePicker: React.FC<TimePickerProps> = (props) => {
         if (metadata.action === 'input-change') {
           setInputValue(newValue);
         } else if (metadata.action === 'input-blur') {
-          if (onValidationChanged) {
-            onValidationChanged(
-              computeError(inputValue, format, min, max, disabledTimes)
-            );
+          if (inputValue === null || inputValue === undefined) {
+            setInputValue(''); // Set to '' to trigger Validation on Blur
           }
         }
       }}
@@ -252,18 +248,24 @@ TimePicker.propTypes = {
 };
 
 /**
- * Test if the time raised an error to the Validation component
+ * Test if the input value raised an error to the Validation component
+ * @param value Input value
  * @param time Value parsed in ISO Time
  * @param min Min Time value in ISO format
  * @param max Max Time value in ISO format
  * @param disabledTimes
  */
-const computeErrorFromTime = (
+const computeError = (
+  value: string,
   time: Time,
   min: string,
   max: string,
   disabledTimes: DisabledTime | Array<DisabledTime>
 ): ErrorMessages => {
+  if (!value) {
+    return null;
+  }
+
   if (!time) {
     return { format: 'The time format is incorrect' };
   } else {
@@ -277,29 +279,6 @@ const computeErrorFromTime = (
       return null;
     }
   }
-};
-
-/**
- * Test if the input value raised an error to the Validation component
- * @param value Input value
- * @param format Format to parse the value
- * @param min Min Time value in ISO format
- * @param max Max Time value in ISO format
- * @param disabledTimes
- */
-const computeError = (
-  value: string,
-  format: string,
-  min: string,
-  max: string,
-  disabledTimes: DisabledTime | Array<DisabledTime>
-): ErrorMessages => {
-  if (!value) {
-    return null;
-  }
-
-  const time = getISOTimeFromLocalTime(value, format);
-  return computeErrorFromTime(time, min, max, disabledTimes);
 };
 
 /**
