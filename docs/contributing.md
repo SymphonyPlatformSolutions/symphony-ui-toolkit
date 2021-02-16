@@ -50,7 +50,7 @@ There is a consist way to export component and it's interfaces, so while creatin
 - Your index should export by Default the component
 - The index should also export the component and interfaces - no better example than the plain ol' Button
 - Finally export the component from the components/index.ts  
-  ex: `export * from './button'`
+  ex: `export * from "./button"`
 
 ## Pull requests
 
