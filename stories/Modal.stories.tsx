@@ -28,7 +28,7 @@ Main.args = { show: true };
 const header = (
   <>
     <hr />
-    <div style={{ display: 'flex', justifyContent: 'space-between' }} className="tk-text-color">
+    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
       <Icon iconName={'lock'} />
       <Icon iconName={'call'} />
       <Icon iconName={'app'} />
