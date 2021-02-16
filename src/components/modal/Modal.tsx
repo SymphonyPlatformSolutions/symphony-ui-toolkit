@@ -45,7 +45,7 @@ const Modal: React.FC<ModalProps> = ({
   show,
   ...rest
 }: ModalProps) => {
-  const containerClasses = classNames(className, `${prefix}-backdrop`, 'tk-text-color');
+  const containerClasses = classNames(className, `${prefix}-backdrop`);
   const sizeClasses = classNames(prefix, `${prefix}--${size}`);
   const handleContentClick = (ev: React.MouseEvent<HTMLElement>) => ev.stopPropagation();
 
