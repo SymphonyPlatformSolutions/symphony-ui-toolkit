@@ -154,9 +154,7 @@ export const WithValidationComponent: React.SFC = () => {
           value={time2}
           onChange={(e) => {
             const value = e.target.value;
-            if (value) {
-              setTime2(value);
-            }
+            setTime2(value);
           }}
         />
       </Validation>

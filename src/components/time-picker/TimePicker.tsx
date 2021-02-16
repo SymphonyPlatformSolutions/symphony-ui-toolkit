@@ -8,7 +8,8 @@ import { ErrorMessages } from '../validation/interfaces';
 import { DisabledTime } from './interfaces';
 import {
   FIELD,
-  formatISOTimeToSeconds, formatTimeISO,
+  formatTimeISO,
+  formatISOTimeToSeconds,
   getFormattedTime,
   getISOTimeFromLocalTime,
   getOptions,
@@ -19,7 +20,7 @@ import {
   isTimeDisabled,
   isTimeSelected,
   isTimeValid,
-  Time
+  Time,
 } from './utils';
 
 enum STEP {
@@ -27,27 +28,29 @@ enum STEP {
   MAX_STEP_VALUE = 43200,
 }
 
-export const TimePicker: React.FC<TimePickerProps> = ({
-  id,
-  label,
-  name,
-  value,
-  placeholder,
-  min = '00:00:00',
-  max = '23:59:59',
-  step = 900,
-  format,
-  strict,
-  disabled,
-  disabledTimes = [],
-  onChange,
-  onValidationChanged,
-}) => {
+export const TimePicker: React.FC<TimePickerProps> = (props) => {
+  const {
+    id,
+    label,
+    name,
+    value,
+    // placeholder,
+    min = '00:00:00',
+    max = '23:59:59',
+    // step = 900,
+    format,
+    strict,
+    disabled,
+    disabledTimes = [],
+    onChange,
+    onValidationChanged,
+  } = props;
+  let { step = 900, placeholder } = props;
   const [hours, setHours] = useState('');
   const [minutes, setMinutes] = useState('');
   const [seconds, setSeconds] = useState('');
   const [selectedOption, setSelectedOption] = useState(null);
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState(undefined);
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   // Indicate if the user is navigating with arrow keys in the Dropdown menu
   const [navigationInMenu, setNavigationInMenu] = useState(false);
@@ -79,37 +82,45 @@ export const TimePicker: React.FC<TimePickerProps> = ({
   }, [hours, minutes, seconds]);
 
   useEffect(() => {
-    // Called when the user enters a new date in the input field
-    const newTime = getISOTimeFromLocalTime(inputValue, format);
-    if (newTime) {
-      setHours(newTime.hours);
-      setMinutes(newTime.minutes);
-      setSeconds(newTime.seconds);
-    }
+    if (inputValue !== null && inputValue !== undefined) {
+      // Called when the user enters a new date in the input field
+      const newTime = getISOTimeFromLocalTime(inputValue, format);
+      if (newTime) {
+        setHours(newTime.hours);
+        setMinutes(newTime.minutes);
+        setSeconds(newTime.seconds);
+      } else {
+        setHours('');
+        setMinutes('');
+        setSeconds('');
+      }
 
-    if (onValidationChanged) {
-      onValidationChanged(
-        computeError(inputValue, newTime, min, max, disabledTimes)
-      );
-    }
+      if (onValidationChanged) {
+        onValidationChanged(
+          computeErrorFromTime(newTime, min, max, disabledTimes)
+        );
+      }
 
-    // Called onChange prop
-    if (onChange) {
-      onChange({
-        target: {
-          value: inputValue,
-        },
-      });
+      // Called onChange prop
+      if (onChange) {
+        onChange({
+          target: {
+            value: inputValue,
+          },
+        });
+      }
     }
   }, [inputValue]);
 
   useEffect(() => {
-    // Value prop has changed
-    const newTime = getISOTimeFromLocalTime(value); // Without format it will be the ISO format
-    if (newTime) {
-      setInputValue(getFormattedTime(newTime, format));
-    } else {
-      setInputValue(value);
+    if (value !== null && value !== undefined) {
+      // Value prop has changed
+      const newTime = getISOTimeFromLocalTime(value); // Without format it will be the ISO format
+      if (newTime) {
+        setInputValue(getFormattedTime(newTime, format));
+      } else {
+        setInputValue(value);
+      }
     }
   }, [value]);
 
@@ -190,10 +201,12 @@ export const TimePicker: React.FC<TimePickerProps> = ({
         // Called when the user set a new value in the Input field
         if (metadata.action === 'input-change') {
           setInputValue(newValue);
-          // Remove selected hours/minutes/seconds
-          setHours('');
-          setMinutes('');
-          setSeconds('');
+        } else if (metadata.action === 'input-blur') {
+          if (onValidationChanged) {
+            onValidationChanged(
+              computeError(inputValue, format, min, max, disabledTimes)
+            );
+          }
         }
       }}
       inputValue={inputValue}
@@ -239,24 +252,18 @@ TimePicker.propTypes = {
 };
 
 /**
- * Test if the input value raised an error to the Validation component
- * @param value Input value
+ * Test if the time raised an error to the Validation component
  * @param time Value parsed in ISO Time
  * @param min Min Time value in ISO format
  * @param max Max Time value in ISO format
  * @param disabledTimes
  */
-const computeError = (
-  value: string,
+const computeErrorFromTime = (
   time: Time,
   min: string,
   max: string,
   disabledTimes: DisabledTime | Array<DisabledTime>
 ): ErrorMessages => {
-  if (!value) {
-    return null;
-  }
-
   if (!time) {
     return { format: 'The time format is incorrect' };
   } else {
@@ -270,6 +277,29 @@ const computeError = (
       return null;
     }
   }
+};
+
+/**
+ * Test if the input value raised an error to the Validation component
+ * @param value Input value
+ * @param format Format to parse the value
+ * @param min Min Time value in ISO format
+ * @param max Max Time value in ISO format
+ * @param disabledTimes
+ */
+const computeError = (
+  value: string,
+  format: string,
+  min: string,
+  max: string,
+  disabledTimes: DisabledTime | Array<DisabledTime>
+): ErrorMessages => {
+  if (!value) {
+    return null;
+  }
+
+  const time = getISOTimeFromLocalTime(value, format);
+  return computeErrorFromTime(time, min, max, disabledTimes);
 };
 
 /**
