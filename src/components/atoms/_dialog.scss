@@ -30,6 +30,7 @@ $dialog-scrollbar-box-shadow: rgba($scolor-black, 0.5);
   width: 480px; // Default medium
   @extend .tk-py-3;
   @extend .tk-px-4;
+  @extend .tk-text-color;
 
   /* Size variants */
   &--small {
