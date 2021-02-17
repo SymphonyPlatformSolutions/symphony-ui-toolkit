@@ -5,13 +5,14 @@ import {
   DatePicker,
   Dropdown,
   TextArea,
-  TextField,
-  Validation,
+  TextField, TimePicker,
+  Validation
 } from '../src/components';
 import { Validators } from '../src/core/validators/validators';
 
 export const Validations = () => {
   const [date, setDate] = useState(null);
+  const [time, setTime] = useState(null);
   const [dropdown, setDropdown] = useState(null);
   const [multiDropdown, setMultiDropdown] = useState(null);
   const logChange = (value, errorsMap) => {
@@ -38,6 +39,17 @@ export const Validations = () => {
     {
       from: new Date(now.getFullYear(), now.getMonth(), now.getDate() + 22),
       to: new Date(now.getFullYear(), now.getMonth(), now.getDate() + 24),
+    },
+  ];
+  const disabledTimes = [
+    { time: '09:00:00' },
+    {
+      from: '10::00:00',
+      to: '12:30:00',
+    },
+    {
+      from: '16:30:00',
+      to: '17:00:00',
     },
   ];
 
@@ -219,6 +231,30 @@ export const Validations = () => {
             setDate(e.target.value);
           }}
         ></DatePicker>
+      </Validation>
+      <p>
+        Another example with the TimePicker :
+      </p>
+      <Validation
+        onValidationChanged={logChange}
+        errorMessage={{
+          format: 'Le format est incorrect',
+          disabledTime: 'L\'heure n\'est pas disponible',
+          maxTime: 'L\'heure est trop tard',
+          minTime: 'L\'heure est trop trop',
+        }}
+      >
+        <TimePicker
+          label={'TimePicker'}
+          min={'08:00:00'}
+          max={'20:00:00'}
+          disabledTimes={disabledTimes}
+          value={time}
+          onChange={(e) => {
+            const value = e.target.value;
+            setTime(value);
+          }}
+        />
       </Validation>
       <h2>Can be attached to anything</h2>
       <p>The Validation component wraps the component to be validated.</p>

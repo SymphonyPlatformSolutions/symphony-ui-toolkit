@@ -8,7 +8,8 @@ import { ErrorMessages } from '../validation/interfaces';
 import { DisabledTime } from './interfaces';
 import {
   FIELD,
-  formatISOTimeToSeconds, formatTimeISO,
+  formatTimeISO,
+  formatISOTimeToSeconds,
   getFormattedTime,
   getISOTimeFromLocalTime,
   getOptions,
@@ -19,7 +20,7 @@ import {
   isTimeDisabled,
   isTimeSelected,
   isTimeValid,
-  Time
+  Time,
 } from './utils';
 
 enum STEP {
@@ -47,7 +48,7 @@ export const TimePicker: React.FC<TimePickerProps> = ({
   const [minutes, setMinutes] = useState('');
   const [seconds, setSeconds] = useState('');
   const [selectedOption, setSelectedOption] = useState(null);
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState(undefined);
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   // Indicate if the user is navigating with arrow keys in the Dropdown menu
   const [navigationInMenu, setNavigationInMenu] = useState(false);
@@ -79,37 +80,45 @@ export const TimePicker: React.FC<TimePickerProps> = ({
   }, [hours, minutes, seconds]);
 
   useEffect(() => {
-    // Called when the user enters a new date in the input field
-    const newTime = getISOTimeFromLocalTime(inputValue, format);
-    if (newTime) {
-      setHours(newTime.hours);
-      setMinutes(newTime.minutes);
-      setSeconds(newTime.seconds);
-    }
+    if (inputValue !== null && inputValue !== undefined) {
+      // Called when the user enters a new date in the input field
+      const newTime = getISOTimeFromLocalTime(inputValue, format);
+      if (newTime) {
+        setHours(newTime.hours);
+        setMinutes(newTime.minutes);
+        setSeconds(newTime.seconds);
+      } else {
+        setHours('');
+        setMinutes('');
+        setSeconds('');
+      }
 
-    if (onValidationChanged) {
-      onValidationChanged(
-        computeError(inputValue, newTime, min, max, disabledTimes)
-      );
-    }
+      if (onValidationChanged) {
+        onValidationChanged(
+          computeError(inputValue, newTime, min, max, disabledTimes)
+        );
+      }
 
-    // Called onChange prop
-    if (onChange) {
-      onChange({
-        target: {
-          value: inputValue,
-        },
-      });
+      // Called onChange prop
+      if (onChange) {
+        onChange({
+          target: {
+            value: inputValue,
+          },
+        });
+      }
     }
   }, [inputValue]);
 
   useEffect(() => {
-    // Value prop has changed
-    const newTime = getISOTimeFromLocalTime(value); // Without format it will be the ISO format
-    if (newTime) {
-      setInputValue(getFormattedTime(newTime, format));
-    } else {
-      setInputValue(value);
+    if (value !== null && value !== undefined) {
+      // Value prop has changed
+      const newTime = getISOTimeFromLocalTime(value); // Without format it will be the ISO format
+      if (newTime) {
+        setInputValue(getFormattedTime(newTime, format));
+      } else {
+        setInputValue(value);
+      }
     }
   }, [value]);
 
@@ -190,10 +199,10 @@ export const TimePicker: React.FC<TimePickerProps> = ({
         // Called when the user set a new value in the Input field
         if (metadata.action === 'input-change') {
           setInputValue(newValue);
-          // Remove selected hours/minutes/seconds
-          setHours('');
-          setMinutes('');
-          setSeconds('');
+        } else if (metadata.action === 'input-blur') {
+          if (inputValue === null || inputValue === undefined) {
+            setInputValue(''); // Set to '' to trigger Validation on Blur
+          }
         }
       }}
       inputValue={inputValue}
@@ -202,6 +211,7 @@ export const TimePicker: React.FC<TimePickerProps> = ({
       menuIsOpen={menuIsOpen}
       onMenuOpen={() => setMenuIsOpen(true)}
       onMenuClose={() => setMenuIsOpen(false)}
+      tabSelectsValue={false}
     />
   );
 };
@@ -261,9 +271,9 @@ const computeError = (
     return { format: 'The time format is incorrect' };
   } else {
     if (formatTimeISO(time) < min) {
-      return { maxTime: 'Time too early' };
+      return { minTime: 'Time too early' };
     } else if (max < formatTimeISO(time)) {
-      return { minTime: 'Time too late' };
+      return { maxTime: 'Time too late' };
     } else if (isTimeDisabled(time, disabledTimes)) {
       return { disabledTime: 'This time is not available' };
     } else {
