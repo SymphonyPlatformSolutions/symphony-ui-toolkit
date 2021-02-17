@@ -232,6 +232,9 @@ export const Validations = () => {
           }}
         ></DatePicker>
       </Validation>
+      <p>
+        Another example with the TimePicker :
+      </p>
       <Validation
         onValidationChanged={logChange}
         errorMessage={{
@@ -242,6 +245,7 @@ export const Validations = () => {
         }}
       >
         <TimePicker
+          label={'TimePicker'}
           min={'08:00:00'}
           max={'20:00:00'}
           disabledTimes={disabledTimes}

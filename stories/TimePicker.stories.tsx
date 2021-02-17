@@ -130,7 +130,7 @@ export const WithValidationComponent: React.SFC = () => {
         />
       </Validation>
 
-      <Button onClick={() => setTime1('')} variant="tertiary">
+      <Button onClick={() => setTime1('01:00:00')} variant="tertiary">
         Reset value
       </Button>
 
