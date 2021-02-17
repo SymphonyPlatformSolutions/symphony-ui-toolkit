@@ -211,6 +211,7 @@ export const TimePicker: React.FC<TimePickerProps> = ({
       menuIsOpen={menuIsOpen}
       onMenuOpen={() => setMenuIsOpen(true)}
       onMenuClose={() => setMenuIsOpen(false)}
+      tabSelectsValue={false}
     />
   );
 };
@@ -270,9 +271,9 @@ const computeError = (
     return { format: 'The time format is incorrect' };
   } else {
     if (formatTimeISO(time) < min) {
-      return { maxTime: 'Time too early' };
+      return { minTime: 'Time too early' };
     } else if (max < formatTimeISO(time)) {
-      return { minTime: 'Time too late' };
+      return { maxTime: 'Time too late' };
     } else if (isTimeDisabled(time, disabledTimes)) {
       return { disabledTime: 'This time is not available' };
     } else {
