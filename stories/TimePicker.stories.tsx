@@ -130,7 +130,7 @@ export const WithValidationComponent: React.SFC = () => {
         />
       </Validation>
 
-      <Button onClick={() => setTime1('')} variant="tertiary">
+      <Button onClick={() => setTime1('01:00:00')} variant="tertiary">
         Reset value
       </Button>
 
@@ -154,12 +154,13 @@ export const WithValidationComponent: React.SFC = () => {
           value={time2}
           onChange={(e) => {
             const value = e.target.value;
-            if (value) {
-              setTime2(value);
-            }
+            setTime2(value);
           }}
         />
       </Validation>
+      <Button onClick={() => setTime2('')} variant="tertiary">
+        Reset value
+      </Button>
     </div>
   );
 };
