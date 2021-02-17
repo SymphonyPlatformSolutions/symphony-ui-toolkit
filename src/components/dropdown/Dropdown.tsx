@@ -19,11 +19,9 @@ import {
   OptionRendererProps,
   TagRendererProps,
 } from './interfaces';
-import {
-  HasValidationProps,
-} from '../validation/interfaces';
+import { HasValidationProps } from '../validation/interfaces';
 import { HasTooltipProps } from '../tooltip/interfaces';
-import LabelTooltipDecorator from '../label-tooltip-decorator/LabelTooltipDecorator'
+import LabelTooltipDecorator from '../label-tooltip-decorator/LabelTooltipDecorator';
 
 // css baseclass prefix
 const prefix = 'tk-select';
@@ -79,19 +77,21 @@ export type DropdownProps<T> = {
   /** Maximum height of the menu before scrolling */
   maxMenuHeight?: number;
   /** Allows to scroll automatically to selected option */
-  autoScrollToCurrent?:boolean;
+  autoScrollToCurrent?: boolean;
   /** Handle key down events on the select */
   onKeyDown?: (event) => any;
   /** Handle change events on the input */
   onInputChange?: (string, any) => any;
   /** Whether the Dropdown menu is expanded */
-  menuIsOpen?: boolean,
+  menuIsOpen?: boolean;
   /** Handle the menu opening */
-  onMenuOpen?: () => void,
+  onMenuOpen?: () => void;
   /** Handle the menu closing */
-  onMenuClose?: () => void,
-
-} & HasTooltipProps & (MultiModeProps<T> | SingleModeProps<T>);
+  onMenuClose?: () => void;
+  /** Select the currently focused option when the user presses tab */
+  tabSelectsValue?: boolean;
+} & HasTooltipProps &
+  (MultiModeProps<T> | SingleModeProps<T>);
 
 type MultiModeProps<T> = {
   /** Support multiple selected options */
@@ -121,9 +121,18 @@ export class Dropdown<T = LabelValue> extends React.Component<
 > {
   state = {
     selectedOption: null,
-    hideSelectedOptions: this.props.hideSelectedOptions===undefined ? this.props?.isMultiSelect : this.props.hideSelectedOptions,
-    closeMenuOnSelect: this.props.closeMenuOnSelect===undefined ? !this.props?.isMultiSelect : this.props.closeMenuOnSelect,
-    displayArrowIndicator: this.props.displayArrowIndicator===undefined ? !this.props?.isMultiSelect : this.props.displayArrowIndicator,
+    hideSelectedOptions:
+      this.props.hideSelectedOptions === undefined
+        ? this.props?.isMultiSelect
+        : this.props.hideSelectedOptions,
+    closeMenuOnSelect:
+      this.props.closeMenuOnSelect === undefined
+        ? !this.props?.isMultiSelect
+        : this.props.closeMenuOnSelect,
+    displayArrowIndicator:
+      this.props.displayArrowIndicator === undefined
+        ? !this.props?.isMultiSelect
+        : this.props.displayArrowIndicator,
   };
 
   componentDidMount() {
@@ -192,6 +201,7 @@ export class Dropdown<T = LabelValue> extends React.Component<
       tooltipCloseLabel,
       onMenuOpen,
       onMenuClose,
+      tabSelectsValue,
     } = this.props;
 
     return (
@@ -250,6 +260,7 @@ export class Dropdown<T = LabelValue> extends React.Component<
           menuIsOpen={menuIsOpen}
           onMenuOpen={onMenuOpen}
           onMenuClose={onMenuClose}
+          tabSelectsValue={tabSelectsValue}
         />
       </div>
     );
@@ -260,7 +271,7 @@ export class Dropdown<T = LabelValue> extends React.Component<
     isMultiSelect: false,
     isInputClearable: false,
     isTypeAheadEnabled: true,
-    autoScrollToCurrent: false
+    autoScrollToCurrent: false,
   };
 }
 

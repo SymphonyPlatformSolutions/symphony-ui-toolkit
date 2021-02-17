@@ -202,6 +202,7 @@ export const TimePicker: React.FC<TimePickerProps> = ({
       menuIsOpen={menuIsOpen}
       onMenuOpen={() => setMenuIsOpen(true)}
       onMenuClose={() => setMenuIsOpen(false)}
+      tabSelectsValue={false}
     />
   );
 };
