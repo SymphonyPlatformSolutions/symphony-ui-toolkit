@@ -16,7 +16,7 @@
 
 .tk-loader {
   &--warning {
-    color: $scolor-red !important;
+    color: $--tk-color-error !important;
   }
 
   &--ok {

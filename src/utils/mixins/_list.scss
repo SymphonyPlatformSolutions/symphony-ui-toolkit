@@ -2,7 +2,7 @@ $list-font-size-icon: 16px;
 $list-box-shadow: rgba($scolor-graphite-plus-89, 0.122);
 
 @mixin listStyle {
-  background-color: $--tk-list-background-color;
+  background-color: $--tk-select-background-color;
   text-align: left;
   border: 1px solid $list-box-shadow;
   border-radius: 8px;

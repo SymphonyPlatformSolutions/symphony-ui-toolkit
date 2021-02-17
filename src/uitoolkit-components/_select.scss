@@ -7,10 +7,10 @@
     &__control {
       @extend .tk-input;
       padding: 0;
-      background: transparent;
-      background-repeat: no-repeat;
-      background-position-x: 96%;
-      background-position-y: 50%;
+      background-color: $--tk-select-background-color;
+      .tk-input__icon {
+        cursor: pointer;
+      }
       &.tk-select__control {
         position: relative;
         @extend .tk-input__container;
@@ -18,6 +18,14 @@
           .tk-input__icon {
             background-color: $--tk-input-default-inactive-color;
             border-color: $--tk-input-default-inactive-color;
+          }
+          .tk-validation--error & {
+            box-shadow: inset 0 0 0 2px $--tk-input-error-focus-border-color;
+            border-color: $--tk-input-error-focus-border-color;
+            .tk-input__icon {
+              box-shadow: inset 0 0 0 2px $--tk-input-error-focus-border-color;
+              border-color: $--tk-input-error-focus-border-color;
+            }
           }
         }
         &--menu-is-open,
@@ -41,10 +49,10 @@
         .tk-select__multi-value {
           padding: 0;
           box-sizing: border-box;
-          min-height: 24px;
-          border-radius: 4px;
+          min-height: toEm(24);
+          border-radius: toEm(4);
           background: $--tk-tag-background-color;
-          border: 1px solid $--tk-tag-border-color;
+          border: 1px solid $--tk-tag-border-and-group-heading-color;
           color: $--tk-main-text-color;
           &:hover {
             background: $--tk-tag-background-hover-color;
@@ -52,7 +60,7 @@
           }
           &__label {
             color: $--tk-main-text-color;
-            padding: 2px;
+            padding: toEm(2);
             font-size: toEm(12);
             .tk-icon-cross {
               font-size: toEm(10);
@@ -64,12 +72,32 @@
           white-space: nowrap;
         }
       }
+      &:hover {
+        .tk-select__placeholder {
+          color: $--tk-input-default-active-color;
+          @include addTransition();
+        }
+      }
+      .tk-validation--error & {
+        &:hover {
+          .tk-select__placeholder {
+            color: $--tk-input-error-active-color;
+            @include addTransition();
+          }
+        }
+        .tk-select__placeholder {
+          color: $--tk-input-error-inactive-color;
+          @include addTransition();
+        }
+      }
     }
     &__menu {
-      background-color: $--tk-list-background-color;
-      margin-top: 6px;
+      background-color: $--tk-select-background-color;
+      margin-top: toEm(6);
     }
     &__option {
+      cursor: pointer;
+      color: $--tk-input-default-active-color;
       &.tk-select__option {
         &--is-focused {
           background-color: $--tk-list-hover-color;
@@ -82,15 +110,32 @@
           color: inherit;
           @extend .tk-select--custom-dropdown--selected;
         }
+        &--is-disabled {
+          cursor: not-allowed;
+        }
       }
     }
+    &__group-heading {
+      color: $--tk-tag-border-and-group-heading-color;
+      font-size: toEm(12);
+      line-height: toEm(16);
+      font-weight: 600;
+    }
   }
+
   &__indicators {
     .tk-select__indicator-separator {
       display: none;
     }
     .tk-select__indicator {
+      cursor: pointer;
       color: inherit;
+      &.tk-select__clear-indicator {
+        color: $--tk-input-default-active-color;
+        &:hover {
+          color: $--tk-input-default-active-color;
+        }
+      }
       &.tk-select__dropdown-indicator {
         color: inherit;
         .tk-select__single-value {
@@ -101,14 +146,16 @@
   }
   .tk-input__container {
     &.tk-select__control {
+      min-height: toEm(36);
       .tk-select__value-container {
-        margin-left: 28px;
+        cursor: text;
+        margin-left: toEm(32);
       }
     }
   }
   .tk-select__control {
     .tk-select__value-container {
-      margin-left: 0px;
+      margin-left: 0;
     }
   }
 }

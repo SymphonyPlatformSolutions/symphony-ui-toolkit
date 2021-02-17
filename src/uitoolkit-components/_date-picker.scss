@@ -108,6 +108,7 @@
         border-radius: toEm(2, $fontSize);
       }
       &--disabled {
+        cursor: not-allowed;
         color: $--tk-input-default-inactive-color;
         text-decoration-line: line-through;
       }
