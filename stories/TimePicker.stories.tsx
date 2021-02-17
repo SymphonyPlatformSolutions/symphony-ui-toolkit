@@ -158,6 +158,9 @@ export const WithValidationComponent: React.SFC = () => {
           }}
         />
       </Validation>
+      <Button onClick={() => setTime2('')} variant="tertiary">
+        Reset value
+      </Button>
     </div>
   );
 };
