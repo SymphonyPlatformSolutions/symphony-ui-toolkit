@@ -272,9 +272,9 @@ const computeError = (
     return { format: 'The time format is incorrect' };
   } else {
     if (formatTimeISO(time) < min) {
-      return { minTime: 'Time too early' };
+      return { minTime: 'Time too far in the past' };
     } else if (max < formatTimeISO(time)) {
-      return { maxTime: 'Time too late' };
+      return { maxTime: 'Time too far in the future' };
     } else if (strict && isTimeDisabled(time, disabledTimes)) {
       return { disabledTime: 'This time is not available' };
     } else {
