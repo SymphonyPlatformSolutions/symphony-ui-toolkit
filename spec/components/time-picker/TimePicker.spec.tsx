@@ -42,44 +42,6 @@ describe('TimePicker Component', () => {
     expect(wrapperPicker.prop('placeHolder')).toBe(props.placeholder);
   });
 
-  describe('should change value', () => {
-    test.each([
-      [FIELD.HOURS, 0, Keys.ARROW_UP, '09:00:00 AM', '10:00:00 AM'],
-      [FIELD.HOURS, 0, Keys.ARROW_DOWN, '09:00:00 AM', '08:00:00 AM'],
-      [FIELD.MINUTES, 3, Keys.ARROW_UP, '09:30:00 AM', '09:45:00 AM'],
-      [FIELD.MINUTES, 3, Keys.ARROW_DOWN, '09:30:00 AM', '09:15:00 AM'],
-      [FIELD.SECONDS, 6, Keys.ARROW_UP, '09:30:00 AM', '09:30:01 AM'],
-      [FIELD.SECONDS, 6, Keys.ARROW_DOWN, '09:30:00 AM', '09:30:59 AM'],
-      [FIELD.AMPM, 9, Keys.ARROW_UP, '09:30:00 AM', '09:30:00 PM'],
-      [FIELD.AMPM, 9, Keys.ARROW_DOWN, '09:30:00 AM', '09:30:00 PM'],
-      [FIELD.HOURS, 0, Keys.ARROW_DOWN, 'string not valid', 'string not valid'],
-    ])(
-      'on field %p (cursor %p) when key %p is pressed and Input value is %p',
-      async (fieldType, cursorPosition, key, value, expected) => {
-        const props = createTestProps({ value });
-        const wrapper = mount(<TimePicker {...props} />);
-        await act(async () => {
-          const eventMock = {
-            key,
-            target: {
-              tagName: 'INPUT',
-              value,
-              selectionStart: cursorPosition,
-              setSelectionRange: jest.fn(),
-            },
-          };
-          wrapper
-            .find('.tk-select__input')
-            .find('input')
-            .simulate('keyDown', eventMock);
-
-          expect(eventMock.target.value).toBe(expected);
-        });
-        wrapper.unmount();
-      }
-    );
-  });
-
   describe('should move focus', () => {
     test.each([
       [FIELD.HOURS, 0, Keys.TAB, false, '09:00:00 AM', 3, 5],

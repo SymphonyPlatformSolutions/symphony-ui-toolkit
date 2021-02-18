@@ -1,11 +1,9 @@
 import {
-  FIELD,
   Time,
   formatISOTimeToSeconds,
   getFormattedTime,
   getISOTimeFromLocalTime,
   getOptions,
-  getOptionValue,
   getSteps,
   getTimeFromString,
   isTimeSelected,
@@ -13,38 +11,8 @@ import {
   matchExactTime,
   matchTimeInRange,
 } from '../../../src/components/time-picker/utils/';
-import { Keys } from '../../../src/components/common/keyUtils';
 
 describe('Time Utils', () => {
-  // Example, with a step of 1h 30min 00s (5 400 seconds)
-  const options = [
-    {
-      label: '10:00:00',
-      value: '10:00:00',
-      data: { index: 0, hours: '10', minutes: '00', seconds: '00' },
-    },
-    {
-      label: '11:30:00',
-      value: '11:30:00',
-      data: { index: 1, hours: '11', minutes: '30', seconds: '00' },
-    },
-    {
-      label: '13:00:00',
-      value: '13:00:00',
-      data: { index: 2, hours: '13', minutes: '00', seconds: '00' },
-    },
-    {
-      label: '14:30:00',
-      value: '14:30:00',
-      data: { index: 3, hours: '14', minutes: '30', seconds: '00' },
-    },
-    {
-      label: '16:00:00',
-      value: '16:00:00',
-      data: { index: 4, hours: '16', minutes: '00', seconds: '00' },
-    },
-  ];
-
   test.each([
     [
       [
@@ -74,47 +42,6 @@ describe('Time Utils', () => {
     const result = getSteps(options, null);
     expect(result).toEqual(expected);
   });
-
-  const steps = getSteps(options, null);
-
-  test.each([
-    [Keys.ARROW_UP, FIELD.MINUTES, new Time('10', '00', '00'), '30'],
-    [Keys.ARROW_UP, FIELD.MINUTES, new Time('11', '30', '15'), '00'],
-    [Keys.ARROW_UP, FIELD.MINUTES, new Time('10', '00', '00'), '30'],
-    [Keys.ARROW_UP, FIELD.MINUTES, new Time('10', '20', '00'), '30'],
-    [Keys.ARROW_UP, FIELD.HOURS, new Time('11', '30', '15'), '13'],
-    [Keys.ARROW_UP, FIELD.HOURS, new Time('13', '00', '30'), '14'],
-    [Keys.ARROW_UP, FIELD.HOURS, new Time('16', '00', '00'), '10'],
-    [Keys.ARROW_UP, FIELD.HOURS, new Time('12', '20', '00'), '13'],
-    [Keys.ARROW_UP, FIELD.MINUTES, new Time('10', '00', '00'), '30'],
-    [Keys.ARROW_UP, FIELD.MINUTES, new Time('10', '20', '00'), '30'],
-    [Keys.ARROW_UP, FIELD.MINUTES, new Time('16', '00', '00'), '30'],
-    [Keys.ARROW_UP, FIELD.SECONDS, new Time('12', '20', '00'), '01'],
-    [Keys.ARROW_UP, FIELD.SECONDS, new Time('12', '20', '45'), '46'],
-    [Keys.ARROW_UP, FIELD.SECONDS, new Time('12', '20', '59'), '00'],
-    [Keys.ARROW_DOWN, FIELD.HOURS, new Time('10', '00', '00'), '16'],
-    [Keys.ARROW_DOWN, FIELD.HOURS, new Time('13', '00', '30'), '11'],
-    [Keys.ARROW_DOWN, FIELD.HOURS, new Time('10', '00', '00'), '16'],
-    [Keys.ARROW_DOWN, FIELD.HOURS, new Time('12', '20', '00'), '11'],
-    [Keys.ARROW_DOWN, FIELD.MINUTES, new Time('10', '00', '00'), '30'],
-    [Keys.ARROW_DOWN, FIELD.MINUTES, new Time('10', '20', '00'), '00'],
-    [Keys.ARROW_DOWN, FIELD.HOURS, new Time('12', '20', '00'), '11'],
-    [Keys.ARROW_DOWN, FIELD.MINUTES, new Time('10', '00', '00'), '30'],
-    [Keys.ARROW_DOWN, FIELD.MINUTES, new Time('10', '20', '00'), '00'],
-    [Keys.ARROW_DOWN, FIELD.SECONDS, new Time('12', '20', '00'), '59'],
-    [Keys.ARROW_DOWN, FIELD.SECONDS, new Time('12', '20', '45'), '44'],
-    [Keys.ARROW_DOWN, FIELD.SECONDS, new Time('12', '20', '59'), '58'],
-    [Keys.ARROW_UP, FIELD.AMPM, { ampm: 'AM' }, 'PM'],
-    [Keys.ARROW_UP, FIELD.AMPM, { ampm: 'PM' }, 'AM'],
-    [Keys.ARROW_DOWN, FIELD.AMPM, { ampm: 'AM' }, 'PM'],
-    [Keys.ARROW_DOWN, FIELD.AMPM, { ampm: 'PM' }, 'AM'],
-  ])(
-    'getOptionValue with key %p on field %p with value %p',
-    (key, fieldType, inputValue, expected) => {
-      const result = getOptionValue(key, fieldType, inputValue, options, steps);
-      expect(result).toEqual(expected);
-    }
-  );
 
   test.each([
     [new Time('14', '30', '20'), 'HH:mm', '14:30'],
@@ -153,7 +80,7 @@ describe('Time Utils', () => {
     [new Time('11', '30', '00'), '11', '50', '00', [], false],
     [new Time('11', '30', '00'), '12', '30', '00', [], false],
     [new Time('11', '30', '00'), '11', '30', '40', [], false],
-    [new Time('11', '30', '00'), '11', '30', '40', ['11:30:00'], false],
+    [new Time('11', '30', '00'), '11', '30', '40', { time: '11:30:00' }, false],
     [
       new Time('11', '30', '00'),
       '11',
