@@ -151,8 +151,10 @@ export const WithValidationComponent: React.SFC = () => {
       </Button>
 
       <p>
-        Per default, if the time written in the field is not among the available choices then an error will be displayed.
-        (If you set the TimePicker attribute <strong>strict</strong> to <strong>false</strong> then a value that is disabled or not proposed in the options will be accepted.)
+        By default, the Time Picker only accept the values available in the
+        list, otherwise an error is displayed. (You can set the attribute{' '}
+        <strong>strict</strong> to <strong>false</strong> to be able to type
+        other values)
       </p>
       <Validation onValidationChanged={logChange}>
         <TimePicker
