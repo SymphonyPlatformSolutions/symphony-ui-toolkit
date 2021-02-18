@@ -38,7 +38,7 @@ export const TimePicker: React.FC<TimePickerProps> = ({
   max = '23:59:59',
   step = 900,
   format,
-  strict,
+  strict = true,
   disabled,
   disabledTimes = [],
   onChange,
@@ -95,7 +95,7 @@ export const TimePicker: React.FC<TimePickerProps> = ({
 
       if (onValidationChanged) {
         onValidationChanged(
-          computeError(inputValue, newTime, min, max, disabledTimes)
+          computeError(inputValue, newTime, min, max, disabledTimes, strict)
         );
       }
 
@@ -185,7 +185,6 @@ export const TimePicker: React.FC<TimePickerProps> = ({
       onKeyDown={(event) =>
         handleKeyDown(
           event,
-          strict,
           setInputValue,
           options,
           steps,
@@ -255,13 +254,15 @@ TimePicker.propTypes = {
  * @param min Min Time value in ISO format
  * @param max Max Time value in ISO format
  * @param disabledTimes
+ * @param strict
  */
 const computeError = (
   value: string,
   time: Time,
   min: string,
   max: string,
-  disabledTimes: DisabledTime | Array<DisabledTime>
+  disabledTimes: DisabledTime | Array<DisabledTime>,
+  strict: boolean
 ): ErrorMessages => {
   if (!value) {
     return null;
@@ -274,7 +275,7 @@ const computeError = (
       return { minTime: 'Time too early' };
     } else if (max < formatTimeISO(time)) {
       return { maxTime: 'Time too late' };
-    } else if (isTimeDisabled(time, disabledTimes)) {
+    } else if (strict && isTimeDisabled(time, disabledTimes)) {
       return { disabledTime: 'This time is not available' };
     } else {
       return null;
@@ -407,7 +408,6 @@ const handleKeyboardNavigation = (event, setInputValue, options, steps) => {
 
 const handleKeyDown = (
   event,
-  strict,
   setInputValue,
   options,
   steps,
@@ -440,9 +440,6 @@ const handleKeyDown = (
         event.preventDefault();
       }
       setNavigationInMenu(false);
-    } else if (strict) {
-      // The user is not allowed to set manually another value
-      event.preventDefault();
     }
   }
 };
