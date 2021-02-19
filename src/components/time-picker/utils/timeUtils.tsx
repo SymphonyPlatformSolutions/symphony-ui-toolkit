@@ -1,5 +1,3 @@
-import { Keys } from '../../common/keyUtils';
-
 import { format as formatTime, parse as parseTime, isValid } from 'date-fns';
 
 import Time from './Time';
@@ -323,55 +321,6 @@ export const getSteps = (
 };
 
 /**
- * Return the next value to display when the user press a arrow up/down key
- *
- * @param key Key pressed by the user (See keyUtils.Key)
- * @param field Field to process (Field.HOURS or Field.MINUTES or Field.SECONDS)
- * @param inputValue Input value saved in an object (Example: {hours: '12', minutes: '30', seconds: '20'})
- * @param options Options used in the Dropdown component
- * @param steps All the steps (See method getSteps)
- */
-export const getOptionValue = (
-  key: Keys,
-  field: FIELD,
-  inputValue: any,
-  options: any,
-  steps: any
-) => {
-  if (field === FIELD.SECONDS) {
-    // Loop on seconds
-    let seconds = parseInt(inputValue[FIELD.SECONDS], 10);
-    let nextValue = key === Keys.ARROW_UP ? ++seconds : --seconds;
-    // To not return -1 or 60
-    nextValue = nextValue < 0 ? 59 : nextValue;
-    nextValue = 59 < nextValue ? 0 : nextValue;
-    return getNumberOn2Digits(nextValue);
-  } else if (field === FIELD.AMPM) {
-    // Loop on 'AM'/'PM'
-    return inputValue[FIELD.AMPM] &&
-      inputValue[FIELD.AMPM].toUpperCase() === 'AM'
-      ? 'PM'
-      : 'AM';
-  }
-  for (
-    let index = key === Keys.ARROW_UP ? 0 : steps[field].length - 1;
-    key === Keys.ARROW_UP ? index < steps[field].length : 0 <= index;
-    key === Keys.ARROW_UP ? index++ : index--
-  ) {
-    const currentValue = steps[field][index];
-    if (key === Keys.ARROW_UP && currentValue > inputValue[field]) {
-      return currentValue;
-    } else if (key === Keys.ARROW_DOWN && currentValue < inputValue[field]) {
-      return currentValue;
-    }
-  }
-  // If not found then return the first/last value
-  return key === Keys.ARROW_UP
-    ? steps[field][0]
-    : steps[field][steps[field].length - 1];
-};
-
-/**
  * Parse the string and return an object {hours, minutes, seconds, ampm}
  *
  * @param inputTime string (Example: '05:20:10 am', '07:30 AM', '06:00:00 PM', '18:20', '18:20:00'
@@ -402,12 +351,7 @@ export const getTimeFromString = (inputTime: string): Time => {
   const [, hours, minutes, seconds, ampm] = result;
 
   // Return an object {hours, minutes, seconds, ampm}
-  return new Time(
-    hours,
-    minutes,
-    seconds,
-    ampm
-  );
+  return new Time(hours, minutes, seconds, ampm);
 };
 
 /**
