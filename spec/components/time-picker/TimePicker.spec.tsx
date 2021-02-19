@@ -23,6 +23,9 @@ describe('TimePicker Component', () => {
       min: '08:00:00',
       max: '16:00:00',
       format: 'hh:mm:ss a',
+      onBlur: jest.fn(),
+      onChange: jest.fn(),
+      onValidationChanged: jest.fn(),
       ...props,
     };
   }
@@ -95,43 +98,6 @@ describe('TimePicker Component', () => {
     );
   });
 
-  describe('should not allowed to edit input on strict mode', () => {
-    test.each([
-      ['1'], // Key '1'
-      ['a'], // Key 'a'
-      [Keys.BACKSPACE],
-    ])('when key %p is pressed', async (key) => {
-      const value = '09:00:00';
-      const props = createTestProps({
-        value,
-        format: 'hh:mm:ss a',
-        strict: true,
-      });
-      const wrapper = mount(<TimePicker {...props} />);
-      await act(async () => {
-        const eventMock = {
-          key,
-          target: {
-            tagName: 'INPUT',
-            value,
-            selectionStart: 0,
-            setSelectionRange: jest.fn(),
-          },
-        };
-        wrapper
-          .find('.tk-select__input')
-          .find('input')
-          .simulate('keyDown', eventMock);
-
-        // Value not changed
-        expect(eventMock.target.value).toBe(value);
-        // Cursor not changed
-        expect(eventMock.target.setSelectionRange).toHaveBeenCalledTimes(0);
-      });
-      wrapper.unmount();
-    });
-  });
-
   describe('should select a value', () => {
     it('should select first option', async () => {
       const props = createTestProps({
@@ -144,6 +110,51 @@ describe('TimePicker Component', () => {
       const option = screen.getByText('10:00:00');
       userEvent.click(option);
       expect(getByText('10:00:00')).toBeTruthy();
+    });
+  });
+
+  describe('should trigger onValidationChanged', () => {
+    it('when typing on field', async () => {
+      const props = createTestProps({
+        min: '09:00:00',
+        max: '19:00:00',
+        disabledTimes: [
+          { from: '10:00:00', to: '11:00:00' },
+          { time: '15:00:00' },
+          { time: '16:30:00' },
+          { from: '17:30:00', to: '18:00:00' },
+        ],
+      });
+      const wrapper = mount(<TimePicker {...props} />);
+
+      expect(props.onValidationChanged).toHaveBeenCalledTimes(0);
+
+      wrapper.setProps({ value: 'azerty' });
+      expect(props.onValidationChanged).toHaveBeenCalledWith({
+        format: 'The time format is incorrect',
+      });
+
+      wrapper.setProps({ value: '10:15:00' });
+      expect(props.onValidationChanged).toHaveBeenCalledWith({
+        disabledTime: 'This time is not available',
+      });
+
+      wrapper.setProps({ value: '04:00:00' });
+      expect(props.onValidationChanged).toHaveBeenCalledWith({
+        minTime: 'Time too far in the past',
+      });
+
+      wrapper.setProps({ value: '22:00:00' });
+      expect(props.onValidationChanged).toHaveBeenCalledWith({
+        maxTime: 'Time too far in the future',
+      });
+
+      wrapper.setProps({ value: '15:00:00' });
+      expect(props.onValidationChanged).toHaveBeenCalledWith({
+        disabledTime: 'This time is not available',
+      });
+
+      wrapper.unmount();
     });
   });
 });
