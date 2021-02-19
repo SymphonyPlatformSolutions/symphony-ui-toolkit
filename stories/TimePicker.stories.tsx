@@ -31,7 +31,7 @@ Default.args = {
   step: 900,
   value: '09:30:00',
   format: 'hh:mm a',
-  strict: false,
+  strict: true,
   placeholder: 'Select a value',
   disabledTimes: [{ from: '10:00:00', to: '10:15:00' }, { time: '09:15:00' }],
   onChange: (value) => console.log(value),
@@ -45,11 +45,6 @@ WithPlaceholder.args = {
 export const WithValue = Template.bind({});
 WithValue.args = {
   value: '09:30:00',
-};
-
-export const WithStrict = Template.bind({});
-WithStrict.args = {
-  strict: true,
 };
 
 export const WithStep = Template.bind({});
@@ -97,11 +92,12 @@ WithOnChange.args = {
 export const WithValidationComponent: React.SFC = () => {
   const [time1, setTime1] = useState('01:00:00');
   const [time2, setTime2] = useState('');
+  const [time3, setTime3] = useState('10:00:00');
 
   const disabledTimes = [
     { time: '09:00:00' },
     {
-      from: '10::00:00',
+      from: '10:00:00',
       to: '12:30:00',
     },
     {
@@ -114,19 +110,14 @@ export const WithValidationComponent: React.SFC = () => {
     <div>
       <p>
         The TimePicker component own an internal validation. To be able to
-        display the error message, the Time Picker need to be wrapped by a{' '}
+        display the error message, the Time Picker must be wrapped by a{' '}
         <strong>Validation</strong> component.
       </p>
       <Validation onValidationChanged={logChange}>
         <TimePicker
           disabledTimes={disabledTimes}
           value={time1}
-          onChange={(e) => {
-            const value = e.target.value;
-            if (value) {
-              setTime1(value);
-            }
-          }}
+          onChange={(e) => setTime1(e.target.value)}
         />
       </Validation>
 
@@ -152,15 +143,27 @@ export const WithValidationComponent: React.SFC = () => {
           max={'20:00:00'}
           disabledTimes={disabledTimes}
           value={time2}
-          onChange={(e) => {
-            const value = e.target.value;
-            setTime2(value);
-          }}
+          onChange={(e) => setTime2(e.target.value)}
         />
       </Validation>
       <Button onClick={() => setTime2('')} variant="tertiary">
         Reset value
       </Button>
+
+      <p>
+        By default, the Time Picker only accept the values available in the
+        list, otherwise an error is displayed. (You can set the attribute{' '}
+        <strong>strict</strong> to <strong>false</strong> to be able to type
+        other values)
+      </p>
+      <Validation onValidationChanged={logChange}>
+        <TimePicker
+          strict
+          disabledTimes={disabledTimes}
+          value={time3}
+          onChange={(e) => setTime3(e.target.value)}
+        />
+      </Validation>
     </div>
   );
 };
