@@ -138,48 +138,27 @@ describe('TimePicker Component', () => {
   });
 
   describe('should trigger onValidationChanged', () => {
-    it('when typing on field', async () => {
+    test.each([
+      ['', null],
+      ['azerty', { format: 'The time format is incorrect' }],
+      ['10:15:00', { disabledTime: 'This time is not available' }],
+      ['04:00:00', { minTime: 'Time too far in the past' }],
+      ['22:00:00', { maxTime: 'Time too far in the future' }],
+      ['15:00:00', { disabledTime: 'This time is not available' }],
+    ])('when typing %p on field', (value, expected) => {
       const props = createTestProps({
         min: '09:00:00',
         max: '19:00:00',
         disabledTimes: [
           { from: '10:00:00', to: '11:00:00' },
           { time: '15:00:00' },
-          { time: '16:30:00' },
-          { from: '17:30:00', to: '18:00:00' },
         ],
       });
       const wrapper = mount(<TimePicker {...props} />);
-
       expect(props.onValidationChanged).toHaveBeenCalledTimes(0);
 
-      wrapper.setProps({ value: '' });
-      expect(props.onValidationChanged).toHaveBeenCalledWith(null);
-
-      wrapper.setProps({ value: 'azerty' });
-      expect(props.onValidationChanged).toHaveBeenCalledWith({
-        format: 'The time format is incorrect',
-      });
-
-      wrapper.setProps({ value: '10:15:00' });
-      expect(props.onValidationChanged).toHaveBeenCalledWith({
-        disabledTime: 'This time is not available',
-      });
-
-      wrapper.setProps({ value: '04:00:00' });
-      expect(props.onValidationChanged).toHaveBeenCalledWith({
-        minTime: 'Time too far in the past',
-      });
-
-      wrapper.setProps({ value: '22:00:00' });
-      expect(props.onValidationChanged).toHaveBeenCalledWith({
-        maxTime: 'Time too far in the future',
-      });
-
-      wrapper.setProps({ value: '15:00:00' });
-      expect(props.onValidationChanged).toHaveBeenCalledWith({
-        disabledTime: 'This time is not available',
-      });
+      wrapper.setProps({ value });
+      expect(props.onValidationChanged).toHaveBeenCalledWith(expected);
 
       wrapper.unmount();
     });
