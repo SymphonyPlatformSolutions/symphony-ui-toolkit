@@ -113,6 +113,30 @@ describe('TimePicker Component', () => {
     });
   });
 
+  describe('should fallback the default step value', () => {
+    test.each([
+      [null, '00:00:00', '00:15:00'], // Default fallback value 15 minutes
+      [0, '00:00:00', '00:10:00'], // Min fallback value 10 minutes
+      [99999, '00:00:00', '12:00:00'], // Max fallback value 12 hours
+    ])('when step is %p', (step, min, expected) => {
+      jest.spyOn(console, 'error').mockImplementation(() => {
+        return;
+      });
+      const props = createTestProps({
+        min,
+        step,
+      });
+      const wrapper = shallow(<TimePicker {...props} />);
+
+      const dropDownProps = wrapper.find(Dropdown).props();
+      expect(dropDownProps.options).toBeDefined();
+      expect(dropDownProps.options.length).toBeGreaterThan(1);
+      const secondOption = dropDownProps.options[1];
+      expect(secondOption).toBeDefined();
+      expect(secondOption.value).toBe(expected);
+    });
+  });
+
   describe('should trigger onValidationChanged', () => {
     it('when typing on field', async () => {
       const props = createTestProps({
@@ -128,6 +152,9 @@ describe('TimePicker Component', () => {
       const wrapper = mount(<TimePicker {...props} />);
 
       expect(props.onValidationChanged).toHaveBeenCalledTimes(0);
+
+      wrapper.setProps({ value: '' });
+      expect(props.onValidationChanged).toHaveBeenCalledWith(null);
 
       wrapper.setProps({ value: 'azerty' });
       expect(props.onValidationChanged).toHaveBeenCalledWith({

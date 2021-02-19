@@ -1,5 +1,3 @@
-import { Keys } from '../../common/keyUtils';
-
 import { format as formatTime, parse as parseTime, isValid } from 'date-fns';
 
 import Time from './Time';

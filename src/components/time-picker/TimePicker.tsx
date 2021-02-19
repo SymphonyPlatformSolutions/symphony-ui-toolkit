@@ -23,6 +23,7 @@ import {
 
 enum STEP {
   MIN_STEP_VALUE = 600,
+  DEFAULT_STEP_VALUE = 900,
   MAX_STEP_VALUE = 43200,
 }
 
@@ -34,7 +35,7 @@ export const TimePicker: React.FC<TimePickerProps> = ({
   placeholder,
   min = '00:00:00',
   max = '23:59:59',
-  step = 900,
+  step = STEP.DEFAULT_STEP_VALUE,
   format,
   strict = true,
   disabled,
@@ -120,15 +121,38 @@ export const TimePicker: React.FC<TimePickerProps> = ({
     }
   }, [value]);
 
+  const validatedStep = useMemo(() => {
+    if (step === null || step === undefined || isNaN(Number(step))) {
+      const stepValue = STEP.DEFAULT_STEP_VALUE;
+      console.error(
+        `Invalid step value: Step value ${step} is not a number, the value ${stepValue} will be used.`
+      );
+      return stepValue;
+    } else if (step < STEP.MIN_STEP_VALUE) {
+      const stepValue = STEP.MIN_STEP_VALUE;
+      console.error(
+        `Invalid step value: Step value ${step} too small, the value ${stepValue} will be used.`
+      );
+      return stepValue;
+    } else if (step > STEP.MAX_STEP_VALUE) {
+      const stepValue = STEP.MAX_STEP_VALUE;
+      console.error(
+        `Invalid step value: Step value ${step} too big, the value ${stepValue} will be used.`
+      );
+      return stepValue;
+    }
+    return step;
+  }, [step]);
+
   const options = useMemo(
     () =>
       getOptions(
         format,
         formatISOTimeToSeconds(min),
         formatISOTimeToSeconds(max),
-        step
+        validatedStep
       ),
-    [format, min, max, step]
+    [format, min, max, validatedStep]
   );
 
   const toggleMenu = () => setMenuIsOpen(!menuIsOpen);
@@ -137,20 +161,6 @@ export const TimePicker: React.FC<TimePickerProps> = ({
     options,
     disabledTimes,
   ]);
-
-  if (step < STEP.MIN_STEP_VALUE) {
-    const defaultStepValue = STEP.MIN_STEP_VALUE;
-    console.error(
-      `Invalid step value: Step value ${step} too small, the value ${defaultStepValue} will be used.`
-    );
-    step = defaultStepValue;
-  } else if (step > STEP.MAX_STEP_VALUE) {
-    const defaultStepValue = STEP.MAX_STEP_VALUE;
-    console.error(
-      `Invalid step value: Step value ${step} too big, the value ${defaultStepValue} will be used.`
-    );
-    step = defaultStepValue;
-  }
 
   if (!placeholder) {
     placeholder = format ? format : getUserFormat();
