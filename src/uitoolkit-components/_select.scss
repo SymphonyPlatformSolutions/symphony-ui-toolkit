@@ -112,6 +112,7 @@
         }
         &--is-disabled {
           cursor: not-allowed;
+          color: $--tk-list-disabled-color;
         }
       }
     }
@@ -150,6 +151,9 @@
       .tk-select__value-container {
         cursor: text;
         margin-left: toEm(32);
+        .tk-select__input {
+          color: $--tk-input-default-active-color;
+        }
       }
     }
   }
