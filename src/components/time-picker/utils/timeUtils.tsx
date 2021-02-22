@@ -9,6 +9,8 @@ export const TIME_REGEXPR = {
   HH_MM_SS_24: /^(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9]):?([0-5][0-9])?$/,
 };
 
+export const TIME_SEPARATOR = ':';
+
 export enum TIME_FORMAT {
   HH_MM_A_12 = 'hh:mm a',
   HH_MM_SS_A_12 = 'hh:mm:ss a',
@@ -83,9 +85,9 @@ export const formatTimeISO = (time: Time): string => {
 
   return (
     time.hours.toString().padStart(2, '0') +
-    ':' +
+    TIME_SEPARATOR +
     time.minutes.toString().padStart(2, '0') +
-    ':' +
+    TIME_SEPARATOR +
     time.seconds.toString().padStart(2, '0')
   );
 };
