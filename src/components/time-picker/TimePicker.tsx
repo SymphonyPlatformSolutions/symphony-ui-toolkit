@@ -29,19 +29,20 @@ enum STEP {
 
 export const TimePicker: React.FC<TimePickerProps> = ({
   id,
-  label,
-  name,
-  value,
-  placeholder,
-  min = '00:00:00',
-  max = '23:59:59',
-  step = STEP.DEFAULT_STEP_VALUE,
-  format,
-  strict = true,
   disabled,
   disabledTimes = [],
+  format,
+  label,
+  min = '00:00:00',
+  max = '23:59:59',
+  name,
   onChange,
   onValidationChanged,
+  placeholder,
+  step = STEP.DEFAULT_STEP_VALUE,
+  strict = true,
+  tooltip,
+  value,
 }) => {
   const [hours, setHours] = useState('');
   const [minutes, setMinutes] = useState('');
@@ -220,40 +221,43 @@ export const TimePicker: React.FC<TimePickerProps> = ({
       onMenuOpen={() => setMenuIsOpen(true)}
       onMenuClose={() => setMenuIsOpen(false)}
       tabSelectsValue={false}
+      tooltip={tooltip}
     />
   );
 };
 
 export type TimePickerProps = {
   id?: string;
-  label?: string;
-  name?: string;
-  value?: string;
-  placeholder?: string;
-  min?: string;
-  max?: string;
-  step?: number;
-  format?: string;
-  strict?: boolean;
   disabled?: boolean;
   disabledTimes?: DisabledTime | Array<DisabledTime>;
+  format?: string;
+  label?: string;
+  min?: string;
+  max?: string;
+  name?: string;
+  placeholder?: string;
+  step?: number;
+  strict?: boolean;
+  tooltip?: string;
+  value?: string;
 } & HasValidationProps<string>;
 
 TimePicker.propTypes = {
   id: PropTypes.string,
-  label: PropTypes.string,
-  name: PropTypes.string,
-  value: PropTypes.string,
-  placeholder: PropTypes.string,
-  min: PropTypes.string,
-  max: PropTypes.string,
-  step: PropTypes.number,
-  format: PropTypes.string,
-  strict: PropTypes.bool,
   disabled: PropTypes.bool,
   disabledTimes: PropTypes.array,
+  format: PropTypes.string,
+  label: PropTypes.string,
+  min: PropTypes.string,
+  max: PropTypes.string,
+  name: PropTypes.string,
   onChange: PropTypes.func,
   onValidationChanged: PropTypes.func,
+  placeholder: PropTypes.string,
+  step: PropTypes.number,
+  strict: PropTypes.bool,
+  tooltip: PropTypes.string,
+  value: PropTypes.string,
 };
 
 /**
