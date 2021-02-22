@@ -3,11 +3,7 @@ import classNames from 'classnames';
 
 const prefix = 'tk-card';
 
-type CardProps = {
-  className?: string;
-   /** Content of the card */
-  children?: React.ReactNode;
-}
+type CardProps = React.HTMLProps<HTMLDivElement>;
 
 const Card: React.FC<CardProps> = ({
   className,
