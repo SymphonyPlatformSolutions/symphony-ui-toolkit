@@ -99,11 +99,9 @@
       cursor: pointer;
       color: $--tk-input-default-active-color;
       &.tk-select__option {
-        &--is-focused {
+        &--is-focused,
+        &--is-focused.tk-select__option--is-selected{
           background-color: $--tk-list-hover-color;
-          &:hover {
-            background-color: $--tk-list-hover-color;
-          }
         }
         &--is-selected {
           background-color: transparent;
