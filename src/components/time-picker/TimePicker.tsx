@@ -43,6 +43,7 @@ export const TimePicker: React.FC<TimePickerProps> = ({
   step = STEP.DEFAULT_STEP_VALUE,
   strict = true,
   tooltip,
+  tooltipCloseLabel,
   value,
 }) => {
   const [hours, setHours] = useState('');
@@ -224,6 +225,7 @@ export const TimePicker: React.FC<TimePickerProps> = ({
       onMenuClose={() => setMenuIsOpen(false)}
       tabSelectsValue={false}
       tooltip={tooltip}
+      tooltipCloseLabel={tooltipCloseLabel}
     />
   );
 };
@@ -241,6 +243,7 @@ export type TimePickerProps = {
   step?: number;
   strict?: boolean;
   tooltip?: string;
+  tooltipCloseLabel?: string;
   value?: string;
 } & HasValidationProps<string>;
 
@@ -259,6 +262,7 @@ TimePicker.propTypes = {
   step: PropTypes.number,
   strict: PropTypes.bool,
   tooltip: PropTypes.string,
+  tooltipCloseLabel: PropTypes.string,
   value: PropTypes.string,
 };
 

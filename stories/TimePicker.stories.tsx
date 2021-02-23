@@ -25,6 +25,8 @@ export const Default = Template.bind({});
 Default.args = {
   id: 'timePickerId',
   label: 'timePickerLabel',
+  tooltip: 'Departure Time',
+  tooltipCloseLabel: 'Got it',
   name: 'timePickerName',
   min: '08:00:00',
   max: '19:00:00',
