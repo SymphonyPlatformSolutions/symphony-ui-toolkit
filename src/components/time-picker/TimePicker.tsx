@@ -260,6 +260,8 @@ TimePicker.propTypes = {
   placeholder: PropTypes.string,
   step: PropTypes.number,
   strict: PropTypes.bool,
+  tooltip: PropTypes.string,
+  tooltipCloseLabel: PropTypes.string,
   value: PropTypes.string,
 };
 
