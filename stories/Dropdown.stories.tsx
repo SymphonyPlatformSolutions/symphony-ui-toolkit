@@ -94,9 +94,14 @@ const Template = (args) => {
   );
 };
 
+const onTermSearch = () => {
+  alert('On term search selected');
+}
 export const Default = Template.bind({});
 Default.args = {
-  options: defaultOptions
+  options: defaultOptions, 
+  enableTermSearch: true, 
+  onTermSearch: onTermSearch,
 };
 
 export const Select: React.FC = () => (
@@ -133,6 +138,14 @@ export const Select: React.FC = () => (
     <Dropdown options={defaultOptions} iconName="app"/>
     <h3 className="tk-mt-4">Grouped option list</h3>
     <Dropdown options={timeZoneOptions} />
+
+    <h2 className="tk-mt-4">Enable term search</h2>
+    <p>- With <Typography variant="bold">enableTermSearch</Typography> prop activated you can add a fixed option on the header of the Dropdown Menu that will be displayed when the user starts typing.</p>
+    <p>- With <Typography variant="bold">onTermSearch</Typography> prop you can handle the action to be done if the user selects the search by term option</p>
+    <Dropdown options={defaultOptions} enableTermSearch onTermSearch={onTermSearch}/>
+    <p>In addition, you can customize the message with <Typography variant="bold">termSearchMessage</Typography> prop:</p>
+    <Dropdown options={defaultOptions} enableTermSearch termSearchMessage="This is my customized term search message. Term: "/>
+    
     <h2 className="tk-mt-5h">MultiSelect</h2>
     <p>The Dropdown component can handle multiple selections. It is enabled with the <Typography variant="bold">isMultiSelect</Typography> prop:</p>
     <Dropdown options={personSelectorOptions} isMultiSelect placeHolder="Search for People" isInputClearable/>
@@ -164,6 +177,7 @@ export const Select: React.FC = () => (
       isMultiSelect
       placeHolder="Select an icon.."
       filterFunction={filterFunction}
+      enableTermSearch
     />
   </div>
 );
