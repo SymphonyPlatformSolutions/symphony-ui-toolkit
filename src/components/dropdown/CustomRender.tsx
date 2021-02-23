@@ -16,6 +16,7 @@ const stopPropagation = (e) => {
  * the appereace of the react-select library components **/
 
 export const DefaultOptionRenderer = (props: any) => {
+  const {enableTermSearch, inputValue} = props.selectProps;
   const OptionRenderer = props?.selectProps?.optionRenderer;
   const isSelected = props.isSelected;
   if(props.selectProps?.autoScrollToCurrent){ 
@@ -29,17 +30,26 @@ export const DefaultOptionRenderer = (props: any) => {
     data: props.data,
     inputValue: props.selectProps?.inputValue,
   };
-  return (
-    <div>
+
+  return (props.data.searchHeader && enableTermSearch) ? (
+    inputValue && (
+      <components.Option {...props}>
+        <HeaderComp {...props} />
+      </components.Option>
+    )
+  ) : (
+    <>
       {OptionRenderer ? (
-        <components.Option {...props}>
-          <OptionRenderer {...rendererProps} />
-        </components.Option>
+        <div>
+          <components.Option {...props}>
+            <OptionRenderer {...rendererProps} />
+          </components.Option>
+        </div>
       ) : (
         <components.Option {...props} />
       )}
-    </div>
-  );
+    </>
+  )
 };
 
 // Specific Input to fix input not displayed in React-Select
@@ -156,7 +166,7 @@ export const Control = ({ children, ...props }: any) => {
       {iconName ? (
         <components.Control {...props} className="tk-input__container">
           <div className="tk-input__icon">
-            <Icon iconName={iconName} tabIndex={0}></Icon>
+            <Icon iconName={iconName} tabIndex={0}/>
           </div>
           {children}
         </components.Control>
@@ -175,9 +185,45 @@ export const NoOptionsMessage = (props: any) => {
         <components.NoOptionsMessage {...props}>
           <div>{noOptionMessage}</div>
         </components.NoOptionsMessage>
-      ) : (
-        <components.NoOptionsMessage {...props} />
-      )}
+      ) : null}
     </div>
   );
+};
+
+const HeaderComp = (props: any) => {
+  const {termSearchMessage, inputValue} = props.selectProps;
+  return (
+    <div>
+      <Icon iconName="right-arrow" className="tk-mr-1h"/>
+      <span>{ termSearchMessage ? termSearchMessage : 'Search for term'} &apos;{inputValue}&apos;</span>
+    </div>);
+};
+
+
+/** This component is used to focus on the first option of the 
+ *  dropdown list when the enableTermSearch prop is activated
+ */
+export const DropdownList = (props: any) => { 
+  if(props.selectProps?.enableTermSearch) {
+    const select = props.selectProps?.selectRef?.current?.select;
+    let focusThis =  props?.children[1]?.props.data;
+    if (focusThis?.options) {
+      focusThis = props.children[1].props?.options[0]?.data;
+    }
+    focusThis = focusThis || firstOption;
+    firstOption.label = props.selectProps.inputValue;
+    React.useEffect(() => {
+      select.setState({ focusedOption: null });
+    }, [props.selectProps.selectRef]);
+    React.useEffect(() => {
+      select.setState({ focusedOption: focusThis });
+    }, [props.selectProps.inputValue]);
+  }
+
+  return <components.MenuList {...props}>{props.children}</components.MenuList>;
+};
+
+export const firstOption = {
+  searchHeader: true, 
+  label: ''
 };
