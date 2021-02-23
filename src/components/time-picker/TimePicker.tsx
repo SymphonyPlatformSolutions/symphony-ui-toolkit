@@ -19,6 +19,7 @@ import {
   isTimeSelected,
   isTimeValid,
   Time,
+  TIME_SEPARATOR,
 } from './utils';
 
 enum STEP {
@@ -191,6 +192,7 @@ export const TimePicker: React.FC<TimePickerProps> = ({
         // Called when the user select an option in the Dropdown menu
         setSelectedOption(option);
       }}
+      onFocus={handleFocus}
       onKeyDown={(event) =>
         handleKeyDown(
           event,
@@ -386,6 +388,18 @@ const handleKeyDown = (
         event.preventDefault();
       }
       setNavigationInMenu(false);
+    }
+  }
+};
+
+const handleFocus = (event) => {
+  if (event && event.target) {
+    const currentValue = event.target.value;
+    const cursor = event.target.selectionStart;
+    if (cursor === 0 && currentValue) {
+      // Set focus on hours
+      const separatorPosition = currentValue.indexOf(TIME_SEPARATOR);
+      event.target.setSelectionRange(0, separatorPosition);
     }
   }
 };

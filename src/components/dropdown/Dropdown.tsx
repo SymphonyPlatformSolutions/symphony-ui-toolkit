@@ -84,6 +84,8 @@ export type DropdownProps<T> = {
   onInputChange?: (string, any) => any;
   /** Whether the Dropdown menu is expanded */
   menuIsOpen?: boolean;
+  /** Handle focus events */
+  onFocus?: (event) => any;
   /** Handle the menu opening */
   onMenuOpen?: () => void;
   /** Handle the menu closing */
@@ -182,6 +184,7 @@ export class Dropdown<T = LabelValue> extends React.Component<
       id,
       name,
       defaultValue,
+      onFocus,
       onInputChange,
       onKeyDown,
       isInputClearable,
@@ -241,6 +244,7 @@ export class Dropdown<T = LabelValue> extends React.Component<
           inputAlwaysDisplayed={inputAlwaysDisplayed}
           onChange={this.handleChange}
           onBlur={this.handleBlur}
+          onFocus={onFocus}
           onInputChange={onInputChange}
           onKeyDown={onKeyDown}
           options={options}
