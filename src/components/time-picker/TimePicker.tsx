@@ -1,5 +1,6 @@
 import { Dropdown } from '../dropdown';
 import { HasValidationProps } from '../validation/interfaces';
+import { HasTooltipProps } from '../tooltip/interfaces';
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import { useEffect, useMemo, useState } from 'react';
@@ -242,10 +243,8 @@ export type TimePickerProps = {
   placeholder?: string;
   step?: number;
   strict?: boolean;
-  tooltip?: string;
-  tooltipCloseLabel?: string;
   value?: string;
-} & HasValidationProps<string>;
+} & HasValidationProps<string> & HasTooltipProps
 
 TimePicker.propTypes = {
   id: PropTypes.string,
@@ -261,8 +260,6 @@ TimePicker.propTypes = {
   placeholder: PropTypes.string,
   step: PropTypes.number,
   strict: PropTypes.bool,
-  tooltip: PropTypes.string,
-  tooltipCloseLabel: PropTypes.string,
   value: PropTypes.string,
 };
 
