@@ -61,18 +61,25 @@ export const Input = (props: any) => {
 };
 
 export const SingleValue = (props: any) => {
-  const OptionRenderer = props.selectProps.optionRenderer;
+  const InputRenderer = props.selectProps.tagRenderer;
+  const inputValue = props.selectProps.parentInstance.searchHeaderOption.value;
   const rendererProps = { data: props.data };
   return (
-    <div>
-      {OptionRenderer ? (
-        <components.SingleValue {...props}>
-          <OptionRenderer {...rendererProps} />
+    <>
+      {props.data.searchHeader ? (
+        <components.SingleValue {...props}> 
+          <div>{inputValue}</div>
         </components.SingleValue>
-      ) : (
-        <components.SingleValue {...props} />
+      ) : (<>
+        { InputRenderer ? (
+          <components.SingleValue {...props}>
+            <InputRenderer {...rendererProps} />
+          </components.SingleValue>
+        ) :
+          <components.SingleValue {...props} />}
+      </>
       )}
-    </div>
+    </>
   );
 };
 
@@ -195,28 +202,33 @@ const HeaderComp = (props: any) => {
   return (
     <div>
       <Icon iconName="right-arrow" className="tk-mr-1h"/>
-      <span>{ termSearchMessage ? termSearchMessage : 'Search for term'} &apos;{inputValue}&apos;</span>
+      <span>{ termSearchMessage ? termSearchMessage : 'Search for term '}&apos;{inputValue}&apos;</span>
     </div>);
 };
 
 
-/** This component is used to focus on the first option of the 
- *  dropdown list when the enableTermSearch prop is activated
+/** This component is used when the enableTermSearch prop 
+ * is activated to handle the header Option selection
  */
 export const DropdownList = (props: any) => { 
   if(props.selectProps?.enableTermSearch) {
     const select = props.selectProps?.selectRef?.current?.select;
+    // Focus on first option and differenciate between Group Options and simple options
     let focusThis =  props?.children[1]?.props.data;
     if (focusThis?.options) {
       focusThis = props.children[1].props?.options[0]?.data;
     }
-    focusThis = focusThis || firstOption;
-    firstOption.label = props.selectProps.inputValue;
+    focusThis = focusThis || props.selectProps.parentInstance.searchHeaderOption;
+    // Clear the value if header option is selected
+    if(select.state?.selectValue[0]?.searchHeader) {
+      select.clearValue();
+    }
     React.useEffect(() => {
-      select.setState({ focusedOption: null });
+      select?.setState({ focusedOption: null });
     }, [props.selectProps.selectRef]);
     React.useEffect(() => {
-      select.setState({ focusedOption: focusThis });
+      select?.setState({ focusedOption: focusThis });
+      props.selectProps.parentInstance.searchHeaderOption.value = props.selectProps.inputValue;
     }, [props.selectProps.inputValue]);
   }
 
@@ -225,5 +237,5 @@ export const DropdownList = (props: any) => {
 
 export const firstOption = {
   searchHeader: true, 
-  label: ''
+  value:''
 };

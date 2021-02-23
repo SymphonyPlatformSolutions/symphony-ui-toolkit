@@ -72,7 +72,7 @@ const IconPickerTagRenderer = (props: TagRendererProps<Icon>) => {
   );
 };
 
-const IconPickerOptionRenderer = (props: OptionRendererProps<Icon>) => {
+const IconPickerRenderer = (props: OptionRendererProps<Icon>) => {
   const {data} = props;
   return (
     <div>
@@ -94,14 +94,21 @@ const Template = (args) => {
   );
 };
 
-const onTermSearch = () => {
-  alert('On term search selected');
+const onTermSearch = (value: string) => {
+  console.log('On term search selected: ', value);
+}
+const onChange = (value) => {
+  console.log('Changed: ', value)
+}
+const onClear = () => {
+  console.log('Dropddown cleared')
 }
 export const Default = Template.bind({});
 Default.args = {
   options: defaultOptions, 
   enableTermSearch: true, 
   onTermSearch: onTermSearch,
+  onChange: onChange
 };
 
 export const Select: React.FC = () => (
@@ -120,9 +127,9 @@ export const Select: React.FC = () => (
     </p>
     <Dropdown options={defaultOptions} tooltip="Hint to help the user" tooltipCloseLabel="Got it" />
     <p className="tk-mt-4">
-			Clear selection with <Typography variant="bold">isClearable</Typography>:
+			Clear selection with <Typography variant="bold">isInputClearable</Typography>:
     </p>
-    <Dropdown options={defaultOptions} isInputClearable />
+    <Dropdown options={defaultOptions} isInputClearable onClear={onClear}/>
 
     <p className="tk-mt-4">
 			With <Typography variant="bold">noOptionMessage</Typography> customize the message that the dropdown will display when does not found any item on the list:
@@ -157,27 +164,33 @@ export const Select: React.FC = () => (
     <p className="tk-mt-4">With <Typography variant="bold"> optionRenderer </Typography>prop you can customize the rendering of the option list: </p>
     <Dropdown
       options={iconData}
-      optionRenderer={IconPickerOptionRenderer}
+      optionRenderer={IconPickerRenderer}
       placeHolder="Select an icon.."
+      enableTermSearch
+      filterFunction={filterFunction}
+      tagRenderer={IconPickerRenderer}
+      onTermSearch={onTermSearch}
     />
     <p className="tk-mt-4">With <Typography variant="bold"> tagRenderer </Typography>prop you can customize the rendering of the selected item/s: </p>
     <Dropdown
       options={iconData}
       tagRenderer={IconPickerTagRenderer}
-      optionRenderer={IconPickerOptionRenderer}
-      isMultiSelect
-      placeHolder="Select an icon.."
-    />
-    <h2 className="tk-mt-5h">Custom Filter logic</h2>
-    <p>If you would like to rewrite the filtration logic from the ground up, simply declare a new <Typography variant="bold"> filterFunction </Typography> to be passed in as a prop:</p>
-    <Dropdown
-      options={iconData}
-      tagRenderer={IconPickerTagRenderer}
-      optionRenderer={IconPickerOptionRenderer}
+      optionRenderer={IconPickerRenderer}
       isMultiSelect
       placeHolder="Select an icon.."
       filterFunction={filterFunction}
-      enableTermSearch
+    />
+    <h2 className="tk-mt-5h">Custom Filter logic</h2>
+    <p>If you would like to rewrite the filtration logic from the ground up, simply declare a new <Typography variant="bold"> filterFunction </Typography> to be passed in as a prop:</p>
+    
+    <Dropdown
+      options={iconData}
+      tagRenderer={IconPickerTagRenderer}
+      optionRenderer={IconPickerRenderer}
+      isMultiSelect
+      placeHolder="Select an icon.."
+      filterFunction={filterFunction}
+  
     />
   </div>
 );

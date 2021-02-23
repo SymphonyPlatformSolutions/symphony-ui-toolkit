@@ -98,7 +98,10 @@ export type DropdownProps<T> = {
   /** Message to be display on the header of the menu list when searching by term */
   termSearchMessage?: ((term:string)=> string) | string;
   /** Handle the selection of search by term option */
-  onTermSearch?: (term:string) => any
+  onTermSearch?: (term:string) => any;
+  onClear?: () => any;
+  /** Path in custom object to the unique identifier of the option */
+  bindValue?: string;
 
 } & HasTooltipProps & (MultiModeProps<T> | SingleModeProps<T>);
 
@@ -122,37 +125,35 @@ type DropdownState<T> = {
   closeMenuOnSelect?: boolean;
   hideSelectedOptions?: boolean;
   displayArrowIndicator?: boolean;
-  options: (T | {
-    searchHeader: boolean;
-} | DropdownOption<T>)[]
 };
-
 export class Dropdown<T = LabelValue> extends React.Component<
-  any,
+  DropdownProps<T>,
   DropdownState<T>
 > {
 
   myRef: any;
+  searchHeaderOption:any;
+  lastSelectedOption:any;
   constructor(props) {
     super(props);
     this.myRef = React.createRef();
+    this.searchHeaderOption = {...firstOption};
+    this.state = {
+      selectedOption: null,
+      hideSelectedOptions:
+        this.props.hideSelectedOptions === undefined
+          ? this.props?.isMultiSelect
+          : this.props.hideSelectedOptions,
+      closeMenuOnSelect:
+        this.props.closeMenuOnSelect === undefined
+          ? !this.props?.isMultiSelect
+          : this.props.closeMenuOnSelect,
+      displayArrowIndicator:
+        this.props.displayArrowIndicator === undefined
+          ? !this.props?.isMultiSelect
+          : this.props.displayArrowIndicator
+    };
   }
-  state = {
-    selectedOption: null,
-    hideSelectedOptions:
-      this.props.hideSelectedOptions === undefined
-        ? this.props?.isMultiSelect
-        : this.props.hideSelectedOptions,
-    closeMenuOnSelect:
-      this.props.closeMenuOnSelect === undefined
-        ? !this.props?.isMultiSelect
-        : this.props.closeMenuOnSelect,
-    displayArrowIndicator:
-      this.props.displayArrowIndicator === undefined
-        ? !this.props?.isMultiSelect
-        : this.props.displayArrowIndicator,
-    options: this.props.enableTermSearch ? [firstOption, ...this.props.options] : this.props.options,
-  };
 
   componentDidMount() {
     const { onInit, value } = this.props;
@@ -160,14 +161,19 @@ export class Dropdown<T = LabelValue> extends React.Component<
       onInit(value as any);
     }
   }
+ 
 
-  handleChange = (selectedOption) => {
-    if (this.props.onChange) {
+  handleChange = (selectedOption, meta) => {
+    const isClearingTermSearch = this.lastSelectedOption === this.searchHeaderOption && !selectedOption;
+    this.lastSelectedOption = selectedOption;
+    if (this.props.onChange && !selectedOption?.searchHeader && !isClearingTermSearch) {
       this.props.onChange({ target: { value: selectedOption } });
     }
     if (this.props.onTermSearch && selectedOption?.searchHeader) {
-      this.props.onTermSearch();
-      //this.myRef.select.clearValue();
+      this.props.onTermSearch(selectedOption.value);
+    }
+    if(meta.action === 'clear' && this.props.onClear){
+      this.props.onClear();
     }
   };
 
@@ -178,15 +184,10 @@ export class Dropdown<T = LabelValue> extends React.Component<
     }
   };
 
-  handleFiltering = this.props.filterFunction
-    ? (option: any, input: string) =>  {
+  private internalFiltering = this.props.filterFunction ? (o, input) => this.props.filterFunction(o.data, input) : createFilter(null);
 
-      option.data.searchHeader ||this.props.filterFunction(option.data, input)
-    }
-    : createFilter(null);
-
-  filter = (o, input) => o.data.searchHeader || this.handleFiltering(o, input);
-
+  private filter = (o, input) => {
+    return  o.data.searchHeader || this.internalFiltering(o, input) };
 
   handleIsOptionDisabled = this.props.isOptionDisabled
     ? (option: any) => this.props.isOptionDisabled(option.data)
@@ -196,12 +197,19 @@ export class Dropdown<T = LabelValue> extends React.Component<
     ? (option: any) => this.props.isOptionSelected(option.data)
     : undefined;
 
+  get internalOptions() {
+    return this.props.enableTermSearch ? [this.searchHeaderOption as T, ...this.props.options] : this.props.options
+  }
+
+  bindValue = this.props.bindValue
+    ? option => option[this.props.bindValue]
+    : undefined;
+
   render() {
     const {
       hideSelectedOptions,
       closeMenuOnSelect,
       displayArrowIndicator,
-      options
     } = this.state;
     const {
       isMultiSelect,
@@ -245,6 +253,7 @@ export class Dropdown<T = LabelValue> extends React.Component<
           tooltipCloseLabel={tooltipCloseLabel}
         />
         <Select
+          parentInstance={this}
           ref={this.myRef}
           selectRef={this.myRef}
           displayArrowIndicator={displayArrowIndicator}
@@ -278,7 +287,7 @@ export class Dropdown<T = LabelValue> extends React.Component<
           onFocus={onFocus}
           onInputChange={onInputChange}
           onKeyDown={onKeyDown}
-          options={options}
+          options={this.internalOptions}
           hideSelectedOptions={hideSelectedOptions}
           placeholder={placeHolder}
           isMulti={isMultiSelect}
@@ -298,6 +307,7 @@ export class Dropdown<T = LabelValue> extends React.Component<
           tabSelectsValue={tabSelectsValue}
           enableTermSearch={enableTermSearch}
           termSearchMessage={termSearchMessage}
+          getOptionValue={this.bindValue}
         />
       </div>
     );
