@@ -11,7 +11,7 @@ export interface LabelValue {
   value: string;
 }
 
-interface DropdownOptionsGroup<T> {
+export interface DropdownOptionsGroup<T> {
   label: string;
   options : T[];
 }
