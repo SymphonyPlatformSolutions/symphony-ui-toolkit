@@ -1,5 +1,6 @@
 import { Dropdown } from '../dropdown';
 import { HasValidationProps } from '../validation/interfaces';
+import { HasTooltipProps } from '../tooltip/interfaces';
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import { useEffect, useMemo, useState } from 'react';
@@ -7,13 +8,11 @@ import { Keys } from '../common/keyUtils';
 import { ErrorMessages } from '../validation/interfaces';
 import { DisabledTime } from './interfaces';
 import {
-  FIELD,
   formatTimeISO,
   formatISOTimeToSeconds,
   getFormattedTime,
   getISOTimeFromLocalTime,
   getOptions,
-  getOptionValue,
   getSteps,
   getTimeFromString,
   getUserFormat,
@@ -21,28 +20,32 @@ import {
   isTimeSelected,
   isTimeValid,
   Time,
+  TIME_SEPARATOR,
 } from './utils';
 
 enum STEP {
   MIN_STEP_VALUE = 600,
+  DEFAULT_STEP_VALUE = 900,
   MAX_STEP_VALUE = 43200,
 }
 
 export const TimePicker: React.FC<TimePickerProps> = ({
   id,
-  label,
-  name,
-  value,
-  placeholder,
-  min = '00:00:00',
-  max = '23:59:59',
-  step = 900,
-  format,
-  strict = true,
   disabled,
   disabledTimes = [],
+  format,
+  label,
+  min = '00:00:00',
+  max = '23:59:59',
+  name,
   onChange,
   onValidationChanged,
+  placeholder,
+  step = STEP.DEFAULT_STEP_VALUE,
+  strict = true,
+  tooltip,
+  tooltipCloseLabel,
+  value,
 }) => {
   const [hours, setHours] = useState('');
   const [minutes, setMinutes] = useState('');
@@ -122,15 +125,38 @@ export const TimePicker: React.FC<TimePickerProps> = ({
     }
   }, [value]);
 
+  const validatedStep = useMemo(() => {
+    if (step === null || step === undefined || isNaN(Number(step))) {
+      const stepValue = STEP.DEFAULT_STEP_VALUE;
+      console.error(
+        `Invalid step value: Step value ${step} is not a number, the value ${stepValue} will be used.`
+      );
+      return stepValue;
+    } else if (step < STEP.MIN_STEP_VALUE) {
+      const stepValue = STEP.MIN_STEP_VALUE;
+      console.error(
+        `Invalid step value: Step value ${step} too small, the value ${stepValue} will be used.`
+      );
+      return stepValue;
+    } else if (step > STEP.MAX_STEP_VALUE) {
+      const stepValue = STEP.MAX_STEP_VALUE;
+      console.error(
+        `Invalid step value: Step value ${step} too big, the value ${stepValue} will be used.`
+      );
+      return stepValue;
+    }
+    return step;
+  }, [step]);
+
   const options = useMemo(
     () =>
       getOptions(
         format,
         formatISOTimeToSeconds(min),
         formatISOTimeToSeconds(max),
-        step
+        validatedStep
       ),
-    [format, min, max, step]
+    [format, min, max, validatedStep]
   );
 
   const toggleMenu = () => setMenuIsOpen(!menuIsOpen);
@@ -139,20 +165,6 @@ export const TimePicker: React.FC<TimePickerProps> = ({
     options,
     disabledTimes,
   ]);
-
-  if (step < STEP.MIN_STEP_VALUE) {
-    const defaultStepValue = STEP.MIN_STEP_VALUE;
-    console.error(
-      `Invalid step value: Step value ${step} too small, the value ${defaultStepValue} will be used.`
-    );
-    step = defaultStepValue;
-  } else if (step > STEP.MAX_STEP_VALUE) {
-    const defaultStepValue = STEP.MAX_STEP_VALUE;
-    console.error(
-      `Invalid step value: Step value ${step} too big, the value ${defaultStepValue} will be used.`
-    );
-    step = defaultStepValue;
-  }
 
   if (!placeholder) {
     placeholder = format ? format : getUserFormat();
@@ -182,6 +194,7 @@ export const TimePicker: React.FC<TimePickerProps> = ({
         // Called when the user select an option in the Dropdown menu
         setSelectedOption(option);
       }}
+      onFocus={handleFocus}
       onKeyDown={(event) =>
         handleKeyDown(
           event,
@@ -203,6 +216,7 @@ export const TimePicker: React.FC<TimePickerProps> = ({
             setInputValue(''); // Set to '' to trigger Validation on Blur
           }
         }
+        setNavigationInMenu(false);
       }}
       inputValue={inputValue}
       inputAlwaysDisplayed={true}
@@ -211,40 +225,44 @@ export const TimePicker: React.FC<TimePickerProps> = ({
       onMenuOpen={() => setMenuIsOpen(true)}
       onMenuClose={() => setMenuIsOpen(false)}
       tabSelectsValue={false}
+      tooltip={tooltip}
+      tooltipCloseLabel={tooltipCloseLabel}
     />
   );
 };
 
 export type TimePickerProps = {
   id?: string;
-  label?: string;
-  name?: string;
-  value?: string;
-  placeholder?: string;
-  min?: string;
-  max?: string;
-  step?: number;
-  format?: string;
-  strict?: boolean;
   disabled?: boolean;
   disabledTimes?: DisabledTime | Array<DisabledTime>;
-} & HasValidationProps<string>;
+  format?: string;
+  label?: string;
+  min?: string;
+  max?: string;
+  name?: string;
+  placeholder?: string;
+  step?: number;
+  strict?: boolean;
+  value?: string;
+} & HasValidationProps<string> & HasTooltipProps
 
 TimePicker.propTypes = {
   id: PropTypes.string,
-  label: PropTypes.string,
-  name: PropTypes.string,
-  value: PropTypes.string,
-  placeholder: PropTypes.string,
-  min: PropTypes.string,
-  max: PropTypes.string,
-  step: PropTypes.number,
-  format: PropTypes.string,
-  strict: PropTypes.bool,
   disabled: PropTypes.bool,
   disabledTimes: PropTypes.array,
+  format: PropTypes.string,
+  label: PropTypes.string,
+  min: PropTypes.string,
+  max: PropTypes.string,
+  name: PropTypes.string,
   onChange: PropTypes.func,
   onValidationChanged: PropTypes.func,
+  placeholder: PropTypes.string,
+  step: PropTypes.number,
+  strict: PropTypes.bool,
+  tooltip: PropTypes.string,
+  tooltipCloseLabel: PropTypes.string,
+  value: PropTypes.string,
 };
 
 /**
@@ -287,79 +305,15 @@ const computeError = (
  * Handle Keyboard navigation in the input Text field
  *
  * @param event Keyboard event
- * @param setInputValue Callback to update the input value saved in the state
- * @param options Dropdown options
- * @param steps Steps to used when the user presses arrow up/down keys
  */
-const handleKeyboardNavigation = (event, setInputValue, options, steps) => {
+const handleKeyboardNavigation = (event) => {
   const currentValue = event.target.value;
 
   // Get cursor position
   const cursor = event.target.selectionStart;
   const time = getTimeFromString(currentValue);
 
-  if (event.key === Keys.ARROW_UP || event.key === Keys.ARROW_DOWN) {
-    // Set 'defaultPrevented' to true otherwise the navigation is enable in the Dropdown menu
-    event.preventDefault();
-
-    let cursorStart = null;
-    let cursorEnd = null;
-
-    if (time) {
-      let hours = time.hours;
-      let minutes = time.minutes;
-      let seconds = time.seconds;
-      let ampm = time.ampm;
-
-      if (hours && cursor < 3) {
-        // Hours
-        hours = getOptionValue(event.key, FIELD.HOURS, time, options, steps);
-        cursorStart = 0;
-        cursorEnd = 2;
-      } else if (minutes && cursor < 6) {
-        // Minutes
-        minutes = getOptionValue(
-          event.key,
-          FIELD.MINUTES,
-          time,
-          options,
-          steps
-        );
-        cursorStart = 3;
-        cursorEnd = 5;
-      } else if (seconds && cursor < 9) {
-        // Seconds
-        seconds = getOptionValue(
-          event.key,
-          FIELD.SECONDS,
-          time,
-          options,
-          steps
-        );
-        cursorStart = 6;
-        cursorEnd = 8;
-      } else if (ampm) {
-        ampm = getOptionValue(event.key, FIELD.AMPM, time, options, steps);
-        cursorStart = 9;
-        cursorEnd = 11;
-      }
-
-      // Update value in the Input text field
-      let newValue = `${hours}:${minutes}`;
-      if (seconds) {
-        newValue += `:${seconds}`;
-      }
-      if (ampm) {
-        newValue += ` ${ampm}`;
-      }
-      event.target.value = newValue;
-      setInputValue(newValue);
-
-      // Update cursor selection
-      event.target.selectionStart = cursor;
-      event.target.setSelectionRange(cursorStart, cursorEnd);
-    }
-  } else if (event.key === Keys.TAB) {
+  if (event.key === Keys.TAB) {
     // Manage Tab and Tab + Shift navigation
     let start = null;
     let end = null;
@@ -417,17 +371,14 @@ const handleKeyDown = (
   setNavigationInMenu
 ) => {
   if (event.target && event.target.tagName === 'INPUT') {
-    if (
-      event.key === Keys.ARROW_UP ||
-      event.key === Keys.ARROW_DOWN ||
-      event.key === Keys.TAB
-    ) {
+    if (event.key === Keys.ARROW_UP || event.key === Keys.ARROW_DOWN) {
+      setNavigationInMenu(true);
+    } else if (event.key === Keys.TAB) {
       const currentValue = event.target.value;
       const isInputValid = isTimeValid(currentValue, format);
-      setNavigationInMenu(!isInputValid);
       if (isInputValid) {
         // Handle keyboard navigation only if the focus is on the input (not on the icon)
-        handleKeyboardNavigation(event, setInputValue, options, steps);
+        handleKeyboardNavigation(event);
       }
     } else if (event.key === Keys.ENTER) {
       toggleMenu();
@@ -440,6 +391,18 @@ const handleKeyDown = (
         event.preventDefault();
       }
       setNavigationInMenu(false);
+    }
+  }
+};
+
+const handleFocus = (event) => {
+  if (event && event.target) {
+    const currentValue = event.target.value;
+    const cursor = event.target.selectionStart;
+    if (cursor === 0 && currentValue) {
+      // Set focus on hours
+      const separatorPosition = currentValue.indexOf(TIME_SEPARATOR);
+      event.target.setSelectionRange(0, separatorPosition);
     }
   }
 };

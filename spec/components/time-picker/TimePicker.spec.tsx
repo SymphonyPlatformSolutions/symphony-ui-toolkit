@@ -23,6 +23,9 @@ describe('TimePicker Component', () => {
       min: '08:00:00',
       max: '16:00:00',
       format: 'hh:mm:ss a',
+      onBlur: jest.fn(),
+      onChange: jest.fn(),
+      onValidationChanged: jest.fn(),
       ...props,
     };
   }
@@ -40,44 +43,6 @@ describe('TimePicker Component', () => {
     expect(wrapperPicker.prop('label')).toBe(props.label);
     expect(wrapperPicker.prop('name')).toBe(props.name);
     expect(wrapperPicker.prop('placeHolder')).toBe(props.placeholder);
-  });
-
-  describe('should change value', () => {
-    test.each([
-      [FIELD.HOURS, 0, Keys.ARROW_UP, '09:00:00 AM', '10:00:00 AM'],
-      [FIELD.HOURS, 0, Keys.ARROW_DOWN, '09:00:00 AM', '08:00:00 AM'],
-      [FIELD.MINUTES, 3, Keys.ARROW_UP, '09:30:00 AM', '09:45:00 AM'],
-      [FIELD.MINUTES, 3, Keys.ARROW_DOWN, '09:30:00 AM', '09:15:00 AM'],
-      [FIELD.SECONDS, 6, Keys.ARROW_UP, '09:30:00 AM', '09:30:01 AM'],
-      [FIELD.SECONDS, 6, Keys.ARROW_DOWN, '09:30:00 AM', '09:30:59 AM'],
-      [FIELD.AMPM, 9, Keys.ARROW_UP, '09:30:00 AM', '09:30:00 PM'],
-      [FIELD.AMPM, 9, Keys.ARROW_DOWN, '09:30:00 AM', '09:30:00 PM'],
-      [FIELD.HOURS, 0, Keys.ARROW_DOWN, 'string not valid', 'string not valid'],
-    ])(
-      'on field %p (cursor %p) when key %p is pressed and Input value is %p',
-      async (fieldType, cursorPosition, key, value, expected) => {
-        const props = createTestProps({ value });
-        const wrapper = mount(<TimePicker {...props} />);
-        await act(async () => {
-          const eventMock = {
-            key,
-            target: {
-              tagName: 'INPUT',
-              value,
-              selectionStart: cursorPosition,
-              setSelectionRange: jest.fn(),
-            },
-          };
-          wrapper
-            .find('.tk-select__input')
-            .find('input')
-            .simulate('keyDown', eventMock);
-
-          expect(eventMock.target.value).toBe(expected);
-        });
-        wrapper.unmount();
-      }
-    );
   });
 
   describe('should move focus', () => {
@@ -133,43 +98,6 @@ describe('TimePicker Component', () => {
     );
   });
 
-  describe('should not allowed to edit input on strict mode', () => {
-    test.each([
-      ['1'], // Key '1'
-      ['a'], // Key 'a'
-      [Keys.BACKSPACE],
-    ])('when key %p is pressed', async (key) => {
-      const value = '09:00:00';
-      const props = createTestProps({
-        value,
-        format: 'hh:mm:ss a',
-        strict: true,
-      });
-      const wrapper = mount(<TimePicker {...props} />);
-      await act(async () => {
-        const eventMock = {
-          key,
-          target: {
-            tagName: 'INPUT',
-            value,
-            selectionStart: 0,
-            setSelectionRange: jest.fn(),
-          },
-        };
-        wrapper
-          .find('.tk-select__input')
-          .find('input')
-          .simulate('keyDown', eventMock);
-
-        // Value not changed
-        expect(eventMock.target.value).toBe(value);
-        // Cursor not changed
-        expect(eventMock.target.setSelectionRange).toHaveBeenCalledTimes(0);
-      });
-      wrapper.unmount();
-    });
-  });
-
   describe('should select a value', () => {
     it('should select first option', async () => {
       const props = createTestProps({
@@ -182,6 +110,57 @@ describe('TimePicker Component', () => {
       const option = screen.getByText('10:00:00');
       userEvent.click(option);
       expect(getByText('10:00:00')).toBeTruthy();
+    });
+  });
+
+  describe('should fallback the default step value', () => {
+    test.each([
+      [null, '00:00:00', '00:15:00'], // Default fallback value 15 minutes
+      [0, '00:00:00', '00:10:00'], // Min fallback value 10 minutes
+      [99999, '00:00:00', '12:00:00'], // Max fallback value 12 hours
+    ])('when step is %p', (step, min, expected) => {
+      jest.spyOn(console, 'error').mockImplementation(() => {
+        return;
+      });
+      const props = createTestProps({
+        min,
+        step,
+      });
+      const wrapper = shallow(<TimePicker {...props} />);
+
+      const dropDownProps = wrapper.find(Dropdown).props();
+      expect(dropDownProps.options).toBeDefined();
+      expect(dropDownProps.options.length).toBeGreaterThan(1);
+      const secondOption = dropDownProps.options[1];
+      expect(secondOption).toBeDefined();
+      expect(secondOption.value).toBe(expected);
+    });
+  });
+
+  describe('should trigger onValidationChanged', () => {
+    test.each([
+      ['', null],
+      ['azerty', { format: 'The time format is incorrect' }],
+      ['10:15:00', { disabledTime: 'This time is not available' }],
+      ['04:00:00', { minTime: 'Time too far in the past' }],
+      ['22:00:00', { maxTime: 'Time too far in the future' }],
+      ['15:00:00', { disabledTime: 'This time is not available' }],
+    ])('when typing %p on field', (value, expected) => {
+      const props = createTestProps({
+        min: '09:00:00',
+        max: '19:00:00',
+        disabledTimes: [
+          { from: '10:00:00', to: '11:00:00' },
+          { time: '15:00:00' },
+        ],
+      });
+      const wrapper = mount(<TimePicker {...props} />);
+      expect(props.onValidationChanged).toHaveBeenCalledTimes(0);
+
+      wrapper.setProps({ value });
+      expect(props.onValidationChanged).toHaveBeenCalledWith(expected);
+
+      wrapper.unmount();
     });
   });
 });
