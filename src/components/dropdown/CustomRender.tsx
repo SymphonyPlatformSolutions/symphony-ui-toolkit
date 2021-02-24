@@ -17,9 +17,10 @@ const stopPropagation = (e) => {
  * the appereace of the react-select library components **/
 
 export const DefaultOptionRenderer = (props: any) => {
-  const {enableTermSearch, inputValue} = props.selectProps;
+  const {enableTermSearch, inputValue} = props?.selectProps;
   const OptionRenderer = props?.selectProps?.optionRenderer;
   const isSelected = props.isSelected;
+  const isSearchHeaderOption = props?.data?.searchHeader;
   if(props.selectProps?.autoScrollToCurrent){ 
     React.useEffect(() => {
       if(props.isSelected){
@@ -32,7 +33,7 @@ export const DefaultOptionRenderer = (props: any) => {
     inputValue: props.selectProps?.inputValue,
   };
 
-  return (props.data.searchHeader && enableTermSearch) ? (
+  return (isSearchHeaderOption && enableTermSearch) ? (
     inputValue && (
       <components.Option {...props}>
         <HeaderComp {...props} />
@@ -62,12 +63,13 @@ export const Input = (props: any) => {
 };
 
 export const SingleValue = (props: any) => {
-  const InputRenderer = props.selectProps.tagRenderer;
-  const inputValue = props.selectProps.parentInstance.searchHeaderOption.value;
+  const InputRenderer = props.selectProps?.tagRenderer;
+  const inputValue = props.selectProps?.parentInstance?.searchHeaderOption?.value;
   const rendererProps = { data: props.data };
+  const isSearchHeaderSelected = props?.data?.searchHeader;
   return (
     <>
-      {props.data.searchHeader ? (
+      {isSearchHeaderSelected? (
         <components.SingleValue {...props}> 
           <div>{inputValue}</div>
         </components.SingleValue>
@@ -203,7 +205,9 @@ const HeaderComp = (props: any) => {
   return (
     <div>
       <Icon iconName="right-arrow" className="tk-mr-1h"/>
-      <span>{ termSearchMessage ? termSearchMessage : 'Search for term '}&apos;{inputValue}&apos;</span>
+      <span>{ (termSearchMessage && typeof termSearchMessage === 'string' )? termSearchMessage : 
+        termSearchMessage ? termSearchMessage(inputValue) :
+          'Search for term '}&apos;{inputValue}&apos;</span>
     </div>);
 };
 
@@ -213,24 +217,26 @@ const HeaderComp = (props: any) => {
  */
 export const DropdownList = (props: any) => { 
   if(props.selectProps?.enableTermSearch) {
-    const select = props.selectProps?.selectRef?.current?.select;
+    const select = props?.selectProps?.selectRef?.current?.select;
+    const { searchHeaderOption } = props?.selectProps?.parentInstance;
+    const { inputValue } = props?.selectProps;
     // Focus on first option and differenciate between Group Options and simple options
     let focusThis =  props?.children[1]?.props.data;
     if (focusThis?.options) {
-      focusThis = props.children[1].props?.options[0]?.data;
+      focusThis = props?.children[1].props?.options[0]?.data;
     }
-    focusThis = focusThis || props.selectProps.parentInstance.searchHeaderOption;
+    focusThis = focusThis || searchHeaderOption;
     // Clear the value if header option is selected
-    if(select.state?.selectValue[0]?.searchHeader) {
-      select.clearValue();
+    if(select?.state?.selectValue[0]?.searchHeader) {
+      select?.clearValue();
     }
     React.useEffect(() => {
       select?.setState({ focusedOption: null });
     }, [props.selectProps.selectRef]);
     React.useEffect(() => {
       select?.setState({ focusedOption: focusThis });
-      props.selectProps.parentInstance.searchHeaderOption.value = props.selectProps.inputValue;
-    }, [props.selectProps.inputValue]);
+      props.selectProps.parentInstance.searchHeaderOption.value = inputValue;
+    }, [inputValue]);
   }
 
   return <components.MenuList {...props}>{props.children}</components.MenuList>;
