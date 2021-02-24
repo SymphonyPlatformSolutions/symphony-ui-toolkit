@@ -4,9 +4,7 @@ import { render, screen } from '@testing-library/react';
 import Nav from '../../../src/components/nav';
 import '@testing-library/jest-dom/extend-expect';
 
-const onActiveTabChange = (id: number) => {
-  console.info(id);
-};
+const onActiveTabChange = jest.fn();
 
 describe('Nav component test suite =>', () => {
   const navProps = {

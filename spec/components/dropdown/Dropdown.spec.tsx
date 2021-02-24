@@ -15,9 +15,7 @@ const filterFunction = (element: any, input: string) => {
   return !input || element.displayName.indexOf(input)>-1 ;
 };
 
-const onChange = () => {
-  console.log('');
-}
+const onChange =jest.fn();
 
 describe('Dropdown component test suite =>', () => {
   const dropdownProps = {
@@ -37,7 +35,7 @@ describe('Dropdown component test suite =>', () => {
     });
     
     it('should show/hide options menu', async () => {
-      const { getByText } = render(<Dropdown options={dropdownProps.options} hideSelectedOptions closeMenuOnSelect/>);
+      const { getByText } = render(<Dropdown options={dropdownProps.options} hideSelectedOptions closeMenuOnSelect enableTermSearch/>);
       const input = screen.getByRole('textbox');
       userEvent.click(input);
       expect(getByText('banana')).toBeTruthy();

@@ -11,9 +11,14 @@ export interface LabelValue {
   value: string;
 }
 
-interface DropdownOptionsGroup<T> {
+ interface DropdownOptionsGroup<T> {
   label: string;
   options : T[];
+}
+
+export interface SearchHeaderOption {
+  readonly searchHeader: boolean;
+  readonly value: string;
 }
 
 export type DropdownOption<T> = T | DropdownOptionsGroup<T>;

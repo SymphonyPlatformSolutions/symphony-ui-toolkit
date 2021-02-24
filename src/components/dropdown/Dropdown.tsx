@@ -1,6 +1,5 @@
 import * as React from 'react';
-import Select from 'react-select';
-import { Option } from 'react-select/src/filters';
+import Select, { createFilter } from 'react-select';
 import {
   ClearIndicator,
   Control,
@@ -12,6 +11,8 @@ import {
   MultiValueRemove,
   SingleValue,
   NoOptionsMessage,
+  DropdownList, 
+  firstOption
 } from './CustomRender';
 import {
   DropdownOption,
@@ -92,8 +93,17 @@ export type DropdownProps<T> = {
   onMenuClose?: () => void;
   /** Select the currently focused option when the user presses tab */
   tabSelectsValue?: boolean;
-} & HasTooltipProps &
-  (MultiModeProps<T> | SingleModeProps<T>);
+  /** Display a fixed option on the header of the Dropdown with the searched term */
+  enableTermSearch? : boolean;
+  /** Message to be display on the header of the menu list when searching by term */
+  termSearchMessage?: ((term:string)=> string) | string;
+  /** Handle the selection of search by term option */
+  onTermSearch?: (term:string) => any;
+  onClear?: () => any;
+  /** Path in custom object to the unique identifier of the option */
+  bindValue?: string;
+
+} & HasTooltipProps & (MultiModeProps<T> | SingleModeProps<T>);
 
 type MultiModeProps<T> = {
   /** Support multiple selected options */
@@ -116,26 +126,34 @@ type DropdownState<T> = {
   hideSelectedOptions?: boolean;
   displayArrowIndicator?: boolean;
 };
-
 export class Dropdown<T = LabelValue> extends React.Component<
   DropdownProps<T>,
   DropdownState<T>
 > {
-  state = {
-    selectedOption: null,
-    hideSelectedOptions:
-      this.props.hideSelectedOptions === undefined
-        ? this.props?.isMultiSelect
-        : this.props.hideSelectedOptions,
-    closeMenuOnSelect:
-      this.props.closeMenuOnSelect === undefined
-        ? !this.props?.isMultiSelect
-        : this.props.closeMenuOnSelect,
-    displayArrowIndicator:
-      this.props.displayArrowIndicator === undefined
-        ? !this.props?.isMultiSelect
-        : this.props.displayArrowIndicator,
-  };
+
+  myRef: any;
+  searchHeaderOption:any;
+  lastSelectedOption:any;
+  constructor(props) {
+    super(props);
+    this.myRef = React.createRef();
+    this.searchHeaderOption = {...firstOption};
+    this.state = {
+      selectedOption: null,
+      hideSelectedOptions:
+        this.props.hideSelectedOptions === undefined
+          ? this.props?.isMultiSelect
+          : this.props.hideSelectedOptions,
+      closeMenuOnSelect:
+        this.props.closeMenuOnSelect === undefined
+          ? !this.props?.isMultiSelect
+          : this.props.closeMenuOnSelect,
+      displayArrowIndicator:
+        this.props.displayArrowIndicator === undefined
+          ? !this.props?.isMultiSelect
+          : this.props.displayArrowIndicator
+    };
+  }
 
   componentDidMount() {
     const { onInit, value } = this.props;
@@ -143,10 +161,19 @@ export class Dropdown<T = LabelValue> extends React.Component<
       onInit(value as any);
     }
   }
+ 
 
-  handleChange = (selectedOption) => {
-    if (this.props.onChange) {
+  handleChange = (selectedOption, meta) => {
+    const isClearingTermSearch = this.lastSelectedOption === this.searchHeaderOption && !selectedOption;
+    this.lastSelectedOption = selectedOption;
+    if (this.props.onChange && !selectedOption?.searchHeader && !isClearingTermSearch) {
       this.props.onChange({ target: { value: selectedOption } });
+    }
+    if (this.props.onTermSearch && selectedOption?.searchHeader) {
+      this.props.onTermSearch(selectedOption.value);
+    }
+    if(meta.action === 'clear' && this.props.onClear){
+      this.props.onClear();
     }
   };
 
@@ -157,10 +184,10 @@ export class Dropdown<T = LabelValue> extends React.Component<
     }
   };
 
-  handleFiltering = this.props.filterFunction
-    ? (option: Option, input: string) =>
-      this.props.filterFunction(option.data, input)
-    : undefined;
+  private internalFiltering = this.props.filterFunction ? (o, input) => this.props.filterFunction(o.data, input) : createFilter(null);
+
+  private filter = (o, input) => {
+    return  o.data.searchHeader || this.internalFiltering(o, input) };
 
   handleIsOptionDisabled = this.props.isOptionDisabled
     ? (option: any) => this.props.isOptionDisabled(option.data)
@@ -168,6 +195,14 @@ export class Dropdown<T = LabelValue> extends React.Component<
 
   handleIsOptionSelected = this.props.isOptionSelected
     ? (option: any) => this.props.isOptionSelected(option.data)
+    : undefined;
+
+  get internalOptions() {
+    return this.props.enableTermSearch ? [this.searchHeaderOption as T, ...this.props.options] : this.props.options
+  }
+
+  bindValue = this.props.bindValue
+    ? option => option[this.props.bindValue]
     : undefined;
 
   render() {
@@ -180,7 +215,6 @@ export class Dropdown<T = LabelValue> extends React.Component<
       isMultiSelect,
       isDisabled,
       placeHolder,
-      options,
       id,
       name,
       defaultValue,
@@ -205,8 +239,10 @@ export class Dropdown<T = LabelValue> extends React.Component<
       onMenuOpen,
       onMenuClose,
       tabSelectsValue,
+      enableTermSearch,
+      termSearchMessage,
     } = this.props;
-
+    
     return (
       <div>
         <LabelTooltipDecorator
@@ -217,6 +253,9 @@ export class Dropdown<T = LabelValue> extends React.Component<
           tooltipCloseLabel={tooltipCloseLabel}
         />
         <Select
+          parentInstance={this}
+          ref={this.myRef}
+          selectRef={this.myRef}
           displayArrowIndicator={displayArrowIndicator}
           optionRenderer={optionRenderer}
           tagRenderer={tagRenderer}
@@ -232,6 +271,7 @@ export class Dropdown<T = LabelValue> extends React.Component<
             ClearIndicator,
             MultiValueRemove,
             NoOptionsMessage,
+            MenuList: DropdownList
           }}
           defaultValue={defaultValue}
           id={id}
@@ -247,14 +287,14 @@ export class Dropdown<T = LabelValue> extends React.Component<
           onFocus={onFocus}
           onInputChange={onInputChange}
           onKeyDown={onKeyDown}
-          options={options}
+          options={this.internalOptions}
           hideSelectedOptions={hideSelectedOptions}
           placeholder={placeHolder}
           isMulti={isMultiSelect}
           isDisabled={isDisabled}
           iconName={iconName}
           noOptionMessage={noOptionMessage}
-          filterOption={this.handleFiltering}
+          filterOption={this.filter}
           isSearchable={isTypeAheadEnabled}
           isOptionDisabled={this.handleIsOptionDisabled}
           isOptionSelected={this.handleIsOptionSelected}
@@ -265,6 +305,9 @@ export class Dropdown<T = LabelValue> extends React.Component<
           onMenuOpen={onMenuOpen}
           onMenuClose={onMenuClose}
           tabSelectsValue={tabSelectsValue}
+          enableTermSearch={enableTermSearch}
+          termSearchMessage={termSearchMessage}
+          getOptionValue={this.bindValue}
         />
       </div>
     );
@@ -276,6 +319,7 @@ export class Dropdown<T = LabelValue> extends React.Component<
     isInputClearable: false,
     isTypeAheadEnabled: true,
     autoScrollToCurrent: false,
+    enableTermSearch: false,
   };
 }
 
