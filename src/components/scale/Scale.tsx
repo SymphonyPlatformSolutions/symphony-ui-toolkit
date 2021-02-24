@@ -20,7 +20,7 @@ export const Scale: React.FC<ScaleProps> = ({
     `${prefix}-${size}`,
   );
   return (
-    <span data-testid="scale"
+    <span
       className={classes}
       {...rest}>
     </span>
