@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { components } from 'react-select';
 import Icon from '../icon';
+import { SearchHeaderOption } from './interfaces';
 
 /**
  * Useful to stop propagating on mouse down events in custom renderers
@@ -235,8 +236,7 @@ export const DropdownList = (props: any) => {
   return <components.MenuList {...props}>{props.children}</components.MenuList>;
 };
 
-export const firstOption = {
+export const firstOption: Readonly<SearchHeaderOption> = {
   searchHeader: true, 
   value:''
 };
-Object.freeze(firstOption);
