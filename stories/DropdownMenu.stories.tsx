@@ -4,41 +4,59 @@ import {
   DropdownMenuItem,
   DropdownMenuDivider,
 } from '../src/components/dropdown-menu';
-import { Icon } from '../src/components';
+import {Icon, Button, Typography} from '../src/components';
 import './styles/dropdownMenu.stories.css';
+import { useState } from 'react';
 
 const Default: React.FC = () => {
   return (
     <div className="flex-col">
       <h3>Default</h3>
       <DropdownMenu className="dropdownMenu">
-        <DropdownMenuItem>New direct chat</DropdownMenuItem>
-        <DropdownMenuItem>New room...</DropdownMenuItem>
-        <DropdownMenuDivider />
-        <DropdownMenuItem>Cut</DropdownMenuItem>
-        <DropdownMenuItem className="withRightIcon">
-          Copy <Icon iconName="check" className="rightIcon" />
+        <DropdownMenuItem>
+            New direct chat
         </DropdownMenuItem>
-        <DropdownMenuItem>Paste</DropdownMenuItem>
+        <DropdownMenuItem>
+            New room...
+        </DropdownMenuItem>
         <DropdownMenuDivider />
-        <DropdownMenuItem>Full screen</DropdownMenuItem>
-        <DropdownMenuItem>Minimize</DropdownMenuItem>
+        <DropdownMenuItem>
+          <Icon iconName="minus-round" className="leftIcon" />
+            Cut
+        </DropdownMenuItem>
+        <DropdownMenuItem className="withRightIcon">
+          <Icon iconName="copy" className="leftIcon" />
+            Copy
+          <Icon iconName="check" className="rightIcon" />
+        </DropdownMenuItem>
+        <DropdownMenuItem>
+          <Icon iconName="forward" className="leftIcon" />
+            Paste
+        </DropdownMenuItem>
+        <DropdownMenuDivider />
+        <DropdownMenuItem>
+          <Icon iconName="fullscreen-on" className="leftIcon" />
+            Full screen
+        </DropdownMenuItem>
+        <DropdownMenuItem>
+          <Icon iconName="fullscreen-off" className="leftIcon" />
+            Minimize
+        </DropdownMenuItem>
       </DropdownMenu>
     </div>
   );
-};
+}
 
-const WithIcons: React.FC = () => {
+const WithOrWithoutIcons: React.FC = () => {
+  const [isShown, setIsShown] = useState(true);
   return (
     <div className="flex-col">
-      <h3>With icons</h3>
-      <DropdownMenu className="dropdownMenu">
+      <h3>Closable</h3>
+      <DropdownMenu className="dropdownMenu" show={isShown} onClose={() => setIsShown(false)}>
         <DropdownMenuItem>
-          <Icon iconName="plus" className="leftIcon" />
           New direct chat
         </DropdownMenuItem>
         <DropdownMenuItem>
-          <Icon iconName="chats" className="leftIcon" />
           New room...
         </DropdownMenuItem>
         <DropdownMenuDivider />
@@ -70,10 +88,21 @@ const WithIcons: React.FC = () => {
 };
 
 export const DropdownList: React.FC = () => {
+  const [isShown, toggleVisibility] = useState(true);
   return (
     <div className="flex-row">
-      <Default />
-      <WithIcons />
+      <div className="flex-col">
+        <Default/>
+        <div><Typography>This menu is always visible</Typography></div>
+      </div>
+      <div className="flex-col">
+        <Button onClick={() => toggleVisibility(!isShown)}>{isShown ? 'Clear' : 'Open'}</Button>
+        {isShown &&
+        <div>
+          <WithOrWithoutIcons/>
+          <Typography>This menu can be closed. You can click outside of the menu or press Esc to close this menu</Typography>
+        </div>}
+      </div>
     </div>
   );
 };

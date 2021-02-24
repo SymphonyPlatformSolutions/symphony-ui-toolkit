@@ -1,9 +1,13 @@
 import * as React from 'react';
 import classNames from 'classnames';
+import {useEffect, useRef} from 'react';
+import {Keys} from '../common/keyUtils';
 
 interface DropdownMenuProps extends React.HTMLProps<HTMLDivElement> {
+  show?: boolean;
   children?: React.ReactNode;
   className?: string;
+  onClose?: () => void;
 }
 
 interface DropdownMenuItemProps extends React.HTMLProps<HTMLDivElement> {
@@ -27,14 +31,38 @@ export const DropdownMenuItem: React.FC<DropdownMenuItemProps> = ({children, cla
   )
 }
 
-export const DropdownMenu: React.FC<DropdownMenuProps> = ({children, className, ...rest}: DropdownMenuProps) => {
+export const DropdownMenu: React.FC<DropdownMenuProps> = ({children, className, show = true, onClose, ...rest}: DropdownMenuProps) => {
   const classes = classNames(
     'tk-dropdown-menu',
     className,
   )
 
-  return (
-    <div {...rest} className={classes}>
+  const menu = useRef(null);
+  const keyboardEventHandler = (e: KeyboardEvent) => {
+    e.stopPropagation();
+    if (e.key === Keys.ESC && onClose) {
+      onClose();
+    }
+  }
+
+  const mouseEventHandler = (e: MouseEvent) => {
+    e.stopPropagation();
+    if (onClose && menu && !(e.composedPath() as any).includes(menu.current)) {
+      onClose();
+    }
+  }
+
+  useEffect(() => {
+    window.addEventListener('keyup', keyboardEventHandler);
+    window.addEventListener('click', mouseEventHandler);
+
+    return function cleanup() {
+      window.removeEventListener('keyup', keyboardEventHandler);
+      window.removeEventListener('click', mouseEventHandler);
+    }
+  })
+  return show && (
+    <div {...rest} className={classes} ref={menu}>
       {children}
     </div>
   )
