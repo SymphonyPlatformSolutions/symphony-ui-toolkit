@@ -96,6 +96,8 @@
       margin-top: toEm(6);
       box-shadow: 0 toEm(2, $fontSize) toEm(4, $fontSize) rgba(15, 27, 36, 0.12),
         0 toEm(12, $fontSize) toEm(28, $fontSize) rgba(15, 27, 36, 0.24);
+      color: $--tk-select-option-color;
+      border-radius: toEm(8, $fontSize);
     }
     &__option {
       cursor: pointer;
