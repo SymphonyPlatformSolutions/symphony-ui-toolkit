@@ -3,14 +3,11 @@
 }
 
 .tk-daypicker {
-  box-shadow: 0 toEm(2, $fontSize) toEm(4, $fontSize) rgba(15, 27, 36, 0.12),
-    0 toEm(12, $fontSize) toEm(28, $fontSize) rgba(15, 27, 36, 0.24);
-  border-radius: toEm(8, $fontSize);
   color: $--tk-datepicker-default-color;
-  background-color: $--tk-input-default-background-color;
   font-size: toEm(14, $fontSize);
   padding: toEm(20, $fontSize) toEm(16, $fontSize) toEm(16, $fontSize)
     toEm(16, $fontSize);
+  @include boxContainer();
 
   .tk-daypicker-header {
     margin-bottom: toEm(12, $fontSize);
@@ -88,12 +85,12 @@
       &--today {
         position: relative;
         &::after {
-          font-size: toEm(10, $fontSize)  ;
-          content: '';
+          font-size: toEm(10, $fontSize);
+          content: "";
           position: absolute;
           bottom: 0;
-          height: .45em;
-          width: .45em;
+          height: 0.45em;
+          width: 0.45em;
           background-color: currentColor;
           border-radius: 50%;
         }
@@ -115,7 +112,6 @@
       &--outside {
         visibility: hidden;
       }
-
     }
   }
 
