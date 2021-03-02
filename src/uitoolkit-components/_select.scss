@@ -92,15 +92,16 @@
       }
     }
     &__menu {
-      background-color: $--tk-select-background-color;
       margin-top: toEm(6);
+      color: $--tk-select-option-color;
+      @include boxContainer();
     }
     &__option {
       cursor: pointer;
       color: $--tk-input-default-active-color;
       &.tk-select__option {
         &--is-focused,
-        &--is-focused.tk-select__option--is-selected{
+        &--is-focused.tk-select__option--is-selected {
           background-color: $--tk-list-hover-color;
         }
         &--is-selected {

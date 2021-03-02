@@ -60,3 +60,10 @@
     color: $scolor-white;
   }
 }
+
+@mixin boxContainer() {
+  box-shadow: 0 24px 48px rgba($scolor-box-shadow, 0.12),
+    0 4px 8px rgba($scolor-box-shadow, 0.24);
+  border-radius: toEm(8);
+  background-color: $--tk-input-default-background-color;
+}
