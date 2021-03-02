@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { components } from 'react-select';
 import Icon from '../icon';
+import { SearchHeaderOption } from './interfaces';
 
 /**
  * Useful to stop propagating on mouse down events in custom renderers
@@ -16,8 +17,10 @@ const stopPropagation = (e) => {
  * the appereace of the react-select library components **/
 
 export const DefaultOptionRenderer = (props: any) => {
+  const {enableTermSearch, inputValue} = props?.selectProps;
   const OptionRenderer = props?.selectProps?.optionRenderer;
   const isSelected = props.isSelected;
+  const isSearchHeaderOption = props?.data?.searchHeader;
   if(props.selectProps?.autoScrollToCurrent){ 
     React.useEffect(() => {
       if(props.isSelected){
@@ -29,17 +32,26 @@ export const DefaultOptionRenderer = (props: any) => {
     data: props.data,
     inputValue: props.selectProps?.inputValue,
   };
-  return (
-    <div>
+
+  return (isSearchHeaderOption && enableTermSearch) ? (
+    inputValue && (
+      <components.Option {...props}>
+        <HeaderComp {...props} />
+      </components.Option>
+    )
+  ) : (
+    <>
       {OptionRenderer ? (
-        <components.Option {...props}>
-          <OptionRenderer {...rendererProps} />
-        </components.Option>
+        <div>
+          <components.Option {...props}>
+            <OptionRenderer {...rendererProps} />
+          </components.Option>
+        </div>
       ) : (
         <components.Option {...props} />
       )}
-    </div>
-  );
+    </>
+  )
 };
 
 // Specific Input to fix input not displayed in React-Select
@@ -51,18 +63,26 @@ export const Input = (props: any) => {
 };
 
 export const SingleValue = (props: any) => {
-  const OptionRenderer = props.selectProps.optionRenderer;
+  const InputRenderer = props.selectProps?.tagRenderer;
+  const inputValue = props.selectProps?.parentInstance?.searchHeaderOption?.value;
   const rendererProps = { data: props.data };
+  const isSearchHeaderSelected = props?.data?.searchHeader;
   return (
-    <div>
-      {OptionRenderer ? (
-        <components.SingleValue {...props}>
-          <OptionRenderer {...rendererProps} />
+    <>
+      {isSearchHeaderSelected? (
+        <components.SingleValue {...props}> 
+          <div>{inputValue}</div>
         </components.SingleValue>
-      ) : (
-        <components.SingleValue {...props} />
+      ) : (<>
+        { InputRenderer ? (
+          <components.SingleValue {...props}>
+            <InputRenderer {...rendererProps} />
+          </components.SingleValue>
+        ) :
+          <components.SingleValue {...props} />}
+      </>
       )}
-    </div>
+    </>
   );
 };
 
@@ -156,7 +176,7 @@ export const Control = ({ children, ...props }: any) => {
       {iconName ? (
         <components.Control {...props} className="tk-input__container">
           <div className="tk-input__icon">
-            <Icon iconName={iconName} tabIndex={0}></Icon>
+            <Icon iconName={iconName} tabIndex={0}/>
           </div>
           {children}
         </components.Control>
@@ -175,9 +195,54 @@ export const NoOptionsMessage = (props: any) => {
         <components.NoOptionsMessage {...props}>
           <div>{noOptionMessage}</div>
         </components.NoOptionsMessage>
-      ) : (
-        <components.NoOptionsMessage {...props} />
-      )}
+      ) : null}
     </div>
   );
+};
+
+const HeaderComp = (props: any) => {
+  const {termSearchMessage, inputValue} = props.selectProps;
+  return (
+    <div>
+      <Icon iconName="right-arrow" className="tk-mr-1h"/>
+      <span>{ (termSearchMessage && typeof termSearchMessage === 'string' )? termSearchMessage : 
+        termSearchMessage ? termSearchMessage(inputValue) :
+          'Search for term '}&apos;{inputValue}&apos;</span>
+    </div>);
+};
+
+
+/** This component is used when the enableTermSearch prop 
+ * is activated to handle the header Option selection
+ */
+export const DropdownList = (props: any) => { 
+  if(props.selectProps?.enableTermSearch) {
+    const select = props?.selectProps?.selectRef?.current?.select;
+    const { searchHeaderOption } = props?.selectProps?.parentInstance;
+    const { inputValue } = props?.selectProps;
+    // Focus on first option and differenciate between Group Options and simple options
+    let focusThis =  props?.children[1]?.props.data;
+    if (focusThis?.options) {
+      focusThis = props?.children[1].props?.options[0]?.data;
+    }
+    focusThis = focusThis || searchHeaderOption;
+    // Clear the value if header option is selected
+    if(select?.state?.selectValue[0]?.searchHeader) {
+      select?.clearValue();
+    }
+    React.useEffect(() => {
+      select?.setState({ focusedOption: null });
+    }, [props.selectProps.selectRef]);
+    React.useEffect(() => {
+      select?.setState({ focusedOption: focusThis });
+      props.selectProps.parentInstance.searchHeaderOption.value = inputValue;
+    }, [inputValue]);
+  }
+
+  return <components.MenuList {...props}>{props.children}</components.MenuList>;
+};
+
+export const firstOption: Readonly<SearchHeaderOption> = {
+  searchHeader: true, 
+  value:''
 };
