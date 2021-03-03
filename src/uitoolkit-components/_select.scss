@@ -99,6 +99,7 @@
     &__option {
       cursor: pointer;
       color: $--tk-input-default-active-color;
+      padding: toEm(6) toEm(38) toEm(6) toEm(16);
       &.tk-select__option {
         &--is-focused,
         &--is-focused.tk-select__option--is-selected {
@@ -150,6 +151,7 @@
       .tk-select__value-container {
         cursor: text;
         margin-left: toEm(32);
+        padding: toEm(2) toEm(12);
         .tk-select__input {
           color: $--tk-input-default-active-color;
         }
