@@ -98,10 +98,10 @@ const onTermSearch = (value: string) => {
   console.log('On term search selected: ', value);
 }
 const onChange = (value) => {
-  console.log('Changed: ', value)
+  console.log('Changed: ', value);
 }
 const onClear = () => {
-  console.log('Dropddown cleared')
+  console.log('Dropddown cleared');
 }
 export const Default = Template.bind({});
 Default.args = {

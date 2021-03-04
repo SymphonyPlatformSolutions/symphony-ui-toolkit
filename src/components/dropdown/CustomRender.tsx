@@ -42,13 +42,15 @@ export const DefaultOptionRenderer = (props: any) => {
   ) : (
     <>
       {OptionRenderer ? (
-        <div>
+        <div className="option">
           <components.Option {...props}>
             <OptionRenderer {...rendererProps} />
           </components.Option>
         </div>
       ) : (
-        <components.Option {...props} />
+        <div className="option">
+          <components.Option {...props} />
+        </div>
       )}
     </>
   )
