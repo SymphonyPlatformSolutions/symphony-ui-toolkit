@@ -41,7 +41,9 @@ export default class CropContent extends React.Component<CropContentProps> {
   componentDidMount() {
     // after first render check if component needs toggle
     this.handleOverflow();
-    this.mutationObserver.observe(this.containerElRef, {childList:true, subtree:true});
+    if(this.containerElRef){
+      this.mutationObserver.observe(this.containerElRef, {childList:true, subtree:true});
+    }
   }
 
   componentDidUpdate(prevProps) {
