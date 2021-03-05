@@ -1,7 +1,8 @@
 import * as React from 'react'
 import classNames from 'classnames';
+import { BaseProps } from '../../interfaces/baseProps';
 
-type AvatarProps = {
+interface AvatarProps extends BaseProps {
   size: 'xxlarge' | 'xlarge' | 'large' | 'medium' | 'small' | 'xsmall';
   bordered?: boolean;
   variant: 'square' | 'round';
@@ -56,6 +57,7 @@ export const Avatar: React.FC<AvatarProps> = ({
   variant,
   children,
   className,
+  dataTestId
 }: AvatarProps) => {
   const classes = classNames(
     prefix,
@@ -65,7 +67,7 @@ export const Avatar: React.FC<AvatarProps> = ({
     className
   )
   return (
-    <div className={classes}>
+    <div className={classes} data-testid={ dataTestId }>
       {children}
     </div>
   )

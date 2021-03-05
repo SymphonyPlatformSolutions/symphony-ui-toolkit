@@ -9,6 +9,7 @@ import { PopperContainer, popperProps } from '../common/popperUtils';
 
 import useOnclickOutside from 'react-cool-onclickoutside';
 import { showTooltipOnClick, showTooltipOnHover } from './helpers'
+import { BaseProps } from '../../interfaces/baseProps';
 
 const SpanStyled = styled.span`
   display: inline-block;
@@ -47,23 +48,22 @@ const TooltipClose = styled.span`
   cursor: pointer;
 `;
 
-export type TooltipProps = {
+export interface TooltipProps extends BaseProps {
   closeLabel?: string;
   /** Text or Element to display in the tooltip */
   description: string | JSX.Element;
   displayTrigger?: 'click' | 'hover';
-  /** CSS ID */
-  id?: string;
   /** Function to call on close action */
   onHintClose?: () => void;
   placement: 'top' | 'bottom' | 'left' | 'right';
   type?: 'hint' | 'tooltip';
   /** if true, the tooltip should be displayed */
   visible?: boolean;
-};
+}
 
 const Tooltip: React.FC<TooltipProps> = ({
   closeLabel,
+  dataTestId,
   description,
   displayTrigger,
   id,
@@ -117,6 +117,7 @@ const Tooltip: React.FC<TooltipProps> = ({
           classNames="TooltipContainer"
         >
           <TooltipContainer
+            data-testid={ dataTestId }
             id={id}
             role="tooltip"
             ref={setPopperElement}
@@ -156,6 +157,7 @@ Tooltip.defaultProps = {
 
 Tooltip.propTypes = {
   closeLabel: PropTypes.string,
+  dataTestId: PropTypes.string,
   description: PropTypes.oneOfType([PropTypes.string, PropTypes.element]).isRequired,
   displayTrigger: PropTypes.oneOf(['click', 'hover']),
   id: PropTypes.string,
