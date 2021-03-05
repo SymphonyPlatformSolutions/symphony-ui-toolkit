@@ -15,13 +15,24 @@ type CropContentProps = {
 };
 
 export default class CropContent extends React.Component<CropContentProps> {
-  private containerElRef: HTMLDivElement;
+  private containerElRef:HTMLDivElement;
+  private mutationObserver: MutationObserver;
 
   public state = {
     collapsed:
       this.props.initCollapsed === undefined || this.props.initCollapsed,
     hasOverflow: false
   };
+
+  constructor(props){
+    super(props);
+    //listen for mutations and update accordingly
+    this.mutationObserver = new MutationObserver((mutations:MutationRecord[]) => {
+      if(mutations?.some(mut => mut.type==='childList')){
+        this.handleOverflow();
+      }
+    });
+  }
 
   onToggle() {
     this.setState({ collapsed: !this.state.collapsed });
@@ -30,11 +41,16 @@ export default class CropContent extends React.Component<CropContentProps> {
   componentDidMount() {
     // after first render check if component needs toggle
     this.handleOverflow();
+    this.mutationObserver.observe(this.containerElRef, {childList:true, subtree:true});
   }
+
   componentDidUpdate(prevProps) {
     if (prevProps.cropHeight !== this.props.cropHeight) {
       this.handleOverflow();
     }
+  }
+  componentWillUnmount(){
+    this.mutationObserver.disconnect();
   }
 
   handleOverflow() {
@@ -61,9 +77,7 @@ export default class CropContent extends React.Component<CropContentProps> {
         style={this.props.style}
       >
         <div
-          ref={el => {
-            this.containerElRef = el;
-          }}
+          ref={el => this.containerElRef = el}
           className="content"
           style={{ maxHeight: height }}
         >
@@ -80,10 +94,7 @@ export default class CropContent extends React.Component<CropContentProps> {
       </ResizeDetectDiv>
     );
   }
-  static propTypes = {
-    cropHeight: PropTypes.string,
-    initCollapsed: PropTypes.bool
-  }
+
   static defaultProps = {
     cropHeight: '80px',
     initCollapsed: true
