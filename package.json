@@ -1,6 +1,6 @@
 {
   "name": "@symphony/uitoolkit-components",
-  "version": "1.3.6-SNAPSHOT.1",
+  "version": "1.3.6-SNAPSHOT.2",
   "description": "React components for the Symphony UI design system",
   "publishConfig": {
     "registry": "https://repo.symphony.com/artifactory/api/npm/npm-local-dev2"
