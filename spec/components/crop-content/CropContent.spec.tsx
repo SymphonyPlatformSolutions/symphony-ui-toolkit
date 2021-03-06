@@ -1,29 +1,35 @@
-import * as React from 'react';
+import { render, waitFor } from '@testing-library/react';
 import { shallow } from 'enzyme';
-
+import * as React from 'react';
 import CropContent from '../../../src/components/crop-content/CropContent';
 import ResizeDetectDiv from '../../../src/core/hoc/ResizeDetectDiv';
 
+// TODO this whole test should be migrated to testing library
 /**
  * Util methods
  */
+const mockText = `Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
+doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo
+inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut
+fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem
+sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit
+amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora
+incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad
+minima veniam, quis nostrum exercitationem ullam corporis suscipit
+laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum
+iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae
+consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?`;
+
+const getComponent = (initCollapsed) =>{
+  return <CropContent initCollapsed={initCollapsed}>
+    <div id="content">{mockText}</div>
+  </CropContent>
+}
 
 const getWrapper = (initCollapsed?) =>
   shallow(
-    <CropContent initCollapsed={initCollapsed}>
-      Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
-      doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo
-      inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
-      Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut
-      fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem
-      sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit
-      amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora
-      incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad
-      minima veniam, quis nostrum exercitationem ullam corporis suscipit
-      laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum
-      iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae
-      consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?
-    </CropContent>
+    getComponent(initCollapsed)
   );
 
 const getToggleLink = wrapper => {
@@ -102,6 +108,38 @@ describe('CropContent Component', () => {
       getToggleLink(wrapper).simulate('click');
       simResize(wrapper, 50, 100);
       expect((wrapper.instance().state as any).hasOverflow).toBeFalsy();
+    });
+
+    //tests should be migrated like this one
+    it('should refresh overflow on text manipulation', async()=>{
+      const rendered = render(getComponent(true));
+      const content = document.getElementsByClassName('content')[0] as HTMLDivElement;
+      // JSDOM doesn't actually render stuff we'll need to mock contents
+      Object.defineProperty(content, 'offsetHeight', { configurable: true, value: 80 });
+      Object.defineProperty(content, 'scrollHeight', { configurable: true, value: 100 });
+      // should be triggered by text change
+      content.innerHTML=(mockText + mockText);
+      expect((await rendered.findAllByText('Show more')).length).toBe(1);
+    });
+
+    it('should refresh overflow on dom manipulation', async()=>{
+      const rendered = render(getComponent(true));
+      const content = document.getElementsByClassName('content')[0] as HTMLDivElement;
+      const aux = document.createElement('div');
+
+      Object.defineProperty(content, 'offsetHeight', { configurable: true, value: 80 });
+      Object.defineProperty(content, 'scrollHeight', { configurable: true, value: 100 });
+      content.appendChild(aux);
+      await waitFor(() => {
+        expect(rendered.getByText('Show more')).toBeInTheDocument()
+      });
+
+      Object.defineProperty(content, 'offsetHeight', { configurable: true, value: 180 });
+      Object.defineProperty(content, 'scrollHeight', { configurable: true, value: 90 });
+      content.removeChild(aux);
+      await waitFor(() => {
+        expect(rendered.queryByText('Show more')).not.toBeInTheDocument()
+      });
     });
   });
 });
