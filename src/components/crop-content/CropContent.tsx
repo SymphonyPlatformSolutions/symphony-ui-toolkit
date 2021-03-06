@@ -1,6 +1,5 @@
 import * as React from 'react';
 import ResizeDetectDiv from '../../core/hoc/ResizeDetectDiv';
-import * as PropTypes from 'prop-types';
 
 type CropContentProps = {
   children?: React.ReactNode;
@@ -28,7 +27,7 @@ export default class CropContent extends React.Component<CropContentProps> {
     super(props);
     //listen for mutations and update accordingly
     this.mutationObserver = new MutationObserver((mutations:MutationRecord[]) => {
-      if(mutations?.some(mut => mut.type==='childList')){
+      if(mutations?.some(mut => mut.type==='childList' || mut.type==='characterData')){
         this.handleOverflow();
       }
     });
@@ -41,8 +40,12 @@ export default class CropContent extends React.Component<CropContentProps> {
   componentDidMount() {
     // after first render check if component needs toggle
     this.handleOverflow();
-    if(this.containerElRef){
-      this.mutationObserver.observe(this.containerElRef, {childList:true, subtree:true});
+  }
+
+  setRef = (e: HTMLDivElement) => {
+    if(e){
+      this.containerElRef = e;
+      this.mutationObserver.observe(e, {childList:true, subtree:true , characterData:true});
     }
   }
 
@@ -59,7 +62,7 @@ export default class CropContent extends React.Component<CropContentProps> {
     if (this.state.collapsed) {
       const hasOverflow =
         this.containerElRef &&
-        this.containerElRef.offsetHeight < this.containerElRef.scrollHeight;
+        this.containerElRef.scrollHeight - this.containerElRef.offsetHeight > 1;
       this.setState({ hasOverflow });
     }
   }
@@ -79,7 +82,7 @@ export default class CropContent extends React.Component<CropContentProps> {
         style={this.props.style}
       >
         <div
-          ref={el => this.containerElRef = el}
+          ref={this.setRef}
           className="content"
           style={{ maxHeight: height }}
         >

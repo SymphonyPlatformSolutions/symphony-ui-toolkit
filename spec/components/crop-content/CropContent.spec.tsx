@@ -1,3 +1,4 @@
+import { render, waitFor } from '@testing-library/react';
 import { shallow } from 'enzyme';
 import * as React from 'react';
 import CropContent from '../../../src/components/crop-content/CropContent';
@@ -20,11 +21,15 @@ laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum
 iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae
 consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?`;
 
+const getComponent = (initCollapsed) =>{
+  return <CropContent initCollapsed={initCollapsed}>
+    <div id="content">{mockText}</div>
+  </CropContent>
+}
+
 const getWrapper = (initCollapsed?) =>
   shallow(
-    <CropContent initCollapsed={initCollapsed}>
-      <div id="content">{mockText}</div>
-    </CropContent>
+    getComponent(initCollapsed)
   );
 
 const getToggleLink = wrapper => {
@@ -103,6 +108,38 @@ describe('CropContent Component', () => {
       getToggleLink(wrapper).simulate('click');
       simResize(wrapper, 50, 100);
       expect((wrapper.instance().state as any).hasOverflow).toBeFalsy();
+    });
+
+    //tests should be migrated like this one
+    it('should refresh overflow on text manipulation', async()=>{
+      const rendered = render(getComponent(true));
+      const content = document.getElementsByClassName('content')[0] as HTMLDivElement;
+      // JSDOM doesn't actually render stuff we'll need to mock contents
+      Object.defineProperty(content, 'offsetHeight', { configurable: true, value: 80 });
+      Object.defineProperty(content, 'scrollHeight', { configurable: true, value: 100 });
+      // should be triggered by text change
+      content.innerHTML=(mockText + mockText);
+      expect((await rendered.findAllByText('Show more')).length).toBe(1);
+    });
+
+    it('should refresh overflow on dom manipulation', async()=>{
+      const rendered = render(getComponent(true));
+      const content = document.getElementsByClassName('content')[0] as HTMLDivElement;
+      const aux = document.createElement('div');
+
+      Object.defineProperty(content, 'offsetHeight', { configurable: true, value: 80 });
+      Object.defineProperty(content, 'scrollHeight', { configurable: true, value: 100 });
+      content.appendChild(aux);
+      await waitFor(() => {
+        expect(rendered.getByText('Show more')).toBeInTheDocument()
+      });
+
+      Object.defineProperty(content, 'offsetHeight', { configurable: true, value: 180 });
+      Object.defineProperty(content, 'scrollHeight', { configurable: true, value: 90 });
+      content.removeChild(aux);
+      await waitFor(() => {
+        expect(rendered.queryByText('Show more')).not.toBeInTheDocument()
+      });
     });
   });
 });
