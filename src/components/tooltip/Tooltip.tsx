@@ -47,7 +47,7 @@ const TooltipClose = styled.span`
   cursor: pointer;
 `;
 
-export interface TooltipProps {
+export interface TooltipProps extends Omit<React.HTMLProps<HTMLDivElement>, 'as' | 'ref'> {
   closeLabel?: string;
   /** Text or Element to display in the tooltip */
   description: string | JSX.Element;
