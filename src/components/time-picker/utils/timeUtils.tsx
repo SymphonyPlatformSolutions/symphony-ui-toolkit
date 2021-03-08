@@ -192,11 +192,9 @@ export const isTimeProposed = (
   options &&
   options.some(
     (option) =>
-      option &&
-      option.data &&
-      option.data.hours === time.hours &&
-      option.data.minutes === time.minutes &&
-      option.data.seconds === time.seconds
+      option?.data?.hours === time.hours &&
+      option?.data?.minutes === time.minutes &&
+      option?.data?.seconds === time.seconds
   );
 
 /**
