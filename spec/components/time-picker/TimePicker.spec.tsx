@@ -141,10 +141,11 @@ describe('TimePicker Component', () => {
     test.each([
       ['', null],
       ['azerty', { format: 'The time format is incorrect' }],
-      ['10:15:00', { disabledTime: 'This time is not available' }],
-      ['04:00:00', { minTime: 'Time too far in the past' }],
-      ['22:00:00', { maxTime: 'Time too far in the future' }],
-      ['15:00:00', { disabledTime: 'This time is not available' }],
+      ['10:15:00', { format: 'The time format is incorrect' }],
+      ['10:15:00 AM', { disabledTime: 'This time is not available' }],
+      ['04:00:00 AM', { minTime: 'Time too far in the past' }],
+      ['10:00:00 PM', { maxTime: 'Time too far in the future' }],
+      ['03:00:00 PM', { disabledTime: 'This time is not available' }],
     ])('when typing %p on field', (value, expected) => {
       const props = createTestProps({
         min: '09:00:00',

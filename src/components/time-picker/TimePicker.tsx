@@ -34,7 +34,7 @@ export const TimePicker: React.FC<TimePickerProps> = ({
   id,
   disabled,
   disabledTimes = [],
-  format,
+  format = getUserFormat(),
   label,
   min = '00:00:00',
   max = '23:59:59',
@@ -125,7 +125,7 @@ export const TimePicker: React.FC<TimePickerProps> = ({
   useEffect(() => {
     if (value !== null && value !== undefined) {
       // Value prop has changed
-      const newTime = getISOTimeFromLocalTime(value); // Without format it will be the ISO format
+      const newTime = getISOTimeFromLocalTime(value, format);
       if (newTime) {
         setInputValue(getFormattedTime(newTime, format));
       } else {
