@@ -180,6 +180,24 @@ export const isTimeDisabled = (
 };
 
 /**
+ * Iterates over the option and return true is the time matches with one of the options
+ * @param time
+ * @param options
+ */
+export const isTimeProposed = (
+  time: Time,
+  options: Array<DropdownOption<any>>
+): boolean =>
+  time &&
+  options &&
+  options.some(
+    (option) =>
+      option?.data?.hours === time.hours &&
+      option?.data?.minutes === time.minutes &&
+      option?.data?.seconds === time.seconds
+  );
+
+/**
  * Return true if the time is matching with the hours/minutes/seconds and not appears in the disabledTimes
  * @param time
  * @param hours
