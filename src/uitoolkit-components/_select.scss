@@ -95,6 +95,9 @@
       margin-top: toEm(6);
       color: $--tk-select-option-color;
       @include boxContainer();
+      .tk-option .tk-select__option--is-selected {
+        @extend .tk-select--custom-dropdown--selected;
+      }
     }
     &__option {
       cursor: pointer;
@@ -107,8 +110,6 @@
         }
         &--is-selected {
           background-color: transparent;
-          color: inherit;
-          @extend .tk-select--custom-dropdown--selected;
         }
         &--is-disabled {
           cursor: not-allowed;
