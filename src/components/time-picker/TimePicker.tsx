@@ -1,4 +1,4 @@
-import { Dropdown } from '../dropdown';
+import { Dropdown, DropdownOption } from '../dropdown';
 import { HasValidationProps } from '../validation/interfaces';
 import { HasTooltipProps } from '../tooltip/interfaces';
 import * as PropTypes from 'prop-types';
@@ -17,6 +17,7 @@ import {
   getTimeFromString,
   getUserFormat,
   isTimeDisabled,
+  isTimeProposed,
   isTimeSelected,
   isTimeValid,
   Time,
@@ -98,7 +99,15 @@ export const TimePicker: React.FC<TimePickerProps> = ({
 
       if (onValidationChanged) {
         onValidationChanged(
-          computeError(inputValue, newTime, min, max, disabledTimes, strict)
+          computeError(
+            inputValue,
+            newTime,
+            min,
+            max,
+            disabledTimes,
+            strict,
+            options
+          )
         );
       }
 
@@ -244,7 +253,8 @@ export type TimePickerProps = {
   step?: number;
   strict?: boolean;
   value?: string;
-} & HasValidationProps<string> & HasTooltipProps
+} & HasValidationProps<string> &
+  HasTooltipProps;
 
 TimePicker.propTypes = {
   id: PropTypes.string,
@@ -273,6 +283,7 @@ TimePicker.propTypes = {
  * @param max Max Time value in ISO format
  * @param disabledTimes
  * @param strict
+ * @param options
  */
 const computeError = (
   value: string,
@@ -280,7 +291,8 @@ const computeError = (
   min: string,
   max: string,
   disabledTimes: DisabledTime | Array<DisabledTime>,
-  strict: boolean
+  strict: boolean,
+  options: Array<DropdownOption<any>>
 ): ErrorMessages => {
   if (!value) {
     return null;
@@ -293,7 +305,10 @@ const computeError = (
       return { minTime: 'Time too far in the past' };
     } else if (max < formatTimeISO(time)) {
       return { maxTime: 'Time too far in the future' };
-    } else if (strict && isTimeDisabled(time, disabledTimes)) {
+    } else if (
+      strict &&
+      (isTimeDisabled(time, disabledTimes) || !isTimeProposed(time, options))
+    ) {
       return { disabledTime: 'This time is not available' };
     } else {
       return null;
