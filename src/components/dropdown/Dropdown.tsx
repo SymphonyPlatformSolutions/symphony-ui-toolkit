@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Select, { createFilter } from 'react-select';
+import Select, { ActionMeta, createFilter } from 'react-select';
 import {
   ClearIndicator,
   Control,
@@ -18,6 +18,7 @@ import {
   DropdownOption,
   LabelValue,
   OptionRendererProps,
+  SearchHeaderOption,
   TagRendererProps,
 } from './interfaces';
 import { HasValidationProps } from '../validation/interfaces';
@@ -98,7 +99,7 @@ export type DropdownProps<T> = {
   /** Message to be display on the header of the menu list when searching by term */
   termSearchMessage?: ((term:string)=> string) | string;
   /** Handle the selection of search by term option */
-  onTermSearch?: (term:string) => any;
+  onTermSearch?: (option: SearchHeaderOption) => any;
   onClear?: () => any;
   /** Path in custom object to the unique identifier of the option */
   bindValue?: string;
@@ -163,14 +164,14 @@ export class Dropdown<T = LabelValue> extends React.Component<
   }
  
 
-  handleChange = (selectedOption, meta) => {
+  handleChange = (selectedOption, meta: ActionMeta<T>) => {
     const isClearingTermSearch = this.lastSelectedOption === this.searchHeaderOption && !selectedOption;
     this.lastSelectedOption = selectedOption;
     if (this.props.onChange && !selectedOption?.searchHeader && !isClearingTermSearch) {
       this.props.onChange({ target: { value: selectedOption } });
     }
     if (this.props.onTermSearch && selectedOption?.searchHeader) {
-      this.props.onTermSearch(selectedOption.value);
+      this.props.onTermSearch(selectedOption);
     }
     if(meta.action === 'clear' && this.props.onClear){
       this.props.onClear();
