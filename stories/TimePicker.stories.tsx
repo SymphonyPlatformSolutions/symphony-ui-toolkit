@@ -156,7 +156,8 @@ export const WithValidationComponent: React.SFC = () => {
         By default, the Time Picker only accept the values available in the
         list, otherwise an error is displayed. (You can set the attribute{' '}
         <strong>strict</strong> to <strong>false</strong> to be able to type
-        other values)
+        another value. However, the new value should be valid against the min,
+        max and disabledTimes settings.)
       </p>
       <Validation onValidationChanged={logChange}>
         <TimePicker
