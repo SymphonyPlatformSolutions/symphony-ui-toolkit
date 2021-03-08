@@ -1,7 +1,7 @@
 import * as React from 'react'
 import classNames from 'classnames';
 
-type AvatarProps = {
+interface AvatarProps extends Omit<React.HTMLProps<HTMLDivElement>, 'size'> {
   size: 'xxlarge' | 'xlarge' | 'large' | 'medium' | 'small' | 'xsmall';
   bordered?: boolean;
   variant: 'square' | 'round';
@@ -56,6 +56,7 @@ export const Avatar: React.FC<AvatarProps> = ({
   variant,
   children,
   className,
+  ...otherProps
 }: AvatarProps) => {
   const classes = classNames(
     prefix,
@@ -65,7 +66,7 @@ export const Avatar: React.FC<AvatarProps> = ({
     className
   )
   return (
-    <div className={classes}>
+    <div className={classes} {...otherProps}>
       {children}
     </div>
   )

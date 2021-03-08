@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Dropdown, DropdownOption, Icon, LabelValue, OptionRendererProps, TagRendererProps, Typography } from '../src/components';
+import { Dropdown, DropdownOption, Icon, LabelValue, OptionRendererProps, SearchHeaderOption, TagRendererProps, Typography } from '../src/components';
 
 const defaultOptions: LabelValue[] = [
   { label: 'Option 1', value: '1' },
@@ -94,8 +94,8 @@ const Template = (args) => {
   );
 };
 
-const onTermSearch = (value: string) => {
-  console.log('On term search selected: ', value);
+const onTermSearch = (option: SearchHeaderOption) => {
+  console.log('On term search selected: ', option.value);
 }
 const onChange = (value) => {
   console.log('Changed: ', value)

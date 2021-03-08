@@ -47,7 +47,7 @@ const TooltipClose = styled.span`
   cursor: pointer;
 `;
 
-export type TooltipProps = {
+export interface TooltipProps extends Omit<React.HTMLProps<HTMLDivElement>, 'as' | 'ref'> {
   closeLabel?: string;
   /** Text or Element to display in the tooltip */
   description: string | JSX.Element;
@@ -60,7 +60,7 @@ export type TooltipProps = {
   type?: 'hint' | 'tooltip';
   /** if true, the tooltip should be displayed */
   visible?: boolean;
-};
+}
 
 const Tooltip: React.FC<TooltipProps> = ({
   closeLabel,
@@ -123,6 +123,7 @@ const Tooltip: React.FC<TooltipProps> = ({
             className={ type === 'tooltip' ? 'tk-tooltip' : 'tk-hint' }
             style={styles.popper}
             {...attributes.popper}
+            {...otherProps}
           >
             <span className="tk-hint__description">{description}</span>
             { type === 'hint' &&
