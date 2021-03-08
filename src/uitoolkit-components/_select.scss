@@ -95,7 +95,7 @@
       margin-top: toEm(6);
       color: $--tk-select-option-color;
       @include boxContainer();
-      .tk-option .tk-select__option--is-selected {
+      .tk-option .tk-select__option.tk-select__option--is-selected {
         @extend .tk-select--custom-dropdown--selected;
       }
     }
