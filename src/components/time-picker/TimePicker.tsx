@@ -306,8 +306,8 @@ const computeError = (
     } else if (max < formatTimeISO(time)) {
       return { maxTime: 'Time too far in the future' };
     } else if (
-      strict &&
-      (isTimeDisabled(time, disabledTimes) || !isTimeProposed(time, options))
+      isTimeDisabled(time, disabledTimes) ||
+      (strict && !isTimeProposed(time, options))
     ) {
       return { disabledTime: 'This time is not available' };
     } else {
