@@ -4,7 +4,9 @@ export enum ACTION {
   ON_CHANGE = 'onChange',
 }
 
-export type EventWithValue<T> = { target: { value: T } };
+export type EventWithValue<T> = {
+  target: { value: T } & Record<string, unknown>;
+};
 
 export type ErrorMessages = string | { [key: string]: string };
 
