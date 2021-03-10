@@ -86,11 +86,11 @@ export const TimePicker: React.FC<TimePickerProps> = ({
   useEffect(() => {
     if (inputValue !== null && inputValue !== undefined) {
       // Called when the user enters a new date in the input field
-      const newTime = getISOTimeFromLocalTime(inputValue, format);
-      if (newTime) {
-        setHours(newTime.hours);
-        setMinutes(newTime.minutes);
-        setSeconds(newTime.seconds);
+      const newISOTime = getISOTimeFromLocalTime(inputValue, format);
+      if (newISOTime) {
+        setHours(newISOTime.hours);
+        setMinutes(newISOTime.minutes);
+        setSeconds(newISOTime.seconds);
       } else {
         setHours('');
         setMinutes('');
@@ -101,7 +101,7 @@ export const TimePicker: React.FC<TimePickerProps> = ({
         onValidationChanged(
           computeError(
             inputValue,
-            newTime,
+            newISOTime,
             min,
             max,
             disabledTimes,
@@ -116,6 +116,7 @@ export const TimePicker: React.FC<TimePickerProps> = ({
         onChange({
           target: {
             value: inputValue,
+            isoTime: formatTimeISO(newISOTime),
           },
         });
       }
