@@ -20,12 +20,12 @@ const Required: ValidatorFn = value => {
 };
 
 /**
- * Checks if a mandatory value isn't empty , returns {isEmpty:true} if error, return null if it's not empty
+ * Checks if a mandatory value isn't empty , returns {emptyString:true} if error, return null if it's not empty
  * @param value Value to test
  */
-const isEmpty: ValidatorFn = value => {
+const EmptyString: ValidatorFn = value => {
   if (value === '') {
-    return Promise.resolve({ isEmpty: true });
+    return Promise.resolve({ emptyString: true });
   }
   return Promise.resolve(null);
 };
@@ -68,4 +68,4 @@ const Pattern = (regex: string | RegExp) => {
   };
 };
 
-export const Validators = { isEmpty, Required, MinLength, Number, Pattern };
+export const Validators = { EmptyString, Required, MinLength, Number, Pattern };
