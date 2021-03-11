@@ -126,9 +126,13 @@ export const TimePicker: React.FC<TimePickerProps> = ({
   useEffect(() => {
     if (value !== null && value !== undefined) {
       // Value prop has changed
-      const newTime = getISOTimeFromLocalTime(value);
-      if (newTime) {
-        setInputValue(getFormattedTime(newTime, format));
+      if (value === '') {
+        setInputValue(value);
+      } else {
+        const newTime = getISOTimeFromLocalTime(value);
+        if (newTime) {
+          setInputValue(getFormattedTime(newTime, format));
+        }
       }
     }
   }, [value]);
@@ -252,7 +256,7 @@ export type TimePickerProps = {
   step?: number;
   strict?: boolean;
   value?: string;
-} & HasValidationProps<string> &
+} & HasValidationProps<string, { isoTime: string }> &
   HasTooltipProps;
 
 TimePicker.propTypes = {

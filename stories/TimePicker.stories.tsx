@@ -119,7 +119,7 @@ export const WithValidationComponent: React.SFC = () => {
         <TimePicker
           disabledTimes={disabledTimes}
           value={time1}
-          onChange={(e) => setTime1(e.target.value)}
+          onChange={(e) => setTime1(e.target.isoTime)}
         />
       </Validation>
 
@@ -143,9 +143,10 @@ export const WithValidationComponent: React.SFC = () => {
         <TimePicker
           min={'08:00:00'}
           max={'20:00:00'}
+          format={'hh:mm:ss a'}
           disabledTimes={disabledTimes}
           value={time2}
-          onChange={(e) => setTime2(e.target.value)}
+          onChange={(e) => setTime2(e.target.isoTime)}
         />
       </Validation>
       <Button onClick={() => setTime2('')} variant="tertiary">
@@ -164,7 +165,8 @@ export const WithValidationComponent: React.SFC = () => {
           strict
           disabledTimes={disabledTimes}
           value={time3}
-          onChange={(e) => setTime3(e.target.value)}
+          format={'hh:mm:ss a'}
+          onChange={(e) => setTime3(e.target.isoTime)}
         />
       </Validation>
     </div>
