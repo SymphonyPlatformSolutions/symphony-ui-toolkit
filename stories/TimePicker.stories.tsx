@@ -16,7 +16,6 @@ const logChange = (value, errorsMap) => {
 const Template = (args) => {
   return (
     <div className="flex-col" style={{ width: '100%', height: '350px' }}>
-      {args.information ? <p>{args.information}</p> : null}
       <TimePicker {...args} />
     </div>
   );
@@ -46,9 +45,14 @@ WithPlaceholder.args = {
 };
 
 export const WithValue = Template.bind({});
+WithValue.parameters = {
+  docs: {
+    description: {
+      story: 'The `value` property must be on a valid ISO Time format on 24 hours. Examples: 02:00:00, 18:30:00. Then, it will be displayed with the provided `format` property.',
+    }
+  }
+}
 WithValue.args = {
-  information:
-    'The "value" property must be on a valid ISO Time format on 24 hours. Examples: 02:00:00, 18:30:00. Then, it will be displayed with the provided "format” property.',
   value: '09:30:00',
 };
 
