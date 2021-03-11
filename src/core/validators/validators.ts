@@ -9,12 +9,23 @@
 export type ValidatorFn = (value: string) => Promise<{ [id: string]: boolean }> | Promise<null>;
 
 /**
- * Checks if a mandatory value isn't empty , returns {required:true} if error, return null if it's not empty
+ * Checks if a mandatory value isn't null/undefined/empty , returns {required:true} if error, return null if it's not null/undefined/empty
  * @param value Value to test
  */
 const Required: ValidatorFn = value => {
   if (!value) {
     return Promise.resolve({ required: true });
+  }
+  return Promise.resolve(null);
+};
+
+/**
+ * Checks if a mandatory value isn't empty , returns {isEmpty:true} if error, return null if it's not empty
+ * @param value Value to test
+ */
+const isEmpty: ValidatorFn = value => {
+  if (value === '') {
+    return Promise.resolve({ isEmpty: true });
   }
   return Promise.resolve(null);
 };
@@ -57,4 +68,4 @@ const Pattern = (regex: string | RegExp) => {
   };
 };
 
-export const Validators = { Required, MinLength, Number, Pattern };
+export const Validators = { isEmpty, Required, MinLength, Number, Pattern };
