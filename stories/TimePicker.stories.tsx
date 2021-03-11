@@ -48,7 +48,7 @@ export const WithValue = Template.bind({});
 WithValue.parameters = {
   docs: {
     description: {
-      story: 'The `value` property must be on a valid ISO Time format on 24 hours. Examples: 02:00:00, 18:30:00. Then, it will be displayed with the provided `format` property.',
+      story: 'The `value` property must follow ISO Time format. Examples: 02:00:00, 18:30:00. Then, it will be displayed with the provided `format` property.',
     }
   }
 }
