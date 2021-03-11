@@ -94,6 +94,7 @@
     &__menu {
       margin-top: toEm(6);
       color: $--tk-select-option-color;
+      z-index: $z-index-dropdown-menu;
       @include boxContainer();
       .tk-option .tk-select__option {
         &--is-selected {
