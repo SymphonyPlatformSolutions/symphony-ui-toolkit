@@ -1,3 +1,5 @@
+export type TimePickerValue = string;
+
 interface DisabledExactTime {
   time: string;
 }

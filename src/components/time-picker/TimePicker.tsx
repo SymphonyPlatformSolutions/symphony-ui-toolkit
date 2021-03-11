@@ -6,7 +6,7 @@ import * as React from 'react';
 import { useEffect, useMemo, useState } from 'react';
 import { Keys } from '../common/keyUtils';
 import { ErrorMessages } from '../validation/interfaces';
-import { DisabledTime } from './interfaces';
+import { DisabledTime, TimePickerValue } from './interfaces';
 import {
   formatTimeISO,
   formatISOTimeToSeconds,
@@ -115,8 +115,7 @@ export const TimePicker: React.FC<TimePickerProps> = ({
       if (onChange) {
         onChange({
           target: {
-            value: inputValue,
-            isoTime: formatTimeISO(newISOTime),
+            value: inputValue === '' ? inputValue : formatTimeISO(newISOTime),
           },
         });
       }
@@ -126,11 +125,13 @@ export const TimePicker: React.FC<TimePickerProps> = ({
   useEffect(() => {
     if (value !== null && value !== undefined) {
       // Value prop has changed
-      const newTime = getISOTimeFromLocalTime(value, format);
-      if (newTime) {
-        setInputValue(getFormattedTime(newTime, format));
-      } else {
+      if (value === '') {
         setInputValue(value);
+      } else {
+        const newTime = getISOTimeFromLocalTime(value);
+        if (newTime) {
+          setInputValue(getFormattedTime(newTime, format));
+        }
       }
     }
   }, [value]);
@@ -254,7 +255,7 @@ export type TimePickerProps = {
   step?: number;
   strict?: boolean;
   value?: string;
-} & HasValidationProps<string> &
+} & HasValidationProps<TimePickerValue> &
   HasTooltipProps;
 
 TimePicker.propTypes = {

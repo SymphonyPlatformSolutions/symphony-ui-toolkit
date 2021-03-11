@@ -45,6 +45,13 @@ WithPlaceholder.args = {
 };
 
 export const WithValue = Template.bind({});
+WithValue.parameters = {
+  docs: {
+    description: {
+      story: 'The `value` property must follow ISO Time format. Examples: 02:00:00, 18:30:00. Then, it will be displayed with the provided `format` property.',
+    }
+  }
+}
 WithValue.args = {
   value: '09:30:00',
 };
@@ -143,6 +150,7 @@ export const WithValidationComponent: React.SFC = () => {
         <TimePicker
           min={'08:00:00'}
           max={'20:00:00'}
+          format={'hh:mm:ss a'}
           disabledTimes={disabledTimes}
           value={time2}
           onChange={(e) => setTime2(e.target.value)}
@@ -164,6 +172,7 @@ export const WithValidationComponent: React.SFC = () => {
           strict
           disabledTimes={disabledTimes}
           value={time3}
+          format={'hh:mm:ss a'}
           onChange={(e) => setTime3(e.target.value)}
         />
       </Validation>

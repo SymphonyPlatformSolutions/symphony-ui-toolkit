@@ -140,25 +140,25 @@ describe('TimePicker Component', () => {
   describe('should trigger onValidationChanged', () => {
     test.each([
       ['', null],
-      ['azerty', { format: 'The time format is incorrect' }],
-      ['10:15:00', { format: 'The time format is incorrect' }],
-      ['10:15:00 AM', { disabledTime: 'This time is not available' }],
-      ['04:00:00 AM', { minTime: 'Time too far in the past' }],
-      ['10:00:00 PM', { maxTime: 'Time too far in the future' }],
-      ['03:00:00 PM', { disabledTime: 'This time is not available' }],
-    ])('when typing %p on field', (value, expected) => {
+    ])('when typing %p on field', async (value, expected) => {
       const props = createTestProps({
         min: '09:00:00',
         max: '19:00:00',
+        format: 'hh:mm:ss a',
         disabledTimes: [
           { from: '10:00:00', to: '11:00:00' },
           { time: '15:00:00' },
         ],
       });
       const wrapper = mount(<TimePicker {...props} />);
+
       expect(props.onValidationChanged).toHaveBeenCalledTimes(0);
 
-      wrapper.setProps({ value });
+      wrapper
+        .find('.tk-select__input')
+        .find('input')
+        .simulate('change', value)
+
       expect(props.onValidationChanged).toHaveBeenCalledWith(expected);
 
       wrapper.unmount();

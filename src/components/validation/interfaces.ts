@@ -5,7 +5,7 @@ export enum ACTION {
 }
 
 export type EventWithValue<T> = {
-  target: { value: T } & Record<string, unknown>;
+  target: { value: T };
 };
 
 export type ErrorMessages = string | { [key: string]: string };
