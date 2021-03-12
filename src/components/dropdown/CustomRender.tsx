@@ -178,7 +178,7 @@ export const Control = ({ children, ...props }: any) => {
       {iconName ? (
         <components.Control {...props} className="tk-input__container">
           <div className="tk-input__icon" tabIndex={0}>
-            <Icon iconName={iconName} tabIndex={-1}/>
+            <Icon iconName={iconName}/>
           </div>
           {children}
         </components.Control>
