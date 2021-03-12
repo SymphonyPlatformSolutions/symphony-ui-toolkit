@@ -177,9 +177,7 @@ export const Control = ({ children, ...props }: any) => {
       {<label className="tk-label tk-mb-h">{props?.selectProps?.label}</label>}
       {iconName ? (
         <components.Control {...props} className="tk-input__container">
-          <div className="tk-input__icon" tabIndex={0}>
-            <Icon iconName={iconName}/>
-          </div>
+          <Icon iconName={iconName} className="tk-input__icon" tabIndex={0}/>
           {children}
         </components.Control>
       ) : (
