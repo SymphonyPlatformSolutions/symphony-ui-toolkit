@@ -163,7 +163,7 @@ describe('Dropdown component test suite =>', () => {
         />
       );
       const input = screen.getByRole('textbox');
-      fireEvent.change(input, { target: { value: 'B' } });
+      userEvent.type(input,'B');
       expect(getByText('banana').className).toContain('tk-select__option--is-focused');
     });
     it('should select option header', async () => {
@@ -182,9 +182,7 @@ describe('Dropdown component test suite =>', () => {
       const input = screen.getByRole('textbox');
       fireEvent.blur(input);
       expect(onBlur).toBeCalled();
-      fireEvent.change(input, { target: { value: 'BBBmous' } });
-      const option = screen.getByText('BBBmous');
-      userEvent.click(option);
+      userEvent.type(input,'BBBmous');
       expect(getByDisplayValue('BBBmous')).toBeTruthy();
     });
 
