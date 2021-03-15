@@ -1,6 +1,6 @@
 import * as React from 'react';
 import userEvent from '@testing-library/user-event';
-import { render, screen, waitFor, waitForElementToBeRemoved, fireEvent } from '@testing-library/react';
+import { render, screen, waitFor, waitForElementToBeRemoved, fireEvent, getByText } from '@testing-library/react';
 import Dropdown from '../../../src/components/dropdown';
 import '@testing-library/jest-dom/extend-expect';
 import { Button, Validation } from '../../../src/components';
@@ -151,7 +151,7 @@ describe('Dropdown component test suite =>', () => {
         />
       );
       const input = screen.getByRole('textbox');
-      fireEvent.change(input, { target: { value: 't' } });
+      userEvent.type(input,'B');
       expect(queryByText(/Search for term/)).toBeInTheDocument();
     });
     it('should focus on the first option', async () => {
@@ -167,7 +167,8 @@ describe('Dropdown component test suite =>', () => {
       expect(getByText('banana').className).toContain('tk-select__option--is-focused');
     });
     it('should select option header', async () => {
-      const {  getByDisplayValue } = render(
+      const searchedTerm ='BBBmous';
+      const {  getByText, queryByText } = render(
         <Dropdown
           isOptionDisabled={optionDisabled}
           isOptionSelected={optionSelected}
@@ -182,10 +183,12 @@ describe('Dropdown component test suite =>', () => {
       const input = screen.getByRole('textbox');
       fireEvent.blur(input);
       expect(onBlur).toBeCalled();
-      userEvent.type(input,'BBBmous');
-      expect(getByDisplayValue('BBBmous')).toBeTruthy();
+      userEvent.type(input,searchedTerm);
+      fireEvent.mouseDown(input);
+      //Select header option 
+      fireEvent.click(queryByText(/Search for term/));
+      expect(getByText(searchedTerm)).toBeInTheDocument();
     });
-
   });
   
 
