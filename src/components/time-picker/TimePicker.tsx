@@ -377,6 +377,25 @@ const handleKeyboardNavigation = (event) => {
   }
 };
 
+const handleAutoFillInput = (event, format, setInputValue) => {
+  const isNumber = /^[0-9]$/i.test(event.key);
+  const cursorPosition = event.target.selectionStart;
+  const key = event.key;
+  const currentValue = event.target.value;
+  console.log(event.key, isNumber);
+  if(isNumber){
+    if (currentValue.length === 1 || currentValue.length === 4) { // Handle when field is empty
+      setInputValue(`${currentValue}${key}${format.charAt(cursorPosition +1)}`);
+      event.preventDefault();
+    }
+    else if(cursorPosition === 2 || cursorPosition === 5){
+      // Move cursor to next field
+      event.target.selectionStart = cursorPosition+1;
+      event.target.selectionEnd = cursorPosition+3;
+    }
+  }
+};
+
 const handleKeyDown = (
   event,
   setInputValue,
@@ -408,6 +427,9 @@ const handleKeyDown = (
         event.preventDefault();
       }
       setNavigationInMenu(false);
+    }
+    else {
+      handleAutoFillInput(event, format, setInputValue);
     }
   }
 };
