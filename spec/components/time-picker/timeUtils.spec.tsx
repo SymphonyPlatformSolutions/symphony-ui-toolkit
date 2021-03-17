@@ -1,8 +1,11 @@
 import {
   Time,
   formatISOTimeToSeconds,
+  getDelimiterPosition,
   getFormattedTime,
   getISOTimeFromLocalTime,
+  getLastDelimiterPosition,
+  getNextSelectionIndexes,
   getOptions,
   getSteps,
   getTimeFromString,
@@ -200,4 +203,76 @@ describe('Time Utils', () => {
     const result = getTimeFromString(inputTime);
     expect(result).toEqual(expected);
   });
+
+  test.each([
+    ['05:30:20 AM', 2],
+    ['05 AM', 2],
+    ['05', null],
+  ])(
+    'getDelimiterPosition with inputText %p',
+    (inputTime: string, expected) => {
+      const result = getDelimiterPosition(inputTime);
+      expect(result).toEqual(expected);
+    }
+  );
+
+  test.each([
+    ['05:30:20 AM', 8],
+    ['05:30:20', 5],
+    ['05', null],
+  ])(
+    'getLastDelimiterPosition with inputText %p',
+    (inputTime: string, expected) => {
+      const result = getLastDelimiterPosition(inputTime);
+      expect(result).toEqual(expected);
+    }
+  );
+
+  test.each([
+    ['05:30:20 AM', 0, true, { start: 3, end: 5 }],
+    ['05:30:20 AM', 1, true, { start: 3, end: 5 }],
+    ['05:30:20 AM', 2, true, { start: 3, end: 5 }],
+    ['05:30:20 AM', 3, true, { start: 6, end: 8 }],
+    ['05:30:20 AM', 4, true, { start: 6, end: 8 }],
+    ['05:30:20 AM', 5, true, { start: 6, end: 8 }],
+    ['05:30:20 AM', 6, true, { start: 9, end: 11 }],
+    ['05:30:20 AM', 7, true, { start: 9, end: 11 }],
+    ['05:30:20 AM', 8, true, { start: 9, end: 11 }],
+    ['05:30:20 AM', 9, true, null],
+    ['05:30:20 AM', 10, true, null],
+    ['05:30:20 AM', 11, true, null],
+    ['05:30:20', 0, true, { start: 3, end: 5 }],
+    ['05:30', 0, true, { start: 3, end: 5 }],
+    ['05', 0, true, null],
+    ['05:30:20 AM', 11, false, { start: 6, end: 8 }],
+    ['05:30:20 AM', 10, false, { start: 6, end: 8 }],
+    ['05:30:20 AM', 9, false, { start: 6, end: 8 }],
+    ['05:30:20 AM', 8, false, { start: 3, end: 5 }],
+    ['05:30:20 AM', 7, false, { start: 3, end: 5 }],
+    ['05:30:20 AM', 6, false, { start: 3, end: 5 }],
+    ['05:30:20 AM', 5, false, { start: 0, end: 2 }],
+    ['05:30:20 AM', 4, false, { start: 0, end: 2 }],
+    ['05:30:20 AM', 3, false, { start: 0, end: 2 }],
+    ['05:30:20 AM', 2, false, null],
+    ['05:30:20 AM', 1, false, null],
+    ['05:30:20 AM', 0, false, null],
+    ['05:30:20', 8, false, { start: 3, end: 5 }],
+    ['05:30', 5, false, { start: 0, end: 2 }],
+    ['05', 2, false, null],
+  ])(
+    'getNextSelectionIndexes with inputText %p cursorPosition %p searchForward %p',
+    (
+      inputTime: string,
+      cursorPosition: number,
+      searchForward: boolean,
+      expected
+    ) => {
+      const result = getNextSelectionIndexes(
+        inputTime,
+        cursorPosition,
+        searchForward
+      );
+      expect(result).toEqual(expected);
+    }
+  );
 });

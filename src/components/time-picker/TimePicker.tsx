@@ -12,16 +12,15 @@ import {
   formatISOTimeToSeconds,
   getFormattedTime,
   getISOTimeFromLocalTime,
+  getNextSelectionIndexes,
   getOptions,
   getSteps,
-  getTimeFromString,
   getUserFormat,
   isTimeDisabled,
   isTimeProposed,
   isTimeSelected,
-  isTimeValid,
   Time,
-  TIME_SEPARATOR,
+  ISO_TIME_SEPARATOR,
 } from './utils';
 
 enum STEP {
@@ -328,50 +327,20 @@ const handleKeyboardNavigation = (event) => {
 
   // Get cursor position
   const cursor = event.target.selectionStart;
-  const time = getTimeFromString(currentValue);
 
   if (event.key === Keys.TAB) {
+    const moveForward = !event.shiftKey;
+    const delimiterPositions = getNextSelectionIndexes(
+      currentValue,
+      cursor,
+      moveForward
+    );
     // Manage Tab and Tab + Shift navigation
-    let start = null;
-    let end = null;
-    if (cursor < 3) {
-      if (event.shiftKey) {
-        // Go to previous component
-      } else {
-        // Select minutes
-        start = 3;
-        end = 5;
-      }
-    } else if (cursor < 6) {
-      if (event.shiftKey) {
-        // Select hours
-        start = 0;
-        end = 2;
-      } else if (time.seconds || time.ampm) {
-        // Select seconds or ampm
-        start = 6;
-        end = 8;
-      }
-    } else if (cursor < 9) {
-      if (event.shiftKey) {
-        // Select minutes
-        start = 3;
-        end = 5;
-      } else if (time.seconds && time.ampm) {
-        // Select ampm
-        start = 9;
-        end = 11;
-      }
-    } else {
-      if (event.shiftKey) {
-        // Select seconds
-        start = 6;
-        end = 8;
-      }
-    }
-
-    if (start != null && end != null) {
-      event.target.setSelectionRange(start, end);
+    if (delimiterPositions) {
+      event.target.setSelectionRange(
+        delimiterPositions.start,
+        delimiterPositions.end
+      );
       event.preventDefault();
     }
   }
@@ -383,15 +352,33 @@ const handleAutoFillInput = (event, format, setInputValue) => {
   const key = event.key;
   const currentValue = event.target.value;
   console.log(event.key, isNumber);
-  if(isNumber){
-    if (currentValue.length === 1 || currentValue.length === 4) { // Handle when field is empty
-      setInputValue(`${currentValue}${key}${format.charAt(cursorPosition +1)}`);
+  if (isNumber) {
+    if (currentValue.length === 1 || currentValue.length === 4) {
+      // Handle when field is empty
+      setInputValue(
+        `${currentValue}${key}${format.charAt(cursorPosition + 1)}`
+      );
       event.preventDefault();
-    }
-    else if(cursorPosition === 2 || cursorPosition === 5){
+      // } else if (cursorPosition === 1) {
+      //   const newValue = replaceBetween(
+      //     currentValue,
+      //     event.target.selectionStart,
+      //     event.target.selectionEnd,
+      //     key
+      //   );
+      //
+      //   // Handle when field is empty
+      //   setInputValue(newValue);
+      //
+      //   // Move cursor to next field
+      //   event.target.selectionStart = cursorPosition + 2;
+      //   event.target.selectionEnd = cursorPosition + 4;
+      //
+      //   // event.preventDefault();
+    } else if (cursorPosition === 2 || cursorPosition === 5) {
       // Move cursor to next field
-      event.target.selectionStart = cursorPosition+1;
-      event.target.selectionEnd = cursorPosition+3;
+      event.target.selectionStart = cursorPosition + 1;
+      event.target.selectionEnd = cursorPosition + 3;
     }
   }
 };
@@ -410,12 +397,7 @@ const handleKeyDown = (
     if (event.key === Keys.ARROW_UP || event.key === Keys.ARROW_DOWN) {
       setNavigationInMenu(true);
     } else if (event.key === Keys.TAB) {
-      const currentValue = event.target.value;
-      const isInputValid = isTimeValid(currentValue, format);
-      if (isInputValid) {
-        // Handle keyboard navigation only if the focus is on the input (not on the icon)
-        handleKeyboardNavigation(event);
-      }
+      handleKeyboardNavigation(event);
     } else if (event.key === Keys.ENTER) {
       toggleMenu();
       if (
@@ -428,9 +410,9 @@ const handleKeyDown = (
       }
       setNavigationInMenu(false);
     }
-    else {
-      handleAutoFillInput(event, format, setInputValue);
-    }
+    // else {
+    //   handleAutoFillInput(event, format, setInputValue);
+    // }
   }
 };
 
@@ -440,7 +422,7 @@ const handleFocus = (event) => {
     const cursor = event.target.selectionStart;
     if (cursor === 0 && currentValue) {
       // Set focus on hours
-      const separatorPosition = currentValue.indexOf(TIME_SEPARATOR);
+      const separatorPosition = currentValue.indexOf(ISO_TIME_SEPARATOR);
       event.target.setSelectionRange(0, separatorPosition);
     }
   }

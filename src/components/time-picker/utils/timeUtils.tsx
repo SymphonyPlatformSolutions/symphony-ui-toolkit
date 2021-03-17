@@ -9,7 +9,8 @@ export const TIME_REGEXPR = {
   HH_MM_SS_24: /^(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9]):?([0-5][0-9])?$/,
 };
 
-export const TIME_SEPARATOR = ':';
+export const ISO_TIME_SEPARATOR = ':';
+export const REGEXP_TIME_SEPARATOR = '[:\\s]';
 
 export enum TIME_FORMAT {
   HH_MM_A_12 = 'hh:mm a',
@@ -33,6 +34,89 @@ const isBrowserLocale24h = () =>
   !new Intl.DateTimeFormat(undefined, { hour: 'numeric' })
     .format(0)
     .match(/AM/);
+
+/**
+ * Return the position of the first found delimiter (':', ' ') in the string given in parameter
+ * Example: '20:00:00' will return 2
+ * @param time
+ */
+export const getDelimiterPosition = (time: string): number => {
+  if (time) {
+    const regExpr = new RegExp(REGEXP_TIME_SEPARATOR, 'g');
+    const match = regExpr.exec(time);
+    if (match) {
+      // Return 1st match
+      return match.index;
+    }
+  }
+  return null;
+};
+
+/**
+ * Return the position of the last found delimiter (':', ' ') in the string given in parameter
+ * Example: '20:00:00' will return 5
+ * @param time
+ */
+export const getLastDelimiterPosition = (time: string): number => {
+  if (time) {
+    const regExpr = new RegExp(REGEXP_TIME_SEPARATOR, 'g');
+    let lastIndex = null;
+    let match;
+    while ((match = regExpr.exec(time))) {
+      lastIndex = match.index;
+    }
+    return lastIndex;
+  }
+  return null;
+};
+
+/**
+ *
+ * @param value
+ * @param cursorPosition
+ * @param searchForward
+ */
+export const getNextSelectionIndexes = (
+  value: string,
+  cursorPosition: number,
+  searchForward = true
+): { start: number; end: number } => {
+  const positions = { start: null, end: null };
+  if (searchForward) {
+    const start = getDelimiterPosition(value.substring(cursorPosition));
+    let end = null;
+    if (start !== null) {
+      positions.start = cursorPosition + start + 1; // + 1 to take into account the delimiter
+      end = getDelimiterPosition(value.substring(positions.start));
+    } else {
+      // 'start' position not found
+      return null;
+    }
+    if (end !== null) {
+      positions.end = positions.start + end;
+    }
+    if ((positions.start && !positions.end) || positions.end > value.length) {
+      positions.end = value.length;
+    }
+  } else {
+    const end = getLastDelimiterPosition(value.substring(0, cursorPosition));
+    let start = null;
+    if (end !== null) {
+      positions.end = end;
+      start = getLastDelimiterPosition(value.substring(0, positions.end));
+    } else {
+      // 'end' position not found
+      return null;
+    }
+    if (start !== null) {
+      positions.start = start + 1; // + 1 to take into account the delimiter
+    }
+    if (!positions.start && positions.end) {
+      positions.start = 0;
+    }
+  }
+  return positions;
+};
 
 /**
  * Return The user format depending on 12/24 hours
@@ -85,9 +169,9 @@ export const formatTimeISO = (time: Time): string => {
 
   return (
     time.hours.toString().padStart(2, '0') +
-    TIME_SEPARATOR +
+    ISO_TIME_SEPARATOR +
     time.minutes.toString().padStart(2, '0') +
-    TIME_SEPARATOR +
+    ISO_TIME_SEPARATOR +
     time.seconds.toString().padStart(2, '0')
   );
 };
