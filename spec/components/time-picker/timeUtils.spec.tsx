@@ -9,11 +9,13 @@ import {
   getOptions,
   getSteps,
   getTimeFromString,
+  isTimeDisabled,
   isTimeSelected,
   isTimeValid,
   matchExactTime,
   matchTimeInRange,
 } from '../../../src/components/time-picker/utils/';
+import { DisabledTime } from '../../../src/components/time-picker/interfaces';
 
 describe('Time Utils', () => {
   test.each([
@@ -203,6 +205,28 @@ describe('Time Utils', () => {
     const result = getTimeFromString(inputTime);
     expect(result).toEqual(expected);
   });
+
+  test.each([
+    [null, null, true],
+    [new Time('14', '30', '00'), { time: '14:30:00' }, true],
+    [new Time('10', '30', '00'), { time: '14:30:00' }, false],
+    [new Time('14', '30', '00'), [{ time: '14:30:00' }], true],
+    [new Time('10', '30', '00'), [{ time: '14:30:00' }], false],
+    [new Time('14', '30', '00'), { from: '10:30:00', to: '18:00:00' }, true],
+    [new Time('08', '30', '00'), { from: '10:30:00', to: '18:00:00' }, false],
+    [new Time('14', '30', '00'), [{ from: '10:30:00', to: '18:00:00' }], true],
+    [new Time('08', '30', '00'), [{ from: '10:30:00', to: '18:00:00' }], false],
+  ])(
+    'isTimeDisabled with time %p',
+    (
+      time: Time,
+      disabledTimes: DisabledTime | Array<DisabledTime>,
+      expected: boolean
+    ) => {
+      const result = isTimeDisabled(time, disabledTimes);
+      expect(result).toEqual(expected);
+    }
+  );
 
   test.each([
     ['05:30:20 AM', 2],
