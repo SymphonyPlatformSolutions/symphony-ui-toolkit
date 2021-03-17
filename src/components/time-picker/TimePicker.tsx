@@ -19,8 +19,10 @@ import {
   isTimeDisabled,
   isTimeProposed,
   isTimeSelected,
+  isTimeValid,
   Time,
   ISO_TIME_SEPARATOR,
+  getDelimiterPosition,
 } from './utils';
 
 enum STEP {
@@ -217,6 +219,7 @@ export const TimePicker: React.FC<TimePickerProps> = ({
           setNavigationInMenu
         )
       }
+      onKeyUp={(event) => moveFocusOnNextField(event, setInputValue, format)}
       onInputChange={(newValue, metadata) => {
         // Called when the user set a new value in the Input field
         if (metadata.action === 'input-change') {
@@ -329,13 +332,14 @@ const handleKeyboardNavigation = (event) => {
   const cursor = event.target.selectionStart;
 
   if (event.key === Keys.TAB) {
+    // Manage Tab and Tab + Shift navigation
+
     const moveForward = !event.shiftKey;
     const delimiterPositions = getNextSelectionIndexes(
       currentValue,
       cursor,
       moveForward
     );
-    // Manage Tab and Tab + Shift navigation
     if (delimiterPositions) {
       event.target.setSelectionRange(
         delimiterPositions.start,
@@ -346,39 +350,41 @@ const handleKeyboardNavigation = (event) => {
   }
 };
 
-const handleAutoFillInput = (event, format, setInputValue) => {
-  const isNumber = /^[0-9]$/i.test(event.key);
+const moveFocusOnNextField = (event, setInputValue, format) => {
+  const isValidCharacter = /^[0-9aAmMpP]$/i.test(event.key);
   const cursorPosition = event.target.selectionStart;
-  const key = event.key;
-  const currentValue = event.target.value;
-  console.log(event.key, isNumber);
-  if (isNumber) {
-    if (currentValue.length === 1 || currentValue.length === 4) {
-      // Handle when field is empty
-      setInputValue(
-        `${currentValue}${key}${format.charAt(cursorPosition + 1)}`
+  let inputValue = event.target.value;
+  if (isValidCharacter) {
+    if (
+      cursorPosition === inputValue.length && // The input was empty, the user is typing a new value
+      getDelimiterPosition(format.substring(cursorPosition)) === 0
+    ) {
+      // Append a delimiter
+      inputValue = `${inputValue}${format.charAt(cursorPosition)}`;
+      setInputValue(inputValue);
+    }
+    const delimiterPositionInInput = getDelimiterPosition(
+      inputValue.substring(cursorPosition)
+    );
+    const delimiterPositionInFormat = getDelimiterPosition(
+      format.substring(cursorPosition)
+    );
+    if (
+      delimiterPositionInInput === 0 &&
+      // Test if delimiter is at the same position in the format, otherwise it means that the user has not finished the entry
+      delimiterPositionInInput === delimiterPositionInFormat
+    ) {
+      // Move focus selection
+      const delimiterPositions = getNextSelectionIndexes(
+        inputValue,
+        cursorPosition
       );
-      event.preventDefault();
-      // } else if (cursorPosition === 1) {
-      //   const newValue = replaceBetween(
-      //     currentValue,
-      //     event.target.selectionStart,
-      //     event.target.selectionEnd,
-      //     key
-      //   );
-      //
-      //   // Handle when field is empty
-      //   setInputValue(newValue);
-      //
-      //   // Move cursor to next field
-      //   event.target.selectionStart = cursorPosition + 2;
-      //   event.target.selectionEnd = cursorPosition + 4;
-      //
-      //   // event.preventDefault();
-    } else if (cursorPosition === 2 || cursorPosition === 5) {
-      // Move cursor to next field
-      event.target.selectionStart = cursorPosition + 1;
-      event.target.selectionEnd = cursorPosition + 3;
+      if (delimiterPositions) {
+        event.target.setSelectionRange(
+          delimiterPositions.start,
+          delimiterPositions.end
+        );
+      }
     }
   }
 };

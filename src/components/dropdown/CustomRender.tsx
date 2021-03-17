@@ -17,23 +17,25 @@ const stopPropagation = (e) => {
  * the appereace of the react-select library components **/
 
 export const DefaultOptionRenderer = (props: any) => {
-  const {enableTermSearch, inputValue} = props?.selectProps;
+  const { enableTermSearch, inputValue } = props?.selectProps;
   const OptionRenderer = props?.selectProps?.optionRenderer;
   const isSelected = props.isSelected;
   const isSearchHeaderOption = props?.data?.searchHeader;
-  if(props.selectProps?.autoScrollToCurrent){ 
+  if (props.selectProps?.autoScrollToCurrent) {
     React.useEffect(() => {
-      if(props.isSelected){
+      if (props.isSelected) {
         const domItem = document.getElementById(props.innerProps.id);
-        !!domItem?.scrollIntoView && domItem.scrollIntoView({  block: 'nearest', inline: 'nearest' });
+        !!domItem?.scrollIntoView &&
+          domItem.scrollIntoView({ block: 'nearest', inline: 'nearest' });
       }
-    }, [isSelected]);}
+    }, [isSelected]);
+  }
   const rendererProps = {
     data: props.data,
     inputValue: props.selectProps?.inputValue,
   };
 
-  return (isSearchHeaderOption && enableTermSearch) ? (
+  return isSearchHeaderOption && enableTermSearch ? (
     inputValue && (
       <components.Option {...props}>
         <HeaderComp {...props} />
@@ -53,7 +55,7 @@ export const DefaultOptionRenderer = (props: any) => {
         </div>
       )}
     </>
-  )
+  );
 };
 
 // Specific Input to fix input not displayed in React-Select
@@ -61,28 +63,39 @@ export const DefaultOptionRenderer = (props: any) => {
 // See https://github.com/JedWatson/react-select/discussions/4302
 export const Input = (props: any) => {
   const inputAlwaysDisplayed = props?.selectProps?.inputAlwaysDisplayed;
-  return inputAlwaysDisplayed ? <components.Input {...props} isHidden={false} /> : <components.Input {...props}/>
+  return inputAlwaysDisplayed ? (
+    <components.Input
+      {...props}
+      isHidden={false}
+      onKeyUp={props?.selectProps?.onKeyUp}
+    />
+  ) : (
+    <components.Input {...props} onKeyUp={props?.selectProps?.onKeyUp} />
+  );
 };
 
 export const SingleValue = (props: any) => {
   const InputRenderer = props.selectProps?.tagRenderer;
-  const inputValue = props.selectProps?.parentInstance?.searchHeaderOption?.value;
+  const inputValue =
+    props.selectProps?.parentInstance?.searchHeaderOption?.value;
   const rendererProps = { data: props.data };
   const isSearchHeaderSelected = props?.data?.searchHeader;
   return (
     <>
-      {isSearchHeaderSelected? (
-        <components.SingleValue {...props}> 
+      {isSearchHeaderSelected ? (
+        <components.SingleValue {...props}>
           <div>{inputValue}</div>
         </components.SingleValue>
-      ) : (<>
-        { InputRenderer ? (
-          <components.SingleValue {...props}>
-            <InputRenderer {...rendererProps} />
-          </components.SingleValue>
-        ) :
-          <components.SingleValue {...props} />}
-      </>
+      ) : (
+        <>
+          {InputRenderer ? (
+            <components.SingleValue {...props}>
+              <InputRenderer {...rendererProps} />
+            </components.SingleValue>
+          ) : (
+            <components.SingleValue {...props} />
+          )}
+        </>
       )}
     </>
   );
@@ -128,16 +141,16 @@ export const MultiValueRemove = () => {
 
 /**
  * This component controls the behavior of the expandable arrow displayed on
- * the right side of the Dropdown component. 
- * 
+ * the right side of the Dropdown component.
+ *
  * Default:
  *    visible -> Simple select
  *    hidden -> Multiple Select (isMulti prop)
- * 
+ *
  * The displayArrowIndicator prop from the Dropdown can override it
  */
 export const DropdownIndicator = (props: any) => {
-  const {isMulti, displayArrowIndicator, menuIsOpen } = props?.selectProps;
+  const { isMulti, displayArrowIndicator, menuIsOpen } = props?.selectProps;
   return (
     <div>
       {isMulti ? (
@@ -148,15 +161,19 @@ export const DropdownIndicator = (props: any) => {
             <components.DropdownIndicator {...props} className="tk-d-none" />
           )}
         </div>
-      ) : ( <div>
-        {displayArrowIndicator ?
-          <components.DropdownIndicator {...props}>
-            <Icon
-              iconName={menuIsOpen ? 'drop-up' : 'drop-down'}
-              className="tk-select__single-value"
-            ></Icon>
-          </components.DropdownIndicator> : <components.DropdownIndicator {...props} className="tk-d-none" />}
-      </div>
+      ) : (
+        <div>
+          {displayArrowIndicator ? (
+            <components.DropdownIndicator {...props}>
+              <Icon
+                iconName={menuIsOpen ? 'drop-up' : 'drop-down'}
+                className="tk-select__single-value"
+              ></Icon>
+            </components.DropdownIndicator>
+          ) : (
+            <components.DropdownIndicator {...props} className="tk-d-none" />
+          )}
+        </div>
       )}
     </div>
   );
@@ -177,7 +194,7 @@ export const Control = ({ children, ...props }: any) => {
       {<label className="tk-label tk-mb-h">{props?.selectProps?.label}</label>}
       {iconName ? (
         <components.Control {...props} className="tk-input__container">
-          <Icon iconName={iconName} className="tk-input__icon" tabIndex={0}/>
+          <Icon iconName={iconName} className="tk-input__icon" tabIndex={0} />
           {children}
         </components.Control>
       ) : (
@@ -201,33 +218,38 @@ export const NoOptionsMessage = (props: any) => {
 };
 
 const HeaderComp = (props: any) => {
-  const {termSearchMessage, inputValue} = props.selectProps;
+  const { termSearchMessage, inputValue } = props.selectProps;
   return (
     <div>
-      <Icon iconName="right-arrow" className="tk-mr-1h"/>
-      <span>{ (termSearchMessage && typeof termSearchMessage === 'string' )? termSearchMessage : 
-        termSearchMessage ? termSearchMessage(inputValue) :
-          'Search for term '}&apos;{inputValue}&apos;</span>
-    </div>);
+      <Icon iconName="right-arrow" className="tk-mr-1h" />
+      <span>
+        {termSearchMessage && typeof termSearchMessage === 'string'
+          ? termSearchMessage
+          : termSearchMessage
+          ? termSearchMessage(inputValue)
+          : 'Search for term '}
+        &apos;{inputValue}&apos;
+      </span>
+    </div>
+  );
 };
 
-
-/** This component is used when the enableTermSearch prop 
+/** This component is used when the enableTermSearch prop
  * is activated to handle the header Option selection
  */
-export const DropdownList = (props: any) => { 
-  if(props.selectProps?.enableTermSearch) {
+export const DropdownList = (props: any) => {
+  if (props.selectProps?.enableTermSearch) {
     const select = props?.selectProps?.selectRef?.current?.select;
     const { searchHeaderOption } = props?.selectProps?.parentInstance;
     const { inputValue } = props?.selectProps;
     // Focus on first option and differenciate between Group Options and simple options
-    let focusThis =  props?.children[1]?.props.data;
+    let focusThis = props?.children[1]?.props.data;
     if (focusThis?.options) {
       focusThis = props?.children[1].props?.options[0]?.data;
     }
     focusThis = focusThis || searchHeaderOption;
     // Clear the value if header option is selected
-    if(select?.state?.selectValue[0]?.searchHeader) {
+    if (select?.state?.selectValue[0]?.searchHeader) {
       select?.clearValue();
     }
     React.useEffect(() => {
@@ -243,6 +265,6 @@ export const DropdownList = (props: any) => {
 };
 
 export const firstOption: Readonly<SearchHeaderOption> = {
-  searchHeader: true, 
-  value:''
+  searchHeader: true,
+  value: '',
 };
