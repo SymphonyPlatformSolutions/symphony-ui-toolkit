@@ -18,7 +18,6 @@ import {
 import Typography from './typography';
 import Card from './card';
 import Loader from './loader';
-import { Avatar, BasicIndicator, AvatarBadge } from './avatar';
 import {
   DropdownMenu,
   DropdownMenuItem,
@@ -50,9 +49,6 @@ export {
   ModalFooter,
   Typography,
   Loader,
-  Avatar,
-  BasicIndicator,
-  AvatarBadge,
 };
 
 /* Let's move into exporting everything with interfaces */
@@ -61,3 +57,4 @@ export * from './dropdown';
 export * from './nav';
 export * from './time-picker';
 export * from './scale';
+export * from './avatar';

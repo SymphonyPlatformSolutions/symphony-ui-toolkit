@@ -1,4 +1,4 @@
-import * as React from 'react'
+import * as React from 'react';
 import classNames from 'classnames';
 
 interface AvatarProps extends Omit<React.HTMLProps<HTMLDivElement>, 'size'> {
@@ -19,7 +19,8 @@ type BasicIndicatorProps = {
   position: 'top' | 'bottom';
   variant: 'attention' | 'ok' | 'offline' | 'warning';
 }
-const prefix = 'tk-avatar'
+
+const prefix = 'tk-avatar';
 
 export const BasicIndicator: React.FC<BasicIndicatorProps> = ({position, variant}: BasicIndicatorProps) => {
   const classes = classNames(
@@ -50,7 +51,7 @@ export const AvatarBadge: React.FC<AvatarBadgeProps> = ({position, children, cla
   )
 }
 
-export const Avatar: React.FC<AvatarProps> = ({
+const Avatar: React.FC<AvatarProps> = ({
   size,
   bordered,
   variant,
@@ -71,3 +72,5 @@ export const Avatar: React.FC<AvatarProps> = ({
     </div>
   )
 }
+
+export default Avatar;
