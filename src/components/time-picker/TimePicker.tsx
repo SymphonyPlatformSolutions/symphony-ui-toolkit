@@ -19,7 +19,6 @@ import {
   isTimeDisabled,
   isTimeProposed,
   isTimeSelected,
-  isTimeValid,
   Time,
   ISO_TIME_SEPARATOR,
   getDelimiterPosition,

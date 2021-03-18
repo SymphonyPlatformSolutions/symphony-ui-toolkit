@@ -226,8 +226,8 @@ const HeaderComp = (props: any) => {
         {termSearchMessage && typeof termSearchMessage === 'string'
           ? termSearchMessage
           : termSearchMessage
-          ? termSearchMessage(inputValue)
-          : 'Search for term '}
+            ? termSearchMessage(inputValue)
+            : 'Search for term '}
         &apos;{inputValue}&apos;
       </span>
     </div>
