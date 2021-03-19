@@ -16,9 +16,9 @@ jobs:
       - run: yarn lint
       - run: yarn check-circular
       - run:
-        command: yarn test-once
-        environment:
-          NODE_OPTIONS: --max_old_space_size=4096
+          command: yarn test-once
+          environment:
+              NODE_OPTIONS: --max_old_space_size=4096
       - run: yarn build
       - run: bash ./publish.sh
       - run: rm -f ~/.npmrc
