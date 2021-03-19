@@ -71,10 +71,14 @@ export const getLastDelimiterPosition = (time: string): number => {
 };
 
 /**
+ * Returns the position of the next field in the string given in parameter.
+ * Example:
+ * ('08:00:00', 0, true) => returns {start: 3, end: 5}
+ * ('08:00:00', 4, true) => returns {start: 6, end: 8}
  *
  * @param value
  * @param cursorPosition
- * @param searchForward
+ * @param searchForward 'true' if the search is forward, 'false' if is backward
  */
 export const getNextSelectionIndexes = (
   value: string,
