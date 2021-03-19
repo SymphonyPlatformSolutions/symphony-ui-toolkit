@@ -1,20 +1,21 @@
-$avatar-sizes: ("xsmall": toEm(16), "small": toEm(24), "medium":  toEm(32), "large":  toEm(40), "xlarge":  toEm(80), "xxlarge":  toEm(160));
+// Avatar sizes defined by the Symphony design system
+$avatar-sizes: ("xsmall": 16, "small": 24, "medium":  32, "large":  40, "xlarge":  80, "xxlarge": 160);
 
 .tk-avatar {
-  width: map-get($avatar-sizes, "medium");
-  height: map-get($avatar-sizes, "medium");
   display: inline-flex;
   position: relative;
   border-radius: 50%; // Default rounded avatar
   align-items: center;
   justify-content: center;
   user-select: none;
+  width: 1em;
+  height: 1em;
+  font-size: toEm(map-get($avatar-sizes, "medium")); //Default size 
 
   @each $size,
   $size-value in $avatar-sizes {
     &--#{$size} {
-      width: $size-value;
-      height: $size-value;
+      font-size: toEm($size-value);
 
       &[class*="--border"] {
         border-style: solid;
