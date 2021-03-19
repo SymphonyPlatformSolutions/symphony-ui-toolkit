@@ -415,9 +415,6 @@ const handleKeyDown = (
       }
       setNavigationInMenu(false);
     }
-    // else {
-    //   handleAutoFillInput(event, format, setInputValue);
-    // }
   }
 };
 
