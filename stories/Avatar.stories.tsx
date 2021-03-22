@@ -6,6 +6,19 @@ const img1 = require('./static/avatar.png');
 const img2 = require('./static/avatar1.png');
 const img3 = require('./static/avatar2.png');
 
+const Template = (args) => {
+  return <Avatar {...args}>
+    <img src={img1} alt="avatar" />
+  </Avatar>;
+};
+
+export const Default = Template.bind({});
+
+Default.args = {
+  size: 'large',
+  variant: 'square',
+};
+
 const SquaredAvatar: React.FC = () => {
   return (
     <div>
@@ -348,5 +361,5 @@ export const AvatarWithBadges: React.FC = () => {
 
 export default {
   title: 'Components/Avatar',
-  component: Avatars,
+  component: Avatar,
 };
