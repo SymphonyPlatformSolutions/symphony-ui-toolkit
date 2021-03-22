@@ -12,16 +12,16 @@ import {
   formatISOTimeToSeconds,
   getFormattedTime,
   getISOTimeFromLocalTime,
+  getNextSelectionIndexes,
   getOptions,
   getSteps,
-  getTimeFromString,
   getUserFormat,
   isTimeDisabled,
   isTimeProposed,
   isTimeSelected,
-  isTimeValid,
   Time,
-  TIME_SEPARATOR,
+  ISO_TIME_SEPARATOR,
+  getDelimiterPosition,
 } from './utils';
 
 enum STEP {
@@ -218,6 +218,7 @@ export const TimePicker: React.FC<TimePickerProps> = ({
           setNavigationInMenu
         )
       }
+      onKeyUp={(event) => moveFocusOnNextField(event, setInputValue, format)}
       onInputChange={(newValue, metadata) => {
         // Called when the user set a new value in the Input field
         if (metadata.action === 'input-change') {
@@ -328,51 +329,61 @@ const handleKeyboardNavigation = (event) => {
 
   // Get cursor position
   const cursor = event.target.selectionStart;
-  const time = getTimeFromString(currentValue);
 
   if (event.key === Keys.TAB) {
     // Manage Tab and Tab + Shift navigation
-    let start = null;
-    let end = null;
-    if (cursor < 3) {
-      if (event.shiftKey) {
-        // Go to previous component
-      } else {
-        // Select minutes
-        start = 3;
-        end = 5;
-      }
-    } else if (cursor < 6) {
-      if (event.shiftKey) {
-        // Select hours
-        start = 0;
-        end = 2;
-      } else if (time.seconds || time.ampm) {
-        // Select seconds or ampm
-        start = 6;
-        end = 8;
-      }
-    } else if (cursor < 9) {
-      if (event.shiftKey) {
-        // Select minutes
-        start = 3;
-        end = 5;
-      } else if (time.seconds && time.ampm) {
-        // Select ampm
-        start = 9;
-        end = 11;
-      }
-    } else {
-      if (event.shiftKey) {
-        // Select seconds
-        start = 6;
-        end = 8;
-      }
-    }
 
-    if (start != null && end != null) {
-      event.target.setSelectionRange(start, end);
+    const moveForward = !event.shiftKey;
+    const delimiterPositions = getNextSelectionIndexes(
+      currentValue,
+      cursor,
+      moveForward
+    );
+    if (delimiterPositions) {
+      event.target.setSelectionRange(
+        delimiterPositions.start,
+        delimiterPositions.end
+      );
       event.preventDefault();
+    }
+  }
+};
+
+const moveFocusOnNextField = (event, setInputValue, format) => {
+  const isValidCharacter = /^[0-9aAmMpP]$/i.test(event.key);
+  const cursorPosition = event.target.selectionStart;
+  let inputValue = event.target.value;
+  if (isValidCharacter) {
+    if (
+      cursorPosition === inputValue.length && // The input was empty, the user is typing a new value
+      getDelimiterPosition(format.substring(cursorPosition)) === 0
+    ) {
+      // Append a delimiter
+      inputValue = `${inputValue}${format.charAt(cursorPosition)}`;
+      setInputValue(inputValue);
+    }
+    const delimiterPositionInInput = getDelimiterPosition(
+      inputValue.substring(cursorPosition)
+    );
+    const delimiterPositionInFormat = getDelimiterPosition(
+      format.substring(cursorPosition)
+    );
+    if (
+      delimiterPositionInInput === 0 &&
+      // Test if delimiter is at the same position in the format, otherwise it means that the user has not finished the entry
+      delimiterPositionInInput === delimiterPositionInFormat
+    ) {
+      // Move focus selection
+      const delimiterPositions = getNextSelectionIndexes(
+        inputValue,
+        cursorPosition
+      );
+      if (delimiterPositions) {
+        event.target.setSelectionRange(
+          delimiterPositions.start,
+          delimiterPositions.end
+        );
+      }
     }
   }
 };
@@ -391,12 +402,7 @@ const handleKeyDown = (
     if (event.key === Keys.ARROW_UP || event.key === Keys.ARROW_DOWN) {
       setNavigationInMenu(true);
     } else if (event.key === Keys.TAB) {
-      const currentValue = event.target.value;
-      const isInputValid = isTimeValid(currentValue, format);
-      if (isInputValid) {
-        // Handle keyboard navigation only if the focus is on the input (not on the icon)
-        handleKeyboardNavigation(event);
-      }
+      handleKeyboardNavigation(event);
     } else if (event.key === Keys.ENTER) {
       toggleMenu();
       if (
@@ -418,7 +424,7 @@ const handleFocus = (event) => {
     const cursor = event.target.selectionStart;
     if (cursor === 0 && currentValue) {
       // Set focus on hours
-      const separatorPosition = currentValue.indexOf(TIME_SEPARATOR);
+      const separatorPosition = currentValue.indexOf(ISO_TIME_SEPARATOR);
       event.target.setSelectionRange(0, separatorPosition);
     }
   }
