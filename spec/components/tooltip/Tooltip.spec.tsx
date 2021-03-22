@@ -51,7 +51,7 @@ describe('Tooltip', () => {
     await waitForElementToBeRemoved(() => screen.getByText(/tooltip$/i))
   });
 
-  it('should show/hide tooltip when you hover/unhover the child element', async () => {
+  xit('should show/hide tooltip when you hover/unhover the child element', async () => {
     displayTrigger = 'hover'
 
     render(
