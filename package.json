@@ -109,7 +109,7 @@
     "yarn-deduplicate": "^3.1.0"
   },
   "resolutions": {
-    "react-resize-detector/**/lodash": "^4.17.21"
+    "**/lodash": "^4.17.21"
   },
   "lint-staged": {
     "src/**/*.{ts,tsx}": [
