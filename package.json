@@ -20,7 +20,7 @@
     "storybook-docs": "start-storybook --docs",
     "build-storybook": "build-storybook -c .storybook -o dist/storybook",
     "test": "jest --watchAll",
-    "test-once": "jest",
+    "test-once": "jest -w 1",
     "check-circular": "madge --circular --extensions ts,tsx ./"
   },
   "peerDependencies": {
