@@ -55,7 +55,7 @@ export const Avatars = () => `
   <div class="avatar-box flex-row ">
     <div class="flex-col">
       <div class="tk-avatar tk-avatar--square tk-avatar--xlarge tk-avatar--border tk-text-color--primary tk-mr-5h">
-        <span style="font-size:40px">AB</span>
+        AB
       </div>
     </div>
     <div class="flex-col">
@@ -65,7 +65,7 @@ export const Avatars = () => `
     </div>
     <div class="flex-col">
       <div class="tk-avatar tk-avatar--rounded tk-avatar--xlarge tk-avatar--border tk-text-color--primary tk-mr-5h">
-        <span style="font-size:40px">AB</span>
+      AB
       </div>
     </div>
     <div class="flex-col">
@@ -85,30 +85,66 @@ export const Avatars = () => `
       </div>
     </div>
     <div class="flex-col">
-      <div class="tk-avatar tk-avatar--xlarge tk-ml-5h">
+      <div class="tk-avatar tk-avatar--xlarge tk-ml-3h">
         <img alt="avatar" src=${avatar1}>
       </div>
     </div>
     <div class="flex-col">
-      <div class="tk-avatar tk-avatar--large tk-ml-5h">
+      <div class="tk-avatar tk-avatar--large tk-ml-3h">
         <img alt="avatar" src=${avatar2}>
       </div>
     </div>
     <div class="flex-col">
-      <div class="tk-avatar tk-avatar--medium tk-ml-5h">
+      <div class="tk-avatar tk-avatar--medium tk-ml-3h">
         <img alt="avatar" src=${avatar}>
       </div>
     </div>
     <div class="flex-col">
-      <div class="tk-avatar tk-avatar--small tk-ml-5h">
+      <div class="tk-avatar tk-avatar--small tk-ml-3h">
         <img alt="avatar" src=${avatar1}>
       </div>
     </div>
     <div class="flex-col">
-      <div class="tk-avatar tk-avatar--xsmall tk-ml-5h">
+      <div class="tk-avatar tk-avatar--xsmall tk-ml-3h">
         <img alt="avatar" src=${avatar2}>
       </div>
     </div>
+  </div>
+
+  <h2 class="tk-mt-4h">Avatar with text or an Icon inside</h2>
+  <p>The Avatar has defined a default fontsize for each Avatar size</p>
+  <div class="avatar-box flex-row">
+    <div class="flex-col">
+      <div class="tk-avatar tk-avatar--xxlarge tk-avatar--border ">
+      <i class=" tk-icon-adjust"></i>
+      </div>
+    </div>
+    <div class="flex-col">
+      <div class="tk-avatar tk-avatar--xlarge tk-avatar--border ">
+      AB
+      </div>
+    </div>
+    <div class="flex-col">
+      <div class="tk-avatar tk-avatar--large tk-avatar--border ">
+      <i class=" tk-icon-adjust"></i>
+      </div>
+    </div>
+    <div class="flex-col">
+      <div class="tk-avatar tk-avatar--medium tk-avatar--border ">
+      AB
+      </div>
+    </div>
+    <div class="flex-col">
+      <div class="tk-avatar tk-avatar--small tk-avatar--border">
+      <i class=" tk-icon-adjust"></i>
+      </div>
+    </div>
+    <div class="flex-col">
+      <div class="tk-avatar tk-avatar--xsmall tk-avatar--border ">
+      AB
+      </div>
+    </div>
+    
   </div>
 </div>
 `
