@@ -336,7 +336,6 @@ export class Dropdown<T = LabelValue> extends React.Component<
     isTypeAheadEnabled: true,
     autoScrollToCurrent: false,
     enableTermSearch: false,
-    blurInputOnSelect:true
   };
 }
 
