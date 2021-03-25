@@ -103,6 +103,7 @@ export type DropdownProps<T> = {
   /** Handle the selection of search by term option */
   onTermSearch?: (option: SearchHeaderOption) => any;
   onClear?: () => any;
+  blurInputOnSelect?: boolean;
   /** Path in custom object to the unique identifier of the option */
   bindValue?: string;
 } & HasTooltipProps &
@@ -253,6 +254,7 @@ export class Dropdown<T = LabelValue> extends React.Component<
       tabSelectsValue,
       enableTermSearch,
       termSearchMessage,
+      blurInputOnSelect
     } = this.props;
 
     return (
@@ -321,6 +323,7 @@ export class Dropdown<T = LabelValue> extends React.Component<
           enableTermSearch={enableTermSearch}
           termSearchMessage={termSearchMessage}
           getOptionValue={this.bindValue}
+          blurInputOnSelect={blurInputOnSelect}
         />
       </div>
     );
