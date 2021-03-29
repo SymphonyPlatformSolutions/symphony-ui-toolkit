@@ -81,14 +81,12 @@ const BoarderedAvatar: React.FC = () => {
         </div>
         <div className="flex-col">
           <Avatar variant="square" size="xlarge" bordered>
-            <span style={{ fontSize: '40px' }}>AB</span>
+            AB
           </Avatar>
         </div>
         <div className="flex-col">
           <Avatar variant="square" size="xlarge" bordered>
-            <div style={{ fontSize: '36px' }}>
-              <Icon iconName="call" />
-            </div>
+            <Icon iconName="call" />
           </Avatar>
         </div>
         <div className="flex-col">
@@ -98,14 +96,12 @@ const BoarderedAvatar: React.FC = () => {
         </div>
         <div className="flex-col">
           <Avatar variant="round" size="xlarge" bordered>
-            <span style={{ fontSize: '40px' }}>AB</span>
+           AB
           </Avatar>
         </div>
         <div className="flex-col">
           <Avatar variant="round" size="xlarge" bordered>
-            <div style={{ fontSize: '36px' }}>
-              <Icon iconName="call" />
-            </div>
+            <Icon iconName="call" />
           </Avatar>
         </div>
       </div>
