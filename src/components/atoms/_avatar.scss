@@ -19,6 +19,8 @@ $avatar-sizes: (
 $default-font-size: map-get($avatar-font-sizes, "medium");
 
 .tk-avatar {
+  vertical-align: middle;
+  line-height: 100%;
   display: inline-flex;
   position: relative;
   border-radius: 50%; // Default rounded avatar
