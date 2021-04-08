@@ -18,7 +18,7 @@ $fontSize: 14;
   max-width: toEm(500, $fontSize);
 
   &__arrow {
-    $arrowSize:toEm(24,$fontSize);
+    $arrowSize: toEm(24, $fontSize);
     width: $arrowSize;
     height: $arrowSize;
     background-color: $backgroundColor;
@@ -27,7 +27,6 @@ $fontSize: 14;
   &__footer {
     display: flex;
     justify-content: flex-end;
-    margin-top: toEm(8, $fontSize);
   }
 
   &__close {
