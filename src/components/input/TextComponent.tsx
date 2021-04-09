@@ -80,6 +80,7 @@ const TextComponent: React.FC<TextComponentPropsWithType> = ({
   onClick,
   onFocus,
   onKeyDown,
+  onValidationChanged,
   ...rest
 }) => {
   const [hideText, setHideText] = useState(masked || false);
@@ -160,18 +161,15 @@ const TextComponent: React.FC<TextComponentPropsWithType> = ({
             ),
           })
           : null}
-        {type == Types.TEXTFIELD ? (
+        {type == Types.TEXTFIELD && masked && value?.length &&  (
           <button
             className="tk-input__hide"
             tabIndex={value && value.length === 0 ? -1 : 0}
-            onClick={handleViewText}
-            style={{
-              display: masked && value && value.length ? 'inline' : 'none',
-            }}
+            onClick={handleViewText}            
           >
             {hideText ? 'show' : 'hide'}
           </button>
-        ) : null}
+        ) }
       </div>
     </div>
   );
