@@ -143,6 +143,41 @@ describe('TimePicker Component', () => {
     );
   });
 
+  it('should open/close menu on "Enter" key pressed', async () => {
+    const props = createTestProps({
+      min: '08:00:00',
+      max: '19:00:00',
+      value: '09:00:00',
+      format: 'HH:mm:ss',
+    });
+
+    render(<TimePicker {...props} />);
+
+    // Menu should be closed
+    expect(screen.queryAllByText('08:00:00')).toHaveLength(0);
+
+    const input = screen.getByRole('textbox');
+
+    const eventMock = {
+      key: Keys.ENTER,
+      target: {
+        value: '09:00:00',
+      },
+    };
+
+    // 'Enter' key on input
+    fireEvent.keyDown(input, eventMock);
+
+    // Menu should be opened
+    expect(await screen.findAllByText('08:00:00')).toHaveLength(1);
+
+    // 'Enter' key on input
+    fireEvent.keyDown(input, eventMock);
+
+    // Menu should be closed
+    expect(screen.queryAllByText('08:00:00')).toHaveLength(0);
+  });
+
   describe('should select a value', () => {
     it('should select first option', async () => {
       const props = createTestProps({
