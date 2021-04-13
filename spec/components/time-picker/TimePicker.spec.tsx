@@ -18,6 +18,7 @@ describe('TimePicker Component', () => {
     return {
       id: 'id-test',
       label: 'label-test',
+      showRequired: true,
       name: 'name-test',
       placeholder: 'placeholder-test',
       min: '08:00:00',
@@ -41,6 +42,7 @@ describe('TimePicker Component', () => {
     expect(wrapperPicker.length).toBe(1);
     expect(wrapperPicker.prop('id')).toBe(props.id);
     expect(wrapperPicker.prop('label')).toBe(props.label);
+    expect(wrapperPicker.prop('showRequired')).toBe(props.showRequired);
     expect(wrapperPicker.prop('name')).toBe(props.name);
     expect(wrapperPicker.prop('placeHolder')).toBe(props.placeholder);
   });

@@ -123,6 +123,10 @@ export const Select: React.FC = () => (
     </p>
     <Dropdown options={defaultOptions} label="Field label" />
     <p className="tk-mt-4">
+			With <Typography variant="bold">label required</Typography>:
+    </p>
+    <Dropdown options={defaultOptions} label="Field label" showRequired/>
+    <p className="tk-mt-4">
 			With <Typography variant="bold">tooltip</Typography>:
     </p>
     <Dropdown options={defaultOptions} tooltip="Hint to help the user" tooltipCloseLabel="Got it" />

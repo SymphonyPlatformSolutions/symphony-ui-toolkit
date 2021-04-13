@@ -59,6 +59,22 @@ export const TextFields: React.FC = () => {
       <hr />
       <div>
         <p>
+          Simple Text Field with a <strong>label required</strong>
+        </p>
+        <p>
+          {' '}
+          If the attribute showRequired is defined, the according style will be applied
+        </p>
+        <TextField
+          id="input-1234567899"
+          label="Ipsum"
+          placeholder="Lastname"
+          showRequired
+        ></TextField>
+      </div>
+      <hr />
+      <div>
+        <p>
           Simple Text Field with an <strong>icon</strong>
         </p>
         <TextField iconElement={<Icon iconName={'calendar'} />}></TextField>

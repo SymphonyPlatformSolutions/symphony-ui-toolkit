@@ -31,6 +31,7 @@ type TextComponentProps = {
   onFocus?: () => any;
   onKeyDown?: (event) => any;
   value?: string;
+  showRequired?: boolean;
 } & HasTooltipProps & HasValidationProps<string>;
 
 type TextComponentPropsWithType = TextComponentProps & InputBaseProps & {
@@ -60,6 +61,7 @@ const TextComponentPropTypes = {
   tooltip: PropTypes.string,
   tooltipCloseLabel: PropTypes.string,
   value: PropTypes.string,
+  showRequired: PropTypes.bool
 };
 
 const TextComponent: React.FC<TextComponentPropsWithType> = ({
@@ -74,6 +76,7 @@ const TextComponent: React.FC<TextComponentPropsWithType> = ({
   tooltip,
   tooltipCloseLabel,
   value,
+  showRequired,
   onInit,
   onChange,
   onBlur,
@@ -85,11 +88,11 @@ const TextComponent: React.FC<TextComponentPropsWithType> = ({
 }) => {
   const [hideText, setHideText] = useState(masked || false);
 
-  useEffect(()=> {
-    if(onInit && value){
+  useEffect(() => {
+    if (onInit && value) {
       onInit(value);
     }
-  },[]);
+  }, []);
 
   // Generate unique ID if not provided
   const ariaId = useMemo(() => {
@@ -122,6 +125,7 @@ const TextComponent: React.FC<TextComponentPropsWithType> = ({
         placement={'top'}
         tooltip={tooltip}
         tooltipCloseLabel={tooltipCloseLabel}
+        showRequired={showRequired}
       />
       <div className="tk-input__container">
         <TagName
@@ -153,7 +157,7 @@ const TextComponent: React.FC<TextComponentPropsWithType> = ({
           {...rest}
         />
         {iconElement && type == Types.TEXTFIELD
-        // Clone the iconElement in order to attach className 'tk-input__icon'
+          // Clone the iconElement in order to attach className 'tk-input__icon'
           ? React.cloneElement(iconElement, {
             className: classNames(
               'tk-input__icon',
@@ -161,15 +165,15 @@ const TextComponent: React.FC<TextComponentPropsWithType> = ({
             ),
           })
           : null}
-        {type == Types.TEXTFIELD && masked && value?.length &&  (
+        {type == Types.TEXTFIELD && masked && value?.length && (
           <button
             className="tk-input__hide"
             tabIndex={value && value.length === 0 ? -1 : 0}
-            onClick={handleViewText}            
+            onClick={handleViewText}
           >
             {hideText ? 'show' : 'hide'}
           </button>
-        ) }
+        )}
       </div>
     </div>
   );
