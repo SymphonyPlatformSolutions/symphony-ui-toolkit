@@ -484,7 +484,7 @@ class DatePicker extends Component<
             }
             value={inputValue || ''}
             onChange={this.handleInputChange}
-            onFocus={() => this.setState({ showPicker: true })}
+            onClick={() => this.setState({ showPicker: true })}
             onKeyDown={this.handleKeyDownInput}
           ></TextField>
         </div>

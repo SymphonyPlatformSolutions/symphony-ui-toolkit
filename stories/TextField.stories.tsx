@@ -5,7 +5,7 @@ import { TextField, Icon, Validation } from '../src/components';
 import { Validators } from '../src/core/validators/validators';
 
 const Template = (args) => {
-  return   <TextField {...args}/>
+  return <TextField {...args} />;
 };
 
 export const Default = Template.bind({});
@@ -14,10 +14,12 @@ Default.args = {
   label: 'I have many props',
   tooltip: 'This is a tooltip \n with newline',
   tooltipCloseLabel: 'Got it',
-  iconElement: <Icon iconName="message"/>,
+  iconElement: <Icon iconName="message" />,
 };
 
 export const TextFields: React.FC = () => {
+  const [hideText, setHideText] = useState(false);
+
   const logChange = (value) => {
     console.info(value);
   };
@@ -136,7 +138,25 @@ export const TextFields: React.FC = () => {
         <p>
           Simple Text Field with <strong>masked data</strong>
         </p>
-        <TextField value="Lorem" masked={true} onChange={logChange}></TextField>
+        <TextField
+          value={value}
+          masked={true}
+          onChange={(e) => setValue(e.target.value)}
+        ></TextField>
+        <TextField
+          isMasked={hideText}
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+          decoratorElement={ value?.length ?
+            <button
+              className="tk-input__hide"
+              tabIndex={value && value.length === 0 ? -1 : 0}
+              onClick={() => setHideText(!hideText)}
+            >
+              {hideText ? 'show' : 'hide'}
+            </button>
+          : null}
+        ></TextField>
       </div>
     </div>
   );

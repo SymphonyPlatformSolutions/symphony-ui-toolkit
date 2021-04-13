@@ -6,7 +6,7 @@ import shortid from 'shortid';
 
 import { HasValidationProps } from '../validation/interfaces';
 import { HasTooltipProps } from '../tooltip/interfaces';
-import LabelTooltipDecorator from '../label-tooltip-decorator/LabelTooltipDecorator'
+import LabelTooltipDecorator from '../label-tooltip-decorator/LabelTooltipDecorator';
 
 enum Types {
   TEXTAREA = 'TextArea',
@@ -17,14 +17,20 @@ export type InputBaseProps = {
   onCopy?: (event) => any;
   onCut?: (event) => any;
   onDrag?: (event) => any;
-}
+};
 
 type TextComponentProps = {
+  /** React Element to display inside of the Field, on the right side */
+  decoratorElement?: JSX.Element; // what do you think about the name?
   className?: string;
   disabled?: boolean;
+  /** React Element to display outside the Field, on the left side */
   iconElement?: JSX.Element;
   id?: string;
   label?: string;
+  /** Force the text to display masked "••••" */
+  isMasked?: boolean;
+  /** Deprecated, please use decoratorElement instead */
   masked?: boolean;
   placeholder?: string;
   onClick?: () => any;
@@ -32,23 +38,27 @@ type TextComponentProps = {
   onKeyDown?: (event) => any;
   value?: string;
   showRequired?: boolean;
-} & HasTooltipProps & HasValidationProps<string>;
+} & HasTooltipProps &
+  HasValidationProps<string>;
 
-type TextComponentPropsWithType = TextComponentProps & InputBaseProps & {
-  type: Types;
-};
+type TextComponentPropsWithType = TextComponentProps &
+  InputBaseProps & {
+    type: Types;
+  };
 
 export const InputBasePropTypes = {
   onCopy: PropTypes.func,
   onCut: PropTypes.func,
   onDrag: PropTypes.func,
-}
+};
 
 const TextComponentPropTypes = {
+  decoratorElement: PropTypes.element,
   className: PropTypes.string,
   disabled: PropTypes.bool,
   id: PropTypes.string,
   iconElement: PropTypes.element,
+  isMasked: PropTypes.bool,
   label: PropTypes.string,
   masked: PropTypes.bool,
   placeholder: PropTypes.string,
@@ -61,13 +71,15 @@ const TextComponentPropTypes = {
   tooltip: PropTypes.string,
   tooltipCloseLabel: PropTypes.string,
   value: PropTypes.string,
-  showRequired: PropTypes.bool
+  showRequired: PropTypes.bool,
 };
 
 const TextComponent: React.FC<TextComponentPropsWithType> = ({
+  decoratorElement,
   className,
   id,
   iconElement,
+  isMasked,
   type,
   disabled,
   label,
@@ -150,22 +162,33 @@ const TextComponent: React.FC<TextComponentPropsWithType> = ({
           style={
             {
               WebkitTextSecurity:
-                type == Types.TEXTFIELD && masked && hideText && 'disc',
+                type == Types.TEXTFIELD &&
+                (isMasked || (masked && hideText)) &&
+                'disc',
             } as React.CSSProperties
           }
           disabled={disabled}
           {...rest}
         />
         {iconElement && type == Types.TEXTFIELD
-          // Clone the iconElement in order to attach className 'tk-input__icon'
-          ? React.cloneElement(iconElement, {
-            className: classNames(
-              'tk-input__icon',
-              iconElement.props.className
-            ),
-          })
+          ? // Clone the iconElement in order to attach className 'tk-input__icon'
+            React.cloneElement(iconElement, {
+              className: classNames(
+                'tk-input__icon',
+                iconElement.props.className
+              ),
+            })
           : null}
-        {type == Types.TEXTFIELD && masked && value?.length && (
+        {decoratorElement && type == Types.TEXTFIELD
+          ? // Clone the decoratorElement in order to attach className 'tk-input__hide'
+            React.cloneElement(decoratorElement, {
+              className: classNames(
+                'tk-input__hide',
+                decoratorElement.props.className
+              ),
+            })
+          : null}
+        {type == Types.TEXTFIELD && masked && value?.length ? (
           <button
             className="tk-input__hide"
             tabIndex={value && value.length === 0 ? -1 : 0}
@@ -173,7 +196,7 @@ const TextComponent: React.FC<TextComponentPropsWithType> = ({
           >
             {hideText ? 'show' : 'hide'}
           </button>
-        )}
+        ) : null}
       </div>
     </div>
   );
