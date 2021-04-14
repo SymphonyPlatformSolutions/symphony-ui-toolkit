@@ -139,7 +139,11 @@ const TextComponent: React.FC<TextComponentPropsWithType> = ({
         tooltipCloseLabel={tooltipCloseLabel}
         showRequired={showRequired}
       />
-      <div className="tk-input__container">
+      <div
+        className={classNames(className, 'tk-input__container', {
+          'tk-input__container--disabled': disabled,
+        })}
+      >
         <TagName
           id={id}
           aria-autocomplete="none"
@@ -148,9 +152,7 @@ const TextComponent: React.FC<TextComponentPropsWithType> = ({
           aria-placeholder={placeholder}
           aria-readonly={disabled}
           aria-multiline={type === Types.TEXTAREA}
-          className={classNames('tk-input', className, {
-            'tk-input--with-icon': iconElement,
-          })}
+          className={classNames('tk-input', /**className,**/)}
           placeholder={placeholder}
           value={value}
           onBlur={onBlur}
@@ -170,23 +172,10 @@ const TextComponent: React.FC<TextComponentPropsWithType> = ({
           disabled={disabled}
           {...rest}
         />
-        {iconElement && type == Types.TEXTFIELD
-          ? // Clone the iconElement in order to attach className 'tk-input__icon'
-            React.cloneElement(iconElement, {
-              className: classNames(
-                'tk-input__icon',
-                iconElement.props.className
-              ),
-            })
-          : null}
+
         {decoratorElement && type == Types.TEXTFIELD
           ? // Clone the decoratorElement in order to attach className 'tk-input__hide'
-            React.cloneElement(decoratorElement, {
-              className: classNames(
-                'tk-input__hide',
-                decoratorElement.props.className
-              ),
-            })
+            React.cloneElement(decoratorElement)
           : null}
         {type == Types.TEXTFIELD && masked && value?.length ? (
           <button
@@ -197,6 +186,15 @@ const TextComponent: React.FC<TextComponentPropsWithType> = ({
             {hideText ? 'show' : 'hide'}
           </button>
         ) : null}
+        {iconElement && type == Types.TEXTFIELD
+          ? // Clone the iconElement in order to attach className 'tk-input__icon'
+            React.cloneElement(iconElement, {
+              className: classNames(
+                'tk-input__icon',
+                iconElement.props.className
+              ),
+            })
+          : null}
       </div>
     </div>
   );

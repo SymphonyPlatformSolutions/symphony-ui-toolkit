@@ -6887,6 +6887,11 @@ flush-write-stream@^1.0.0:
     inherits "^2.0.3"
     readable-stream "^2.3.6"
 
+focus-visible@^5.2.0:
+  version "5.2.0"
+  resolved "https://repo.symphony.com/artifactory/api/npm/npm-virtual-dev/focus-visible/-/focus-visible-5.2.0.tgz#3a9e41fccf587bd25dcc2ef045508284f0a4d6b3"
+  integrity sha1-Op5B/M9Ye9JdzC7wRVCChPCk1rM=
+
 for-in@^1.0.2:
   version "1.0.2"
   resolved "https://repo.symphony.com/artifactory/api/npm/npm-virtual-dev/for-in/-/for-in-1.0.2.tgz#81068d295a8142ec0ac726c6e2200c30fb6d5e80"

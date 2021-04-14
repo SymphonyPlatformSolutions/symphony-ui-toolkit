@@ -139,17 +139,12 @@ export const TextFields: React.FC = () => {
           Simple Text Field with <strong>masked data</strong>
         </p>
         <TextField
-          value={value}
-          masked={true}
-          onChange={(e) => setValue(e.target.value)}
-        ></TextField>
-        <TextField
           isMasked={hideText}
           value={value}
           onChange={(e) => setValue(e.target.value)}
           decoratorElement={ value?.length ?
             <button
-              className="tk-input__hide"
+              className="tk-input__hide" // does the dev has to know that he needs to use this class?
               tabIndex={value && value.length === 0 ? -1 : 0}
               onClick={() => setHideText(!hideText)}
             >
