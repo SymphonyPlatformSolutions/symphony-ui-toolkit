@@ -19,4 +19,11 @@ $fontSize: 12;
   &--disabled:hover {
     color: $--tk-input-disabled-color;
   }
+  &--required::after{
+      content: '*';
+      color: $scolor-red;
+      margin-left: 2px;
+      font-size: toEm(16);
+      font-weight: 600;
+    }
 }
