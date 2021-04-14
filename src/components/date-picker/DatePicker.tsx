@@ -62,6 +62,7 @@ type DatePickerComponentProps = {
   placement?: 'top' | 'bottom' | 'right' | 'left';
   todayButton?: string;
   showOverlay?: boolean;
+  showRequired?: boolean;
 } & HasTooltipProps & HasValidationProps<Date>;
 
 type DatePickerComponentState = {
@@ -120,6 +121,7 @@ class DatePicker extends Component<
     todayButton: PropTypes.string,
     tooltip: PropTypes.string,
     tooltipCloseLabel: PropTypes.string,
+    showRequired: PropTypes.bool,
     showOverlay: PropTypes.bool,
     ...InputBasePropTypes
   };
@@ -433,6 +435,7 @@ class DatePicker extends Component<
       todayButton,
       tooltip,
       tooltipCloseLabel,
+      showRequired,
       onCopy,
       onCut,
       onDrag,
@@ -452,6 +455,7 @@ class DatePicker extends Component<
       placeholder: placeholder || format.toUpperCase(),
       tooltip,
       tooltipCloseLabel,
+      showRequired,
       onCopy,
       onCut,
       onDrag,

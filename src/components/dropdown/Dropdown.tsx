@@ -106,6 +106,8 @@ export type DropdownProps<T> = {
   blurInputOnSelect?: boolean;
   /** Path in custom object to the unique identifier of the option */
   bindValue?: string;
+  /** Flag to show the label with a specific styling if the field is required */
+  showRequired?: boolean;
 } & HasTooltipProps &
   (MultiModeProps<T> | SingleModeProps<T>);
 
@@ -254,7 +256,8 @@ export class Dropdown<T = LabelValue> extends React.Component<
       tabSelectsValue,
       enableTermSearch,
       termSearchMessage,
-      blurInputOnSelect
+      blurInputOnSelect,
+      showRequired
     } = this.props;
 
     return (
@@ -265,6 +268,7 @@ export class Dropdown<T = LabelValue> extends React.Component<
           placement={'top'}
           tooltip={tooltip}
           tooltipCloseLabel={tooltipCloseLabel}
+          showRequired={showRequired}
         />
         <Select
           parentInstance={this}

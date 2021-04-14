@@ -46,6 +46,7 @@ export const TimePicker: React.FC<TimePickerProps> = ({
   strict = true,
   tooltip,
   tooltipCloseLabel,
+  showRequired,
   value,
 }) => {
   const [hours, setHours] = useState('');
@@ -239,6 +240,7 @@ export const TimePicker: React.FC<TimePickerProps> = ({
       tabSelectsValue={false}
       tooltip={tooltip}
       tooltipCloseLabel={tooltipCloseLabel}
+      showRequired={showRequired}
     />
   );
 };
@@ -256,6 +258,7 @@ export type TimePickerProps = {
   step?: number;
   strict?: boolean;
   value?: string;
+  showRequired?: boolean;
 } & HasValidationProps<TimePickerValue> &
   HasTooltipProps;
 
@@ -275,6 +278,7 @@ TimePicker.propTypes = {
   strict: PropTypes.bool,
   tooltip: PropTypes.string,
   tooltipCloseLabel: PropTypes.string,
+  showRequired: PropTypes.bool,
   value: PropTypes.string,
 };
 

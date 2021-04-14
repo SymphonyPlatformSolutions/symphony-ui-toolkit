@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import * as PropTypes from 'prop-types';
 import Icon from '../icon';
 import Tooltip from '../tooltip';
+import classNames from 'classnames';
 
 type LabelTooltipDecoratorProps = {
   id?: string;
@@ -11,6 +12,7 @@ type LabelTooltipDecoratorProps = {
   placement?: 'top' | 'bottom' | 'right' | 'left';
   tooltip?: string;
   tooltipCloseLabel?: string;
+  showRequired?: boolean;
 };
 
 const LabelTooltipDecoratorHeader = styled.div`
@@ -36,13 +38,19 @@ const LabelTooltipDecorator: React.FC<LabelTooltipDecoratorProps> = ({
   placement,
   tooltip,
   tooltipCloseLabel,
+  showRequired
 }) => {
   const [showTooltip, setShowTooltip] = useState(false);
+
+  const classes = classNames(
+    'tk-label',
+    {'tk-label--required': showRequired},
+  )
 
   return label || tooltip ? (
     <LabelTooltipDecoratorHeader className="tk-input-group__header">
       {label ? (
-        <label className="tk-label" htmlFor={id}>
+        <label className={classes} htmlFor={id}>
           {label}
         </label>
       ) : null}

@@ -48,6 +48,12 @@ describe('TextComponent Component', () => {
       expect(wrapper.find(`label[htmlFor="${id}"]`)).toHaveLength(1);
       wrapper.unmount();
     });
+    it('should have the style --required if showRequired is provided', () => {
+      const wrapper = mount(
+        <TextComponent type={Types.TEXTFIELD} label="LABEL" showRequired/>
+      );
+      expect(wrapper.find('label.tk-label--required').length).toBe(1);
+    });
     it('should display a tooltip if provided', () => {
       const id = 'textfield-1234567890';
       const tooltipText = 'Tooltip';
