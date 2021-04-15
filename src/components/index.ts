@@ -1,6 +1,6 @@
 import Link from './link';
 import { TextArea, TextField } from './input';
-import { Checkbox, Radio } from './selection';
+import { Checkbox, Radio, Switch } from './selection';
 import CropContent from './crop-content';
 import DatePicker from './date-picker';
 import ExpandableCard from './expandable-card';
@@ -34,6 +34,7 @@ export {
   DropdownMenuDivider,
   ExpandableCard,
   Radio,
+  Switch,
   TextArea,
   TextField,
   Tooltip,

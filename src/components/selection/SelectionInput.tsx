@@ -3,7 +3,7 @@ import { useEffect, useMemo, useState } from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import shortid from 'shortid';
-import SelectionTypes from './SelectionTypes';
+import SelectionTypes, { SelectionInputTypes } from './SelectionTypes';
 import SelectionStatus, { getCheckedValue } from './SelectionStatus';
 import LabelPlacements from './LabelPlacements';
 import { Keys } from '../common/keyUtils';
@@ -134,10 +134,10 @@ const SelectionInput: React.FC<SelectionInputPropsWithType> = ({
     // Either 'checked' or 'defaultChecked' props must be defined but not both at the same time
     if (onChange) {
       // Controlled Component
-      checkedProps['checked'] = status === SelectionStatus.CHECKED;
+      checkedProps['checked'] = getCheckedValue(status);
     } else {
       // Uncontrolled Component
-      checkedProps['defaultChecked'] = status === SelectionStatus.CHECKED;
+      checkedProps['defaultChecked'] = getCheckedValue(status);
     }
   }
 
@@ -159,7 +159,7 @@ const SelectionInput: React.FC<SelectionInputPropsWithType> = ({
         <input
           id={memoizedId}
           className={`${tkClassName}__input`}
-          type={type}
+          type={SelectionInputTypes[type]}
           name={name}
           value={value}
           {...checkedProps}
