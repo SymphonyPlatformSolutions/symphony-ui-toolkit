@@ -200,7 +200,7 @@ describe('DatePicker Component', () => {
       const wrapper = mount(<DatePicker />);
       expect(wrapper.state('showPicker')).toBe(false);
       await act(async () => {
-        wrapper.find('.tk-input').simulate('focus');
+        wrapper.find('.tk-input').simulate('click');
       });
 
       wrapper.update();
