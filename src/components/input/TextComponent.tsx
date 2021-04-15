@@ -20,17 +20,17 @@ export type InputBaseProps = {
 };
 
 type TextComponentProps = {
-  /** React Element to display inside of the Field, on the right side */
-  decoratorElement?: JSX.Element; // what do you think about the name?
+  /** React Element to display inside the Field, on the right side */
+  rightDecorators?: JSX.Element[];
   className?: string;
   disabled?: boolean;
-  /** React Element to display outside the Field, on the left side */
+  /** React Element to display inside the Field, on the left side */
   iconElement?: JSX.Element;
   id?: string;
   label?: string;
   /** Force the text to display masked "••••" */
   isMasked?: boolean;
-  /** Deprecated, please use decoratorElement instead */
+  /** Deprecated, please use rightDecorators instead */
   masked?: boolean;
   placeholder?: string;
   onClick?: () => any;
@@ -53,7 +53,7 @@ export const InputBasePropTypes = {
 };
 
 const TextComponentPropTypes = {
-  decoratorElement: PropTypes.element,
+  rightDecorators: PropTypes.array,
   className: PropTypes.string,
   disabled: PropTypes.bool,
   id: PropTypes.string,
@@ -75,7 +75,7 @@ const TextComponentPropTypes = {
 };
 
 const TextComponent: React.FC<TextComponentPropsWithType> = ({
-  decoratorElement,
+  rightDecorators,
   className,
   id,
   iconElement,
@@ -152,7 +152,7 @@ const TextComponent: React.FC<TextComponentPropsWithType> = ({
           aria-placeholder={placeholder}
           aria-readonly={disabled}
           aria-multiline={type === Types.TEXTAREA}
-          className={classNames('tk-input', /**className,**/)}
+          className={classNames('tk-input')}
           placeholder={placeholder}
           value={value}
           onBlur={onBlur}
@@ -173,9 +173,8 @@ const TextComponent: React.FC<TextComponentPropsWithType> = ({
           {...rest}
         />
 
-        {decoratorElement && type == Types.TEXTFIELD
-          ? // Clone the decoratorElement in order to attach className 'tk-input__hide'
-            React.cloneElement(decoratorElement)
+        {rightDecorators && type == Types.TEXTFIELD
+          ? rightDecorators.map((decorator) => decorator)
           : null}
         {type == Types.TEXTFIELD && masked && value?.length ? (
           <button

@@ -3,7 +3,7 @@ import addons from '@storybook/addons';
 import { addParameters, forceReRender } from '@storybook/react';
 import { themes } from '@storybook/theming';
 
-require('focus-visible');
+import 'focus-visible';
 
 let globalDarkMode = undefined;
 
