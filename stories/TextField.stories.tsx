@@ -5,7 +5,7 @@ import { TextField, Icon, Validation } from '../src/components';
 import { Validators } from '../src/core/validators/validators';
 
 const Template = (args) => {
-  return   <TextField {...args}/>
+  return <TextField {...args} />;
 };
 
 export const Default = Template.bind({});
@@ -14,10 +14,12 @@ Default.args = {
   label: 'I have many props',
   tooltip: 'This is a tooltip \n with newline',
   tooltipCloseLabel: 'Got it',
-  iconElement: <Icon iconName="message"/>,
+  iconElement: <Icon iconName="message" />,
 };
 
 export const TextFields: React.FC = () => {
+  const [hideText, setHideText] = useState(false);
+
   const logChange = (value) => {
     console.info(value);
   };
@@ -28,22 +30,22 @@ export const TextFields: React.FC = () => {
     <div style={{ width: '50%' }}>
       <div>
         <p>
-          Simple Text Field with a <strong>placeholder</strong>
+          Text Field with a <strong>placeholder</strong>
         </p>
         <TextField placeholder="Firstname"></TextField>
       </div>
       <hr />
       <div>
         <p>
-          Simple Text Field with a <strong>change handler</strong> logging in
-          the browser console
+          Text Field with a <strong>change handler</strong> logging in the
+          browser console
         </p>
         <TextField placeholder="Firstname" onChange={logChange}></TextField>
       </div>
       <hr />
       <div>
         <p>
-          Simple Text Field with a <strong>label</strong>
+          Text Field with a <strong>label</strong>
         </p>
         <p>
           {' '}
@@ -63,7 +65,8 @@ export const TextFields: React.FC = () => {
         </p>
         <p>
           {' '}
-          If the attribute showRequired is defined, the according style will be applied
+          If the attribute showRequired is defined, the according style will be
+          applied
         </p>
         <TextField
           id="input-1234567899"
@@ -75,14 +78,14 @@ export const TextFields: React.FC = () => {
       <hr />
       <div>
         <p>
-          Simple Text Field with an <strong>icon</strong>
+          Text Field with an <strong>icon</strong>
         </p>
         <TextField iconElement={<Icon iconName={'calendar'} />}></TextField>
       </div>
       <hr />
       <div>
         <p>
-          Simple Text Field with an <strong>icon</strong>, method{' '}
+          Text Field with an <strong>icon</strong>, method{' '}
           <strong>handlers</strong> and <strong>tabIndex</strong>
         </p>
         <TextField
@@ -99,7 +102,7 @@ export const TextFields: React.FC = () => {
       <hr />
       <div>
         <p>
-          Simple Text Field with a <strong>tooltip</strong>
+          Text Field with a <strong>tooltip</strong>
         </p>
         <TextField
           tooltip="More information"
@@ -110,7 +113,7 @@ export const TextFields: React.FC = () => {
       <hr />
       <div>
         <p>
-          Simple Text Field with a <strong>label</strong> and a{' '}
+          Text Field with a <strong>label</strong> and a{' '}
           <strong>tooltip</strong>
         </p>
         <TextField
@@ -123,7 +126,7 @@ export const TextFields: React.FC = () => {
       <hr />
       <div>
         <p>
-          Simple Text Field with a <strong>value</strong>
+          Text Field with a <strong>value</strong>
         </p>
         <TextField
           placeholder="Type something"
@@ -134,9 +137,49 @@ export const TextFields: React.FC = () => {
       <hr />
       <div>
         <p>
-          Simple Text Field with <strong>masked data</strong>
+          Text Field with a <strong>right decorator</strong> and{' '}
+          <strong>masked data</strong>
         </p>
-        <TextField value="Lorem" masked={true} onChange={logChange}></TextField>
+        <TextField
+          isMasked={hideText}
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+          rightDecorators={
+            value?.length
+              ? [
+                <button
+                  key="button"
+                  className="tk-input__hide"
+                  tabIndex={value && value.length === 0 ? -1 : 0}
+                  onClick={() => setHideText(!hideText)}
+                >
+                  {hideText ? 'show' : 'hide'}
+                </button>,
+              ]
+              : null
+          }
+        ></TextField>
+      </div>
+      <div>
+        <p>
+          Text Field with other <strong>right decorators</strong>
+        </p>
+        <TextField
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+          rightDecorators={
+            value?.length
+              ? [
+                <span key="span-copy" style={{ alignSelf: 'center', marginRight: '1rem' }}>
+                  <Icon iconName="copy"></Icon>
+                </span>,
+                <span key="span-search" style={{ alignSelf: 'center', marginRight: '1rem' }}>
+                  <Icon iconName="search"></Icon>
+                </span>,
+              ]
+              : null
+          }
+        ></TextField>
       </div>
     </div>
   );

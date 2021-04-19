@@ -2408,10 +2408,10 @@
     "@svgr/plugin-svgo" "^5.5.0"
     loader-utils "^2.0.0"
 
-"@symphony/uitoolkit-styles@1.3.6-SNAPSHOT.6":
-  version "1.3.6-SNAPSHOT.6"
-  resolved "https://repo.symphony.com/artifactory/api/npm/npm-virtual-dev/@symphony/uitoolkit-styles/-/@symphony/uitoolkit-styles-1.3.6-SNAPSHOT.6.tgz#b429b929989231984a5f34156a45ddbb007038f4"
-  integrity sha1-tCm5KZiSMZhKXzQVakXduwBwOPQ=
+"@symphony/uitoolkit-styles@1.4.0":
+  version "1.4.0"
+  resolved "https://repo.symphony.com/artifactory/api/npm/npm-virtual-dev/@symphony/uitoolkit-styles/-/@symphony/uitoolkit-styles-1.4.0.tgz#207246b34544d3900f89d99c070c77d5e9951c1d"
+  integrity sha1-IHJGs0VE05APidmcBwx31emVHB0=
 
 "@testing-library/dom@^7.28.1", "@testing-library/dom@^7.29.0":
   version "7.29.0"
@@ -6886,6 +6886,11 @@ flush-write-stream@^1.0.0:
   dependencies:
     inherits "^2.0.3"
     readable-stream "^2.3.6"
+
+focus-visible@^5.2.0:
+  version "5.2.0"
+  resolved "https://repo.symphony.com/artifactory/api/npm/npm-virtual-dev/focus-visible/-/focus-visible-5.2.0.tgz#3a9e41fccf587bd25dcc2ef045508284f0a4d6b3"
+  integrity sha1-Op5B/M9Ye9JdzC7wRVCChPCk1rM=
 
 for-in@^1.0.2:
   version "1.0.2"
