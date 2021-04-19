@@ -1,6 +1,6 @@
 import * as React from 'react';
 import userEvent from '@testing-library/user-event';
-import { render, screen, waitFor, waitForElementToBeRemoved, fireEvent, getByText } from '@testing-library/react';
+import { render, screen, waitFor, waitForElementToBeRemoved, fireEvent } from '@testing-library/react';
 import Dropdown from '../../../src/components/dropdown';
 import '@testing-library/jest-dom/extend-expect';
 import { Button, Validation } from '../../../src/components';

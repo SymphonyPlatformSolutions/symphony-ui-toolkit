@@ -21,32 +21,31 @@ laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum
 iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae
 consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?`;
 
-const getComponent = (initCollapsed) =>{
-  return <CropContent initCollapsed={initCollapsed}>
-    <div id="content">{mockText}</div>
-  </CropContent>
-}
-
-const getWrapper = (initCollapsed?) =>
-  shallow(
-    getComponent(initCollapsed)
+const getComponent = (props?) => {
+  return (
+    <CropContent {...props}>
+      <div id="content">{mockText}</div>
+    </CropContent>
   );
+};
 
-const getToggleLink = wrapper => {
+const getWrapper = (props?) => shallow(getComponent(props));
+
+const getToggleLink = (wrapper) => {
   return wrapper.find('.tk-crop-content .toggle-container a');
 };
 
-const getToggleContainer = wrapper => {
+const getToggleContainer = (wrapper) => {
   return wrapper.find('.tk-crop-content .toggle-container');
 };
-const getContentBlock = wrapper => {
+const getContentBlock = (wrapper) => {
   return wrapper.find('.tk-crop-content .content');
 };
 
 const simResize = (wrapper, scrollHeight, offsetHeight) => {
   (wrapper.instance() as CropContent)['containerElRef'] = {
     offsetHeight,
-    scrollHeight
+    scrollHeight,
   } as HTMLDivElement;
   (wrapper.find(ResizeDetectDiv).prop('onWidthChange') as any)();
 };
@@ -59,9 +58,9 @@ describe('CropContent Component', () => {
       expect(wrapper.hasClass('tk-crop-content')).toBe(true);
     });
     it('should init collapsed properly', () => {
-      let wrapper = getWrapper(true);
+      let wrapper = getWrapper({ initCollapsed: true });
       expect(wrapper.state('collapsed')).toBeTruthy();
-      wrapper = getWrapper(false);
+      wrapper = getWrapper({ initCollapsed: false });
       expect(wrapper.state('collapsed')).toBeFalsy();
       wrapper = getWrapper();
       expect(wrapper.state('collapsed')).toBeTruthy();
@@ -80,11 +79,15 @@ describe('CropContent Component', () => {
       expect(getToggleContainer(wrapper).length).toBe(1);
     });
     it('toggle should switch state and height', () => {
-      const wrapper = getWrapper();
+      const onToggle = jest.fn();
+      const wrapper = getWrapper({ onToggle });
       simResize(wrapper, 100, 50);
       expect(getToggleContainer(wrapper).length).toBe(1);
       getToggleLink(wrapper).simulate('click');
+      expect(onToggle).toHaveBeenCalledWith(false, expect.anything());
       expect(getContentBlock(wrapper).prop('style').maxHeight).toBe('100px');
+      getToggleLink(wrapper).simulate('click');
+      expect(onToggle).toHaveBeenCalledWith(true, expect.anything());
     });
     it('should handle overflow on cropHeight change', () => {
       const wrapper = getWrapper();
@@ -111,34 +114,56 @@ describe('CropContent Component', () => {
     });
 
     //tests should be migrated like this one
-    it('should refresh overflow on text manipulation', async()=>{
+    it('should refresh overflow on text manipulation', async () => {
       const rendered = render(getComponent(true));
-      const content = document.getElementsByClassName('content')[0] as HTMLDivElement;
+      const content = document.getElementsByClassName(
+        'content'
+      )[0] as HTMLDivElement;
       // JSDOM doesn't actually render stuff we'll need to mock contents
-      Object.defineProperty(content, 'offsetHeight', { configurable: true, value: 80 });
-      Object.defineProperty(content, 'scrollHeight', { configurable: true, value: 100 });
+      Object.defineProperty(content, 'offsetHeight', {
+        configurable: true,
+        value: 80,
+      });
+      Object.defineProperty(content, 'scrollHeight', {
+        configurable: true,
+        value: 100,
+      });
       // should be triggered by text change
-      content.innerHTML=(mockText + mockText);
+      content.innerHTML = mockText + mockText;
       expect((await rendered.findAllByText('Show more')).length).toBe(1);
     });
 
-    it('should refresh overflow on dom manipulation', async()=>{
+    it('should refresh overflow on dom manipulation', async () => {
       const rendered = render(getComponent(true));
-      const content = document.getElementsByClassName('content')[0] as HTMLDivElement;
+      const content = document.getElementsByClassName(
+        'content'
+      )[0] as HTMLDivElement;
       const aux = document.createElement('div');
 
-      Object.defineProperty(content, 'offsetHeight', { configurable: true, value: 80 });
-      Object.defineProperty(content, 'scrollHeight', { configurable: true, value: 100 });
+      Object.defineProperty(content, 'offsetHeight', {
+        configurable: true,
+        value: 80,
+      });
+      Object.defineProperty(content, 'scrollHeight', {
+        configurable: true,
+        value: 100,
+      });
       content.appendChild(aux);
       await waitFor(() => {
-        expect(rendered.getByText('Show more')).toBeInTheDocument()
+        expect(rendered.getByText('Show more')).toBeInTheDocument();
       });
 
-      Object.defineProperty(content, 'offsetHeight', { configurable: true, value: 180 });
-      Object.defineProperty(content, 'scrollHeight', { configurable: true, value: 90 });
+      Object.defineProperty(content, 'offsetHeight', {
+        configurable: true,
+        value: 180,
+      });
+      Object.defineProperty(content, 'scrollHeight', {
+        configurable: true,
+        value: 90,
+      });
       content.removeChild(aux);
       await waitFor(() => {
-        expect(rendered.queryByText('Show more')).not.toBeInTheDocument()
+        expect(rendered.queryByText('Show more')).not.toBeInTheDocument();
       });
     });
   });

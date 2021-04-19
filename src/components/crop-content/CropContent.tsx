@@ -11,6 +11,8 @@ type CropContentProps = {
   initCollapsed?: boolean;
   /** Optional inline style */
   style?: React.CSSProperties;
+  /** Method triggered when clicking on "Show more/less" return the collapsed boolean and the element itself */
+  onToggle?: (collapsed: boolean, el?: HTMLDivElement) => any;
 };
 
 export default class CropContent extends React.Component<CropContentProps> {
@@ -34,7 +36,15 @@ export default class CropContent extends React.Component<CropContentProps> {
   }
 
   onToggle() {
-    this.setState({ collapsed: !this.state.collapsed });
+    const { onToggle } = this.props;
+    const { collapsed } = this.state;
+    
+    const reverseCollapsed = !collapsed;
+    this.setState({ collapsed: reverseCollapsed });
+
+    if (onToggle) {
+      onToggle(reverseCollapsed, this.containerElRef);
+    }
   }
 
   componentDidMount() {
