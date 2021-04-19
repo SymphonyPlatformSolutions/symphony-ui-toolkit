@@ -2,6 +2,10 @@
   @return ($size/$base) * 1em;
 }
 
+@function toRem($size) {
+  @return ($size/16) * 1rem;
+}
+
 /* This factor is specified by the Symphony spacing guides */
 $factor: 8px;
 @function getSpaceByFactor($size) {

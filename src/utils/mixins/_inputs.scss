@@ -1,7 +1,7 @@
 @mixin styleHoverInput($borderColor, $fontColor) {
   color: $fontColor;
   @include addBorder(2px, $borderColor);
-  &::placeholder {
+  &::placeholder, input::placeholder {
     color: $fontColor;
   }
 }
@@ -15,7 +15,7 @@
   color: $activeColor;
   background-color: $backgroundColor;
   @include addBorder(2px, $inactiveColor);
-  &::placeholder {
+  &::placeholder, ::placeholder {
     @include addTransition();
     color: $inactiveColor;
   }
@@ -29,7 +29,7 @@
     @include addBorder(2px, $focusBorderColor);
   }
 
-  .tk-input__container:focus-within & {
+  &:focus-within {
     @include addBorder(2px, $focusBorderColor);
   }
 }

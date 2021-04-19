@@ -31,7 +31,7 @@
     @include styleLabels {
       @extend .tk-label--error;
     }
-    .tk-input {
+    .tk-input__container {
       @extend .tk-validation--error;
     }
   }
@@ -41,7 +41,7 @@
     @include styleLabels {
       color: $--tk-input-error-active-color;
     }
-    .tk-input:not(:focus) {
+    .tk-input__container:not(:focus) {
       @include styleHoverInput($--tk-input-error-active-color, $--tk-input-error-active-color);
     }
   }
@@ -50,8 +50,8 @@
     @include styleLabels {
       @extend .tk-label--disabled;
     }
-    .tk-input:focus,
-    .tk-input:not(:focus) {
+    .tk-input__container:focus,
+    .tk-input__container:not(:focus) {
       @include styleHoverInput($--tk-input-disabled-color, $--tk-input-disabled-color);
     }
   }

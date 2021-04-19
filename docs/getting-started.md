@@ -35,6 +35,15 @@ In some cases (depending on your bundling solution) you might need to indicate t
  $ICONS_FONTS_PATH: 'myPath/fonts';
 ```
 
+## Link
+
+To work locally with uitoolkit-styles, please change the following value
+
+path: `src/icons/_index.scss`
+```bash
+ $ICONS_FONTS_PATH: '../fonts' !default; 
+```
+
 ## Install from **CDN**:
 
 Alternatively, you can use the [symphony](https://cdn.symphony.com/resources/ui-toolkit/master/css/uitoolkit.css) CDN to load the compiled CSS version. 

@@ -19,16 +19,6 @@ export const TextField = () => {
             <div class="tk-input__helper">This is a helper.</div>
           </div>
           <hr/>
-          <p>Text Field with a show/hide button.</p>  
-          <div class="tk-input-group">
-            <div class="tk-input-group__header">
-              <label for="input">Field label</label>    
-            </div>
-            <div class="tk-input__container">
-              <input id="input1" type="password" class="tk-input" placeholder="Type something..." />
-              <button class="tk-input__hide">Hide</button>
-            </div>
-          </div>
           <p>Text Field with a icon button.</p>  
           <div class="tk-input-group">
             <div class="tk-input-group__header">
@@ -65,14 +55,14 @@ export const TextField = () => {
         <h2>Disabled</h2>
           <div class="tk-input-group tk-input-group--disabled">
             <label for="input-disabled">Field label</label>
-            <div class="tk-input__container">
+            <div class="tk-input__container tk-input__container--disabled">
               <input id="input-disabled" type="text" class="tk-input" placeholder="Type something..." disabled />
             </div>
             <div class="tk-input__helper">This is a helper.</div>
           </div>
           <br/>
           <div class="tk-input-group tk-input-group--disabled">
-            <div class="tk-input__container">
+            <div class="tk-input__container tk-input__container--disabled">
               <input id="input4" type="text" class="tk-input tk-input--with-icon" placeholder="Type something..." disabled/>
               <div tabindex="0" class="tk-input__icon">
                 <i class="tk-icon-calendar "></i>
@@ -91,7 +81,7 @@ export const TextField = () => {
           </div>
         </span>
         <h3>Disabled</h3>
-        <div class="tk-input__container">
+        <div class="tk-input__container tk-input__container--disabled">
           <input type="text" class="tk-input" placeholder="Type something..." disabled />
         </div>
       </div>
@@ -99,7 +89,7 @@ export const TextField = () => {
 };
 export const Select = () => { return `
 <h3>Default</h3>
-<div class="tk-select__container">
+<div>
   <select type="text" class="tk-select" value="Text" style="width:200px">
     <option>Item 1</option>
     <option>Item 2</option>
@@ -112,7 +102,7 @@ export const Select = () => { return `
   <div class="tk-select-group__header">
     <label for="input">Field label</label>
   </div>
-  <div class="tk-select__container">
+  <div>
     <select type="text" class="tk-select" value="Text" style="width:200px">
       <option>Item 1</option>
       <option>Item 2</option>
@@ -125,7 +115,7 @@ export const Select = () => { return `
 <div>
 
   <h3>Disabled</h3>
-  <div class="tk-select__container">
+  <div class="tk-select--is-disabled">
     <select type="text" class="tk-select" value="Text" style="width:200px" disabled>
       <option>Item 1</option>
     </select>
@@ -136,7 +126,7 @@ export const Select = () => { return `
     <div class="tk-select-group__header">
       <label for="input">Field label</label>
     </div>
-    <div class="tk-select__container">
+    <div class="tk-select--is-disabled">
       <select type="text" class="tk-select tk-select--expanded" value="Text" style="width:200px" disabled>
         <option>Item 1</option>
         <option>Item 2</option>
@@ -150,7 +140,7 @@ export const Select = () => { return `
 
 <h3>Error</h3>
 <span class="tk-validation tk-validation--error">
-  <div class="tk-select__container">
+  <div>
     <select type="text" class="tk-select" value="Text" style="width:200px">
       <option>Item 1</option>
       <option>Item 2</option>
@@ -165,7 +155,7 @@ export const Select = () => { return `
     <div class="tk-select-group__header">
       <label for="input">Field label</label>
     </div>
-    <div class="tk-select__container">
+    <div>
       <select type="text" class="tk-select" value="Text" style="width:200px">
         <option>Item 1</option>
         <option>Item 2</option>
