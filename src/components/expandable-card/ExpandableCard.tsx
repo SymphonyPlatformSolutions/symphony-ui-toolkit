@@ -1,6 +1,8 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import * as PropTypes from 'prop-types';
+import { useState } from 'react';
+import classNames from 'classnames';
 
 type ExpandableCardProps = {
   children?: React.ReactNode;
@@ -8,8 +10,10 @@ type ExpandableCardProps = {
   header: React.ReactNode;
   /** Optional CSS class name */
   className?: string;
-   /** If true, the expandable card will be collapsed initially. */
+  /** If true, the expandable card will be collapsed initially. */
   initCollapsed?: boolean;
+  /** Method triggered when clicking on "EXPAND/COLLAPSE" return the collapsed boolean and the element itself*/
+  onToggle?: (collapsed: boolean, el?: HTMLDivElement) => any;
 };
 // styled components, if it grows put in a sibling file
 const HeaderDiv = styled.div`
@@ -45,46 +49,54 @@ const BodyDiv = styled.div`
   }
 `;
 
-export default class ExpandableCard extends React.Component<
-  ExpandableCardProps
-> {
-  public state = {
-    collapsed:
-      this.props.initCollapsed === undefined || this.props.initCollapsed
+const ExpandableCard: React.FC<ExpandableCardProps> = ({
+  children,
+  className,
+  header,
+  initCollapsed,
+  onToggle,
+  ...rest
+}: ExpandableCardProps) => {
+  const [collapsed, setCollasped] = useState(
+    initCollapsed === undefined || initCollapsed
+  );
+  const [refEl, setRefEl] = useState(null);
+
+  const onToggleHeader = () => {
+    const reverseCollapsed = !collapsed;
+    setCollasped(reverseCollapsed);
+
+    if (onToggle) {
+      onToggle(reverseCollapsed, refEl);
+    }
   };
 
-  onToggle() {
-    this.setState({ collapsed: !this.state.collapsed });
-  }
+  return (
+    <div className={className} ref={setRefEl} {...rest}>
+      <HeaderDiv>
+        <div>{header}</div>
+        &bull;
+        <a className={classNames('tk-link toggle')} onClick={onToggleHeader}>
+          {collapsed ? 'EXPAND' : 'COLLAPSE'}
+        </a>
+        <i
+          className={classNames('tk-icon-top', { collapsed })}
+          onClick={onToggleHeader}
+          aria-label="Toggle"
+        ></i>
+      </HeaderDiv>
+      <BodyDiv className={classNames({ collapsed })}>{children}</BodyDiv>
+    </div>
+  );
+};
 
-  render() {
-    const collapsedClass = this.state.collapsed ? ' collapsed' : '';
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { initCollapsed, header, children, ...rest } = this.props;
-    return (
-      <div {...rest}>
-        <HeaderDiv>
-          <div>{this.props.header}</div>
-          &bull;
-          <a className="tk-link toggle" onClick={this.onToggle.bind(this)}>
-            {this.state.collapsed ? 'EXPAND' : 'COLLAPSE'}
-          </a>
-          <i
-            className={'tk-icon-top' + collapsedClass}
-            onClick={this.onToggle.bind(this)}
-            aria-label="Toggle"
-          ></i>
-        </HeaderDiv>
-        <BodyDiv className={collapsedClass}>{children}</BodyDiv>
-      </div>
-    );
-  }
-  static propTypes = {
-    initCollapsed: PropTypes.bool,
-    header: PropTypes.node.isRequired
-  };
+ExpandableCard.propTypes = {
+  initCollapsed: PropTypes.bool,
+  header: PropTypes.node.isRequired,
+};
 
- static defaultProps = {
-   initCollapsed: true
- };
-}
+ExpandableCard.defaultProps = {
+  initCollapsed: true,
+};
+
+export default ExpandableCard;

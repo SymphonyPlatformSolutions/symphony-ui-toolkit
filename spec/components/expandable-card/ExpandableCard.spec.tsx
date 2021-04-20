@@ -6,22 +6,19 @@ import { ExpandableCard } from '../../../src/components';
  * Util methods
  */
 
-const getWrapper = (initCollapsed?) =>
+const getWrapper = (props?) =>
   shallow(
-    <ExpandableCard header={<h1>Header</h1>} initCollapsed={initCollapsed}>
+    <ExpandableCard header={<h1>Header</h1>} {...props}>
       <div className="bodyContent">Body</div>
     </ExpandableCard>
   );
 
-const getToggleLink = wrapper => {
+const getToggleLink = (wrapper) => {
   return wrapper.find('a.tk-link.toggle');
 };
 
-const getBodyDiv = wrapper => {
-  return wrapper
-    .find('div')
-    .first()
-    .childAt(1);
+const getBodyDiv = (wrapper) => {
+  return wrapper.find('div').first().childAt(1);
 };
 
 describe('CropContent Component', () => {
@@ -32,24 +29,24 @@ describe('CropContent Component', () => {
       expect(getToggleLink(wrapper).length).toBe(1);
     });
     it('toggle should run properly', () => {
-      const wrapper = getWrapper();
+      const onToggle = jest.fn();
+      const wrapper = getWrapper({ onToggle });
       expect(
-        wrapper
-          .find('div')
-          .first()
-          .childAt(1)
-          .hasClass('collapsed')
+        wrapper.find('div').first().childAt(1).hasClass('collapsed')
       ).toBeTruthy();
       expect(getToggleLink(wrapper).text()).toEqual('EXPAND');
       getToggleLink(wrapper).simulate('click');
       expect(getBodyDiv(wrapper).hasClass('collapsed')).toBeFalsy();
+      expect(onToggle).toHaveBeenCalledWith(false, null);
       expect(getToggleLink(wrapper).text()).toEqual('COLLAPSE');
+      getToggleLink(wrapper).simulate('click');
+      expect(onToggle).toHaveBeenCalledWith(true, null);
     });
 
     it('should init collapsed properly', () => {
-      let wrapper = getWrapper(true);
+      let wrapper = getWrapper({ initCollapsed: true });
       expect(getBodyDiv(wrapper).hasClass('collapsed')).toBeTruthy();
-      wrapper = getWrapper(false);
+      wrapper = getWrapper({ initCollapsed: false });
       expect(getBodyDiv(wrapper).hasClass('collapsed')).toBeFalsy();
       wrapper = getWrapper();
       expect(getBodyDiv(wrapper).hasClass('collapsed')).toBeTruthy();
