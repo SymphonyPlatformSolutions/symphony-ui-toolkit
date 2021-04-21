@@ -7,3 +7,4 @@ yarn.lock
 dist/storybook
 uitoolkit-cdn.generated.*
 .github
+deps
