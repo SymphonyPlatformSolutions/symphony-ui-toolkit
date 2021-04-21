@@ -33,6 +33,13 @@
   --tk-input-disabled-color: #{$scolor-graphite-minus-48};
   --tk-input-disabled-background-color: #{$scolor-graphite-plus-48};
 
+  --tk-input-switch-default-line-color: #{$scolor-graphite};
+  --tk-input-switch-default-circle-color: #{$scolor-graphite-plus-48};
+  --tk-input-switch-default-circle-border-color: #{$scolor-electricity};
+
+  --tk-input-switch-disabled-line-color: #{$scolor-graphite-minus-24};
+  --tk-input-switch-disabled-circle-color: #{$scolor-graphite-minus-48};
+
   --tk-datepicker-default-color: #{$scolor-graphite-minus-96};
   --tk-datepicker-disabled-color: #{$scolor-graphite-minus-24};
 
