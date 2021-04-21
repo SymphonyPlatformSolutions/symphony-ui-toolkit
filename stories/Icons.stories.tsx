@@ -555,6 +555,16 @@ export const Icons: React.FC = () => (
       <span>screen-share</span>
     </div>
     <div className="preview">
+      <Icon iconName="screen-share-on"></Icon>
+      <br></br>
+      <span>screen-share-on</span>
+    </div>
+    <div className="preview">
+      <Icon iconName="screen-share-off"></Icon>
+      <br></br>
+      <span>screen-share-off</span>
+    </div>
+    <div className="preview">
       <Icon iconName="screenshot"></Icon>
       <br></br>
       <span>screenshot</span>
