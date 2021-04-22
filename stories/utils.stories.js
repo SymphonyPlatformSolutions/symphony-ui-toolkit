@@ -207,7 +207,8 @@ export const spacing = () =>
 
     export const Scaling = () => `
     <div class="tk-ml-2h">
-      <h1>Scaling components</h1>
+      <h1>Scaling components - DEPRECATED </h1>
+      <h1 style="color:red">Warning: scaling won't be supported in next major use it at your own risk<h2>
       <div>
         UI Toolkit Styles includes a set of <span class="tk-text-color--primary">size</span> utility <span
           class="tk-text-color--primary">classes</span> that allows users to build scaled components.
