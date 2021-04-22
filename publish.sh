@@ -1,3 +1,5 @@
+#!/bin/bash
+set -e
 # Execute publish
 function executePublish {
     cp package.json dist/
