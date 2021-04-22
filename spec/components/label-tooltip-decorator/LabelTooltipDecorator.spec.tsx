@@ -23,6 +23,12 @@ describe('LabelTooltipDecorator Component', () => {
       expect(wrapper.find('label.tk-label').text()).toEqual('LABEL');
       expect(wrapper.find(`label[htmlFor="${id}"]`)).toHaveLength(1);
     });
+    it('should have the style --required if showRequired is provided', () => {
+      const wrapper = shallow(
+        <LabelTooltipDecorator label="LABEL" showRequired/>
+      );
+      expect(wrapper.find('label.tk-label--required').length).toBe(1);
+    });
     it('should display a tooltip if provided', () => {
 
       let wrapper = shallow(<LabelTooltipDecorator />);

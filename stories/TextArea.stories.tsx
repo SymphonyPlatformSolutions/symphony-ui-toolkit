@@ -50,6 +50,22 @@ export const TextAreas: React.SFC = () => {
       <hr />
       <div>
         <p>
+          Simple Text Area with a <strong>required label</strong>
+        </p>
+        <p>
+          {' '}
+          If the attribute showRequired is defined, the according style will be applied
+        </p>
+        <TextArea
+          id="input-1234567899"
+          label="Lorem Ipsum"
+          placeholder="Type something"
+          showRequired
+        ></TextArea>
+      </div>
+      <hr />
+      <div>
+        <p>
           Simple Text Area with a <strong>tooltip</strong>
         </p>
         <TextArea

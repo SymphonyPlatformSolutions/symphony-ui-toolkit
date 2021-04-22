@@ -44,6 +44,12 @@ WithPlaceholder.args = {
   placeholder: 'Select your time',
 };
 
+export const WithShowRequired = Template.bind({});
+WithShowRequired.args = {
+  label: 'timePickerLabel',
+  showRequired: true,
+};
+
 export const WithValue = Template.bind({});
 WithValue.parameters = {
   docs: {

@@ -23,6 +23,7 @@ describe('DatePicker Component', () => {
       format: 'MM-dd-yyyy',
       initialMonth: date,
       label: 'Expense',
+      showRequired: true,
       labels: {
         previousYear: 'Previous Year',
         nextYear: 'Next Year',
@@ -54,6 +55,7 @@ describe('DatePicker Component', () => {
     expect(wrapperField.length).toBe(1);
     expect(wrapperField.prop('disabled')).toBe(props.disabled);
     expect(wrapperField.prop('label')).toBe(props.label);
+    expect(wrapperField.prop('showRequired')).toBe(props.showRequired);
     expect(wrapperField.prop('placeholder')).toBe(props.placeholder);
     expect(wrapperField.prop('tooltip')).toBe(props.tooltip);
     expect(wrapperField.prop('name')).toBe(props.name);
@@ -198,7 +200,7 @@ describe('DatePicker Component', () => {
       const wrapper = mount(<DatePicker />);
       expect(wrapper.state('showPicker')).toBe(false);
       await act(async () => {
-        wrapper.find('.tk-input').simulate('focus');
+        wrapper.find('.tk-input').simulate('click');
       });
 
       wrapper.update();

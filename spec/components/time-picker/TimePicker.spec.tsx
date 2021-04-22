@@ -7,7 +7,12 @@ import TimePicker from '../../../src/components/time-picker/TimePicker';
 import { Keys } from '../../../src/components/common/keyUtils';
 import { Dropdown } from '../../../src';
 import { FIELD } from '../../../src/components/time-picker/utils';
-import { render, screen } from '@testing-library/react';
+import {
+  render,
+  screen,
+  fireEvent,
+  getDefaultNormalizer,
+} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 describe('TimePicker Component', () => {
@@ -18,6 +23,7 @@ describe('TimePicker Component', () => {
     return {
       id: 'id-test',
       label: 'label-test',
+      showRequired: true,
       name: 'name-test',
       placeholder: 'placeholder-test',
       min: '08:00:00',
@@ -41,11 +47,52 @@ describe('TimePicker Component', () => {
     expect(wrapperPicker.length).toBe(1);
     expect(wrapperPicker.prop('id')).toBe(props.id);
     expect(wrapperPicker.prop('label')).toBe(props.label);
+    expect(wrapperPicker.prop('showRequired')).toBe(props.showRequired);
     expect(wrapperPicker.prop('name')).toBe(props.name);
     expect(wrapperPicker.prop('placeHolder')).toBe(props.placeholder);
   });
 
   describe('should move focus', () => {
+    test.each([
+      ['09', '09:', 3],
+      ['09:00', '09:00:', 6],
+      ['09:00:00', '09:00:00 ', 9],
+    ])(
+      'and autofill the input from value %p to %p',
+      async (value, expectedValue, expectedCursor) => {
+        const props = createTestProps({ format: 'hh:mm:ss a' });
+        render(<TimePicker {...props} />);
+
+        const input = screen.getByRole('textbox');
+
+        // Update input value
+        fireEvent.change(input, { target: { value: value } });
+        expect(screen.getByText(value)).toBeTruthy();
+
+        const eventMock = {
+          key: value.charAt(0),
+          target: {
+            value,
+            selectionStart: value.length,
+            setSelectionRange: jest.fn(),
+          },
+        };
+
+        fireEvent.keyUp(input, eventMock);
+        expect(
+          screen.getByText(expectedValue, {
+            // By default, normalization consists of trimming whitespace from the start and end of text
+            // so, disabled this default behavior to keep ending space
+            normalizer: getDefaultNormalizer({ trim: false }),
+          })
+        ).toBeTruthy();
+        expect(eventMock.target.setSelectionRange).toHaveBeenCalledWith(
+          expectedCursor,
+          expectedCursor
+        );
+      }
+    );
+
     test.each([
       [FIELD.HOURS, 0, Keys.TAB, false, '09:00:00 AM', 3, 5],
       [FIELD.HOURS, 0, Keys.TAB, true, '09:00:00 AM', null, null],
@@ -96,6 +143,41 @@ describe('TimePicker Component', () => {
         wrapper.unmount();
       }
     );
+  });
+
+  it('should open/close menu on "Enter" key pressed', async () => {
+    const props = createTestProps({
+      min: '08:00:00',
+      max: '19:00:00',
+      value: '09:00:00',
+      format: 'HH:mm:ss',
+    });
+
+    render(<TimePicker {...props} />);
+
+    // Menu should be closed
+    expect(screen.queryAllByText('08:00:00')).toHaveLength(0);
+
+    const input = screen.getByRole('textbox');
+
+    const eventMock = {
+      key: Keys.ENTER,
+      target: {
+        value: '09:00:00',
+      },
+    };
+
+    // 'Enter' key on input
+    fireEvent.keyDown(input, eventMock);
+
+    // Menu should be opened
+    expect(await screen.findAllByText('08:00:00')).toHaveLength(1);
+
+    // 'Enter' key on input
+    fireEvent.keyDown(input, eventMock);
+
+    // Menu should be closed
+    expect(screen.queryAllByText('08:00:00')).toHaveLength(0);
   });
 
   describe('should select a value', () => {
