@@ -17,12 +17,9 @@ jobs:
     <<: *defaults
     steps:
       - checkout
-      - run: echo "registry=$SYM_NPM_READ_REPO" > ~/.npmrc
-      - run: echo "_auth=$SYM_NPM_TOKEN" >> ~/.npmrc
-      - run: echo "always-auth=true" >> ~/.npmrc
-      - run: echo "email=$SYM_NPM_EMAIL" >> ~/.npmrc
       - run: yarn
       - run: yarn build
+      - run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
       - run: bash ./publish.sh
       - run: rm -f ~/.npmrc
       - run: yarn build-storybook

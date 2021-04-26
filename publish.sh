@@ -1,7 +1,9 @@
+#!/bin/bash
+set -e
 # Execute publish
 function executePublish {
     npm pack
-    npm publish
+    npm publish --access public
     git add package.json
     git config --global user.email "$GIT_USEREMAIL"
     git config --global user.name "$GIT_USERNAME"

@@ -1,13 +1,12 @@
 {
-  "name": "@symphony/uitoolkit-styles",
-  "version": "1.4.1",
+  "name": "@symphony-ui/uitoolkit-styles",
+  "version": "1.5.0-SNAPSHOT.2",
   "description": "Symphony UI design system",
   "publishConfig": {
-    "registry": "https://repo.symphony.com/artifactory/api/npm/npm-local-dev2"
+    "registry": "https://registry.npmjs.org"
   },
   "main": "index.css",
   "scripts": {
-    "prepare": "yarn build",
     "prestart": "yarn icons",
     "start": "start-storybook -p 6006 -c .storybook watch-css -s ./src",
     "prebuild": "yarn icons && sh src/scripts/generate-cdn.sh",

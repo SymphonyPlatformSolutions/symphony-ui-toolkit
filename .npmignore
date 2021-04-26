@@ -8,3 +8,5 @@ dist/storybook
 uitoolkit-cdn.generated.*
 .github
 deps
+.npmrc
+.prettierrc
