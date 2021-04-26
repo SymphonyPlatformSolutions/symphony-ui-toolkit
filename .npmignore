@@ -2,12 +2,14 @@ node_modules
 
 #build tools
 .circleci
+.github
 babel.config.js
 webpack.config.js
 publish.sh
 
 #linters
 .eslint*
+.vscode
 
 #tests
 .storybook
