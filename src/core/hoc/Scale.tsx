@@ -15,6 +15,7 @@ const Scale: React.FC<ScaleProps> = ({
   className,
   ...rest
 }: ScaleProps) => {
+  console.warn('You are using a deprecated component. Scaling won\'t be supported anymore in next major. Please consider removing it');
   const classes = classNames(
     className,
     `${prefix}-${size}`,

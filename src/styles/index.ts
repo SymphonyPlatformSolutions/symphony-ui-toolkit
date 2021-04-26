@@ -1,1 +1,1 @@
-import '@symphony/uitoolkit-styles/dist/css/uitoolkit.css';
+import '@symphony-ui/uitoolkit-styles/dist/css/uitoolkit.css';
