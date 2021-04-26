@@ -13,7 +13,8 @@
     "noImplicitAny": false,
     "strictNullChecks": false,
     "downlevelIteration": true,
-    "allowSyntheticDefaultImports": false
+    "allowSyntheticDefaultImports": false,
+    "skipLibCheck": true
   },
   "include": [
     "src/**/*.ts",
