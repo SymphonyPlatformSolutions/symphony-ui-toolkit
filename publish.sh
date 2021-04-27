@@ -4,7 +4,7 @@ set -e
 function executePublish {
     cp package.json dist/
     cd dist
-    npm publish
+    npm publish --access public
     cd ..
     git add package.json
     git config --global user.email "$GIT_USEREMAIL"
