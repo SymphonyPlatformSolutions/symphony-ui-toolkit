@@ -1,9 +1,9 @@
 {
-  "name": "@symphony/uitoolkit-components",
+  "name": "@symphony-ui/uitoolkit-components",
   "version": "1.5.0-SNAPSHOT.1",
   "description": "React components for the Symphony UI design system",
   "publishConfig": {
-    "registry": "https://repo.symphony.com/artifactory/api/npm/npm-local-dev2"
+    "registry": "https://registry.npmjs.org"
   },
   "license": "ISC",
   "sideEffects": false,
