@@ -21,7 +21,8 @@
     "build-storybook": "build-storybook -c .storybook -o dist/storybook",
     "test": "jest --watchAll",
     "test-once": "jest -w 1",
-    "check-circular": "madge --circular --extensions ts,tsx ./"
+    "check-circular": "madge --circular --extensions ts,tsx ./",
+    "linkit": "yarn build && cp package.json ./dist && cd ./dist && yarn link && cd .."
   },
   "peerDependencies": {
     "react": ">=16.8.0",
