@@ -120,6 +120,9 @@ textarea.tk-input {
     flex-grow: 1;
     margin: toRem(8) toRem(12);
     line-height: toRem(20);
+    &:disabled:hover {
+      box-shadow: none; // force cancel tk-input border
+    }
 
     .tk-validation--error & {
       color: $--tk-input-error-active-color;
