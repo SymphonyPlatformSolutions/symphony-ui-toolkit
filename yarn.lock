@@ -2417,24 +2417,10 @@
     resolve-from "^5.0.0"
     store2 "^2.12.0"
 
-"@svgr/webpack@^5.4.0":
-  version "5.5.0"
-  resolved "https://registry.yarnpkg.com/@svgr/webpack/-/webpack-5.5.0.tgz#aae858ee579f5fa8ce6c3166ef56c6a1b381b640"
-  integrity sha1-quhY7lefX6jObDFm71bGobOBtkA=
-  dependencies:
-    "@babel/core" "^7.12.3"
-    "@babel/plugin-transform-react-constant-elements" "^7.12.1"
-    "@babel/preset-env" "^7.12.1"
-    "@babel/preset-react" "^7.12.5"
-    "@svgr/core" "^5.5.0"
-    "@svgr/plugin-jsx" "^5.5.0"
-    "@svgr/plugin-svgo" "^5.5.0"
-    loader-utils "^2.0.0"
-
-"@symphony-ui/uitoolkit-styles@1.5.0-SNAPSHOT.3":
-  version "1.5.0-SNAPSHOT.3"
-  resolved "https://registry.yarnpkg.com/@symphony-ui/uitoolkit-styles/-/uitoolkit-styles-1.5.0-SNAPSHOT.3.tgz#7db1750f22c7dd58b12372df65a75981df7beddc"
-  integrity sha512-Mhm4w0jQvxEpV9d6ZNhXioVNJbSjc+t+QyQ6Rk++uXL9hg9mC+opEo+u8BIYZWm7daXH6JxJ0BWnBNq1QOsUUw==
+"@symphony-ui/uitoolkit-styles@1.5.0-rc.1":
+  version "1.5.0-rc.1"
+  resolved "https://registry.yarnpkg.com/@symphony-ui/uitoolkit-styles/-/uitoolkit-styles-1.5.0-rc.1.tgz#d4225ff498a3047376a6ee376b34c25a01134ed4"
+  integrity sha512-l6GZYlLPc218DyAQ5PHo3UcHxYGxRW7lbwgkKgghIXC6AwsD/5j7CvFwuFVtUsRbmV4DWRIOCInNyaUQPwsG9w==
 
 "@testing-library/dom@^7.28.1", "@testing-library/dom@^7.29.0":
   version "7.30.4"
@@ -2808,7 +2794,7 @@
   resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.64.4.tgz#9f11bef7dd5520801884829c73b19d75aa42e73c"
   integrity sha512-VqnlmadGkD5usREvnuyVpWDS1W8f6cCz6MP5fZdgONsaZ9/Ijfb9Iq9MZ5O3bnW1OyJixDX9HtSp3COsFSLD8Q==
   dependencies:
-    "@types/react" "^16"
+    "@types/react" "*"
 
 "@types/react-select@^4.0.11":
   version "4.0.15"
