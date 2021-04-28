@@ -56,6 +56,7 @@ export default class CropContent extends React.Component<CropContentProps> {
     if(e){
       this.containerElRef = e;
       this.mutationObserver.observe(e, {childList:true, subtree:true , characterData:true});
+      this.handleOverflow();
     }
   }
 
