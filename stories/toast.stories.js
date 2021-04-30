@@ -16,8 +16,8 @@ export const Toast = () => {
         <span>Toast<span>
       </div>
       <h3 class="tk-mt-5">With left warning icon</h3>
-      <div id="toast-123456" role="toast" class="tk-toast" position: relative">
-        <i class="tk-icon-alert-triangle tk-toast__icon-left tk-toast__icon-warning"></i>
+      <div id="toast-123456" role="toast" class="tk-toast tk-toast--warning" position: relative">
+        <i class="tk-icon-alert-triangle tk-toast__icon-left"></i>
         <span>Toast<span>
       </div>
       <h3 class="tk-mt-5">With left and right icon</h3>

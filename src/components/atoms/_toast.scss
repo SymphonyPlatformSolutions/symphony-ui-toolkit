@@ -19,7 +19,7 @@
         margin-left: toRem(16);
     }
 
-    &__icon-warning {
-        color: rgba(255, 93, 80, 1);
+    &--warning &__icon-left{
+        color: $--tk-color-error
     }
 }
