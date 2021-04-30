@@ -1,0 +1,23 @@
+$fontSize: 14;
+
+.tk-toast {
+    background-color: rgba(39, 41, 44, 1);
+    border-radius: 16px;
+    color: rgba(241, 241, 243, 1);
+    line-height: toEm(20, $fontSize);
+    padding-bottom: toEm(10, $fontSize);
+    padding-left: toEm(16, $fontSize);
+    padding-right: toEm(16, $fontSize);
+    padding-top: toEm(10, $fontSize);
+    width: fit-content;
+
+    &__icon-left {
+        color: rgba(176, 179, 186, 1);
+        margin-right: toEm(16, $fontSize);
+    }
+
+    &__icon-right {
+        color: rgba(176, 179, 186, 1);
+        margin-left: toEm(16, $fontSize);
+    }
+}
