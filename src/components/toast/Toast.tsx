@@ -25,9 +25,9 @@ export const Toast: React.FC<ToastProps> = ({
   ...otherProps
 }) => {
   return (
-    <p>
-      { 'temporary '}
-    </p>
+    <div className="tk-toast">
+      { text }
+    </div>
   )
 }
   
