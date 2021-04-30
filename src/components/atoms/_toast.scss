@@ -6,12 +6,12 @@
     padding-bottom: toRem(10);
     padding-left: toRem(16);
     padding-right: toRem(16);
-    padding-top: toRem(16);
+    padding-top: toRem(10);
     width: fit-content;
 
     &__icon-left {
         color: rgba(176, 179, 186, 1);
-        margin-right: toEm(16);
+        margin-right: toRem(16);
     }
 
     &__icon-right {
