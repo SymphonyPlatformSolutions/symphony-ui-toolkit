@@ -20,4 +20,8 @@ $fontSize: 14;
         color: rgba(176, 179, 186, 1);
         margin-left: toEm(16, $fontSize);
     }
+
+    &__icon-warning {
+        color: rgba(255, 93, 80, 1);
+    }
 }
