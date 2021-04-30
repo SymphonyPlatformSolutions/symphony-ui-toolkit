@@ -1,7 +1,7 @@
 .tk-toast {
-    background-color: rgba(39, 41, 44, 1);
+    background-color: $scolor-graphite-plus-48;
     border-radius: 16px;
-    color: rgba(241, 241, 243, 1);
+    color: $scolor-graphite-minus-96;
     line-height: toRem(20);
     padding-bottom: toRem(10);
     padding-left: toRem(16);
@@ -10,12 +10,12 @@
     width: fit-content;
 
     &__icon-left {
-        color: rgba(176, 179, 186, 1);
+        color: $scolor-graphite-minus-55;
         margin-right: toRem(16);
     }
 
     &__icon-right {
-        color: rgba(176, 179, 186, 1);
+        color: $scolor-graphite-minus-55;
         margin-left: toRem(16);
     }
 
