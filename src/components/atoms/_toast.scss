@@ -8,6 +8,7 @@
     padding-right: toRem(16);
     padding-top: toRem(10);
     width: fit-content;
+    z-index: $z-index-toast;
 
     &__icon-left {
         color: $scolor-graphite-minus-55;
