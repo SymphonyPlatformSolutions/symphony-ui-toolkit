@@ -12,7 +12,8 @@ export interface ToastProps extends React.HTMLProps<HTMLDivElement> {
     className?: string;
     closeIcon?: boolean;
     icon?: string;
-    onClickClose?: () => void;
+    /** Function to call on close action */
+    onClickClose: () => void;
     message?: string;
     placement?: Placement;
     show: boolean;

@@ -34,15 +34,14 @@ export default {
 const Template = (args) => {
   const { placement, ...restArgs } = args;
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [showToast, setShowToast] = useState(args.show);
+  const [showToast, setShowToast] = useState(true);
 
-  const handleClick = () => {
-    console.log('clicked!!')
+  const onClickClose = () => {
     setShowToast(!showToast);
   };
 
   return <Toast
-    onClickClose={ handleClick }
+    onClickClose={ onClickClose }
     placement={ JSON.parse(placement) }
     show={ showToast }
     {...restArgs}
