@@ -37,7 +37,7 @@ In some cases (depending on your bundling solution) you might need to indicate t
 
 ## Link
 
-To work locally with uitoolkit-styles, please change the following value
+To work locally with uitoolkit-styles, e.g. `yarn link`, please change the following value
 
 path: `src/icons/_index.scss`
 ```bash
