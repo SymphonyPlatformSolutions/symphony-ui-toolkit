@@ -3,9 +3,9 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-interface Position {
-    x: 'left' | 'center' | 'right';
-    y: 'top' | 'center' | 'bottom';
+interface Placement {
+    horizontal: 'left' | 'center' | 'right';
+    vertical: 'top' | 'center' | 'bottom';
 }
 
 export interface ToastProps extends React.HTMLProps<HTMLDivElement> {
@@ -13,7 +13,7 @@ export interface ToastProps extends React.HTMLProps<HTMLDivElement> {
     closeIcon?: string;
     icon?: string;
     message?: string;
-    position?: Position;
+    placement?: Placement;
     show: boolean;
 }
   
@@ -22,10 +22,11 @@ export const Toast: React.FC<ToastProps> = ({
   closeIcon,
   icon,
   message,
-  position,
+  placement,
   show,
   ...otherProps
 }) => {
+
   if(!show) {
     return null
   }
@@ -35,8 +36,18 @@ export const Toast: React.FC<ToastProps> = ({
     // Probably
   }
 
+  // As you cannot apply multiple transforms there's one special case where if both vertical and horizontal are centered
+  const xyCentered = placement.horizontal === 'center' && placement.vertical === 'center';
+
   return (
-    <div className={classNames('tk-toast', className)}>
+    <div className={classNames(
+      'tk-toast',
+      className,
+      { ['tk-toast__vertical-horizontal-center'] : xyCentered,
+        [`tk-toast__horizontal-${placement.horizontal}`]: !xyCentered,
+        [`tk-toast__vertical-${placement.vertical}`]: !xyCentered
+      }
+    )}>
       { message ? <>
         { icon && <i
           className={classNames('tk-toast__icon-left', icon )}
@@ -51,12 +62,19 @@ export const Toast: React.FC<ToastProps> = ({
     </div>
   )
 }
+
+Toast.defaultProps = {
+  placement: {
+    horizontal: 'center',
+    vertical: 'center'
+  }
+}
   
 Toast.propTypes = {
   className: PropTypes.string,
   closeIcon: PropTypes.string,
   icon: PropTypes.string,
   message: PropTypes.string,
-  position: PropTypes.any,
+  placement: PropTypes.any,
   show: PropTypes.bool,
 };
