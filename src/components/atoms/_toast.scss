@@ -3,10 +3,8 @@
     border-radius: 16px;
     color: $scolor-graphite-minus-96;
     line-height: toRem(20);
-    padding-bottom: toRem(10);
-    padding-left: toRem(16);
-    padding-right: toRem(16);
-    padding-top: toRem(10);
+    padding: toRem(10) toRem(16) toRem(10) toRem(16);
+    position: absolute;
     width: fit-content;
     z-index: $z-index-toast;
 
@@ -22,5 +20,38 @@
 
     &--warning &__icon-left{
         color: $--tk-color-error
+    }
+
+    &__horizontal-center {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    &__horizontal-left {
+        left: 16px;
+    }
+
+    &__horizontal-right {
+        right: 16px;
+    }
+
+    &__vertical-bottom {
+        bottom: 16px;
+    }
+
+    &__vertical-center {
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    
+    &__vertical-top {
+        top: 16px;
+    }
+
+    // As you cannot apply multiple transforms there's one special case where if both vertical and horizontal are centered
+    &__vertical-horizontal-center {
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
     }
 }
