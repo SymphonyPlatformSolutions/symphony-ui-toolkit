@@ -4,7 +4,6 @@
     color: $scolor-graphite-minus-96;
     line-height: toRem(20);
     padding: toRem(10) toRem(16) toRem(10) toRem(16);
-    position: absolute;
     width: fit-content;
     z-index: $z-index-toast;
 
@@ -27,27 +26,33 @@
 
     &__horizontal-center {
         left: 50%;
+        position: absolute;
         transform: translateX(-50%);
     }
 
     &__horizontal-left {
         left: 16px;
+        position: absolute;
     }
 
     &__horizontal-right {
         right: 16px;
+        position: absolute;
     }
 
     &__vertical-bottom {
         bottom: 16px;
+        position: absolute;
     }
 
     &__vertical-center {
+        position: absolute;
         top: 50%;
         transform: translateY(-50%);
     }
     
     &__vertical-top {
+        position: absolute;
         top: 16px;
     }
 
@@ -57,6 +62,7 @@
     */
     &__vertical-horizontal-center {
         left: 50%;
+        position: absolute;
         top: 50%;
         transform: translate(-50%, -50%);
     }
