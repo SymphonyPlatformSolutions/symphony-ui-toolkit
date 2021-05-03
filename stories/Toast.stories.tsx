@@ -14,13 +14,13 @@ export default {
     ),
   ],
   argTypes: {
+    children: { control: { disable: true } },
     placement: {
       control: {
         type: 'inline-radio',
         options: ['top', 'right', 'bottom', 'left'],
       },
     },
-    children: { control: { disable: true } },
   },
 };
 
@@ -44,10 +44,9 @@ const addExplanation = (explanation) => (Story) => (
 export const Standard = Template.bind({});
 
 Standard.args = {
-  children: <input type="text" name="fname" />,
-  description: 'Some text',
-  placement: 'top',
-  visible: true,
+  message: 'Some text',
+  placement: { x: 'center', y: 'center' },
+  show: true,
 };
 
 export const WithACloseAction = Template.bind({});
