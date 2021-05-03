@@ -10,8 +10,9 @@ interface Placement {
 
 export interface ToastProps extends React.HTMLProps<HTMLDivElement> {
     className?: string;
-    closeIcon?: string;
+    closeIcon?: boolean;
     icon?: string;
+    onClickClose?: () => void;
     message?: string;
     placement?: Placement;
     show: boolean;
@@ -22,6 +23,7 @@ export const Toast: React.FC<ToastProps> = ({
   closeIcon,
   icon,
   message,
+  onClickClose,
   placement,
   show,
   ...otherProps
@@ -29,11 +31,6 @@ export const Toast: React.FC<ToastProps> = ({
 
   if(!show) {
     return null
-  }
-
-  const clickClose = () => {
-    // Close the Toast
-    // Probably
   }
 
   // As you cannot apply multiple transforms there's one special case where if both vertical and horizontal are centered
@@ -55,7 +52,7 @@ export const Toast: React.FC<ToastProps> = ({
         { message }
         { closeIcon && <i
           className="tk-icon-cross tk-toast__icon-right"
-          onClick={clickClose}
+          onClick={ onClickClose }
         />}
       </>
         : otherProps.children }
@@ -72,9 +69,10 @@ Toast.defaultProps = {
   
 Toast.propTypes = {
   className: PropTypes.string,
-  closeIcon: PropTypes.string,
+  closeIcon: PropTypes.bool,
   icon: PropTypes.string,
   message: PropTypes.string,
+  onClickClose: PropTypes.func,
   placement: PropTypes.any,
   show: PropTypes.bool,
 };
