@@ -57,8 +57,8 @@
     }
 
     /*
-    * As you cannot apply multiple transforms there's a special case when both horizontal and vertical is centered,
-    * that needs to be harcdoded.
+    * There's a special case when both horizontal and vertical is centered that needs to be harcdoded,
+    * as it's not possible to apply multiple transforms.
     */
     &__vertical-horizontal-center {
         left: 50%;
