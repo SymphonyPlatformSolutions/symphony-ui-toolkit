@@ -16,6 +16,9 @@
     &__icon-right {
         color: $scolor-graphite-minus-55;
         margin-left: toRem(16);
+        &:hover {
+            cursor: pointer;
+        }
     }
 
     &--warning &__icon-left{
@@ -48,7 +51,10 @@
         top: 16px;
     }
 
-    // As you cannot apply multiple transforms there's one special case where if both vertical and horizontal are centered
+    /*
+    * As you cannot apply multiple transforms there's a special case when both horizontal and vertical is centered,
+    * that needs to be harcdoded.
+    */
     &__vertical-horizontal-center {
         left: 50%;
         top: 50%;
