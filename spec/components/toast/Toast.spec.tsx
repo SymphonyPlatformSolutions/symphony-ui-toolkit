@@ -4,7 +4,7 @@ import { render, screen, waitForElementToBeRemoved } from '@testing-library/reac
 import { Toast } from '../../../src/components/toast';
 import expect from 'expect'
 
-describe.only('Tooltip', () => {
+describe('Toast', () => {
 
   let closeIcon: boolean;
   let icon: string;
