@@ -31,17 +31,17 @@
     }
 
     &__horizontal-left {
-        left: 16px;
+        left: toRem(16);
         position: absolute;
     }
 
     &__horizontal-right {
-        right: 16px;
+        right: toRem(16);
         position: absolute;
     }
 
     &__vertical-bottom {
-        bottom: 16px;
+        bottom: toRem(16);
         position: absolute;
     }
 
@@ -53,11 +53,11 @@
     
     &__vertical-top {
         position: absolute;
-        top: 16px;
+        top: toRem(16);
     }
 
     /*
-    * There's a special case when both horizontal and vertical is centered that needs to be harcdoded,
+    * There's a special case when both horizontal and vertical is centered that needs to be hardcoded,
     * as it's not possible to apply multiple transforms.
     */
     &__vertical-horizontal-center {
