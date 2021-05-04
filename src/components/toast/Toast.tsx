@@ -9,17 +9,17 @@ interface Placement {
     vertical: 'top' | 'center' | 'bottom';
 }
 
-export interface ToastProps extends React.HTMLProps<HTMLDivElement> {
+export interface ToastProps extends Omit<React.HTMLProps<HTMLDivElement>, 'children' | 'content'> {
     /** Optional CSS class name */
     className?: string;
     /** If true, close icon will be placed to the right */
     closeIcon?: boolean;
+    /** Content of the Toast */
+    content: string | JSX.Element;
     /** If set, icon will be placed to the left */
     leftIcon?: string;
     /** Function to call on close action */
     onClickClose?: () => void;
-    /** Content of the Toast */
-    message?: string | JSX.Element;
     /** Placement of Toast, relative to parent container */
     placement: Placement;
     /** If Toast should be shown or not */
@@ -29,8 +29,8 @@ export interface ToastProps extends React.HTMLProps<HTMLDivElement> {
 export const Toast: React.FC<ToastProps> = ({
   className,
   closeIcon,
+  content,
   leftIcon,
-  message,
   onClickClose,
   placement,
   show,
@@ -60,7 +60,7 @@ export const Toast: React.FC<ToastProps> = ({
         className="tk-toast__icon-left"
         iconName={ leftIcon }
       /> }
-      { message }
+      { content }
       { closeIcon && <i
         className="tk-icon-cross tk-toast__icon-right"
         onClick={ onClickClose }
@@ -80,8 +80,8 @@ Toast.defaultProps = {
 Toast.propTypes = {
   className: PropTypes.string,
   closeIcon: PropTypes.bool,
+  content: PropTypes.oneOfType([PropTypes.string, PropTypes.element]).isRequired,
   leftIcon: PropTypes.string,
-  message: PropTypes.oneOfType([PropTypes.string, PropTypes.element]).isRequired,
   onClickClose: PropTypes.func,
   placement: PropTypes.any,
   show: PropTypes.bool.isRequired,

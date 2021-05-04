@@ -13,7 +13,6 @@ export default {
     ),
   ],
   argTypes: {
-    children: { control: { disable: true } },
     placement: {
       control: { type: 'select' },
       options: [
@@ -51,8 +50,8 @@ const Template = (args) => {
 export const Standard = Template.bind({});
 Standard.args = {
   closeIcon: true,
-  icon: 'tk-icon-alert-triangle',
-  message: 'Some text',
+  content: 'Some text',
+  leftIcon: 'alert-triangle',
   onClickClose: () => { return },
   placement: JSON.stringify({ horizontal: 'center', vertical: 'center' }),
   show: true,
@@ -61,14 +60,14 @@ Standard.args = {
 export const WithoutIcons = Template.bind({});
 WithoutIcons.args = {
   closeIcon: false,
-  message: 'Some text',
+  content: 'Some text',
   placement: JSON.stringify({ horizontal: 'center', vertical: 'center' }),
   show: true,
 };
 
-export const CustomChild = Template.bind({});
-CustomChild.args = {
-  children: <input type="text" name="fname" />,
+export const InputToast = Template.bind({});
+InputToast.args = {
+  content: <input type="text" name="fname" />,
   placement: JSON.stringify({ horizontal: 'center', vertical: 'center' }),
   show: true,
 };

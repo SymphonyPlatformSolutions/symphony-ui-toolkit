@@ -7,8 +7,8 @@ import expect from 'expect'
 describe('Toast', () => {
 
   let closeIcon: boolean;
-  let icon: string;
-  let message: string;
+  let content: JSX.Element | string;
+  let leftIcon: string;
   let onClickClose: () => void;
   let placement: {
       horizontal: 'center' | 'left' | 'right';
@@ -18,8 +18,8 @@ describe('Toast', () => {
 
   beforeEach(() => {
     closeIcon = true;
-    icon = 'tk-icon-alert-triangle';
-    message = 'Some text';
+    leftIcon = 'alert-triangle';
+    content = 'Some text';
     onClickClose = () => null;
     placement = {
       horizontal: 'center',
@@ -34,8 +34,8 @@ describe('Toast', () => {
     render(
       <Toast
         closeIcon={closeIcon}
-        icon={icon}
-        message={message}
+        leftIcon={leftIcon}
+        content={content}
         onClickClose={ onClickClose }
         placement={placement}
         show={show}
@@ -52,8 +52,8 @@ describe('Toast', () => {
     render(
       <Toast
         closeIcon={closeIcon}
-        icon={icon}
-        message={message}
+        leftIcon={leftIcon}
+        content={content}
         onClickClose={ onClickClose }
         placement={placement}
         show={show}
@@ -70,11 +70,11 @@ describe('Toast', () => {
       show = !show;
     }
 
-    const component = render(
+    const { container, rerender } = render(
       <Toast
         closeIcon={closeIcon}
-        icon={icon}
-        message={message}
+        leftIcon={leftIcon}
+        content={content}
         onClickClose={ onClickClose }
         placement={placement}
         show={show}
@@ -83,13 +83,22 @@ describe('Toast', () => {
 
     screen.getByText('Some text')
 
-    const close = component.container.querySelector('.tk-icon-cross')
+    const close = container.querySelector('.tk-icon-cross')
     userEvent.click(close)
 
-    await waitForElementToBeRemoved(() => screen.getByText('Some text'))
+    rerender(
+      <Toast
+        closeIcon={closeIcon}
+        leftIcon={leftIcon}
+        content={content}
+        onClickClose={ onClickClose }
+        placement={placement}
+        show={show}
+      />
+    )
 
-    // const elements = screen.queryAllByText('Some text')
-    // expect(elements.length).toBe(0)
+    const elements = screen.queryAllByText('Some text')
+    expect(elements.length).toBe(0)
   })
 
 });
