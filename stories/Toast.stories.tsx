@@ -32,7 +32,6 @@ export default {
 
 const Template = (args) => {
   const { placement, ...restArgs } = args;
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [showToast, setShowToast] = useState(true);
 
   const onClickClose = () => {
