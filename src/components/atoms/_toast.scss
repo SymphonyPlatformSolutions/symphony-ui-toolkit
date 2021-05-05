@@ -1,0 +1,69 @@
+.tk-toast {
+    background-color: $scolor-graphite-plus-48;
+    border-radius: 8px;
+    color: $scolor-graphite-minus-96;
+    line-height: toRem(20);
+    padding: toRem(10) toRem(16) toRem(10) toRem(16);
+    width: fit-content;
+    z-index: $z-index-toast;
+
+    &__icon-left {
+        color: $scolor-graphite-minus-55;
+        margin-right: toRem(16);
+    }
+
+    &__icon-right {
+        color: $scolor-graphite-minus-55;
+        margin-left: toRem(16);
+        &:hover {
+            cursor: pointer;
+        }
+    }
+
+    &--warning &__icon-left{
+        color: $--tk-color-error
+    }
+
+    &__horizontal-center {
+        left: 50%;
+        position: absolute;
+        transform: translateX(-50%);
+    }
+
+    &__horizontal-left {
+        left: toRem(16);
+        position: absolute;
+    }
+
+    &__horizontal-right {
+        right: toRem(16);
+        position: absolute;
+    }
+
+    &__vertical-bottom {
+        bottom: toRem(16);
+        position: absolute;
+    }
+
+    &__vertical-center {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    
+    &__vertical-top {
+        position: absolute;
+        top: toRem(16);
+    }
+
+    /*
+    * There's a special case when both horizontal and vertical is centered that needs to be hardcoded,
+    * as it's not possible to apply multiple transforms.
+    */
+    &__vertical-horizontal-center {
+        left: 50%;
+        position: absolute;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+}
