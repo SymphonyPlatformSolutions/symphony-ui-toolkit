@@ -100,6 +100,7 @@ const TextComponent: React.FC<
       onClick,
       onFocus,
       onKeyDown,
+      onValidationChanged,
       ...rest
     },
     ref
