@@ -59,3 +59,4 @@ export * from './nav';
 export * from './time-picker';
 export * from './scale';
 export * from './avatar';
+export * from './toast'
