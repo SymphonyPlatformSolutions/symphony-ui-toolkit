@@ -149,7 +149,7 @@ class DayPicker extends React.Component<
               }
             });
           } else {
-            // when called through HOME/END navigation
+            // when called through ARROWS navigation
             this.focusCell(getBoundedDay(startOfMonth(date), date, locale));
           }
         }
@@ -321,14 +321,10 @@ class DayPicker extends React.Component<
   }
 
   renderOutsideDay(days: number): JSX.Element[] {
-    const { locale } = this.props;
-    const { currentMonth } = this.state;
     return toArray(days).map((cell) => {
-      const cellName = formatDay(setDate(currentMonth, cell + 1), locale);
       return (
         <div
-          key={cellName}
-          aria-label={cellName}
+          key={`day-outside-${cell}`}
           aria-selected="false"
           className="tk-daypicker-day--outside"
           tabIndex={-1}
