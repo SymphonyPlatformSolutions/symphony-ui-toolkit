@@ -7,6 +7,12 @@ import DayPicker from '../../../src/components/date-picker/sub-component/DayPick
 import TextField from '../../../src/components/input/TextField';
 import Icon from '../../../src/components/icon/Icon';
 
+import {
+  render,
+  screen,
+  fireEvent,
+} from '@testing-library/react';
+
 import { Keys } from '../../../src/components/common/keyUtils';
 
 describe('DatePicker Component', () => {
@@ -37,6 +43,7 @@ describe('DatePicker Component', () => {
       todayButton: 'Today',
       tooltip: 'Departure date',
       showOverlay: false,
+      onInit: jest.fn(),
       onBlur: jest.fn(),
       onChange: jest.fn(),
       onValidationChanged: jest.fn(),
@@ -272,5 +279,54 @@ describe('DatePicker Component', () => {
     expect(props.onChange).toHaveBeenCalledTimes(0);
     (wrapper.instance() as DatePicker).reset(props.date);
     expect(props.onChange).toHaveBeenCalledTimes(1);
+  });
+  describe('should handle TAB event against the icon', () => {
+    it('on first day of the month if the value is null', async () => {
+      const props = createTestProps({ showOverlay: true, date: null });
+      render(<DatePicker {...props} />);
+      const icon = document.querySelector('.tk-icon-calendar');
+      fireEvent.keyDown(icon, { key: Keys.TAB });
+
+      const focusedCell = screen.getByText('1');
+      expect(document.activeElement).toEqual(focusedCell);
+      
+      fireEvent.keyDown(icon, { key: '1' }); // type something that trigger nothing
+      expect(document.activeElement).toEqual(focusedCell);
+    });
+    it('on value if not null', async () => {
+      const props = createTestProps({ showOverlay: true });
+      render(<DatePicker {...props} />);
+      const icon = document.querySelector('.tk-icon-calendar');
+      fireEvent.keyDown(icon, { key: Keys.TAB });
+
+      const focusedCell = screen.getByText(`${props.date.getDate()}`);
+      expect(document.activeElement).toEqual(focusedCell);
+
+    });
+  });
+  it('should handle Enter and default keydown', async () => {
+    const props = createTestProps({ });
+    render(<DatePicker {...props} />);
+    const input = screen.getByRole('textbox');
+    fireEvent.keyDown(input, { key: Keys.ENTER });
+    fireEvent.keyDown(input, { key: 'a' }); // type something that trigger nothing
+
+    const calendar = screen.getByRole('tooltip');
+    expect(calendar).toBeTruthy();
+  });
+
+  it('should handle a value null event', () => {
+    const props = createTestProps({ });
+    render(<DatePicker {...props} />);
+    const input = screen.getByRole('textbox');
+    fireEvent.change(input, { target: { value:  null } })
+    expect(props.onChange).toHaveBeenCalledWith({ target: { value:  null }});
+  });
+  it('should call onBlur when click outside', () => {
+    const props = createTestProps({ showOverlay: true, date: new Date(2020, 0, 1) });
+    render(<><div>outside</div><DatePicker {...props} /></>);
+    expect(props.onBlur).toHaveBeenCalledTimes(0);
+    fireEvent.mouseDown(screen.getByText('outside'))
+    expect(props.onBlur).toHaveBeenCalledTimes(1);
   });
 });

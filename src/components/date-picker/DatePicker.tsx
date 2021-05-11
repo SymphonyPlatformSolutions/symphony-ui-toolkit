@@ -114,7 +114,7 @@ class DatePicker extends Component<
     name: PropTypes.string,
     onInit: PropTypes.func,
     onBlur: PropTypes.func,
-    onChange: PropTypes.func.isRequired,
+    onChange: PropTypes.func,
     onValidationChanged: PropTypes.func,
     placeholder: PropTypes.string,
     placement: PropTypes.oneOf(['top', 'bottom', 'right', 'left']),
