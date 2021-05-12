@@ -68,7 +68,7 @@ const TextComponentPropTypes = {
   onClick: PropTypes.func,
   onFocus: PropTypes.func,
   onKeyDown: PropTypes.func,
-  tooltip: PropTypes.string,
+  tooltip: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   tooltipCloseLabel: PropTypes.string,
   value: PropTypes.string,
   showRequired: PropTypes.bool,
