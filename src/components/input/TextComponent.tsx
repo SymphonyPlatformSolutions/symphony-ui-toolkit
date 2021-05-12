@@ -114,9 +114,11 @@ const TextComponent: React.FC<
     }, []);
 
     // Generate unique ID if not provided
-    const ariaId = useMemo(() => {
-      return id || `hint-${shortid.generate()}`;
+    const inputId = useMemo(() => {
+      return id || `tk-input-${shortid.generate()}`;
     }, [id]);
+
+    const tooltipId = useMemo(()=> (`tk-hint-${shortid.generate()}`),[]);
 
     const handleViewText = (event) => {
       if (disabled) return;
@@ -139,7 +141,8 @@ const TextComponent: React.FC<
         })}
       >
         <LabelTooltipDecorator
-          id={ariaId}
+          id={tooltipId}
+          htmlFor={inputId}
           label={label}
           placement={'top'}
           tooltip={tooltip}
@@ -152,10 +155,10 @@ const TextComponent: React.FC<
           })}
         >
           <TagName
-            id={id}
+            id={inputId}
             ref={ref}
             aria-autocomplete="none"
-            aria-describedby={tooltip && ariaId}
+            aria-describedby={tooltip && tooltipId}
             aria-label={label}
             aria-placeholder={placeholder}
             aria-readonly={disabled}

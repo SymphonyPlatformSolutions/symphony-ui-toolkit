@@ -8,6 +8,7 @@ import classNames from 'classnames';
 
 type LabelTooltipDecoratorProps = {
   id?: string;
+  htmlFor?: string;
   label?: string;
   placement?: 'top' | 'bottom' | 'right' | 'left';
   tooltip?: string | JSX.Element;
@@ -27,6 +28,7 @@ const LabelTooltipDecoratorTooltip = styled.div`
 `;
 const LabelTooltipDecoratorPropTypes = {
   id: PropTypes.string,
+  htmlFor: PropTypes.string,
   label: PropTypes.string,
   tooltip: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   tooltipCloseLabel: PropTypes.string,
@@ -34,6 +36,7 @@ const LabelTooltipDecoratorPropTypes = {
 
 const LabelTooltipDecorator: React.FC<LabelTooltipDecoratorProps> = ({
   id,
+  htmlFor,
   label,
   placement,
   tooltip,
@@ -50,7 +53,7 @@ const LabelTooltipDecorator: React.FC<LabelTooltipDecoratorProps> = ({
   return label || tooltip ? (
     <LabelTooltipDecoratorHeader className="tk-input-group__header">
       {label ? (
-        <label className={classes} htmlFor={id}>
+        <label className={classes} htmlFor={htmlFor}>
           {label}
         </label>
       ) : null}

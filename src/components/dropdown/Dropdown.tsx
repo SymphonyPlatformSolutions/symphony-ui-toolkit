@@ -263,7 +263,7 @@ export class Dropdown<T = LabelValue> extends React.Component<
     return (
       <div>
         <LabelTooltipDecorator
-          id={id}
+          htmlFor={id}
           label={label}
           placement={'top'}
           tooltip={tooltip}

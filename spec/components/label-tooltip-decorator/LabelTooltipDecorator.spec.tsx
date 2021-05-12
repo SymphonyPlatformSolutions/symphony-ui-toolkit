@@ -17,9 +17,9 @@ describe('LabelTooltipDecorator Component', () => {
     });
     it('should display a label if provided', () => {
       const id = 'textfield-1234567890';
-      let wrapper = shallow(<LabelTooltipDecorator />);
+      let wrapper = shallow(<LabelTooltipDecorator/>);
       expect(wrapper.find('label.tk-label').length).toBe(0);
-      wrapper = shallow(<LabelTooltipDecorator label="LABEL" id={id} />);
+      wrapper = shallow(<LabelTooltipDecorator label="LABEL" htmlFor={id} />);
       expect(wrapper.find('label.tk-label').text()).toEqual('LABEL');
       expect(wrapper.find(`label[htmlFor="${id}"]`)).toHaveLength(1);
     });

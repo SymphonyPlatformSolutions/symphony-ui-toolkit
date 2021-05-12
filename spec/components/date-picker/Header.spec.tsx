@@ -1,9 +1,16 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 
+import {
+  render,
+  screen,
+  fireEvent,
+} from '@testing-library/react';
+
 import { Keys } from '../../../src/components/common/keyUtils';
 
 import Header from '../../../src/components/date-picker/sub-component/Header';
+
 
 describe('Header Component', () => {
   afterEach(() => {
@@ -91,23 +98,19 @@ describe('Header Component', () => {
 
   it('should navigation loop', () => {
     const props = createTestProps({});
-    const wrapper = shallow(<Header {...props} />);
-    wrapper
-      .find('.tk-daypicker-header--prevYear')
-      .simulate('keyDown', {
-        key: Keys.TAB,
-        preventDefault: jest.fn(),
-        stopPropagation: jest.fn(),
-      });
-    wrapper
-      .find('.tk-daypicker-header--prevYear')
-      .simulate('keyDown', {
-        key: Keys.TAB,
-        shiftKey: true,
-        preventDefault: jest.fn(),
-        stopPropagation: jest.fn(),
-      });
-    // expect(...);
+    render(<Header {...props} />);
+    const prevYearBtn = screen.getByLabelText(props.labels.previousYear)
+    fireEvent.keyDown(prevYearBtn, { key: Keys.TAB })
+    // expect(document.activeElement).toBe(...);
+    fireEvent.keyDown(prevYearBtn, { key: Keys.TAB, shiftKey: true })
+    // expect(document.activeElement).toBe(...);
+  });
+
+  it('should not crash with no parentRef', () => {
+    const props = createTestProps({ parentRef: undefined });
+    render(<Header {...props} />);
+    const prevYearBtn = screen.getByLabelText(props.labels.previousYear)
+    fireEvent.keyDown(prevYearBtn, { key: Keys.TAB })
   });
 
   it('should trigger onChange', () => {
