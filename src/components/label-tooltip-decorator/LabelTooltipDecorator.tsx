@@ -11,7 +11,7 @@ type LabelTooltipDecoratorProps = {
   htmlFor?: string;
   label?: string;
   placement?: 'top' | 'bottom' | 'right' | 'left';
-  tooltip?: string;
+  tooltip?: string | JSX.Element;
   tooltipCloseLabel?: string;
   showRequired?: boolean;
 };
@@ -30,7 +30,7 @@ const LabelTooltipDecoratorPropTypes = {
   id: PropTypes.string,
   htmlFor: PropTypes.string,
   label: PropTypes.string,
-  tooltip: PropTypes.string,
+  tooltip: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   tooltipCloseLabel: PropTypes.string,
 };
 
