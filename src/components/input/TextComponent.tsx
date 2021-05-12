@@ -21,7 +21,7 @@ export type InputBaseProps = {
 
 type TextComponentProps = {
   /** React Element to display inside the Field, on the right side */
-  rightDecorators?: JSX.Element[];
+  rightDecorators?: JSX.Element | JSX.Element[];
   className?: string;
   disabled?: boolean;
   /** React Element to display inside the Field, on the left side */
@@ -53,7 +53,10 @@ export const InputBasePropTypes = {
 };
 
 const TextComponentPropTypes = {
-  rightDecorators: PropTypes.array,
+  rightDecorators: PropTypes.oneOfType([
+    PropTypes.element,
+    PropTypes.arrayOf(PropTypes.element),
+  ]),
   className: PropTypes.string,
   disabled: PropTypes.bool,
   id: PropTypes.string,
@@ -76,7 +79,7 @@ const TextComponentPropTypes = {
 
 const TextComponent: React.FC<
   TextComponentPropsWithType &
-    React.RefAttributes<HTMLInputElement | HTMLTextAreaElement>
+  React.RefAttributes<HTMLInputElement | HTMLTextAreaElement>
 > = React.forwardRef(
   (
     {
@@ -118,7 +121,7 @@ const TextComponent: React.FC<
       return id || `tk-input-${shortid.generate()}`;
     }, [id]);
 
-    const tooltipId = useMemo(()=> (`tk-hint-${shortid.generate()}`),[]);
+    const tooltipId = useMemo(() => `tk-hint-${shortid.generate()}`, []);
 
     const handleViewText = (event) => {
       if (disabled) return;
@@ -185,7 +188,9 @@ const TextComponent: React.FC<
           />
 
           {rightDecorators && type == Types.TEXTFIELD
-            ? rightDecorators.map((decorator) => decorator)
+            ? Array.isArray(rightDecorators)
+              ? rightDecorators.map((decorator) => decorator)
+              : rightDecorators
             : null}
           {type == Types.TEXTFIELD && masked && value?.length ? (
             <button

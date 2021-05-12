@@ -1,7 +1,10 @@
 import { shallow, mount } from 'enzyme';
 import * as React from 'react';
 
-import { TextComponent, Types } from '../../../src/components/input/TextComponent';
+import {
+  TextComponent,
+  Types,
+} from '../../../src/components/input/TextComponent';
 
 import Icon from '../../../src/components/icon/Icon';
 
@@ -12,8 +15,13 @@ describe('TextComponent Component', () => {
     });
 
     it('render a TextField with default props and initial value and test if a input html tag is used', () => {
+      const onChange = jest.fn();
       const wrapper = shallow(
-        <TextComponent type={Types.TEXTFIELD} value="Test" />
+        <TextComponent
+          type={Types.TEXTFIELD}
+          value="Test"
+          onChange={onChange}
+        />
       );
       expect(wrapper.length).toEqual(1);
       expect(wrapper.hasClass('tk-input-group')).toBe(true);
@@ -21,8 +29,9 @@ describe('TextComponent Component', () => {
       expect(wrapper.find('input.tk-input').prop('value')).toEqual('Test');
     });
     it('render a TextArea with default props and initial value and test if a textarea html tag is used', () => {
+      const onChange = jest.fn();
       const wrapper = shallow(
-        <TextComponent type={Types.TEXTAREA} value="Test" />
+        <TextComponent type={Types.TEXTAREA} value="Test" onChange={onChange} />
       );
       expect(wrapper.length).toEqual(1);
       expect(wrapper.hasClass('tk-input-group')).toBe(true);
@@ -48,9 +57,51 @@ describe('TextComponent Component', () => {
       expect(wrapper.find(`label[htmlFor="${id}"]`)).toHaveLength(1);
       wrapper.unmount();
     });
+    it('should display a decorator if provided', () => {
+      const decoratorName = 'copy';
+      let wrapper = mount(<TextComponent type={Types.TEXTFIELD} />);
+      expect(wrapper.find('label.tk-label').length).toBe(0);
+      wrapper = mount(
+        <TextComponent
+          type={Types.TEXTFIELD}
+          rightDecorators={<button>{decoratorName}</button>}
+        />
+      );
+      expect(wrapper.find('button').text()).toEqual(decoratorName);
+      wrapper.unmount();
+    });
+
+    it('should display multiple decorators if provided', () => {
+      const decoratorId1 = 'decor1';
+      const decoratorId2 = 'decor2';
+      const decoratorName1 = 'copy';
+      const decoratorName2 = 'search';
+      let wrapper = mount(<TextComponent type={Types.TEXTFIELD} />);
+      expect(wrapper.find('label.tk-label').length).toBe(0);
+      wrapper = mount(
+        <TextComponent
+          type={Types.TEXTFIELD}
+          rightDecorators={[
+            <button id={decoratorId1} key="decorator-1">
+              {decoratorName1}
+            </button>,
+            <button id={decoratorId2} key="decorator-2">
+              {decoratorName2}
+            </button>,
+          ]}
+        />
+      );
+      expect(wrapper.find(`button#${decoratorId1}`).text()).toEqual(
+        decoratorName1
+      );
+      expect(wrapper.find(`button#${decoratorId2}`).text()).toEqual(
+        decoratorName2
+      );
+      wrapper.unmount();
+    });
     it('should have the style --required if showRequired is provided', () => {
       const wrapper = mount(
-        <TextComponent type={Types.TEXTFIELD} label="LABEL" showRequired/>
+        <TextComponent type={Types.TEXTFIELD} label="LABEL" showRequired />
       );
       expect(wrapper.find('label.tk-label--required').length).toBe(1);
     });
@@ -58,6 +109,7 @@ describe('TextComponent Component', () => {
       const id = 'textfield-1234567890';
       const tooltipText = 'Tooltip';
       const tooltipCloseLabel = 'Close';
+      const onChange = jest.fn();
       let wrapper = mount(<TextComponent type={Types.TEXTFIELD} />);
       expect(wrapper.find('Icon').length).toBe(0);
       wrapper = mount(
@@ -68,16 +120,19 @@ describe('TextComponent Component', () => {
           tooltipCloseLabel={tooltipCloseLabel}
           placeholder="Firstname"
           value="Lorem"
+          onChange={onChange}
         />
       );
       expect(wrapper.find('Icon').length).toBe(1);
       expect(wrapper.find('Icon').prop('iconName')).toBeDefined();
       expect(wrapper.find('LabelTooltipDecorator').length).toBe(1);
       expect(wrapper.find('LabelTooltipDecorator').prop('id')).toBeDefined();
-      expect(wrapper.find('LabelTooltipDecorator').prop('tooltip')).toEqual(tooltipText);
-      expect(wrapper.find('LabelTooltipDecorator').prop('tooltipCloseLabel')).toEqual(
-        tooltipCloseLabel
+      expect(wrapper.find('LabelTooltipDecorator').prop('tooltip')).toEqual(
+        tooltipText
       );
+      expect(
+        wrapper.find('LabelTooltipDecorator').prop('tooltipCloseLabel')
+      ).toEqual(tooltipCloseLabel);
       wrapper.unmount();
     });
     describe('should handle icon props', () => {
