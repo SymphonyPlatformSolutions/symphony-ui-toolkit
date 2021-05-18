@@ -23,7 +23,14 @@ const personSelectorOptions: DropdownOption<Person>[] = [
       { label: 'Hugo Svein', value: '4' , name: 'a'},
       { label: 'Alena Fedrick', value: '5', name: 'a' },
       { label: 'Philip Earl', value: '6' , name: 'a'},
-      { label: 'Junita Torrey', value: '7', name: 'a' }
+      { label: 'Junita Torrey2', value: '7', name: 'a' },
+      { label: 'Alena Fedrick2', value: '8', name: 'a' },
+      { label: 'Philip Earl2', value: '9' , name: 'a'},
+      { label: 'Junita Torrey Long description Very long description. ', value: '10', name: 'a' }, 
+      { label: 'Emma Jones', value: '11', name: 'a' },
+      { label: 'Mehmet Guest2', value: '12', name: 'a' },
+      { label: 'Charleigh Whitworth2', value: '13', name: 'a' },
+      { label: 'Hugo Svein2', value: '14' , name: 'a'},
     ]
   }
 ];
@@ -160,6 +167,8 @@ export const Select: React.FC = () => (
     <h2 className="tk-mt-5h">MultiSelect</h2>
     <p>The Dropdown component can handle multiple selections. It is enabled with the <Typography variant="bold">isMultiSelect</Typography> prop:</p>
     <Dropdown options={personSelectorOptions} isMultiSelect placeHolder="Search for People" isInputClearable/>
+    <p>With the <Typography variant="bold">maxSelectHeight</Typography> prop you can control the height of the multiple selection before scrolling on the input.</p>
+    <Dropdown options={personSelectorOptions} isMultiSelect maxSelectHeight={70} placeHolder="Search for People" isInputClearable noOptionMessage={'No options'}/>
 
     <h2 className="tk-mt-5h">Customized selects</h2>
     <p>

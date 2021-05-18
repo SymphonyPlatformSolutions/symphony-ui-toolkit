@@ -114,12 +114,16 @@ export const DefaultTagRenderer = (props: any) => {
         </components.MultiValue>
       ) : (
         <components.MultiValue {...props}>
-          <div onMouseDown={stopPropagation}>
-            <span className="tk-pr-1">{props.data?.label}</span>
-            <Icon
-              iconName="cross"
-              onClick={() => props.removeProps.onClick()}
-            />
+          <div onMouseDown={stopPropagation} className="tk-px-1" style={{display:'flex'} }>
+            <div className="tk-tag tk-pr-1">
+              {props.data?.label}
+            </div>
+            <div>
+              <Icon
+                iconName="cross"
+                onClick={() => props.removeProps.onClick()}
+              />
+            </div>
           </div>
         </components.MultiValue>
       )}
