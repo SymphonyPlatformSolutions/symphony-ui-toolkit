@@ -78,6 +78,8 @@ export type DropdownProps<T> = {
   inputValue?: string;
   /** Maximum height of the menu before scrolling */
   maxMenuHeight?: number;
+  /** Max height of the select input before scrolling */
+  maxHeight?: number;
   /** Allows to scroll automatically to selected option */
   autoScrollToCurrent?: boolean;
   /** Handle key down events on the select */
@@ -257,7 +259,8 @@ export class Dropdown<T = LabelValue> extends React.Component<
       enableTermSearch,
       termSearchMessage,
       blurInputOnSelect,
-      showRequired
+      showRequired, 
+      maxHeight,
     } = this.props;
 
     return (
@@ -271,6 +274,10 @@ export class Dropdown<T = LabelValue> extends React.Component<
           showRequired={showRequired}
         />
         <Select
+          styles={{
+            valueContainer: provided => ({
+              ...provided,  maxHeight:`${maxHeight}px`})
+          }}
           parentInstance={this}
           ref={this.myRef}
           selectRef={this.myRef}
