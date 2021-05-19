@@ -153,19 +153,35 @@
       @include active-select;
     }
     &.tk-select__control {
-      min-height: toEm(36);
+      min-height: toEm(32);
       .tk-select__value-container {
         cursor: text;
-        padding: toEm(2) toEm(12);
+        padding: toEm(1) toEm(12);
+        margin: toEm(3);
+        margin-left: 0;
+        &--is-multi {
+          .tk-tag {
+            padding-right: toEm(4);
+            max-width: toEm(200);
+            text-overflow: ellipsis;
+            overflow: hidden;
+          }
+          overflow: auto;
+          overflow-x: hidden;
+          &::-webkit-scrollbar {
+            width: toEm(12);
+          }
+          &::-webkit-scrollbar-thumb {
+            background-color: $--tk-select-scrollbar-color;
+            background-clip: padding-box;
+            border-radius: toEm(12);
+            border: toEm(4) solid transparent;
+          }
+        }
         .tk-select__input {
           color: $--tk-input-default-active-color;
         }
       }
-    }
-  }
-  .tk-select__control {
-    .tk-select__value-container {
-      margin-left: 0;
     }
   }
 }
