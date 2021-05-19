@@ -167,8 +167,8 @@ export const Select: React.FC = () => (
     <h2 className="tk-mt-5h">MultiSelect</h2>
     <p>The Dropdown component can handle multiple selections. It is enabled with the <Typography variant="bold">isMultiSelect</Typography> prop:</p>
     <Dropdown options={personSelectorOptions} isMultiSelect placeHolder="Search for People" isInputClearable/>
-    <p>With the <Typography variant="bold">maxSelectHeight</Typography> prop you can control the height of the multiple selection before scrolling on the input.</p>
-    <Dropdown options={personSelectorOptions} isMultiSelect maxSelectHeight={70} placeHolder="Search for People" isInputClearable noOptionMessage={'No options'}/>
+    <p>With the <Typography variant="bold">maxHeight</Typography> prop you can control the height of the multiple selection before scrolling on the input.</p>
+    <Dropdown options={personSelectorOptions} isMultiSelect maxHeight={70} placeHolder="Search for People" isInputClearable noOptionMessage={'No options'}/>
 
     <h2 className="tk-mt-5h">Customized selects</h2>
     <p>
