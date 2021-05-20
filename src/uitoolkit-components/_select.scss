@@ -1,7 +1,7 @@
 //Override the css classes from react-select library to reuse the UIToolkit classes.
 @mixin active-select {
   border-color: $--tk-input-default-focus-border-color;
-  box-shadow: inset 0 0 0 2px $--tk-input-default-focus-border-color;
+  box-shadow: inset 0 0 0 toRem(2) $--tk-input-default-focus-border-color;
 }
 .tk-select {
   .tk-select {
@@ -21,10 +21,10 @@
         &--is-focused {
           @include active-select;
           .tk-validation--error & {
-            box-shadow: inset 0 0 0 2px $--tk-input-error-focus-border-color;
+            box-shadow: inset 0 0 0 toRem(2) $--tk-input-error-focus-border-color;
             border-color: $--tk-input-error-focus-border-color;
             .tk-input__icon {
-              box-shadow: inset 0 0 0 2px $--tk-input-error-focus-border-color;
+              box-shadow: inset 0 0 0 toRem(2) $--tk-input-error-focus-border-color;
               border-color: $--tk-input-error-focus-border-color;
             }
           }
@@ -51,11 +51,11 @@
           min-height: toEm(24);
           border-radius: toEm(4);
           background: $--tk-tag-background-color;
-          border: 1px solid $--tk-tag-border-and-group-heading-color;
+          border: toRem(1) solid $--tk-tag-border-and-group-heading-color;
           color: $--tk-main-text-color;
           &:hover {
             background: $--tk-tag-background-hover-color;
-            border: 1px solid $--tk-tag-border-hover-color;
+            border: toRem(1) solid $--tk-tag-border-hover-color;
           }
           &__label {
             color: $--tk-main-text-color;

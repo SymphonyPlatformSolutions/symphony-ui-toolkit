@@ -2,12 +2,12 @@ $fontSize: 12;
 
 .tk-tooltip {
   background-color: $scolor-midnight;
-  border: 1px solid rgba($scolor-white, 0.4);;
-  border-radius: 11px;
+  border: toRem(1) solid rgba($scolor-white, 0.4);;
+  border-radius: toRem(11);
   color: $scolor-graphite-minus-96;
   display: flex;
   flex-direction: column;
-  font-size: #{$fontSize}px;
+  font-size: toRem($fontSize);
   justify-content: space-between;
   line-height: toEm(16, $fontSize);
   padding-bottom: toEm(2, $fontSize);

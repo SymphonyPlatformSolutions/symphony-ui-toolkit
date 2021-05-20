@@ -22,7 +22,7 @@ $fontSize: 12;
   &--required::after{
       content: '*';
       color: $scolor-red;
-      margin-left: 2px;
+      margin-left: toRem(2);
       font-size: toEm(16);
       font-weight: 600;
     }

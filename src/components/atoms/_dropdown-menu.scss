@@ -16,7 +16,7 @@
 
   &--expandable::before {
     position: absolute;
-    right: 16px;
+    right: toRem(16);
     font-style: normal;
     font-family: "tk-icons";
     font-size: $list-font-size-icon;
@@ -27,7 +27,7 @@
 
 .tk-dropdown-menu-divider {
   height: 0;
-  margin: 0.4em 0;
+  margin: toRem(5.6) 0;
   overflow: hidden;
-  border-top: 1px solid $--tk-list-divider-color;
+  border-top: toRem(1) solid $--tk-list-divider-color;
 }

@@ -74,7 +74,7 @@ $default-font-size: map-get($avatar-font-sizes, "medium");
   }
 
   &--square {
-    border-radius: 4px;
+    border-radius: toRem(4);
     &[class*="--border"]img.tk-avatar {
       border-radius: 0;
     }
