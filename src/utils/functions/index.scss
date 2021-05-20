@@ -1,13 +1,15 @@
+$UITOOLKIT_REM_BASE: 16;
+
 @function toEm($size, $base: 14) {
   @return ($size/$base) * 1em;
 }
 
 @function toRem($size) {
-  @return ($size/16) * 1rem;
+  @return ($size/$UITOOLKIT_REM_BASE) * 1rem;
 }
 
 /* This factor is specified by the Symphony spacing guides */
-$factor: toRem(8);
+$SPACING_FACTOR: toRem(8);
 @function getSpaceByFactor($size) {
-  @return $factor * $size;
+  @return $SPACING_FACTOR * $size;
 }

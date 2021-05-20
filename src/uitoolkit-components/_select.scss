@@ -48,8 +48,8 @@
         .tk-select__multi-value {
           padding: 0;
           box-sizing: border-box;
-          min-height: toEm(24);
-          border-radius: toEm(4);
+          min-height: toRem(24);
+          border-radius: toRem(4);
           background: $--tk-tag-background-color;
           border: toRem(1) solid $--tk-tag-border-and-group-heading-color;
           color: $--tk-main-text-color;
@@ -59,10 +59,10 @@
           }
           &__label {
             color: $--tk-main-text-color;
-            padding: toEm(2);
-            font-size: toEm(12);
+            padding: toRem(2);
+            font-size: toRem(12);
             .tk-icon-cross {
-              font-size: toEm(10);
+              font-size: toRem(10);
             }
           }
         }
@@ -91,7 +91,7 @@
       }
     }
     &__menu {
-      margin-top: toEm(6);
+      margin-top: toRem(6);
       color: $--tk-select-option-color;
       z-index: $z-index-dropdown-menu;
       @include boxContainer();
@@ -104,7 +104,7 @@
     &__option {
       cursor: pointer;
       color: $--tk-input-default-active-color;
-      padding: toEm(6) toEm(38) toEm(6) toEm(16);
+      padding: toRem(6) toRem(38) toRem(6) toRem(16);
       &.tk-select__option {
         &--is-focused,
         &--is-focused.tk-select__option--is-selected {
@@ -121,8 +121,8 @@
     }
     &__group-heading {
       color: $--tk-tag-border-and-group-heading-color;
-      font-size: toEm(12);
-      line-height: toEm(16);
+      font-size: toRem(12);
+      line-height: toRem(16);
       font-weight: 600;
     }
   }
@@ -153,29 +153,29 @@
       @include active-select;
     }
     &.tk-select__control {
-      min-height: toEm(32);
+      min-height: toRem(32);
       .tk-select__value-container {
         cursor: text;
-        padding: toEm(1) toEm(12);
-        margin: toEm(3);
+        padding: toRem(1) toRem(12);
+        margin: toRem(3);
         margin-left: 0;
         &--is-multi {
           .tk-tag {
-            padding-right: toEm(4);
-            max-width: toEm(200);
+            padding-right: toRem(4);
+            max-width: toRem(200);
             text-overflow: ellipsis;
             overflow: hidden;
           }
           overflow: auto;
           overflow-x: hidden;
           &::-webkit-scrollbar {
-            width: toEm(12);
+            width: toRem(12);
           }
           &::-webkit-scrollbar-thumb {
             background-color: $--tk-select-scrollbar-color;
             background-clip: padding-box;
-            border-radius: toEm(12);
-            border: toEm(4) solid transparent;
+            border-radius: toRem(12);
+            border: toRem(4) solid transparent;
           }
         }
         .tk-select__input {

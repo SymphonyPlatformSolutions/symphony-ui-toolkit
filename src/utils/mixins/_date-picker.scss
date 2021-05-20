@@ -2,7 +2,7 @@
   cursor: pointer;
   color: $colorFont;
   i {
-    font-size: toEm(16, $fontSize);
+    font-size: toRem(16);
   }
 
   /* remove button style **/

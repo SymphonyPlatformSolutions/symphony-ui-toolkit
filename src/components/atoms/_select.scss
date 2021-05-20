@@ -25,7 +25,7 @@ select.tk-select {
 .tk-select {
   &__helper {
     @extend .tk-label;
-    margin-top: toEm(4, $fontSize);
+    margin-top: toRem(4);
   }
 }
 

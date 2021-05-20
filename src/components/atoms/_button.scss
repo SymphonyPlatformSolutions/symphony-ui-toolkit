@@ -1,14 +1,14 @@
 $fontSize: 12;
 .tk-button {
-  font-size: toEm($fontSize);
+  font-size: toRem($fontSize);
   display: inline-block;
   border: none;
-  border-radius: 2em;
-  padding: toEm(8, $fontSize) toEm(16, $fontSize);
-  letter-spacing: toEm(0.5, $fontSize);
+  border-radius: toRem(28);
+  padding: toRem(8) toRem(16);
+  letter-spacing: toRem(0.5);
   text-transform: uppercase;
   text-align: center;
-  line-height: toEm(16, $fontSize);
+  line-height: toRem(16);
   height: auto;
   width: auto;
   white-space: nowrap;
@@ -39,7 +39,7 @@ $fontSize: 12;
   }
   &--icon {
     border-radius: 50%;
-    padding: toEm(8, $fontSize);
-    min-width: toEm(32, $fontSize);
+    padding: toRem(8);
+    min-width: toRem(32);
   }
 }

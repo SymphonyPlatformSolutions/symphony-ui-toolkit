@@ -3,8 +3,8 @@ $fontSize: 12;
 .tk-label {
   @include addTransition();
   display: block;
-  font-size: toEm($fontSize);
-  line-height: toEm(16, $fontSize);
+  font-size: toRem($fontSize);
+  line-height: toRem(16);
   color: $--tk-input-default-inactive-color;
   &:hover,
   .tk-validation--error &:hover,
@@ -23,7 +23,7 @@ $fontSize: 12;
       content: '*';
       color: $scolor-red;
       margin-left: toRem(2);
-      font-size: toEm(16);
+      font-size: toRem(16);
       font-weight: 600;
     }
 }

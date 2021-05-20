@@ -2,10 +2,10 @@
   display: flex;
   align-items: center;
   color: $--tk-input-default-active-color;
-  min-height: toEm(20, $fontSize);
+  min-height: toRem(20);
 
   // Padding for outline focus display
-  $focusPadding: toEm(2, $fontSize);
+  $focusPadding: toRem(2);
   padding: $focusPadding;
 
   &--focus-visible {
@@ -34,7 +34,7 @@
     display: flex;
     &:before {
       font-family: 'tk-icons';
-      font-size: toEm(16, $fontSize);
+      font-size: toRem(16);
       font-style: normal;
       font-weight: normal;
       width: 1em;
@@ -48,10 +48,10 @@
   }
 
   &__label {
-    $labelMargin: toEm(8, $fontSize);
+    $labelMargin: toRem(8);
 
     outline: none;
-    font-size: toEm($fontSize);
+    font-size: toRem($fontSize);
     margin-left: $labelMargin;
 
     &--top {

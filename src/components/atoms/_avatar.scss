@@ -27,16 +27,16 @@ $default-font-size: map-get($avatar-font-sizes, "medium");
   align-items: center;
   justify-content: center;
   user-select: none;
-  width: toEm(map-get($avatar-sizes, "medium"), $default-font-size);
-  height: toEm(map-get($avatar-sizes, "medium"), $default-font-size);
-  font-size: toEm($default-font-size); //Default fontsize
+  width: toRem(map-get($avatar-sizes, "medium"));
+  height: toRem(map-get($avatar-sizes, "medium"));
+  font-size: toRem($default-font-size); //Default fontsize
   text-align: center;
 
   @each $size, $size-value in $avatar-font-sizes {
     &--#{$size} {
-      font-size: toEm($size-value);
-      width: toEm(map-get($avatar-sizes, $size), $size-value);
-      height: toEm(map-get($avatar-sizes, $size), $size-value);
+      font-size: toRem($size-value);
+      width: toRem(map-get($avatar-sizes, $size));
+      height: toRem(map-get($avatar-sizes, $size));
 
       &[class*="--border"] {
         border-style: solid;

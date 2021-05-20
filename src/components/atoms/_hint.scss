@@ -9,16 +9,16 @@ $fontSize: 14;
   border-radius: toRem(8);
   background-color: $backgroundColor;
   font-size: toRem($fontSize);
-  padding: toEm(16, $fontSize);
+  padding: toRem(16);
   text-align: left;
   color: $scolor-graphite-minus-96;
-  line-height: toEm(20, $fontSize);
+  line-height: toRem(20);
   white-space: pre-line;
-  min-width: toEm(200, $fontSize);
-  max-width: toEm(500, $fontSize);
+  min-width: toRem(200);
+  max-width: toRem(500);
 
   &__arrow {
-    $arrowSize: toEm(24, $fontSize);
+    $arrowSize: toRem(24);
     width: $arrowSize;
     height: $arrowSize;
     background-color: $backgroundColor;
@@ -32,6 +32,6 @@ $fontSize: 14;
   &__close {
     color: $scolor-white;
     text-transform: uppercase;
-    padding: toEm(8, $fontSize) toEm(16, $fontSize);
+    padding: toRem(8) toRem(16);
   }
 }
