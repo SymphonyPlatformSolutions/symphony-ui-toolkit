@@ -1,4 +1,5 @@
 import * as React from 'react';
+import classNames from 'classnames';
 import { components } from 'react-select';
 import Icon from '../icon';
 import { SearchHeaderOption } from './interfaces';
@@ -17,7 +18,7 @@ const stopPropagation = (e) => {
  * the appereace of the react-select library components **/
 
 export const DefaultOptionRenderer = (props: any) => {
-  const { enableTermSearch, inputValue } = props?.selectProps;
+  const { classNamePrefix, enableTermSearch, inputValue, mode } = props?.selectProps;
   const OptionRenderer = props?.selectProps?.optionRenderer;
   const isSelected = props.isSelected;
   const isSearchHeaderOption = props?.data?.searchHeader;
@@ -51,7 +52,7 @@ export const DefaultOptionRenderer = (props: any) => {
         </div>
       ) : (
         <div className="tk-option">
-          <components.Option {...props} />
+          <components.Option {...props} className={classNames(classNamePrefix && mode ? `${classNamePrefix}__option--${mode}` : null)}/>
         </div>
       )}
     </>

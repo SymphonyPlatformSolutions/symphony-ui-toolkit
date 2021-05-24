@@ -29,87 +29,90 @@ import LabelTooltipDecorator from '../label-tooltip-decorator/LabelTooltipDecora
 const prefix = 'tk-select';
 
 export type DropdownProps<T> = {
+  /** Allows to scroll automatically to selected option */
+  autoScrollToCurrent?: boolean;
+  /** Path in custom object to the unique identifier of the option */
+  bindValue?: string;
+  /** Blur the field when an item is selected */
+  blurInputOnSelect?: boolean;
+  /** Optional CSS class name */
+  className?: string;
+  /** Close the expanded menu when the user selects an option */
+  closeMenuOnSelect?: boolean;
+  /** Enables the indicator to expand the Dropdown */
+  displayArrowIndicator?: boolean;
+  /** Display a fixed option on the header of the Dropdown with the searched term */
+  enableTermSearch?: boolean;
+  /** Decides if an item with data and current input value should be displayed in dropdown menu or not */
+  filterFunction?: (data: T, inputValue: string) => boolean;
+  /** Hide the selected option from the list */
+  hideSelectedOptions?: boolean;
+  /** If provided, it renders an icon on the left side of the dropdown input*/
+  iconName?: string;
+  id?: string;
+  /** If provided, it decides if the input should always be displayed even if the option is selected*/
+  inputAlwaysDisplayed?: boolean;
+  /** The value of the search input */
+  inputValue?: string;
+  /** Is the select value clearable */
+  isInputClearable?: boolean;
+  /** If false, user can not type on the control Input */
+  isTypeAheadEnabled?: boolean;
+  /** Decides if an item with data and current input value should be disabled in dropdown menu or not */
+  isOptionDisabled?: (data: T) => boolean;
+  /** Decides if an item with data and current input value should be selected in dropdown menu or not */
+  isOptionSelected?: (data: T) => boolean;
+  /** Is the dropdown disabled */
+  isDisabled?: boolean;
+  /** Label text for the dropdown */
+  label?: string;
+  /** Maximum height of the menu before scrolling */
+  maxMenuHeight?: number;
+  /** Max height of the select input before scrolling */
+  maxHeight?: number;
+  /** Whether the Dropdown menu is expanded */
+  menuIsOpen?: boolean;
+  /** Styling options depending on the need  */
+  mode?: 'nested' | 'aligned';
+  name?: string;
+  /** Mesage to display if there isn't any match in the search input */
+  noOptionMessage?: string;
+  /** Placeholder text for the dropdown */
+  placeHolder?: string;
   /** Array of options that populate the dropdown menu */
   options: DropdownOption<T>[];
   /** Custom component used to override the default appearance of the list items. */
   optionRenderer?:
     | React.Component<OptionRendererProps<T>, any>
     | React.FunctionComponent<OptionRendererProps<T>>;
-  /** Custom component used to override the default appearance of the dropdown select input item/s */
-  tagRenderer?:
-    | React.Component<TagRendererProps<T>, any>
-    | React.FunctionComponent<TagRendererProps<T>>;
   /** Handle blur events on the control */
   onBlur?: (e) => any;
-  /** Decides if an item with data and current input value should be displayed in dropdown menu or not */
-  filterFunction?: (data: T, inputValue: string) => boolean;
-  /** Decides if an item with data and current input value should be disabled in dropdown menu or not */
-  isOptionDisabled?: (data: T) => boolean;
-  /** Decides if an item with data and current input value should be selected in dropdown menu or not */
-  isOptionSelected?: (data: T) => boolean;
-  /** If provided, it renders an icon on the left side of the dropdown input*/
-  iconName?: string;
-  /** If provided, it decides if the input should always be displayed even if the option is selected*/
-  inputAlwaysDisplayed?: boolean;
-  /** Mesage to display if there isn't any match in the search input */
-  noOptionMessage?: string;
-  /** Is the dropdown disabled */
-  isDisabled?: boolean;
-  /** Placeholder text for the dropdown */
-  placeHolder?: string;
-  /** Label text for the dropdown */
-  label?: string;
-  /** If false, user can not type on the control Input */
-  isTypeAheadEnabled?: boolean;
-  /** Enables the indicator to expand the Dropdown */
-  displayArrowIndicator?: boolean;
-  /** Default value selected on the Dropdown */
-  id?: string;
-  name?: string;
-  /** Optional CSS class name */
-  className?: string;
-  /** Close the expanded menu when the user selects an option */
-  closeMenuOnSelect?: boolean;
-  /** Hide the selected option from the list */
-  hideSelectedOptions?: boolean;
-  /** Is the select value clearable */
-  isInputClearable?: boolean;
-  /** The value of the search input */
-  inputValue?: string;
-  /** Maximum height of the menu before scrolling */
-  maxMenuHeight?: number;
-  /** Max height of the select input before scrolling */
-  maxHeight?: number;
-  /** Allows to scroll automatically to selected option */
-  autoScrollToCurrent?: boolean;
   /** Handle key down events on the select */
   onKeyDown?: (event) => any;
   /** Handle key up events on the select */
   onKeyUp?: (event) => any;
   /** Handle change events on the input */
   onInputChange?: (string, any) => any;
-  /** Whether the Dropdown menu is expanded */
-  menuIsOpen?: boolean;
-  /** Handle focus events */
+  /** Handle clear event */
+  onClear?: () => any;
+  /** Handle focus event */
   onFocus?: (event) => any;
   /** Handle the menu opening */
   onMenuOpen?: () => void;
   /** Handle the menu closing */
   onMenuClose?: () => void;
-  /** Select the currently focused option when the user presses tab */
-  tabSelectsValue?: boolean;
-  /** Display a fixed option on the header of the Dropdown with the searched term */
-  enableTermSearch?: boolean;
-  /** Message to be display on the header of the menu list when searching by term */
-  termSearchMessage?: ((term: string) => string) | string;
   /** Handle the selection of search by term option */
   onTermSearch?: (option: SearchHeaderOption) => any;
-  onClear?: () => any;
-  blurInputOnSelect?: boolean;
-  /** Path in custom object to the unique identifier of the option */
-  bindValue?: string;
   /** Flag to show the label with a specific styling if the field is required */
   showRequired?: boolean;
+  /** Select the currently focused option when the user presses tab */
+  tabSelectsValue?: boolean;
+  /** Custom component used to override the default appearance of the dropdown select input item/s */
+  tagRenderer?:
+    | React.Component<TagRendererProps<T>, any>
+    | React.FunctionComponent<TagRendererProps<T>>;
+  /** Message to be display on the header of the menu list when searching by term */
+  termSearchMessage?: ((term: string) => string) | string;
 } & HasTooltipProps &
   (MultiModeProps<T> | SingleModeProps<T>);
 
@@ -228,39 +231,40 @@ export class Dropdown<T = LabelValue> extends React.Component<
       displayArrowIndicator,
     } = this.state;
     const {
-      isMultiSelect,
-      isDisabled,
-      placeHolder,
-      id,
-      name,
+      autoScrollToCurrent,
+      blurInputOnSelect,
       defaultValue,
+      enableTermSearch,
+      iconName,
+      id,
+      inputAlwaysDisplayed,
+      inputValue,
+      isDisabled,
+      isInputClearable,
+      isMultiSelect,
+      isTypeAheadEnabled,
+      label,
+      maxHeight,
+      maxMenuHeight,
+      menuIsOpen,
+      mode,
+      name,
+      noOptionMessage,
+      placeHolder,
       onFocus,
       onInputChange,
       onKeyDown,
       onKeyUp,
-      isInputClearable,
-      label,
-      optionRenderer,
-      iconName,
-      inputAlwaysDisplayed,
-      tagRenderer,
-      value,
-      inputValue,
-      noOptionMessage,
-      isTypeAheadEnabled,
-      autoScrollToCurrent,
-      maxMenuHeight,
-      menuIsOpen,
-      tooltip,
-      tooltipCloseLabel,
       onMenuOpen,
       onMenuClose,
-      tabSelectsValue,
-      enableTermSearch,
-      termSearchMessage,
-      blurInputOnSelect,
+      optionRenderer,
+      tagRenderer,
+      tooltip,
+      tooltipCloseLabel,
       showRequired, 
-      maxHeight,
+      tabSelectsValue,
+      termSearchMessage,
+      value,
     } = this.props;
 
     return (
@@ -326,6 +330,7 @@ export class Dropdown<T = LabelValue> extends React.Component<
           isOptionSelected={this.handleIsOptionSelected}
           menuPlacement="auto"
           maxMenuHeight={maxMenuHeight}
+          mode={mode ? mode : 'aligned'}
           autoScrollToCurrent={autoScrollToCurrent}
           menuIsOpen={menuIsOpen}
           onMenuOpen={onMenuOpen}
