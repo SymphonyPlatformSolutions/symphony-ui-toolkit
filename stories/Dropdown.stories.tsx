@@ -155,7 +155,10 @@ export const Select: React.FC = () => (
     </p>
     <Dropdown options={defaultOptions} iconName="app"/>
     <h3 className="tk-mt-4">Grouped option list</h3>
-    <Dropdown options={timeZoneOptions} />
+    <p>With <b>aligned</b> mode (default)</p>
+    <Dropdown options={timeZoneOptions} mode="aligned"/>
+    <p>With <b>nested</b> mode</p>
+    <Dropdown options={timeZoneOptions} mode="nested"/>
 
     <h2 className="tk-mt-4">Enable term search</h2>
     <p>- With <Typography variant="bold">enableTermSearch</Typography> prop activated you can add a fixed option on the header of the Dropdown Menu that will be displayed when the user starts typing.</p>
@@ -209,6 +212,6 @@ export const Select: React.FC = () => (
 );
 
 export default {
-  title: 'Components/Input/Dropdown (beta)',
+  title: 'Components/Input/Dropdown',
   component: Dropdown
 };
