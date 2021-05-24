@@ -1,13 +1,11 @@
-$fontSize: 12;
-
 .tk-tooltip {
   background-color: $scolor-midnight;
-  border: toRem(1) solid rgba($scolor-white, 0.4);;
+  border: toRem(1) solid rgba($scolor-white, 0.4);
   border-radius: toRem(11);
   color: $scolor-graphite-minus-96;
   display: flex;
   flex-direction: column;
-  font-size: toRem($fontSize);
+  font-size: toRem(14);
   justify-content: space-between;
   line-height: toRem(16);
   padding-bottom: toRem(2);

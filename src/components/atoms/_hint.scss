@@ -1,5 +1,4 @@
 $backgroundColor: $scolor-graphite-plus-48;
-$fontSize: 14;
 
 .tk-hint {
   z-index: $z-index-tooltip;
@@ -8,7 +7,7 @@ $fontSize: 14;
   flex-direction: column;
   border-radius: toRem(8);
   background-color: $backgroundColor;
-  font-size: toRem($fontSize);
+  font-size: toRem(14);
   padding: toRem(16);
   text-align: left;
   color: $scolor-graphite-minus-96;

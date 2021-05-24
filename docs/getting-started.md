@@ -60,7 +60,7 @@ Import the prefered css on your project:
 ```bash
 <link rel="stylesheet" href="https://cdn.symphony.com/resources/ui-toolkit/master/css/uitoolkit.css">
 ```
-## Unit Lengths
+## Sizing units
 
 The UIToolkit Styles library bases all the Unit mesurements on the `rem` unit. 
 
