@@ -100,6 +100,13 @@
           @extend .tk-select--custom-dropdown--selected;
         }
       }
+      .tk-select__group {
+        .tk-option .tk-select__option {
+          &--nested {
+            padding-left: toEm(24);
+          }
+        } 
+      }
     }
     &__option {
       cursor: pointer;
