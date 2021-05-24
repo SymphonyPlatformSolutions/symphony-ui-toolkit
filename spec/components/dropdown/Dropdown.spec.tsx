@@ -1,7 +1,7 @@
 import * as React from 'react';
 import userEvent from '@testing-library/user-event';
 import { render, screen, waitFor, waitForElementToBeRemoved, fireEvent } from '@testing-library/react';
-import Dropdown from '../../../src/components/dropdown';
+import Dropdown, { DropdownOption, LabelValue } from '../../../src/components/dropdown';
 import '@testing-library/jest-dom/extend-expect';
 import { Button, Validation } from '../../../src/components';
 import { Validators } from '../../../src/core/validators/validators';
@@ -37,6 +37,27 @@ describe('Dropdown component test suite =>', () => {
       const { getByText } = render(<Dropdown options={dropdownProps.options} />);
       expect(getByText('Select...')).toBeInTheDocument();
       
+    });
+
+    it('should render the Dropdown component by default', async () => {
+      const timeZoneOptions: DropdownOption<LabelValue>[] = [
+        { label: '(GMT +03:00) Tanzania', value: '8' },
+        { label: '(GMT +03:00) Uganda', value: '9' },
+        {
+          label: 'United states of America (USA)',
+          options: [
+            { label: '(GMT -04:00) United states of America (USA) - New York', value: '1' },
+            { label: '(GMT -04:00) United states of America (USA) - Detroit', value: '2' },
+            { label: '(GMT -04:00) United states of America (USA) - Menominee', value: '3' },
+            { label: '(GMT -05:00) United states of America (USA) - Center', value: '4' },
+          ]
+        }
+      ];
+      render(<Dropdown options={timeZoneOptions} mode="nested"/>);
+      const input = screen.getByRole('textbox');
+      userEvent.click(input);
+      const nestedItem = screen.getByText('(GMT -04:00) United states of America (USA) - New York');
+      expect(nestedItem.classList.contains('tk-select__option--nested')).toBeTruthy();
     });
     
     it('should show/hide options menu', async () => {
