@@ -60,3 +60,15 @@ Import the prefered css on your project:
 ```bash
 <link rel="stylesheet" href="https://cdn.symphony.com/resources/ui-toolkit/master/css/uitoolkit.css">
 ```
+## Sizing units
+
+The UIToolkit Styles library bases all the Unit mesurements on the `rem` unit. 
+
+It is fixed to a base of `16px`. If you need to update it on your  project you can change `$UITOOLKIT_REM_BASE` variable. 
+
+path: `src/utils/functions/_index.scss`
+
+```css
+ $UITOOLKIT_REM_BASE: 14; 
+```
+

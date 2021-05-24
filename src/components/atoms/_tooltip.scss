@@ -1,19 +1,17 @@
-$fontSize: 12;
-
 .tk-tooltip {
   background-color: $scolor-midnight;
-  border: 1px solid rgba($scolor-white, 0.4);;
-  border-radius: 11px;
+  border: toRem(1) solid rgba($scolor-white, 0.4);
+  border-radius: toRem(11);
   color: $scolor-graphite-minus-96;
   display: flex;
   flex-direction: column;
-  font-size: #{$fontSize}px;
+  font-size: toRem(14);
   justify-content: space-between;
-  line-height: toEm(16, $fontSize);
-  padding-bottom: toEm(2, $fontSize);
-  padding-left: toEm(8, $fontSize);
-  padding-right: toEm(8, $fontSize);
-  padding-top: toEm(2, $fontSize);
+  line-height: toRem(16);
+  padding-bottom: toRem(2);
+  padding-left: toRem(8);
+  padding-right: toRem(8);
+  padding-top: toRem(2);
   text-align: center;
   width: fit-content;
   z-index: $z-index-tooltip;

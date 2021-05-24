@@ -3,7 +3,7 @@
   width: 100%;
   th {
     text-align: left;
-    border-bottom: 1px solid $scolor-graphite-minus-48;
+    border-bottom: toRem(1) solid $scolor-graphite-minus-48;
     height: $--tk-table-cell-height;
   }
   tbody tr { 
@@ -14,6 +14,6 @@
   td {
     height: $--tk-table-cell-height;
     vertical-align: middle;
-    border-bottom: 1px solid $scolor-graphite-minus-48;
+    border-bottom: toRem(1) solid $scolor-graphite-minus-48;
   }
 }

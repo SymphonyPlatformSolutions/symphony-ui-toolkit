@@ -1,41 +1,41 @@
 .tk-typography {
   font-family: inherit;
   color: $--tk-main-text-color;
-  font-size: toEm(14);
+  font-size: toRem(14);
   font-weight: normal;
-  line-height: toEm(20);
+  line-height: toRem(20);
   margin-block-start: auto;
   margin-block-end: auto;
 
   &--h1 {
-    font-size: toEm(18);
+    font-size: toRem(18);
     font-weight: 600;
-    line-height: toEm(24);
+    line-height: toRem(24);
   }
 
   &--h2 {
-    font-size: toEm(14);
+    font-size: toRem(14);
     font-weight: 600;
-    line-height: toEm(24);
+    line-height: toRem(24);
   }
 
   &--h3 {
-    font-size: toEm(12);
+    font-size: toRem(12);
     font-weight: 600;
-    line-height: toEm(16);
+    line-height: toRem(16);
   }
 
   &--h4 {
-    font-size: toEm(12);
-    line-height: toEm(16);
+    font-size: toRem(12);
+    line-height: toRem(16);
     color: $scolor-graphite-minus-48;
 
   }
 
   &--small {
     color: $scolor-graphite-minus-48;
-    font-size: toEm(12);
-    line-height: toEm(16);
+    font-size: toRem(12);
+    line-height: toRem(16);
   }
 
   &--bold {

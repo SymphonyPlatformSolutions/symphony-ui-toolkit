@@ -21,28 +21,28 @@ $dialog-scrollbar-box-shadow: rgba($scolor-black, 0.5);
   position: relative;
   z-index: $z-index-dialog;
   box-sizing: border-box;
-  min-width: 296px;
-  box-shadow: 0px 0px 4px $dialog-box-shadow-bottom,
-    0px 8px 24px $dialog-box-shadow-sides;
+  min-width: toRem(296);
+  box-shadow: 0 0 toRem(4) $dialog-box-shadow-bottom,
+    0 toRem(8) toRem(24) $dialog-box-shadow-sides;
   background: $--tk-dialog-background-color;
   outline: none;
-  border-radius: 8px;
-  width: 480px; // Default medium
+  border-radius: toRem(8);
+  width: toRem(480); // Default medium
   @extend .tk-py-3;
   @extend .tk-px-4;
   @extend .tk-text-color;
 
   /* Size variants */
   &--small {
-    width: 320px;
+    width: toRem(320);
   }
 
   &--medium {
-    width: 480px;
+    width: toRem(480);
   }
 
   &--large {
-    width: 640px;
+    width: toRem(640);
   }
 
   &--full-width {
@@ -50,7 +50,7 @@ $dialog-scrollbar-box-shadow: rgba($scolor-black, 0.5);
   }
   /* Subcomponents */
   &__header {
-    min-height: 16px;
+    min-height: toRem(16);
   }
   &__title {
     @extend .tk-pr-2;
@@ -59,8 +59,8 @@ $dialog-scrollbar-box-shadow: rgba($scolor-black, 0.5);
 
   &__close {
     position: absolute;
-    top: toEm(32);
-    right: 32px;
+    top: toRem(32);
+    right: toRem(32);
     z-index: $z-index-dialog;
     box-shadow: none;
     box-sizing: border-box;
@@ -74,7 +74,7 @@ $dialog-scrollbar-box-shadow: rgba($scolor-black, 0.5);
 
     &:before {
       font-family: 'tk-icons';
-      font-size: 14px;
+      font-size: toRem(14);
       @include tk-icon-cross;
     }
 
@@ -86,17 +86,17 @@ $dialog-scrollbar-box-shadow: rgba($scolor-black, 0.5);
   &__body {
     position: relative;
     max-height: calc(100vh - 225px);
-    min-height: 32px;
+    min-height: toRem(32);
     overflow-x: auto;
     overflow-y: scroll;
     @extend .tk-pr-1;
     @extend .tk-py-1;
 
     &::-webkit-scrollbar {
-      width: 5px;
+      width: toRem(5);
     }
     &::-webkit-scrollbar-thumb {
-      border-radius: 5px;
+      border-radius: toRem(5);
       background-color: $dialog-scrollbar-box-shadow;
     }
   }

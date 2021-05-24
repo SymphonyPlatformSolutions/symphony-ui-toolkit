@@ -1,9 +1,10 @@
-$ICONS_FONTS_PATH: '../dist/fonts';
-@import '../uitoolkit.scss';
+$ICONS_FONTS_PATH: "../dist/fonts";
+@import "../uitoolkit.scss";
 
 body {
-  font-family: 'SymphonyLato', 'Lato', 'Segoe UI', 'Helvetica Neue', 'Verdana', 'Arial', sans-serif;
-  font-size: 14px;
+  font-family: "SymphonyLato", "Lato", "Segoe UI", "Helvetica Neue", "Verdana",
+    "Arial", sans-serif;
+  font-size: 16px;
   @extend .tk-text-color;
   a {
     @extend .tk-link;
@@ -81,7 +82,7 @@ until we have a design for them in the UI Toolkit. */
 }
 
 .card-icon {
- @extend .tk-color-action-primary;
+  @extend .tk-color-action-primary;
 }
 .card-description {
   font-size: 12px;
@@ -95,7 +96,8 @@ pre {
 .dark pre {
   background-color: $scolor-graphite-plus-24;
 }
-.sb-heading, .sb-errordisplay_code pre{
+.sb-heading,
+.sb-errordisplay_code pre {
   background-color: #3e4249;
 }
 
@@ -106,7 +108,7 @@ pre {
 
 .avatar-box {
   border: 1px solid currentColor;
-  padding:24px;
+  padding: 24px;
 }
 
 .themed-primary-btn {

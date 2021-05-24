@@ -20,7 +20,7 @@ li.tk-nav {
     display: block;
     margin: 0.5rem 0.75rem;
     color: $--tk-nav-color-default;
-    border-bottom: 3px solid transparent;
+    border-bottom: toRem(3) solid transparent;
     &:first-child {
       margin-left: 0;
     }

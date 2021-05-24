@@ -1,8 +1,6 @@
-$fontSize: 14;
-
 .tk-link {
-  font-size: toEm($fontSize);
-  line-height: toEm(20, $fontSize);
+  font-size: toRem(14);
+  line-height: toRem(20);
   color: $--tk-color-primary;
   text-decoration-line: underline;
   outline: none;

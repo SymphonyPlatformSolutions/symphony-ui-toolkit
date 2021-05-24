@@ -25,21 +25,21 @@
 /* Applies color styles to outline buttons, buttons that do not have a background */
 @mixin styleOutlinedButton($colorMap) {
   background-color: transparent;
-  @include addBorder(2px, map-get($colorMap, default));
+  @include addBorder(toRem(2), map-get($colorMap, default));
   @include addFontIconColor(map-get($colorMap, default));
   &:hover {
       background-color: transparent;
-      @include addBorder(2px, map-get($colorMap, hover));
+      @include addBorder(toRem(2), map-get($colorMap, hover));
       @include addFontIconColor(map-get($colorMap, hover));
   }
   &:active {
       background-color: transparent;
-      @include addBorder(2px, map-get($colorMap, active));
+      @include addBorder(toRem(2), map-get($colorMap, active));
       @include addFontIconColor(map-get($colorMap, active));
   }
   &:disabled {
       background-color: transparent;
-      @include addBorder(2px, map-get($colorMap, disabled));
+      @include addBorder(toRem(2), map-get($colorMap, disabled));
       @include addFontIconColor(map-get($colorMap, textDisabled));
   }
 }

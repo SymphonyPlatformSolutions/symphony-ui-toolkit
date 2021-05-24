@@ -6,7 +6,7 @@
 
 /* Outlines are common to all inputs. Blurred outline is not supported yet. */
 @mixin addOutline() {
-  outline: 4px auto $--tk-outline-color;
+  outline: toRem(4) auto $--tk-outline-color;
 }
 
 @mixin addTransition() {
@@ -15,7 +15,7 @@
 
 // Simulate browser outline (Come from https://ghinda.net/article/mimic-native-focus-css)
 @mixin browserOutline() {
-  outline-width: 2px;
+  outline-width: toRem(2);
   outline-style: solid;
   outline-color: Highlight;
 

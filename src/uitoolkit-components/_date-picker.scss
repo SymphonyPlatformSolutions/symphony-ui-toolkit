@@ -4,24 +4,24 @@
 
 .tk-daypicker {
   color: $--tk-datepicker-default-color;
-  font-size: toEm(14, $fontSize);
-  padding: toEm(20, $fontSize) toEm(16, $fontSize) toEm(16, $fontSize)
-    toEm(16, $fontSize);
+  font-size: toRem(14);
+  padding: toRem(20) toRem(16) toRem(16)
+    toRem(16);
   @include boxContainer();
 
   .tk-daypicker-header {
-    margin-bottom: toEm(12, $fontSize);
+    margin-bottom: toRem(12);
     font-weight: 600;
 
     display: flex;
     justify-content: space-between;
 
     &--prevYear {
-      margin-left: toEm(9, $fontSize);
+      margin-left: toRem(9);
       @include styleDayPickerHeaderAction($scolor-electricity);
     }
     &--nextYear {
-      margin-right: toEm(9, $fontSize);
+      margin-right: toRem(9);
       @include styleDayPickerHeaderAction($scolor-electricity);
     }
     &--prevMonth {
@@ -35,8 +35,8 @@
       justify-content: center;
       align-self: center;
       text-transform: uppercase;
-      font-size: toEm(12, $fontSize);
-      line-height: toEm(16, $fontSize);
+      font-size: toRem(12);
+      line-height: toRem(16);
     }
   }
 
@@ -45,47 +45,47 @@
     font-weight: 600;
     display: grid;
     grid-template-columns:
-      toEm(32, $fontSize) toEm(32, $fontSize) toEm(32, $fontSize)
-      toEm(32, $fontSize) toEm(32, $fontSize) toEm(32, $fontSize) toEm(32, $fontSize);
-    grid-template-rows: toEm(20, $fontSize);
+      toRem(32) toRem(32) toRem(32)
+      toRem(32) toRem(32) toRem(32) toRem(32);
+    grid-template-rows: toRem(20);
 
     &--text {
       display: flex;
       align-items: center;
       justify-content: center;
       text-transform: uppercase;
-      font-size: toEm(12, $fontSize);
-      line-height: toEm(16, $fontSize);
+      font-size: toRem(12);
+      line-height: toRem(16);
     }
   }
 
   .tk-daypicker-body {
     display: grid;
     grid-template-columns:
-      toEm(32, $fontSize) toEm(32, $fontSize) toEm(32, $fontSize)
-      toEm(32, $fontSize) toEm(32, $fontSize) toEm(32, $fontSize) toEm(32, $fontSize);
+      toRem(32) toRem(32) toRem(32)
+      toRem(32) toRem(32) toRem(32) toRem(32);
     grid-template-rows:
-      toEm(32, $fontSize) toEm(32, $fontSize) toEm(32, $fontSize)
-      toEm(32, $fontSize) toEm(32, $fontSize) toEm(32, $fontSize);
-    font-size: toEm(14, $fontSize);
+      toRem(32) toRem(32) toRem(32)
+      toRem(32) toRem(32) toRem(32);
+    font-size: toRem(14);
 
     .tk-daypicker-day {
       border: none;
       cursor: pointer;
-      border-radius: toEm(2, $fontSize);
+      border-radius: toRem(2);
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: 400;
       &:hover {
-        @include addBorder(toEm(2, $fontSize), $scolor-electricity);
+        @include addBorder(toRem(2), $scolor-electricity);
         box-sizing: border-box;
-        border-radius: toEm(2, $fontSize);
+        border-radius: toRem(2);
       }
       &--today {
         position: relative;
         &::after {
-          font-size: toEm(10, $fontSize);
+          font-size: toRem(10);
           content: "";
           position: absolute;
           bottom: 0;
@@ -102,7 +102,7 @@
       &--selected {
         background-color: $scolor-electricity;
         color: $scolor-graphite-minus-96;
-        border-radius: toEm(2, $fontSize);
+        border-radius: toRem(2);
       }
       &--disabled {
         cursor: not-allowed;
@@ -123,8 +123,8 @@
       color: $scolor-electricity;
       font-weight: 600;
       text-transform: uppercase;
-      font-size: toEm(12, $fontSize);
-      line-height: toEm(16, $fontSize);
+      font-size: toRem(12);
+      line-height: toRem(16);
     }
   }
 }

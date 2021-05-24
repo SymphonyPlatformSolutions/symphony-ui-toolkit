@@ -1,6 +1,6 @@
 @mixin styleHoverInput($borderColor, $fontColor) {
   color: $fontColor;
-  @include addBorder(2px, $borderColor);
+  @include addBorder(toRem(2), $borderColor);
   &::placeholder, input::placeholder {
     color: $fontColor;
   }
@@ -14,7 +14,7 @@
 ) {
   color: $activeColor;
   background-color: $backgroundColor;
-  @include addBorder(2px, $inactiveColor);
+  @include addBorder(toRem(2), $inactiveColor);
   &::placeholder, ::placeholder {
     @include addTransition();
     color: $inactiveColor;
@@ -26,11 +26,11 @@
   &:active,
   &.active {
     color: $activeColor;
-    @include addBorder(2px, $focusBorderColor);
+    @include addBorder(toRem(2), $focusBorderColor);
   }
 
   &:focus-within {
-    @include addBorder(2px, $focusBorderColor);
+    @include addBorder(toRem(2), $focusBorderColor);
   }
 }
 
@@ -62,8 +62,8 @@
 }
 
 @mixin boxContainer() {
-  box-shadow: 0 24px 48px rgba($scolor-box-shadow, 0.12),
-    0 4px 8px rgba($scolor-box-shadow, 0.24);
-  border-radius: toEm(8);
+  box-shadow: 0 toRem(24) toRem(48) rgba($scolor-box-shadow, 0.12),
+    0 toRem(4) toRem(8) rgba($scolor-box-shadow, 0.24);
+  border-radius: toRem(8);
   background-color: $--tk-input-default-background-color;
 }

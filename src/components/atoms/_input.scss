@@ -1,5 +1,3 @@
-$fontSize: 14;
-
 .tk-input__container {
   position: relative;
 }
@@ -15,7 +13,7 @@ textarea.tk-input {
   width: 100%;
   box-sizing: border-box;
   font-family: inherit;
-  font-size: toRem($fontSize);
+  font-size: toRem(14);
   line-height: toRem(20);
   padding: toRem(8) toRem(8) toRem(8) toRem(8);
   background-color: transparent;

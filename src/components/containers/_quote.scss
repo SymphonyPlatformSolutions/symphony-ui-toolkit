@@ -2,19 +2,19 @@
   color: $--tk-main-text-color;
   position: relative;
   background-color: rgba($scolor-electricity, 0.06);
-  border-radius: 4px;
-  padding: 8px;
-  padding-left: 16px;
+  border-radius: toRem(4);
+  padding: toRem(8);
+  padding-left: toRem(16);
 
   &::before,
   &--default::before {
     content: '';
-    left: 4px;
-    top: 4px;
-    bottom: 4px;
+    left: toRem(4);
+    top: toRem(4);
+    bottom: toRem(4);
     position: absolute;
-    width: 4px;
-    border-radius: 2px;
+    width: toRem(4);
+    border-radius: toRem(2);
     background-color: $--tk-color-primary;
   }
   &--error {

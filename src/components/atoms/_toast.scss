@@ -1,6 +1,6 @@
 .tk-toast {
     background-color: $scolor-graphite-plus-48;
-    border-radius: 8px;
+    border-radius: toRem(8);
     color: $scolor-graphite-minus-96;
     line-height: toRem(20);
     padding: toRem(10) toRem(16) toRem(10) toRem(16);

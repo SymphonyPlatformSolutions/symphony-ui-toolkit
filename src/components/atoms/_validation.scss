@@ -1,7 +1,7 @@
 .tk-validation {
-  &__errors{
+  &__errors {
     list-style-type: none;
     padding: 0;
-    margin: toEm(4, $fontSize) 0 0 0;
+    margin: toRem(4) 0 0 0;
   }
 }
