@@ -1,6 +1,8 @@
 # ⚛️SymphonyBDK - UI Toolkit Components
 
-The React components library of Symphony`s design system
+The React components library of Symphony`s design system  
+  
+[![Test Coverage](https://api.codeclimate.com/v1/badges/6eede5cf90ef1734f560/test_coverage)](https://codeclimate.com/github/SymphonyPlatformSolutions/symphony-bdk-ui-toolkit-components/test_coverage)
 
 ## Requirements
 
