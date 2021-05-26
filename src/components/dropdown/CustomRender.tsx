@@ -108,11 +108,9 @@ export const DefaultTagRenderer = (props: any) => {
   return (
     <div>
       {TagRender ? (
-        <components.MultiValue {...props} className="tk-tag">
-          <div onMouseDown={stopPropagation}>
-            <TagRender {...rendererProps} />
-          </div>
-        </components.MultiValue>
+        <div onMouseDown={stopPropagation}>
+          <TagRender {...rendererProps} />
+        </div>
       ) : (
         <components.MultiValue {...props}>
           <div onMouseDown={stopPropagation} className="tk-px-1" style={{display:'flex'} }>
