@@ -1741,26 +1741,6 @@
     regenerator-runtime "^0.13.7"
     ts-dedent "^2.0.0"
 
-"@storybook/addon-storysource@^6.0.21":
-  version "6.2.9"
-  resolved "https://registry.yarnpkg.com/@storybook/addon-storysource/-/addon-storysource-6.2.9.tgz#631a9b6c2e3db42c05055ed5341700687a0b42f9"
-  integrity sha512-lKQOKbk8akqPN7NNBRn+OsiwYg1BXYExmErCwAT/ejx4ggHJCPTDlrl2ZiEriKZ7WXIfgA4VuN5YriKu5uxdnw==
-  dependencies:
-    "@storybook/addons" "6.2.9"
-    "@storybook/api" "6.2.9"
-    "@storybook/client-logger" "6.2.9"
-    "@storybook/components" "6.2.9"
-    "@storybook/router" "6.2.9"
-    "@storybook/source-loader" "6.2.9"
-    "@storybook/theming" "6.2.9"
-    core-js "^3.8.2"
-    estraverse "^5.2.0"
-    loader-utils "^2.0.0"
-    prettier "~2.2.1"
-    prop-types "^15.7.2"
-    react-syntax-highlighter "^13.5.3"
-    regenerator-runtime "^0.13.7"
-
 "@storybook/addons@6.2.9", "@storybook/addons@^6.0.21":
   version "6.2.9"
   resolved "https://registry.yarnpkg.com/@storybook/addons/-/addons-6.2.9.tgz#b7ba2b9f0e15b852c7d6b57d04fb0a493c57477c"
@@ -2264,10 +2244,10 @@
     resolve-from "^5.0.0"
     store2 "^2.12.0"
 
-"@symphony-ui/uitoolkit-styles@1.5.0-rc.3":
-  version "1.5.0-rc.3"
-  resolved "https://registry.yarnpkg.com/@symphony-ui/uitoolkit-styles/-/uitoolkit-styles-1.5.0-rc.3.tgz#91c662c40a18e7e1d790ccdc5602df631d9dfb83"
-  integrity sha512-wPHGLBphvT07MyHyp8jnNa4OO0LLW0EzUyZbBIXs8Ennus27Z8G21df23w0sma4UC3v4m9o+EVCU+LwLZKrJ+w==
+"@symphony-ui/uitoolkit-styles@1.5.0-rc.4":
+  version "1.5.0-rc.4"
+  resolved "https://registry.yarnpkg.com/@symphony-ui/uitoolkit-styles/-/uitoolkit-styles-1.5.0-rc.4.tgz#a74afe95162151ddfbf4aa4d27d6a99aa850a52e"
+  integrity sha512-tIYrU5pIoPWdHxb8ZdmMkan0MZz74hoPYIk6ZL4qhLeYJhWiq+qIIPG5u2L6w+jTGolLwUWDUpQpl71IC60s0w==
 
 "@testing-library/dom@^7.28.1", "@testing-library/dom@^7.29.0":
   version "7.30.4"
