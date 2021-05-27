@@ -46,7 +46,7 @@ describe('Modal', () => {
       <ModalBody>Some text</ModalBody>
     </Modal>);
 
-    // Modal should be closed
+    // Modal should be displayed
     const title = screen.getByText('Hello, World');
     expect(title).toBeTruthy();
 
@@ -57,6 +57,7 @@ describe('Modal', () => {
     // 'ESC' key in the Modal
     fireEvent.keyUp(title, eventMock);
 
+    // Modal should be closed
     expect(show).toBeFalsy();
   })
 });
