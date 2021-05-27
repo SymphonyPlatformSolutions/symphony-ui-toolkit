@@ -49,6 +49,7 @@ describe('Modal', () => {
     // Modal should be displayed
     const title = screen.getByText('Hello, World');
     expect(title).toBeTruthy();
+    expect(show).toBeTruthy();
 
     const eventMock = {
       key: Keys.ESC,
