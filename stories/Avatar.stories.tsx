@@ -7,9 +7,11 @@ const img2 = require('./static/avatar1.png');
 const img3 = require('./static/avatar2.png');
 
 const Template = (args) => {
-  return <Avatar {...args}>
-    <img src={img1} alt="avatar" />
-  </Avatar>;
+  return (
+    <Avatar {...args}>
+      <img src={img1} alt="avatar" />
+    </Avatar>
+  );
 };
 
 export const Default = Template.bind({});
@@ -19,7 +21,7 @@ Default.args = {
   variant: 'square',
 };
 
-const SquaredAvatar: React.FC = () => {
+export const SquaredAvatar: React.FC = () => {
   return (
     <div>
       <h2>Squared avatars</h2>
@@ -44,7 +46,7 @@ const SquaredAvatar: React.FC = () => {
   );
 };
 
-const RoundedAvatar: React.FC = () => {
+export const RoundedAvatar: React.FC = () => {
   return (
     <div>
       <h2>Rounded avatars</h2>
@@ -69,7 +71,7 @@ const RoundedAvatar: React.FC = () => {
   );
 };
 
-const BoarderedAvatar: React.FC = () => {
+export const BorderedAvatar: React.FC = () => {
   return (
     <div>
       <h2>Bordered avatars</h2>
@@ -96,7 +98,7 @@ const BoarderedAvatar: React.FC = () => {
         </div>
         <div className="flex-col">
           <Avatar variant="round" size="xlarge" bordered>
-           AB
+            AB
           </Avatar>
         </div>
         <div className="flex-col">
@@ -149,7 +151,7 @@ const Sizes: React.FC = () => {
   );
 };
 
-const AvatarWithTopBadge: React.FC = () => {
+export const AvatarWithTopBadge: React.FC = () => {
   return (
     <div>
       <h2>Badge on the top</h2>
@@ -195,10 +197,10 @@ const AvatarWithTopBadge: React.FC = () => {
   );
 };
 
-const AvatarWithBottomBadge: React.FC = () => {
+export const AvatarWithBottomBadge: React.FC = () => {
   return (
     <div>
-      <h2>Badge on the bottom</h2>
+      <h2>Badge at the bottom</h2>
       <div className="flex-row">
         <div className="flex-col">
           <Avatar variant="round" size="xxlarge" bordered>
@@ -241,7 +243,7 @@ const AvatarWithBottomBadge: React.FC = () => {
   );
 };
 
-const AvatarWithAdvancedBadge = () => {
+export const AvatarWithAdvancedBadge: React.FC = () => {
   return (
     <div>
       <h2>Advanced use cases</h2>
@@ -254,7 +256,7 @@ const AvatarWithAdvancedBadge = () => {
       <h3>Icon badge</h3>
       <div className="flex-row">
         <div className="flex-col">
-          <Avatar size="xlarge" variant="round">
+          <Avatar size="xxlarge" variant="round">
             <svg
               className="tk-avatar__clip-path"
               viewBox="0 0 32 32"
@@ -276,12 +278,11 @@ const AvatarWithAdvancedBadge = () => {
               src={img1}
               style={{ clipPath: 'url(#avatar_badge)' }}
             />
-            <AvatarBadge
-              position="bottom"
-              className="tk-text-color--warning avatarBadge"
-            >
-              <Icon iconName="busy" />
-            </AvatarBadge>
+            <div style={{ fontSize: '0.85em' }}>
+              <AvatarBadge position="bottom" className="tk-text-color--warning">
+                <Icon iconName="busy" />
+              </AvatarBadge>
+            </div>
           </Avatar>
         </div>
         <div className="flex-col">
@@ -291,71 +292,83 @@ const AvatarWithAdvancedBadge = () => {
               src={img2}
               style={{ clipPath: 'url(#avatar_badge)' }}
             />
-            <AvatarBadge
-              position="bottom"
-              className="tk-text-color--offline avatarBadge"
-            >
-              <Icon iconName="offline" />
-            </AvatarBadge>
+            <div style={{ fontSize: '0.8em' }}>
+              <AvatarBadge position="bottom" className="tk-text-color--offline">
+                <Icon iconName="offline" />
+              </AvatarBadge>
+            </div>
           </Avatar>
         </div>
         <div className="flex-col">
-          <Avatar size="xlarge" variant="round">
+          <Avatar size="large" variant="round">
             <img
               alt="avatar"
               src={img3}
               style={{ clipPath: 'url(#avatar_badge)' }}
             />
-            <AvatarBadge
-              position="bottom"
-              className="tk-text-color--ok avatarBadge"
-            >
-              <Icon iconName="online" />
-            </AvatarBadge>
+            <div style={{ fontSize: '0.7em' }}>
+              <AvatarBadge position="bottom" className="tk-text-color--ok">
+                <Icon iconName="online" />
+              </AvatarBadge>
+            </div>
           </Avatar>
         </div>
         <div className="flex-col">
-          <Avatar size="xlarge" variant="round">
+          <Avatar size="medium" variant="round">
             <img
               alt="avatar"
               src={img1}
               style={{ clipPath: 'url(#avatar_badge)' }}
             />
-            <AvatarBadge
-              position="bottom"
-              className="tk-text-color--attention avatarBadge"
-            >
-              <Icon iconName="idle" />
-            </AvatarBadge>
+            <div style={{ fontSize: '0.75em' }}>
+              <AvatarBadge
+                position="bottom"
+                className="tk-text-color--attention"
+              >
+                <Icon iconName="idle" />
+              </AvatarBadge>
+            </div>
+          </Avatar>
+        </div>
+        <div className="flex-col">
+          <Avatar size="small" variant="round">
+            <img
+              alt="avatar"
+              src={img1}
+              style={{ clipPath: 'url(#avatar_badge)' }}
+            />
+            <div style={{ fontSize: '0.6em' }}>
+              <AvatarBadge position="bottom" className="tk-text-color--warning">
+                <Icon iconName="busy" />
+              </AvatarBadge>
+            </div>
+          </Avatar>
+        </div>
+        <div className="flex-col">
+          <Avatar size="xsmall" variant="round">
+            <img
+              alt="avatar"
+              src={img2}
+              style={{ clipPath: 'url(#avatar_badge)' }}
+            />
+            <div style={{ fontSize: '0.7em' }}>
+              <AvatarBadge position="bottom" className="tk-text-color--offline">
+                <Icon iconName="offline" />
+              </AvatarBadge>
+            </div>
           </Avatar>
         </div>
       </div>
+      <p>
+        The size of the icon adaptes to the size of its parent. To adapt the size on your need, wrap it into a parent that redefine this `font-size`. 
+      </p>
     </div>
   );
 };
 
-export const Avatars: React.FC = () => {
-  return (
-    <div>
-      <SquaredAvatar />
-      <RoundedAvatar />
-      <BoarderedAvatar />
-      <Sizes />
-    </div>
-  );
-};
-
-export const AvatarWithBadges: React.FC = () => {
-  return (
-    <div>
-      <AvatarWithTopBadge />
-      <AvatarWithBottomBadge />
-      <AvatarWithAdvancedBadge />
-    </div>
-  );
-};
 
 export default {
   title: 'Components/Avatar',
   component: Avatar,
+  subcomponents: { Icon },
 };

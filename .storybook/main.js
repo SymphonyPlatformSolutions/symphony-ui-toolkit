@@ -5,7 +5,6 @@ module.exports = {
     '@storybook/addon-actions',
     '@storybook/addon-links',
     '@storybook/addon-a11y',
-    '@storybook/addon-storysource',
     'storybook-dark-mode/register',
     '@storybook/addon-knobs/register', // Keep until we migrate all to addon-controls
     '@storybook/addon-controls',
