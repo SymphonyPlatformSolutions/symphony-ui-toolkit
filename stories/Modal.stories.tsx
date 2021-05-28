@@ -98,13 +98,20 @@ export const FullPageModal: React.FC = () => {
 };
 
 export const ModalWithCloseHandler: React.FC = () => {
-  const handleClose = () => {alert('This will close the modal!')}
+  const [show, setShow] = React.useState(true);
+  const handleClose = () => { setShow(false) }
   return (
-    <Modal size="medium" closeButton show onClose={handleClose}>
-      <ModalTitle>Medium modal with onClose prop</ModalTitle>
-      <ModalBody>{body}</ModalBody>
-      <ModalFooter>{footer}</ModalFooter>
-    </Modal>
+    <div>
+      <Button onClick={() => setShow(true)}>Open the Modal</Button>
+      <Modal size="medium" closeButton show={show} onClose={handleClose}>
+        <ModalTitle>Medium modal with onClose prop</ModalTitle>
+        <ModalBody>{body}</ModalBody>
+        <ModalFooter>
+          <Button variant={'tertiary'} onClick={handleClose}>Cancel</Button>
+          <Button variant={'primary'} onClick={handleClose}>Confirm</Button>
+        </ModalFooter>
+      </Modal>
+    </div>
   );
 };
 

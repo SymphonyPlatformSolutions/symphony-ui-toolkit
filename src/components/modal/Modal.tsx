@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import classNames from 'classnames';
+import { Keys } from '../common/keyUtils';
 
 type ModalProps = {
   size: 'small' | 'medium' | 'large' | 'full-width';
@@ -47,13 +48,19 @@ const Modal: React.FC<ModalProps> = ({
 }: ModalProps) => {
   const containerClasses = classNames(className, `${prefix}-backdrop`);
   const sizeClasses = classNames(prefix, `${prefix}--${size}`);
-  const handleContentClick = (ev: React.MouseEvent<HTMLElement>) => ev.stopPropagation();
+  const handleContentClick = (event: React.MouseEvent<HTMLElement>) => event.stopPropagation();
+  const handleKeyUp = (event: React.KeyboardEvent<HTMLElement>) => {
+    if (onClose && event.key === Keys.ESC) {
+      event.stopPropagation();
+      onClose();
+    }
+  };
 
   const domResult = (
-    <div {...rest} className={containerClasses} onClick={onClose}>
-      <div className={sizeClasses} onClick={handleContentClick}>
+    <div {...rest} className={containerClasses} onClick={onClose} onKeyUp={handleKeyUp}>
+      <div role="dialog" className={sizeClasses} onClick={handleContentClick}>
         {closeButton && (
-          <button className={buildClass('close')} onClick={onClose} />
+          <button type="button" aria-label="close" className={buildClass('close')} onClick={onClose} />
         )}
         {children}
       </div>
