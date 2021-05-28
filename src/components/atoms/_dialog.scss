@@ -66,7 +66,9 @@ $dialog-scrollbar-box-shadow: rgba($scolor-black, 0.5);
     box-sizing: border-box;
     border: none;
     background: none;
-    display: block;
+    display: flex;
+    align-content: center;
+    justify-content: center;
     cursor: pointer;
     outline: none;
     color: $--tk-dialog-cross-color;
@@ -80,6 +82,11 @@ $dialog-scrollbar-box-shadow: rgba($scolor-black, 0.5);
 
     &:hover {
       color: $--tk-dialog-hover-cross-color;
+    }
+
+    &:focus {
+      @include addOutline();
+      outline-offset: toRem(4);
     }
   }
 
