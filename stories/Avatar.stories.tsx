@@ -293,7 +293,7 @@ export const AvatarWithAdvancedBadge: React.FC = () => {
               style={{ clipPath: 'url(#avatar_badge)' }}
             />
             <div style={{ fontSize: '0.8em' }}>
-              <AvatarBadge position="bottom" className="tk-text-color--offline">
+              <AvatarBadge position="bottom">
                 <Icon iconName="offline" />
               </AvatarBadge>
             </div>
@@ -352,7 +352,7 @@ export const AvatarWithAdvancedBadge: React.FC = () => {
               style={{ clipPath: 'url(#avatar_badge)' }}
             />
             <div style={{ fontSize: '0.7em' }}>
-              <AvatarBadge position="bottom" className="tk-text-color--offline">
+              <AvatarBadge position="bottom">
                 <Icon iconName="offline" />
               </AvatarBadge>
             </div>
