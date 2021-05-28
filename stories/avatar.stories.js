@@ -258,7 +258,7 @@ export const AvatarWithBadge = () => `
   <h3>Badge with icon</h3>
   <div class="avatar-box flex-row">
     <div class="flex-col">
-      <div class="tk-avatar tk-avatar--xlarge tk-mr-5h">
+      <div class="tk-avatar tk-avatar--xxlarge tk-mr-5h">
         <svg class="tk-avatar__clip-path" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
           <clipPath id="avatar_badge" clipPathUnits="objectBoundingBox">
             <path id="avatar-presence-clip-path" d="M 0.6635 0.9727 C 0.6594 0.9478 0.6563 0.9156 0.6563 0.875 C 0.6563 0.8159
@@ -270,28 +270,52 @@ export const AvatarWithBadge = () => `
           </clipPath>
         </svg>
         <img alt="avatar" src=${avatar} style="clip-path:url(#avatar_badge);">
-        <i class="tk-badge tk-badge--bottom tk-icon-busy tk-text-color--warning" style="font-size:27px"></i>
+        <div style="font-size:0.85em">
+          <i class="tk-badge tk-badge--bottom tk-icon-busy tk-text-color--warning"></i>
+        </div>
       </div>
     </div>
     <div class="flex-col">
       <div class="tk-avatar tk-avatar--xlarge tk-mr-5h">
         <img alt="avatar" src=${avatar1} style="clip-path:url(#avatar_badge);">
-        <i class="tk-badge tk-badge--bottom tk-icon-offline " style="font-size:27px"></i>
+        <div style="font-size:0.8em">
+          <i class="tk-badge tk-badge--bottom tk-icon-offline"></i>
+        </div>
       </div>
     </div>
     <div class="flex-col">
-      <div class="tk-avatar tk-avatar--xlarge tk-mr-5h">
+      <div class="tk-avatar tk-avatar--large tk-mr-5h">
         <img alt="avatar" src=${avatar2} style="clip-path:url(#avatar_badge);">
-        <i class="tk-badge tk-badge--bottom tk-icon-online tk-text-color--ok" style="font-size:27px"></i>
+        <div style="font-size:0.7em">
+          <i class="tk-badge tk-badge--bottom tk-icon-online tk-text-color--ok"></i>
+        </div>
       </div>
     </div>
 
     <div class="flex-col">
-      <div class="tk-avatar tk-avatar--xlarge tk-mr-5h">
+      <div class="tk-avatar tk-avatar--medium tk-mr-5h">
         <img alt="avatar" src=${avatar} style="clip-path:url(#avatar_badge);">
-        <i class="tk-badge tk-badge--bottom tk-icon-idle tk-text-color--attention" style="font-size:27px"></i>
+        <div style="font-size:0.75em">
+          <i class="tk-badge tk-badge--bottom tk-icon-idle tk-text-color--attention" ></i>
+        </div>
       </div>
     </div>
+    <div class="flex-col">
+    <div class="tk-avatar tk-avatar--small tk-mr-5h">
+      <img alt="avatar" src=${avatar} style="clip-path:url(#avatar_badge);">
+      <div style="font-size:0.6em">
+        <i class="tk-badge tk-badge--bottom tk-icon-busy tk-text-color--warning"></i>
+      </div>
+    </div>
+  </div>
+  <div class="flex-col">
+    <div class="tk-avatar tk-avatar--xsmall tk-mr-5h">
+      <img alt="avatar" src=${avatar1} style="clip-path:url(#avatar_badge);">
+      <div style="font-size:0.7em">
+        <i class="tk-badge tk-badge--bottom tk-icon-offline"></i>
+      </div>
+    </div>
+  </div>
   </div>
 </div>
 `
