@@ -1,5 +1,6 @@
 import * as React from 'react';
-import Select, { ActionMeta, createFilter } from 'react-select';
+import Select,{ ActionMeta, createFilter } from 'react-select';
+import AsyncSelect from 'react-select/async';
 import {
   ClearIndicator,
   Control,
@@ -13,6 +14,8 @@ import {
   NoOptionsMessage,
   DropdownList,
   firstOption,
+  LoadingIndicator,
+  LoadingMessage
 } from './CustomRender';
 import {
   DropdownOption,
@@ -114,7 +117,7 @@ export type DropdownProps<T> = {
   /** Message to be display on the header of the menu list when searching by term */
   termSearchMessage?: ((term: string) => string) | string;
 } & HasTooltipProps &
-  (MultiModeProps<T> | SingleModeProps<T>);
+  (MultiModeProps<T> | SingleModeProps<T>) & (AsyncProps<T> | SyncProps<T>);
 
 type MultiModeProps<T> = {
   /** Support multiple selected options */
@@ -131,11 +134,23 @@ type SingleModeProps<T> = {
   value?: T;
 } & HasValidationProps<T>;
 
+type AsyncProps<T> = {
+  options?: undefined;
+  asyncOptions: (inputValue: string) =>Promise<unknown>;
+  defaultOptions?: boolean;
+} & HasValidationProps<T>;
+type SyncProps<T> = {
+  options: DropdownOption<T>[];
+  asyncOptions?: undefined;
+  defaultOptions?: undefined;
+} & HasValidationProps<T>;
+
 type DropdownState<T> = {
   selectedOption: T;
   closeMenuOnSelect?: boolean;
   hideSelectedOptions?: boolean;
   displayArrowIndicator?: boolean;
+  Dropdown: any;
 };
 export class Dropdown<T = LabelValue> extends React.Component<
   DropdownProps<T>,
@@ -149,6 +164,7 @@ export class Dropdown<T = LabelValue> extends React.Component<
     this.myRef = React.createRef();
     this.searchHeaderOption = { ...firstOption };
     this.state = {
+      Dropdown:  this.props.options ? Select : AsyncSelect,
       selectedOption: null,
       hideSelectedOptions:
         this.props.hideSelectedOptions === undefined
@@ -215,9 +231,11 @@ export class Dropdown<T = LabelValue> extends React.Component<
     : undefined;
 
   get internalOptions() {
-    return this.props.enableTermSearch
-      ? [this.searchHeaderOption as T, ...this.props.options]
-      : this.props.options;
+    if(this.props.options) {
+      return this.props.enableTermSearch
+        ? [this.searchHeaderOption as T, ...this.props.options]
+        : this.props.options;
+    }
   }
 
   bindValue = this.props.bindValue
@@ -229,6 +247,7 @@ export class Dropdown<T = LabelValue> extends React.Component<
       hideSelectedOptions,
       closeMenuOnSelect,
       displayArrowIndicator,
+      Dropdown,
     } = this.state;
     const {
       autoScrollToCurrent,
@@ -266,6 +285,8 @@ export class Dropdown<T = LabelValue> extends React.Component<
       tabSelectsValue,
       termSearchMessage,
       value,
+      asyncOptions,
+      defaultOptions
     } = this.props;
 
     return (
@@ -278,7 +299,7 @@ export class Dropdown<T = LabelValue> extends React.Component<
           tooltipCloseLabel={tooltipCloseLabel}
           showRequired={showRequired}
         />
-        <Select
+        <Dropdown 
           styles={{
             valueContainer: provided => ({
               ...provided,  maxHeight:`${maxHeight}px`})
@@ -302,6 +323,8 @@ export class Dropdown<T = LabelValue> extends React.Component<
             MultiValueRemove,
             NoOptionsMessage,
             MenuList: DropdownList,
+            LoadingIndicator,
+            LoadingMessage
           }}
           defaultValue={defaultValue}
           id={id}
@@ -319,6 +342,8 @@ export class Dropdown<T = LabelValue> extends React.Component<
           onKeyDown={onKeyDown}
           onKeyUp={onKeyUp}
           options={this.internalOptions}
+          loadOptions={asyncOptions}
+          defaultOptions={defaultOptions !== undefined ? defaultOptions : true}
           hideSelectedOptions={hideSelectedOptions}
           placeholder={placeHolder}
           isMulti={isMultiSelect}

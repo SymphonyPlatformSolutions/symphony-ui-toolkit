@@ -2,6 +2,7 @@ import * as React from 'react';
 import classNames from 'classnames';
 import { components } from 'react-select';
 import Icon from '../icon';
+import Loader from '../loader';
 import { SearchHeaderOption } from './interfaces';
 
 /**
@@ -237,6 +238,21 @@ const HeaderComp = (props: any) => {
   );
 };
 
+/** 
+ * Override default loading styles to the react-select 
+ */
+export const LoadingIndicator = () => {
+  return null;
+};
+
+export const LoadingMessage = () => {
+  return (
+    <div className="tk-select-loading">
+      <Loader />
+    </div>
+  );
+};
+
 /** This component is used when the enableTermSearch prop
  * is activated to handle the header Option selection
  */
@@ -252,8 +268,12 @@ export const DropdownList = (props: any) => {
     }
     focusThis = focusThis || searchHeaderOption;
     // Clear the value if header option is selected
-    if (select?.state?.selectValue[0]?.searchHeader) {
-      select?.clearValue();
+    // TODO -> Add termSearch to async mode
+    if (select?.state?.selectValue) {
+      if(select?.state?.selectValue[0]?.searchHeader) {
+
+        select?.clearValue();
+      }
     }
     // Initially, remove the focus from the headerOption
     React.useEffect(() => {

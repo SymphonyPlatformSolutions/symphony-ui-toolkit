@@ -35,6 +35,20 @@ const personSelectorOptions: DropdownOption<Person>[] = [
   }
 ];
 
+const filterDefaultOptions = (inputValue: string) => {
+  return defaultOptions.filter(i =>
+    i.label.toLowerCase().includes(inputValue.toLowerCase())
+  );
+};
+
+const promiseOptions = inputValue =>
+  new Promise(resolve => {
+    setTimeout(() => {
+      resolve(filterDefaultOptions(inputValue));
+    }, 1000);
+  });
+
+
 const timeZoneOptions: DropdownOption<LabelValue>[] = [
   { label: '(GMT +03:00) Tanzania', value: '8' },
   { label: '(GMT +03:00) Uganda', value: '9' },
@@ -172,7 +186,20 @@ export const Select: React.FC = () => (
     <Dropdown options={personSelectorOptions} isMultiSelect placeHolder="Search for People" isInputClearable/>
     <p>With the <Typography variant="bold">maxHeight</Typography> prop you can control the height of the multiple selection before scrolling on the input.</p>
     <Dropdown options={personSelectorOptions} isMultiSelect maxHeight={70} placeHolder="Search for People" isInputClearable noOptionMessage={'No options'}/>
-
+   
+    <h2 className="tk-mt-5h">Loading options</h2>
+    <p>Use the <Typography variant="bold">asyncOptions</Typography> prop to load options from a remote source as the user starts typing on the input.</p>
+    <p>The <Typography variant="bold">asyncOptions</Typography> prop:</p>
+    <h3>defaultOptions</h3>
+    <p>The <Typography variant="bold">defaultOptions</Typography> prop is enabled by default (The options are iniatially loaded).</p>
+    <Dropdown asyncOptions={promiseOptions} placeHolder="Async select" isInputClearable/> 
+    <p>* To disable: <Typography variant="bold">defaultOptions=false</Typography>. (Start typing to load the options)</p>
+    <Dropdown defaultOptions={false} asyncOptions={promiseOptions}  maxHeight={70} placeHolder="Async select" isInputClearable noOptionMessage={'No options'}/>
+    <h3>Multiple Select</h3>
+    <Dropdown asyncOptions={promiseOptions} isMultiSelect placeHolder="Async select" isInputClearable />
+    <h3>Loading with term search enabled</h3>
+    <Dropdown asyncOptions={promiseOptions} isMultiSelect placeHolder="Async select" isInputClearable enableTermSearch termSearchMessage="This is my customized term search message. Term: "/>
+  
     <h2 className="tk-mt-5h">Customized selects</h2>
     <p>
     You can easily customize the appearance of the UIToolkit Dropdown and render your own components.
