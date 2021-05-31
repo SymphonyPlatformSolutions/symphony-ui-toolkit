@@ -29,7 +29,7 @@ import { format as formatDate, isValid } from 'date-fns';
 
 import { ErrorMessages, HasValidationProps } from '../validation/interfaces';
 import { HasTooltipProps } from '../tooltip/interfaces';
-import { InputBaseProps, InputBasePropTypes } from '../input/TextComponent';
+import { InputBaseProps, InputBasePropTypes } from '../input/Input';
 
 // z-index: 4; equivalent to $z-index-tooltip
 const DatePickerContainer = styled.div`
@@ -134,9 +134,8 @@ class DatePicker extends Component<
     const { date, format, initialMonth, locale } = props;
 
     // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const getLocale: Locale = require(`date-fns/locale/${
-      locale || 'en-US'
-    }/index.js`);
+    const getLocale: Locale = require(`date-fns/locale/${locale || 'en-US'
+      }/index.js`);
 
     this.state = {
       navigationDate: initialMonth || this.computeDate(date) || new Date(),
@@ -168,12 +167,12 @@ class DatePicker extends Component<
   }
 
   componentDidMount() {
-    const {onInit, date} = this.props;
+    const { onInit, date } = this.props;
     document.addEventListener('mousedown', this.handleClickOutside);
     if (this.props.showOverlay) {
       this.setState({ showPicker: true });
     }
-    if(onInit && date){
+    if (onInit && date) {
       onInit(this.computeDate(date));
     }
   }
@@ -191,9 +190,8 @@ class DatePicker extends Component<
     // update dynamically if locale change
     if (this.props.locale !== prevProps.locale) {
       // eslint-disable-next-line @typescript-eslint/no-var-requires
-      const getLocale = require(`date-fns/locale/${
-        this.props.locale || 'en-US'
-      }/index.js`);
+      const getLocale = require(`date-fns/locale/${this.props.locale || 'en-US'
+        }/index.js`);
       this.setState({
         locale: getLocale,
         inputValue: this.computeDate(this.props.date)
@@ -361,48 +359,48 @@ class DatePicker extends Component<
   private handleKeyDownIcon(e: React.KeyboardEvent): void {
     const { showPicker } = this.state;
     switch (e.key) {
-    case Keys.TAB:
-      if (!e.shiftKey && showPicker && this.refPicker) {
-        cancelEvent(e);
-        const elCell = this.refPicker.dayPicker.querySelector(
-          '.tk-daypicker-day[tabindex="0"]'
-        );
-        if (elCell) {
-          elCell.focus();
+      case Keys.TAB:
+        if (!e.shiftKey && showPicker && this.refPicker) {
+          cancelEvent(e);
+          const elCell = this.refPicker.dayPicker.querySelector(
+            '.tk-daypicker-day[tabindex="0"]'
+          );
+          if (elCell) {
+            elCell.focus();
+          }
         }
-      }
-      break;
-    case Keys.SPACE:
-    case Keys.SPACEBAR:
-    case Keys.ENTER:
-      cancelEvent(e);
-      this.handleClickIcon();
-      break;
-    case Keys.ESC:
-      cancelEvent(e);
-      this.handleOnClose();
-      break;
-    default:
-      break;
+        break;
+      case Keys.SPACE:
+      case Keys.SPACEBAR:
+      case Keys.ENTER:
+        cancelEvent(e);
+        this.handleClickIcon();
+        break;
+      case Keys.ESC:
+        cancelEvent(e);
+        this.handleOnClose();
+        break;
+      default:
+        break;
     }
   }
 
   private handleKeyDownInput(e: React.KeyboardEvent): void {
     const { showPicker } = this.state;
     switch (e.key) {
-    case Keys.ENTER:
-      cancelEvent(e);
-      this.setState({ showPicker: !showPicker });
-      break;
-    case Keys.ESC:
-      cancelEvent(e);
-      this.setState({ showPicker: false });
-      break;
-    case Keys.TAB:
-      this.setState({ showPicker: false });
-      break;
-    default:
-      break;
+      case Keys.ENTER:
+        cancelEvent(e);
+        this.setState({ showPicker: !showPicker });
+        break;
+      case Keys.ESC:
+        cancelEvent(e);
+        this.setState({ showPicker: false });
+        break;
+      case Keys.TAB:
+        this.setState({ showPicker: false });
+        break;
+      default:
+        break;
     }
   }
 

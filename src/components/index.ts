@@ -1,5 +1,5 @@
 import Link from './link';
-import { TextArea, TextField } from './input';
+import { Input, TextArea, TextField } from './input';
 import { Checkbox, Radio, Switch } from './selection';
 import CropContent from './crop-content';
 import DatePicker from './date-picker';
@@ -33,6 +33,8 @@ export {
   DropdownMenuItem,
   DropdownMenuDivider,
   ExpandableCard,
+  Icon,
+  Input,
   Radio,
   Switch,
   TextArea,
@@ -40,7 +42,6 @@ export {
   Tooltip,
   TooltipProps,
   Validation,
-  Icon,
   VirtualizedList,
   Link,
   Modal,

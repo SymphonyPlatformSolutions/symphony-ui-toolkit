@@ -9,8 +9,8 @@ import { HasTooltipProps } from '../tooltip/interfaces';
 import LabelTooltipDecorator from '../label-tooltip-decorator/LabelTooltipDecorator';
 
 enum Types {
-  TEXTAREA = 'TextArea',
-  TEXTFIELD = 'TextField',
+  TEXTAREA = 'textarea',
+  TEXT = 'text',
 }
 
 export type InputBaseProps = {
@@ -43,7 +43,7 @@ type TextComponentProps = {
 
 type TextComponentPropsWithType = TextComponentProps &
   InputBaseProps & {
-    type: Types;
+    type: string;//Types;
   };
 
 export const InputBasePropTypes = {
@@ -77,7 +77,7 @@ const TextComponentPropTypes = {
   showRequired: PropTypes.bool,
 };
 
-const TextComponent: React.FC<
+const Input: React.FC<
   TextComponentPropsWithType &
   React.RefAttributes<HTMLInputElement | HTMLTextAreaElement>
 > = React.forwardRef(
@@ -165,7 +165,7 @@ const TextComponent: React.FC<
             aria-label={label}
             aria-placeholder={placeholder}
             aria-readonly={disabled}
-            aria-multiline={type === Types.TEXTAREA}
+            aria-multiline={type === Types.TEXTAREA ? true : null}
             className={classNames('tk-input')}
             placeholder={placeholder}
             value={value}
@@ -174,11 +174,11 @@ const TextComponent: React.FC<
             onFocus={onFocus}
             onKeyDown={onKeyDown}
             onChange={onChange}
-            type={type === Types.TEXTFIELD ? 'text' : null}
+            type={type !== Types.TEXTAREA ? type : null}
             style={
               {
                 WebkitTextSecurity:
-                  type == Types.TEXTFIELD &&
+                  type == Types.TEXT &&
                   (isMasked || (masked && hideText)) &&
                   'disc',
               } as React.CSSProperties
@@ -187,12 +187,12 @@ const TextComponent: React.FC<
             {...rest}
           />
 
-          {rightDecorators && type == Types.TEXTFIELD
+          {rightDecorators && type == Types.TEXT
             ? Array.isArray(rightDecorators)
               ? rightDecorators.map((decorator) => decorator)
               : rightDecorators
             : null}
-          {type == Types.TEXTFIELD && masked && value?.length ? (
+          {type == Types.TEXT && masked && value?.length ? (
             <button
               className="tk-input__hide"
               tabIndex={value && value.length === 0 ? -1 : 0}
@@ -201,7 +201,7 @@ const TextComponent: React.FC<
               {hideText ? 'show' : 'hide'}
             </button>
           ) : null}
-          {iconElement && type == Types.TEXTFIELD
+          {iconElement && type == Types.TEXT
             ? // Clone the iconElement in order to attach className 'tk-input__icon'
             React.cloneElement(iconElement, {
               className: classNames(
@@ -216,11 +216,11 @@ const TextComponent: React.FC<
   }
 );
 
-TextComponent.propTypes = {
+Input.propTypes = {
   ...TextComponentPropTypes,
   ...InputBasePropTypes,
-  type: PropTypes.oneOf(Object.values(Types)).isRequired,
+  type: PropTypes.string// oneOf(Object.values(Types)).isRequired,
 };
-TextComponent.displayName = 'TextComponent';
+Input.displayName = 'TextComponent';
 
-export { TextComponentPropTypes, TextComponentProps, TextComponent, Types };
+export { TextComponentPropTypes, TextComponentProps, Input, Types };

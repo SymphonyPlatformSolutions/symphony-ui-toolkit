@@ -2,15 +2,15 @@ import * as React from 'react';
 import {
   TextComponentPropTypes,
   TextComponentProps,
-  TextComponent,
+  Input,
   Types,
-} from './TextComponent';
+} from './Input';
 
 const TextField: React.FC<
   TextComponentProps &
-    React.RefAttributes<HTMLInputElement | HTMLTextAreaElement>
+  React.RefAttributes<HTMLInputElement | HTMLTextAreaElement>
 > = React.forwardRef((props, ref) => {
-  return <TextComponent type={Types.TEXTFIELD} {...props} ref={ref} />;
+  return <Input type={Types.TEXT} {...props} ref={ref} />;
 });
 
 TextField.propTypes = TextComponentPropTypes;
