@@ -5,16 +5,27 @@ import classNames from 'classnames';
 import shortid from 'shortid';
 import LabelTooltipDecorator, {
   LabelTooltipDecoratorProps,
+  LabelTooltipDecoratorPropTypes,
 } from '../label-tooltip-decorator/LabelTooltipDecorator';
 
-interface InputDecoratorProps {
-  children?: React.ReactNode;
+const RightDecoratorsPropTypes = {
+  rightDecorators: PropTypes.oneOfType([
+    PropTypes.element,
+    PropTypes.arrayOf(PropTypes.element),
+  ]),
+};
+
+const InputDecoratorPropTypes = {
+  ...LabelTooltipDecoratorPropTypes,
+  ...RightDecoratorsPropTypes,
+};
+
+interface InputDecoratorProps extends LabelTooltipDecoratorProps {
   rightDecorators?: JSX.Element | JSX.Element[];
+  children?: React.ReactNode;
 }
 
-const InputDecorator: React.FC<
-  InputDecoratorProps & LabelTooltipDecoratorProps
-> = ({
+const InputDecorator: React.FC<InputDecoratorProps> = ({
   rightDecorators,
   label,
   tooltip,
@@ -83,5 +94,8 @@ const InputDecorator: React.FC<
     </div>
   );
 };
+
+InputDecorator.propTypes = InputDecoratorPropTypes;
+InputDecorator.displayName = 'InputDecorator';
 
 export default InputDecorator;

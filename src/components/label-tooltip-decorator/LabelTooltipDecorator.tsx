@@ -26,7 +26,7 @@ const LabelTooltipDecoratorTooltip = styled.div`
   margin-left: auto;
   font-size: 16px;
 `;
-const LabelTooltipDecoratorPropTypes = {
+export const LabelTooltipDecoratorPropTypes = {
   id: PropTypes.string,
   htmlFor: PropTypes.string,
   label: PropTypes.string,
@@ -41,14 +41,13 @@ const LabelTooltipDecorator: React.FC<LabelTooltipDecoratorProps> = ({
   placement,
   tooltip,
   tooltipCloseLabel,
-  showRequired
+  showRequired,
 }) => {
   const [showTooltip, setShowTooltip] = useState(false);
 
-  const classes = classNames(
-    'tk-label',
-    { 'tk-label--required': showRequired },
-  )
+  const classes = classNames('tk-label', {
+    'tk-label--required': showRequired,
+  });
 
   return label || tooltip ? (
     <LabelTooltipDecoratorHeader className="tk-input-group__header">
@@ -67,7 +66,10 @@ const LabelTooltipDecorator: React.FC<LabelTooltipDecoratorProps> = ({
             visible={showTooltip}
             placement={placement || 'top'}
           >
-            <Icon iconName="info-round" onClick={() => setShowTooltip(!showTooltip)} />
+            <Icon
+              iconName="info-round"
+              onClick={() => setShowTooltip(!showTooltip)}
+            />
           </Tooltip>
         </LabelTooltipDecoratorTooltip>
       ) : null}
