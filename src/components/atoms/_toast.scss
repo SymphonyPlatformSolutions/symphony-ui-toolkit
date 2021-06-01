@@ -1,7 +1,9 @@
 .tk-toast {
+    align-items: center;
     background-color: $scolor-graphite-plus-48;
     border-radius: toRem(8);
     color: $scolor-graphite-minus-96;
+    display: flex;
     line-height: toRem(20);
     padding: toRem(10) toRem(16) toRem(10) toRem(16);
     width: fit-content;
