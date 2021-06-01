@@ -1,5 +1,5 @@
 import Link from './link';
-import { TextArea, TextField } from './input';
+import { InputDecorator, TextArea, TextField } from './input';
 import { Checkbox, Radio, Switch } from './selection';
 import CropContent from './crop-content';
 import DatePicker from './date-picker';
@@ -41,6 +41,7 @@ export {
   TooltipProps,
   Validation,
   Icon,
+  InputDecorator,
   VirtualizedList,
   Link,
   Modal,
