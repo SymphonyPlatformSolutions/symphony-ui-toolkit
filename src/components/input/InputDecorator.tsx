@@ -32,36 +32,28 @@ const InputDecorator: React.FC<InputDecoratorProps> = ({
   tooltipCloseLabel,
   showRequired,
   children,
+  ...rest
 }) => {
-  let child;
-
-  if (React.Children.count(children) === 0) {
-    console.error('The Input decorator requires one child component.');
-  } else if (React.Children.count(children) > 1) {
-    console.error(
-      `The Input decorator can wrap only one component. Found: ${React.Children.count(
-        children
-      )}`,
-      children
-    );
-  } else {
-    child = React.Children.only(children);
-  }
+  const child = useMemo(
+    () => (React.Children.only(children) ? children[0] : null),
+    [children]
+  );
 
   // Generate unique ID if not provided
   const inputId = useMemo(() => {
-    return child.id || `tk-input-${shortid.generate()}`;
-  }, [child.id]);
+    return child?.props?.id || `tk-input-${shortid.generate()}`;
+  }, [child]);
 
   const tooltipId = useMemo(() => `tk-hint-${shortid.generate()}`, []);
 
   const disabled = useMemo(() => {
-    return child.props.disabled;
+    return child?.props?.disabled;
   }, [child]);
 
-  child = React.cloneElement(child as any, {
-    id: inputId,
-  });
+  const childWithId = useMemo(
+    () => (child ? React.cloneElement(child, { ...rest, id: inputId }) : null),
+    [child]
+  );
 
   return (
     <div
@@ -84,7 +76,7 @@ const InputDecorator: React.FC<InputDecoratorProps> = ({
           'tk-input__container--disabled': disabled,
         })}
       >
-        {child}
+        {childWithId}
         {rightDecorators
           ? Array.isArray(rightDecorators)
             ? rightDecorators.map((decorator) => decorator)
