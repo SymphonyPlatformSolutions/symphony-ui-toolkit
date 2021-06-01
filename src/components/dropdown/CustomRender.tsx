@@ -255,13 +255,24 @@ export const DropdownList = (props: any) => {
     if (select?.state?.selectValue[0]?.searchHeader) {
       select?.clearValue();
     }
+    // Initially, remove the focus from the headerOption
     React.useEffect(() => {
       select?.setState({ focusedOption: null });
     }, [props.selectProps.selectRef]);
+
+    // Update the focus depending on the inputValue. 
+    // It will focus on the headerOption when there aren't matching results. 
     React.useEffect(() => {
       select?.setState({ focusedOption: focusThis });
       props.selectProps.parentInstance.searchHeaderOption.value = inputValue;
     }, [inputValue]);
+
+    // Skip focusing on the headerOption if the inputValue is empty
+    React.useEffect(() => {
+      if(select?.state?.focusedOption?.value === '') {
+        select?.setState({ focusedOption: focusThis });
+      }
+    }, [select?.state?.focusedOption]);
   }
 
   return <components.MenuList {...props}>{props.children}</components.MenuList>;

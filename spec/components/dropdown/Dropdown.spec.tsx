@@ -5,6 +5,7 @@ import Dropdown, { DropdownOption, LabelValue } from '../../../src/components/dr
 import '@testing-library/jest-dom/extend-expect';
 import { Button, Validation } from '../../../src/components';
 import { Validators } from '../../../src/core/validators/validators';
+import { Keys } from '../../../src/components/common/keyUtils';
 
 const CustomComponent = (props) => {
   if (props.data){
@@ -175,18 +176,39 @@ describe('Dropdown component test suite =>', () => {
       userEvent.type(input,'B');
       expect(queryByText(/Search for term/)).toBeInTheDocument();
     });
-    it('should focus on the first option', async () => {
-      const {  getByText } = render(
-        <Dropdown
-          options={dropdownProps.options}
-          displayArrowIndicator
-          enableTermSearch
-        />
-      );
-      const input = screen.getByRole('textbox');
-      userEvent.type(input,'B');
-      expect(getByText('banana').className).toContain('tk-select__option--is-focused');
+ 
+
+    describe('when focusing on the dropdown list', () => {
+      it('should focus on the first option (skiping the headerOption) when there is a value on the input', async () => {
+        const {  getByText } = render(
+          <Dropdown
+            options={dropdownProps.options}
+            displayArrowIndicator
+            enableTermSearch
+          />
+        );
+        const input = screen.getByRole('textbox');
+        userEvent.type(input,'B');
+        expect(getByText('banana').className).toContain('tk-select__option--is-focused');
+      });
+
+      it('should focus on the first option (skiping the headerOption) when the user presses the `home` key', async () => {
+        const {  getByText } = render(
+          <Dropdown
+            options={dropdownProps.options}
+            displayArrowIndicator
+            enableTermSearch
+          />
+        );
+        const input = screen.getByRole('textbox');
+        userEvent.click(input);
+        fireEvent.keyDown(input, { key: Keys.ARROW_DOWN });
+        expect(getByText('avocado').className).toContain('tk-select__option--is-focused'); 
+        fireEvent.keyDown(input, { key: Keys.HOME });
+        expect(getByText('banana').className).toContain('tk-select__option--is-focused'); 
+      });
     });
+    
     it('should select option header', async () => {
       const searchedTerm ='BBBmous';
       const {  getByText, queryByText } = render(
