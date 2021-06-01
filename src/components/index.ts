@@ -3,20 +3,20 @@ import CropContent from './crop-content';
 import DatePicker from './date-picker';
 import {
   DropdownMenu,
-
-  DropdownMenuDivider, DropdownMenuItem
+  DropdownMenuDivider,
+  DropdownMenuItem,
 } from './dropdown-menu';
 import ExpandableCard from './expandable-card';
 import Icon from './icon';
-import { TextArea, TextField } from './input';
+import { InputDecorator, TextArea, TextField } from './input';
 import Link from './link';
 import Loader from './loader';
 import {
   Modal,
-
-
   ModalBody,
-  ModalFooter, ModalHeader, ModalTitle
+  ModalFooter,
+  ModalHeader,
+  ModalTitle,
 } from './modal';
 import { Checkbox, Radio, Switch } from './selection';
 import Tooltip, { TooltipProps } from './tooltip';
@@ -48,6 +48,7 @@ export {
   TooltipProps,
   Validation,
   Icon,
+  InputDecorator,
   VirtualizedList,
   Link,
   Modal,
@@ -58,5 +59,3 @@ export {
   Typography,
   Loader,
 };
-
-

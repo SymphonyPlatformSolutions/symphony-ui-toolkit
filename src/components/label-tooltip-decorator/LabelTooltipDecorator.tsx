@@ -6,7 +6,7 @@ import Icon from '../icon';
 import Tooltip from '../tooltip';
 import classNames from 'classnames';
 
-type LabelTooltipDecoratorProps = {
+export type LabelTooltipDecoratorProps = {
   id?: string;
   htmlFor?: string;
   label?: string;
@@ -47,7 +47,7 @@ const LabelTooltipDecorator: React.FC<LabelTooltipDecoratorProps> = ({
 
   const classes = classNames(
     'tk-label',
-    {'tk-label--required': showRequired},
+    { 'tk-label--required': showRequired },
   )
 
   return label || tooltip ? (
