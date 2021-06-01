@@ -48,7 +48,8 @@ const Modal: React.FC<ModalProps> = ({
 }: ModalProps) => {
   const containerClasses = classNames(className, `${prefix}-backdrop`);
   const sizeClasses = classNames(prefix, `${prefix}--${size}`);
-  const handleContentClick = (event: React.MouseEvent<HTMLElement>) => event.stopPropagation();
+  const handleContentClick = (event: React.MouseEvent<HTMLElement>) =>
+    event.stopPropagation();
   const handleKeyUp = (event: React.KeyboardEvent<HTMLElement>) => {
     if (onClose && event.key === Keys.ESC) {
       event.stopPropagation();
@@ -57,10 +58,21 @@ const Modal: React.FC<ModalProps> = ({
   };
 
   const domResult = (
-    <div {...rest} className={containerClasses} onClick={onClose} onKeyUp={handleKeyUp}>
+    <div
+      {...rest}
+      className={containerClasses}
+      onClick={onClose}
+      onKeyUp={handleKeyUp}
+      tabIndex={-1}
+    >
       <div role="dialog" className={sizeClasses} onClick={handleContentClick}>
         {closeButton && (
-          <button type="button" aria-label="close" className={buildClass('close')} onClick={onClose} />
+          <button
+            type="button"
+            aria-label="close"
+            className={buildClass('close')}
+            onClick={onClose}
+          />
         )}
         {children}
       </div>
