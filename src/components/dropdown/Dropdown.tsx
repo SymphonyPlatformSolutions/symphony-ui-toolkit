@@ -35,7 +35,7 @@ export type DropdownProps<T> = {
   bindValue?: string;
   /** Blur the field when an item is selected */
   blurInputOnSelect?: boolean;
-  /** Optional CSS class name */
+  /** Optional CSS class name for the dropdown container */
   className?: string;
   /** Close the expanded menu when the user selects an option */
   closeMenuOnSelect?: boolean;
@@ -233,6 +233,7 @@ export class Dropdown<T = LabelValue> extends React.Component<
     const {
       autoScrollToCurrent,
       blurInputOnSelect,
+      className,
       defaultValue,
       enableTermSearch,
       iconName,
@@ -261,14 +262,14 @@ export class Dropdown<T = LabelValue> extends React.Component<
       tagRenderer,
       tooltip,
       tooltipCloseLabel,
-      showRequired, 
+      showRequired,
       tabSelectsValue,
       termSearchMessage,
       value,
     } = this.props;
 
     return (
-      <div>
+      <div className={className}>
         <LabelTooltipDecorator
           htmlFor={id}
           label={label}
