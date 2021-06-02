@@ -97,36 +97,3 @@ Password.args = {
   description: 'Input type "password"',
   children: <input type="password" />,
 };
-
-// const TemplateWithValidation = (args) => {
-//   const logChange = (data) => {
-//     console.log('Change', data);
-//   };
-//   return (
-//     <Validation
-//       onValidationChanged={logChange}
-//       validator={Validators.Required}
-//       errorMessage={'This field is mandatory'}
-//     >
-//       <TextField
-//         placeholder="Firstname"
-//         onChange={() => {
-//           console.log('Existing onChange method called');
-//         }}
-//       />
-//       {/* <InputDecorator
-//         label={args.description}
-//         tooltip="A tooltip"
-//         rightDecorators={args.rightDecorators}
-//       >
-//         {args.children}
-//       </InputDecorator> */}
-//     </Validation>
-//   );
-// };
-
-// export const Validation = TemplateWithValidation.bind({});
-// Validation.args = {
-//   description: 'Input type "password"',
-//   children: <input type="password" />,
-// };
