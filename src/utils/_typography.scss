@@ -4,8 +4,8 @@
   font-size: toRem(14);
   font-weight: normal;
   line-height: toRem(20);
-  margin-block-start: auto;
-  margin-block-end: auto;
+  display: inline-block;
+  margin: 0;
 
   &--h1 {
     font-size: toRem(18);
@@ -29,7 +29,6 @@
     font-size: toRem(12);
     line-height: toRem(16);
     color: $scolor-graphite-minus-48;
-
   }
 
   &--small {
@@ -45,5 +44,4 @@
   &--italic {
     font-style: italic !important;
   }
-
 }

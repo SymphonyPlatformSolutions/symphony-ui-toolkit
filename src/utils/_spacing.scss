@@ -10,48 +10,48 @@ $properties: "p", "m";
                   &#{$type}#{$size} {
                       @if ($property == 'p') {
                           @if($type == "-") {
-                              @include padding($value);
+                            @include padding($value, true);
                           }
                           @if($type == "x-") {
-                              @include padding-x($value);
+                            @include padding-x($value, true);
                           }
                           @if($type == "y-") {
-                              @include padding-y($value);
+                            @include padding-y($value, true);
                           }
                           @if($type == "t-") {
-                              @include padding-top($value);
+                            @include padding-top($value, true);
                           }
                           @if($type == "b-") {
-                              @include padding-bottom($value);
+                            @include padding-bottom($value, true);
                           }
                           @if($type == "l-") {
-                              @include padding-left($value);
+                            @include padding-left($value, true);
                           }
                           @if($type == "r-") {
-                              @include padding-right($value);
+                            @include padding-right($value, true);
                           }
                       }
                       @else {
                           @if($type == "-") {
-                              @include margin($value);
+                            @include margin($value, true);
                           }
                           @if($type == "x-") {
-                              @include margin-x($value);
+                            @include margin-x($value, true);
                           }
                           @if($type == "y-") {
-                              @include margin-y($value);
+                            @include margin-y($value, true);
                           }
                           @if($type == "t-") {
-                              @include margin-top($value);
+                            @include margin-top($value, true);
                           }
                           @if($type == "b-") {
-                              @include margin-bottom($value);
+                            @include margin-bottom($value, true);
                           }
                           @if($type == "l-") {
-                              @include margin-left($value);
+                            @include margin-left($value, true);
                           }
                           @if($type == "r-") {
-                              @include margin-right($value);
+                            @include margin-right($value, true);
                           }
                       }
                   }

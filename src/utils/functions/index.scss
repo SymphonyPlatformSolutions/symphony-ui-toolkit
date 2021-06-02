@@ -13,3 +13,7 @@ $SPACING_FACTOR: toRem(8);
 @function getSpaceByFactor($size) {
   @return $SPACING_FACTOR * $size;
 }
+
+@function if-important($important) {
+  @return #{if($important, "!important", "")};
+}
