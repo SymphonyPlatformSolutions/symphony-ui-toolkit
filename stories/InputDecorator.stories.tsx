@@ -1,6 +1,5 @@
 import React from 'react';
-import { Icon, InputDecorator, TextField } from '../src/components';
-import { Validators } from '../src/core/validators/validators';
+import { Icon, InputDecorator } from '../src/components';
 
 export default {
   title: 'Components/Input/InputDecorator',
