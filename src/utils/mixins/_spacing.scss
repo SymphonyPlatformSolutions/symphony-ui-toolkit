@@ -1,59 +1,59 @@
-@mixin margin($size) {
-  margin: getSpaceByFactor($size) !important;
+@mixin margin($size, $important: false) {
+  margin: getSpaceByFactor($size) if-important($important);
 }
 
-@mixin margin-top($size) {
-  margin-top: getSpaceByFactor($size) !important;
+@mixin margin-top($size, $important: false) {
+  margin-top: getSpaceByFactor($size) if-important($important);
 }
 
-@mixin margin-bottom($size) {
-  margin-bottom: getSpaceByFactor($size) !important;
+@mixin margin-bottom($size, $important: false) {
+  margin-bottom: getSpaceByFactor($size) if-important($important);
 }
 
-@mixin margin-left($size) {
-  margin-left: getSpaceByFactor($size) !important;
+@mixin margin-left($size, $important: false) {
+  margin-left: getSpaceByFactor($size) if-important($important);
 }
 
-@mixin margin-right($size) {
-  margin-right: getSpaceByFactor($size) !important;
+@mixin margin-right($size, $important: false) {
+  margin-right: getSpaceByFactor($size) if-important($important);
 }
 
-@mixin padding($size) {
-  padding: getSpaceByFactor($size) !important;
+@mixin padding($size, $important: false) {
+  padding: getSpaceByFactor($size) if-important($important);
 }
 
-@mixin padding-top($size) {
-  padding-top: getSpaceByFactor($size) !important;
+@mixin padding-top($size, $important: false) {
+  padding-top: getSpaceByFactor($size) if-important($important);
 }
 
-@mixin padding-bottom($size) {
-  padding-bottom: getSpaceByFactor($size) !important;
+@mixin padding-bottom($size, $important: false) {
+  padding-bottom: getSpaceByFactor($size) if-important($important);
 }
 
-@mixin padding-left($size) {
-  padding-left: getSpaceByFactor($size);
+@mixin padding-left($size, $important: false) {
+  padding-left: getSpaceByFactor($size) if-important($important);
 }
 
-@mixin padding-right($size) {
-  padding-right: getSpaceByFactor($size);
+@mixin padding-right($size, $important: false) {
+  padding-right: getSpaceByFactor($size) if-important($important);
 }
 
-@mixin padding-x($size) {
-  @include padding-left($size);
-  @include padding-right($size);
+@mixin padding-x($size, $important: false) {
+  @include padding-left($size, $important);
+  @include padding-right($size, $important);
 }
 
-@mixin padding-y($size) {
-  @include padding-top($size);
-  @include padding-bottom($size);
+@mixin padding-y($size, $important: false) {
+  @include padding-top($size, $important);
+  @include padding-bottom($size, $important);
 }
 
-@mixin margin-x($size) {
-  @include margin-left($size);
-  @include margin-right($size);
+@mixin margin-x($size, $important: false) {
+  @include margin-left($size, $important);
+  @include margin-right($size, $important);
 }
 
-@mixin margin-y($size) {
-  @include margin-top($size);
-  @include margin-bottom($size);
+@mixin margin-y($size, $important: false) {
+  @include margin-top($size, $important);
+  @include margin-bottom($size, $important);
 }
