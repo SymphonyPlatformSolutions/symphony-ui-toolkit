@@ -21,10 +21,12 @@
         &--is-focused {
           @include active-select;
           .tk-validation--error & {
-            box-shadow: inset 0 0 0 toRem(2) $--tk-input-error-focus-border-color;
+            box-shadow: inset 0 0 0 toRem(2)
+              $--tk-input-error-focus-border-color;
             border-color: $--tk-input-error-focus-border-color;
             .tk-input__icon {
-              box-shadow: inset 0 0 0 toRem(2) $--tk-input-error-focus-border-color;
+              box-shadow: inset 0 0 0 toRem(2)
+                $--tk-input-error-focus-border-color;
               border-color: $--tk-input-error-focus-border-color;
             }
           }
@@ -105,7 +107,16 @@
           &--nested {
             padding-left: toRem(24);
           }
-        } 
+        }
+      }
+      .tk-select-loading {
+        color: $scolor-graphite-plus-50;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: toRem(80);
+        box-sizing: border-box;
+        font-size: toRem(32);
       }
     }
     &__option {
