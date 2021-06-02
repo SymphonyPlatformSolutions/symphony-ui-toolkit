@@ -106,7 +106,7 @@ const Tooltip: React.FC<TooltipProps> = ({
   });
 
   return (
-    <div ref={ref}>
+    <div ref={ref} className={otherProps.className ? otherProps + '_wrapper' : null}>
       <SpanStyled ref={setReferenceElement}>
         { displayTrigger === 'hover' && showTooltipOnHover(otherProps.children, setShowHover) }
         { displayTrigger === 'click' && showTooltipOnClick(otherProps.children, showClick, setShowClick) }
