@@ -1,5 +1,6 @@
 import React from 'react';
-import { Icon, InputDecorator } from '../src/components';
+import { Icon, InputDecorator, TextField } from '../src/components';
+import { Validators } from '../src/core/validators/validators';
 
 export default {
   title: 'Components/Input/InputDecorator',
@@ -93,6 +94,39 @@ Disabled.args = {
 
 export const Password = Template.bind({});
 Password.args = {
+  description: 'Input type "password"',
+  children: <input type="password" />,
+};
+
+const TemplateWithValidation = (args) => {
+  const logChange = (data) => {
+    console.log('Change', data);
+  };
+  return (
+    <Validation
+      onValidationChanged={logChange}
+      validator={Validators.Required}
+      errorMessage={'This field is mandatory'}
+    >
+      <TextField
+        placeholder="Firstname"
+        onChange={() => {
+          console.log('Existing onChange method called');
+        }}
+      />
+      {/* <InputDecorator
+        label={args.description}
+        tooltip="A tooltip"
+        rightDecorators={args.rightDecorators}
+      >
+        {args.children}
+      </InputDecorator> */}
+    </Validation>
+  );
+};
+
+export const Validation = TemplateWithValidation.bind({});
+Validation.args = {
   description: 'Input type "password"',
   children: <input type="password" />,
 };
