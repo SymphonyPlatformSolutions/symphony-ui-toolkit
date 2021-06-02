@@ -34,10 +34,20 @@ const InputDecorator: React.FC<InputDecoratorProps> = ({
   children,
   ...rest
 }) => {
-  const child = useMemo(
-    () => (React.Children.only(children) ? children[0] : null),
-    [children]
-  );
+  let child;
+
+  if (React.Children.count(children) === 0) {
+    console.error('The Input decorator requires one child component.');
+  } else if (React.Children.count(children) > 1) {
+    console.error(
+      `The Input decorator can wrap only one component. Found: ${React.Children.count(
+        children
+      )}`,
+      children
+    );
+  } else {
+    child = React.Children.only(children);
+  }
 
   // Generate unique ID if not provided
   const inputId = useMemo(() => {
