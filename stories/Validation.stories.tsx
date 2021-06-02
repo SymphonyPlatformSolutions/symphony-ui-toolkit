@@ -4,9 +4,12 @@ import React, { useState } from 'react';
 import {
   DatePicker,
   Dropdown,
+  Icon,
+  Input,
   TextArea,
-  TextField, TimePicker,
-  Validation
+  TextField,
+  TimePicker,
+  Validation,
 } from '../src/components';
 import { Validators } from '../src/core/validators/validators';
 
@@ -154,6 +157,30 @@ export const Validations = () => {
           isMultiSelect
         ></Dropdown>
       </Validation>
+      <h3>Input</h3>
+      <p>
+        with <strong>Required validator</strong>
+      </p>
+      <Validation
+        onValidationChanged={logChange}
+        validator={Validators.Required}
+        errorMessage={'This field is mandatory'}
+      >
+        <Input
+          type="url"
+          label="A label"
+          tooltip="A tooltip"
+          rightDecorators={
+            <span
+              key="span-search"
+              style={{ alignSelf: 'center', margin: '0.2rem 0.5rem' }}
+              onClick={() => alert('Icon clicked')}
+            >
+              <Icon iconName="search"></Icon>
+            </span>
+          }
+        />
+      </Validation>
       <h2>Multiple validators</h2>
       <p>
         Text Field with <strong>multiple validators</strong>: Mandatory number,
@@ -216,7 +243,7 @@ export const Validations = () => {
         onValidationChanged={logChange}
         errorMessage={{
           format: 'Le format est incorrect',
-          disabledDate: 'La date n\'est pas disponible',
+          disabledDate: "La date n'est pas disponible",
           maxDate: 'La date est ...',
           minDate: 'La date est trop ancienne',
         }}
@@ -232,16 +259,14 @@ export const Validations = () => {
           }}
         ></DatePicker>
       </Validation>
-      <p>
-        Another example with the TimePicker :
-      </p>
+      <p>Another example with the TimePicker :</p>
       <Validation
         onValidationChanged={logChange}
         errorMessage={{
           format: 'Le format est incorrect',
-          disabledTime: 'L\'heure n\'est pas disponible',
-          maxTime: 'L\'heure est trop tard',
-          minTime: 'L\'heure est trop trop',
+          disabledTime: "L'heure n'est pas disponible",
+          maxTime: "L'heure est trop tard",
+          minTime: "L'heure est trop trop",
         }}
       >
         <TimePicker

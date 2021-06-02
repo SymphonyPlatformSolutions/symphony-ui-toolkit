@@ -43,7 +43,7 @@ type TextComponentProps = {
 
 type TextComponentPropsWithType = TextComponentProps &
   InputBaseProps & {
-    type: string;//Types;
+    type: string; //Types;
   };
 
 export const InputBasePropTypes = {
@@ -79,7 +79,7 @@ const TextComponentPropTypes = {
 
 const Input: React.FC<
   TextComponentPropsWithType &
-  React.RefAttributes<HTMLInputElement | HTMLTextAreaElement>
+    React.RefAttributes<HTMLInputElement | HTMLTextAreaElement>
 > = React.forwardRef(
   (
     {
@@ -187,7 +187,7 @@ const Input: React.FC<
             {...rest}
           />
 
-          {rightDecorators && type == Types.TEXT
+          {rightDecorators
             ? Array.isArray(rightDecorators)
               ? rightDecorators.map((decorator) => decorator)
               : rightDecorators
@@ -201,14 +201,14 @@ const Input: React.FC<
               {hideText ? 'show' : 'hide'}
             </button>
           ) : null}
-          {iconElement && type == Types.TEXT
+          {iconElement
             ? // Clone the iconElement in order to attach className 'tk-input__icon'
-            React.cloneElement(iconElement, {
-              className: classNames(
-                'tk-input__icon',
-                iconElement.props.className
-              ),
-            })
+              React.cloneElement(iconElement, {
+                className: classNames(
+                  'tk-input__icon',
+                  iconElement.props.className
+                ),
+              })
             : null}
         </div>
       </div>
@@ -219,7 +219,7 @@ const Input: React.FC<
 Input.propTypes = {
   ...TextComponentPropTypes,
   ...InputBasePropTypes,
-  type: PropTypes.string// oneOf(Object.values(Types)).isRequired,
+  type: PropTypes.string, // oneOf(Object.values(Types)).isRequired,
 };
 Input.displayName = 'TextComponent';
 
