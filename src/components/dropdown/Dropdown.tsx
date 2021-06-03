@@ -82,8 +82,6 @@ export type DropdownProps<T> = {
   noOptionMessage?: string;
   /** Placeholder text for the dropdown */
   placeHolder?: string;
-  /** Array of options that populate the dropdown menu */
-  options: DropdownOption<T>[];
   /** Custom component used to override the default appearance of the list items. */
   optionRenderer?:
     | React.Component<OptionRendererProps<T>, any>
@@ -136,10 +134,12 @@ type SingleModeProps<T> = {
 
 type AsyncProps<T> = {
   options?: undefined;
+  /** Load the options that populate the dropdown from a returned promise */
   asyncOptions: (inputValue: string) =>Promise<unknown>;
   defaultOptions?: boolean;
 } & HasValidationProps<T>;
 type SyncProps<T> = {
+  /** Array of options that populate the dropdown menu */
   options: DropdownOption<T>[];
   asyncOptions?: undefined;
   defaultOptions?: undefined;
@@ -231,13 +231,22 @@ export class Dropdown<T = LabelValue> extends React.Component<
     : undefined;
 
   get internalOptions() {
-    if(this.props.options) {
+    if (this.props?.options) {
       return this.props.enableTermSearch
         ? [this.searchHeaderOption as T, ...this.props.options]
         : this.props.options;
     }
   }
-
+  
+  internalAsyncOptions = async () => {
+    return this.props?.asyncOptions('')
+      .then(options => new Promise(resolve => 
+        resolve(this.props.enableTermSearch ?
+          [this.searchHeaderOption as T, ...options as DropdownOption<T>[]] 
+          : options))
+      )
+  }
+  
   bindValue = this.props.bindValue
     ? (option) => option[this.props.bindValue]
     : undefined;
@@ -285,7 +294,6 @@ export class Dropdown<T = LabelValue> extends React.Component<
       tabSelectsValue,
       termSearchMessage,
       value,
-      asyncOptions,
       defaultOptions
     } = this.props;
 
@@ -342,7 +350,7 @@ export class Dropdown<T = LabelValue> extends React.Component<
           onKeyDown={onKeyDown}
           onKeyUp={onKeyUp}
           options={this.internalOptions}
-          loadOptions={asyncOptions}
+          loadOptions={this.internalAsyncOptions}
           defaultOptions={defaultOptions !== undefined ? defaultOptions : true}
           hideSelectedOptions={hideSelectedOptions}
           placeholder={placeHolder}

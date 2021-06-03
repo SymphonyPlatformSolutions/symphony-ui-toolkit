@@ -35,17 +35,17 @@ const personSelectorOptions: DropdownOption<Person>[] = [
   }
 ];
 
-const filterDefaultOptions = (inputValue: string) => {
+// Function provided by the user to filter the options
+const filterDefaultOptions = async (inputValue: string) => {
   return defaultOptions.filter(i =>
-    i.label.toLowerCase().includes(inputValue.toLowerCase())
+    i?.label?.toLowerCase().includes(inputValue?.toLowerCase())
   );
 };
 
-const promiseOptions = inputValue =>
+const promiseOptions = (inputValue: string) =>
   new Promise(resolve => {
-    setTimeout(() => {
-      resolve(filterDefaultOptions(inputValue));
-    }, 1000);
+    setTimeout(() => 
+      resolve(filterDefaultOptions(inputValue)), 1000);
   });
 
 
@@ -192,13 +192,13 @@ export const Select: React.FC = () => (
     <p>The <Typography variant="bold">asyncOptions</Typography> prop:</p>
     <h3>defaultOptions</h3>
     <p>The <Typography variant="bold">defaultOptions</Typography> prop is enabled by default (The options are iniatially loaded).</p>
-    <Dropdown asyncOptions={promiseOptions} placeHolder="Async select" isInputClearable/> 
+    <Dropdown asyncOptions={promiseOptions} placeHolder="Async select" isInputClearable noOptionMessage={'No options'}/> 
     <p>* To disable: <Typography variant="bold">defaultOptions=false</Typography>. (Start typing to load the options)</p>
     <Dropdown defaultOptions={false} asyncOptions={promiseOptions}  maxHeight={70} placeHolder="Async select" isInputClearable noOptionMessage={'No options'}/>
     <h3>Multiple Select</h3>
-    <Dropdown asyncOptions={promiseOptions} isMultiSelect placeHolder="Async select" isInputClearable />
+    <Dropdown asyncOptions={promiseOptions} isMultiSelect placeHolder="Async select" isInputClearable noOptionMessage={'No options'} />
     <h3>Loading with term search enabled</h3>
-    <Dropdown asyncOptions={promiseOptions} isMultiSelect placeHolder="Async select" isInputClearable enableTermSearch termSearchMessage="This is my customized term search message. Term: "/>
+    <Dropdown asyncOptions={promiseOptions} placeHolder="Async select" enableTermSearch termSearchMessage="Term: "/>
   
     <h2 className="tk-mt-5h">Customized selects</h2>
     <p>

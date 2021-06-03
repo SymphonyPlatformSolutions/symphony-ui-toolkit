@@ -259,6 +259,8 @@ export const LoadingMessage = () => {
 export const DropdownList = (props: any) => {
   if (props.selectProps?.enableTermSearch) {
     const select = props?.selectProps?.selectRef?.current?.select;
+    const  selectValueSync  = select?.state?.selectValue;
+    const  selectValueAsync  = select?.state?.value?.searchHeader;
     const { searchHeaderOption } = props?.selectProps?.parentInstance;
     const { inputValue } = props?.selectProps;
     // Focus on first option and differenciate between Group Options and simple options
@@ -267,14 +269,15 @@ export const DropdownList = (props: any) => {
       focusThis = props?.children[1].props?.options[0]?.data;
     }
     focusThis = focusThis || searchHeaderOption;
-    // Clear the value if header option is selected
-    // TODO -> Add termSearch to async mode
-    if (select?.state?.selectValue) {
-      if(select?.state?.selectValue[0]?.searchHeader) {
 
+    // Clear the value if header option is selected
+    if (selectValueSync && selectValueSync[0]?.searchHeader ) {
         select?.clearValue();
-      }
     }
+    if (selectValueAsync) {
+      select?.select?.clearValue();
+    }
+
     // Initially, remove the focus from the headerOption
     React.useEffect(() => {
       select?.setState({ focusedOption: null });
