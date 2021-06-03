@@ -9,12 +9,9 @@ import {
   DropdownIndicator,
   Input,
   MultiValueContainerOverride,
-  MultiValueRemove,
   SingleValue,
   NoOptionsMessage,
   DropdownList,
-  firstOption,
-  LoadingIndicator,
   LoadingMessage
 } from './CustomRender';
 import {
@@ -23,6 +20,7 @@ import {
   OptionRendererProps,
   SearchHeaderOption,
   TagRendererProps,
+  firstOption
 } from './interfaces';
 import { HasValidationProps } from '../validation/interfaces';
 import { HasTooltipProps } from '../tooltip/interfaces';
@@ -328,10 +326,10 @@ export class Dropdown<T = LabelValue> extends React.Component<
             MultiValueContainer: MultiValueContainerOverride,
             MultiValue: DefaultTagRenderer,
             ClearIndicator,
-            MultiValueRemove,
+            MultiValueRemove: () => null,
             NoOptionsMessage,
             MenuList: DropdownList,
-            LoadingIndicator,
+            LoadingIndicator: () => null,
             LoadingMessage
           }}
           defaultValue={defaultValue}

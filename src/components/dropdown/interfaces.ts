@@ -22,3 +22,8 @@ export interface SearchHeaderOption {
 }
 
 export type DropdownOption<T> = T | DropdownOptionsGroup<T>;
+
+export const firstOption: Readonly<SearchHeaderOption> = {
+  searchHeader: true,
+  value: '',
+};
