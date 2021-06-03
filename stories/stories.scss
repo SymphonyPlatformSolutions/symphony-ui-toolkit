@@ -117,3 +117,9 @@ pre {
   --tk-button-color-primary-hover: green;
   --tk-button-color-primary-text: white;
 }
+
+.overflow {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}

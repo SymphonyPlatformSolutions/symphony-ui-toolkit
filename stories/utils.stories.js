@@ -205,41 +205,17 @@ export const spacing = () =>
 </div>
     `;
 
-export const Typography = () => 
-  `
-<div class="tk-ml-2h">
+
+const text = "Research and development refer to activities in connection with corporate or government innovation";
+export const Typography = () => `
+  <div class="tk-ml-2h">
   <h1 class="tk-mb-4h">Typography</h1>
-  <div>
-    <span class="tk-typography tk-typography--h1 tk-mr-4h">H1</span>
-    <span class="tk-typography tk-typography--h1 tk-ml-4h">Big titles</span>
-  </div>
-  <div class="tk-mt-4h">
-    <span class="tk-typography tk-typography--h2 tk-mr-4h">H2</span>
-    <span class="tk-typography tk-typography--h2 tk-ml-5">Small titles</span>
-  </div>
-  <div class="tk-mt-4h">
-    <span class="tk-typography tk-typography--h3 tk-mr-4h">H3</span>
-    <span class="tk-typography tk-typography--h3 tk-ml-5">SMALL BOLD TITLES</span>
-  </div>
-  <div class="tk-mt-4h">
-    <span class="tk-typography tk-typography--h4 tk-mr-4h">H4</span>
-    <span class="tk-typography tk-typography--h4 tk-ml-5">EXTRA SMALL TITLES</span>
-  </div>
-  <div class="tk-mt-4h">
-    <span class="tk-typography tk-mr-4h">Body</span>
-    <span class="tk-typography tk-ml-3">Research and development refer to activities in connection with corporate or government innovation</span>
-  </div>
-  <div class="tk-mt-4h">
-    <span class="tk-typography tk-typography--small tk-mr-4h">Small</span>
-    <span class="tk-typography tk-typography--small tk-ml-3">Research and development refer to activities in connection with corporate or government innovation</span>
-  </div>
-  <div class="tk-mt-4h">
-    <span class="tk-typography tk-typography--bold tk-mr-4h">Bold</span>
-    <span class="tk-typography tk-typography--bold tk-ml-3">Research and development refer to activities in connection with corporate or government innovation</span>
-  </div>
-  <div class="tk-mt-4h">
-    <span class="tk-typography tk-typography--italic tk-mr-4h">Italic</span>
-    <span class="tk-typography tk-typography--italic tk-ml-3">Research and development refer to activities in connection with corporate or government innovation</span>
-  </div>
-</div>
-  `;
+  <h1 class="tk-typography tk-typography--h1 tk-mb-2h overflow">H1. ${text}</h1>
+  <h2 class="tk-typography tk-typography--h2 tk-mb-2h overflow">H2. ${text}</h2>
+  <h3 class="tk-typography tk-typography--h3 tk-mb-2h overflow">H3. ${text}</h3>
+  <h4 class="tk-typography tk-typography--h4 tk-mb-2h overflow">H4. ${text}</h4>
+  <span class="tk-typography tk-mb-2h overflow">Body.  ${text}</span>
+  <span class="tk-typography tk-typography--small tk-mb-2h overflow">Small. ${text}</span>
+  <span class="tk-typography tk-typography--bold tk-mb-2h overflow">Bold. ${text}</span>
+  <span class="tk-typography tk-typography--italic tk-mb-2h overflow">Italic. ${text}</span>
+</div>`;
