@@ -17,7 +17,6 @@ const stopPropagation = (e) => {
 
 /** The following components are defined to override
  * the appereace of the react-select library components **/
-
 export const DefaultOptionRenderer = (props: any) => {
   const { classNamePrefix, enableTermSearch, inputValue, mode } = props?.selectProps;
   const OptionRenderer = props?.selectProps?.optionRenderer;
@@ -146,11 +145,9 @@ export const MultiValueRemove = () => {
 /**
  * This component controls the behavior of the expandable arrow displayed on
  * the right side of the Dropdown component.
- *
  * Default:
  *    visible -> Simple select
  *    hidden -> Multiple Select (isMulti prop)
- *
  * The displayArrowIndicator prop from the Dropdown can override it
  */
 export const DropdownIndicator = (props: any) => {
@@ -269,7 +266,6 @@ export const DropdownList = (props: any) => {
       focusThis = props?.children[1].props?.options[0]?.data;
     }
     focusThis = focusThis || searchHeaderOption;
-
     // Clear the value if header option is selected
     if (selectValueSync && selectValueSync[0]?.searchHeader ) {
         select?.clearValue();
@@ -277,19 +273,16 @@ export const DropdownList = (props: any) => {
     if (selectValueAsync) {
       select?.select?.clearValue();
     }
-
     // Initially, remove the focus from the headerOption
     React.useEffect(() => {
       select?.setState({ focusedOption: null });
     }, [props.selectProps.selectRef]);
-
     // Update the focus depending on the inputValue. 
     // It will focus on the headerOption when there aren't matching results. 
     React.useEffect(() => {
       select?.setState({ focusedOption: focusThis });
       props.selectProps.parentInstance.searchHeaderOption.value = inputValue;
     }, [inputValue]);
-
     // Skip focusing on the headerOption if the inputValue is empty
     React.useEffect(() => {
       if(select?.state?.focusedOption?.value === '') {
