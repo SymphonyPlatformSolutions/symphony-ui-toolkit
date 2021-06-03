@@ -1,25 +1,25 @@
-# Getting Started
+# ✅ Getting Started
 
 ## Requirements
 
 - Node 10+
 - Yarn
 
-
-## Install
+## 🛠 Install
 
 Install the library from npm by running the following command on your project:
 
 ```bash
 $ npm install @symphony/uitoolkit-components --save
 ```
+
 or using yarn
 
 ```bash
 $ yarn add @symphony/uitoolkit-components
 ```
 
-## Setup 
+## Setup
 
 To start using UI Toolkit Components you will need to import the styles definition on your project:
 
@@ -29,7 +29,7 @@ To start using UI Toolkit Components you will need to import the styles definiti
 
 ## Usage
 
-Start using by importing the component you need 
+Start using by importing the component you need
 
 ```bash
 import { Button } from "@symphony/uitoolkit-components";
@@ -41,3 +41,6 @@ const App = () => (
 );
 ```
 
+## 🧪 Sandbox
+
+Try UI-Toolkit-Components in [CodeSandbox](https://codesandbox.io/s/ui-toolkit-components-sandbox-l8tyl?file=/src/App.tsx)

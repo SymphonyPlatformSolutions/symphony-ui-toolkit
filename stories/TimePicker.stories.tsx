@@ -1,4 +1,3 @@
-import { CodeSandbox } from 'mdx-embed';
 import * as React from 'react';
 import { useState } from 'react';
 import { Button, Validation } from '../src';
@@ -186,10 +185,6 @@ export const WithValidationComponent: React.SFC = () => {
       </Validation>
     </div>
   );
-};
-
-export const usage = () => {
-  return <CodeSandbox codeSandboxId="jml-poc-ui-tk-timepicker-2u9fn" />;
 };
 
 export default {
