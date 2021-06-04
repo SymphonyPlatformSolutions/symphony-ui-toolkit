@@ -23,225 +23,131 @@ const onBlur =jest.fn();
 const optionDisabled =jest.fn();
 const optionSelected =jest.fn();
 
+const options = [ { label: 'banana' }, { label: 'avocado' }, { label: 'orange' } ]
+
 describe('Dropdown component test suite =>', () => {
   const dropdownProps = {
     options: [],
     id: 'testId'
   };
 
-  beforeEach(() => {
-    dropdownProps.options = [ { label: 'banana' }, { label: 'avocado' }, { label: 'orange' } ];
-  });
-
-  describe('when is simple Dropdown', () => {
-    it('should render the Dropdown component by default', async () => {
-      const { getByText } = render(<Dropdown options={dropdownProps.options} />);
-      expect(getByText('Select...')).toBeInTheDocument();
+  describe('when options are Sync', () => {
+    beforeEach(() => {
+      dropdownProps.options = options;
+    });
+  
+    describe('when is simple Dropdown', () => {
+      it('should render the Dropdown component by default', async () => {
+        const { getByText } = render(<Dropdown options={dropdownProps.options} />);
+        expect(getByText('Select...')).toBeInTheDocument();
       
-    });
-
-    it('should render the Dropdown component by default', async () => {
-      const timeZoneOptions: DropdownOption<LabelValue>[] = [
-        { label: '(GMT +03:00) Tanzania', value: '8' },
-        { label: '(GMT +03:00) Uganda', value: '9' },
-        {
-          label: 'United states of America (USA)',
-          options: [
-            { label: '(GMT -04:00) United states of America (USA) - New York', value: '1' },
-            { label: '(GMT -04:00) United states of America (USA) - Detroit', value: '2' },
-            { label: '(GMT -04:00) United states of America (USA) - Menominee', value: '3' },
-            { label: '(GMT -05:00) United states of America (USA) - Center', value: '4' },
-          ]
-        }
-      ];
-      render(<Dropdown options={timeZoneOptions} mode="nested"/>);
-      const input = screen.getByRole('textbox');
-      userEvent.click(input);
-      const nestedItem = screen.getByText('(GMT -04:00) United states of America (USA) - New York');
-      expect(nestedItem.classList.contains('tk-select__option--nested')).toBeTruthy();
-    });
-    
-    it('should show/hide options menu', async () => {
-      const { getByText } = render(<Dropdown options={dropdownProps.options} hideSelectedOptions closeMenuOnSelect enableTermSearch/>);
-      const input = screen.getByRole('textbox');
-      userEvent.click(input);
-      expect(getByText('banana')).toBeTruthy();
-      expect(getByText('avocado')).toBeTruthy();
-      expect(getByText('orange')).toBeTruthy();
-
-    });
-    
-    it('should select first option', async () => {
-      const { getByText } = render(<Dropdown options={dropdownProps.options} noOptionMessage="no options message"/>);
-      const input = screen.getByRole('textbox');
-      userEvent.click(input);
-      const option = screen.getByText('banana');
-      userEvent.click(option);
-      expect(getByText('banana')).toBeTruthy();
-      userEvent.type(input, 'zz');
-      expect(screen.getByText('no options message')).toBeTruthy();
-    });
-    
-    it('should render costum render dropdown', async () => {
-      const { container, getByText } = render(
-        <Dropdown
-          isMultiSelect
-          options={dropdownProps.options}
-          optionRenderer={CustomComponent}
-          displayArrowIndicator
-          tagRenderer={CustomComponent}
-          isInputClearable
-          onChange={onChange}
-          onClear={onClear}
-        />
-      );
-      const input = screen.getByRole('textbox');
-      userEvent.click(input);
-      const option = screen.getByText('banana');
-      userEvent.click(option);
-      expect(getByText('banana')).toBeTruthy();
-      const cross = container.querySelector('i')
-      userEvent.click(cross);
-      expect(onClear).toBeCalled();
-      expect(getByText('Select...')).toBeTruthy();
-    });
-  });
-
-  describe('when is Multiselect', () => {
-
-    it('should render the Multiselect component by default', async () => {
-      const { getByText } = render(<Dropdown options={dropdownProps.options} isMultiSelect />);
-      expect(getByText('Select...')).toBeInTheDocument();
-    });
-    
-    it('should show/hide options menu', async () => {
-      const { getByText } = render(<Dropdown options={dropdownProps.options} isMultiSelect filterFunction={filterFunction}/>);
-      const input = screen.getByRole('textbox');
-      userEvent.click(input);
-      expect(getByText('banana')).toBeTruthy();
-      expect(getByText('avocado')).toBeTruthy();
-      expect(getByText('orange')).toBeTruthy();
-    });
-    
-    it('should select first option', async () => {
-      const { getByText } = render(<Dropdown options={dropdownProps.options} isMultiSelect />);
-      const input = screen.getByRole('textbox');
-      userEvent.click(input);
-      const option = screen.getByText('banana');
-      userEvent.click(option);
-      expect(getByText('banana')).toBeTruthy();
-    });
-
-    it('should clean selection', () => {
-      const { getByText, container} = render(<Dropdown options={dropdownProps.options} isMultiSelect />);
-      const input = screen.getByRole('textbox');
-      userEvent.click(input);
-      const option = screen.getByText('banana');
-      userEvent.click(option);
-      const cross = container.querySelector('i')
-      userEvent.click(cross);
-      expect(getByText('Select...')).toBeTruthy();
-    });
-    
-    
-    it('should render custom render dropdown', async () => {
-      const { getByText } = render(
-        <Dropdown
-          isMultiSelect
-          options={dropdownProps.options}
-          optionRenderer={CustomComponent}
-          displayArrowIndicator
-          tagRenderer={CustomComponent}
-        />
-      );
-      const input = screen.getByRole('textbox');
-      userEvent.click(input);
-      const option = screen.getByText('banana');
-      userEvent.click(option);
-      expect(getByText('banana')).toBeTruthy();
-    });
-  });
-
-  describe('when search by term is enabled', () => {
-    it('should render the header option when user starts typing', async () => {
-      const { queryByText } = render(
-        <Dropdown
-          options={dropdownProps.options}
-          displayArrowIndicator
-          enableTermSearch
-          termSearchMessage="Search for term"
-        />
-      );
-      const input = screen.getByRole('textbox');
-      userEvent.type(input,'B');
-      expect(queryByText(/Search for term/)).toBeInTheDocument();
-    });
- 
-
-    describe('when focusing on the dropdown list', () => {
-      it('should focus on the first option (skiping the headerOption) when there is a value on the input', async () => {
-        const {  getByText } = render(
-          <Dropdown
-            options={dropdownProps.options}
-            displayArrowIndicator
-            enableTermSearch
-          />
-        );
-        const input = screen.getByRole('textbox');
-        userEvent.type(input,'B');
-        expect(getByText('banana').className).toContain('tk-select__option--is-focused');
       });
-
-      it('should focus on the first option (skiping the headerOption) when the user presses the `home` key', async () => {
-        const {  getByText } = render(
+  
+      it('should render the Dropdown component by default', async () => {
+        const timeZoneOptions: DropdownOption<LabelValue>[] = [
+          { label: '(GMT +03:00) Tanzania', value: '8' },
+          { label: '(GMT +03:00) Uganda', value: '9' },
+          {
+            label: 'United states of America (USA)',
+            options: [
+              { label: '(GMT -04:00) United states of America (USA) - New York', value: '1' },
+              { label: '(GMT -04:00) United states of America (USA) - Detroit', value: '2' },
+              { label: '(GMT -04:00) United states of America (USA) - Menominee', value: '3' },
+              { label: '(GMT -05:00) United states of America (USA) - Center', value: '4' },
+            ]
+          }
+        ];
+        render(<Dropdown options={timeZoneOptions} mode="nested"/>);
+        const input = screen.getByRole('textbox');
+        userEvent.click(input);
+        const nestedItem = screen.getByText('(GMT -04:00) United states of America (USA) - New York');
+        expect(nestedItem.classList.contains('tk-select__option--nested')).toBeTruthy();
+      });
+    
+      it('should show/hide options menu', async () => {
+        const { getByText } = render(<Dropdown options={dropdownProps.options} hideSelectedOptions closeMenuOnSelect enableTermSearch/>);
+        const input = screen.getByRole('textbox');
+        userEvent.click(input);
+        expect(getByText('banana')).toBeTruthy();
+        expect(getByText('avocado')).toBeTruthy();
+        expect(getByText('orange')).toBeTruthy();
+  
+      });
+    
+      it('should select first option', async () => {
+        const { getByText } = render(<Dropdown options={dropdownProps.options} noOptionMessage="no options message"/>);
+        const input = screen.getByRole('textbox');
+        userEvent.click(input);
+        const option = screen.getByText('banana');
+        userEvent.click(option);
+        expect(getByText('banana')).toBeTruthy();
+        userEvent.type(input, 'zz');
+        expect(screen.getByText('no options message')).toBeTruthy();
+      });
+    
+      it('should render costum render dropdown', async () => {
+        const { container, getByText } = render(
           <Dropdown
+            isMultiSelect
             options={dropdownProps.options}
+            optionRenderer={CustomComponent}
             displayArrowIndicator
-            enableTermSearch
+            tagRenderer={CustomComponent}
+            isInputClearable
+            onChange={onChange}
+            onClear={onClear}
           />
         );
         const input = screen.getByRole('textbox');
         userEvent.click(input);
-        fireEvent.keyDown(input, { key: Keys.ARROW_DOWN });
-        expect(getByText('avocado').className).toContain('tk-select__option--is-focused'); 
-        fireEvent.keyDown(input, { key: Keys.HOME });
-        expect(getByText('banana').className).toContain('tk-select__option--is-focused'); 
+        const option = screen.getByText('banana');
+        userEvent.click(option);
+        expect(getByText('banana')).toBeTruthy();
+        const cross = container.querySelector('i')
+        userEvent.click(cross);
+        expect(onClear).toBeCalled();
+        expect(getByText('Select...')).toBeTruthy();
       });
     });
-    
-    it('should select option header', async () => {
-      const searchedTerm ='BBBmous';
-      const {  getByText, queryByText } = render(
-        <Dropdown
-          isOptionDisabled={optionDisabled}
-          isOptionSelected={optionSelected}
-          bindValue={'bindValue'}
-          options={dropdownProps.options}
-          displayArrowIndicator
-          enableTermSearch
-          onTermSearch={onTermSearch}
-          onBlur={onBlur}
-        />
-      );
-      const input = screen.getByRole('textbox');
-      fireEvent.blur(input);
-      expect(onBlur).toBeCalled();
-      userEvent.type(input,searchedTerm);
-      fireEvent.mouseDown(input);
-      //Select header option 
-      fireEvent.click(queryByText(/Search for term/));
-      expect(getByText(searchedTerm)).toBeInTheDocument();
-    });
-  });
   
-
-  describe('when is with Validation Component', () => {
-    it('should be triggered on Blur and on Change', async () => {
-      const { getByText } = render(<>
-        <Button>Outside target</Button>
-        <Validation
-          validator={[Validators.Required]}
-          errorMessage={{ required: 'This field is required' }}>
+    describe('when is Multiselect', () => {
+  
+      it('should render the Multiselect component by default', async () => {
+        const { getByText } = render(<Dropdown options={dropdownProps.options} isMultiSelect />);
+        expect(getByText('Select...')).toBeInTheDocument();
+      });
+    
+      it('should show/hide options menu', async () => {
+        const { getByText } = render(<Dropdown options={dropdownProps.options} isMultiSelect filterFunction={filterFunction}/>);
+        const input = screen.getByRole('textbox');
+        userEvent.click(input);
+        expect(getByText('banana')).toBeTruthy();
+        expect(getByText('avocado')).toBeTruthy();
+        expect(getByText('orange')).toBeTruthy();
+      });
+    
+      it('should select first option', async () => {
+        const { getByText } = render(<Dropdown options={dropdownProps.options} isMultiSelect />);
+        const input = screen.getByRole('textbox');
+        userEvent.click(input);
+        const option = screen.getByText('banana');
+        userEvent.click(option);
+        expect(getByText('banana')).toBeTruthy();
+      });
+  
+      it('should clean selection', () => {
+        const { getByText, container} = render(<Dropdown options={dropdownProps.options} isMultiSelect />);
+        const input = screen.getByRole('textbox');
+        userEvent.click(input);
+        const option = screen.getByText('banana');
+        userEvent.click(option);
+        const cross = container.querySelector('i')
+        userEvent.click(cross);
+        expect(getByText('Select...')).toBeTruthy();
+      });
+    
+      it('should render custom render dropdown', async () => {
+        const { getByText } = render(
           <Dropdown
             isMultiSelect
             options={dropdownProps.options}
@@ -249,22 +155,335 @@ describe('Dropdown component test suite =>', () => {
             displayArrowIndicator
             tagRenderer={CustomComponent}
           />
-        </Validation>
-      </>
-      );
-      const input = screen.getByRole('textbox');
-      userEvent.click(input);
-      // on Blur
-      const button = screen.getByRole('button');
-      userEvent.click(button);
-      await waitFor(() => expect(getByText('This field is required')).toBeTruthy())
-
-      // on Change
-      userEvent.click(input);
-      const option = screen.getByText('banana');
-      userEvent.click(option);
-      expect(getByText('banana')).toBeTruthy();
-      waitForElementToBeRemoved(() => getByText('This field is required'));
+        );
+        const input = screen.getByRole('textbox');
+        userEvent.click(input);
+        const option = screen.getByText('banana');
+        userEvent.click(option);
+        expect(getByText('banana')).toBeTruthy();
+      });
+    });
+  
+    describe('when search by term is enabled', () => {
+      it('should render the header option when user starts typing', async () => {
+        const { queryByText } = render(
+          <Dropdown
+            options={dropdownProps.options}
+            displayArrowIndicator
+            enableTermSearch
+            termSearchMessage="Search for term"
+          />
+        );
+        const input = screen.getByRole('textbox');
+        userEvent.type(input,'B');
+        expect(queryByText(/Search for term/)).toBeInTheDocument();
+      });
+   
+      describe('when focusing on the dropdown list', () => {
+        it('should focus on the first option (skiping the headerOption) when there is a value on the input', async () => {
+          const {  getByText } = render(
+            <Dropdown
+              options={dropdownProps.options}
+              displayArrowIndicator
+              enableTermSearch
+            />
+          );
+          const input = screen.getByRole('textbox');
+          userEvent.type(input,'B');
+          expect(getByText('banana').className).toContain('tk-select__option--is-focused');
+        });
+  
+        it('should focus on the first option (skiping the headerOption) when the user presses the `home` key', async () => {
+          const {  getByText } = render(
+            <Dropdown
+              options={dropdownProps.options}
+              displayArrowIndicator
+              enableTermSearch
+            />
+          );
+          const input = screen.getByRole('textbox');
+          userEvent.click(input);
+          fireEvent.keyDown(input, { key: Keys.ARROW_DOWN });
+          expect(getByText('avocado').className).toContain('tk-select__option--is-focused');
+          fireEvent.keyDown(input, { key: Keys.HOME });
+          expect(getByText('banana').className).toContain('tk-select__option--is-focused');
+        });
+      });
+    
+      it('should select option header', async () => {
+        const searchedTerm ='BBBmous';
+        const {  getByText, queryByText } = render(
+          <Dropdown
+            isOptionDisabled={optionDisabled}
+            isOptionSelected={optionSelected}
+            bindValue={'bindValue'}
+            options={dropdownProps.options}
+            displayArrowIndicator
+            enableTermSearch
+            onTermSearch={onTermSearch}
+            onBlur={onBlur}
+          />
+        );
+        const input = screen.getByRole('textbox');
+        fireEvent.blur(input);
+        expect(onBlur).toBeCalled();
+        userEvent.type(input,searchedTerm);
+        fireEvent.mouseDown(input);
+        //Select header option
+        fireEvent.click(queryByText(/Search for term/));
+        expect(getByText(searchedTerm)).toBeInTheDocument();
+      });
+    });
+  
+    describe('when is with Validation Component', () => {
+      it('should be triggered on Blur and on Change', async () => {
+        const { getByText } = render(<>
+          <Button>Outside target</Button>
+          <Validation
+            validator={[Validators.Required]}
+            errorMessage={{ required: 'This field is required' }}>
+            <Dropdown
+              isMultiSelect
+              options={dropdownProps.options}
+              optionRenderer={CustomComponent}
+              displayArrowIndicator
+              tagRenderer={CustomComponent}
+            />
+          </Validation>
+        </>
+        );
+        const input = screen.getByRole('textbox');
+        userEvent.click(input);
+        // on Blur
+        const button = screen.getByRole('button');
+        userEvent.click(button);
+        await waitFor(() => expect(getByText('This field is required')).toBeTruthy())
+  
+        // on Change
+        userEvent.click(input);
+        const option = screen.getByText('banana');
+        userEvent.click(option);
+        expect(getByText('banana')).toBeTruthy();
+        waitForElementToBeRemoved(() => getByText('This field is required'));
+      });
     });
   });
+  
+
+  describe('when options are Async', () => {
+
+    describe('when is simple Dropdown', () => {
+      it('should render the Dropdown component by default', async () => {
+        const { getByText } = render(<Dropdown asyncOptions={() => Promise.resolve(options)} defaultOptions />);
+        expect(getByText('Select...')).toBeInTheDocument();
+        
+      });
+  
+      it('should render the Dropdown component by default', async () => {
+        render(<Dropdown asyncOptions={() => Promise.resolve(options)}  mode="nested" defaultOptions />);
+        const input = screen.getByRole('textbox');
+        userEvent.click(input);
+        await waitFor(async () => {
+          const nestedItem = screen.getByText('banana');
+          expect(nestedItem.classList.contains('tk-select__option--nested')).toBeTruthy();
+        })
+        
+      });
+      
+      it('should show/hide options menu', async () => {
+        const { getByText } =   render(<Dropdown asyncOptions={() => Promise.resolve(options)} hideSelectedOptions closeMenuOnSelect enableTermSearch defaultOptions/>);
+        const input =  screen.getByRole('textbox');
+        userEvent.click(input);
+        await waitFor(async () => {
+          expect( getByText('banana')).toBeTruthy();
+          expect( getByText('avocado')).toBeTruthy();
+          expect( getByText('orange')).toBeTruthy();
+        })
+  
+      });
+      
+      it('should select first option', async () => {
+        const { getByText } = render(<Dropdown asyncOptions={() => Promise.resolve(options)} noOptionMessage="no options message"/>);
+        const input = screen.getByRole('textbox');
+        userEvent.click(input);
+        await waitFor(async () => {
+          const option = screen.getByText('banana');
+          userEvent.click(option);
+          expect(getByText('banana')).toBeTruthy();
+        })
+        userEvent.type(input, 'zz');
+        await waitFor(async () => {
+          expect(screen.getByText('no options message')).toBeTruthy();
+        })
+      });
+      
+      it('should render costum render dropdown', async () => {
+        const { container, getByText } = render(
+          <Dropdown
+            isMultiSelect
+            asyncOptions={() => Promise.resolve(options)}
+            optionRenderer={CustomComponent}
+            displayArrowIndicator
+            tagRenderer={CustomComponent}
+            isInputClearable
+            onChange={onChange}
+            onClear={onClear}
+          />
+        );
+        await waitFor(async () => {
+          const input = screen.getByRole('textbox');
+          userEvent.click(input);
+        })
+        const option = screen.getByText('banana');
+        userEvent.click(option);
+        expect(getByText('banana')).toBeTruthy();
+        const cross = container.querySelector('i')
+        userEvent.click(cross);
+        expect(onClear).toBeCalled();
+        expect(getByText('Select...')).toBeTruthy();
+      });
+    });
+  
+    describe('when is Multiselect', () => {
+  
+      it('should render the Multiselect component by default', async () => {
+        const { getByText } = render(<Dropdown  asyncOptions={() => Promise.resolve(options)} isMultiSelect />);
+        expect(getByText('Select...')).toBeInTheDocument();
+      });
+      
+      it('should show/hide options menu', async () => {
+        const { getByText } = render(<Dropdown  asyncOptions={() => Promise.resolve(options)} isMultiSelect filterFunction={filterFunction}/>);
+        const input = screen.getByRole('textbox');
+        userEvent.click(input);
+        await waitFor(async () => {
+          expect(getByText('banana')).toBeTruthy();
+          expect(getByText('avocado')).toBeTruthy();
+          expect(getByText('orange')).toBeTruthy();
+        })
+      });
+      
+      it('should select first option', async () => {
+        const { getByText } = render(<Dropdown asyncOptions={() => Promise.resolve(options)} isMultiSelect />);
+        const input = screen.getByRole('textbox');
+        userEvent.click(input);
+        await waitFor(async () => {
+          const option = screen.getByText('banana');
+          userEvent.click(option);
+          expect(getByText('banana')).toBeTruthy();
+        })
+      });
+  
+      it('should clean selection', async() => {
+        const { getByText, container} = render(<Dropdown asyncOptions={() => Promise.resolve(options)} isMultiSelect />);
+        const input = screen.getByRole('textbox');
+        userEvent.click(input);
+        await waitFor(async () => {
+          const option = screen.getByText('banana');
+          userEvent.click(option);
+          const cross = container.querySelector('i')
+          userEvent.click(cross);
+          expect(getByText('Select...')).toBeTruthy();
+        })
+      });
+      
+      
+      it('should render custom render dropdown', async () => {
+        const { getByText } = render(
+          <Dropdown
+            isMultiSelect
+            asyncOptions={() => Promise.resolve(options)}
+            optionRenderer={CustomComponent}
+            displayArrowIndicator
+            tagRenderer={CustomComponent}
+          />
+        );
+        const input = screen.getByRole('textbox');
+        userEvent.click(input);
+        await waitFor(async () => {
+          const option = screen.getByText('banana');
+          userEvent.click(option);
+          expect(getByText('banana')).toBeTruthy();
+        })
+      });
+    });
+  
+    describe('when search by term is enabled', () => {
+      it('should render the header option when user starts typing', async () => {
+        const { queryByText } = render(
+          <Dropdown
+            asyncOptions={() => Promise.resolve(options)}
+            displayArrowIndicator
+            enableTermSearch
+            termSearchMessage="Search for term"
+          />
+        );
+
+        const input = screen.getByRole('textbox');
+        userEvent.type(input,'B');
+        await waitFor(async () => {
+          expect(queryByText(/Search for term/)).toBeInTheDocument();
+        })
+      });
+   
+      it('should select option header', async () => {
+        const searchedTerm ='BBBmous';
+        const {  getByText, queryByText } = render(
+          <Dropdown
+            isOptionDisabled={optionDisabled}
+            isOptionSelected={optionSelected}
+            bindValue={'bindValue'}
+            asyncOptions={() => Promise.resolve(options)}
+            displayArrowIndicator
+            enableTermSearch
+            onTermSearch={onTermSearch}
+            onBlur={onBlur}
+          />
+        );
+        const input = screen.getByRole('textbox');
+        await waitFor(async () => {
+          userEvent.type(input,searchedTerm);
+          fireEvent.mouseDown(input);
+          //Select header option 
+          fireEvent.click(queryByText(/Search for term/));
+          expect(getByText('BBBmousBBBmous')).toBeInTheDocument();
+        })
+
+      });
+    });
+    
+    describe('when is with Validation Component', () => {
+      it('should be triggered on Blur and on Change', async () => {
+        const { getByText } = render(<>
+          <Button>Outside target</Button>
+          <Validation
+            validator={[Validators.Required]}
+            errorMessage={{ required: 'This field is required' }}>
+            <Dropdown
+              isMultiSelect
+              asyncOptions={() => Promise.resolve(options)}
+              optionRenderer={CustomComponent}
+              displayArrowIndicator
+              tagRenderer={CustomComponent}
+            />
+          </Validation>
+        </>
+        );
+        const input = screen.getByRole('textbox');
+        userEvent.click(input);
+        // on Blur
+        const button = screen.getByRole('button');
+        userEvent.click(button);
+        await waitFor(() => expect(getByText('This field is required')).toBeTruthy())
+        // on Change
+        await waitFor(async () => {
+          userEvent.click(input);
+          const option = screen.getByText('banana');
+          userEvent.click(option);
+          expect(getByText('banana')).toBeTruthy();
+          waitForElementToBeRemoved(() => getByText('This field is required'));
+        })
+      });
+    });
+  });
+  
 });

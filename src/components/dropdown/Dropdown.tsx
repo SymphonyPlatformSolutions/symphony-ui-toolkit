@@ -1,5 +1,6 @@
 import * as React from 'react';
-import Select, { ActionMeta, createFilter } from 'react-select';
+import Select,{ ActionMeta, createFilter } from 'react-select';
+import AsyncSelect from 'react-select/async';
 import {
   ClearIndicator,
   Control,
@@ -8,11 +9,11 @@ import {
   DropdownIndicator,
   Input,
   MultiValueContainerOverride,
-  MultiValueRemove,
   SingleValue,
   NoOptionsMessage,
   DropdownList,
-  firstOption,
+  LoadingMessage,
+  firstOption
 } from './CustomRender';
 import {
   DropdownOption,
@@ -79,8 +80,6 @@ export type DropdownProps<T> = {
   noOptionMessage?: string;
   /** Placeholder text for the dropdown */
   placeHolder?: string;
-  /** Array of options that populate the dropdown menu */
-  options: DropdownOption<T>[];
   /** Custom component used to override the default appearance of the list items. */
   optionRenderer?:
     | React.Component<OptionRendererProps<T>, any>
@@ -114,7 +113,7 @@ export type DropdownProps<T> = {
   /** Message to be display on the header of the menu list when searching by term */
   termSearchMessage?: ((term: string) => string) | string;
 } & HasTooltipProps &
-  (MultiModeProps<T> | SingleModeProps<T>);
+  (MultiModeProps<T> | SingleModeProps<T>) & (AsyncProps<T> | SyncProps<T>);
 
 type MultiModeProps<T> = {
   /** Support multiple selected options */
@@ -131,11 +130,25 @@ type SingleModeProps<T> = {
   value?: T;
 } & HasValidationProps<T>;
 
+type AsyncProps<T> = {
+  options?: undefined;
+  /** Load the options that populate the dropdown from a returned promise */
+  asyncOptions: (inputValue: string) =>Promise<DropdownOption<T>[]>;
+  defaultOptions?: boolean;
+} & HasValidationProps<T>;
+type SyncProps<T> = {
+  /** Array of options that populate the dropdown menu */
+  options: DropdownOption<T>[];
+  asyncOptions?: undefined;
+  defaultOptions?: undefined;
+} & HasValidationProps<T>;
+
 type DropdownState<T> = {
   selectedOption: T;
   closeMenuOnSelect?: boolean;
   hideSelectedOptions?: boolean;
   displayArrowIndicator?: boolean;
+  DropdownTag: any;
 };
 export class Dropdown<T = LabelValue> extends React.Component<
   DropdownProps<T>,
@@ -149,6 +162,7 @@ export class Dropdown<T = LabelValue> extends React.Component<
     this.myRef = React.createRef();
     this.searchHeaderOption = { ...firstOption };
     this.state = {
+      DropdownTag:  this.props.options ? Select : AsyncSelect,
       selectedOption: null,
       hideSelectedOptions:
         this.props.hideSelectedOptions === undefined
@@ -215,11 +229,22 @@ export class Dropdown<T = LabelValue> extends React.Component<
     : undefined;
 
   get internalOptions() {
-    return this.props.enableTermSearch
-      ? [this.searchHeaderOption as T, ...this.props.options]
-      : this.props.options;
+    if (this.props?.options) {
+      return this.props.enableTermSearch
+        ? [this.searchHeaderOption as T, ...this.props.options]
+        : this.props.options;
+    }
   }
-
+  
+  internalAsyncOptions = async () => {
+    return this.props?.asyncOptions('')
+      .then(options => new Promise(resolve => 
+        resolve(this.props.enableTermSearch ?
+          [this.searchHeaderOption as T, ...options] 
+          : options))
+      )
+  }
+  
   bindValue = this.props.bindValue
     ? (option) => option[this.props.bindValue]
     : undefined;
@@ -229,6 +254,7 @@ export class Dropdown<T = LabelValue> extends React.Component<
       hideSelectedOptions,
       closeMenuOnSelect,
       displayArrowIndicator,
+      DropdownTag,
     } = this.state;
     const {
       autoScrollToCurrent,
@@ -266,6 +292,7 @@ export class Dropdown<T = LabelValue> extends React.Component<
       tabSelectsValue,
       termSearchMessage,
       value,
+      defaultOptions
     } = this.props;
 
     return (
@@ -278,7 +305,7 @@ export class Dropdown<T = LabelValue> extends React.Component<
           tooltipCloseLabel={tooltipCloseLabel}
           showRequired={showRequired}
         />
-        <Select
+        <DropdownTag 
           styles={{
             valueContainer: provided => ({
               ...provided,  maxHeight:`${maxHeight}px`})
@@ -299,9 +326,11 @@ export class Dropdown<T = LabelValue> extends React.Component<
             MultiValueContainer: MultiValueContainerOverride,
             MultiValue: DefaultTagRenderer,
             ClearIndicator,
-            MultiValueRemove,
+            MultiValueRemove: () => null,
             NoOptionsMessage,
             MenuList: DropdownList,
+            LoadingIndicator: () => null,
+            LoadingMessage
           }}
           defaultValue={defaultValue}
           id={id}
@@ -319,6 +348,8 @@ export class Dropdown<T = LabelValue> extends React.Component<
           onKeyDown={onKeyDown}
           onKeyUp={onKeyUp}
           options={this.internalOptions}
+          loadOptions={this.internalAsyncOptions}
+          defaultOptions={defaultOptions !== undefined ? defaultOptions : true}
           hideSelectedOptions={hideSelectedOptions}
           placeholder={placeHolder}
           isMulti={isMultiSelect}
