@@ -12,7 +12,8 @@ import {
   SingleValue,
   NoOptionsMessage,
   DropdownList,
-  LoadingMessage
+  LoadingMessage,
+  firstOption
 } from './CustomRender';
 import {
   DropdownOption,
@@ -20,7 +21,6 @@ import {
   OptionRendererProps,
   SearchHeaderOption,
   TagRendererProps,
-  firstOption
 } from './interfaces';
 import { HasValidationProps } from '../validation/interfaces';
 import { HasTooltipProps } from '../tooltip/interfaces';
@@ -133,7 +133,7 @@ type SingleModeProps<T> = {
 type AsyncProps<T> = {
   options?: undefined;
   /** Load the options that populate the dropdown from a returned promise */
-  asyncOptions: (inputValue: string) =>Promise<unknown>;
+  asyncOptions: (inputValue: string) =>Promise<DropdownOption<T>[]>;
   defaultOptions?: boolean;
 } & HasValidationProps<T>;
 type SyncProps<T> = {
@@ -148,7 +148,7 @@ type DropdownState<T> = {
   closeMenuOnSelect?: boolean;
   hideSelectedOptions?: boolean;
   displayArrowIndicator?: boolean;
-  Dropdown: any;
+  DropdownTag: any;
 };
 export class Dropdown<T = LabelValue> extends React.Component<
   DropdownProps<T>,
@@ -162,7 +162,7 @@ export class Dropdown<T = LabelValue> extends React.Component<
     this.myRef = React.createRef();
     this.searchHeaderOption = { ...firstOption };
     this.state = {
-      Dropdown:  this.props.options ? Select : AsyncSelect,
+      DropdownTag:  this.props.options ? Select : AsyncSelect,
       selectedOption: null,
       hideSelectedOptions:
         this.props.hideSelectedOptions === undefined
@@ -240,7 +240,7 @@ export class Dropdown<T = LabelValue> extends React.Component<
     return this.props?.asyncOptions('')
       .then(options => new Promise(resolve => 
         resolve(this.props.enableTermSearch ?
-          [this.searchHeaderOption as T, ...options as DropdownOption<T>[]] 
+          [this.searchHeaderOption as T, ...options] 
           : options))
       )
   }
@@ -254,7 +254,7 @@ export class Dropdown<T = LabelValue> extends React.Component<
       hideSelectedOptions,
       closeMenuOnSelect,
       displayArrowIndicator,
-      Dropdown,
+      DropdownTag,
     } = this.state;
     const {
       autoScrollToCurrent,
@@ -305,7 +305,7 @@ export class Dropdown<T = LabelValue> extends React.Component<
           tooltipCloseLabel={tooltipCloseLabel}
           showRequired={showRequired}
         />
-        <Dropdown 
+        <DropdownTag 
           styles={{
             valueContainer: provided => ({
               ...provided,  maxHeight:`${maxHeight}px`})

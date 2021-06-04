@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Dropdown, DropdownOption, Icon, LabelValue, OptionRendererProps, SearchHeaderOption, TagRendererProps, Typography } from '../src/components';
+import { Dropdown, DropdownOption, Icon, LabelValue, OptionRendererProps, SearchHeaderOption, TagRendererProps } from '../src/components';
 
 const defaultOptions: LabelValue[] = [
   { label: 'Option 1', value: '1' },
@@ -42,7 +42,7 @@ const filterDefaultOptions = async (inputValue: string) => {
   );
 };
 
-const promiseOptions = (inputValue: string) =>
+const promiseOptions = (inputValue: string): Promise<DropdownOption<LabelValue>[]>  =>
   new Promise(resolve => {
     setTimeout(() => 
       resolve(filterDefaultOptions(inputValue)), 1000);
@@ -136,36 +136,36 @@ export const Select: React.FC = () => (
   <div>
     <p>Let`s have a look on the different props than can be used to render the dropdown: </p>
     <p className="tk-mt-4">
-			With <Typography variant="bold">placeholder</Typography>:
+			With <strong>placeholder</strong>:
     </p>
     <Dropdown options={defaultOptions} placeHolder="Customized placeholder: Please select an option.." />
     <p className="tk-mt-4">
-			With <Typography variant="bold">label</Typography>:
+			With <strong>label</strong>:
     </p>
     <Dropdown options={defaultOptions} label="Field label" />
     <p className="tk-mt-4">
-			With <Typography variant="bold">label required</Typography>:
+			With <strong>label required</strong>:
     </p>
     <Dropdown options={defaultOptions} label="Field label" showRequired/>
     <p className="tk-mt-4">
-			With <Typography variant="bold">tooltip</Typography>:
+			With <strong>tooltip</strong>:
     </p>
     <Dropdown options={defaultOptions} tooltip="Hint to help the user" tooltipCloseLabel="Got it" />
     <p className="tk-mt-4">
-			Clear selection with <Typography variant="bold">isInputClearable</Typography>:
+			Clear selection with <strong>isInputClearable</strong>:
     </p>
     <Dropdown options={defaultOptions} isInputClearable onClear={onClear}/>
 
     <p className="tk-mt-4">
-			With <Typography variant="bold">noOptionMessage</Typography> customize the message that the dropdown will display when does not found any item on the list:
+			With <strong>noOptionMessage</strong> customize the message that the dropdown will display when does not found any item on the list:
     </p>
     <Dropdown options={defaultOptions} noOptionMessage="No options custom message"/>
     <p className="tk-mt-4">
-			With <Typography variant="bold">isDisabled</Typography>:
+			With <strong>isDisabled</strong>:
     </p>
     <Dropdown options={defaultOptions} placeHolder="No option available" isDisabled label="Field label" />
     <p className="tk-mt-4">
-			With <Typography variant="bold">iconName</Typography> displays the specified icon on the left side of the dropdown:
+			With <strong>iconName</strong> displays the specified icon on the left side of the dropdown:
     </p>
     <Dropdown options={defaultOptions} iconName="app"/>
     <h3 className="tk-mt-4">Grouped option list</h3>
@@ -175,25 +175,25 @@ export const Select: React.FC = () => (
     <Dropdown options={timeZoneOptions} mode="nested"/>
 
     <h2 className="tk-mt-4">Enable term search</h2>
-    <p>- With <Typography variant="bold">enableTermSearch</Typography> prop activated you can add a fixed option on the header of the Dropdown Menu that will be displayed when the user starts typing.</p>
-    <p>- With <Typography variant="bold">onTermSearch</Typography> prop you can handle the action to be done if the user selects the search by term option</p>
+    <p>- With <strong>enableTermSearch</strong> prop activated you can add a fixed option on the header of the Dropdown Menu that will be displayed when the user starts typing.</p>
+    <p>- With <strong>onTermSearch</strong> prop you can handle the action to be done if the user selects the search by term option</p>
     <Dropdown options={defaultOptions} enableTermSearch onTermSearch={onTermSearch}/>
-    <p>In addition, you can customize the message with <Typography variant="bold">termSearchMessage</Typography> prop:</p>
+    <p>In addition, you can customize the message with <strong>termSearchMessage</strong> prop:</p>
     <Dropdown options={defaultOptions} enableTermSearch termSearchMessage="This is my customized term search message. Term: "/>
     
     <h2 className="tk-mt-5h">MultiSelect</h2>
-    <p>The Dropdown component can handle multiple selections. It is enabled with the <Typography variant="bold">isMultiSelect</Typography> prop:</p>
+    <p>The Dropdown component can handle multiple selections. It is enabled with the <strong>isMultiSelect</strong> prop:</p>
     <Dropdown options={personSelectorOptions} isMultiSelect placeHolder="Search for People" isInputClearable/>
-    <p>With the <Typography variant="bold">maxHeight</Typography> prop you can control the height of the multiple selection before scrolling on the input.</p>
+    <p>With the <strong>maxHeight</strong> prop you can control the height of the multiple selection before scrolling on the input.</p>
     <Dropdown options={personSelectorOptions} isMultiSelect maxHeight={70} placeHolder="Search for People" isInputClearable noOptionMessage={'No options'}/>
    
     <h2 className="tk-mt-5h">Loading options</h2>
-    <p>Use the <Typography variant="bold">asyncOptions</Typography> prop to load options from a remote source as the user starts typing on the input.</p>
-    <p>The <Typography variant="bold">asyncOptions</Typography> prop:</p>
+    <p>Use the <strong>asyncOptions</strong> prop to load options from a remote source as the user starts typing on the input.</p>
+    <p>The <strong>asyncOptions</strong> prop:</p>
     <h3>defaultOptions</h3>
-    <p>The <Typography variant="bold">defaultOptions</Typography> prop is enabled by default (The options are iniatially loaded).</p>
+    <p>The <strong>defaultOptions</strong> prop is enabled by default (The options are iniatially loaded).</p>
     <Dropdown asyncOptions={promiseOptions} placeHolder="Async select" isInputClearable noOptionMessage={'No options'}/> 
-    <p>* To disable: <Typography variant="bold">defaultOptions=false</Typography>. (Start typing to load the options)</p>
+    <p>* To disable: <strong>defaultOptions=false</strong>. (Start typing to load the options)</p>
     <Dropdown defaultOptions={false} asyncOptions={promiseOptions}  maxHeight={70} placeHolder="Async select" isInputClearable noOptionMessage={'No options'}/>
     <h3>Multiple Select</h3>
     <Dropdown asyncOptions={promiseOptions} isMultiSelect placeHolder="Async select" isInputClearable noOptionMessage={'No options'} />
@@ -204,7 +204,7 @@ export const Select: React.FC = () => (
     <p>
     You can easily customize the appearance of the UIToolkit Dropdown and render your own components.
     </p>
-    <p className="tk-mt-4">With <Typography variant="bold"> optionRenderer </Typography>prop you can customize the rendering of the option list: </p>
+    <p className="tk-mt-4">With <strong> optionRenderer </strong>prop you can customize the rendering of the option list: </p>
     <Dropdown
       options={iconData}
       optionRenderer={IconPickerRenderer}
@@ -214,7 +214,7 @@ export const Select: React.FC = () => (
       tagRenderer={IconPickerRenderer}
       onTermSearch={onTermSearch}
     />
-    <p className="tk-mt-4">With <Typography variant="bold"> tagRenderer </Typography>prop you can customize the rendering of the selected item/s: </p>
+    <p className="tk-mt-4">With <strong> tagRenderer </strong>prop you can customize the rendering of the selected item/s: </p>
     <Dropdown
       options={iconData}
       tagRenderer={IconPickerTagRenderer}
@@ -224,7 +224,7 @@ export const Select: React.FC = () => (
       filterFunction={filterFunction}
     />
     <h2 className="tk-mt-5h">Custom Filter logic</h2>
-    <p>If you would like to rewrite the filtration logic from the ground up, simply declare a new <Typography variant="bold"> filterFunction </Typography> to be passed in as a prop:</p>
+    <p>If you would like to rewrite the filtration logic from the ground up, simply declare a new <strong> filterFunction </strong> to be passed in as a prop:</p>
     
     <Dropdown
       options={iconData}
