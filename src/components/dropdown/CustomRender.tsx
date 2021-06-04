@@ -57,12 +57,12 @@ export const DefaultOptionRenderer = (props: any) => {
 // Specific Input to fix input not displayed in React-Select
 // See https://github.com/JedWatson/react-select/issues/3068
 // See https://github.com/JedWatson/react-select/discussions/4302
-export const Input = (props: any) => 
-  <components.Input {...props} 
-    isHidden={props?.selectProps?.inputAlwaysDisplayed} 
-    onKeyUp={props?.selectProps?.onKeyUp}
-  />;
-
+export const Input = (props: any) => {
+  const inputAlwaysDisplayed = props?.selectProps?.inputAlwaysDisplayed;
+  return <components.Input 
+    {...props} onKeyUp={props?.selectProps?.onKeyUp}  
+    isHidden={inputAlwaysDisplayed ? !inputAlwaysDisplayed : false}/>;
+}
 export const SingleValue =  ({ children, data, selectProps, ...props }: any) => {
   const InputRenderer = selectProps?.tagRenderer;
   const inputValue = selectProps?.parentInstance?.searchHeaderOption?.value;
