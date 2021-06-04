@@ -17,14 +17,14 @@ const text = 'Research and development refer to activities in connection with co
 export const TypographyUtils: React.FC = () => (
   <div>
     <h1>Typography</h1>
-    <Typography className="tk-mb-2h overflow" type="h1">H1. {text}</Typography>
-    <Typography className="tk-mb-2h overflow" type="h2">H2. {text}</Typography>
-    <Typography className="tk-mb-2h overflow" type="h3">H3. {text}</Typography>
-    <Typography className="tk-mb-2h overflow" type="h4">H4. {text}</Typography>
-    <Typography className="tk-mb-2h overflow">Body. {text}</Typography>
-    <Typography className="tk-mb-2h overflow" type="small">Small. {text}</Typography>
-    <Typography className="tk-mb-2h overflow" variant="bold">Bold. {text}</Typography>
-    <Typography className="tk-mb-2h overflow" variant="italic">Italic. {text}</Typography>
+    <Typography className="tk-mb-2h tk-text-ellipsis" type="h1">H1. {text}</Typography>
+    <Typography className="tk-mb-2h tk-text-ellipsis" type="h2">H2. {text}</Typography>
+    <Typography className="tk-mb-2h tk-text-ellipsis" type="h3">H3. {text}</Typography>
+    <Typography className="tk-mb-2h tk-text-ellipsis" type="h4">H4. {text}</Typography>
+    <Typography className="tk-mb-2h tk-text-ellipsis">Body. {text}</Typography>
+    <Typography className="tk-mb-2h tk-text-ellipsis" type="small">Small. {text}</Typography>
+    <Typography className="tk-mb-2h tk-text-ellipsis" variant="bold">Bold. {text}</Typography>
+    <Typography className="tk-mb-2h tk-text-ellipsis" variant="italic">Italic. {text}</Typography>
   </div>
 );
 
