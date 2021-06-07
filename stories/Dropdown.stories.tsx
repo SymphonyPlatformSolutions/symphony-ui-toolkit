@@ -60,7 +60,8 @@ const timeZoneOptions: DropdownOption<LabelValue>[] = [
       { label: '(GMT -04:00) United states of America (USA) - Menominee', value: '3' },
       { label: '(GMT -05:00) United states of America (USA) - Center', value: '4' },
     ]
-  }
+  },
+  { label: '(GMT -03:00) Uruguay', value: '10' },
 ];
 
 /** Icon custom renderers */

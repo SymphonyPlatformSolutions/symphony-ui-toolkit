@@ -3,7 +3,7 @@ orbs:
   node: circleci/node@2.1
   aws-s3: circleci/aws-s3@1.1.1
 jobs:
-  build-and-publish:
+  pr-builder:
     executor:
       name: node/default
       tag: 'lts'
@@ -29,15 +29,14 @@ jobs:
       - run:
           name: Setup Code Climate test-reporter
           command: |
-              # download test reporter as a static binary
-              curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-              chmod +x ./cc-test-reporter
-              ./cc-test-reporter before-build
+            # download test reporter as a static binary
+            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+            chmod +x ./cc-test-reporter
+            ./cc-test-reporter before-build
           when: always
       - run:
           name: Send coverage report to Code Climate
-          command:
-              ./cc-test-reporter after-build -t lcov
+          command: ./cc-test-reporter after-build -t lcov
           environment:
             CC_TEST_REPORTER_ID: 8150d54c3d819c99c080dda0f89f8a0be0245ed8d9321f8054f8077883ba86c9
           when: always
@@ -45,7 +44,12 @@ jobs:
       - store_artifacts: # upload test coverage as artifact
           path: ./coverage/lcov.info
           prefix: tests
-
+  build-and-publish:
+    executor:
+      name: node/default
+      tag: 'lts'
+    steps:
+      - checkout
       - run: yarn build
       - run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
       - run: bash ./publish.sh
@@ -72,12 +76,14 @@ jobs:
 workflows:
   build:
     jobs:
+      - pr-builder:
       - build-and-publish:
           filters:
             tags:
               only: /^v.*/
       - deploy-storybook:
           requires:
+            - pr-builder
             - build-and-publish
           filters:
             branches:
