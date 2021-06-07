@@ -8,6 +8,8 @@ import LabelTooltipDecorator, {
   LabelTooltipDecoratorPropTypes,
 } from '../label-tooltip-decorator/LabelTooltipDecorator';
 
+//import { HasValidationProps } from '../validation/interfaces';
+
 const RightDecoratorsPropTypes = {
   rightDecorators: PropTypes.oneOfType([
     PropTypes.element,
@@ -18,9 +20,11 @@ const RightDecoratorsPropTypes = {
 const InputDecoratorPropTypes = {
   ...LabelTooltipDecoratorPropTypes,
   ...RightDecoratorsPropTypes,
+  //onChange: PropTypes.func,
 };
 
 interface InputDecoratorProps extends LabelTooltipDecoratorProps {
+  // HasValidationProps;
   rightDecorators?: JSX.Element | JSX.Element[];
   children?: React.ReactNode;
 }

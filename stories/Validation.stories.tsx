@@ -187,6 +187,69 @@ export const Validations = () => {
           />
         </InputDecorator>
       </Validation>
+      <p>
+        with <strong>MinValue validator</strong>
+      </p>
+      <Validation
+        onValidationChanged={logChange}
+        validator={Validators.MinValue(50)}
+        errorMessage={'Value to small'}
+      >
+        <InputDecorator
+          label="A label"
+          tooltip="A tooltip"
+          rightDecorators={
+            <span
+              key="span-search"
+              style={{ alignSelf: 'center', margin: '0.2rem 0.5rem' }}
+              onClick={() => alert('Icon clicked')}
+            >
+              <Icon iconName="search" />
+            </span>
+          }
+        >
+          <input
+            type="range"
+            min="0"
+            max="100"
+            onChange={(event) => {
+              console.log('Existing onChange method called');
+              // event.stopPropagation();
+            }}
+            onClick={(...args) => console.log('Click', ...args)}
+          />
+        </InputDecorator>
+      </Validation>
+      <p>
+        with <strong>TooDark validator</strong>
+      </p>
+      <Validation
+        onValidationChanged={logChange}
+        validator={Validators.TooDark}
+        errorMessage={'Color too dark'}
+      >
+        <InputDecorator
+          label="A label"
+          tooltip="A tooltip"
+          rightDecorators={
+            <span
+              key="span-search"
+              style={{ alignSelf: 'center', margin: '0.2rem 0.5rem' }}
+              onClick={() => alert('Icon clicked')}
+            >
+              <Icon iconName="search" />
+            </span>
+          }
+        >
+          <input
+            type="color"
+            onChange={(event) => {
+              console.log('Existing onChange method called');
+            }}
+            onClick={(...args) => console.log('Click', ...args)}
+          />
+        </InputDecorator>
+      </Validation>
       <h2>Multiple validators</h2>
       <p>
         Text Field with <strong>multiple validators</strong>: Mandatory number,
