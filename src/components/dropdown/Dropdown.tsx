@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Select, { ActionMeta, createFilter } from 'react-select';
+import Select,{ ActionMeta, createFilter, MenuPlacement } from 'react-select';
 import {
   ClearIndicator,
   Control,
@@ -88,6 +88,8 @@ export type DropdownProps<T> = {
   onInputChange?: (string, any) => any;
   /** Whether the Dropdown menu is expanded */
   menuIsOpen?: boolean;
+  /** Placement of the menu in relation to the control */
+  menuPlacement?: MenuPlacement;
   /** Handle focus events */
   onFocus?: (event) => any;
   /** Handle the menu opening */
@@ -257,7 +259,8 @@ export class Dropdown<T = LabelValue> extends React.Component<
       enableTermSearch,
       termSearchMessage,
       blurInputOnSelect,
-      showRequired
+      showRequired,
+      menuPlacement
     } = this.props;
 
     return (
@@ -317,7 +320,7 @@ export class Dropdown<T = LabelValue> extends React.Component<
           isSearchable={isTypeAheadEnabled}
           isOptionDisabled={this.handleIsOptionDisabled}
           isOptionSelected={this.handleIsOptionSelected}
-          menuPlacement="auto"
+          menuPlacement={menuPlacement}
           maxMenuHeight={maxMenuHeight}
           autoScrollToCurrent={autoScrollToCurrent}
           menuIsOpen={menuIsOpen}
@@ -340,6 +343,7 @@ export class Dropdown<T = LabelValue> extends React.Component<
     isTypeAheadEnabled: true,
     autoScrollToCurrent: false,
     enableTermSearch: false,
+    menuPlacement: 'auto'
   };
 }
 
