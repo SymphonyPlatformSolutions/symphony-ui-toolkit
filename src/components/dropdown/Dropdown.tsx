@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Select,{ ActionMeta, createFilter } from 'react-select';
+import Select,{ ActionMeta, createFilter, MenuPlacement } from 'react-select';
 import AsyncSelect from 'react-select/async';
 import {
   ClearIndicator,
@@ -73,6 +73,8 @@ export type DropdownProps<T> = {
   maxHeight?: number;
   /** Whether the Dropdown menu is expanded */
   menuIsOpen?: boolean;
+  /** Placement of the menu in relation to the control */
+  menuPlacement?: MenuPlacement;
   /** Styling options depending on the need  */
   mode?: 'nested' | 'aligned';
   name?: string;
@@ -292,7 +294,8 @@ export class Dropdown<T = LabelValue> extends React.Component<
       tabSelectsValue,
       termSearchMessage,
       value,
-      defaultOptions
+      defaultOptions,
+      menuPlacement
     } = this.props;
 
     return (
@@ -360,7 +363,7 @@ export class Dropdown<T = LabelValue> extends React.Component<
           isSearchable={isTypeAheadEnabled}
           isOptionDisabled={this.handleIsOptionDisabled}
           isOptionSelected={this.handleIsOptionSelected}
-          menuPlacement="auto"
+          menuPlacement={menuPlacement}
           maxMenuHeight={maxMenuHeight}
           mode={mode ? mode : 'aligned'}
           autoScrollToCurrent={autoScrollToCurrent}
@@ -384,6 +387,7 @@ export class Dropdown<T = LabelValue> extends React.Component<
     isTypeAheadEnabled: true,
     autoScrollToCurrent: false,
     enableTermSearch: false,
+    menuPlacement: 'auto'
   };
 }
 
