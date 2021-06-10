@@ -1,12 +1,12 @@
-import { withKnobs } from '@storybook/addon-knobs';
 import React, { useState } from 'react';
 
 import {
   DatePicker,
   Dropdown,
   TextArea,
-  TextField, TimePicker,
-  Validation
+  TextField,
+  TimePicker,
+  Validation,
 } from '../src/components';
 import { Validators } from '../src/core/validators/validators';
 
@@ -216,7 +216,7 @@ export const Validations = () => {
         onValidationChanged={logChange}
         errorMessage={{
           format: 'Le format est incorrect',
-          disabledDate: 'La date n\'est pas disponible',
+          disabledDate: "La date n'est pas disponible",
           maxDate: 'La date est ...',
           minDate: 'La date est trop ancienne',
         }}
@@ -232,16 +232,14 @@ export const Validations = () => {
           }}
         ></DatePicker>
       </Validation>
-      <p>
-        Another example with the TimePicker :
-      </p>
+      <p>Another example with the TimePicker :</p>
       <Validation
         onValidationChanged={logChange}
         errorMessage={{
           format: 'Le format est incorrect',
-          disabledTime: 'L\'heure n\'est pas disponible',
-          maxTime: 'L\'heure est trop tard',
-          minTime: 'L\'heure est trop trop',
+          disabledTime: "L'heure n'est pas disponible",
+          maxTime: "L'heure est trop tard",
+          minTime: "L'heure est trop trop",
         }}
       >
         <TimePicker
@@ -294,5 +292,4 @@ export default {
   title: 'Components/Input/Validations',
   component: Validation,
   subcomponents: { TextField, TextArea, DatePicker },
-  decorators: [withKnobs],
 };
