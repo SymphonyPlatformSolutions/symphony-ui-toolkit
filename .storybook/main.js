@@ -7,7 +7,6 @@ module.exports = {
     '@storybook/addon-a11y',
     'storybook-addon-mdx-embed',
     'storybook-dark-mode/register',
-    '@storybook/addon-knobs/register', // Keep until we migrate all to addon-controls
     '@storybook/addon-controls',
     '@storybook/preset-scss',
   ],

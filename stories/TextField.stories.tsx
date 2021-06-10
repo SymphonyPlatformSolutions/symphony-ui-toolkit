@@ -1,6 +1,5 @@
-import { button, withKnobs } from '@storybook/addon-knobs';
 import React, { useState, useRef } from 'react';
-import { TextField, Icon, Validation } from '../src/components';
+import { Button, TextField, Icon, Validation } from '../src/components';
 
 import { Validators } from '../src/core/validators/validators';
 
@@ -170,10 +169,16 @@ export const TextFields: React.FC = () => {
           rightDecorators={
             value?.length
               ? [
-                <span key="span-copy" style={{ alignSelf: 'center', marginRight: '1rem' }}>
+                <span
+                  key="span-copy"
+                  style={{ alignSelf: 'center', marginRight: '1rem' }}
+                >
                   <Icon iconName="copy"></Icon>
                 </span>,
-                <span key="span-search" style={{ alignSelf: 'center', marginRight: '1rem' }}>
+                <span
+                  key="span-search"
+                  style={{ alignSelf: 'center', marginRight: '1rem' }}
+                >
                   <Icon iconName="search"></Icon>
                 </span>,
               ]
@@ -194,12 +199,8 @@ export const ChangeProgrammatically = () => {
   const refresh = () =>
     child.current.refreshValidation().then((isValid) => console.log(isValid));
 
-  button('Reset', reset);
-  button('Refresh validation', refresh);
-
   return (
     <div style={{ width: '50%' }}>
-      <p>Manipulate programmatically: Use knobs</p>
       <Validation
         ref={child}
         validator={Validators.Required}
@@ -211,6 +212,10 @@ export const ChangeProgrammatically = () => {
           onChange={(e) => setValue(e.target.value)}
         ></TextField>
       </Validation>
+      <div style={{ display: 'flex', marginTop: '1rem' }}>
+        <Button onClick={reset}>Reset</Button>
+        <Button onClick={refresh}>Refresh validation</Button>
+      </div>
     </div>
   );
 };
@@ -219,5 +224,4 @@ export default {
   title: 'Components/Input/TextField',
   component: TextField,
   subcomponents: { Icon },
-  decorators: [withKnobs],
 };

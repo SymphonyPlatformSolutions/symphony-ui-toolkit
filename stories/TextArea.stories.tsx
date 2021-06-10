@@ -1,6 +1,5 @@
-import { withKnobs, button } from '@storybook/addon-knobs';
 import React, { useRef, useState } from 'react';
-import { TextArea, Validation } from '../src/components';
+import { Button, TextArea, Validation } from '../src/components';
 import { Validators } from '../src/core/validators/validators';
 
 const Template = (args) => {
@@ -54,7 +53,8 @@ export const TextAreas: React.SFC = () => {
         </p>
         <p>
           {' '}
-          If the attribute showRequired is defined, the according style will be applied
+          If the attribute showRequired is defined, the according style will be
+          applied
         </p>
         <TextArea
           id="input-1234567899"
@@ -97,17 +97,12 @@ export const ChangeProgrammatically = () => {
   const [value, setValue] = useState('');
 
   const reset = () => child.current.reset();
-  
+
   const refresh = () =>
-    child.current
-      .refreshValidation()
-      .then((isValid) => console.log(isValid));
-  button('Reset', reset);
-  button('Refresh validation', refresh);
+    child.current.refreshValidation().then((isValid) => console.log(isValid));
 
   return (
     <div style={{ width: '50%' }}>
-      <p>Manipulate programmatically: Use knobs</p>
       <Validation
         ref={child}
         validator={Validators.MinLength(3)}
@@ -119,6 +114,10 @@ export const ChangeProgrammatically = () => {
           onChange={(e) => setValue(e.target.value)}
         ></TextArea>
       </Validation>
+      <div style={{ display: 'flex', marginTop: '1rem' }}>
+        <Button onClick={reset}>Reset</Button>
+        <Button onClick={refresh}>Refresh validation</Button>
+      </div>
     </div>
   );
 };
@@ -126,5 +125,4 @@ export const ChangeProgrammatically = () => {
 export default {
   title: 'Components/Input/TextArea',
   component: TextArea,
-  decorators: [withKnobs],
 };
