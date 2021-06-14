@@ -10,13 +10,13 @@
 Install the library from npm by running the following command on your project:
 
 ```bash
-$ npm install @symphony/uitoolkit-components --save
+$ npm install @symphony-ui/uitoolkit-components --save
 ```
 
 or using yarn
 
 ```bash
-$ yarn add @symphony/uitoolkit-components
+$ yarn add @symphony-ui/uitoolkit-components
 ```
 
 ## Setup
@@ -24,7 +24,7 @@ $ yarn add @symphony/uitoolkit-components
 To start using UI Toolkit Components you will need to import the styles definition on your project:
 
 ```bash
-  @symphony/uitoolkit-components/styles
+  @symphony-ui/uitoolkit-components/styles
 ```
 
 ## Usage
@@ -32,7 +32,7 @@ To start using UI Toolkit Components you will need to import the styles definiti
 Start using by importing the component you need
 
 ```bash
-import { Button } from "@symphony/uitoolkit-components";
+import { Button } from "@symphony-ui/uitoolkit-components";
 
 const App = () => (
   <Button onClick={()=>alert("UIToolkit is awesome!")}>
