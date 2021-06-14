@@ -59,6 +59,7 @@ jobs:
           to: s3://www-prod.symphony.com/resources/ui-toolkit/<< parameters.cdn_version_path >>/fonts
       - aws-s3/copy:
           <<: *cdn-credentials
+          arguments: '--content-type "text/css; charset=utf-8"'
           from: /tmp/dist/css/uitoolkit-cdn.generated.css
           to: s3://www-prod.symphony.com/resources/ui-toolkit/<< parameters.cdn_version_path >>/css/uitoolkit.css
 
