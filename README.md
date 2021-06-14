@@ -32,11 +32,11 @@ yarn test
 ## 🏎️ Setup on your React project
 
 ```
-yarn add @symphony/uitoolkit-components
+yarn add @symphony-ui/uitoolkit-components
 ```
 
 ```
-import { Button } from "@symphony/uitoolkit-components/components";
+import { Button } from "@symphony-ui/uitoolkit-components/components";
 ```
 
 ## 📦 Releasing from GitHub
