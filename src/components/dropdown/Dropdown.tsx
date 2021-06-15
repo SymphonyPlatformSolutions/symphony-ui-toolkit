@@ -40,7 +40,7 @@ export type DropdownProps<T> = {
   className?: string;
   /** Close the expanded menu when the user selects an option */
   closeMenuOnSelect?: boolean;
-  /** Enables the indicator to expand the Dropdown */
+  /** Enables the indicator to expand the Dropdozwn */
   displayArrowIndicator?: boolean;
   /** Display a fixed option on the header of the Dropdown with the searched term */
   enableTermSearch?: boolean;
@@ -136,7 +136,11 @@ type AsyncProps<T> = {
   options?: undefined;
   /** Load the options that populate the dropdown from a returned promise */
   asyncOptions: (inputValue: string) =>Promise<DropdownOption<T>[]>;
-  defaultOptions?: boolean;
+  /**
+   * The default set of options to show before the user starts searching. When
+   * set to `true`, the results for asyncOptions('') will be autoloaded.
+   */
+  defaultOptions?:  DropdownOption<T> | boolean;
 } & HasValidationProps<T>;
 type SyncProps<T> = {
   /** Array of options that populate the dropdown menu */
