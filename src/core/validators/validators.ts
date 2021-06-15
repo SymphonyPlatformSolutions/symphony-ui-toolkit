@@ -6,13 +6,15 @@
  * Validators could be combined using Combine validator
  * Returns null if no validation error
  */
-export type ValidatorFn = (value: string) => Promise<{ [id: string]: boolean }> | Promise<null>;
+export type ValidatorFn = (
+  value: string
+) => Promise<{ [id: string]: boolean }> | Promise<null>;
 
 /**
  * Checks if a mandatory value isn't null/undefined/empty , returns {required:true} if error, return null if it's not null/undefined/empty
  * @param value Value to test
  */
-const Required: ValidatorFn = value => {
+const Required: ValidatorFn = (value) => {
   if (!value) {
     return Promise.resolve({ required: true });
   }
@@ -23,7 +25,7 @@ const Required: ValidatorFn = value => {
  * Checks if a mandatory value isn't empty , returns {emptyString:true} if error, return null if it's not empty
  * @param value Value to test
  */
-const EmptyString: ValidatorFn = value => {
+const EmptyString: ValidatorFn = (value) => {
   if (value === '') {
     return Promise.resolve({ emptyString: true });
   }
@@ -35,7 +37,7 @@ const EmptyString: ValidatorFn = value => {
  * @param value Value to test
  */
 const MinLength = (minlength: number): ValidatorFn => {
-  return value => {
+  return (value) => {
     if (value && minlength <= value.length) {
       return Promise.resolve(null);
     }
@@ -47,9 +49,38 @@ const MinLength = (minlength: number): ValidatorFn => {
  * Checks if a provided value is a number , returns {number:true} if not a number, return null if number
  * @param value Value to test
  */
-const Number: ValidatorFn = value => {
+const Number: ValidatorFn = (value) => {
   if (isNaN(value as any)) {
     return Promise.resolve({ number: true });
+  }
+  return Promise.resolve(null);
+};
+
+/**
+ * Checks if a provided value is greater than a min value, returns {minValue:true} if too smaller.
+ * @param value Value to test
+ */
+const MinValue = (minValue): ValidatorFn => {
+  return (value) => {
+    if (isNaN(value as any) || value < minValue) {
+      return Promise.resolve({ minValue: true });
+    }
+    return Promise.resolve(null);
+  };
+};
+
+const TooDark: ValidatorFn = (color) => {
+  const c = color.substring(1); // strip #
+  const rgb = parseInt(c, 16); // convert rrggbb to decimal
+  const r = (rgb >> 16) & 0xff; // extract red
+  const g = (rgb >> 8) & 0xff; // extract green
+  const b = (rgb >> 0) & 0xff; // extract blue
+
+  const luma = 0.2126 * r + 0.7152 * g + 0.0722 * b; // per ITU-R BT.709
+
+  if (luma < 40) {
+    // pick a different colour
+    return Promise.resolve({ toDark: true });
   }
   return Promise.resolve(null);
 };
@@ -60,7 +91,7 @@ const Number: ValidatorFn = value => {
  * @param value Value to test
  */
 const Pattern = (regex: string | RegExp) => {
-  return value => {
+  return (value) => {
     if (new RegExp(regex).test(value)) {
       return Promise.resolve(null);
     }
@@ -68,4 +99,12 @@ const Pattern = (regex: string | RegExp) => {
   };
 };
 
-export const Validators = { EmptyString, Required, MinLength, Number, Pattern };
+export const Validators = {
+  EmptyString,
+  Required,
+  MinValue,
+  MinLength,
+  Number,
+  Pattern,
+  TooDark,
+};
