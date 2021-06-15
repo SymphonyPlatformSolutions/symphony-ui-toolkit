@@ -140,7 +140,7 @@ type AsyncProps<T> = {
    * The default set of options to show before the user starts searching. When
    * set to `true`, the results for asyncOptions('') will be autoloaded.
    */
-  defaultOptions?:  DropdownOption<T> | boolean;
+  defaultOptions?:  DropdownOption<T>[] | boolean;
 } & HasValidationProps<T>;
 type SyncProps<T> = {
   /** Array of options that populate the dropdown menu */
