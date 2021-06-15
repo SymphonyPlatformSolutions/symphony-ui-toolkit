@@ -40,7 +40,7 @@ export type DropdownProps<T> = {
   className?: string;
   /** Close the expanded menu when the user selects an option */
   closeMenuOnSelect?: boolean;
-  /** Enables the indicator to expand the Dropdozwn */
+  /** Enables the indicator to expand the Dropdown */
   displayArrowIndicator?: boolean;
   /** Display a fixed option on the header of the Dropdown with the searched term */
   enableTermSearch?: boolean;
