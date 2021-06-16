@@ -136,7 +136,11 @@ type AsyncProps<T> = {
   options?: undefined;
   /** Load the options that populate the dropdown from a returned promise */
   asyncOptions: (inputValue: string) =>Promise<DropdownOption<T>[]>;
-  defaultOptions?: boolean;
+  /**
+   * The default set of options to show before the user starts searching. When
+   * set to `true`, the results for asyncOptions('') will be autoloaded.
+   */
+  defaultOptions?:  DropdownOption<T>[] | boolean;
 } & HasValidationProps<T>;
 type SyncProps<T> = {
   /** Array of options that populate the dropdown menu */
@@ -238,8 +242,8 @@ export class Dropdown<T = LabelValue> extends React.Component<
     }
   }
   
-  internalAsyncOptions = async () => {
-    return this.props?.asyncOptions('')
+  internalAsyncOptions = async (inputValue:string) => {
+    return this.props?.asyncOptions(inputValue)
       .then(options => new Promise(resolve => 
         resolve(this.props.enableTermSearch ?
           [this.searchHeaderOption as T, ...options] 
