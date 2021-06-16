@@ -104,13 +104,15 @@ const Tooltip: React.FC<TooltipProps> = ({
       },
     ],
   });
+  
+  const children = <span>{otherProps.children}</span>
 
   return (
     <div ref={ref} className={otherProps.className ? otherProps.className + '_wrapper' : null}>
       <SpanStyled ref={setReferenceElement}>
-        { displayTrigger === 'hover' && showTooltipOnHover(otherProps.children, setShowHover) }
-        { displayTrigger === 'click' && showTooltipOnClick(otherProps.children, showClick, setShowClick) }
-        { displayTrigger === undefined && otherProps.children }
+        { displayTrigger === 'hover' && showTooltipOnHover(children, setShowHover) }
+        { displayTrigger === 'click' && showTooltipOnClick(children, showClick, setShowClick) }
+        { displayTrigger === undefined && children }
         <CSSTransition
           {...popperProps}
           in={visible || showHover || showClick}
