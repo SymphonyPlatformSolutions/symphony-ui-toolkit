@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { useMemo } from 'react';
-import classNames from 'classnames';
+import classnames from 'classnames';
 import shortid from 'shortid';
 import LabelTooltipDecorator, {
   LabelTooltipDecoratorProps,
@@ -67,16 +67,22 @@ const InputDecorator: React.FC<InputDecoratorProps> = ({
   }, [child]);
 
   const childWithId = useMemo(
-    () => (child ? React.cloneElement(child, { ...rest, id: inputId }) : null),
+    () =>
+      child
+        ? React.cloneElement(child, {
+            ...rest,
+            id: inputId, // Add ID to the input
+            className: classnames('tk-input', child.props.className), // Add 'tk-input' CSS class
+          })
+        : null,
     [child]
   );
 
   return (
     <div
-      className={classNames('tk-input-group', {
+      className={classnames('tk-input-group', {
         'tk-input-group--disabled': disabled,
       })}
-      style={{ display: 'inline-block' }}
     >
       <LabelTooltipDecorator
         id={tooltipId}
@@ -88,7 +94,7 @@ const InputDecorator: React.FC<InputDecoratorProps> = ({
         showRequired={showRequired}
       />
       <div
-        className={classNames('tk-input__container', {
+        className={classnames('tk-input__container', {
           'tk-input__container--disabled': disabled,
         })}
       >
