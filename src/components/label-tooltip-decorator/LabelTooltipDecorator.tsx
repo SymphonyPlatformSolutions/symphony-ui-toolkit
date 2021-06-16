@@ -1,20 +1,13 @@
 import * as React from 'react';
 import { useState } from 'react';
 import styled from 'styled-components';
-import * as PropTypes from 'prop-types';
 import Icon from '../icon';
 import Tooltip from '../tooltip';
 import classNames from 'classnames';
-
-export type LabelTooltipDecoratorProps = {
-  id?: string;
-  htmlFor?: string;
-  label?: string;
-  placement?: 'top' | 'bottom' | 'right' | 'left';
-  tooltip?: string | JSX.Element;
-  tooltipCloseLabel?: string;
-  showRequired?: boolean;
-};
+import {
+  LabelTooltipDecoratorProps,
+  LabelTooltipDecoratorPropTypes,
+} from './interfaces';
 
 const LabelTooltipDecoratorHeader = styled.div`
   display: flex;
@@ -26,13 +19,6 @@ const LabelTooltipDecoratorTooltip = styled.div`
   margin-left: auto;
   font-size: 16px;
 `;
-export const LabelTooltipDecoratorPropTypes = {
-  id: PropTypes.string,
-  htmlFor: PropTypes.string,
-  label: PropTypes.string,
-  tooltip: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
-  tooltipCloseLabel: PropTypes.string,
-};
 
 const LabelTooltipDecorator: React.FC<LabelTooltipDecoratorProps> = ({
   id,

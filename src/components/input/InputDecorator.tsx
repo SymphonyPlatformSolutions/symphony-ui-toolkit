@@ -3,14 +3,12 @@ import * as PropTypes from 'prop-types';
 import { useMemo } from 'react';
 import classnames from 'classnames';
 import shortid from 'shortid';
-import LabelTooltipDecorator, {
+import LabelTooltipDecorator from '../label-tooltip-decorator/LabelTooltipDecorator';
+import {
   LabelTooltipDecoratorProps,
   LabelTooltipDecoratorPropTypes,
-} from '../label-tooltip-decorator/LabelTooltipDecorator';
-// import { HasValidationProps } from '../validation/interfaces';
-// import { HasTooltipProps } from '../tooltip/interfaces';
-
-//import { HasValidationProps } from '../validation/interfaces';
+} from '../label-tooltip-decorator/interfaces';
+import { HasValidationProps } from '../validation/interfaces';
 
 const RightDecoratorsPropTypes = {
   rightDecorators: PropTypes.oneOfType([
@@ -22,14 +20,13 @@ const RightDecoratorsPropTypes = {
 const InputDecoratorPropTypes = {
   ...LabelTooltipDecoratorPropTypes,
   ...RightDecoratorsPropTypes,
-  //onChange: PropTypes.func,
 };
 
-interface InputDecoratorProps extends LabelTooltipDecoratorProps {
-  // HasValidationProps;
+type InputDecoratorProps = {
   rightDecorators?: JSX.Element | JSX.Element[];
   children?: React.ReactNode;
-}
+} & LabelTooltipDecoratorProps &
+  HasValidationProps<string>;
 
 const InputDecorator: React.FC<InputDecoratorProps> = ({
   rightDecorators,
@@ -38,6 +35,10 @@ const InputDecorator: React.FC<InputDecoratorProps> = ({
   tooltipCloseLabel,
   showRequired,
   children,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  onInit,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  onValidationChanged,
   ...rest
 }) => {
   let child;
