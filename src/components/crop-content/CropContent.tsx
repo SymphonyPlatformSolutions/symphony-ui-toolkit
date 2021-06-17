@@ -80,7 +80,6 @@ export default class CropContent extends React.Component<CropContentProps, CropC
       const hasOverflow =
         this.containerElRef &&
         this.containerElRef.scrollHeight - this.containerElRef.offsetHeight > 1;
-      this.setState({ hasOverflow });
       nextState.hasOverflow = hasOverflow;
     }
     nextState.fullHeight = this.getFullHeight();
