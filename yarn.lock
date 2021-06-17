@@ -10557,7 +10557,7 @@ react-resize-detector@^5.0.3:
     raf-schd "^4.0.2"
     resize-observer-polyfill "^1.5.1"
 
-react-select@^4.0.0:
+react-select@^4.3.1:
   version "4.3.1"
   resolved "https://registry.yarnpkg.com/react-select/-/react-select-4.3.1.tgz#389fc07c9bc7cf7d3c377b7a05ea18cd7399cb81"
   integrity sha512-HBBd0dYwkF5aZk1zP81Wx5UsLIIT2lSvAY2JiJo199LjoLHoivjn9//KsmvQMEFGNhe58xyuOITjfxKCcGc62Q==
