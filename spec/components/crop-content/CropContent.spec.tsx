@@ -91,12 +91,12 @@ describe('CropContent Component', () => {
     });
     it('should handle overflow on cropHeight change', () => {
       const wrapper = getWrapper();
-      const handleOverflowSpy = jest.spyOn(
+      const computeStateSpy = jest.spyOn(
         wrapper.instance() as CropContent,
-        'handleOverflow'
+        'computeState'
       );
       wrapper.setProps({ cropHeight: '100px' });
-      expect(handleOverflowSpy).toHaveBeenCalled();
+      expect(computeStateSpy).toHaveBeenCalled();
     });
     it('should handle overflow only on collapsed state', () => {
       const wrapper = getWrapper();

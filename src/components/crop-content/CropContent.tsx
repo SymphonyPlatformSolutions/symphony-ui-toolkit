@@ -14,15 +14,20 @@ type CropContentProps = {
   /** Method triggered when clicking on "Show more/less" return the collapsed boolean and the element itself */
   onToggle?: (collapsed: boolean, el?: HTMLDivElement) => any;
 };
-
-export default class CropContent extends React.Component<CropContentProps> {
+type CropContentState = {
+  collapsed:boolean,
+  hasOverflow: boolean,
+  fullHeight: string
+}
+export default class CropContent extends React.Component<CropContentProps, CropContentState> {
   private containerElRef:HTMLDivElement;
   private mutationObserver: MutationObserver;
 
   public state = {
     collapsed:
       this.props.initCollapsed === undefined || this.props.initCollapsed,
-    hasOverflow: false
+    hasOverflow: false,
+    fullHeight: ''
   };
 
   constructor(props){
@@ -30,7 +35,7 @@ export default class CropContent extends React.Component<CropContentProps> {
     //listen for mutations and update accordingly
     this.mutationObserver = new MutationObserver((mutations:MutationRecord[]) => {
       if(mutations?.some(mut => mut.type==='childList' || mut.type==='characterData')){
-        this.handleOverflow();
+        this.computeState();
       }
     });
   }
@@ -49,46 +54,53 @@ export default class CropContent extends React.Component<CropContentProps> {
 
   componentDidMount() {
     // after first render check if component needs toggle
-    this.handleOverflow();
+    this.computeState();
   }
 
   setRef = (e: HTMLDivElement) => {
     if(e){
       this.containerElRef = e;
       this.mutationObserver.observe(e, {childList:true, subtree:true , characterData:true});
-      this.handleOverflow();
+      this.computeState();
     }
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.cropHeight !== this.props.cropHeight) {
-      this.handleOverflow();
+      this.computeState();
     }
   }
   componentWillUnmount(){
     this.mutationObserver.disconnect();
   }
 
-  handleOverflow() {
+  computeState() {
+    const nextState: CropContentState = {...this.state};
     if (this.state.collapsed) {
       const hasOverflow =
         this.containerElRef &&
         this.containerElRef.scrollHeight - this.containerElRef.offsetHeight > 1;
-      this.setState({ hasOverflow });
+      nextState.hasOverflow = hasOverflow;
     }
+    nextState.fullHeight = this.getFullHeight();
+    this.setState(nextState);
+
+  }
+
+  getFullHeight(){
+    return this.containerElRef && this.containerElRef.scrollHeight ? `${this.containerElRef.scrollHeight}px` : '100%';
   }
 
   render() {
     const collapsedHeight = `${this.props.cropHeight || '80px'}`
-    const fullHeight = (this.containerElRef && this.containerElRef.scrollHeight ? `${this.containerElRef.scrollHeight}px` : '100%');
+    const fullHeight = this.state.fullHeight;
 
     const height = this.state.collapsed
       ? collapsedHeight
       : fullHeight;
-
     return (
       <ResizeDetectDiv
-        onWidthChange={this.handleOverflow.bind(this)}
+        onWidthChange={this.computeState.bind(this)}
         className={'tk-crop-content ' + this.props.className}
         style={this.props.style}
       >
