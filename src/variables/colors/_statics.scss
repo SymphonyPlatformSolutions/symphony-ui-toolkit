@@ -1,3 +1,5 @@
+/** ======== Color palette from SDS ======== */
+
 // Graphite
 $scolor-graphite-05: #f1f1f3;
 $scolor-graphite-10: #e3e5e7;
@@ -82,6 +84,8 @@ $scolor-plum: #c704ff;
 $scolor-rose: #ff49a0;
 $scolor-black: #000000;
 
+/** ======== Former UIToolkit color palette. ======== */
+/** This will be deprecated, use the SDS color palette. */
 $scolor-electricity-minus-21: #36a6ff;
 
 $scolor-electricity: #008eff;
