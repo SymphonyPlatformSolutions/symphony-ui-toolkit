@@ -4,12 +4,11 @@ import * as PropTypes from 'prop-types';
 import { usePopper } from 'react-popper';
 import { CSSTransition } from 'react-transition-group';
 import styled from 'styled-components';
-import classnames from 'classnames';
 
 import { PopperContainer, popperProps } from '../common/popperUtils';
 
 import useOnclickOutside from 'react-cool-onclickoutside';
-import { showTooltipOnClick, showTooltipOnHover } from './helpers';
+import { showTooltipOnClick, showTooltipOnHover } from './helpers'
 
 const SpanStyled = styled.span`
   display: inline-block;
@@ -48,8 +47,7 @@ const TooltipClose = styled.span`
   cursor: pointer;
 `;
 
-export interface TooltipProps
-  extends Omit<React.HTMLProps<HTMLDivElement>, 'as' | 'ref'> {
+export interface TooltipProps extends Omit<React.HTMLProps<HTMLDivElement>, 'as' | 'ref'> {
   closeLabel?: string;
   /** Text or Element to display in the tooltip */
   description: string | JSX.Element;
@@ -62,28 +60,7 @@ export interface TooltipProps
   type?: 'hint' | 'tooltip';
   /** if true, the tooltip should be displayed */
   visible?: boolean;
-  /**
-   * Timeout before the tooltip disappear on hover (in ms)
-   * @default 100
-   */
-  hoverTimeout?: number;
 }
-
-const debouncer = (
-  callback: React.Dispatch<React.SetStateAction<boolean>>,
-  debounceTime = 100
-) => {
-  let timeout: number | undefined;
-
-  return (isEntering: boolean) => {
-    clearTimeout(timeout);
-    if (!isEntering) {
-      timeout = window.setTimeout(() => callback(false), debounceTime);
-    } else {
-      callback(true);
-    }
-  };
-};
 
 const Tooltip: React.FC<TooltipProps> = ({
   closeLabel,
@@ -94,8 +71,6 @@ const Tooltip: React.FC<TooltipProps> = ({
   placement,
   type,
   visible,
-  hoverTimeout,
-  className,
   ...otherProps
 }) => {
   const [popperElement, setPopperElement] = useState(null);
@@ -103,17 +78,12 @@ const Tooltip: React.FC<TooltipProps> = ({
   const [showHover, setShowHover] = useState(false);
   const [showClick, setShowClick] = useState(false);
 
-  const handleMouseMove = debouncer(setShowHover, hoverTimeout);
-
-  const ref = useOnclickOutside(
-    () => {
-      setShowClick(false);
-    },
-    {
-      disabled: !showClick,
-    }
-  );
-
+  const ref = useOnclickOutside(() => {
+    setShowClick(false);
+  }, {
+    disabled: !showClick,
+  });
+  
   const { styles, attributes } = usePopper(referenceElement, popperElement, {
     placement: placement || 'top',
     modifiers: [
@@ -126,20 +96,21 @@ const Tooltip: React.FC<TooltipProps> = ({
       {
         name: 'offset',
         options: {
-          offset: [0, type === 'hint' ? 15 : 9],
+          offset: [
+            0,
+            type === 'hint' ? 15 : 9
+          ],
         },
       },
     ],
   });
 
   return (
-    <div ref={ref} className={className ? className + '_wrapper' : null}>
+    <div ref={ref} className={otherProps.className ? otherProps.className + '_wrapper' : null}>
       <SpanStyled ref={setReferenceElement}>
-        {displayTrigger === 'hover' &&
-          showTooltipOnHover(otherProps.children, handleMouseMove)}
-        {displayTrigger === 'click' &&
-          showTooltipOnClick(otherProps.children, showClick, setShowClick)}
-        {displayTrigger === undefined && otherProps.children}
+        { displayTrigger === 'hover' && showTooltipOnHover(otherProps.children, setShowHover) }
+        { displayTrigger === 'click' && showTooltipOnClick(otherProps.children, showClick, setShowClick) }
+        { displayTrigger === undefined && otherProps.children }
         <CSSTransition
           {...popperProps}
           in={visible || showHover || showClick}
@@ -149,18 +120,13 @@ const Tooltip: React.FC<TooltipProps> = ({
             id={id}
             role="tooltip"
             ref={setPopperElement}
-            className={classnames(
-              type === 'tooltip' ? 'tk-tooltip' : 'tk-hint',
-              { className }
-            )}
+            className={ type === 'tooltip' ? 'tk-tooltip' : 'tk-hint' }
             style={styles.popper}
             {...attributes.popper}
             {...otherProps}
-            onMouseEnter={() => handleMouseMove(true)}
-            onMouseLeave={() => handleMouseMove(false)}
           >
             <span className="tk-hint__description">{description}</span>
-            {type === 'hint' && (
+            { type === 'hint' &&
               <>
                 <div
                   className="tooltip__arrowContainer"
@@ -171,16 +137,13 @@ const Tooltip: React.FC<TooltipProps> = ({
                 </div>
                 <div className="tk-hint__footer">
                   {closeLabel ? (
-                    <TooltipClose
-                      className="tk-hint__close"
-                      onClick={onHintClose}
-                    >
+                    <TooltipClose className="tk-hint__close" onClick={onHintClose}>
                       {closeLabel}
                     </TooltipClose>
                   ) : null}
                 </div>
               </>
-            )}
+            }
           </TooltipContainer>
         </CSSTransition>
       </SpanStyled>
@@ -194,16 +157,13 @@ Tooltip.defaultProps = {
 
 Tooltip.propTypes = {
   closeLabel: PropTypes.string,
-  description: PropTypes.oneOfType([PropTypes.string, PropTypes.element])
-    .isRequired,
+  description: PropTypes.oneOfType([PropTypes.string, PropTypes.element]).isRequired,
   displayTrigger: PropTypes.oneOf(['click', 'hover']),
   id: PropTypes.string,
   onHintClose: PropTypes.func,
   placement: PropTypes.oneOf(['top', 'bottom', 'left', 'right']),
   type: PropTypes.oneOf(['hint', 'tooltip']),
   visible: PropTypes.bool,
-  hoverTimeout: PropTypes.number,
-  className: PropTypes.string,
 };
 
 export default Tooltip;
