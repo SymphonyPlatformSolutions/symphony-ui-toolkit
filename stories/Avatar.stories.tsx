@@ -111,10 +111,10 @@ export const BorderedAvatar: React.FC = () => {
   );
 };
 
-const Sizes: React.FC = () => {
+export const AvatarSizes: React.FC = () => {
   return (
     <div>
-      <h2>Sizes</h2>
+      <h2>Avatar Sizes</h2>
       <div className="flex-row">
         <div className="flex-col">
           <Avatar variant="round" size="xxlarge" bordered>
@@ -157,7 +157,7 @@ export const AvatarWithTopBadge: React.FC = () => {
       <h2>Badge on the top</h2>
       <div className="flex-row">
         <div className="flex-col">
-          <Avatar variant="round" size="xlarge" bordered>
+          <Avatar variant="round" size="xxlarge" bordered>
             <img src={img1} alt="avatar" />
             <BasicIndicator position="top" variant="attention" />
           </Avatar>
@@ -360,12 +360,12 @@ export const AvatarWithAdvancedBadge: React.FC = () => {
         </div>
       </div>
       <p>
-        The size of the icon adaptes to the size of its parent. To adapt the size on your need, wrap it into a parent that redefine this `font-size`. 
+        The size of the icon adaptes to the size of its parent. To adapt the
+        size on your need, wrap it into a parent that redefine this `font-size`.
       </p>
     </div>
   );
 };
-
 
 export default {
   title: 'Components/Avatar',
