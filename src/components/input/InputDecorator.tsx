@@ -35,9 +35,7 @@ const InputDecorator: React.FC<InputDecoratorProps> = ({
   tooltipCloseLabel,
   showRequired,
   children,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   onInit,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   onValidationChanged,
   ...rest
 }) => {
@@ -54,6 +52,12 @@ const InputDecorator: React.FC<InputDecoratorProps> = ({
     );
   } else {
     child = React.Children.only(children);
+    if (child?.type !== 'input') {
+      console.error(
+        `The Input decorator accepts only an "input" tag. Found: ${child.type}`,
+        child
+      );
+    }
   }
 
   // Generate unique ID if not provided

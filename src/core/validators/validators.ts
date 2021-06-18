@@ -69,22 +69,6 @@ const MinValue = (minValue): ValidatorFn => {
   };
 };
 
-const TooDark: ValidatorFn = (color) => {
-  const c = color.substring(1); // strip #
-  const rgb = parseInt(c, 16); // convert rrggbb to decimal
-  const r = (rgb >> 16) & 0xff; // extract red
-  const g = (rgb >> 8) & 0xff; // extract green
-  const b = (rgb >> 0) & 0xff; // extract blue
-
-  const luma = 0.2126 * r + 0.7152 * g + 0.0722 * b; // per ITU-R BT.709
-
-  if (luma < 40) {
-    // pick a different colour
-    return Promise.resolve({ toDark: true });
-  }
-  return Promise.resolve(null);
-};
-
 /**
  * Factory that returns a validator to test if value matches the provided pattern
  * Return {pattern:true} if no match,
@@ -106,5 +90,4 @@ export const Validators = {
   MinLength,
   Number,
   Pattern,
-  TooDark,
 };
