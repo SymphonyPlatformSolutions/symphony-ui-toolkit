@@ -10,7 +10,7 @@ import {
   TimePicker,
   Validation,
 } from '../src/components';
-import { Validators } from '../src/core/validators/validators';
+import { ValidatorFn, Validators } from '../src/core/validators/validators';
 
 export const Validations = () => {
   const [date, setDate] = useState(null);
@@ -54,6 +54,22 @@ export const Validations = () => {
       to: '17:00:00',
     },
   ];
+
+  const tooDark: ValidatorFn = (color) => {
+    const c = color.substring(1); // strip #
+    const rgb = parseInt(c, 16); // convert rrggbb to decimal
+    const r = (rgb >> 16) & 0xff; // extract red
+    const g = (rgb >> 8) & 0xff; // extract green
+    const b = (rgb >> 0) & 0xff; // extract blue
+
+    const luma = 0.2126 * r + 0.7152 * g + 0.0722 * b; // per ITU-R BT.709
+
+    if (luma < 40) {
+      // Pick a different colour
+      return Promise.resolve({ toDark: true });
+    }
+    return Promise.resolve(null);
+  };
 
   return (
     <div style={{ width: '50%' }}>
@@ -212,19 +228,18 @@ export const Validations = () => {
             min="0"
             max="100"
             onChange={(event) => {
-              console.log('Existing onChange method called');
-              // event.stopPropagation();
+              console.log('Existing onChange method called', event);
             }}
             onClick={(...args) => console.log('Click', ...args)}
           />
         </InputDecorator>
       </Validation>
       <p>
-        with <strong>TooDark validator</strong>
+        with a <strong>custom validator</strong>
       </p>
       <Validation
         onValidationChanged={logChange}
-        validator={Validators.TooDark}
+        validator={tooDark}
         errorMessage={'Color too dark'}
       >
         <InputDecorator
@@ -243,7 +258,7 @@ export const Validations = () => {
           <input
             type="color"
             onChange={(event) => {
-              console.log('Existing onChange method called');
+              console.log('Existing onChange method called', event);
             }}
             onClick={(...args) => console.log('Click', ...args)}
           />
