@@ -90,9 +90,7 @@ OnClick.decorators = [addExplanation('Click the icon to see the tooltip')];
 export const OnHover = (args) => {
   return (
     <Tooltip {...args}>
-      <span>
-        <Icon iconName="info-round" />
-      </span>
+      <Icon iconName="info-round" />
     </Tooltip>
   );
 };
