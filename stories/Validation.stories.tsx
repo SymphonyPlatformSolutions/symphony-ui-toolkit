@@ -3,12 +3,14 @@ import React, { useState } from 'react';
 import {
   DatePicker,
   Dropdown,
+  Icon,
+  InputDecorator,
   TextArea,
   TextField,
   TimePicker,
   Validation,
 } from '../src/components';
-import { Validators } from '../src/core/validators/validators';
+import { ValidatorFn, Validators } from '../src/core/validators/validators';
 
 export const Validations = () => {
   const [date, setDate] = useState(null);
@@ -52,6 +54,22 @@ export const Validations = () => {
       to: '17:00:00',
     },
   ];
+
+  const tooDark: ValidatorFn = (color) => {
+    const c = color.substring(1); // strip #
+    const rgb = parseInt(c, 16); // convert rrggbb to decimal
+    const r = (rgb >> 16) & 0xff; // extract red
+    const g = (rgb >> 8) & 0xff; // extract green
+    const b = (rgb >> 0) & 0xff; // extract blue
+
+    const luma = 0.2126 * r + 0.7152 * g + 0.0722 * b; // per ITU-R BT.709
+
+    if (luma < 40) {
+      // Pick a different colour
+      return Promise.resolve({ toDark: true });
+    }
+    return Promise.resolve(null);
+  };
 
   return (
     <div style={{ width: '50%' }}>
@@ -153,6 +171,98 @@ export const Validations = () => {
           }}
           isMultiSelect
         ></Dropdown>
+      </Validation>
+      <h3>InputDecorator</h3>
+      <p>
+        with <strong>Required validator</strong>
+      </p>
+      <Validation
+        onValidationChanged={logChange}
+        validator={Validators.Required}
+        errorMessage={'This field is mandatory'}
+      >
+        <InputDecorator
+          label="A label"
+          tooltip="A tooltip"
+          rightDecorators={
+            <span
+              key="span-search"
+              style={{ alignSelf: 'center', margin: '0.2rem 0.5rem' }}
+              onClick={() => alert('Icon clicked')}
+            >
+              <Icon iconName="search"></Icon>
+            </span>
+          }
+        >
+          <input
+            type="url"
+            onChange={() => {
+              console.log('Existing onChange method called');
+            }}
+          />
+        </InputDecorator>
+      </Validation>
+      <p>
+        with <strong>MinValue validator</strong>
+      </p>
+      <Validation
+        onValidationChanged={logChange}
+        validator={Validators.MinValue(50)}
+        errorMessage={'Value to small'}
+      >
+        <InputDecorator
+          label="A label"
+          tooltip="A tooltip"
+          rightDecorators={
+            <span
+              key="span-search"
+              style={{ alignSelf: 'center', margin: '0.2rem 0.5rem' }}
+              onClick={() => alert('Icon clicked')}
+            >
+              <Icon iconName="search" />
+            </span>
+          }
+        >
+          <input
+            type="range"
+            min="0"
+            max="100"
+            onChange={(event) => {
+              console.log('Existing onChange method called', event);
+            }}
+            onClick={(...args) => console.log('Click', ...args)}
+          />
+        </InputDecorator>
+      </Validation>
+      <p>
+        with a <strong>custom validator</strong>
+      </p>
+      <Validation
+        onValidationChanged={logChange}
+        validator={tooDark}
+        errorMessage={'Color too dark'}
+      >
+        <InputDecorator
+          label="A label"
+          tooltip="A tooltip"
+          rightDecorators={
+            <span
+              key="span-search"
+              style={{ alignSelf: 'center', margin: '0.2rem 0.5rem' }}
+              onClick={() => alert('Icon clicked')}
+            >
+              <Icon iconName="search" />
+            </span>
+          }
+        >
+          <input
+            type="color"
+            onChange={(event) => {
+              console.log('Existing onChange method called', event);
+            }}
+            onClick={(...args) => console.log('Click', ...args)}
+          />
+        </InputDecorator>
       </Validation>
       <h2>Multiple validators</h2>
       <p>
