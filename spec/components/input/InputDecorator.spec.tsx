@@ -1,7 +1,12 @@
 import * as React from 'react';
-import { mount } from 'enzyme';
 import classnames from 'classnames';
-import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import {
+  render,
+  screen,
+  waitFor,
+  waitForElementToBeRemoved,
+} from '@testing-library/react';
 
 import { InputDecorator } from '../../../src/components/input';
 
@@ -41,7 +46,7 @@ describe('InputDecorator Component', () => {
       // ID should be kept
       expect(input.id).toBe(id);
 
-      // 'tk-input' should be added to exsiting classes
+      // 'tk-input' should be added to the existing classes
       expect(input.classList).toContain('tk-input');
       expect(input.classList).toContain(cssClass1);
       expect(input.classList).toContain(cssClass2);
@@ -105,93 +110,57 @@ describe('InputDecorator Component', () => {
       expect(label).toBeDefined();
     });
 
-    // it('should display a tooltip if provided', () => {
-    //   const tooltipValue = 'A tooltip';
-    //   const closeLabel = 'test-close-button';
-    //   const { getByText } = render(
-    //     <InputDecorator tooltip={tooltipValue} tooltipCloseLabel={closeLabel}>
-    //       <input />
-    //     </InputDecorator>
-    //   );
+    it('should display a tooltip if provided', async () => {
+      const tooltipText = 'A tooltip';
+      const tooltipCloseLabel = 'test-close-button';
+      const { getByText } = render(
+        <InputDecorator
+          tooltip={tooltipText}
+          tooltipCloseLabel={tooltipCloseLabel}
+        >
+          <input />
+        </InputDecorator>
+      );
 
-    //   const icon = document.querySelector('i.tk-icon-info-round');
-    //   userEvent.click(icon);
-    //   const description = getByText(tooltipText);
-    //   await waitFor(() => expect(description).toBeTruthy());
+      const icon = document.querySelector('i.tk-icon-info-round');
+      userEvent.click(icon);
+      const description = getByText(tooltipText);
+      await waitFor(() => expect(description).toBeTruthy());
 
-    //   const label = getByText(labelValue);
-    //   expect(label).toBeDefined();
+      const cta = getByText(tooltipCloseLabel);
+      userEvent.click(cta);
+      waitForElementToBeRemoved(cta);
+    });
+    it('should display a decorator if provided', () => {
+      const decoratorName = 'copy';
+      const { getByText } = render(
+        <InputDecorator rightDecorators={<button>{decoratorName}</button>}>
+          <input />
+        </InputDecorator>
+      );
 
-    //   const id = 'textfield-1234567890';
-    //   const tooltipText = 'Tooltip';
-    //   const tooltipCloseLabel = 'Close';
-    //   const onChange = jest.fn();
-    //   let wrapper = mount(<TextComponent type={Types.TEXTFIELD} />);
-    //   expect(wrapper.find('Icon').length).toBe(0);
-    //   wrapper = mount(
-    //     <TextComponent
-    //       type={Types.TEXTFIELD}
-    //       id={id}
-    //       tooltip={tooltipText}
-    //       tooltipCloseLabel={tooltipCloseLabel}
-    //       placeholder="Firstname"
-    //       value="Lorem"
-    //       onChange={onChange}
-    //     />
-    //   );
-    //   expect(wrapper.find('Icon').length).toBe(1);
-    //   expect(wrapper.find('Icon').prop('iconName')).toBeDefined();
-    //   expect(wrapper.find('LabelTooltipDecorator').length).toBe(1);
-    //   expect(wrapper.find('LabelTooltipDecorator').prop('id')).toBeDefined();
-    //   expect(wrapper.find('LabelTooltipDecorator').prop('tooltip')).toEqual(
-    //     tooltipText
-    //   );
-    //   expect(
-    //     wrapper.find('LabelTooltipDecorator').prop('tooltipCloseLabel')
-    //   ).toEqual(tooltipCloseLabel);
-    //   wrapper.unmount();
-    // });
-    // it('should display a decorator if provided', () => {
-    //   const decoratorName = 'copy';
-    //   let wrapper = mount(<TextComponent type={Types.TEXTFIELD} />);
-    //   expect(wrapper.find('label.tk-label').length).toBe(0);
-    //   wrapper = mount(
-    //     <TextComponent
-    //       type={Types.TEXTFIELD}
-    //       rightDecorators={<button>{decoratorName}</button>}
-    //     />
-    //   );
-    //   expect(wrapper.find('button').text()).toEqual(decoratorName);
-    //   wrapper.unmount();
-    // });
+      const button = getByText(decoratorName);
+      expect(button).toBeDefined();
+    });
 
-    // it('should display multiple decorators if provided', () => {
-    //   const decoratorId1 = 'decor1';
-    //   const decoratorId2 = 'decor2';
-    //   const decoratorName1 = 'copy';
-    //   const decoratorName2 = 'search';
-    //   let wrapper = mount(<TextComponent type={Types.TEXTFIELD} />);
-    //   expect(wrapper.find('label.tk-label').length).toBe(0);
-    //   wrapper = mount(
-    //     <TextComponent
-    //       type={Types.TEXTFIELD}
-    //       rightDecorators={[
-    //         <button id={decoratorId1} key="decorator-1">
-    //           {decoratorName1}
-    //         </button>,
-    //         <button id={decoratorId2} key="decorator-2">
-    //           {decoratorName2}
-    //         </button>,
-    //       ]}
-    //     />
-    //   );
-    //   expect(wrapper.find(`button#${decoratorId1}`).text()).toEqual(
-    //     decoratorName1
-    //   );
-    //   expect(wrapper.find(`button#${decoratorId2}`).text()).toEqual(
-    //     decoratorName2
-    //   );
-    //   wrapper.unmount();
-    // });
+    it('should display multiple decorators if provided', () => {
+      const decoratorName1 = 'copy';
+      const decoratorName2 = 'search';
+      const { getByText } = render(
+        <InputDecorator
+          rightDecorators={[
+            <button key={decoratorName1}>{decoratorName1}</button>,
+            <button key={decoratorName2}>{decoratorName2}</button>,
+          ]}
+        >
+          <input />
+        </InputDecorator>
+      );
+
+      const buttonDecorator1 = getByText(decoratorName1);
+      const buttonDecorator2 = getByText(decoratorName2);
+      expect(buttonDecorator1).toBeDefined();
+      expect(buttonDecorator2).toBeDefined();
+    });
   });
 });
