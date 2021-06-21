@@ -2,13 +2,15 @@ import * as React from 'react';
 import classnames from 'classnames';
 import userEvent from '@testing-library/user-event';
 import {
+  fireEvent,
   render,
   screen,
   waitFor,
   waitForElementToBeRemoved,
 } from '@testing-library/react';
 
-import { InputDecorator } from '../../../src/components/input';
+import { InputDecorator, Validation } from '../../../src/components';
+import { Validators } from '../../../src/core/validators/validators';
 
 describe('InputDecorator Component', () => {
   describe('InputDecorator test suite => ', () => {
@@ -161,6 +163,27 @@ describe('InputDecorator Component', () => {
       const buttonDecorator2 = getByText(decoratorName2);
       expect(buttonDecorator1).toBeDefined();
       expect(buttonDecorator2).toBeDefined();
+    });
+    it('validation should be called when the input of an InputDecorator is updated', async () => {
+      const inputValue = 'This is a test';
+      const errorMessage = 'This field is mandatory';
+      render(
+        <Validation validator={Validators.Required} errorMessage={errorMessage}>
+          <InputDecorator>
+            <input defaultValue={inputValue} />
+          </InputDecorator>
+        </Validation>
+      );
+
+      // Find input
+      const input = screen.getByRole('textbox');
+      expect(input).toBeDefined();
+
+      // Simulate input change
+      fireEvent.change(input, { target: { value: '' } });
+
+      // Look for the error message (The test will fail if the error is not found).
+      await screen.findByText(errorMessage);
     });
   });
 });
