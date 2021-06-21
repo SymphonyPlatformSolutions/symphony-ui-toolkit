@@ -73,10 +73,10 @@ const InputDecorator: React.FC<InputDecoratorProps> = ({
     () =>
       child
         ? React.cloneElement(child, {
-            ...rest,
-            id: inputId, // Add ID to the input
-            className: classnames('tk-input', child.props.className), // Add 'tk-input' CSS class
-          })
+          ...rest,
+          id: inputId, // Add ID to the input
+          className: classnames('tk-input', child.props.className), // Add 'tk-input' CSS class
+        })
         : null,
     [child]
   );

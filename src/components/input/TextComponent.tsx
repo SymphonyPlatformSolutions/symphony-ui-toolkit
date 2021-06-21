@@ -79,7 +79,7 @@ const TextComponentPropTypes = {
 
 const TextComponent: React.FC<
   TextComponentPropsWithType &
-    React.RefAttributes<HTMLInputElement | HTMLTextAreaElement>
+  React.RefAttributes<HTMLInputElement | HTMLTextAreaElement>
 > = React.forwardRef(
   (
     {
@@ -203,12 +203,12 @@ const TextComponent: React.FC<
           ) : null}
           {iconElement && type == Types.TEXTFIELD
             ? // Clone the iconElement in order to attach className 'tk-input__icon'
-              React.cloneElement(iconElement, {
-                className: classNames(
-                  'tk-input__icon',
-                  iconElement.props.className
-                ),
-              })
+            React.cloneElement(iconElement, {
+              className: classNames(
+                'tk-input__icon',
+                iconElement.props.className
+              ),
+            })
             : null}
         </div>
       </div>
