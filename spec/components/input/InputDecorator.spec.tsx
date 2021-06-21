@@ -53,40 +53,36 @@ describe('InputDecorator Component', () => {
       expect(input.classList).toContain(cssClass1);
       expect(input.classList).toContain(cssClass2);
     });
-    xit('render an invalid child tag (button)', () => {
-      render(
-        <InputDecorator>
-          <button>A button</button>
-        </InputDecorator>
+    it('throw an error when rendering an invalid child tag (button)', () => {
+      const spy = jest.spyOn(console, 'error').mockImplementation(() => {
+        return;
+      });
+      expect(() =>
+        render(
+          <InputDecorator>
+            <button>A button</button>
+          </InputDecorator>
+        )
+      ).toThrowError(
+        'The Input decorator accepts only an "input" tag. Found: button'
       );
-      const button = screen.getByRole('button');
-      // expect(input).toBeDefined();
-
-      // // ID should be kept
-      // expect(input.id).toBe('test-id');
-
-      // // 'tk-input' should be added to exsiting classes
-      // expect(input.classList).toContain('tk-input');
-      // expect(input.classList).toContain('test-class-1');
-      // expect(input.classList).toContain('test-class-2');
+      spy.mockRestore();
     });
-    xit('render too many children', () => {
-      render(
-        <InputDecorator>
-          <input />
-          <input />
-        </InputDecorator>
+    it('throw an error when rendering too many children', () => {
+      const spy = jest.spyOn(console, 'error').mockImplementation(() => {
+        return;
+      });
+      expect(() =>
+        render(
+          <InputDecorator>
+            <input />
+            <input />
+          </InputDecorator>
+        )
+      ).toThrowError(
+        'The Input decorator can wrap only one component. Found: 2'
       );
-      const button = screen.getByRole('button');
-      // expect(input).toBeDefined();
-
-      // // ID should be kept
-      // expect(input.id).toBe('test-id');
-
-      // // 'tk-input' should be added to exsiting classes
-      // expect(input.classList).toContain('tk-input');
-      // expect(input.classList).toContain('test-class-1');
-      // expect(input.classList).toContain('test-class-2');
+      spy.mockRestore();
     });
     it('extra props are forwarded to the input element', () => {
       const attributeValue = 'test-value';
