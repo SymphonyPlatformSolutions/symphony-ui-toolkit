@@ -37,13 +37,13 @@ Standard.args = {
       key="span-copy"
       style={{ alignSelf: 'center', margin: '0.2rem 0.5rem' }}
     >
-      <Icon iconName="copy"></Icon>
+      <Icon iconName="copy" />
     </span>,
     <span
       key="span-search"
       style={{ alignSelf: 'center', margin: '0.2rem 0.5rem' }}
     >
-      <Icon iconName="search"></Icon>
+      <Icon iconName="search" />
     </span>,
   ],
   children: <input type="text" />,
@@ -59,6 +59,13 @@ export const Number = Template.bind({});
 Number.args = {
   description: 'Input Type "number"',
   children: <input type="number" />,
+  rightDecorators:
+    <span
+      key="span-copy"
+      style={{ alignSelf: 'center', margin: '0.2rem 0.5rem' }}
+    >
+      <Icon iconName="copy" />
+    </span>
 };
 
 export const Range = Template.bind({});
