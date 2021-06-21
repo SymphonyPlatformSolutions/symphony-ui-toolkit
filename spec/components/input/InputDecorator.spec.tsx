@@ -63,18 +63,14 @@ describe('InputDecorator Component', () => {
             <button>A button</button>
           </InputDecorator>
         )
-      ).toThrowError(
-        'The Input decorator accepts only an "input" tag. Found: button'
-      );
+      ).toThrowError();
       spy.mockRestore();
     });
     it('throw an error when rendering no children', () => {
       const spy = jest.spyOn(console, 'error').mockImplementation(() => {
         return;
       });
-      expect(() => render(<InputDecorator></InputDecorator>)).toThrowError(
-        'The Input decorator requires one child component.'
-      );
+      expect(() => render(<InputDecorator></InputDecorator>)).toThrowError();
       spy.mockRestore();
     });
     it('throw an error when rendering too many children', () => {
@@ -88,9 +84,7 @@ describe('InputDecorator Component', () => {
             <input />
           </InputDecorator>
         )
-      ).toThrowError(
-        'The Input decorator can wrap only one component. Found: 2'
-      );
+      ).toThrowError();
       spy.mockRestore();
     });
     it('extra props are forwarded to the input element', () => {
