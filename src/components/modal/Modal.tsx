@@ -24,22 +24,26 @@ const buildClass = (classStr: string) => `${prefix}__${classStr}`;
 export const ModalTitle: React.FC<ModalContentProps> = ({
   className,
   children,
-}: ModalContentProps) => <div className={classNames(buildClass('title'), className)}>{children}</div>;
+  ...rest
+}: ModalContentProps) => <div {...rest} className={classNames(buildClass('title'), className)}>{children}</div>;
 
 export const ModalHeader: React.FC<ModalContentProps> = ({
   className,
   children,
-}: ModalContentProps) => <div className={classNames(buildClass('header'), className)}> {children}</div >;
+  ...rest
+}: ModalContentProps) => <div {...rest} className={classNames(buildClass('header'), className)}> {children}</div >;
 
 export const ModalBody: React.FC<ModalContentProps> = ({
   className,
   children,
-}: ModalContentProps) => <div className={classNames(buildClass('body'), className)}>{children}</div>;
+  ...rest
+}: ModalContentProps) => <div {...rest} className={classNames(buildClass('body'), className)}>{children}</div>;
 
 export const ModalFooter: React.FC<ModalContentProps> = ({
   className,
   children,
-}: ModalContentProps) => <div className={classNames(buildClass('footer'), className)}> {children}</div >;
+  ...rest
+}: ModalContentProps) => <div {...rest} className={classNames(buildClass('footer'), className)}> {children}</div >;
 
 const Modal: React.FC<ModalProps> = ({
   size,
