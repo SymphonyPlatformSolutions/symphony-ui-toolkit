@@ -1,7 +1,5 @@
 import * as React from 'react';
-import { mount } from 'enzyme';
-import { Modal } from '../../../src/components';
-import { ModalBody, ModalHeader } from '../../../src/components/modal/Modal';
+import { Modal, ModalBody, ModalFooter, ModalHeader, ModalTitle } from '../../../src/components';
 import { Keys } from '../../../src/components/common/keyUtils';
 
 import {
@@ -12,31 +10,78 @@ import {
 
 describe('Modal', () => {
   it('should render the content with correct class and without crash', () => {
-    const wrapper = mount(
-      <Modal size={'small'} show>
-        <ModalHeader>Hello, World</ModalHeader>
-        <ModalBody>Some text</ModalBody>
-      </Modal>
-    );
-    expect(wrapper.find('Modal').length).toBe(1);
-    expect(wrapper.children().hasClass('tk-dialog-backdrop')).toBe(true);
-    expect(wrapper.children().children().hasClass('tk-dialog tk-dialog--small')).toBe(true);
-    expect(wrapper.find('ModalHeader').text()).toBe('Hello, World');
-    expect(wrapper.find('ModalHeader').children().hasClass('tk-dialog__header')).toBe(true);
-    expect(wrapper.find('ModalBody').text()).toBe('Some text');
-    expect(wrapper.find('ModalBody').children().hasClass('tk-dialog__body')).toBe(true);
-  })
-  it('should render nothing', () => {
-    const wrapper = mount(
-      <Modal size={'small'}>
-        <ModalHeader>Hello, World</ModalHeader>
-        <ModalBody>Some text</ModalBody>
+    const mainCssClass = 'customMainCssClass';
+    const titleCssClass = 'customTitleCssClass';
+    const headerCssClass = 'customHeaderCssClass';
+    const bodyCssClass = 'customBodyCssClass';
+    const footerCssClass = 'customFooterCssClass';
+    const titleText = 'Text in title';
+    const headerText = 'Text in header';
+    const bodyText = 'Text in body';
+    const footerText = 'Text in footer';
+    const { getByText } = render(
+      <Modal size={'small'} className={mainCssClass} show >
+        <ModalTitle className={titleCssClass}>{titleText}</ModalTitle>
+        <ModalHeader className={headerCssClass}>{headerText}</ModalHeader>
+        <ModalBody className={bodyCssClass}>{bodyText}</ModalBody>
+        <ModalFooter className={footerCssClass}>{footerText}</ModalFooter>
       </Modal>
     );
 
-    expect(wrapper.find('Modal').children().length).toBe(0);
-    expect(wrapper.find('ModalHeader').length).toBe(0);
-    expect(wrapper.find('ModalBody').length).toBe(0);
+    const backdrop = document.querySelector('tk-dialog-backdrop');
+    expect(backdrop).toBeDefined();
+
+    // Find Modal
+    const modal = screen.getByRole('dialog');
+    expect(modal).toBeDefined();
+    expect(modal.classList).toContain('tk-dialog');
+    expect(modal.classList).toContain('tk-dialog--small');
+
+    // ModalTitle
+    const title = getByText(titleText);
+    expect(title).toBeDefined();
+    expect(title.classList).toContain(titleCssClass);
+    expect(title.classList).toContain('tk-dialog__title');
+
+    // ModalHeader
+    const header = getByText(headerText);
+    expect(header).toBeDefined();
+    expect(header.classList).toContain(headerCssClass);
+    expect(header.classList).toContain('tk-dialog__header');
+
+    // ModalBody
+    const body = getByText(bodyText);
+    expect(body).toBeDefined();
+    expect(body.classList).toContain(bodyCssClass);
+    expect(body.classList).toContain('tk-dialog__body');
+
+    // ModalFooter
+    const footer = getByText(footerText);
+    expect(footer).toBeDefined();
+    expect(footer.classList).toContain(footerCssClass);
+    expect(footer.classList).toContain('tk-dialog__footer');
+  })
+  it('should render nothing', () => {
+    const titleText = 'Text in title';
+    const headerText = 'Text in header';
+    const bodyText = 'Text in body';
+    const footerText = 'Text in footer';
+    const { queryByText } = render(
+      <Modal size={'small'}>
+        <ModalTitle>{titleText}</ModalTitle>
+        <ModalHeader>{headerText}</ModalHeader>
+        <ModalBody>{bodyText}</ModalBody>
+        <ModalFooter>{footerText}</ModalFooter>
+      </Modal>
+    );
+
+    const modal = screen.queryByRole('dialog');
+    expect(modal).toBeNull();
+
+    expect(queryByText(titleText)).toBeNull();
+    expect(queryByText(headerText)).toBeNull();
+    expect(queryByText(bodyText)).toBeNull();
+    expect(queryByText(footerText)).toBeNull();
   })
   it('should close the Modal on "Esc"', async () => {
     let show = true;
