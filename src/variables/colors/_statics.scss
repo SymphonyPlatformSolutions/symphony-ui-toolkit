@@ -1,88 +1,104 @@
+@use "sass:map";
 /** ======== Color palette from SDS ======== */
 
-// Graphite
-$scolor-graphite-05: #f1f1f3;
-$scolor-graphite-10: #e3e5e7;
-$scolor-graphite-20: #cdcfd4;
-$scolor-graphite-30: #b0b3ba;
-$scolor-graphite-40: #8f959e;
-$scolor-graphite-50: #717681;
-$scolor-graphite-60: #52565e;
-$scolor-graphite-70: #3a3d43;
-$scolor-graphite-80: #27292c;
-$scolor-graphite-90: #141618;
+$graphite: (
+  '05': #f1f1f3,
+  '10': #e3e5e7,
+  '20': #cdcfd4,
+  '30': #b0b3ba,
+  '40': #8f959e,
+  '50': #717681,
+  '60': #52565e,
+  '70': #3a3d43,
+  '80': #27292c,
+  '90': #141618,
+);
 
-// Midnight
-$scolor-midnight-05: #f1f1f3; // Same as $scolor-graphite-05
-$scolor-midnight-10: #e3e5e7; // Same as $scolor-graphite-10
-$scolor-midnight-20: #ceced5;
-$scolor-midnight-30: #b2b2be;
-$scolor-midnight-40: #9393a4;
-$scolor-midnight-50: #75758a;
-$scolor-midnight-60: #55556f;
-$scolor-midnight-70: #3b3b59;
-$scolor-midnight-80: #252547;
-$scolor-midnight-90: #111136;
+$midnight: (
+  '05': #f1f1f3,
+  '10': #e3e5e7,
+  '20': #ceced5,
+  '30': #b2b2be,
+  '40': #9393a4,
+  '50': #75758a,
+  '60': #55556f,
+  '70': #3b3b59,
+  '80': #252547,
+  '90': #111136,
+  '': #000028,
+);
 
-// Electricity
-$scolor-electricity-05: #e9f2f9;
-$scolor-electricity-10: #d6e7f7;
-$scolor-electricity-20: #aad4f8;
-$scolor-electricity-30: #6eb9fd;
-$scolor-electricity-40: #2996fd;
-$scolor-electricity-50: #0277d6;
-$scolor-electricity-60: #27588e;
-$scolor-electricity-70: #253f5d;
-$scolor-electricity-80: #1c2a3a;
-$scolor-electricity-90: #10151d;
+$electricity: (
+  '05': #e9f2f9,
+  '10': #d6e7f7,
+  '20': #aad4f8,
+  '30': #6eb9fd,
+  '40': #2996fd,
+  '50': #0277d6,
+  '60': #27588e,
+  '70': #253f5d,
+  '80': #1c2a3a,
+  '90': #10151d,
+  '':  #008eff,
+);
 
-// Green
-$scolor-green-05: #eaf4ea;
-$scolor-green-10: #d6ebd5;
-$scolor-green-20: #aadba6;
-$scolor-green-30: #65c862;
-$scolor-green-40: #2eaa35;
-$scolor-green-50: #378535;
-$scolor-green-60: #32602f;
-$scolor-green-70: #294425;
-$scolor-green-80: #1d2d1b;
-$scolor-green-90: #10170e;
+$green: (
+  '05': #eaf4ea,
+  '10': #d6ebd5,
+  '20': #aadba6,
+  '30': #65c862,
+  '40': #2eaa35,
+  '50': #378535,
+  '60': #32602f,
+  '70': #294425,
+  '80': #1d2d1b,
+  '90': #10170e,
+);
 
-// Yellow
-$scolor-yellow-05: #f8f2d7;
-$scolor-yellow-10: #f6e5a6;
-$scolor-yellow-20: #f7ca3b;
-$scolor-yellow-30: #e7a800;
-$scolor-yellow-40: #c98700;
-$scolor-yellow-50: #9c6c1a;
-$scolor-yellow-60: #70511f;
-$scolor-yellow-70: #4d391c;
-$scolor-yellow-80: #322715;
-$scolor-yellow-90: #1a150c;
+$yellow: (
+  '05': #f8f2d7,
+  '10': #f6e5a6,
+  '20': #f7ca3b,
+  '30': #e7a800,
+  '40': #c98700,
+  '50': #9c6c1a,
+  '60': #70511f,
+  '70': #4d391c,
+  '80': #322715,
+  '90': #1a150c,
+);
 
-// Red
-$scolor-red-05: #fbeeed;
-$scolor-red-10: #fadfdc;
-$scolor-red-20: #fcc1b9;
-$scolor-red-30: #ff9789;
-$scolor-red-40: #ff5d50;
-$scolor-red-50: #dd342e;
-$scolor-red-60: #99342c;
-$scolor-red-70: #662a24;
-$scolor-red-80: #411f1a;
-$scolor-red-90: #21110e;
+$red: (
+  '05': #fbeeed,
+  '10': #fadfdc,
+  '20': #fcc1b9,
+  '30': #ff9789,
+  '40': #ff5d50,
+  '50': #dd342e,
+  '60': #99342c,
+  '70': #662a24,
+  '80': #411f1a,
+  '90': #21110e,
+);
 
-// Main brand colors
-$scolor-electricity: #008eff;
-$scolor-midnight: #000028;
+$colors: (
+  'graphite': $graphite,
+  'midnight': $midnight,
+  'electricity': $electricity,
+  'green': $green,
+  'yellow': $yellow,
+  'red': $red,
+  'white': ('': #ffffff),
+  'orange': ('': #ff7a00),
+  'lime': ('': #9fea00),
+  'plum': ('': #c704ff),
+  'rose': ('': #ff49a0),
+  'black': ('': #000000),
+);
 
-// Additional brand colors
-$scolor-white: #ffffff;
-$scolor-orange: #ff7a00;
-$scolor-lime: #9fea00;
-$scolor-plum: #c704ff;
-$scolor-rose: #ff49a0;
-$scolor-black: #000000;
+@function getColor($color, $num) {
+  @return map-get($color, $num);
+}
 
 /** ======== Former UIToolkit color palette. ======== */
 /** This will be deprecated, use the SDS color palette. */

@@ -1,31 +1,25 @@
-.tk-color-action-primary {
-  color: $scolor-electricity !important;
-}
-.tk-color-action-ok {
-  color: $scolor-green !important;
-}
+$colorMap: (
+  "primary": $scolor-electricity,
+  "ok": $scolor-green,
+  "attention": $scolor-orange,
+  "warning": $--tk-color-error,
+);
 
-.tk-color-action-attention {
-  color: $scolor-orange !important;
-}
-
-.tk-color-action-warning {
-  color: $--tk-color-error !important;
+@each $name, $color in $colorMap {
+    .tk-color-action-#{$name} {
+      color: $color !important;
+    }
+    .tk-text-color-#{$name} { // deprecated
+      color: $color !important;
+    }
+    .tk-text-color--#{$name} {
+      color: $color !important;
+    }
+    .tk-bg-color--#{$name} {
+      background-color: $color !important;
+    }
 }
 
 .tk-text-color {
   color: $--tk-main-text-color;
-
-  &--warning {
-    @extend .tk-color-action-warning;
-  }
-  &--ok {
-    @extend .tk-color-action-ok;
-  }
-  &--attention {
-    @extend .tk-color-action-attention;
-  }
-  &--primary {
-    @extend .tk-color-action-primary;
-  }
 }

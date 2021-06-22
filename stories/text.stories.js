@@ -1,8 +1,8 @@
 export default {
-  title: 'Utils/Text',
+  title: 'Utils/Label',
 };
 
-export const Text = () => `<label class="tk-label">Default label</label>
-<label class="tk-label tk-label--error">Error label</label>
-<label class="tk-label tk-label--required">Required label</label>
-<label class="tk-label tk-label--disabled">Disabled label</label>`;
+export const Label = () => `<label class="tk-label">Default label .tk-label</label>
+<label class="tk-label tk-label--error">Error label .tk-label--error</label>
+<label class="tk-label tk-label--required">Required label .tk-label--required</label>
+<label class="tk-label tk-label--disabled">Disabled label .tk-label--disabled</label>`;

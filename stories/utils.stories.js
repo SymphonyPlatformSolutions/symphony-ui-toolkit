@@ -5,13 +5,21 @@ export default {
 export const TextColors = () =>
   `<div class="tk-ml-2">
     <h1>Text colors</h1>
-    <div class="tk-mb-2 tk-text-color">Default text color</div>
-    <div class="tk-mb-2 tk-text-color--primary">Primary text color</div>
-    <div class="tk-mb-2 tk-text-color--warning">Warning text color</div>
-    <div class="tk-mb-2 tk-text-color--ok">Ok text color</div>
-    <div class="tk-mb-2 tk-text-color--attention">Attention text color</div>
+    <div class="tk-mb-2 tk-text-color">Default text color .tk-text-color</div>
+    <div class="tk-mb-2 tk-text-color--primary">Primary text color .tk-text-color--primary</div>
+    <div class="tk-mb-2 tk-text-color--warning">Warning text color .tk-text-color--warning</div>
+    <div class="tk-mb-2 tk-text-color--ok">Ok text color .tk-text-color--ok</div>
+    <div class="tk-mb-2 tk-text-color--attention">Attention text color .tk-text-color--attention</div>
   </div>`;
 
+  export const BackgroundColors = () =>
+  `<div class="tk-ml-2">
+    <h1>Text colors</h1>
+    <div class="tk-mb-2 tk-bg-color--primary">Primary background color .tk-bg-color--primary</div>
+    <div class="tk-mb-2 tk-bg-color--warning">Warning background color .tk-bg-color--warning</div>
+    <div class="tk-mb-2 tk-bg-color--ok">Ok background color .tk-bg-color--ok</div>
+    <div class="tk-mb-2 tk-bg-color--attention">Attention background color .tk-bg-color--attention</div>
+  </div>`;
 
 export const spacing = () =>
   `
