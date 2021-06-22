@@ -97,6 +97,17 @@ export const FullPageModal: React.FC = () => {
   );
 };
 
+export const CustomCssClassModal: React.FC = () => {
+  return (
+    <Modal size={'medium'} className={'myModalClass'} closeButton show>
+      <ModalTitle className={'myModalTitleClass'}>Modal with additional custom CSS classes</ModalTitle>
+      <ModalHeader className={'myModalHeaderClass'}>{body}</ModalHeader>
+      <ModalBody className={'myModalBodyClass'}>{body}</ModalBody>
+      <ModalFooter className={'myModalFooterClass'}>{footer}</ModalFooter>
+    </Modal>
+  );
+};
+
 export const ModalWithCloseHandler: React.FC = () => {
   const [show, setShow] = React.useState(true);
   const handleClose = () => { setShow(false) }
