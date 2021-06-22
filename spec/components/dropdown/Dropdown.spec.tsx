@@ -276,8 +276,54 @@ describe('Dropdown component test suite =>', () => {
       it('should render the Dropdown component by default', async () => {
         const { getByText } = render(<Dropdown asyncOptions={() => Promise.resolve(options)} defaultOptions />);
         expect(getByText('Select...')).toBeInTheDocument();
-        
       });
+      it('should render the `asyncOptions` to the dropdown menu', async () => {
+        const { getByText } = render(<Dropdown asyncOptions={() => Promise.resolve(options)} defaultOptions/>);
+        const input =  screen.getByRole('textbox');
+        userEvent.click(input);
+        await waitFor(async () => {
+          expect( getByText('banana')).toBeTruthy();
+          expect( getByText('avocado')).toBeTruthy();
+          expect( getByText('orange')).toBeTruthy();
+        })
+      });
+      it('should filter the `asyncOptions` if user types on the input', async () => {
+        const { getByText, queryByText } = render(<Dropdown asyncOptions={() => Promise.resolve(options)} />);
+        const input =  screen.getByRole('textbox');
+        userEvent.click(input);
+        await waitFor(async () => {
+          expect( queryByText('banana')).toBeTruthy();
+          expect( queryByText('avocado')).toBeTruthy();
+          expect( queryByText('orange')).toBeTruthy();
+        })
+        userEvent.type(input, 'ban');
+        await waitFor(async () => {
+          expect( queryByText('banana')).toBeTruthy();
+          expect( queryByText('avocado')).toBeFalsy();
+          expect( queryByText('orange')).toBeFalsy();
+        })
+      });
+      describe('when `defaultOptions` is provided with a different list', () => {
+        it('should render different default options to the dropdown menu', async () => {
+          const { getByText } = render(<Dropdown asyncOptions={() => Promise.resolve(options)} defaultOptions={[{label:'salmon'}]} />);
+          const input =  screen.getByRole('textbox');
+          userEvent.click(input);
+          expect( getByText('salmon')).toBeTruthy();
+        });
+        it('should filter the options if user types on the input', async () => {
+          const { getByText,queryByText } = render(<Dropdown asyncOptions={() => Promise.resolve(options)} defaultOptions={[{label:'salmon'}]} />);
+          const input =  screen.getByRole('textbox');
+          userEvent.click(input);
+          expect( getByText('salmon')).toBeTruthy();
+          userEvent.type(input, 'ban');
+          await waitFor(async () => {
+            expect( queryByText('banana')).toBeTruthy();
+            expect( queryByText('avocado')).toBeFalsy();
+            expect( queryByText('orange')).toBeFalsy();
+          })
+        });
+      });
+      
   
       it('should render the Dropdown component by default', async () => {
         render(<Dropdown asyncOptions={() => Promise.resolve(options)}  mode="nested" defaultOptions />);
