@@ -47,7 +47,7 @@ const Modal: React.FC<ModalProps> = ({
   ...rest
 }: ModalProps) => {
   const containerClasses = classNames(className, `${prefix}-backdrop`);
-  const sizeClasses = classNames(prefix, `${prefix}--${size}`);
+  const sizeClasses = classNames(prefix, { [`${prefix}--${size}`]: size });
   const handleContentClick = (event: React.MouseEvent<HTMLElement>) =>
     event.stopPropagation();
   const handleKeyUp = (event: React.KeyboardEvent<HTMLElement>) => {
