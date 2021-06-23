@@ -93,14 +93,18 @@ $dialog-scrollbar-box-shadow: rgba($scolor-black, 0.5);
     }
   }
 
+  &__header {
+    @extend .tk-mt-2;
+  }
+
   &__body {
     flex: 1;
     position: relative;
-    min-height: toRem(32);
+    min-height: toRem(64);
     overflow-x: auto;
     overflow-y: scroll;
+    @extend .tk-mt-2;
     @extend .tk-pr-1;
-    @extend .tk-py-1;
 
     // Vendor prefix because the custom scrollbar is not yet supported in Autoprefixer
     // See https://github.com/postcss/autoprefixer/issues/821
@@ -115,9 +119,10 @@ $dialog-scrollbar-box-shadow: rgba($scolor-black, 0.5);
   }
 
   &__footer {
+    @extend .tk-mt-2;
     position: relative;
     display: flex;
     justify-content: flex-end;
-    @extend .tk-mt-2;
+    flex-wrap: wrap;
   }
 }
