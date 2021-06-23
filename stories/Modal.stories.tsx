@@ -50,10 +50,10 @@ const body = (
 );
 
 const footer = (
-  <div>
+  <>
     <Button variant={'tertiary'}>Cancel</Button>
     <Button variant={'primary'}>Confirm</Button>
-  </div>
+  </>
 );
 
 export const SmallModal: React.FC = () => {
