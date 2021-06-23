@@ -102,6 +102,9 @@ $dialog-scrollbar-box-shadow: rgba($scolor-black, 0.5);
     @extend .tk-pr-1;
     @extend .tk-py-1;
 
+    // Vendor prefix because the custom scrollbar is not yet supported in Autoprefixer
+    // See https://github.com/postcss/autoprefixer/issues/821
+    //     https://caniuse.com/css-scrollbar
     &::-webkit-scrollbar {
       width: toRem(5);
     }
