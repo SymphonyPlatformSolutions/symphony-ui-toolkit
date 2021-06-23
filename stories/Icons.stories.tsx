@@ -485,6 +485,16 @@ export const Icons: React.FC = () => (
       <span>pop-out</span>
     </div>
     <div className="preview">
+      <Icon iconName="presence-call"/>
+      <br></br>
+      <span>presence-call</span>
+    </div>
+    <div className="preview">
+      <Icon iconName="presence-ooo"/>
+      <br></br>
+      <span>presence-ooo</span>
+    </div>
+    <div className="preview">
       <Icon iconName="print"></Icon>
       <br></br>
       <span>print</span>
