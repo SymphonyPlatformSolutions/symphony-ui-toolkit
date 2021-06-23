@@ -18,6 +18,7 @@ $dialog-scrollbar-box-shadow: rgba($scolor-black, 0.5);
 }
 
 .tk-dialog {
+  $maxSize: calc(100% - #{toRem(24 * 2)});
   display: flex;
   flex-direction: column;
   position: relative;
@@ -25,7 +26,8 @@ $dialog-scrollbar-box-shadow: rgba($scolor-black, 0.5);
   box-sizing: border-box;
   min-width: toRem(296);
   min-height: toRem(164);
-  max-height: calc(100% - #{toRem(24 * 2)});
+  max-height: $maxSize;
+  max-width: $maxSize;
   box-shadow: 0 0 toRem(4) $dialog-box-shadow-bottom,
     0 toRem(8) toRem(24) $dialog-box-shadow-sides;
   background: $--tk-dialog-background-color;
@@ -42,7 +44,7 @@ $dialog-scrollbar-box-shadow: rgba($scolor-black, 0.5);
   }
 
   &--medium {
-    width: toRem(480);
+    width: toRem(448);
   }
 
   &--large {
