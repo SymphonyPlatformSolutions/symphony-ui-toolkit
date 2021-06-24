@@ -18,10 +18,16 @@ $dialog-scrollbar-box-shadow: rgba($scolor-black, 0.5);
 }
 
 .tk-dialog {
+  $maxSize: calc(100% - #{toRem(24 * 2)});
+  display: flex;
+  flex-direction: column;
   position: relative;
   z-index: $z-index-dialog;
   box-sizing: border-box;
   min-width: toRem(296);
+  min-height: toRem(164);
+  max-height: $maxSize;
+  max-width: $maxSize;
   box-shadow: 0 0 toRem(4) $dialog-box-shadow-bottom,
     0 toRem(8) toRem(24) $dialog-box-shadow-sides;
   background: $--tk-dialog-background-color;
@@ -38,7 +44,7 @@ $dialog-scrollbar-box-shadow: rgba($scolor-black, 0.5);
   }
 
   &--medium {
-    width: toRem(480);
+    width: toRem(448);
   }
 
   &--large {
@@ -49,9 +55,6 @@ $dialog-scrollbar-box-shadow: rgba($scolor-black, 0.5);
     width: 100%;
   }
   /* Subcomponents */
-  &__header {
-    min-height: toRem(16);
-  }
   &__title {
     @extend .tk-pr-2;
     @extend .tk-typography--h1;
@@ -90,15 +93,20 @@ $dialog-scrollbar-box-shadow: rgba($scolor-black, 0.5);
     }
   }
 
+  &__header {
+    @extend .tk-mt-2;
+  }
+
   &__body {
-    position: relative;
-    max-height: calc(100vh - 225px);
-    min-height: toRem(32);
+    flex: 1;
     overflow-x: auto;
     overflow-y: scroll;
+    @extend .tk-mt-2;
     @extend .tk-pr-1;
-    @extend .tk-py-1;
 
+    // Vendor prefix because the custom scrollbar is not yet supported in Autoprefixer
+    // See https://github.com/postcss/autoprefixer/issues/821
+    //     https://caniuse.com/css-scrollbar
     &::-webkit-scrollbar {
       width: toRem(5);
     }
@@ -109,9 +117,9 @@ $dialog-scrollbar-box-shadow: rgba($scolor-black, 0.5);
   }
 
   &__footer {
-    position: relative;
+    @extend .tk-mt-2;
     display: flex;
     justify-content: flex-end;
-    @extend .tk-mt-2;
+    flex-wrap: wrap;
   }
 }
