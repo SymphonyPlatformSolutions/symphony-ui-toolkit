@@ -99,8 +99,6 @@ $dialog-scrollbar-box-shadow: rgba($scolor-black, 0.5);
 
   &__body {
     flex: 1;
-    position: relative;
-    min-height: toRem(64);
     overflow-x: auto;
     overflow-y: scroll;
     @extend .tk-mt-2;
@@ -120,7 +118,6 @@ $dialog-scrollbar-box-shadow: rgba($scolor-black, 0.5);
 
   &__footer {
     @extend .tk-mt-2;
-    position: relative;
     display: flex;
     justify-content: flex-end;
     flex-wrap: wrap;
