@@ -50,10 +50,10 @@ const body = (
 );
 
 const footer = (
-  <div>
+  <>
     <Button variant={'tertiary'}>Cancel</Button>
     <Button variant={'primary'}>Confirm</Button>
-  </div>
+  </>
 );
 
 export const SmallModal: React.FC = () => {
@@ -93,6 +93,17 @@ export const FullPageModal: React.FC = () => {
       <ModalTitle>Full width modal without header</ModalTitle>
       <ModalBody>{body}</ModalBody>
       <ModalFooter>{footer}</ModalFooter>
+    </Modal>
+  );
+};
+
+export const CustomCssClassModal: React.FC = () => {
+  return (
+    <Modal size={'medium'} className={'myModalClass'} closeButton show>
+      <ModalTitle className={'myModalTitleClass'}>Modal with additional custom CSS classes</ModalTitle>
+      <ModalHeader className={'myModalHeaderClass'}>{body}</ModalHeader>
+      <ModalBody className={'myModalBodyClass'}>{body}</ModalBody>
+      <ModalFooter className={'myModalFooterClass'}>{footer}</ModalFooter>
     </Modal>
   );
 };

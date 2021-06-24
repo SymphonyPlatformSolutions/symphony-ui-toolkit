@@ -14,6 +14,7 @@ type ModalProps = {
 };
 
 type ModalContentProps = {
+  className?: string;
   children?: React.ReactNode;
 };
 
@@ -21,20 +22,28 @@ const prefix = 'tk-dialog';
 const buildClass = (classStr: string) => `${prefix}__${classStr}`;
 
 export const ModalTitle: React.FC<ModalContentProps> = ({
+  className,
   children,
-}: ModalContentProps) => <div className={buildClass('title')}>{children}</div>;
+  ...rest
+}: ModalContentProps) => <div className={classNames(buildClass('title'), className)} {...rest}>{children}</div>;
 
 export const ModalHeader: React.FC<ModalContentProps> = ({
+  className,
   children,
-}: ModalContentProps) => <div className={buildClass('header')}>{children}</div>;
+  ...rest
+}: ModalContentProps) => <div className={classNames(buildClass('header'), className)} {...rest}> {children}</div >;
 
 export const ModalBody: React.FC<ModalContentProps> = ({
+  className,
   children,
-}: ModalContentProps) => <div className={buildClass('body')}>{children}</div>;
+  ...rest
+}: ModalContentProps) => <div className={classNames(buildClass('body'), className)} {...rest}>{children}</div>;
 
 export const ModalFooter: React.FC<ModalContentProps> = ({
+  className,
   children,
-}: ModalContentProps) => <div className={buildClass('footer')}>{children}</div>;
+  ...rest
+}: ModalContentProps) => <div className={classNames(buildClass('footer'), className)} {...rest}> {children}</div >;
 
 const Modal: React.FC<ModalProps> = ({
   size,
@@ -47,7 +56,7 @@ const Modal: React.FC<ModalProps> = ({
   ...rest
 }: ModalProps) => {
   const containerClasses = classNames(className, `${prefix}-backdrop`);
-  const sizeClasses = classNames(prefix, `${prefix}--${size}`);
+  const sizeClasses = classNames(prefix, { [`${prefix}--${size}`]: size });
   const handleContentClick = (event: React.MouseEvent<HTMLElement>) =>
     event.stopPropagation();
   const handleKeyUp = (event: React.KeyboardEvent<HTMLElement>) => {
