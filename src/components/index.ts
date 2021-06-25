@@ -26,6 +26,7 @@ import VirtualizedList from './virtualized-list';
 
 /* Let's move into exporting everything with interfaces */
 export * from './avatar';
+export * from './banner';
 export * from './button';
 export * from './dropdown';
 export * from './nav';
