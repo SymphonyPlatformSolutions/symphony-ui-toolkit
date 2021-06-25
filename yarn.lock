@@ -2255,10 +2255,10 @@
     resolve-from "^5.0.0"
     store2 "^2.12.0"
 
-"@symphony-ui/uitoolkit-styles@^2.1.1-rc.0":
-  version "2.1.1-rc.0"
-  resolved "https://registry.yarnpkg.com/@symphony-ui/uitoolkit-styles/-/uitoolkit-styles-2.1.1-rc.0.tgz#206359c82b55a099fd91b3305c417f076249fc63"
-  integrity sha512-bL/ZKhspXWH+OWjP78bTaIFsZJsPxgTBXd/06XXg5701hJ7BC5z1DfNJ4ht8pJUmawT1eHl+Ot8LmZy1VPYK4g==
+"@symphony-ui/uitoolkit-styles@^2.2.0-rc.0":
+  version "2.2.0-rc.0"
+  resolved "https://registry.yarnpkg.com/@symphony-ui/uitoolkit-styles/-/uitoolkit-styles-2.2.0-rc.0.tgz#e8f1472bb293f73a76e13ab3851f41bfc93561e5"
+  integrity sha512-Gf0/nvRFL93jibCnXBp72cO90aoxmtCP9FOFnyaYaxPERPxYpqXIFCOgb2VNgFy5EIuMfHY4cPP8o1gN3u+XjQ==
 
 "@testing-library/dom@^7.28.1", "@testing-library/dom@^7.29.0":
   version "7.30.4"
