@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { Tooltip } from '../src/components';
+import { Switch, Tooltip } from '../src/components';
 import Icon from '../src/components/icon';
+import SelectionStatus from '../src/components/selection/SelectionStatus';
 
 export default {
   title: 'Components/Tooltip',
@@ -89,9 +90,22 @@ OnClick.decorators = [addExplanation('Click the icon to see the tooltip')];
 
 export const OnHover = (args) => {
   return (
-    <Tooltip {...args}>
-      <Icon iconName="info-round" />
-    </Tooltip>
+    <>
+      <Tooltip {...args}>
+        <Icon iconName="info-round" />
+      </Tooltip>
+
+      <p>...displaying as well when the child is disabled</p>
+      <Tooltip {...args}>
+        <Switch
+          label="Switch"
+          name="disabled-switch"
+          value="disabled-switch-1"
+          status={SelectionStatus.CHECKED}
+          disabled
+        />
+      </Tooltip>
+    </>
   );
 };
 
@@ -102,13 +116,6 @@ OnHover.args = {
   placement: 'top',
 };
 OnHover.decorators = [addExplanation('Hover the icon to see the tooltip')];
-
-export const Placements = Template.bind({});
-Placements.args = {
-  description: 'Select a placement in the Controls tab',
-  placement: 'top',
-  children: <input type="text" name="fname" />,
-};
 
 export const OnAButton = Template.bind({});
 OnAButton.args = {

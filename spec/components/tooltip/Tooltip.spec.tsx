@@ -1,15 +1,21 @@
 import * as React from 'react';
 import userEvent from '@testing-library/user-event';
-import { render, screen, waitFor, waitForElementToBeRemoved } from '@testing-library/react'
+import {
+  render,
+  screen,
+  waitFor,
+  waitForElementToBeRemoved,
+} from '@testing-library/react';
 import Tooltip from '../../../src/components/tooltip';
+import { Switch } from '../../../src/components';
+import SelectionStatus from '../../../src/components/selection/SelectionStatus';
 
 const changeElementText = (element: string, text: string) => {
-  const HTMLElement = document.querySelector(element)
-  HTMLElement.textContent = text
-}
+  const HTMLElement = document.querySelector(element);
+  HTMLElement.textContent = text;
+};
 
 describe('Tooltip', () => {
-
   let closeLabel: string;
   let description: string | JSX.Element;
   let displayTrigger: 'click' | 'hover';
@@ -20,13 +26,13 @@ describe('Tooltip', () => {
 
   beforeEach(() => {
     closeLabel = 'Close';
-    description = 'Tooltip';
+    description = 'Message appears';
     displayTrigger = 'click';
     id = 'testId';
     onHintClose = () => null;
     placement = 'bottom';
     visible = false;
-  })
+  });
 
   it('should show/hide tooltip when the child element is clicked', async () => {
     displayTrigger = 'click';
@@ -37,7 +43,7 @@ describe('Tooltip', () => {
         description={description}
         displayTrigger={displayTrigger}
         id={id}
-        onHintClose={ onHintClose }
+        onHintClose={onHintClose}
         placement={placement}
         visible={visible}
       >
@@ -45,45 +51,65 @@ describe('Tooltip', () => {
       </Tooltip>
     );
 
-    userEvent.click(screen.getByRole('button', {'name': /tooltip toggles when I am clicked/i}))
-    screen.getByText(/tooltip$/i)
-    userEvent.click(screen.getByRole('button', {'name': /tooltip toggles when I am clicked/i}))
-    await waitForElementToBeRemoved(() => screen.getByText(/tooltip$/i))
+    userEvent.click(
+      screen.getByRole('button', { name: /tooltip toggles when I am clicked/i })
+    );
+    screen.getByText(/appears$/i);
+    userEvent.click(
+      screen.getByRole('button', { name: /tooltip toggles when I am clicked/i })
+    );
+    await waitForElementToBeRemoved(() => screen.getByText(/appears$/i));
   });
 
-  xit('should show/hide tooltip when you hover/unhover the child element', async () => {
-    displayTrigger = 'hover'
+  test.each([
+    ['', /tooltip shows when I am hovered/i, <button key="test1">Tooltip shows when I am hovered</button>],
+    ['and even if the child is disabled', 'Switch',
+      <Switch
+        key="test2"
+        label="Switch"
+        name="disabled-switch"
+        value="disabled-switch-1"
+        status={SelectionStatus.CHECKED}
+        disabled
+      />,
+    ],
+  ])('should show/hide tooltip when you hover/unhover the child element %p', async (_, text, child) => {
+    displayTrigger = 'hover';
 
     render(
       <Tooltip
         closeLabel={closeLabel}
         description={description}
-        displayTrigger={ displayTrigger }
+        displayTrigger={displayTrigger}
         id={id}
-        onHintClose={ onHintClose }
+        onHintClose={onHintClose}
         placement="top"
         visible={visible}
       >
-        <button>Tooltip shows when I am hovered</button>
+        {child}
       </Tooltip>
     );
 
-    userEvent.hover(screen.getByRole('button', {'name': /tooltip shows when I am hovered/i}))
-    screen.getByText(/tooltip$/i)
-    userEvent.unhover(screen.getByRole('button', {'name': /tooltip shows when I am hovered/i}))
-    await waitForElementToBeRemoved(() => screen.getByText(/tooltip$/i))
+    userEvent.hover(
+      screen.getByText(text)
+    );
+    screen.getByText(/appears$/i);
+    userEvent.unhover(
+      screen.getByText(text)
+    );
+    await waitForElementToBeRemoved(() => screen.getByText(/appears$/i));
   });
 
   it('should not show the tooltip when you click or hover over the child element', async () => {
-    displayTrigger = undefined
+    displayTrigger = undefined;
 
     render(
       <Tooltip
         closeLabel={closeLabel}
         description={description}
-        displayTrigger={ displayTrigger }
+        displayTrigger={displayTrigger}
         id={id}
-        onHintClose={ onHintClose }
+        onHintClose={onHintClose}
         placement="top"
         visible={visible}
       >
@@ -93,26 +119,32 @@ describe('Tooltip', () => {
 
     let tooltip: HTMLElement;
 
-    userEvent.hover(screen.getByRole('button', {'name': /tooltip will never be shown/i}))
-    tooltip = screen.queryByText(/tooltip$/i)
-    expect(tooltip).not.toBeInTheDocument()
-    userEvent.unhover(screen.getByRole('button', {'name': /tooltip will never be shown/i}))
+    userEvent.hover(
+      screen.getByRole('button', { name: /tooltip will never be shown/i })
+    );
+    tooltip = screen.queryByText(/appears$/i);
+    expect(tooltip).not.toBeInTheDocument();
+    userEvent.unhover(
+      screen.getByRole('button', { name: /tooltip will never be shown/i })
+    );
 
-    userEvent.click(screen.getByRole('button', {'name': /tooltip will never be shown/i}))
-    tooltip = screen.queryByText(/tooltip$/i)
-    expect(tooltip).not.toBeInTheDocument()
+    userEvent.click(
+      screen.getByRole('button', { name: /tooltip will never be shown/i })
+    );
+    tooltip = screen.queryByText(/appears$/i);
+    expect(tooltip).not.toBeInTheDocument();
   });
 
-  xit('should propagate onClick to Tooltip children properly when displayTrigger is click', async () => {
-    displayTrigger = 'click'
+  it('should propagate onClick to Tooltip children properly when displayTrigger is click', async () => {
+    displayTrigger = 'click';
 
     render(
       <Tooltip
         closeLabel={closeLabel}
         description={description}
-        displayTrigger={ displayTrigger }
+        displayTrigger={displayTrigger}
         id={id}
-        onHintClose={ onHintClose }
+        onHintClose={onHintClose}
         placement="top"
         visible={visible}
       >
@@ -125,27 +157,29 @@ describe('Tooltip', () => {
       </Tooltip>
     );
 
-    userEvent.click(screen.getByRole('button', {'name': /tooltip toggles when I am clicked/i}))
+    userEvent.click(
+      screen.getByRole('button', { name: /tooltip toggles when I am clicked/i })
+    );
 
     await waitFor(() => {
-      expect(screen.getByText(/tooltip$/i)).toBeInTheDocument()
-    })
+      expect(screen.getByText(/appears$/i)).toBeInTheDocument();
+    });
 
     await waitFor(() => {
-      expect(screen.getByText(/text edited$/i)).toBeInTheDocument()
-    })
-  })
+      expect(screen.getByText(/text edited$/i)).toBeInTheDocument();
+    });
+  });
 
   it('should propagate onMouseEnter/onMouseLeave to Tooltip children properly when displayTrigger is hover', async () => {
-    displayTrigger = 'hover'
+    displayTrigger = 'hover';
 
     render(
       <Tooltip
         closeLabel={closeLabel}
         description={description}
-        displayTrigger={ displayTrigger }
+        displayTrigger={displayTrigger}
         id={id}
-        onHintClose={ onHintClose }
+        onHintClose={onHintClose}
         placement="top"
         visible={visible}
       >
@@ -159,23 +193,24 @@ describe('Tooltip', () => {
       </Tooltip>
     );
 
-    userEvent.hover(screen.getByRole('button', {'name': /tooltip toggles when I am clicked/i}))
+    userEvent.hover(
+      screen.getByRole('button', { name: /tooltip toggles when I am clicked/i })
+    );
 
     await waitFor(() => {
-      expect(screen.getByText(/tooltip$/i)).toBeInTheDocument()
-    })
+      expect(screen.getByText(/appears$/i)).toBeInTheDocument();
+    });
 
     await waitFor(() => {
-      expect(screen.getByText(/text hover$/i)).toBeInTheDocument()
-    })
+      expect(screen.getByText(/text hover$/i)).toBeInTheDocument();
+    });
 
-    userEvent.unhover(screen.getByRole('button', {'name': /text hover/i}))
+    userEvent.unhover(screen.getByRole('button', { name: /text hover/i }));
 
-    await waitForElementToBeRemoved(() => screen.getByText(/tooltip$/i))
+    await waitForElementToBeRemoved(() => screen.getByText(/appears$/i));
 
     await waitFor(() => {
-      expect(screen.getByText(/text unhover$/i)).toBeInTheDocument()
-    })
-  })
-
+      expect(screen.getByText(/text unhover$/i)).toBeInTheDocument();
+    });
+  });
 });
