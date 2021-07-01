@@ -45,7 +45,6 @@ describe('Tooltip', () => {
         id={id}
         onHintClose={onHintClose}
         placement={placement}
-        visible={visible}
       >
         <button>Tooltip toggles when I am clicked</button>
       </Tooltip>
@@ -62,8 +61,14 @@ describe('Tooltip', () => {
   });
 
   test.each([
-    ['', /tooltip shows when I am hovered/i, <button key="test1">Tooltip shows when I am hovered</button>],
-    ['and even if the child is disabled', 'Switch',
+    [
+      '',
+      /tooltip shows when I am hovered/i,
+      <button key="test1">Tooltip shows when I am hovered</button>,
+    ],
+    [
+      'and even if the child is disabled',
+      'Switch',
       <Switch
         key="test2"
         label="Switch"
@@ -73,32 +78,30 @@ describe('Tooltip', () => {
         disabled
       />,
     ],
-  ])('should show/hide tooltip when you hover/unhover the child element %p', async (_, text, child) => {
-    displayTrigger = 'hover';
+  ])(
+    'should show/hide tooltip when you hover/unhover the child element %p',
+    async (_, text, child) => {
+      displayTrigger = 'hover';
 
-    render(
-      <Tooltip
-        closeLabel={closeLabel}
-        description={description}
-        displayTrigger={displayTrigger}
-        id={id}
-        onHintClose={onHintClose}
-        placement="top"
-        visible={visible}
-      >
-        {child}
-      </Tooltip>
-    );
+      render(
+        <Tooltip
+          closeLabel={closeLabel}
+          description={description}
+          displayTrigger={displayTrigger}
+          id={id}
+          onHintClose={onHintClose}
+          placement="top"
+        >
+          {child}
+        </Tooltip>
+      );
 
-    userEvent.hover(
-      screen.getByText(text)
-    );
-    screen.getByText(/appears$/i);
-    userEvent.unhover(
-      screen.getByText(text)
-    );
-    await waitForElementToBeRemoved(() => screen.getByText(/appears$/i));
-  });
+      userEvent.hover(screen.getByText(text));
+      screen.getByText(/appears$/i);
+      userEvent.unhover(screen.getByText(text));
+      await waitForElementToBeRemoved(() => screen.getByText(/appears$/i));
+    }
+  );
 
   it('should not show the tooltip when you click or hover over the child element', async () => {
     displayTrigger = undefined;
@@ -146,7 +149,6 @@ describe('Tooltip', () => {
         id={id}
         onHintClose={onHintClose}
         placement="top"
-        visible={visible}
       >
         <button
           id="button"
@@ -181,7 +183,6 @@ describe('Tooltip', () => {
         id={id}
         onHintClose={onHintClose}
         placement="top"
-        visible={visible}
       >
         <button
           id="button"
