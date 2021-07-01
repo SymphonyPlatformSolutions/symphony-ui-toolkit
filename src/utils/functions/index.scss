@@ -1,4 +1,4 @@
-$UITOOLKIT_REM_BASE: 16;
+$UITOOLKIT_REM_BASE: 16 !default;
 
 @function toEm($size, $base: 14) {
   @return ($size/$base) * 1em;

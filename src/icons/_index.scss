@@ -1,7 +1,7 @@
 $ICONS_FONTS_PATH: '~@symphony-ui/uitoolkit-styles/dist/fonts' !default;
 
 @import './animation';
-@import '../dist/fonts/tk-icons-definitions';
+@import './generated/tk-icons-definitions';
 
 [class^='tk-icon-'],
 [class*=' tk-icon-'] {

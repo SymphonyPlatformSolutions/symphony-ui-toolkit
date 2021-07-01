@@ -6,5 +6,5 @@ symphony-uitoolkit-styles-*.tgz
 package
 .idea
 icons.stories.js
-*.generated*
+*generated*
 .history

@@ -3,7 +3,7 @@ const { execSync } = require('child_process');
 
 const DIST_FONTS = 'dist/fonts/';
 const SRC_ICONS = 'src/icons/';
-const GENERATE_ICON_CMD = `icon-font-generator -s ${SRC_ICONS}svg/*.svg -o ${DIST_FONTS} --csspath ${DIST_FONTS}tk-icons-definitions.scss --csstp ${SRC_ICONS}tk-icons-template.hbs -p tk-icon -n tk-icons --mono --center --height 128`;
+const GENERATE_ICON_CMD = `icon-font-generator -s ${SRC_ICONS}svg/*.svg -o ${DIST_FONTS} --csspath ${SRC_ICONS}/generated/tk-icons-definitions.scss --csstp ${SRC_ICONS}tk-icons-template.hbs -p tk-icon -n tk-icons --mono --center --height 128`;
 
 const generateFonts = () => {
   execSync(`mkdir -p dist ${DIST_FONTS}`);
