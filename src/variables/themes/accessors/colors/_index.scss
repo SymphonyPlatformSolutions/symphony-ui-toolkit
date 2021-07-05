@@ -119,3 +119,25 @@ $--tk-nav-color-hover: var(--tk-nav-color-hover,$scolor-graphite);
 $--tk-nav-color-active: var(--tk-nav-color-active,$scolor-black);
 $--tk-nav-color-disabled: var(--tk-nav-color-active,$scolor-graphite-minus-24);
 $--tk-nav-color-border-bottom: var(--tk-nav-color-border-bottom,$scolor-graphite-minus-72);
+
+/** ======== Banner ======== */
+$--tk-banner-info: (
+  color: var(--tk-banner-foreground-color, getColor($graphite, '80')),
+  backgroundColor: var(--tk-banner-background-color-info, getColor($electricity, '10')),
+  iconColor: var(--tk-banner-foreground-color, getColor($graphite, '80')),
+);
+$--tk-banner-success: (
+  color: var(--tk-banner-foreground-color, getColor($graphite, '80')),
+  backgroundColor: var(--tk-banner-background-color-success, getColor($green, '10')),
+  iconColor: var(--tk-banner-foreground-color, getColor($graphite, '80')),
+);
+$--tk-banner-warning: (
+  color: getColor($graphite, '80'),
+  backgroundColor: var(--tk-banner-background-color-warning, getColor($yellow, '10')),
+  iconColor: var(--tk-banner-background-color-warning-icon-color, getColor($yellow, '40')),
+);
+$--tk-banner-error: (
+  color: var(--tk-banner-foreground-color, getColor($graphite, '80')),
+  backgroundColor: var(--tk-banner-background-color-error, getColor($red, '10')),
+  iconColor: var(--tk-banner-foreground-color, getColor($red, '50')),
+);

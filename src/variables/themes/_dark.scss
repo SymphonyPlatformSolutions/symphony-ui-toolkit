@@ -80,4 +80,12 @@
   --tk-nav-color-active: #{$scolor-white};
   --tk-nav-color-disabled: #{$scolor-graphite-minus-48};
   --tk-nav-color-border-bottom: #{$scolor-graphite-minus-48};
+
+  // Banner
+  --tk-banner-foreground-color: #{$scolor-white};
+  --tk-banner-background-color-info: #{getColor($electricity, '60')};
+  --tk-banner-background-color-success: #{getColor($green, '60')};
+  --tk-banner-background-color-warning: #{getColor($yellow, '30')};
+  --tk-banner-background-color-error: #{getColor($red, '60')};
+  --tk-banner-background-color-warning-icon-color: #{getColor($graphite, '80')};
 }
