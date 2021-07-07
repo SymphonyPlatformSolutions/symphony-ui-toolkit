@@ -105,6 +105,15 @@ export const OnHover = (args) => {
           disabled
         />
       </Tooltip>
+      <p>displaying with a configurable delay: </p>
+      <Tooltip {...args} hoverDelay={800}>
+        <Switch
+          label="Delayed Tooltip"
+          name="delayed-switch"
+          value="delayed-switch-1"
+          status={SelectionStatus.CHECKED}
+        />
+      </Tooltip>
     </>
   );
 };
