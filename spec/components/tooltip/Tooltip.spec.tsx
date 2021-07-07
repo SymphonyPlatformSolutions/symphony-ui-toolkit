@@ -214,4 +214,38 @@ describe('Tooltip', () => {
       expect(screen.getByText(/text unhover$/i)).toBeInTheDocument();
     });
   });
+
+  it('should show tooltip with delay when you hover the child element', async () => {
+    displayTrigger = 'hover';
+
+    render(
+      <Tooltip
+        closeLabel={closeLabel}
+        description={description}
+        displayTrigger={displayTrigger}
+        id={id}
+        onHintClose={onHintClose}
+        placement="top"
+        hoverDelay={800}
+      >
+        <button
+          id="button"
+          onMouseEnter={() => changeElementText('#button', 'text hover')}
+          onMouseLeave={() => changeElementText('#button', 'text unhover')}
+        >
+          Tooltip toggles when I am clicked
+        </button>
+      </Tooltip>
+    );
+
+    userEvent.hover(
+      screen.getByRole('button', { name: /tooltip toggles when I am clicked/i })
+    );
+    await waitFor(() => {
+      expect(screen.getByText(/appears$/i)).toBeInTheDocument();
+    });
+    userEvent.unhover(screen.getByRole('button', { name: /text hover/i }));
+    await waitForElementToBeRemoved(() => screen.getByText(/appears$/i));
+  }
+  );
 });

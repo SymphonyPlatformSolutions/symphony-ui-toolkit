@@ -67,18 +67,26 @@ export interface TooltipProps
    * @default 100
    */
   hoverTimeout?: number;
+  /**
+   * Timeout before the tooltip appear on hover (in ms)
+   * @default 0
+   */
+  hoverDelay?: number;
 }
 
 const debouncer = (
   callback: React.Dispatch<React.SetStateAction<boolean>>,
-  debounceTime = 100
+  debounceTimeEntering = 0,
+  debounceTimeExit = 100,
 ) => {
   let timeout: number | undefined;
 
   return (isEntering: boolean) => {
     clearTimeout(timeout);
     if (!isEntering) {
-      timeout = window.setTimeout(() => callback(false), debounceTime);
+      timeout = window.setTimeout(() => callback(false), debounceTimeExit);
+    } else if(debounceTimeEntering) {
+      timeout = window.setTimeout(() => callback(true), debounceTimeEntering);
     } else {
       callback(true);
     }
@@ -96,6 +104,7 @@ const Tooltip: React.FC<TooltipProps> = ({
   visible,
   hoverTimeout,
   className,
+  hoverDelay = 0,
   ...otherProps
 }) => {
   const [popperElement, setPopperElement] = useState(null);
@@ -103,7 +112,7 @@ const Tooltip: React.FC<TooltipProps> = ({
   const [showHover, setShowHover] = useState(false);
   const [showClick, setShowClick] = useState(false);
 
-  const handleMouseMove = debouncer(setShowHover, hoverTimeout);
+  const handleMouseMove = debouncer(setShowHover, hoverDelay, hoverTimeout);
 
   const ref = useOnclickOutside(
     () => {
@@ -213,6 +222,7 @@ Tooltip.propTypes = {
   visible: PropTypes.bool,
   hoverTimeout: PropTypes.number,
   className: PropTypes.string,
+  hoverDelay: PropTypes.number,
 };
 
 export default Tooltip;
