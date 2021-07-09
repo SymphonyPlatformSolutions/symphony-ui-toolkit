@@ -4,13 +4,13 @@ import classNames from 'classnames';
 
 const prefix = 'tk-badge';
 
-export type BadgeProps = {
+export interface BadgeProps extends React.HTMLProps<HTMLDivElement>  {
   /** Content of the badge */
   children?: React.ReactNode;
   className?: string;
   /** The variant to use */
   variant?: 'positive' | 'neutral' | 'attention' | 'warning' | 'external';
-};
+}
 
 const Badge: React.FC<BadgeProps> = ({
   children,
