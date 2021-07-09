@@ -1,22 +1,22 @@
 // Avatar sizes defined by the Symphony design system
 $avatar-font-sizes: (
-  "xsmall": 8,
-  "small": 12,
-  "medium": 14,
-  "large": 18,
-  "xlarge": 32,
-  "xxlarge": 64,
+  'xsmall': 8,
+  'small': 12,
+  'medium': 14,
+  'large': 18,
+  'xlarge': 32,
+  'xxlarge': 64,
 );
 
 $avatar-sizes: (
-  "xsmall": 16,
-  "small": 24,
-  "medium": 32,
-  "large": 40,
-  "xlarge": 80,
-  "xxlarge": 160,
+  'xsmall': 16,
+  'small': 24,
+  'medium': 32,
+  'large': 40,
+  'xlarge': 80,
+  'xxlarge': 160,
 );
-$default-font-size: map-get($avatar-font-sizes, "medium");
+$default-font-size: map-get($avatar-font-sizes, 'medium');
 
 .tk-avatar {
   vertical-align: middle;
@@ -27,25 +27,29 @@ $default-font-size: map-get($avatar-font-sizes, "medium");
   align-items: center;
   justify-content: center;
   user-select: none;
-  width: toRem(map-get($avatar-sizes, "medium"));
-  height: toRem(map-get($avatar-sizes, "medium"));
+  min-width: toRem(map-get($avatar-sizes, 'medium'));
+  min-height: toRem(map-get($avatar-sizes, 'medium'));
+  width: toRem(map-get($avatar-sizes, 'medium'));
+  height: toRem(map-get($avatar-sizes, 'medium'));
   font-size: toRem($default-font-size); //Default fontsize
   text-align: center;
 
   @each $size, $size-value in $avatar-font-sizes {
     &--#{$size} {
       font-size: toRem($size-value);
+      min-width: toRem(map-get($avatar-sizes, $size));
+      min-height: toRem(map-get($avatar-sizes, $size));
       width: toRem(map-get($avatar-sizes, $size));
       height: toRem(map-get($avatar-sizes, $size));
 
-      &[class*="--border"] {
+      &[class*='--border'] {
         border-style: solid;
         border-color: $--tk-avatar-border-color;
         border-width: medium;
 
         @if ($size-value < $default-font-size) {
           border-width: thin;
-        } @else if($size-value > map-get($avatar-font-sizes, "large")) {
+        } @else if($size-value > map-get($avatar-font-sizes, 'large')) {
           border-width: thick;
         }
       }
@@ -75,7 +79,7 @@ $default-font-size: map-get($avatar-font-sizes, "medium");
 
   &--square {
     border-radius: toRem(4);
-    &[class*="--border"]img.tk-avatar {
+    &[class*='--border']img.tk-avatar {
       border-radius: 0;
     }
 
