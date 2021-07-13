@@ -214,16 +214,16 @@ export const spacing = () =>
     `;
 
 
-const text = "Research and development refer to activities in connection with corporate or government innovation";
-export const Typography = () => `
-  <div class="tk-ml-2h">
-  <h1 class="tk-mb-4h">Typography</h1>
-  <h1 class="tk-typography tk-typography--h1 tk-mb-2h tk-text-ellipsis">H1. ${text}</h1>
-  <h2 class="tk-typography tk-typography--h2 tk-mb-2h tk-text-ellipsis">H2. ${text}</h2>
-  <h3 class="tk-typography tk-typography--h3 tk-mb-2h tk-text-ellipsis">H3. ${text}</h3>
-  <h4 class="tk-typography tk-typography--h4 tk-mb-2h tk-text-ellipsis">H4. ${text}</h4>
-  <span class="tk-typography tk-mb-2h tk-text-ellipsis">Body.  ${text}</span>
-  <span class="tk-typography tk-typography--small tk-mb-2h tk-text-ellipsis">Small. ${text}</span>
-  <span class="tk-typography tk-typography--bold tk-mb-2h tk-text-ellipsis">Bold. ${text}</span>
-  <span class="tk-typography tk-typography--italic tk-mb-2h tk-text-ellipsis">Italic. ${text}</span>
-</div>`;
+    const text = "Research and development refer to activities in connection with corporate or government innovation";
+    export const Typography = () => `
+      <div class="tk-ml-2h">
+      <h1 class="tk-mb-4h">Typography</h1>
+      <h1 class="tk-typography tk-typography--h1 tk-mb-2h">H1. ${text}</h1>
+      <h2 class="tk-typography tk-typography--h2 tk-mb-2h">H2. ${text}</h2>
+      <h3 class="tk-typography tk-typography--h3 tk-mb-2h">H3. ${text}</h3>
+      <h4 class="tk-typography tk-typography--h4 tk-mb-2h">H4. ${text}</h4>
+      <div class="tk-typography tk-mb-2h">Body.  ${text}</div>
+      <div class="tk-typography tk-typography--small tk-mb-2h">Small. ${text}</div>
+      <div class="tk-typography tk-typography--bold tk-mb-2h">Bold. ${text}</div>
+      <div class="tk-typography tk-typography--italic tk-mb-2h">Italic. ${text}</div>
+    </div>`;
