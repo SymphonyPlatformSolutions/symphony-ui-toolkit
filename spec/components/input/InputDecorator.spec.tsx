@@ -184,5 +184,35 @@ describe('InputDecorator Component', () => {
       // Look for the error message (The test will fail if the error is not found).
       await screen.findByText(errorMessage);
     });
+    it('onChange/onBlur methods of the wrapped input should be called', async () => {
+      const inputValue = 'This is a test';
+      const errorMessage = 'This field is mandatory';
+      const onChangeMock = jest.fn();
+      const onBlurMock = jest.fn();
+      render(
+        <Validation validator={Validators.Required} errorMessage={errorMessage}>
+          <InputDecorator>
+            <input defaultValue={inputValue} onChange={onChangeMock} onBlur={onBlurMock} />
+          </InputDecorator>
+        </Validation>
+      );
+
+      // Find input
+      const input = screen.getByRole('textbox');
+      expect(input).toBeDefined();
+
+      // Simulate input change
+      expect(onChangeMock).not.toHaveBeenCalled();
+      fireEvent.change(input, { target: { value: '' } });
+      expect(onChangeMock).toHaveBeenCalledTimes(1);
+
+      // Simulate onBlur event
+      input.focus();
+      expect(input).toHaveFocus();
+      expect(onBlurMock).not.toHaveBeenCalled();
+      // Move out the focus from the input
+      userEvent.tab();
+      expect(onBlurMock).toHaveBeenCalledTimes(1);
+    });
   });
 });
