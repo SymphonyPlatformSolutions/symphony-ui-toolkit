@@ -20,7 +20,7 @@ export const Checkbox = () => {
             <div class="tk-checkbox__inputContainer" tab-index="-1">
                 <input class="tk-checkbox__input"
                     type="checkbox" id="checkbox-W13s-EPfKu" name="active-checkbox" tabindex="-1"
-                    value="active-checkbox-2">
+                    value="active-checkbox-2" checked>
                 <span class="tk-checkbox__icon" aria-hidden></span>
             </div>
             <label class="tk-checkbox__label" for="checkbox-W13s-EPfKu"
@@ -53,7 +53,7 @@ export const Checkbox = () => {
             <div class="tk-checkbox__inputContainer" tab-index="-1">
                 <input class="tk-checkbox__input"
                     type="checkbox" id="checkbox-Y6ospnNQOs" name="disabled-checkbox" disabled="" tabindex="-1"
-                    value="disabled-checkbox-2">
+                    value="disabled-checkbox-2" checked>
                 <span class="tk-checkbox__icon" aria-hidden></span>
             </div>
             <label class="tk-checkbox__label" for="checkbox-Y6ospnNQOs"
