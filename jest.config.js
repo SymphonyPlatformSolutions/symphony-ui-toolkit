@@ -23,6 +23,5 @@ module.exports = {
 
   // A list of paths to modules that run some code to configure or set up
   // the testing framework before each test
-  setupFilesAfterEnv: ['<rootDir>spec/init/setupTests.js'],
-
+  setupFilesAfterEnv: ['jest-extended', '<rootDir>spec/init/setupTests.js'],
 };
