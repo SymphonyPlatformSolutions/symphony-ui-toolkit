@@ -9,10 +9,9 @@ $fontSize: 14;
     }
     .tk-checkbox__input:checked + &:before {
       @include tk-icon-checkbox-on;
-    }
-    .tk-checkbox--mixed &::before {
-      @include tk-icon-checkbox-indeterminate;
-      color: $--tk-color-primary;
+      .tk-checkbox--mixed & {
+        @include tk-icon-checkbox-indeterminate;
+      }
     }
   }
 }
