@@ -196,8 +196,11 @@ export const Validations = () => {
         >
           <input
             type="url"
+            onBlur={() => {
+              console.log('Existing onBlur method called on the input');
+            }}
             onChange={() => {
-              console.log('Existing onChange method called');
+              console.log('Existing onChange method called on the input');
             }}
           />
         </InputDecorator>

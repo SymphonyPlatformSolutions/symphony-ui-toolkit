@@ -9,6 +9,7 @@ import {
   LabelTooltipDecoratorPropTypes,
 } from '../label-tooltip-decorator/interfaces';
 import { HasValidationProps } from '../validation/interfaces';
+import { callParentAndChildMethod } from '../../utils';
 
 const RightDecoratorsPropTypes = {
   rightDecorators: PropTypes.oneOfType([
@@ -73,7 +74,8 @@ const InputDecorator: React.FC<InputDecoratorProps> = ({
     () =>
       child
         ? React.cloneElement(child, {
-          ...rest,
+          onBlur: callParentAndChildMethod(rest, child.props, 'onBlur'),
+          onChange: callParentAndChildMethod(rest, child.props, 'onChange'),
           id: inputId, // Add ID to the input
           className: classnames('tk-input', child.props.className), // Add 'tk-input' CSS class
         })
