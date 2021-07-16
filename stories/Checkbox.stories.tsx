@@ -28,15 +28,13 @@ export const Checkboxes = () => {
         <h2>Active Checkbox</h2>
         <h3>Default checked state</h3>
         <p>
-          In the following examples the states of the checkboxes have a default
-          value defined with <strong>checked</strong> attribute.
+          A <i>checked</i> or a <i>mixed</i> checkbox generates a <strong>checked</strong> input value.
         </p>
         <Checkbox
           label="Checkbox 'checked'"
           name="active-checkbox"
           value="active-checkbox-1"
           status={SelectionStatus.CHECKED}
-          onChange={action('onChange active-checkbox-1')}
         />
         <Checkbox
           label="Checkbox 'mixed'"
@@ -52,7 +50,7 @@ export const Checkboxes = () => {
       </div>
       <div>
         <h2>Disabled Checkbox</h2>
-        <p>In the following examples the states of the checkboxes are fixed</p>
+        <p>In the following examples the states of the checkboxes are disabled</p>
         <Checkbox
           label="Checkbox"
           name="disabled-checkbox"
