@@ -288,7 +288,7 @@ describe('Dropdown component test suite =>', () => {
         })
       });
       it('should filter the `asyncOptions` if user types on the input', async () => {
-        const { getByText, queryByText } = render(<Dropdown asyncOptions={() => Promise.resolve(options)} />);
+        const { queryByText } = render(<Dropdown asyncOptions={() => Promise.resolve(options)} />);
         const input =  screen.getByRole('textbox');
         userEvent.click(input);
         await waitFor(async () => {

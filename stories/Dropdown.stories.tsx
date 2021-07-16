@@ -214,6 +214,7 @@ export const Select: React.FC = () => (
       tagRenderer={IconPickerRenderer}
       onTermSearch={onTermSearch}
     />
+
     <p className="tk-mt-4">With <strong> tagRenderer </strong>prop you can customize the rendering of the selected item/s: </p>
     <Dropdown
       options={iconData}
@@ -223,9 +224,9 @@ export const Select: React.FC = () => (
       placeHolder="Select an icon.."
       filterFunction={filterFunction}
     />
+
     <h2 className="tk-mt-5h">Custom Filter logic</h2>
     <p>If you would like to rewrite the filtration logic from the ground up, simply declare a new <strong> filterFunction </strong> to be passed in as a prop:</p>
-    
     <Dropdown
       options={iconData}
       tagRenderer={IconPickerTagRenderer}
@@ -233,7 +234,13 @@ export const Select: React.FC = () => (
       isMultiSelect
       placeHolder="Select an icon.."
       filterFunction={filterFunction}
-  
+    />
+
+    <h2 className="tk-mt-5h">Scroll into view - disabled</h2>
+    <p>{"When pressing the dropdown while it's not fully in view, it will not scroll into view"}</p>
+    <Dropdown
+      options={defaultOptions}
+      menuShouldScrollIntoView={false}
     />
   </div>
 );

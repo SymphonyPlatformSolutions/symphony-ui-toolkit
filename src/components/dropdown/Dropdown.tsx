@@ -75,7 +75,9 @@ export type DropdownProps<T> = {
   menuIsOpen?: boolean;
   /** Placement of the menu in relation to the control */
   menuPlacement?: MenuPlacement;
-  /** Styling options depending on the need  */
+  /** Whether the Dropdown menu should scroll into view when pressed */
+  menuShouldScrollIntoView?: boolean;
+  /** Styling options depending on the need */
   mode?: 'nested' | 'aligned';
   name?: string;
   /** Mesage to display if there isn't any match in the search input */
@@ -114,8 +116,10 @@ export type DropdownProps<T> = {
     | React.FunctionComponent<TagRendererProps<T>>;
   /** Message to be display on the header of the menu list when searching by term */
   termSearchMessage?: ((term: string) => string) | string;
-} & HasTooltipProps &
-  (MultiModeProps<T> | SingleModeProps<T>) & (AsyncProps<T> | SyncProps<T>);
+} &
+  HasTooltipProps &
+  (MultiModeProps<T> | SingleModeProps<T>) &
+  (AsyncProps<T> | SyncProps<T>);
 
 type MultiModeProps<T> = {
   /** Support multiple selected options */
@@ -154,7 +158,7 @@ type DropdownState<T> = {
   closeMenuOnSelect?: boolean;
   hideSelectedOptions?: boolean;
   displayArrowIndicator?: boolean;
-  DropdownTag: any;
+  DropdownTag: Select | any;
 };
 export class Dropdown<T = LabelValue> extends React.Component<
   DropdownProps<T>,
@@ -168,7 +172,7 @@ export class Dropdown<T = LabelValue> extends React.Component<
     this.myRef = React.createRef();
     this.searchHeaderOption = { ...firstOption };
     this.state = {
-      DropdownTag:  this.props.options ? Select : AsyncSelect,
+      DropdownTag: this.props.options ? Select : AsyncSelect,
       selectedOption: null,
       hideSelectedOptions:
         this.props.hideSelectedOptions === undefined
@@ -299,7 +303,9 @@ export class Dropdown<T = LabelValue> extends React.Component<
       termSearchMessage,
       value,
       defaultOptions,
-      menuPlacement
+      menuPlacement,
+      menuShouldScrollIntoView,
+      ...otherProps
     } = this.props;
 
     return (
@@ -312,7 +318,8 @@ export class Dropdown<T = LabelValue> extends React.Component<
           tooltipCloseLabel={tooltipCloseLabel}
           showRequired={showRequired}
         />
-        <DropdownTag 
+        <DropdownTag
+          {...otherProps}
           styles={{
             valueContainer: provided => ({
               ...provided,  maxHeight:`${maxHeight}px`})
@@ -379,6 +386,7 @@ export class Dropdown<T = LabelValue> extends React.Component<
           termSearchMessage={termSearchMessage}
           getOptionValue={this.bindValue}
           blurInputOnSelect={blurInputOnSelect}
+          menuShouldScrollIntoView={menuShouldScrollIntoView}
         />
       </div>
     );
@@ -391,6 +399,7 @@ export class Dropdown<T = LabelValue> extends React.Component<
     isTypeAheadEnabled: true,
     autoScrollToCurrent: false,
     enableTermSearch: false,
+    menuShouldScrollIntoView: true,
     menuPlacement: 'auto'
   };
 }
