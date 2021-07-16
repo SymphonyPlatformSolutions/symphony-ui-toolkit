@@ -1,0 +1,33 @@
+.tk-badge {
+  font-size: toRem(12);
+  display: inline-block;
+  border-radius: toRem(3);
+  padding: toRem(4) toRem(8);
+  text-transform: uppercase;
+  text-align: center;
+  align-items: center;
+  line-height: toRem(16);
+  white-space: nowrap;
+
+  @include styleBadge($--tk-badge-default);
+
+  &--positive {
+    @include styleBadge($--tk-badge-positive);
+  }
+
+  &--neutral {
+    @include styleBadge($--tk-badge-neutral);
+  }
+
+  &--attention {
+    @include styleBadge($--tk-badge-attention);
+  }
+
+  &--warning {
+    @include styleBadge($--tk-badge-warning);
+  }
+
+  &--external {
+    @include styleBadge($--tk-badge-external);
+  }
+}

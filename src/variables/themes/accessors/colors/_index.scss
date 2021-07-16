@@ -141,3 +141,29 @@ $--tk-banner-error: (
   backgroundColor: var(--tk-banner-background-color-error, getColor($red, '10')),
   iconColor: var(--tk-banner-foreground-color, getColor($red, '50')),
 );
+
+/** ======== Badge ======== */
+$--tk-badge-default: (
+  color: var(--tk-badge-text-color-default, getColor($graphite, '80')),
+  backgroundColor: var(--tk-badge-background-color-default, getColor($graphite, '20')),
+);
+$--tk-badge-positive: (
+  color: var(--tk-badge-text-color-positive, getColor($green, '60')),
+  backgroundColor: var(--tk-badge-background-color-positive, getColor($green, '20')),
+);
+$--tk-badge-neutral: (
+  color: var(--tk-badge-text-color-neutral, getColor($electricity, '60')),
+  backgroundColor: var(--tk-badge-background-color-neutral, getColor($electricity, '20')),
+);
+$--tk-badge-attention: (
+  color: var(--tk-badge-text-color-attention, getColor($yellow, '60')),
+  backgroundColor: var(--tk-badge-background-color-attention, getColor($yellow, '20')),
+);
+$--tk-badge-warning: (
+  color: var(--tk-badge-text-color-warning, getColor($red, '60')),
+  backgroundColor: var(--tk-badge-background-color-warning, getColor($red, '20')),
+);
+$--tk-badge-external: (
+  color: var(--tk-badge-text-color-external, getColor($graphite, '80')),
+  backgroundColor: var(--tk-badge-background-color-external, getColor($yellow, '20')),
+);
