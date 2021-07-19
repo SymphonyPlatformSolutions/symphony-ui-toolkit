@@ -25,6 +25,7 @@ const InputDecoratorPropTypes = {
 
 type InputDecoratorProps = {
   rightDecorators?: JSX.Element | JSX.Element[];
+  className?: string,
   children: React.ReactElement;
 } & LabelTooltipDecoratorProps &
   HasValidationProps<string>;
@@ -35,6 +36,7 @@ const InputDecorator: React.FC<InputDecoratorProps> = ({
   tooltip,
   tooltipCloseLabel,
   showRequired,
+  className,
   children,
   onInit,
   onValidationChanged,
@@ -85,7 +87,7 @@ const InputDecorator: React.FC<InputDecoratorProps> = ({
 
   return (
     <div
-      className={classnames('tk-input-group', {
+      className={classnames('tk-input-group', className, {
         'tk-input-group--disabled': disabled,
       })}
     >
