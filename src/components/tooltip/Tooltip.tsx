@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import * as PropTypes from 'prop-types';
 import { usePopper } from 'react-popper';
 import { CSSTransition } from 'react-transition-group';
@@ -112,7 +112,7 @@ const Tooltip: React.FC<TooltipProps> = ({
   const [showHover, setShowHover] = useState(false);
   const [showClick, setShowClick] = useState(false);
 
-  const handleMouseMove = debouncer(setShowHover, hoverDelay, hoverTimeout);
+  const handleMouseMove = useMemo(() => debouncer(setShowHover, hoverDelay, hoverTimeout), [hoverDelay, hoverTimeout]);
 
   const ref = useOnclickOutside(
     () => {
