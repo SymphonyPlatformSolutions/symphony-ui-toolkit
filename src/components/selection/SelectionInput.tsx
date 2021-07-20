@@ -7,6 +7,7 @@ import SelectionTypes, { SelectionInputTypes } from './SelectionTypes';
 import SelectionStatus, { getCheckedValue } from './SelectionStatus';
 import LabelPlacements from './LabelPlacements';
 import { Keys } from '../common/keyUtils';
+import { HasValidationProps } from '../validation/interfaces';
 
 interface SelectionInputProps {
   id?: string;
@@ -22,9 +23,9 @@ interface SelectionInputProps {
   tabIndex?: number;
 }
 
-interface SelectionInputPropsWithType extends SelectionInputProps {
-  type: SelectionTypes;
-}
+type SelectionInputPropsWithType = {
+  type: SelectionTypes,
+} & SelectionInputProps & HasValidationProps<string>
 
 const SelectionInput: React.FC<SelectionInputPropsWithType> = ({
   id,
@@ -39,6 +40,10 @@ const SelectionInput: React.FC<SelectionInputPropsWithType> = ({
   disabled,
   tabIndex,
   status,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  onInit,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  onValidationChanged,
   ...otherProps
 }) => {
   // Generate unique ID if not provided
@@ -196,6 +201,7 @@ const SelectionInputPropTypes = {
   status: PropTypes.oneOf(Object.values(SelectionStatus)),
   onClick: PropTypes.func,
   onChange: PropTypes.func,
+  onInit: PropTypes.func,
   required: PropTypes.bool,
   disabled: PropTypes.bool,
   tabIndex: PropTypes.number,

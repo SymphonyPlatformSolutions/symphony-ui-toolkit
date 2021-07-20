@@ -129,7 +129,7 @@ export const Validations = () => {
           onChange={(e) => {
             setDate(e.target.value);
           }}
-        ></DatePicker>
+        />
       </Validation>
       <h3>Dropdown</h3>
       <p>
@@ -151,7 +151,7 @@ export const Validations = () => {
             setDropdown(e.target.value);
           }}
           isInputClearable
-        ></Dropdown>
+        />
       </Validation>
       <Validation
         onValidationChanged={logChange}
@@ -170,7 +170,7 @@ export const Validations = () => {
             setMultiDropdown(e.target.value);
           }}
           isMultiSelect
-        ></Dropdown>
+        />
       </Validation>
       <h3>InputDecorator</h3>
       <p>
@@ -343,7 +343,7 @@ export const Validations = () => {
           onChange={(e) => {
             setDate(e.target.value);
           }}
-        ></DatePicker>
+        />
       </Validation>
       <p>Another example with the TimePicker :</p>
       <Validation
