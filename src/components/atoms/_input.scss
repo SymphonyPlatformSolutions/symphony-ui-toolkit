@@ -3,9 +3,11 @@
 }
 
 textarea.tk-input {
-  $height: toRem(110);
-  min-height: $height;
   text-overflow: ellipsis;
+
+  &:not([rows]) {
+    min-height: toRem(110);
+  }  
 }
 
 .tk-input {
