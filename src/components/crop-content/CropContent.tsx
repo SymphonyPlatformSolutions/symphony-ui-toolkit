@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as _ from 'lodash';
 import ResizeDetectDiv from '../../core/hoc/ResizeDetectDiv';
 
 type CropContentProps = {
@@ -33,9 +34,10 @@ export default class CropContent extends React.Component<CropContentProps, CropC
   constructor(props){
     super(props);
     //listen for mutations and update accordingly
+    const debouncedCompute = _.debounce(this.computeState.bind(this), 150);
     this.mutationObserver = new MutationObserver((mutations:MutationRecord[]) => {
-      if(mutations?.some(mut => mut.type==='childList' || mut.type==='characterData')){
-        this.computeState();
+      if(mutations?.some(mut => mut.type==='childList' || mut.type==='characterData' || mut.type==='attributes' )){
+        debouncedCompute();
       }
     });
   }
@@ -60,7 +62,7 @@ export default class CropContent extends React.Component<CropContentProps, CropC
   setRef = (e: HTMLDivElement) => {
     if(e){
       this.containerElRef = e;
-      this.mutationObserver.observe(e, {childList:true, subtree:true , characterData:true});
+      this.mutationObserver.observe(e, {childList:true, subtree:true , characterData:true, attributes:true});
       this.computeState();
     }
   }
