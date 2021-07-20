@@ -21,6 +21,6 @@ describe('Avatar', () => {
       </Avatar>
     )
     expect(wrapper.find('BasicIndicator').length).toBe(1);
-    expect(wrapper.find('span').hasClass('tk-badge tk-badge--top tk-bg-color--attention')).toBe(true);
+    expect(wrapper.find('span').hasClass('tk-avatar__badge tk-avatar__badge--top tk-bg-color--attention')).toBe(true);
   })
 })

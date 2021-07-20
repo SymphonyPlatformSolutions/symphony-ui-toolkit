@@ -23,8 +23,8 @@ const prefix = 'tk-avatar'
 
 export const BasicIndicator: React.FC<BasicIndicatorProps> = ({position, variant}: BasicIndicatorProps) => {
   const classes = classNames(
-    'tk-badge',
-    `tk-badge--${position}`,
+    'tk-avatar__badge',
+    `tk-avatar__badge--${position}`,
     `tk-bg-color--${variant}`,
   )
   return (
@@ -38,8 +38,8 @@ export const BasicIndicator: React.FC<BasicIndicatorProps> = ({position, variant
 
 export const AvatarBadge: React.FC<AvatarBadgeProps> = ({position, children, className}: AvatarBadgeProps) => {
   const classes = classNames(
-    'tk-badge',
-    `tk-badge--${position}`,
+    'tk-avatar__badge',
+    `tk-avatar__badge--${position}`,
     className
 
   )
@@ -53,9 +53,9 @@ export const AvatarBadge: React.FC<AvatarBadgeProps> = ({position, children, cla
 export const Avatar: React.FC<AvatarProps> = ({
   size,
   bordered,
-  variant,
   children,
   className,
+  variant,
   ...otherProps
 }: AvatarProps) => {
   const classes = classNames(
