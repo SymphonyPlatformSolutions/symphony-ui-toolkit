@@ -4,6 +4,7 @@
   box-shadow: inset 0 0 0 toRem(2) $--tk-input-default-focus-border-color;
 }
 .tk-select {
+  font-size: toRem(14);
   .tk-select {
     &__single-value {
       @extend .tk-text-color;

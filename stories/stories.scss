@@ -2,7 +2,7 @@ $ICONS_FONTS_PATH: "../dist/fonts";
 @import "../uitoolkit.scss";
 
 body {
-  font-family: "SymphonyLato", "Lato", "Segoe UI", "Helvetica Neue", "Verdana",
+  font-family: "system-ui", "Lato", "Segoe UI", "Helvetica Neue", "Verdana",
     "Arial", sans-serif;
   font-size: 16px;
   @extend .tk-text-color;

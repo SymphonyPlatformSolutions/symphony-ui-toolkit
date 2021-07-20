@@ -87,21 +87,10 @@ export const TextField = () => {
       </div>
     `;
 };
+
 export const Select = () => { return `
-<h3>Default</h3>
-<div>
-  <select type="text" class="tk-select" value="Text" style="width:200px">
-    <option>Item 1</option>
-    <option>Item 2</option>
-    <option>Item 3 with a very very very long text</option>
-  </select>
-  <i></i>
-</div>
+  <h3>Default</h3>
 
-<div class="tk-select-group tk-mt-2">
-  <div class="tk-select-group__header">
-    <label for="input">Field label</label>
-  </div>
   <div>
     <select type="text" class="tk-select" value="Text" style="width:200px">
       <option>Item 1</option>
@@ -110,47 +99,7 @@ export const Select = () => { return `
     </select>
     <i></i>
   </div>
-  <div class="tk-select__helper">This is a helper.</div>
-</div>
-<div>
 
-  <h3>Disabled</h3>
-  <div class="tk-select--is-disabled">
-    <select type="text" class="tk-select" value="Text" style="width:200px" disabled>
-      <option>Item 1</option>
-    </select>
-    <i></i>
-  </div>
-
-  <div class="tk-select-group tk-mt-2">
-    <div class="tk-select-group__header">
-      <label for="input">Field label</label>
-    </div>
-    <div class="tk-select--is-disabled">
-      <select type="text" class="tk-select tk-select--expanded" value="Text" style="width:200px" disabled>
-        <option>Item 1</option>
-        <option>Item 2</option>
-        <option>Item 3 with a very very very long text</option>
-      </select>
-      <i></i>
-    </div>
-    <div class="tk-select__helper">This is a helper.</div>
-  </div>
-</div>
-
-<h3>Error</h3>
-<span class="tk-validation tk-validation--error">
-  <div>
-    <select type="text" class="tk-select" value="Text" style="width:200px">
-      <option>Item 1</option>
-      <option>Item 2</option>
-      <option>Item 3 with a very very very long text</option>
-    </select>
-    <i></i>
-  </div>
-</span>
-
-<span class="tk-validation tk-validation--error">
   <div class="tk-select-group tk-mt-2">
     <div class="tk-select-group__header">
       <label for="input">Field label</label>
@@ -163,10 +112,62 @@ export const Select = () => { return `
       </select>
       <i></i>
     </div>
+    <div class="tk-select__helper">This is a helper.</div>
   </div>
-  <div class="tk-select__helper">This is a helper.</div>
-</span>
 
+  <div>
+    <h3>Disabled</h3>
+    <div class="tk-select--is-disabled">
+      <select type="text" class="tk-select" value="Text" style="width:200px" disabled>
+        <option>Item 1</option>
+      </select>
+      <i></i>
+    </div>
+
+    <div class="tk-select-group tk-mt-2">
+      <div class="tk-select-group__header">
+        <label for="input">Field label</label>
+      </div>
+      <div class="tk-select--is-disabled">
+        <select type="text" class="tk-select tk-select--expanded" value="Text" style="width:200px" disabled>
+          <option>Item 1</option>
+          <option>Item 2</option>
+          <option>Item 3 with a very very very long text</option>
+        </select>
+        <i></i>
+      </div>
+      <div class="tk-select__helper">This is a helper.</div>
+    </div>
+  </div>
+
+  <h3>Error</h3>
+  <span class="tk-validation tk-validation--error">
+    <div>
+      <select type="text" class="tk-select" value="Text" style="width:200px">
+        <option>Item 1</option>
+        <option>Item 2</option>
+        <option>Item 3 with a very very very long text</option>
+      </select>
+      <i></i>
+    </div>
+  </span>
+
+  <span class="tk-validation tk-validation--error">
+    <div class="tk-select-group tk-mt-2">
+      <div class="tk-select-group__header">
+        <label for="input">Field label</label>
+      </div>
+      <div>
+        <select type="text" class="tk-select" value="Text" style="width:200px">
+          <option>Item 1</option>
+          <option>Item 2</option>
+          <option>Item 3 with a very very very long text</option>
+        </select>
+        <i></i>
+      </div>
+    </div>
+    <div class="tk-select__helper">This is a helper.</div>
+  </span>
 `};
 
 export const TextArea = () => {

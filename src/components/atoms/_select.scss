@@ -6,6 +6,7 @@ select.tk-select {
   background-position-y: 50%;
 
   &+i::before {
+    color: getColor($graphite, '50');
     position: relative;
     right: toRem(24);
     font-style: normal;
