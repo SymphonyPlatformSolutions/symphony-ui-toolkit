@@ -188,7 +188,12 @@ export const DropdownList = ({selectProps, ...props}: any) => {
       }
     }, [select?.state?.focusedOption]);
   }
-  return <components.MenuList {...props}>{props.children}</components.MenuList>;
+  return <components.MenuList
+    className={ 'tk-mt-1 tk-mb-1' }
+    {...props}
+  >
+    {props.children}
+  </components.MenuList>;
 };
 
 export const firstOption: Readonly<SearchHeaderOption> = {
