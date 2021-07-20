@@ -103,6 +103,7 @@ const TextComponent: React.FC<
       onClick,
       onFocus,
       onKeyDown,
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       onValidationChanged,
       ...rest
     },
