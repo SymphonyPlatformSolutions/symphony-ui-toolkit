@@ -38,7 +38,9 @@ const InputDecorator: React.FC<InputDecoratorProps> = ({
   showRequired,
   className,
   children,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   onInit,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   onValidationChanged,
   ...rest
 }) => {

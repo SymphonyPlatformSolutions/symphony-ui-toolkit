@@ -40,6 +40,7 @@ const SelectionInput: React.FC<SelectionInputPropsWithType> = ({
   disabled,
   tabIndex,
   status,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   onInit,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   onValidationChanged,
@@ -108,12 +109,6 @@ const SelectionInput: React.FC<SelectionInputPropsWithType> = ({
   useEffect(() => {
     setIsChecked(getCheckedValue(status));
   }, [status]);
-
-  useEffect(() => {
-    if (onInit) {
-      onInit(isChecked);
-    }
-  }, []);
 
   // Component gets focus
   const onFocusHandler = () => {
