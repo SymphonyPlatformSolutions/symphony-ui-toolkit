@@ -11,8 +11,25 @@ export const Default = Template.bind({});
 
 Default.args = {
   children: 'Some Text',
-  variant: ''
 };
+
+export const DefaultVariant: React.FC = () => (
+  <>
+    <Badge variant="default" className="tk-mr-h">Badge</Badge>
+    <Badge variant="default">
+      <Icon iconName="bot" className="tk-mr-h"></Icon>
+        Badge
+    </Badge>
+  </>);
+
+export const Positive: React.FC = () => (
+  <>
+    <Badge variant="positive" className="tk-mr-h">Badge</Badge>
+    <Badge variant="positive">
+      <Icon iconName="announce" className="tk-mr-h"></Icon>
+        Badge
+    </Badge>
+  </>);
 
 export const Neutral: React.FC = () => (
   <>
