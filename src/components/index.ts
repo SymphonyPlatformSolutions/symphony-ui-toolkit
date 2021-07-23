@@ -30,6 +30,7 @@ export * from './badge';
 export * from './banner';
 export * from './button';
 export * from './dropdown';
+export * from './text-ellipsis';
 export * from './nav';
 export * from './time-picker';
 export * from './toast';
