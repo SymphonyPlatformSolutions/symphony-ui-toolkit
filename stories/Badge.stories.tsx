@@ -61,6 +61,12 @@ export const Warning: React.FC = () => (
 export const EXTernal: React.FC = () => (
   <Badge variant="external" className="tk-mr-h">EXT</Badge>);
 
+export const BadgeSizes: React.FC = () => (
+  <>
+    <Badge size="medium" className="tk-mr-h">Badge</Badge>
+    <Badge size="small" className="tk-mr-h">Badge</Badge>
+  </>);
+
 export default {
   title: 'Components/Badge',
   component: Badge,
