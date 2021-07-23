@@ -23,10 +23,10 @@ import Tooltip, { TooltipProps } from './tooltip';
 import Typography from './typography';
 import Validation from './validation';
 import VirtualizedList from './virtualized-list';
-import Badge from './badge';
 
 /* Let's move into exporting everything with interfaces */
 export * from './avatar';
+export * from './badge';
 export * from './banner';
 export * from './button';
 export * from './dropdown';
@@ -60,5 +60,4 @@ export {
   ModalFooter,
   Typography,
   Loader,
-  Badge,
 };
