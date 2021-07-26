@@ -35,7 +35,7 @@ export const EllipseAfterTwoRows = (args) => {
         rows={ 2 }
         {...args}
       >
-        { 'Really, really, really, really, really, long text that gets cut!' }
+        { 'Really, really, really, really, really, really, really, really, really, really, really, really, really, really, really, really, really, long text that gets cut!' }
       </TextEllipsis>
     </div>
   )
