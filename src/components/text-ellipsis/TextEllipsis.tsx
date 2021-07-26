@@ -63,7 +63,6 @@ export const TextEllipsis: React.FC<TextEllipsisProps> = ({
       <div
         className={ classnames(
           'tk-text-ellipsis', {
-            'tk-text-ellipsis__single-row': rows === 1,
             'tk-text-ellipsis__multiple-rows': rows > 1
           }) }
         style={{ WebkitLineClamp: rows}}
