@@ -59,3 +59,23 @@ In order to have a clear pull request the following items are strongly recommend
 - Short description of the component
 - Snapshot/video of the component
 - Link a Jira ticket and the component specification doc if possible
+
+## Known dev issues
+
+### Linking
+
+UIToolkit component has a 'linkit' script that prepares the package to be linked straight away  
+Except in the react hooks world there's a known issue that makes it a bit harder to work  
+See https://github.com/facebook/react/issues/14257  
+After linking your UIToolkit in the target app, add the following to the target app's webpack
+
+```js
+resolve: {
+  alias: {
+        react: path.resolve(__dirname, '<pathToNodeModules>/node_modules/react'),
+        'react-dom': path.resolve(__dirname, '<pathToNodeModules>/node_modules/react-dom'),
+  },
+}
+```
+
+This allows webpack to resolve a single react while the package is linked.
