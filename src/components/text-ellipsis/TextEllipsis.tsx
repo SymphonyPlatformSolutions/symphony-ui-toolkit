@@ -1,15 +1,13 @@
 import * as React from 'react';
+import classnames from 'classnames';
 import Tooltip from '../tooltip';
 
-type TextEllipsisProps = {
+interface TextEllipsisProps extends React.HTMLProps<HTMLDivElement> {
     /** Text that should be ellipsed */
     children?: React.ReactNode;
 
     /** How many rows the text should span before ellipsing */
     rows?: number;
-
-    /** Should be same as children, for now separate */
-    tooltipContent: string | JSX.Element;
 
     /** Needed? Add description */
     textRef?: React.RefObject<HTMLElement>;
@@ -19,69 +17,66 @@ type TextEllipsisProps = {
       | 'left'
       | 'right'
       | 'top'
-};
+}
 
 interface TextEllipsisState {
     showTooltip: boolean;
 }
 
-export class TextEllipsis extends React.Component<
-    TextEllipsisProps,
-    TextEllipsisState
-> {
-  
-  constructor(props: TextEllipsisProps) {
-    super(props);
-    this.state = {
-      showTooltip: false,
-    };
-  }
+export const TextEllipsis: React.FC<TextEllipsisProps> = ({
+  children,
+  rows,
+  textRef,
+  tooltipPlacement,
+  ...otherProps
+}: TextEllipsisProps) => {
 
-  public render() {
-    const { showTooltip } = this.state;
+  const [showTooltip, setShowTooltip] = React.useState(false);
 
-    return (
-      <Tooltip
-        description={ this.renderTooltipContent()}
-        placement={this.props.tooltipPlacement}
-        open={showTooltip}
-      >
-        <div
-          onMouseEnter={this.handleMouseEnter}
-          onMouseLeave={this.handleMouseLeave}
-          data-testid="TEXT_ELLIPSIS_CONTAINER"
-        >
-          { this.props.children }
-        </div>
-      </Tooltip>
-    );
-  }
-
-  private renderTooltipContent() {
-    return (
-      <span>
-        {this.props.tooltipContent}
-      </span>
-    );
-  }
-  private handleMouseEnter = (event: React.SyntheticEvent) => {
-    const element = event.currentTarget;
-    const showTooltip = this.isTextTruncated(element);
-    this.setState({ showTooltip })
-  }
-
-  private handleMouseLeave = () => {
-    this.setState({ showTooltip: false });
-  }
-
-  private isTextTruncated(element: EventTarget & Element) {
-    const { textRef } = this.props;
-    if (textRef && textRef.current) {
+  const isTextTruncated = (element: EventTarget & Element) => {    
+    if (textRef?.current) {
       const { scrollWidth, clientWidth } = textRef.current;
       return scrollWidth > clientWidth;
     } else {
-      const { scrollWidth, clientWidth } = element.children[0];
+      const { scrollWidth, clientWidth } = element;
       return scrollWidth > clientWidth;
     }
   }
+
+  const handleMouseEnter = (event: React.SyntheticEvent) => {
+    const element = event.currentTarget;
+    const showTooltip = isTextTruncated(element);
+    setShowTooltip(showTooltip);
+  }
+
+  const handleMouseLeave = () => {
+    setShowTooltip(false);
+  }
+
+  return(
+    <Tooltip
+      description={ children as JSX.Element }
+      placement={'bottom'}
+      type="tooltip"
+      visible={showTooltip}
+    >
+      <div
+        className={ classnames(
+          'tk-text-ellipsis', {
+            'tk-text-ellipsis__single-row': rows === 1,
+            'tk-text-ellipsis__multiple_rows': rows > 1
+          }) }
+        style={{ WebkitLineClamp: rows}}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
+        { children }
+      </div>
+    </Tooltip>
+  )
+}
+
+TextEllipsis.defaultProps = {
+  rows: 1,
+  tooltipPlacement: 'top',
 }

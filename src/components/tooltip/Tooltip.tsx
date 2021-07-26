@@ -13,6 +13,7 @@ import { showTooltipOnClick, showTooltipOnHover } from './helpers';
 
 const SpanStyled = styled.span`
   display: inline-block;
+  max-width: 100%;
 `;
 
 const TooltipContainer = styled.div`
@@ -141,7 +142,7 @@ const Tooltip: React.FC<TooltipProps> = ({
     ],
   });
 
-  const children = <span>{otherProps.children}</span>;
+  const children = <>{otherProps.children}</>;
 
   const isVisible =
     typeof visible !== 'undefined'
@@ -212,8 +213,7 @@ Tooltip.defaultProps = {
 
 Tooltip.propTypes = {
   closeLabel: PropTypes.string,
-  description: PropTypes.oneOfType([PropTypes.string, PropTypes.element])
-    .isRequired,
+  description: PropTypes.oneOfType([PropTypes.string, PropTypes.element]).isRequired,
   displayTrigger: PropTypes.oneOf(['click', 'hover']),
   id: PropTypes.string,
   onHintClose: PropTypes.func,
