@@ -6,6 +6,19 @@ import {
 export default {
   title: 'Components/Text Ellipsis',
   component: TextEllipsis,
+  argTypes: {
+    tooltipPlacement: {
+      control: {
+        type: 'inline-radio',
+        options: ['top', 'right', 'bottom', 'left'],
+      },
+    },
+    rows: {
+      control: {
+        type: 'number'
+      }
+    },
+  },
 };
 
 const Template = (args) => {
@@ -27,6 +40,11 @@ const Template = (args) => {
 };
 
 export const Default = Template.bind({});
+
+Default.args = {
+  children: 'Really, really, really, really, really, really, long text that gets cut!',
+  rows: 1,
+};
 
 export const EllipseAfterTwoRows = (args) => {
   return (

@@ -9,9 +9,6 @@ interface TextEllipsisProps extends Omit<React.HTMLProps<HTMLDivElement>, 'type'
     /** How many rows the text should span before ellipsing */
     rows?: number;
 
-    /** Needed? Add description */
-    textRef?: React.RefObject<HTMLElement>;
-
     tooltipPlacement:
       | 'bottom'
       | 'left'
@@ -26,7 +23,6 @@ interface TextEllipsisState {
 export const TextEllipsis: React.FC<TextEllipsisProps> = ({
   children,
   rows,
-  textRef,
   tooltipPlacement,
   ...otherProps
 }: TextEllipsisProps) => {
@@ -34,13 +30,8 @@ export const TextEllipsis: React.FC<TextEllipsisProps> = ({
   const [showTooltip, setShowTooltip] = React.useState(false);
 
   const isTextTruncated = (element: EventTarget & Element) => {    
-    if (textRef?.current) {
-      const { scrollWidth, clientWidth } = textRef.current;
-      return scrollWidth > clientWidth;
-    } else {
-      const { scrollWidth, clientWidth } = element;
-      return scrollWidth > clientWidth;
-    }
+    const { scrollWidth, clientWidth } = element;
+    return scrollWidth > clientWidth;
   }
 
   const handleMouseEnter = (event: React.SyntheticEvent) => {
