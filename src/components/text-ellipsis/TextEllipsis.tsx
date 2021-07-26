@@ -2,7 +2,7 @@ import * as React from 'react';
 import classnames from 'classnames';
 import Tooltip from '../tooltip';
 
-interface TextEllipsisProps extends React.HTMLProps<HTMLDivElement> {
+interface TextEllipsisProps extends Omit<React.HTMLProps<HTMLDivElement>, 'type'> {
     /** Text that should be ellipsed */
     children?: React.ReactNode;
 
@@ -56,7 +56,7 @@ export const TextEllipsis: React.FC<TextEllipsisProps> = ({
   return(
     <Tooltip
       description={ children as JSX.Element }
-      placement={'bottom'}
+      placement={tooltipPlacement}
       type="tooltip"
       visible={showTooltip}
     >
@@ -69,6 +69,7 @@ export const TextEllipsis: React.FC<TextEllipsisProps> = ({
         style={{ WebkitLineClamp: rows}}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
+        {...otherProps}
       >
         { children }
       </div>

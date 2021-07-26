@@ -142,7 +142,7 @@ const Tooltip: React.FC<TooltipProps> = ({
     ],
   });
 
-  const children = <>{otherProps.children}</>;
+  const children = <span>{otherProps.children}</span>;
 
   const isVisible =
     typeof visible !== 'undefined'
