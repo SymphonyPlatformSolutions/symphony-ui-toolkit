@@ -29,9 +29,16 @@ export const TextEllipsis: React.FC<TextEllipsisProps> = ({
 
   const [showTooltip, setShowTooltip] = React.useState(false);
 
-  const isTextTruncated = (element: EventTarget & Element) => {    
-    const { scrollWidth, clientWidth } = element;
-    return scrollWidth > clientWidth;
+  const isTextTruncated = (element: EventTarget & Element) => {
+    const { scrollWidth, scrollHeight, clientWidth, clientHeight} = element;
+
+    if(scrollHeight > clientHeight) {
+      return true
+    } else if(scrollWidth > clientWidth) {
+      return true;
+    } else {
+      return false
+    }
   }
 
   const handleMouseEnter = (event: React.SyntheticEvent) => {
