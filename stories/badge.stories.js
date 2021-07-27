@@ -21,5 +21,33 @@ export const Badge = () => `
     <div class="tk-badge tk-badge--warning"><i class="tk-icon-alert-triangle"></i> Badge</div>
     <h3>EXTernal badge</h3>
     <div class="tk-badge tk-badge--external">EXT</div>
+
+    <h2 class="tk-mt-4h">Sizes</h2>
+    <p>There are 2 sizes available, including medium and small. By default, the badge
+    size is medium.</p>
+    <div>
+      <div class="tk-badge tk-badge--medium">Badge</div>
+      <div class="tk-badge tk-badge--small">Badge</div>
+    </div>
+    <div class="tk-mt-h">
+      <div class="tk-badge tk-badge--positive tk-badge--medium">Badge</div>
+      <div class="tk-badge tk-badge--positive tk-badge--small">Badge</div>
+    </div>
+    <div class="tk-mt-h">
+      <div class="tk-badge tk-badge--neutral tk-badge--medium">Badge</div>
+      <div class="tk-badge tk-badge--neutral tk-badge--small">Badge</div>
+    </div>
+    <div class="tk-mt-h">
+      <div class="tk-badge tk-badge--attention tk-badge--medium">Badge</div>
+      <div class="tk-badge tk-badge--attention tk-badge--small">Badge</div>
+    </div>
+    <div class="tk-mt-h">
+      <div class="tk-badge tk-badge--warning tk-badge--medium">Badge</div>
+      <div class="tk-badge tk-badge--warning tk-badge--small">Badge</div>
+    </div>
+    <div class="tk-mt-h">
+      <div class="tk-badge tk-badge--external tk-badge--medium">Badge</div>
+      <div class="tk-badge tk-badge--external tk-badge--small">Badge</div>
+    </div>
   </div>
   `;
