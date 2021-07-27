@@ -75,6 +75,7 @@ export const TextEllipsis: React.FC<TextEllipsisProps> = ({
 TextEllipsis.defaultProps = {
   rows: 1,
   tooltipPlacement: 'top',
+  tooltipOnEllipsis: true,
 }
 
 const isTextTruncated = (element: EventTarget & Element) => {
