@@ -29,6 +29,6 @@ export const TypographyUtils: React.FC = () => (
 );
 
 export default {
-  title: 'Utils/Typrography',
+  title: 'Utils/Typography',
   component: Typography,
 };
