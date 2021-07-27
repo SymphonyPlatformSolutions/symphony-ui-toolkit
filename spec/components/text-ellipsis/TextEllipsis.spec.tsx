@@ -7,7 +7,7 @@ import { TextEllipsis } from '../../../src/components';
 
 describe.only('TextEllipsis', () => {
 
-  it('should apply tk-text-ellipsis__multiple-rows when number of rows are more than 1', () => {
+  it('should apply tk-text-ellipsis--multiple-rows when number of rows are more than 1', () => {
     render(
       <TextEllipsis rows={ 2 } tooltipPlacement="bottom">
         { 'Really, really, really, really, really, long text that gets cut!' }
@@ -15,7 +15,7 @@ describe.only('TextEllipsis', () => {
     )
 
     const element = screen.queryByText('Really, really, really, really, really, long text that gets cut!')
-    element.classList.contains('tk-text-ellipsis__multiple-rows')
+    element.classList.contains('tk-text-ellipsis--multiple-rows')
   })
 
 });
