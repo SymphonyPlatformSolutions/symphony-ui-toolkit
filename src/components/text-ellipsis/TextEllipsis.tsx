@@ -80,7 +80,7 @@ TextEllipsis.defaultProps = {
 const isTextTruncated = (element: EventTarget & Element) => {
   const { scrollWidth, scrollHeight, clientWidth, clientHeight} = element;
 
-  if(scrollHeight > clientHeight) {
+  return (scrollHeight > clientHeight) || (scrollWidth > clientWidth)
     return true
   } else if(scrollWidth > clientWidth) {
     return true;
