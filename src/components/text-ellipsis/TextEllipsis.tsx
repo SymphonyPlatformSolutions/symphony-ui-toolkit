@@ -9,7 +9,10 @@ interface TextEllipsisProps extends Omit<React.HTMLProps<HTMLDivElement>, 'type'
     /** How many rows the text should span before ellipsing */
     rows?: number;
 
-    tooltipPlacement:
+    /** Wheather a tooltip should be shown on hover when the text is ellipsed */
+    tooltipOnEllipsis?: boolean;
+
+    tooltipPlacement?:
       | 'bottom'
       | 'left'
       | 'right'
@@ -23,23 +26,12 @@ interface TextEllipsisState {
 export const TextEllipsis: React.FC<TextEllipsisProps> = ({
   children,
   rows,
+  tooltipOnEllipsis,
   tooltipPlacement,
   ...otherProps
 }: TextEllipsisProps) => {
 
   const [showTooltip, setShowTooltip] = React.useState(false);
-
-  const isTextTruncated = (element: EventTarget & Element) => {
-    const { scrollWidth, scrollHeight, clientWidth, clientHeight} = element;
-
-    if(scrollHeight > clientHeight) {
-      return true
-    } else if(scrollWidth > clientWidth) {
-      return true;
-    } else {
-      return false
-    }
-  }
 
   const handleMouseEnter = (event: React.SyntheticEvent) => {
     const element = event.currentTarget;
@@ -51,13 +43,30 @@ export const TextEllipsis: React.FC<TextEllipsisProps> = ({
     setShowTooltip(false);
   }
 
-  return(
-    <Tooltip
-      description={ children as JSX.Element }
-      placement={tooltipPlacement}
-      type="tooltip"
-      visible={showTooltip}
-    >
+  if(tooltipOnEllipsis) {
+    return(
+      <Tooltip
+        description={ children as JSX.Element }
+        placement={tooltipPlacement || 'bottom'}
+        type="tooltip"
+        visible={showTooltip}
+      >
+        <div
+          className={ classnames(
+            'tk-text-ellipsis', {
+              'tk-text-ellipsis__multiple-rows': rows > 1
+            }) }
+          style={{ WebkitLineClamp: rows}}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+          {...otherProps}
+        >
+          { children }
+        </div>
+      </Tooltip>
+    )
+  } else {
+    return(
       <div
         className={ classnames(
           'tk-text-ellipsis', {
@@ -70,11 +79,23 @@ export const TextEllipsis: React.FC<TextEllipsisProps> = ({
       >
         { children }
       </div>
-    </Tooltip>
-  )
+    )
+  }
 }
 
 TextEllipsis.defaultProps = {
   rows: 1,
   tooltipPlacement: 'top',
+}
+
+const isTextTruncated = (element: EventTarget & Element) => {
+  const { scrollWidth, scrollHeight, clientWidth, clientHeight} = element;
+
+  if(scrollHeight > clientHeight) {
+    return true
+  } else if(scrollWidth > clientWidth) {
+    return true;
+  } else {
+    return false
+  }
 }
