@@ -19,10 +19,6 @@ interface TextEllipsisProps extends Omit<React.HTMLProps<HTMLDivElement>, 'type'
       | 'top'
 }
 
-interface TextEllipsisState {
-    showTooltip: boolean;
-}
-
 export const TextEllipsis: React.FC<TextEllipsisProps> = ({
   children,
   rows,
@@ -43,6 +39,21 @@ export const TextEllipsis: React.FC<TextEllipsisProps> = ({
     setShowTooltip(false);
   }
 
+  const getTextEllipsisHTML = () => {
+    return (<div
+      className={ classnames(
+        'tk-text-ellipsis', {
+          'tk-text-ellipsis__multiple-rows': rows > 1
+        }) }
+      style={{ WebkitLineClamp: rows}}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      {...otherProps}
+    >
+      { children }
+    </div>)
+  }
+
   if(tooltipOnEllipsis) {
     return(
       <Tooltip
@@ -51,34 +62,12 @@ export const TextEllipsis: React.FC<TextEllipsisProps> = ({
         type="tooltip"
         visible={showTooltip}
       >
-        <div
-          className={ classnames(
-            'tk-text-ellipsis', {
-              'tk-text-ellipsis__multiple-rows': rows > 1
-            }) }
-          style={{ WebkitLineClamp: rows}}
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-          {...otherProps}
-        >
-          { children }
-        </div>
+        {getTextEllipsisHTML()}
       </Tooltip>
     )
   } else {
     return(
-      <div
-        className={ classnames(
-          'tk-text-ellipsis', {
-            'tk-text-ellipsis__multiple-rows': rows > 1
-          }) }
-        style={{ WebkitLineClamp: rows}}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-        {...otherProps}
-      >
-        { children }
-      </div>
+      getTextEllipsisHTML()
     )
   }
 }
