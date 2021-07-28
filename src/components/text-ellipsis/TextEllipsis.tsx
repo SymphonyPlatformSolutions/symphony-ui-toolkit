@@ -6,6 +6,9 @@ interface TextEllipsisProps extends Omit<React.HTMLProps<HTMLDivElement>, 'type'
     /** Text that should be ellipsed */
     children?: React.ReactNode;
 
+    /** Optional CSS class name */
+    className?: string;
+  
     /** How many rows the text should span before ellipsing */
     rows?: number;
 
@@ -21,6 +24,7 @@ interface TextEllipsisProps extends Omit<React.HTMLProps<HTMLDivElement>, 'type'
 
 export const TextEllipsis: React.FC<TextEllipsisProps> = ({
   children,
+  className,
   rows,
   tooltipOnEllipsis,
   tooltipPlacement,
@@ -40,8 +44,9 @@ export const TextEllipsis: React.FC<TextEllipsisProps> = ({
   }
 
   const getTextEllipsisHTML = () => {
-    return (<div
+    return (<span
       className={ classnames(
+        className,
         'tk-text-ellipsis', {
           'tk-text-ellipsis--multiple-rows': rows > 1
         }) }
@@ -51,7 +56,7 @@ export const TextEllipsis: React.FC<TextEllipsisProps> = ({
       {...otherProps}
     >
       { children }
-    </div>)
+    </span>)
   }
 
   if(tooltipOnEllipsis) {
