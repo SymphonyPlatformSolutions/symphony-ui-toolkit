@@ -6,9 +6,6 @@ interface TextEllipsisProps extends Omit<React.HTMLProps<HTMLDivElement>, 'type'
     /** Text that should be ellipsed */
     children?: React.ReactNode;
 
-    /** Optional CSS class name */
-    className?: string;
-  
     /** How many rows the text should span before ellipsing */
     rows?: number;
 

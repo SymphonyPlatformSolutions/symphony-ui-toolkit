@@ -239,7 +239,6 @@ export const Select: React.FC = () => (
     <h2 className="tk-mt-5h">Scroll into view - disabled</h2>
     <p>{"When pressing the dropdown while it's not fully in view, it will not scroll into view"}</p>
     <Dropdown
-      data-testid="RTC_SETTINGS_DROPDOWN__AUDIO"
       options={defaultOptions}
       menuShouldScrollIntoView={false}
     />
