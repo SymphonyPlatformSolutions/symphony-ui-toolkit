@@ -21,6 +21,7 @@ interface TextEllipsisProps extends Omit<React.HTMLProps<HTMLDivElement>, 'type'
 
 export const TextEllipsis: React.FC<TextEllipsisProps> = ({
   children,
+  className,
   rows,
   tooltipOnEllipsis,
   tooltipPlacement,
@@ -40,8 +41,9 @@ export const TextEllipsis: React.FC<TextEllipsisProps> = ({
   }
 
   const getTextEllipsisHTML = () => {
-    return (<div
+    return (<span
       className={ classnames(
+        className,
         'tk-text-ellipsis', {
           'tk-text-ellipsis--multiple-rows': rows > 1
         }) }
@@ -51,7 +53,7 @@ export const TextEllipsis: React.FC<TextEllipsisProps> = ({
       {...otherProps}
     >
       { children }
-    </div>)
+    </span>)
   }
 
   if(tooltipOnEllipsis) {

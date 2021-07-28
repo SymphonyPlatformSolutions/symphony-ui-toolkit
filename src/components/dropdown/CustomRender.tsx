@@ -35,6 +35,7 @@ export const DefaultOptionRenderer = (props: any) => {
     data: props.data,
     inputValue: props.selectProps?.inputValue,
   };
+  
   return isSearchHeaderOption && enableTermSearch ? (
     inputValue && 
       <components.Option {...props}>
@@ -59,11 +60,13 @@ export const DefaultOptionRenderer = (props: any) => {
 // See https://github.com/JedWatson/react-select/discussions/4302
 export const Input = (props: any) => {
   const inputAlwaysDisplayed = props?.selectProps?.inputAlwaysDisplayed;
-  return <components.Input 
-    {...props} onKeyUp={props?.selectProps?.onKeyUp}  
-    isHidden={inputAlwaysDisplayed ? !inputAlwaysDisplayed : false}/>;
+  return <components.Input
+    {...props}
+    onKeyUp={props?.selectProps?.onKeyUp}  
+    isHidden={inputAlwaysDisplayed ? !inputAlwaysDisplayed : false}
+  />;
 }
-export const SingleValue =  ({ children, data, selectProps, ...props }: any) => {
+export const SingleValue = ({ children, data, selectProps, ...props }: any) => {
   const InputRenderer = selectProps?.tagRenderer;
   const inputValue = selectProps?.parentInstance?.searchHeaderOption?.value;
   const rendererProps = { data };
@@ -108,10 +111,18 @@ export const MultiValueContainerOverride = ({ children, ...props }: any) =>
  */
 export const DropdownIndicator = (props: any) => {
   const { isMulti, displayArrowIndicator, menuIsOpen } = props?.selectProps;
-  return !displayArrowIndicator ? null : 
-    (<components.DropdownIndicator {...props}>
-      {!isMulti &&<Icon iconName={menuIsOpen ? 'drop-up' : 'drop-down'} className="tk-select__single-value"/>}
-    </components.DropdownIndicator>);
+
+  return !displayArrowIndicator ?
+    null : 
+    <components.DropdownIndicator
+      {...props}
+      innerProps={{ 'data-testid': props.selectProps['data-testid'] }}
+    >
+      {!isMulti && <Icon
+        className="tk-select__single-value"
+        iconName={ menuIsOpen ? 'drop-up' : 'drop-down' }
+      />}
+    </components.DropdownIndicator>;
 };
 
 export const ClearIndicator = (props: any) =>
