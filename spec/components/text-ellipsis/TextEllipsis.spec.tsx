@@ -14,7 +14,7 @@ describe('TextEllipsis', () => {
       </TextEllipsis>
     )
     const elements = document.querySelectorAll('span')
-    expect(elements.length).toBe(2)
+    expect(elements.length).toBe(3)
   });
 
   it('should not create a tooltip when tooltipOnEllipsis is false', () => {
@@ -24,7 +24,7 @@ describe('TextEllipsis', () => {
       </TextEllipsis>      
     )
     const elements = document.querySelectorAll('span')
-    expect(elements.length).toBe(0)
+    expect(elements.length).toBe(1)
   });
 
   it('should apply tk-text-ellipsis--multiple-rows when number of rows are more than 1', () => {
