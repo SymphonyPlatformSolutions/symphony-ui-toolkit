@@ -42,11 +42,7 @@ export const TextEllipsis: React.FC<TextEllipsisProps> = ({
 
   const getTextEllipsisHTML = () => {
     return (<span
-      className={ classnames(
-        className,
-        'tk-text-ellipsis', {
-          'tk-text-ellipsis--multiple-rows': rows > 1
-        }) }
+      className={ classnames(className, 'tk-text-ellipsis') }
       style={{ WebkitLineClamp: rows}}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
