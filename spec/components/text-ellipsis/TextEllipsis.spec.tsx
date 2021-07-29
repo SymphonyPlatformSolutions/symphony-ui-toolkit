@@ -27,7 +27,18 @@ describe('TextEllipsis', () => {
     expect(elements.length).toBe(1)
   });
 
-  it('should apply tk-text-ellipsis--multiple-rows when number of rows are more than 1', () => {
+  it('should apply -webkit-line-clamp: 1 by default', () => {
+    render(
+      <TextEllipsis>
+        { 'Really, really, really, really, really, long text that gets cut!' }
+      </TextEllipsis>
+    )
+
+    const element = screen.queryByText('Really, really, really, really, really, long text that gets cut!')
+    expect(element.style['WebkitLineClamp']).toBe('1')
+  })
+
+  it('should apply -webkit-line-clamp: 2 when number of rows are 2', () => {
     render(
       <TextEllipsis rows={ 2 }>
         { 'Really, really, really, really, really, long text that gets cut!' }
@@ -35,7 +46,7 @@ describe('TextEllipsis', () => {
     )
 
     const element = screen.queryByText('Really, really, really, really, really, long text that gets cut!')
-    element.classList.contains('tk-text-ellipsis--multiple-rows')
+    expect(element.style['WebkitLineClamp']).toBe('2')
   })
 
 });
