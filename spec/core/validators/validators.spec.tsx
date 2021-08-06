@@ -6,6 +6,12 @@ describe('Input Validators', () => {
     expect(await Validators.Required('a')).toEqual(null);
   });
 
+  it('should validate empty string field correcltly', async () => {
+    expect(await Validators.EmptyString('')).toEqual({ emptyString: true });
+    expect(await Validators.EmptyString(' ')).toEqual({ emptyString: true });
+    expect(await Validators.EmptyString('a')).toEqual(null);
+  });
+
   it('should validate minlength correctly', async () => {
     expect(await Validators.MinLength(3)('a')).toEqual({ minlength: true });
     expect(await Validators.MinLength(3)('abcd')).toEqual(null);
