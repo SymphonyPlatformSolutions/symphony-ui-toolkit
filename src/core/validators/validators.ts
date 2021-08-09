@@ -26,7 +26,7 @@ const Required: ValidatorFn = (value) => {
  * @param value Value to test
  */
 const EmptyString: ValidatorFn = (value) => {
-  if (value === '') {
+  if (value?.trim() === '') {
     return Promise.resolve({ emptyString: true });
   }
   return Promise.resolve(null);
