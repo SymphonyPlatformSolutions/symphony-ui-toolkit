@@ -1,6 +1,7 @@
 .tk-text-ellipsis {
-    display: -webkit-inline-box;
+    display: -webkit-box;
     overflow: hidden;
+    overflow-wrap: break-word;
     text-overflow: ellipsis;
     -webkit-box-orient: vertical;
 }
