@@ -21,6 +21,13 @@ export const TextEllipsis = () => {
                 Really, really, really, really, really, really, long text that gets cut!
             </p>
         </div>
+
+        <li>Long continuous string</li>
+        <div style="background: grey; margin: 16px 0px; padding: 16px; width: 200px">
+            <p class="tk-text-ellipsis tk-text-ellipsis__multiple-rows" style="-webkit-line-clamp: 2">
+                Reallyreallyreallyreallylongcontinuousstringforexamplealink
+            </p>
+        </div>
     
     </div>
     `);
