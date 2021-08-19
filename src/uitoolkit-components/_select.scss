@@ -158,6 +158,16 @@
         &:hover {
           color: $--tk-input-default-active-color;
         }
+        .tk-select__close-icon {
+          border-width: toRem(2);
+          border-radius: 50%;
+          display: inline-flex;
+          padding: toRem(1);
+          &:focus-visible {
+            border: toRem(2) solid $focus-ring-browser-default;
+            outline: none;
+          }
+        }
       }
       &.tk-select__dropdown-indicator {
         color: inherit;
