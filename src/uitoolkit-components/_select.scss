@@ -164,8 +164,7 @@
           display: inline-flex;
           padding: toRem(1);
           &:focus-visible {
-            border: toRem(2) solid $focus-ring-browser-default;
-            outline: none;
+            @include browserOutline();
           }
         }
       }
