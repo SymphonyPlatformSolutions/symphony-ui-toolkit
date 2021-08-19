@@ -43,12 +43,12 @@ export const DefaultOptionRenderer = (props: any) => {
       </components.Option>
   ) : <>
     {OptionRenderer ? 
-      <div className="tk-option">
+      <div className="tk-option" role="option">
         <components.Option {...props}>
           <OptionRenderer {...rendererProps} />
         </components.Option>
       </div>
-      : <div className="tk-option">
+      : <div className="tk-option" role="option">
         <components.Option {...props} className={classNames(classNamePrefix && mode ? `${classNamePrefix}__option--${mode}` : null)}/>
       </div>
     }
