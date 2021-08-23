@@ -17,14 +17,14 @@ export const TextEllipsis = () => {
 
         <li>2 rows</li>
         <div style="background: grey; margin: 16px 0px; padding: 16px; width: 200px">
-            <p class="tk-text-ellipsis tk-text-ellipsis__multiple-rows" style="-webkit-line-clamp: 2">
+            <p class="tk-text-ellipsis" style="-webkit-line-clamp: 2">
                 Really, really, really, really, really, really, long text that gets cut!
             </p>
         </div>
 
         <li>Long continuous string</li>
         <div style="background: grey; margin: 16px 0px; padding: 16px; width: 200px">
-            <p class="tk-text-ellipsis tk-text-ellipsis__multiple-rows" style="-webkit-line-clamp: 2">
+            <p class="tk-text-ellipsis" style="-webkit-line-clamp: 2">
                 Reallyreallyreallyreallylongcontinuousstringforexamplealink
             </p>
         </div>
