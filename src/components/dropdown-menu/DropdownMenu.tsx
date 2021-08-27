@@ -18,14 +18,14 @@ interface DropdownMenuItemProps extends React.HTMLProps<HTMLDivElement> {
 
 export const DropdownMenuDivider: React.FC = () => <div className="tk-dropdown-menu-divider"></div>
 
-export const DropdownMenuItem: React.FC<DropdownMenuItemProps> = ({children, className, onClick}: DropdownMenuItemProps) => {
+export const DropdownMenuItem: React.FC<DropdownMenuItemProps> = ({children, className, onClick, ...rest}: DropdownMenuItemProps) => {
   const classes = classNames(
     'tk-dropdown-menu__item',
     className,
   )
 
   return (
-    <div className={classes} onClick={onClick}>
+    <div {...rest} className={classes} onClick={onClick}>
       {children}
     </div>
   )
