@@ -2,7 +2,7 @@ import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import classnames from 'classnames';
 
-export type IconProps = {
+export interface IconProps extends React.HTMLProps<HTMLElement> {
   /** Required; Designates a specific icon */
   iconName: string;
   /** Optional CSS class name */
@@ -19,7 +19,7 @@ export type IconProps = {
   ) => void;
   /** Keyboard Event */
   onKeyDown?: (event) => any;
-};
+}
 
 const Icon: React.FC<IconProps> = ({
   className,
@@ -30,10 +30,12 @@ const Icon: React.FC<IconProps> = ({
   onKeyDown,
   forwardRef,
   tabIndex,
+  ...rest
 }) => {
   const click = onClick ? onClick : handleClick;
   return (
     <i
+      {...rest}
       className={classnames(`tk-icon-${iconName}`, className)}
       onClick={!disabled ? click : null}
       onKeyDown={!disabled ? onKeyDown : null}
