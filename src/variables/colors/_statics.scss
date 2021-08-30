@@ -100,11 +100,6 @@ $colors: (
   @return map-get($color, $num);
 }
 
-/** Focus ring color browser
-/** This should be removed with:
-/** - APP-4442: Double check focus styles between Elements and C2OPEN  and APP-4441: FE: [NEXUS] Align styles focus on every elementsOPEN */
-$focus-ring-browser-default: #005fcc;
-
 /** ======== Former UIToolkit color palette. ======== */
 /** This will be deprecated, use the SDS color palette. */
 $scolor-electricity-minus-21: #36a6ff;

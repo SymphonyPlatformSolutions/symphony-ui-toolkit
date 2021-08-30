@@ -159,13 +159,10 @@
           color: $--tk-input-default-active-color;
         }
         .tk-select__close-icon {
-          border-width: toRem(2);
-          border-radius: 50%;
-          display: inline-flex;
-          padding: toRem(1);
           &:focus-visible {
-            border: toRem(2) solid $focus-ring-browser-default;
-            outline: none;
+            box-shadow: 0 0 0 toRem(2) var(--tk-color-electricity);
+            border-radius: 50%;
+            outline: 0;
           }
         }
       }
