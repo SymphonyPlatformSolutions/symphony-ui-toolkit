@@ -24,6 +24,9 @@ describe('Tooltip', () => {
   let placement: 'top' | 'bottom' | 'left' | 'right';
   let visible: boolean;
 
+  const testToolTipId = 'testToolTipId';
+  const testTooltipClassname = 'testTooltipClassname';
+
   beforeEach(() => {
     closeLabel = 'Close';
     description = 'Message appears';
@@ -246,6 +249,40 @@ describe('Tooltip', () => {
     });
     userEvent.unhover(screen.getByRole('button', { name: /text hover/i }));
     await waitForElementToBeRemoved(() => screen.getByText(/appears$/i));
+  }
+  );
+
+  it('should have right classname pass by props.classname', async () => {
+    displayTrigger = 'hover';
+    
+    render(
+      <Tooltip
+        closeLabel={closeLabel}
+        description={description}
+        displayTrigger={displayTrigger}
+        id={id}
+        onHintClose={onHintClose}
+        placement="top"
+        hoverDelay={800}
+        data-testid={testToolTipId}
+        className={testTooltipClassname}
+      >
+        <button
+          id="button"
+          onMouseEnter={() => changeElementText('#button', 'text hover')}
+          onMouseLeave={() => changeElementText('#button', 'text unhover')}
+        >
+          Tooltip toggles when I am clicked
+        </button>
+      </Tooltip>
+    );
+
+    userEvent.hover(
+      screen.getByRole('button', { name: /tooltip toggles when I am clicked/i })
+    );
+    await waitFor(() => {
+      expect(screen.getByTestId(testToolTipId).classList.contains(testTooltipClassname)).toBe(true);
+    });
   }
   );
 });

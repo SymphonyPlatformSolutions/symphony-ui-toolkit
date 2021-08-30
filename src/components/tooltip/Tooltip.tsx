@@ -170,7 +170,7 @@ const Tooltip: React.FC<TooltipProps> = ({
             ref={setPopperElement}
             className={classnames(
               type === 'tooltip' ? 'tk-tooltip' : 'tk-hint',
-              { className }
+              className
             )}
             style={styles.popper}
             {...attributes.popper}
