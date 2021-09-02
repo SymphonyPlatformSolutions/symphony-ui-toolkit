@@ -25,6 +25,7 @@ import Validation from './validation';
 import VirtualizedList from './virtualized-list';
 
 /* Let's move into exporting everything with interfaces */
+export * from '../core/hoc/index';
 export * from './avatar';
 export * from './badge';
 export * from './banner';
