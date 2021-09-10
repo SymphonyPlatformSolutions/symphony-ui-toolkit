@@ -2,11 +2,14 @@ import { Validators } from '../../../src/core/validators/validators';
 
 describe('Input Validators', () => {
   it('should validate required field correcltly', async () => {
+    expect(await Validators.Required(null)).toEqual({ required: true });
     expect(await Validators.Required('')).toEqual({ required: true });
+    expect(await Validators.Required('  ')).toEqual({ required: true });
     expect(await Validators.Required('a')).toEqual(null);
   });
 
   it('should validate empty string field correcltly', async () => {
+    expect(await Validators.EmptyString(null)).toEqual({ emptyString: true });
     expect(await Validators.EmptyString('')).toEqual({ emptyString: true });
     expect(await Validators.EmptyString(' ')).toEqual({ emptyString: true });
     expect(await Validators.EmptyString('a')).toEqual(null);
