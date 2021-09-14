@@ -11,34 +11,46 @@
   height: auto;
   width: auto;
   white-space: nowrap;
-
+  margin-top: toRem(8);
+  margin-bottom: toRem(8);
   cursor: pointer;
   &:disabled {
     cursor: not-allowed;
     pointer-events: all;
   }
-
   &:focus {
-    @include addOutline();
+    // @include addOutline();
   }
-
-  @include styleFilledButton($--tk-button-color-primary);
-
   &--primary {
     @include styleFilledButton($--tk-button-color-primary);
+    &--destructive {
+      @include styleFilledButton($--tk-button-color-destructive-primary);
+    }
   }
   &--secondary {
     @include styleOutlinedButton($--tk-button-color-secondary);
+    &--destructive {
+      @include styleOutlinedButton($--tk-button-color-destructive-secondary);
+    }
   }
   &--tertiary {
     @include styleFilledButton($--tk-button-color-tertiary);
-  }
-  &--destructive {
-    @include styleFilledButton($--tk-button-color-destructive);
+    &--destructive {
+      @include styleFilledButton($--tk-button-color-destructive-tertiary);
+    }
+    &--active {
+      @include styleFilledButton($--tk-button-color-active-tertiary);
+    }
   }
   &--icon {
+    padding: 0;
+    width: toRem(32);
+    height: toRem(32);
+     display: inline-block;
     border-radius: 50%;
-    padding: toRem(8);
-    min-width: toRem(32);
+  }
+  &.loading i {
+    font-size: toRem(16);
+    width: toRem(51);
   }
 }

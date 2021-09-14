@@ -86,60 +86,70 @@ $--tk-input-switch-disabled-circle-color: var(
 /** ======== Buttons ======== */
 
 $--tk-button-color-primary: (
-  default: var(--tk-button-color-primary-default, $scolor-electricity),
-  hover: var(--tk-button-color-primary-hover, $scolor-elements-primary-hover),
-  active: var(--tk-button-color-primary-active, $scolor-elements-primary-active),
+  default: var(--tk-button-color-primary-default, getColor($electricity, '50')),
+  hover: var(--tk-button-color-primary-hover, getColor($electricity, '40')),
+  active: var(--tk-button-color-primary-active, getColor($electricity, '60')),
   disabled:
-    var(--tk-button-color-primary-disabled, $scolor-elements-primary-disabled),
+    var(--tk-button-color-primary-disabled, getColor($electricity, '20')),
   text: var(--tk-button-color-primary-text, $scolor-white),
-  textDisabled:
-    var(--tk-button-color-primary-text-disabled, $scolor-graphite-minus-24),
+  textDisabled: var(--tk-button-color-primary-text-disabled, $scolor-white),
 );
 
 $--tk-button-color-secondary: (
-  default: var(--tk-button-color-secondary-default, $scolor-graphite),
-  hover:
-    var(--tk-button-color-secondary-hover, $scolor-elements-secondary-hover),
-  active:
-    var(--tk-button-color-secondary-active, $scolor-elements-secondary-active),
-  disabled:
-    var(
-      --tk-button-color-secondary-disabled,
-      $scolor-elements-secondary-disabled
-    ),
-  text: var(--tk-button-color-secondary-text, $scolor-elements-secondary-active),
+  default: var(--tk-button-color-secondary-default, getColor($graphite, '50')),
+  hover: var(--tk-button-color-secondary-hover, getColor($graphite, '10')),
+  textHover: var(--tk-button-color-secondary-hover, getColor($graphite, '50')),
+  active: var(--tk-button-color-secondary-active, getColor($graphite, '20')),
+  activeText: var(--tk-button-color-secondary-active, getColor($graphite, '60')),
+  text: var(--tk-button-color-secondary-text, getColor($graphite, '50')),
   textDisabled:
-    var(--tk-button-color-secondary-text-disabled, $scolor-graphite-minus-72),
+    var(--tk-button-color-secondary-text-disabled, getColor($graphite, '30')),
 );
 
 $--tk-button-color-tertiary: (
   default: var(--tk-button-color-tertiary-default, transparent),
-  hover: var(--tk-button-color-tertiary-hover, $scolor-elements-tertiary-hover),
-  active:
-    var(--tk-button-color-tertiary-active, $scolor-elements-tertiary-active),
+  hover: var(--tk-button-color-tertiary-hover, getColor($graphite, '10')),
+  active: var(--tk-button-color-tertiary-active, getColor($graphite, '20')),
   disabled: var(--tk-button-color-tertiary-disabled, transparent),
-  text: var(--tk-button-color-tertiary-text, $scolor-graphite),
+  text: var(--tk-button-color-tertiary-text, getColor($graphite, '50')),
   textDisabled:
-    var(--tk-button-color-tertiary-text-disabled, $scolor-graphite-minus-48),
+    var(--tk-button-color-tertiary-text-disabled, getColor($graphite, '20')),
 );
 
-$--tk-button-color-destructive: (
-  default: var(--tk-button-color-destructive-default, $scolor-red),
-  hover:
-    var(--tk-button-color-destructive-hover, $scolor-elements-destructive-hover),
-  active:
-    var(
-      --tk-button-color-destructive-active,
-      $scolor-elements-destructive-active
-    ),
-  disabled:
-    var(
-      --tk-button-color-destructive-disabled,
-      $scolor-elements-destructive-disabled
-    ),
+$--tk-button-color-destructive-primary: (
+  default: var(--tk-button-color-destructive-default, getColor($red, '50')),
+  hover: var(--tk-button-color-destructive-hover, getColor($red, '40')),
+  active: var(--tk-button-color-destructive-active, getColor($red, '60')),
+  disabled: var(--tk-button-color-destructive-disabled, getColor($red, '20')),
   text: var(--tk-button-color-destructive-text, $scolor-white),
+  textDisabled: var(--tk-button-color-destructive-text-disabled, $scolor-white),
+);
+$--tk-button-color-destructive-secondary: (
+  default: var(--tk-button-color-destructive-default, getColor($red, '50')),
+  hover: var(--tk-button-color-destructive-hover, getColor($red, '05')),
+  active: var(--tk-button-color-destructive-active, getColor($red, '20')),
+  disabled: var(--tk-button-color-destructive-disabled, getColor($red, '30')),
+  text: var(--tk-button-color-destructive-text, getColor($red, '50')),
   textDisabled:
-    var(--tk-button-color-destructive-text-disabled, $scolor-graphite-minus-24),
+    var(--tk-button-color-destructive-text-disabled, getColor($red, '30')),
+);
+$--tk-button-color-destructive-tertiary: (
+  default: var(--tk-button-color-destructive-default, transparent),
+  hover: var(--tk-button-color-destructive-hover, getColor($red, '10')),
+  active: var(--tk-button-color-destructive-active, getColor($red, '20')),
+  disabled: var(--tk-button-color-destructive-disabled, transparent),
+  text: var(--tk-button-color-destructive-text, getColor($red, '40')),
+  textDisabled:
+    var(--tk-button-color-destructive-text-disabled, getColor($red, '20')),
+);
+$--tk-button-color-active-tertiary: (
+  default: var(--tk-button-color-active-default, transparent),
+  hover: var(--tk-button-color-active-hover, getColor($electricity, '10')),
+  active: var(--tk-button-color-active-active, getColor($electricity, '20')),
+  disabled: var(--tk-button-color-active-disabled, transparent),
+  text: var(--tk-button-color-active-text, getColor($electricity, '50')),
+  textDisabled:
+    var(--tk-button-color-active-text-disabled, getColor($electricity, '20')),
 );
 
 /** ======== DatePickers ======== */
