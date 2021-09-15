@@ -13,19 +13,47 @@ interface DropdownMenuProps extends React.HTMLProps<HTMLDivElement> {
 interface DropdownMenuItemProps extends React.HTMLProps<HTMLDivElement> {
   children?: React.ReactNode;
   className?: string;
-  onClick?: (event: React.MouseEvent<HTMLElement>) => void;
+  /** To select a certain option in the menu without having to use document.querySelector */
+  forwardRef?: React.RefObject<HTMLDivElement>;
+  onClick?: (event: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) => void;
 }
 
 export const DropdownMenuDivider: React.FC = () => <div className="tk-dropdown-menu-divider"></div>
 
-export const DropdownMenuItem: React.FC<DropdownMenuItemProps> = ({children, className, onClick, ...rest}: DropdownMenuItemProps) => {
+export const DropdownMenuItem: React.FC<DropdownMenuItemProps> = ({children, className, onClick, forwardRef, ...rest}: DropdownMenuItemProps) => {
   const classes = classNames(
     'tk-dropdown-menu__item',
     className,
   )
 
+  const focusNextOption = (current: HTMLDivElement, direction: number) => {
+    const options = (Array.from(current.parentElement.getElementsByClassName('tk-dropdown-menu__item'))) as HTMLDivElement[];
+    let currentOptionPosition = options.indexOf(current);
+    currentOptionPosition = currentOptionPosition > -1 ? currentOptionPosition : 0;
+    const nextElementPosition = (currentOptionPosition + options.length + direction) % options.length;
+
+    options[nextElementPosition].focus();
+  }
+
+  const onKeyDownHandler = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    switch (e.key) {
+    case Keys.ARROW_DOWN :
+      e.stopPropagation();
+      focusNextOption(e.currentTarget, 1);
+      break;
+    case Keys.ARROW_UP:
+      e.stopPropagation();
+      focusNextOption(e.currentTarget, -1);
+      break;
+    case Keys.ENTER:
+      e.stopPropagation();
+      onClick(e);
+      break;
+    }
+  }
+
   return (
-    <div {...rest} className={classes} onClick={onClick}>
+    <div {...rest} className={classes} onClick={onClick} ref={forwardRef} onKeyDown={onKeyDownHandler} tabIndex={-1}>
       {children}
     </div>
   )
@@ -66,5 +94,5 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({children, className, 
       {children}
     </div>
   )
-}
+};
 
