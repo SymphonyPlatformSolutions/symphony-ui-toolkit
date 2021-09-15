@@ -2,16 +2,19 @@ import * as React from 'react';
 import { StyleSheetManager } from 'styled-components';
 import createCache from '@emotion/cache';
 import { CacheProvider } from '@emotion/react';
+import { customAlphabet } from 'nanoid';
 
-interface Props extends React.HTMLProps<HTMLDivElement> {
-    id: string;
+interface Props extends Pick<React.HTMLProps<HTMLDivElement>, 'children'> {
     injectionPoint?: HTMLElement | undefined;
 }
 
 export const StylesInjection = (props: Props) => {
 
+  // @emotion/cache only accept alpha characters
+  const generateUniqueAlphaCharacter = customAlphabet('abcdefghijklmnopqrstuvwxyz', 16);
+
   const emotionCache = createCache({
-    key: props.id,
+    key: generateUniqueAlphaCharacter(),
     container: props.injectionPoint
   });
 
