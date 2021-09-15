@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { useMemo } from 'react';
 import classnames from 'classnames';
-import shortid from 'shortid';
+import { nanoid } from 'nanoid'
 import LabelTooltipDecorator from '../label-tooltip-decorator/LabelTooltipDecorator';
 import {
   LabelTooltipDecoratorProps,
@@ -65,10 +65,10 @@ const InputDecorator: React.FC<InputDecoratorProps> = ({
 
   // Generate unique ID if not provided
   const inputId = useMemo(() => {
-    return child?.props?.id || `tk-input-${shortid.generate()}`;
+    return child?.props?.id || `tk-input-${nanoid()}`;
   }, [child]);
 
-  const tooltipId = useMemo(() => `tk-hint-${shortid.generate()}`, []);
+  const tooltipId = useMemo(() => `tk-hint-${nanoid()}`, []);
 
   const disabled = useMemo(() => {
     return child?.props?.disabled;
