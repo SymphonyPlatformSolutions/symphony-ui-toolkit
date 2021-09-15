@@ -1,14 +1,15 @@
+$tk-btn-size: toRem(32);
 .tk-button {
   font-size: toRem(12);
   display: inline-block;
   border: none;
   border-radius: toRem(28);
-  padding: toRem(8) toRem(16);
+  padding: toRem(0) toRem(16);
   letter-spacing: toRem(0.5);
   text-transform: uppercase;
   text-align: center;
   line-height: toRem(16);
-  height: auto;
+  height: $tk-btn-size;
   width: auto;
   white-space: nowrap;
   margin-top: toRem(8);
@@ -20,6 +21,9 @@
   }
   &:focus {
     // @include addOutline();
+  }
+  i {
+    font-size: toRem(16);
   }
   &--primary {
     @include styleFilledButton($--tk-button-color-primary);
@@ -44,13 +48,28 @@
   }
   &--icon {
     padding: 0;
-    width: toRem(32);
-    height: toRem(32);
-     display: inline-block;
+    width: $tk-btn-size;
+    height: $tk-btn-size;
+    display: inline-block;
     border-radius: 50%;
   }
-  &.loading i {
-    font-size: toRem(16);
-    width: toRem(51);
+  &--small {
+    i {
+      font-size: toRem(12);
+    }
+    $tk-btn-size: toRem(24);
+    height: $tk-btn-size;
+    &.tk-button--icon {
+      height: $tk-btn-size;
+      width: $tk-btn-size;
+    }
+  }
+  &--large {
+    $tk-btn-size: toRem(40);
+    height: $tk-btn-size;
+    &.tk-button--icon {
+      height: $tk-btn-size;
+      width: $tk-btn-size;
+    }
   }
 }
