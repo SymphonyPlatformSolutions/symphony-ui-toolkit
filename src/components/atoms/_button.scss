@@ -14,6 +14,8 @@ $tk-btn-size: toRem(32);
   white-space: nowrap;
   margin-top: toRem(8);
   margin-bottom: toRem(8);
+  margin-right: toRem(2);
+  margin-left: toRem(2);
   cursor: pointer;
   &:disabled {
     cursor: not-allowed;
