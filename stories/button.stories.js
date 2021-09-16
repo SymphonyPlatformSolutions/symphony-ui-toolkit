@@ -117,7 +117,7 @@ export const Variants = () =>`
 <div style="margin: 16px;">
   <h2>Primary</h2>
   <button class="tk-button tk-button--primary">Button</button>
-  <button clbuttoass="tk-button tk-button--primary"><i class="tk-icon-lock"></i> Icon left</button>
+  <button class="tk-button tk-button--primary"><i class="tk-icon-lock"></i> Icon left</button>
   <button class="tk-button tk-button--primary">Icon right <i class="tk-icon-lock"></i></button>
   <button class="tk-button tk-button--primary loading" disabled><i class="animate-spin tk-icon-loading"></i></button>
   <button class="tk-button tk-button--primary tk-button--icon"><i class="tk-icon-video-off"></i></button>

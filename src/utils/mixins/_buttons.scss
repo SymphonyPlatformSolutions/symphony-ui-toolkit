@@ -14,22 +14,14 @@
   &:hover {
     background-color: map-get($colorMap, hover);
     color: map-get($colorMap, hoverText);
-    i {
-      color: map-get($colorMap, hoverText);
-    }
   }
   &:active {
     background-color: map-get($colorMap, active);
-    i {
-      color: map-get($colorMap, activeText);
-    }
+    @include addFontIconColor(map-get($colorMap, activeText));
   }
   &:disabled {
     background-color: map-get($colorMap, disabled);
     @include addFontIconColor(map-get($colorMap, textDisabled));
-    i {
-      color: map-get($colorMap, textDisabled);
-    }
   }
   &.loading {
     width: toRem(79);
@@ -46,18 +38,14 @@
   &:hover {
     background-color: map-get($colorMap, hover);
     color: map-get($colorMap, hoverText);
+    @include addFontIconColor(map-get($colorMap, hoverText));
     @include addBorder(toRem(2), map-get($colorMap, hoverText));
-    i {
-      color: map-get($colorMap, hoverText);
-    }
   }
   &:active {
     background-color: map-get($colorMap, active);
     @include addBorder(toRem(2), map-get($colorMap, activeText));
     color: map-get($colorMap, activeText);
-    i {
-      color: map-get($colorMap, activeText);
-    }
+    @include addFontIconColor(map-get($colorMap, activeText));
   }
   &:disabled {
     background-color: transparent;
