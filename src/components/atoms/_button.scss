@@ -11,21 +11,13 @@ $tk-btn-size: toRem(32);
   height: $tk-btn-size;
   width: auto;
   white-space: nowrap;
-  margin-top: toRem(8);
-  margin-bottom: toRem(8);
-  margin-right: toRem(2);
-  margin-left: toRem(2);
+  margin: toRem(16);
   cursor: pointer;
   &:disabled {
     cursor: not-allowed;
     pointer-events: all;
   }
-  &:focus {
-    // @include addOutline();
-  }
-  i {
-    font-size: toRem(16);
-  }
+  @include addIconSize(16);
   &--primary {
     @include styleFilledButton($--tk-button-color-primary);
     &--destructive {
@@ -55,9 +47,8 @@ $tk-btn-size: toRem(32);
     border-radius: 50%;
   }
   &--small {
-    i {
-      font-size: toRem(12);
-    }
+    margin: toRem(8);
+    @include addIconSize(12);
     $tk-btn-size: toRem(24);
     height: $tk-btn-size;
     &.tk-button--icon {

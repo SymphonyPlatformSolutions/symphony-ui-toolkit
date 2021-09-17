@@ -6,6 +6,12 @@
     color: $fontColor;
   }
 }
+@mixin addIconSize($size) {
+  &,
+  i {
+    color: toRem($size);
+  }
+}
 
 /* Applies color styles to filled buttons, buttons that do not have borders */
 @mixin styleFilledButton($colorMap) {
