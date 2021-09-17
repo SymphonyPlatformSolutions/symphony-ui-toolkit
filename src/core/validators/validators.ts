@@ -15,18 +15,21 @@ export type ValidatorFn = (
  * @param value Value to test
  */
 const Required: ValidatorFn = (value) => {
-  if (!value) {
+  if (!value || (value?.trim?.() === '')) {
     return Promise.resolve({ required: true });
   }
   return Promise.resolve(null);
 };
 
 /**
+ * @deprecated since >2.5.0 version
+ * DEPRECATED - Please use the Required validator instead
  * Checks if a mandatory value isn't empty , returns {emptyString:true} if error, return null if it's not empty
  * @param value Value to test
  */
 const EmptyString: ValidatorFn = (value) => {
-  if (value?.trim() === '') {
+  console.warn('Calling a deprecated validator (EmptyString), please use the Required validator instead');
+  if (!value || value?.trim?.() === '') {
     return Promise.resolve({ emptyString: true });
   }
   return Promise.resolve(null);

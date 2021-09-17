@@ -77,11 +77,11 @@ export const Validations = () => {
       <h2>Single validator</h2>
       <h3>Text Field</h3>
       <p>
-        with <strong>Empty string validator</strong>
+        with <strong>Required validator</strong>
       </p>
       <Validation
         onValidationChanged={logChange}
-        validator={Validators.EmptyString}
+        validator={Validators.Required}
         errorMessage={'This field is mandatory'}
       >
         <TextField
