@@ -33,18 +33,19 @@ const Icon: React.FC<IconProps> = ({
   onKeyPress,
   forwardRef,
   tabIndex,
-  ...rest
+  style,
+  ...otherProps
 }) => {
   const click = onClick ? onClick : handleClick;
   return (
     <i
-      {...rest}
+      {...otherProps}
       className={classnames(`tk-icon-${iconName}`, className)}
       onClick={!disabled ? click : null}
       onKeyDown={!disabled ? onKeyDown : null}
       onKeyPress={!disabled ? onKeyPress : null}
       ref={forwardRef}
-      style={{ cursor: !disabled && click && 'pointer' }}
+      style={{ cursor: !disabled && click && 'pointer', ...style }}
       tabIndex={tabIndex}
     />
   );
@@ -60,6 +61,7 @@ Icon.propTypes = {
   onClick: PropTypes.func,
   onKeyDown: PropTypes.func,
   onKeyPress:PropTypes.func,
+  style: PropTypes.object,
 };
 
 export default Icon;

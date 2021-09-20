@@ -33,6 +33,7 @@ In order to keep consistency between components the following aspects are to be 
 - Using any is not forbidden ... but avoid it as much as you can
 - While defining you component's props, extend existing React.HTMLProps and only specify those you specifically need for your component
 - All components should expose their props interface and should be commented so they're represented correctly by Storybook's docs plugin
+- The component shouldn't affect the styling of child components in ways that are not intended. It's good practice to avoid wrapping elements as much as possible.
 
 ## Documentation
 

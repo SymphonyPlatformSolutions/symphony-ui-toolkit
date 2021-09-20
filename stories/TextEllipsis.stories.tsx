@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {
+  Icon,
   TextEllipsis
 } from '../src/components';
 
@@ -7,11 +8,8 @@ export default {
   title: 'Components/Text Ellipsis',
   component: TextEllipsis,
   argTypes: {
-    tooltipPlacement: {
-      control: {
-        type: 'inline-radio',
-        options: ['top', 'right', 'bottom', 'left'],
-      },
+    tooltipProps: {
+      description: 'See props in Tooltip'
     },
     rows: {
       control: {
@@ -20,6 +18,14 @@ export default {
     },
   },
 };
+
+// eslint-disable-next-line react/display-name
+const addExplanation = (explanation) => (Story) => (
+  <div>
+    <p>{explanation}</p>
+    <Story />
+  </div>
+);
 
 const Template = (args) => {
   return (
@@ -59,16 +65,21 @@ export const EllipseAfterTwoRows = (args) => {
   )
 }
 
-export const TextNotConstrainedByContainer = (args) => {
+export const TooltipNotAffectingStyling = (args) => {
   return (
-    <div style={{ background: 'grey', margin: '16px 0px', padding: '16px', width: '350px'}}>
+    <div style={{ background: 'grey', display: 'flex', margin: '16px 0px', padding: '16px', width: '350px'}}>
       <TextEllipsis
         rows={ 1 }
+        tooltipProps={{
+          wrapperClassName: 'text-ellipsis-tooltip'
+        }}
         {...args}
       >
-        { 'Really, really, really long text that gets cut!' }
+        { 'Icon should be pushed to the right' }
       </TextEllipsis>
+      <Icon iconName="community" style={{ paddingLeft: '8px' }}></Icon>
     </div>
   )
 }
 
+TooltipNotAffectingStyling.decorators = [addExplanation("Use the tooltip prop 'wrapperClassName' to change the styling of the wrapping tooltip element")]
