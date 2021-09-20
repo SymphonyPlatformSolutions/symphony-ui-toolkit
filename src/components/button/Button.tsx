@@ -17,12 +17,8 @@ export type ButtonProps = {
   type?: 'button' | 'reset' | 'submit';
   onClick?: (event: React.MouseEvent<HTMLElement>) => void;
    /** The variant to use*/
-  variant?: 'primary' | 'secondary' | 'tertiary';
-   /** Subvariant for each variant */
-  isDesctruvtive?: boolean;
-  /** Subvariant for destructive */
-  isActive?: boolean;
-  size?: 'large' | 'small';
+  variant?: 'primary' | 'secondary' | 'tertiary' | 'destructive' | 'primary--destructive' | 'secondary--destructive'|'tertiary--destructive' |'tertiary--accent';
+  size?: 'large' | 'small' | 'medium';
 };
 
 export const Button: React.FC<ButtonProps> = ({
@@ -33,15 +29,13 @@ export const Button: React.FC<ButtonProps> = ({
   loading,
   disabled,
   type,
-  isActive,
-  isDesctruvtive,
   size,
   ...rest
 }: ButtonProps) => {
   const classes = classNames(
     className,
     prefix,
-    `${prefix}--${variant}${isDesctruvtive ? '--destructive' : ''}${isActive? '--active': ''}`,
+    `${prefix}--${variant}`,
     iconButton && `${prefix}--icon`,
     `${loading ? 'loading' : ''}`,
     `${size ? `${prefix}--${size}`: '' }`
@@ -66,6 +60,7 @@ Button.defaultProps = {
   loading: false,
   type: 'button',
   variant: 'primary',
+  size: 'medium',
 };
 
 Button.propTypes = {
@@ -75,11 +70,10 @@ Button.propTypes = {
   disabled: PropTypes.bool,
   loading: PropTypes.bool,
   type: PropTypes.oneOf(['button', 'reset', 'submit']),
-  variant: PropTypes.oneOf(['primary', 'secondary', 'tertiary']),
+  variant: PropTypes.oneOf(['primary' , 'secondary' , 'tertiary' , 'destructive' , 'primary--destructive' , 'secondary--destructive','tertiary--destructive' ,'tertiary--accent']),
   onClick: PropTypes.func,
-  isActive: PropTypes.bool,
-  isDesctruvtive: PropTypes.bool,
-  size: PropTypes.oneOf(['small', 'large']),
+  size: PropTypes.oneOf(['small', 'large' , 'medium']),
 }
 Button.displayName = 'Button';
 export default Button;
+ 
