@@ -166,12 +166,12 @@ export const Variants = () =>`
   <button class="tk-button tk-button--tertiary--destructive" disabled>Disabled <i class="tk-icon-lock"></i></button>
 
   <h4>Active</h4>
-  <button class="tk-button tk-button--tertiary--active">Button</button>
-  <button class="tk-button tk-button--tertiary--active"><i class="tk-icon-lock"></i> Icon left</button>
-  <button class="tk-button tk-button--tertiary--active">Icon right <i class="tk-icon-lock"></i></button>
-  <button class="tk-button tk-button--tertiary--active tk-button--icon"><i class="tk-icon-video-off"></i></button>
-  <button class="tk-button tk-button--tertiary--active" disabled>Disabled</button>
-  <button class="tk-button tk-button--tertiary--active" disabled>Disabled <i class="tk-icon-lock"></i></button>
+  <button class="tk-button tk-button--tertiary--accent">Button</button>
+  <button class="tk-button tk-button--tertiary--accent"><i class="tk-icon-lock"></i> Icon left</button>
+  <button class="tk-button tk-button--tertiary--accent">Icon right <i class="tk-icon-lock"></i></button>
+  <button class="tk-button tk-button--tertiary--accent tk-button--icon"><i class="tk-icon-video-off"></i></button>
+  <button class="tk-button tk-button--tertiary--accent" disabled>Disabled</button>
+  <button class="tk-button tk-button--tertiary--accent" disabled>Disabled <i class="tk-icon-lock"></i></button>
 
 </div>
 `

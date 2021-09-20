@@ -30,7 +30,7 @@
     @include addFontIconColor(map-get($colorMap, textDisabled));
   }
   &.loading {
-    width: toRem(79);
+    min-width: toRem(79);
     background-color: map-get($colorMap, default);
     @include addFontIconColor(map-get($colorMap, text));
   }
@@ -60,7 +60,7 @@
     color: map-get($colorMap, textDisabled);
   }
   &.loading {
-    width: toRem(79);
+    min-width: toRem(79);
     background-color: transparent;
     @include addBorder(toRem(2), map-get($colorMap, text));
     @include addFontIconColor(map-get($colorMap, text));

@@ -35,14 +35,17 @@ $tk-btn-size: toRem(32);
     &--destructive {
       @include styleFilledButton($--tk-button-color-destructive-tertiary);
     }
-    &--active {
+    &--accent {
       @include styleFilledButton($--tk-button-color-active-tertiary);
     }
   }
+  &--destructive {
+    @include styleFilledButton($--tk-button-color-destructive-primary);
+  }
   &--icon {
     padding: 0;
-    width: $tk-btn-size;
-    height: $tk-btn-size;
+    min-width: $tk-btn-size;
+    min-height: $tk-btn-size;
     display: inline-block;
     border-radius: 50%;
   }
@@ -52,16 +55,16 @@ $tk-btn-size: toRem(32);
     $tk-btn-size: toRem(24);
     height: $tk-btn-size;
     &.tk-button--icon {
-      height: $tk-btn-size;
-      width: $tk-btn-size;
+      min-height: $tk-btn-size;
+      min-width: $tk-btn-size;
     }
   }
   &--large {
     $tk-btn-size: toRem(40);
     height: $tk-btn-size;
     &.tk-button--icon {
-      height: $tk-btn-size;
-      width: $tk-btn-size;
+      min-height: $tk-btn-size;
+      min-width: $tk-btn-size;
     }
   }
 }
