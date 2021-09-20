@@ -2,6 +2,7 @@ import * as React from 'react';
 import {mount} from 'enzyme';
 import {DropdownMenu, DropdownMenuDivider, DropdownMenuItem} from '../../../src/components';
 import {fireEvent, getByText, render, screen} from '@testing-library/react';
+import userEvent, {specialChars} from '@testing-library/user-event';
 
 describe('DropdownMenu', () => {
   it('should render with the correct classes without crash', () => {
@@ -50,5 +51,36 @@ describe('DropdownMenu', () => {
     fireEvent.click(document.body);
     fireEvent.keyUp(document.body, {key: 'Escape', code: 'Escape'});
     expect(close).toHaveBeenCalled();
+  });
+
+  it('should move focus between options by pressing arrow down/up on the current option', () => {
+    render(
+      <DropdownMenu show={true}>
+        <DropdownMenuItem data-testid={'option_1'}>Option 1</DropdownMenuItem>
+        <DropdownMenuItem data-testid={'option_2'}>Option 2</DropdownMenuItem>
+      </DropdownMenu>
+    )
+
+    userEvent.type(screen.getByTestId('option_1'), specialChars.arrowDown);
+    expect(screen.getByTestId('option_2')).toHaveFocus();
+
+    userEvent.type(screen.getByTestId('option_2'), specialChars.arrowUp);
+    expect(screen.getByTestId('option_1')).toHaveFocus();
+
+    // reaches the end
+    userEvent.type(screen.getByTestId('option_1'), specialChars.arrowUp);
+    expect(screen.getByTestId('option_2')).toHaveFocus();
+  })
+
+  it('should call onClick when pressing enter on an option', () => {
+    const onClick = jest.fn();
+    render(
+      <DropdownMenu show={true}>
+        <DropdownMenuItem data-testid={'option_1'} onClick={onClick}>Option 1</DropdownMenuItem>
+      </DropdownMenu>
+    )
+
+    userEvent.type(screen.getByTestId('option_1'), specialChars.enter);
+    expect(onClick).toHaveBeenCalled();
   })
 })
