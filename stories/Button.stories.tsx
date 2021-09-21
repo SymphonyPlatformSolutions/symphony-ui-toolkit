@@ -37,10 +37,6 @@ export const Variants: React.FC = () => (
       <Button variant="primary" disabled>
         Button
       </Button>
-      <Button variant="primary" disabled>
-        <Icon iconName="lock" className="tk-mr-h"></Icon>
-        Button
-      </Button>
       
     </div>
     <h3>destructive</h3>
@@ -61,11 +57,6 @@ export const Variants: React.FC = () => (
       <Button variant="primary-destructive" disabled>
         Button
       </Button>
-      <Button variant="primary-destructive" disabled>
-        <Icon iconName="lock" className="tk-mr-h"></Icon>
-        Button
-      </Button>
-    
     </div>
 
     <h2>Secondary</h2>
@@ -89,10 +80,6 @@ export const Variants: React.FC = () => (
       <Button variant="secondary" disabled>
         Button
       </Button>
-      <Button variant="secondary" disabled>
-        <Icon iconName="lock" className="tk-mr-h"></Icon>
-        Button
-      </Button>
     
   
     </div>
@@ -114,10 +101,6 @@ export const Variants: React.FC = () => (
       <Button variant="secondary-destructive" disabled>
         Button
       </Button>
-      <Button variant="secondary-destructive" disabled>
-        <Icon iconName="lock" className="tk-mr-h"></Icon>
-        Button
-      </Button>
     </div>
 
     <h2>Tertiary</h2>
@@ -126,10 +109,10 @@ export const Variants: React.FC = () => (
       <Button variant="tertiary">Button</Button>
       <Button variant="tertiary">
         <Icon iconName="lock" className="tk-mr-h"></Icon>
-        Iconf left
+        Icon left
       </Button>
       <Button variant="tertiary">
-        Iconf right
+        Icon right
         <Icon iconName="lock" className="tk-ml-h"></Icon>
       </Button>
       <Button variant="tertiary" loading>
@@ -139,10 +122,6 @@ export const Variants: React.FC = () => (
         <Icon iconName="lock"></Icon>
       </Button>
       <Button variant="tertiary" disabled>
-        Button
-      </Button>
-      <Button variant="tertiary" disabled>
-        <Icon iconName="lock" className="tk-mr-h"></Icon>
         Button
       </Button>
 
@@ -166,10 +145,6 @@ export const Variants: React.FC = () => (
       <Button variant="tertiary-destructive" disabled>
         Button
       </Button>
-      <Button variant="tertiary-destructive" disabled>
-        <Icon iconName="lock" className="tk-mr-h"></Icon>
-        Button
-      </Button>
     </div>
     <h3>active</h3>
     <div style={{ display: 'flex', margin: 16 }}>
@@ -187,10 +162,6 @@ export const Variants: React.FC = () => (
         <Icon iconName="lock"></Icon>
       </Button>
       <Button variant="tertiary-accent" disabled>
-        Button
-      </Button>
-      <Button variant="tertiary-accent" disabled>
-        <Icon iconName="lock" className="tk-mr-h"></Icon>
         Button
       </Button>
     </div>
@@ -219,10 +190,6 @@ export const Sizes: React.FC = () => (
       <Button variant="primary" disabled>
       Button
       </Button>
-      <Button variant="primary" disabled>
-        <Icon iconName="lock" className="tk-mr-h"></Icon>
-      Button
-      </Button>
     </div>
     <div style={{ display: 'flex', margin: 16 }}>
       <Button variant="secondary"> Button</Button>
@@ -243,10 +210,6 @@ export const Sizes: React.FC = () => (
       <Button variant="secondary" disabled>
       Button
       </Button>
-      <Button variant="secondary" disabled>
-        <Icon iconName="lock" className="tk-mr-h"></Icon>
-      Button
-      </Button>
     </div>
     <div style={{ display: 'flex', margin: 16 }}>
       <Button variant="tertiary"> Button</Button>
@@ -265,10 +228,6 @@ export const Sizes: React.FC = () => (
         <Icon iconName="lock"></Icon>
       </Button>
       <Button variant="tertiary" disabled>
-      Button
-      </Button>
-      <Button variant="tertiary" disabled>
-        <Icon iconName="lock" className="tk-mr-h"></Icon>
       Button
       </Button>
     </div>
@@ -292,10 +251,6 @@ export const Sizes: React.FC = () => (
       <Button variant="primary" size="small" disabled>
       Button
       </Button>
-      <Button variant="primary" size="small" disabled>
-        <Icon iconName="lock" className="tk-mr-h"></Icon>
-      Button
-      </Button>
     </div>
     <div style={{ display: 'flex', margin: 16 }}>
       <Button variant="secondary" size="small"> Button</Button>
@@ -316,10 +271,6 @@ export const Sizes: React.FC = () => (
       <Button variant="secondary" size="small" disabled>
       Button
       </Button>
-      <Button variant="secondary" size="small" disabled>
-        <Icon iconName="lock" className="tk-mr-h"></Icon>
-      Button
-      </Button>
     </div>
     <div style={{ display: 'flex', margin: 16 }}>
       <Button variant="tertiary" size="small"> Button</Button>
@@ -338,10 +289,6 @@ export const Sizes: React.FC = () => (
         <Icon iconName="lock"></Icon>
       </Button>
       <Button variant="tertiary" size="small" disabled>
-      Button
-      </Button>
-      <Button variant="tertiary" size="small" disabled>
-        <Icon iconName="lock" className="tk-mr-h"></Icon>
       Button
       </Button>
     </div>
@@ -365,10 +312,6 @@ export const Sizes: React.FC = () => (
       <Button variant="primary" size="large" disabled>
       Button
       </Button>
-      <Button variant="primary" size="large" disabled>
-        <Icon iconName="lock" className="tk-mr-h"></Icon>
-      Button
-      </Button>
     </div>
     <div style={{ display: 'flex', margin: 16 }}>
       <Button variant="secondary" size="large"> Button</Button>
@@ -389,10 +332,6 @@ export const Sizes: React.FC = () => (
       <Button variant="secondary" size="large" disabled>
       Button
       </Button>
-      <Button variant="secondary" size="large" disabled>
-        <Icon iconName="lock" className="tk-mr-h"></Icon>
-      Button
-      </Button>
     </div>
     <div style={{ display: 'flex', margin: 16 }}>
       <Button variant="tertiary" size="large"> Button</Button>
@@ -411,10 +350,6 @@ export const Sizes: React.FC = () => (
         <Icon iconName="lock"></Icon>
       </Button>
       <Button variant="tertiary" size="large" disabled>
-      Button
-      </Button>
-      <Button variant="tertiary" size="large" disabled>
-        <Icon iconName="lock" className="tk-mr-h"></Icon>
       Button
       </Button>
     </div>

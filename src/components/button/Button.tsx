@@ -36,9 +36,9 @@ export const Button: React.FC<ButtonProps> = ({
     className,
     prefix,
     `${prefix}--${variant.replace('-', '--')}`,
-    iconButton && `${prefix}-icon`,
+    iconButton && `${prefix}--icon`,
     `${loading ? 'loading' : ''}`,
-    `${size ? `${prefix}-${size}`: '' }`
+    `${prefix}--${size}`
   );
   return (
     <button
