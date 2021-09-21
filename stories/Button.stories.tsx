@@ -21,18 +21,18 @@ export const Variants: React.FC = () => (
     <div style={{ display: 'flex', margin: 16 }}>
       <Button variant="primary"> Button</Button>
       <Button variant="primary">
-        <Icon iconName="lock" className="tk-mr-h"/>
+        <Icon iconName="video-off" className="tk-mr-h"/>
         Icon left
       </Button>
       <Button variant="primary">
         Icon right 
-        <Icon iconName="lock" className="tk-ml-h"></Icon>
+        <Icon iconName="video-off" className="tk-ml-h"></Icon>
       </Button>
       <Button variant="primary" loading>
         Invisible
       </Button>
       <Button variant="primary" iconButton>
-        <Icon iconName="lock"></Icon>
+        <Icon iconName="video-off"></Icon>
       </Button>
       <Button variant="primary" disabled>
         Button
@@ -43,16 +43,16 @@ export const Variants: React.FC = () => (
     <div style={{ display: 'flex', margin: 16 }}>
       <Button variant="primary-destructive"> Button</Button>
       <Button variant="primary-destructive">
-        <Icon iconName="lock" className="tk-mr-h"/>
+        <Icon iconName="video-off" className="tk-mr-h"/>
         Icon left
       </Button>
       <Button variant="primary-destructive">
         Icon right 
-        <Icon iconName="lock" className="tk-ml-h"></Icon>
+        <Icon iconName="video-off" className="tk-ml-h"></Icon>
       </Button>
    
       <Button variant="primary-destructive" iconButton>
-        <Icon iconName="lock"></Icon>
+        <Icon iconName="video-off"></Icon>
       </Button>
       <Button variant="primary-destructive" disabled>
         Button
@@ -64,18 +64,18 @@ export const Variants: React.FC = () => (
     <div style={{ display: 'flex', margin: 16 }}>
       <Button variant="secondary">Button</Button>
       <Button variant="secondary">
-        <Icon iconName="lock" className="tk-mr-h"></Icon>
+        <Icon iconName="video-off" className="tk-mr-h"></Icon>
         Icon left
       </Button>
       <Button variant="secondary">
         Icon right
-        <Icon iconName="lock" className="tk-ml-h"></Icon>
+        <Icon iconName="video-off" className="tk-ml-h"></Icon>
       </Button>
       <Button variant="secondary" loading>
         Invisible
       </Button>
       <Button variant="secondary" iconButton>
-        <Icon iconName="lock"></Icon>
+        <Icon iconName="video-off"></Icon>
       </Button>
       <Button variant="secondary" disabled>
         Button
@@ -87,16 +87,16 @@ export const Variants: React.FC = () => (
     <div style={{ display: 'flex', margin: 16 }}>
       <Button variant="secondary-destructive"> Button</Button>
       <Button variant="secondary-destructive">
-        <Icon iconName="lock" className="tk-mr-h"/>
+        <Icon iconName="video-off" className="tk-mr-h"/>
         Icon left
       </Button>
       <Button variant="secondary-destructive">
         Icon right 
-        <Icon iconName="lock" className="tk-ml-h"></Icon>
+        <Icon iconName="video-off" className="tk-ml-h"></Icon>
       </Button>
  
       <Button variant="secondary-destructive" iconButton>
-        <Icon iconName="lock"></Icon>
+        <Icon iconName="video-off"></Icon>
       </Button>
       <Button variant="secondary-destructive" disabled>
         Button
@@ -108,18 +108,18 @@ export const Variants: React.FC = () => (
     <div style={{ display: 'flex', margin: 16 }}>
       <Button variant="tertiary">Button</Button>
       <Button variant="tertiary">
-        <Icon iconName="lock" className="tk-mr-h"></Icon>
+        <Icon iconName="video-off" className="tk-mr-h"></Icon>
         Icon left
       </Button>
       <Button variant="tertiary">
         Icon right
-        <Icon iconName="lock" className="tk-ml-h"></Icon>
+        <Icon iconName="video-off" className="tk-ml-h"></Icon>
       </Button>
       <Button variant="tertiary" loading>
         Invisible
       </Button>
       <Button variant="tertiary" iconButton>
-        <Icon iconName="lock"></Icon>
+        <Icon iconName="video-off"></Icon>
       </Button>
       <Button variant="tertiary" disabled>
         Button
@@ -131,16 +131,16 @@ export const Variants: React.FC = () => (
     <div style={{ display: 'flex', margin: 16 }}>
       <Button variant="tertiary-destructive"> Button</Button>
       <Button variant="tertiary-destructive">
-        <Icon iconName="lock" className="tk-mr-h"/>
+        <Icon iconName="video-off" className="tk-mr-h"/>
         Icon left
       </Button>
       <Button variant="tertiary-destructive">
         Icon right 
-        <Icon iconName="lock" className="tk-ml-h"></Icon>
+        <Icon iconName="video-off" className="tk-ml-h"></Icon>
       </Button>
  
       <Button variant="tertiary-destructive" iconButton>
-        <Icon iconName="lock"></Icon>
+        <Icon iconName="video-off"></Icon>
       </Button>
       <Button variant="tertiary-destructive" disabled>
         Button
@@ -150,16 +150,16 @@ export const Variants: React.FC = () => (
     <div style={{ display: 'flex', margin: 16 }}>
       <Button variant="tertiary-accent"> Button</Button>
       <Button variant="tertiary-accent">
-        <Icon iconName="lock" className="tk-mr-h"/>
+        <Icon iconName="video-off" className="tk-mr-h"/>
         Icon left
       </Button>
       <Button variant="tertiary-accent">
         Icon right 
-        <Icon iconName="lock" className="tk-ml-h"></Icon>
+        <Icon iconName="video-off" className="tk-ml-h"></Icon>
       </Button>
  
       <Button variant="tertiary-accent" iconButton>
-        <Icon iconName="lock"></Icon>
+        <Icon iconName="video-off"></Icon>
       </Button>
       <Button variant="tertiary-accent" disabled>
         Button
@@ -174,18 +174,18 @@ export const Sizes: React.FC = () => (
     <div style={{ display: 'flex', margin: 16 }}>
       <Button variant="primary"> Button</Button>
       <Button variant="primary">
-        <Icon iconName="lock" className="tk-mr-h"/>
+        <Icon iconName="video-off" className="tk-mr-h"/>
       Icon left
       </Button>
       <Button variant="primary">
       Icon right 
-        <Icon iconName="lock" className="tk-ml-h"></Icon>
+        <Icon iconName="video-off" className="tk-ml-h"></Icon>
       </Button>
       <Button variant="primary" loading>
       Invisible
       </Button>
       <Button variant="primary" iconButton>
-        <Icon iconName="lock"></Icon>
+        <Icon iconName="video-off"></Icon>
       </Button>
       <Button variant="primary" disabled>
       Button
@@ -194,18 +194,18 @@ export const Sizes: React.FC = () => (
     <div style={{ display: 'flex', margin: 16 }}>
       <Button variant="secondary"> Button</Button>
       <Button variant="secondary">
-        <Icon iconName="lock" className="tk-mr-h"/>
+        <Icon iconName="video-off" className="tk-mr-h"/>
       Icon left
       </Button>
       <Button variant="secondary">
       Icon right 
-        <Icon iconName="lock" className="tk-ml-h"></Icon>
+        <Icon iconName="video-off" className="tk-ml-h"></Icon>
       </Button>
       <Button variant="secondary" loading>
       Invisible
       </Button>
       <Button variant="secondary" iconButton>
-        <Icon iconName="lock"></Icon>
+        <Icon iconName="video-off"></Icon>
       </Button>
       <Button variant="secondary" disabled>
       Button
@@ -214,18 +214,18 @@ export const Sizes: React.FC = () => (
     <div style={{ display: 'flex', margin: 16 }}>
       <Button variant="tertiary"> Button</Button>
       <Button variant="tertiary">
-        <Icon iconName="lock" className="tk-mr-h"/>
+        <Icon iconName="video-off" className="tk-mr-h"/>
       Icon left
       </Button>
       <Button variant="tertiary">
       Icon right 
-        <Icon iconName="lock" className="tk-ml-h"></Icon>
+        <Icon iconName="video-off" className="tk-ml-h"></Icon>
       </Button>
       <Button variant="tertiary" loading>
       Invisible
       </Button>
       <Button variant="tertiary" iconButton>
-        <Icon iconName="lock"></Icon>
+        <Icon iconName="video-off"></Icon>
       </Button>
       <Button variant="tertiary" disabled>
       Button
@@ -235,18 +235,18 @@ export const Sizes: React.FC = () => (
     <div style={{ display: 'flex', margin: 16 }}>
       <Button variant="primary" size="small" > Button</Button>
       <Button variant="primary" size="small">
-        <Icon iconName="lock" className="tk-mr-h"/>
+        <Icon iconName="video-off" className="tk-mr-h"/>
       Icon left
       </Button>
       <Button variant="primary" size="small">
       Icon right 
-        <Icon iconName="lock" className="tk-ml-h"></Icon>
+        <Icon iconName="video-off" className="tk-ml-h"></Icon>
       </Button>
       <Button variant="primary" size="small" loading>
       Invisible
       </Button>
       <Button variant="primary" size="small" iconButton>
-        <Icon iconName="lock"></Icon>
+        <Icon iconName="video-off"></Icon>
       </Button>
       <Button variant="primary" size="small" disabled>
       Button
@@ -255,18 +255,18 @@ export const Sizes: React.FC = () => (
     <div style={{ display: 'flex', margin: 16 }}>
       <Button variant="secondary" size="small"> Button</Button>
       <Button variant="secondary" size="small">
-        <Icon iconName="lock" className="tk-mr-h"/>
+        <Icon iconName="video-off" className="tk-mr-h"/>
       Icon left
       </Button>
       <Button variant="secondary" size="small">
       Icon right 
-        <Icon iconName="lock" className="tk-ml-h"></Icon>
+        <Icon iconName="video-off" className="tk-ml-h"></Icon>
       </Button>
       <Button variant="secondary" size="small" loading>
       Invisible
       </Button>
       <Button variant="secondary" size="small" iconButton>
-        <Icon iconName="lock"></Icon>
+        <Icon iconName="video-off"></Icon>
       </Button>
       <Button variant="secondary" size="small" disabled>
       Button
@@ -275,18 +275,18 @@ export const Sizes: React.FC = () => (
     <div style={{ display: 'flex', margin: 16 }}>
       <Button variant="tertiary" size="small"> Button</Button>
       <Button variant="tertiary" size="small">
-        <Icon iconName="lock" className="tk-mr-h"/>
+        <Icon iconName="video-off" className="tk-mr-h"/>
       Icon left
       </Button>
       <Button variant="tertiary" size="small">
       Icon right 
-        <Icon iconName="lock" className="tk-ml-h"></Icon>
+        <Icon iconName="video-off" className="tk-ml-h"></Icon>
       </Button>
       <Button variant="tertiary" size="small" loading>
       Invisible
       </Button>
       <Button variant="tertiary" size="small" iconButton>
-        <Icon iconName="lock"></Icon>
+        <Icon iconName="video-off"></Icon>
       </Button>
       <Button variant="tertiary" size="small" disabled>
       Button
@@ -296,18 +296,18 @@ export const Sizes: React.FC = () => (
     <div style={{ display: 'flex', margin: 16 }}>
       <Button variant="primary" size="large"> Button</Button>
       <Button variant="primary" size="large" >
-        <Icon iconName="lock" className="tk-mr-h"/>
+        <Icon iconName="video-off" className="tk-mr-h"/>
       Icon left
       </Button>
       <Button variant="primary" size="large"> 
       Icon right 
-        <Icon iconName="lock" className="tk-ml-h"></Icon>
+        <Icon iconName="video-off" className="tk-ml-h"></Icon>
       </Button>
       <Button variant="primary" size="large" loading>
       Invisible
       </Button>
       <Button variant="primary" size="large" iconButton>
-        <Icon iconName="lock"></Icon>
+        <Icon iconName="video-off"></Icon>
       </Button>
       <Button variant="primary" size="large" disabled>
       Button
@@ -316,18 +316,18 @@ export const Sizes: React.FC = () => (
     <div style={{ display: 'flex', margin: 16 }}>
       <Button variant="secondary" size="large"> Button</Button>
       <Button variant="secondary">
-        <Icon iconName="lock" className="tk-mr-h"/>
+        <Icon iconName="video-off" className="tk-mr-h"/>
       Icon left
       </Button>
       <Button variant="secondary" size="large">
       Icon right 
-        <Icon iconName="lock" className="tk-ml-h"></Icon>
+        <Icon iconName="video-off" className="tk-ml-h"></Icon>
       </Button>
       <Button variant="secondary" size="large" loading>
       Invisible
       </Button>
       <Button variant="secondary" size="large" iconButton>
-        <Icon iconName="lock"></Icon>
+        <Icon iconName="video-off"></Icon>
       </Button>
       <Button variant="secondary" size="large" disabled>
       Button
@@ -336,18 +336,18 @@ export const Sizes: React.FC = () => (
     <div style={{ display: 'flex', margin: 16 }}>
       <Button variant="tertiary" size="large"> Button</Button>
       <Button variant="tertiary" size="large">
-        <Icon iconName="lock" className="tk-mr-h"/>
+        <Icon iconName="video-off" className="tk-mr-h"/>
       Icon left
       </Button>
       <Button variant="tertiary" size="large">
       Icon right 
-        <Icon iconName="lock" className="tk-ml-h"></Icon>
+        <Icon iconName="video-off" className="tk-ml-h"></Icon>
       </Button>
       <Button variant="tertiary" size="large" loading>
       Invisible
       </Button>
       <Button variant="tertiary" size="large" iconButton>
-        <Icon iconName="lock"></Icon>
+        <Icon iconName="video-off"></Icon>
       </Button>
       <Button variant="tertiary" size="large" disabled>
       Button

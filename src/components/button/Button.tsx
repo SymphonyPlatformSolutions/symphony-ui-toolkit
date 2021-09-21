@@ -40,6 +40,9 @@ export const Button: React.FC<ButtonProps> = ({
     `${loading ? 'loading' : ''}`,
     `${prefix}--${size}`
   );
+  if(variant==='destructive') {
+    console.warn('The button variant: \'destructive\' will be deprecated.\n Please use: \'primary-destructive\', \'secondary-destructive\' or \'tertiary-destructive\' instead')
+  }
   return (
     <button
       className={classes}
