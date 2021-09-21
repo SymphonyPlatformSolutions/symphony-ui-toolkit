@@ -11,7 +11,7 @@ $tk-btn-size: toRem(32);
   height: $tk-btn-size;
   width: auto;
   white-space: nowrap;
-  margin: toRem(16);
+  margin: toRem(8);
   cursor: pointer;
   &:disabled {
     cursor: not-allowed;
@@ -50,7 +50,7 @@ $tk-btn-size: toRem(32);
     border-radius: 50%;
   }
   &--small {
-    margin: toRem(8);
+    margin: toRem(4);
     @include addIconSize(12);
     $tk-btn-size: toRem(24);
     height: $tk-btn-size;
