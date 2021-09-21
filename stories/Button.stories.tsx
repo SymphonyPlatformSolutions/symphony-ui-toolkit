@@ -45,23 +45,23 @@ export const Variants: React.FC = () => (
     </div>
     <h3>destructive</h3>
     <div style={{ display: 'flex', margin: 16 }}>
-      <Button variant="primary--destructive"> Button</Button>
-      <Button variant="primary--destructive">
+      <Button variant="primary-destructive"> Button</Button>
+      <Button variant="primary-destructive">
         <Icon iconName="lock" className="tk-mr-h"/>
         Icon left
       </Button>
-      <Button variant="primary--destructive">
+      <Button variant="primary-destructive">
         Icon right 
         <Icon iconName="lock" className="tk-ml-h"></Icon>
       </Button>
    
-      <Button variant="primary--destructive" iconButton>
+      <Button variant="primary-destructive" iconButton>
         <Icon iconName="lock"></Icon>
       </Button>
-      <Button variant="primary--destructive" disabled>
+      <Button variant="primary-destructive" disabled>
         Button
       </Button>
-      <Button variant="primary--destructive" disabled>
+      <Button variant="primary-destructive" disabled>
         <Icon iconName="lock" className="tk-mr-h"></Icon>
         Button
       </Button>
@@ -98,23 +98,23 @@ export const Variants: React.FC = () => (
     </div>
     <h3>destructive</h3>
     <div style={{ display: 'flex', margin: 16 }}>
-      <Button variant="secondary--destructive"> Button</Button>
-      <Button variant="secondary--destructive">
+      <Button variant="secondary-destructive"> Button</Button>
+      <Button variant="secondary-destructive">
         <Icon iconName="lock" className="tk-mr-h"/>
         Icon left
       </Button>
-      <Button variant="secondary--destructive">
+      <Button variant="secondary-destructive">
         Icon right 
         <Icon iconName="lock" className="tk-ml-h"></Icon>
       </Button>
  
-      <Button variant="secondary--destructive" iconButton>
+      <Button variant="secondary-destructive" iconButton>
         <Icon iconName="lock"></Icon>
       </Button>
-      <Button variant="secondary--destructive" disabled>
+      <Button variant="secondary-destructive" disabled>
         Button
       </Button>
-      <Button variant="secondary--destructive" disabled>
+      <Button variant="secondary-destructive" disabled>
         <Icon iconName="lock" className="tk-mr-h"></Icon>
         Button
       </Button>
@@ -150,46 +150,46 @@ export const Variants: React.FC = () => (
 
     <h3>destructive</h3>
     <div style={{ display: 'flex', margin: 16 }}>
-      <Button variant="tertiary--destructive"> Button</Button>
-      <Button variant="tertiary--destructive">
+      <Button variant="tertiary-destructive"> Button</Button>
+      <Button variant="tertiary-destructive">
         <Icon iconName="lock" className="tk-mr-h"/>
         Icon left
       </Button>
-      <Button variant="tertiary--destructive">
+      <Button variant="tertiary-destructive">
         Icon right 
         <Icon iconName="lock" className="tk-ml-h"></Icon>
       </Button>
  
-      <Button variant="tertiary--destructive" iconButton>
+      <Button variant="tertiary-destructive" iconButton>
         <Icon iconName="lock"></Icon>
       </Button>
-      <Button variant="tertiary--destructive" disabled>
+      <Button variant="tertiary-destructive" disabled>
         Button
       </Button>
-      <Button variant="tertiary--destructive" disabled>
+      <Button variant="tertiary-destructive" disabled>
         <Icon iconName="lock" className="tk-mr-h"></Icon>
         Button
       </Button>
     </div>
     <h3>active</h3>
     <div style={{ display: 'flex', margin: 16 }}>
-      <Button variant="tertiary--accent"> Button</Button>
-      <Button variant="tertiary--accent">
+      <Button variant="tertiary-accent"> Button</Button>
+      <Button variant="tertiary-accent">
         <Icon iconName="lock" className="tk-mr-h"/>
         Icon left
       </Button>
-      <Button variant="tertiary--accent">
+      <Button variant="tertiary-accent">
         Icon right 
         <Icon iconName="lock" className="tk-ml-h"></Icon>
       </Button>
  
-      <Button variant="tertiary--accent" iconButton>
+      <Button variant="tertiary-accent" iconButton>
         <Icon iconName="lock"></Icon>
       </Button>
-      <Button variant="tertiary--accent" disabled>
+      <Button variant="tertiary-accent" disabled>
         Button
       </Button>
-      <Button variant="tertiary--accent" disabled>
+      <Button variant="tertiary-accent" disabled>
         <Icon iconName="lock" className="tk-mr-h"></Icon>
         Button
       </Button>

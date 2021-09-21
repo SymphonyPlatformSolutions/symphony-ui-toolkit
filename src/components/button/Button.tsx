@@ -17,7 +17,7 @@ export type ButtonProps = {
   type?: 'button' | 'reset' | 'submit';
   onClick?: (event: React.MouseEvent<HTMLElement>) => void;
    /** The variant to use*/
-  variant?: 'primary' | 'secondary' | 'tertiary' | 'destructive' | 'primary--destructive' | 'secondary--destructive'|'tertiary--destructive' |'tertiary--accent';
+  variant?: 'primary' | 'secondary' | 'tertiary' | 'destructive' | 'primary-destructive' | 'secondary-destructive'|'tertiary-destructive' |'tertiary-accent';
   size?: 'large' | 'small' | 'medium';
 };
 
@@ -35,10 +35,10 @@ export const Button: React.FC<ButtonProps> = ({
   const classes = classNames(
     className,
     prefix,
-    `${prefix}--${variant}`,
-    iconButton && `${prefix}--icon`,
+    `${prefix}--${variant.replace('-', '--')}`,
+    iconButton && `${prefix}-icon`,
     `${loading ? 'loading' : ''}`,
-    `${size ? `${prefix}--${size}`: '' }`
+    `${size ? `${prefix}-${size}`: '' }`
   );
   return (
     <button
@@ -70,10 +70,9 @@ Button.propTypes = {
   disabled: PropTypes.bool,
   loading: PropTypes.bool,
   type: PropTypes.oneOf(['button', 'reset', 'submit']),
-  variant: PropTypes.oneOf(['primary' , 'secondary' , 'tertiary' , 'destructive' , 'primary--destructive' , 'secondary--destructive','tertiary--destructive' ,'tertiary--accent']),
+  variant: PropTypes.oneOf(['primary' , 'secondary' , 'tertiary' , 'destructive' , 'primary-destructive' , 'secondary-destructive','tertiary-destructive' ,'tertiary-accent']),
   onClick: PropTypes.func,
   size: PropTypes.oneOf(['small', 'large' , 'medium']),
 }
 Button.displayName = 'Button';
 export default Button;
- 
