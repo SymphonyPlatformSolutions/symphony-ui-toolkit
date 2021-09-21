@@ -8,23 +8,21 @@ import { TextEllipsis } from '../../../src/components';
 describe('TextEllipsis', () => {
 
   it('should create a tooltip when tooltipOnEllipsis is true', () => {
-    render(
+    const { container } = render(
       <TextEllipsis rows={ 1 }>
         { 'Really, really, really, really, really, long text that gets cut!' }
       </TextEllipsis>
     )
-    const elements = document.querySelectorAll('span')
-    expect(elements.length).toBe(3)
+    expect(container.querySelector('.tk-tooltip__wrapper')).toBeDefined()
   });
 
   it('should not create a tooltip when tooltipOnEllipsis is false', () => {
-    render(
+    const { container } = render(
       <TextEllipsis tooltipOnEllipsis={false}>
         { 'Really, really, really, really, really, long text that gets cut!' }
       </TextEllipsis>      
     )
-    const elements = document.querySelectorAll('span')
-    expect(elements.length).toBe(1)
+    expect(container.querySelector('.tk-tooltip__wrapper')).toBeNull();
   });
 
   it('should apply -webkit-line-clamp: 1 by default', () => {

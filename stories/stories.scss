@@ -35,3 +35,8 @@ html {
 .w-5 {
   width: 5%;
 }
+
+.text-ellipsis-tooltip {
+  display: -webkit-box;
+  width: -webkit-fill-available;
+}

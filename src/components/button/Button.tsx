@@ -9,6 +9,7 @@ export type ButtonProps = {
   iconButton?: boolean;
    /** Content of the button*/
   children?: React.ReactNode;
+  /** Optional CSS class name */
   className?: string;
   disabled?: boolean;
   /** If true, substitutes the button content by an animated loader */
