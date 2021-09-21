@@ -41,7 +41,7 @@ export const Button: React.FC<ButtonProps> = ({
     `${prefix}--${size}`
   );
   if(variant==='destructive') {
-    console.warn('The button variant: \'destructive\' will be deprecated.\n Please use: \'primary-destructive\', \'secondary-destructive\' or \'tertiary-destructive\' instead')
+    console.warn('The button variant: \'destructive\' will be deprecated.\n Please use: \'primary-destructive\' instead')
   }
   return (
     <button
