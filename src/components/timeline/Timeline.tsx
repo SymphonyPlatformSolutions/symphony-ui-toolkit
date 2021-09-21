@@ -24,7 +24,7 @@ const Timeline = <T,>({
         return (
           <div
             className={classNames(buildClass('item'), {
-              [buildClass('item-expandable')]: !!itemBody,
+              [buildClass('item--expandable')]: !!itemBody,
             })}
             onClick={itemBody ? () => onCollapseChange(item.time) : undefined}
             key={item.time}
