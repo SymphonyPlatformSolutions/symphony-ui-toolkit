@@ -15,4 +15,8 @@
   text-align: center;
   width: fit-content;
   z-index: $z-index-tooltip;
+  
+  &__wrapper {
+    display: inline-block;
+  }
 }
