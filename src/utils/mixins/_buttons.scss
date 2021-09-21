@@ -9,7 +9,7 @@
 @mixin addIconSize($size) {
   &,
   i {
-    color: toRem($size);
+    font-size: toRem($size);
   }
 }
 
