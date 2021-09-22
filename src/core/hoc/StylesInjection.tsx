@@ -2,7 +2,6 @@ import * as React from 'react';
 import { StyleSheetManager } from 'styled-components';
 import createCache from '@emotion/cache';
 import { CacheProvider } from '@emotion/react';
-import shortid from 'shortid';
 
 interface Props extends Pick<React.HTMLProps<HTMLDivElement>, 'children'> {
   injectionPoint?: HTMLElement | undefined;
@@ -11,10 +10,12 @@ interface Props extends Pick<React.HTMLProps<HTMLDivElement>, 'children'> {
 export const StylesInjection = (props: Props) => {
 
   // @emotion/cache only accept alpha characters
-  shortid.characters('abcdefghijklmnopqrstuvwxyz');
+  // Don't use shortid because it doesn't support less than 64 unique characters (See https://github.com/dylang/shortid#shortidcharactersstring)
+  // Later we will use nanoid
+  const uniqueAlphaCharacterId = Math.random().toString(36).replace(/[^a-z]+/g, '').substring(0, 10);
 
   const emotionCache = createCache({
-    key: shortid.generate(),
+    key: uniqueAlphaCharacterId,
     container: props.injectionPoint
   });
 
