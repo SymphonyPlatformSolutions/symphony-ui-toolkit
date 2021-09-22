@@ -5,7 +5,6 @@
   &.tk-drawer--relative-to-parent {
     position: absolute;
   }
-
   top: 0;
   left: 0;
   width: 100%;
@@ -22,41 +21,36 @@
   &--relative-to-parent {
     position: absolute;
   }
-
   top: 0;
   height: -webkit-fill-available;
   transition: transform 0.5s ease;
   z-index: $z-index-drawer;
-
   display: flex;
   flex-direction: column;
-  @extend .tk-p-2;
-
   background-color: $--tk-drawer-background-color;
+  @extend .tk-p-2;
 
   &--right {
     right: 0;
     border-left: 1px solid $--tk-drawer-border;
+    .tk-drawer-hidden {
+      -webkit-transform: translateX(100%);
+      transform: translateX(100%);
+    }
   }
 
   &--left {
     left: 0;
     border-right: 1px solid $--tk-drawer-border;
+    .tk-drawer-hidden {
+      -webkit-transform: translateX(-100%);
+      transform: translateX(-100%);
+    }
   }
 
   &-visible {
     -webkit-transform: translateX(0);
     transform: translateX(0);
-  }
-
-  &--right.tk-drawer-hidden {
-    -webkit-transform: translateX(100%);
-    transform: translateX(100%);
-  }
-
-  &--left.tk-drawer-hidden {
-    -webkit-transform: translateX(-100%);
-    transform: translateX(-100%);
   }
 
   &__close {
