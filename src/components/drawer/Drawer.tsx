@@ -22,35 +22,19 @@ type DrawerContentProps = {
 const prefix = 'tk-drawer';
 const buildClass = (classStr: string) => `${prefix}__${classStr}`;
 
-export const DrawerTitle: React.FC<DrawerContentProps> = ({
+const componentFactory =  ({
   className,
   children,
   ...rest
-}: DrawerContentProps) => (
-  <div className={classNames(buildClass('title'), className)} {...rest}>
+}: DrawerContentProps, name: string) => (
+  <div className={classNames(buildClass(name), className)} {...rest}>
     {children}
   </div>
 );
 
-export const DrawerBody: React.FC<DrawerContentProps> = ({
-  className,
-  children,
-  ...rest
-}: DrawerContentProps) => (
-  <div className={classNames(buildClass('body'), className)} {...rest}>
-    {children}
-  </div>
-);
-
-export const DrawerFooter: React.FC<DrawerContentProps> = ({
-  className,
-  children,
-  ...rest
-}: DrawerContentProps) => (
-  <div className={classNames(buildClass('footer'), className)} {...rest}>
-    {children}
-  </div>
-);
+export const DrawerTitle: React.FC<DrawerContentProps> = (props: DrawerContentProps) => componentFactory(props, 'title');
+export const DrawerBody: React.FC<DrawerContentProps> = (props: DrawerContentProps) => componentFactory(props, 'body');
+export const DrawerFooter: React.FC<DrawerContentProps> = (props: DrawerContentProps) => componentFactory(props, 'footer');
 
 const Drawer: React.FC<DrawerProps> = ({
   width = 350,
