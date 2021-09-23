@@ -19,6 +19,8 @@ export type ButtonProps = {
    /** The variant to use*/
   variant?: 'primary' | 'secondary' | 'tertiary' | 'destructive' | 'primary-destructive' | 'secondary-destructive'|'tertiary-destructive' |'tertiary-accent';
   size?: 'large' | 'small' | 'medium';
+  /** Icon position: right or left*/
+  iconPos?: 'right' | 'left';
 };
 
 export const Button: React.FC<ButtonProps> = ({
@@ -30,6 +32,7 @@ export const Button: React.FC<ButtonProps> = ({
   disabled,
   type,
   size,
+  iconPos,
   ...rest
 }: ButtonProps) => {
   const classes = classNames(
@@ -37,6 +40,7 @@ export const Button: React.FC<ButtonProps> = ({
     prefix,
     `${prefix}--${variant.replace('-', '--')}`,
     iconButton && `${prefix}--icon`,
+    iconPos && `${prefix}--icon-${iconPos}`,
     `${loading ? 'loading' : ''}`,
     `${prefix}--${size}`
   );
@@ -76,6 +80,7 @@ Button.propTypes = {
   variant: PropTypes.oneOf(['primary' , 'secondary' , 'tertiary' , 'destructive' , 'primary-destructive' , 'secondary-destructive','tertiary-destructive' ,'tertiary-accent']),
   onClick: PropTypes.func,
   size: PropTypes.oneOf(['small', 'large' , 'medium']),
+  iconPos: PropTypes.oneOf(['right', 'left']),
 }
 Button.displayName = 'Button';
 export default Button;
