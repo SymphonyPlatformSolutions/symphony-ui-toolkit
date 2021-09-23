@@ -17,7 +17,7 @@ const Template = (args) => {
 };
 
 export const Main = Template.bind({});
-Main.args = { show: true, relativeTo: 'parent' };
+Main.args = { show: true, relativeToWindow: false };
 
 const makeTitle = (text) => (<h4 style={{ margin: '0' }}>{text}</h4>);
 
@@ -41,7 +41,7 @@ const footer = (
 
 export const RightDrawer: React.FC = () => {
   return (
-    <Drawer width={350} position={'right'} relativeTo="parent" closeButton show>
+    <Drawer width={350} position={'right'} closeButton show>
       <DrawerTitle>{makeTitle('Drawer placed on the right')}</DrawerTitle>
       <DrawerBody>{body}</DrawerBody>
       <DrawerFooter>{footer}</DrawerFooter>
@@ -51,7 +51,7 @@ export const RightDrawer: React.FC = () => {
 
 export const OverflowingDrawer: React.FC = () => {
   return (
-    <Drawer width={350} position={'right'} relativeTo="parent" closeButton show>
+    <Drawer width={350} position={'right'} closeButton show>
       <DrawerTitle>{makeTitle('Drawer with overflowing body')}</DrawerTitle>
       <DrawerBody>{body}{body}{body}</DrawerBody>
       <DrawerFooter>{footer}</DrawerFooter>
@@ -61,7 +61,7 @@ export const OverflowingDrawer: React.FC = () => {
 
 export const DrawerWithoutHeader: React.FC = () => {
   return (
-    <Drawer width={350} position={'right'} relativeTo="parent" closeButton show>
+    <Drawer width={350} position={'right'} closeButton show>
       <DrawerBody><div>Drawer without header</div>{body}</DrawerBody>
       <DrawerFooter>{footer}</DrawerFooter>
     </Drawer>
@@ -70,7 +70,7 @@ export const DrawerWithoutHeader: React.FC = () => {
 
 export const LeftDrawer: React.FC = () => {
   return (
-    <Drawer width={350} position={'left'} relativeTo="parent" closeButton show>
+    <Drawer width={350} position={'left'} closeButton show>
       <DrawerTitle>{makeTitle('Drawer placed on the left')}</DrawerTitle>
       <DrawerBody>{body}</DrawerBody>
       <DrawerFooter>{footer}</DrawerFooter>
@@ -80,7 +80,7 @@ export const LeftDrawer: React.FC = () => {
 
 export const CustomCssClassDrawer: React.FC = () => {
   return (
-    <Drawer width={350} position={'right'} relativeTo="parent" className={'myDrawerClass'} closeButton show>
+    <Drawer width={350} position={'right'} className={'myDrawerClass'} closeButton show>
       <DrawerTitle className={'myDrawerTitleClass'}>{makeTitle('Drawer with additional custom CSS classes')}</DrawerTitle>
       <DrawerBody className={'myDrawerBodyClass'}>{body}</DrawerBody>
       <DrawerFooter className={'myDrawerFooterClass'}>{footer}</DrawerFooter>
@@ -96,7 +96,7 @@ export const DrawerWithCloseHandler: React.FC = () => {
       <div style={{ marginLeft: '10px' }}>
         <Button onClick={() => setShow(!show)}>{show ? 'Close' : 'Open'} the Drawer</Button>
       </div>
-      <Drawer width={350} position="right" relativeTo="parent" closeButton show={show} onClose={handleClose}>
+      <Drawer width={350} position="right" closeButton show={show} onClose={handleClose}>
         <DrawerTitle>{makeTitle('Right drawer with onClose prop')}</DrawerTitle>
         <DrawerBody>{body}</DrawerBody>
         <DrawerFooter>
@@ -116,7 +116,7 @@ export const LeftDrawerWithCloseHandler: React.FC = () => {
       <div style={{ float: 'right', marginRight: '10px' }}>
         <Button onClick={() => setShow(!show)}>{show ? 'Close' : 'Open'} the Drawer</Button>
       </div>
-      <Drawer width={350} position="left" relativeTo="parent" closeButton show={show} onClose={handleClose}>
+      <Drawer width={350} position="left" closeButton show={show} onClose={handleClose}>
         <DrawerTitle>{makeTitle('Left drawer with onClose prop')}</DrawerTitle>
         <DrawerBody>{body}</DrawerBody>
         <DrawerFooter>
@@ -137,7 +137,7 @@ export const DrawerWithCloseHandlerAndBackdrop: React.FC = () => {
       <div style={{ marginLeft: '10px' }}>
         <Button onClick={() => setShow(!show)}>{show ? 'Close' : 'Open'} the Drawer</Button>
       </div>
-      <Drawer width={350} position="right" relativeTo="parent" hasBackdrop closeButton show={show} onClose={handleClose}>
+      <Drawer width={350} position="right" hasBackdrop closeButton show={show} onClose={handleClose}>
         <DrawerTitle>{makeTitle('Drawer with onClose prop and backdrop')}</DrawerTitle>
         <DrawerBody>{body}</DrawerBody>
         <DrawerFooter>

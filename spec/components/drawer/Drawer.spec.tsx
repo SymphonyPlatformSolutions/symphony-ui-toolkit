@@ -36,7 +36,6 @@ describe('Drawer', () => {
     expect(drawer).toBeDefined();
     expect(drawer.classList).toContain('tk-drawer');
     expect(drawer.classList).toContain('tk-drawer--right');
-    expect(drawer.classList).toContain('tk-drawer-visible');
 
     // DrawerTitle
     const title = getByText(titleText);
@@ -62,7 +61,7 @@ describe('Drawer', () => {
     const bodyText = 'Text in body';
     const footerText = 'Text in footer';
     render(
-      <Drawer width={50} position="left" relativeTo="parent" show>
+      <Drawer width={50} position="left" relativeToWindow={true} show>
         <DrawerTitle>{titleText}</DrawerTitle>
         <DrawerBody>{bodyText}</DrawerBody>
         <DrawerFooter>{footerText}</DrawerFooter>
@@ -80,7 +79,6 @@ describe('Drawer', () => {
     expect(drawer).toBeDefined();
     expect(drawer.classList).toContain('tk-drawer');
     expect(drawer.classList).toContain('tk-drawer--left');
-    expect(drawer.classList).toContain('tk-drawer-visible');
   });
 
   it('should render nothing when hidden', () => {

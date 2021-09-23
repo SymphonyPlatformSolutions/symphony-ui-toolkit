@@ -5,7 +5,7 @@ import Icon from '../icon';
 type DrawerProps = {
   width?: number;
   position?: 'right' | 'left';
-  relativeTo?: 'parent' | 'window';
+  relativeToWindow?: boolean;
   className?: string;
   children?: React.ReactNode;
   closeButton?: boolean;
@@ -39,7 +39,7 @@ export const DrawerFooter: React.FC<DrawerContentProps> = (props: DrawerContentP
 const Drawer: React.FC<DrawerProps> = ({
   width = 350,
   position = 'right',
-  relativeTo = 'window',
+  relativeToWindow = false,
   className,
   children,
   closeButton = true,
@@ -51,11 +51,10 @@ const Drawer: React.FC<DrawerProps> = ({
   const minWidth = 200;
   const positionClasses = classNames({
     [`${prefix}--${position}`]: position,
-    [`${prefix}-visible`]: show,
     [`${prefix}-hidden`]: !show,
   });
   const relativeToClasses = classNames({
-    [`${prefix}--relative-to-${relativeTo}`]: relativeTo,
+    [`${prefix}--relative-to-window`]: relativeToWindow,
   });
 
   const handleContentClick = (event: React.MouseEvent<HTMLElement>) =>
