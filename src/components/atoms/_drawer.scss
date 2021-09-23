@@ -1,29 +1,27 @@
-.tk-drawer-backdrop {
-  &.tk-drawer--relative-to-window {
+.tk-drawer--relative-to-window {
+  &.tk-drawer-backdrop, &.tk-drawer {
     position: fixed;
   }
-  &.tk-drawer--relative-to-parent {
-    position: absolute;
-  }
+}
+
+.tk-drawer-backdrop {
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   transition: transform 0.5s ease;
   background: $--tk-drawer-backdrop-color;
-  z-index: $z-index-drawer-backdrop;
+  z-index: $z-index-drawer;
 }
 
 .tk-drawer {
-  &--relative-to-window {
-    position: fixed;
-  }
-  &--relative-to-parent {
-    position: absolute;
-  }
+  position: absolute;
   top: 0;
   height: -webkit-fill-available;
   transition: transform 0.5s ease;
+  -webkit-transform: translateX(0);
+  transform: translateX(0);
   z-index: $z-index-drawer;
   display: flex;
   flex-direction: column;
@@ -46,11 +44,6 @@
       -webkit-transform: translateX(-100%);
       transform: translateX(-100%);
     }
-  }
-
-  &-visible {
-    -webkit-transform: translateX(0);
-    transform: translateX(0);
   }
 
   &__close {
