@@ -31,7 +31,7 @@
     "@symphony/tempo-ui": "./deps/tempo-ui-0.0.54.tgz",
     "autoprefixer": "^10.0.2",
     "babel-loader": "^8.1.0",
-    "icon-font-generator": "^2.1.10",
+    "icon-font-generator": "^2.1.11",
     "markdown-loader": "^6.0.0",
     "postcss": "^8.1.7",
     "postcss-cli": "^8.3.0",

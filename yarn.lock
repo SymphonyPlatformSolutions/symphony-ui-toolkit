@@ -5500,7 +5500,7 @@ https-browserify@^1.0.0:
   resolved "https://registry.yarnpkg.com/https-browserify/-/https-browserify-1.0.0.tgz#ec06c10e0a34c0f2faf199f7fd7fc78fffd03c73"
   integrity sha1-7AbBDgo0wPL68Zn3/X/Hj//QPHM=
 
-icon-font-generator@^2.1.10:
+icon-font-generator@^2.1.11:
   version "2.1.11"
   resolved "https://registry.yarnpkg.com/icon-font-generator/-/icon-font-generator-2.1.11.tgz#c850c66443f93ec32e248e186c083a8337c3ae79"
   integrity sha512-nCIPePQlnj2w2ptcZ6C+OMK0G4FMs6dgxT6g2LuFq2n2v2svNFDjKytB0LIX+chlTEgt5wDccnZEPmOk3cp1Kg==
