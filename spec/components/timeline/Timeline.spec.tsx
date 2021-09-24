@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import { renderHook, act } from '@testing-library/react-hooks'
 
 import { useTimeline, TimeLineItem } from '../../../src/components/timeline';
@@ -36,7 +36,7 @@ const DATA: TimeLineItem<MyItem>[] = [
   
 const Header = (item: MyItem) => <div>{item.title}</div>;
 const Body = (item: MyItem) => (
-  <div id="body">
+  <div data-testid="body">
     <div>
       <Badge variant="positive" className="tk-mb-h">{item.name}</Badge>
     </div>
@@ -57,9 +57,8 @@ describe('Timeline Component', () => {
     const { Timeline, timelineProps, isAllExpanded } = result.current;
 
     expect(isAllExpanded).toEqual(false);
-    const wrapper = shallow(<Timeline {...timelineProps}/>);
-    expect(wrapper.length).toEqual(1);
-    expect(wrapper.hasClass('tk-timeline')).toBe(true);
+    const {container} = render(<Timeline {...timelineProps}/>);
+    expect(container.firstChild).toHaveClass('tk-timeline');
   });
 
   it('isAllExpanded', () => {
@@ -80,18 +79,18 @@ describe('Timeline Component', () => {
 
   })
 
-  it('expandAll', () => {
+  it('expandAll', async () => {
     const { result } = renderHook(() => useTimeline<MyItem>({
       items: DATA,
       itemBodyRenderer: Body,
       itemHeaderRenderer: Header,
     }));
     const { Timeline, timelineProps } = result.current;
-    const wrapper = shallow(<Timeline {...timelineProps}/>);
-    expect(wrapper.length).toEqual(1);
-    expect(wrapper.hasClass('tk-timeline')).toBe(true);
+    let component = render(<Timeline {...timelineProps}/>);
+    expect(component.container.firstChild).toHaveClass('tk-timeline');
     expect(result.current.isAllExpanded).toEqual(false);
-    expect(wrapper.html().includes('id="body"')).toBe(false);
+    let body = await component.queryAllByTestId('body');
+    expect(body.length).toBe(0);
 
     expect(result.current.isAllExpanded).toEqual(false);
 
@@ -100,11 +99,12 @@ describe('Timeline Component', () => {
     })
       
     expect(result.current.isAllExpanded).toEqual(true);
-    const wrapper2 = shallow(<Timeline {...result.current.timelineProps}/>);
-    expect(wrapper2.html().includes('id="body"')).toBe(true);
+    component = render(<Timeline {...result.current.timelineProps}/>);
+    body = await component.queryAllByTestId('body');
+    expect(body.length).toBe(3);
   })
 
-  it('collapseAll', () => {
+  it('collapseAll', async () => {
     const { result } = renderHook(() => useTimeline<MyItem>({
       items: DATA,
       itemBodyRenderer: Body,
@@ -112,16 +112,19 @@ describe('Timeline Component', () => {
       expanded: true,
     }));
     const { Timeline, timelineProps } = result.current;
-    const wrapper = shallow(<Timeline {...timelineProps}/>);
+    let component = render(<Timeline {...timelineProps}/>);
+    expect(component.container.firstChild).toHaveClass('tk-timeline');
     expect(result.current.isAllExpanded).toEqual(true);
-    expect(wrapper.html().includes('id="body"')).toBe(true);
+    let body = await component.queryAllByTestId('body');
+    expect(body.length).toBe(3);
 
     act(() => {
       result.current.collapseAll(); 
     })
-    const wrapper2 = shallow(<Timeline {...result.current.timelineProps}/>);
+    component = render(<Timeline {...result.current.timelineProps}/>);
     expect(result.current.isAllExpanded).toEqual(false);
-    expect(wrapper2.html().includes('id="body"')).toBe(false);
+    body = await component.queryAllByTestId('body');
+    expect(body.length).toBe(3);
   })
 
   it('expandAll then collapseAll', () => {
@@ -143,7 +146,7 @@ describe('Timeline Component', () => {
     expect(result.current.isAllExpanded).toEqual(false);
   })
 
-  it('render expanded timeline', () => {
+  it('render expanded timeline', async () => {
     
     const { result } = renderHook(() => useTimeline<MyItem>({
       items: DATA,
@@ -153,10 +156,10 @@ describe('Timeline Component', () => {
     }));
     const { Timeline, timelineProps, isAllExpanded } = result.current;
     expect(isAllExpanded).toEqual(true);
-    const wrapper = shallow(<Timeline {...timelineProps}/>);
-    expect(wrapper.length).toEqual(1);
-    expect(wrapper.hasClass('tk-timeline')).toBe(true);
-    expect(wrapper.html().includes('id="body"')).toBe(true);
+    const component = render(<Timeline {...timelineProps}/>);
+    expect(component.container.firstChild).toHaveClass('tk-timeline');
+    const body = await component.queryAllByTestId('body');
+    expect(body.length).toBe(3);
     act(() => {
       result.current.collapseAll();
     })
