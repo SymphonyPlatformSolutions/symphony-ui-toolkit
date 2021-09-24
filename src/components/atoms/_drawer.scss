@@ -18,7 +18,8 @@
 .tk-drawer {
   position: absolute;
   top: 0;
-  height: -webkit-fill-available;
+  height: 100%;
+  box-sizing: border-box;
   transition: transform 0.5s ease;
   -webkit-transform: translateX(0);
   transform: translateX(0);
