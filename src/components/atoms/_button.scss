@@ -1,6 +1,6 @@
 $tk-btn-size: toRem(32);
 .tk-button {
-  font-size: toRem(12);
+  font-size: toRem(12) !important; // To differenciate the icon size
   display: inline-block;
   border: none;
   border-radius: toRem(28);
@@ -70,6 +70,7 @@ $tk-btn-size: toRem(32);
     }
   }
   &--large {
+    font-size: toRem(14) !important;
     $tk-btn-size: toRem(40);
     height: $tk-btn-size;
     &.tk-button--icon {
