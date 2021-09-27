@@ -13,7 +13,7 @@ describe('Button Component', () => {
     });
     it('extra props are forwarded to the button element', () => {
       const ariaLabel = 'close';
-      const wrapper = shallow(<Button aria-label={ariaLabel}>Close me</Button>);
+      const wrapper = shallow(<Button variant="destructive" aria-label={ariaLabel}>Close me</Button>);
       expect(wrapper.length).toEqual(1);
       expect(wrapper.find('button').prop('aria-label')).toEqual(ariaLabel);
     });

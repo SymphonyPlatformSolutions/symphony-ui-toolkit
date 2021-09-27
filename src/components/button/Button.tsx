@@ -15,9 +15,12 @@ export type ButtonProps = {
   /** If true, substitutes the button content by an animated loader */
   loading?: boolean;
   type?: 'button' | 'reset' | 'submit';
-   /** The variant to use*/
-  variant?: 'primary' | 'secondary' | 'tertiary' | 'destructive';
   onClick?: (event: React.MouseEvent<HTMLElement>) => void;
+   /** The variant to use*/
+  variant?: 'primary' | 'secondary' | 'tertiary' | 'destructive' | 'primary-destructive' | 'secondary-destructive'|'tertiary-destructive' |'tertiary-accent';
+  size?: 'large' | 'small' | 'medium';
+  iconRight?: React.ReactNode;
+  iconLeft?: React.ReactNode;
 };
 
 export const Button: React.FC<ButtonProps> = ({
@@ -28,14 +31,24 @@ export const Button: React.FC<ButtonProps> = ({
   loading,
   disabled,
   type,
+  size,
+  iconRight,
+  iconLeft,
   ...rest
 }: ButtonProps) => {
   const classes = classNames(
     className,
     prefix,
     `${prefix}--${variant}`,
-    iconButton && `${prefix}--icon`
+    iconButton && `${prefix}--icon`,
+    iconRight && `${prefix}--icon-right`,
+    iconLeft && `${prefix}--icon-left`,
+    `${loading ? 'loading' : ''}`,
+    `${prefix}--${size}`
   );
+  if(variant==='destructive') {
+    console.warn('The button variant: \'destructive\' will be deprecated.\n Please use: \'primary-destructive\' instead')
+  }
   return (
     <button
       className={classes}
@@ -44,7 +57,7 @@ export const Button: React.FC<ButtonProps> = ({
       type={type}
       {...rest}
     >
-      {loading ? <i className="animate-spin tk-icon-loading" /> : children}
+      {loading ? <i className="animate-spin tk-icon-loading" /> : iconLeft ? <>{iconLeft}{children}</> : iconRight ? <>{iconRight}{children}</> : children}
     </button>
   );
 };
@@ -56,6 +69,7 @@ Button.defaultProps = {
   loading: false,
   type: 'button',
   variant: 'primary',
+  size: 'medium',
 };
 
 Button.propTypes = {
@@ -65,8 +79,11 @@ Button.propTypes = {
   disabled: PropTypes.bool,
   loading: PropTypes.bool,
   type: PropTypes.oneOf(['button', 'reset', 'submit']),
-  variant: PropTypes.oneOf(['primary', 'secondary', 'tertiary', 'destructive']),
+  variant: PropTypes.oneOf(['primary' , 'secondary' , 'tertiary' , 'destructive' , 'primary-destructive' , 'secondary-destructive','tertiary-destructive' ,'tertiary-accent']),
   onClick: PropTypes.func,
+  size: PropTypes.oneOf(['small', 'large' , 'medium']),
+  iconLeft: PropTypes.node,
+  iconRight: PropTypes.node,
 }
 Button.displayName = 'Button';
 export default Button;
