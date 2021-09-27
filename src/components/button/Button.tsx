@@ -19,8 +19,8 @@ export type ButtonProps = {
    /** The variant to use*/
   variant?: 'primary' | 'secondary' | 'tertiary' | 'destructive' | 'primary-destructive' | 'secondary-destructive'|'tertiary-destructive' |'tertiary-accent';
   size?: 'large' | 'small' | 'medium';
-  /** Icon position: right or left*/
-  iconPos?: 'right' | 'left';
+  iconRight?: React.ReactNode;
+  iconLeft?: React.ReactNode;
 };
 
 export const Button: React.FC<ButtonProps> = ({
@@ -32,7 +32,8 @@ export const Button: React.FC<ButtonProps> = ({
   disabled,
   type,
   size,
-  iconPos,
+  iconRight,
+  iconLeft,
   ...rest
 }: ButtonProps) => {
   const classes = classNames(
@@ -40,7 +41,8 @@ export const Button: React.FC<ButtonProps> = ({
     prefix,
     `${prefix}--${variant.replace('-', '--')}`,
     iconButton && `${prefix}--icon`,
-    iconPos && `${prefix}--icon-${iconPos}`,
+    iconRight && `${prefix}--icon-right`,
+    iconLeft && `${prefix}--icon-left`,
     `${loading ? 'loading' : ''}`,
     `${prefix}--${size}`
   );
@@ -55,7 +57,7 @@ export const Button: React.FC<ButtonProps> = ({
       type={type}
       {...rest}
     >
-      {loading ? <i className="animate-spin tk-icon-loading" /> : children}
+      {loading ? <i className="animate-spin tk-icon-loading" /> : iconLeft ? <>{iconLeft}{children}</> : iconRight ? <>{iconLeft}{children}</> : children}
     </button>
   );
 };
@@ -80,7 +82,8 @@ Button.propTypes = {
   variant: PropTypes.oneOf(['primary' , 'secondary' , 'tertiary' , 'destructive' , 'primary-destructive' , 'secondary-destructive','tertiary-destructive' ,'tertiary-accent']),
   onClick: PropTypes.func,
   size: PropTypes.oneOf(['small', 'large' , 'medium']),
-  iconPos: PropTypes.oneOf(['right', 'left']),
+  iconLeft: PropTypes.node,
+  iconRight: PropTypes.node,
 }
 Button.displayName = 'Button';
 export default Button;
