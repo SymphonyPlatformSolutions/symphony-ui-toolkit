@@ -19,26 +19,26 @@ $tk-btn-size: toRem(32);
   @include addIconSize(16);
   &--primary {
     @include styleFilledButton($--tk-button-color-primary);
-    &--destructive {
+    &-destructive {
       @include styleFilledButton($--tk-button-color-destructive-primary);
     }
   }
   &--secondary {
     @include styleOutlinedButton($--tk-button-color-secondary);
-    &--destructive {
+    &-destructive {
       @include styleOutlinedButton($--tk-button-color-destructive-secondary);
     }
   }
   &--tertiary {
     @include styleFilledButton($--tk-button-color-tertiary);
-    &--destructive {
+    &-destructive {
       @include styleFilledButton($--tk-button-color-destructive-tertiary);
     }
-    &--accent {
+    &-accent {
       @include styleFilledButton($--tk-button-color-active-tertiary);
     }
   }
-  &--destructive {
+  &-destructive {
     @include styleFilledButton($--tk-button-color-destructive-primary);
   }
   &--icon {
