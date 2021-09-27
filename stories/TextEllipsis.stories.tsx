@@ -90,7 +90,9 @@ export const EllipseAContinuousStringTwoRows = (args) => {
   )
 }
 
-EllipseAContinuousStringTwoRows.decorators = [addExplanation('When the long continuous string is not the first word on a multi-line ellipsis it does not work')]
+EllipseAContinuousStringTwoRows.decorators = [
+  addExplanation('A known limitation of TextEllipsis is if the last word of a multi-line ellipsis is a continuous string it will ellipse before the end.')
+]
 
 export const TooltipNotAffectingStyling = (args) => {
   return (
