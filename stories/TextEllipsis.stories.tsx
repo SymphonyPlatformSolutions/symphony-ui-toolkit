@@ -65,6 +65,33 @@ export const EllipseAfterTwoRows = (args) => {
   )
 }
 
+export const EllipseAContinuousString = (args) => {
+  return (
+    <div style={{ background: 'grey', margin: '16px 0px', padding: '16px', width: '350px'}}>
+      <TextEllipsis
+        {...args}
+      >
+        { 'A really longcontinuousstringthatseeminglyneverends' }
+      </TextEllipsis>
+    </div>
+  )
+}
+
+export const EllipseAContinuousStringTwoRows = (args) => {
+  return (
+    <div style={{ background: 'grey', margin: '16px 0px', padding: '16px', width: '350px'}}>
+      <TextEllipsis
+        rows={ 2 }
+        {...args}
+      >
+        { 'A really, really, long string that wraps two rows and ends with a longcontinuousstringthatseeminglyneverends' }
+      </TextEllipsis>
+    </div>
+  )
+}
+
+EllipseAContinuousStringTwoRows.decorators = [addExplanation('When the long continuous string is not the first word on a multi-line ellipsis it does not work')]
+
 export const TooltipNotAffectingStyling = (args) => {
   return (
     <div style={{ background: 'grey', display: 'flex', margin: '16px 0px', padding: '16px', width: '350px'}}>
