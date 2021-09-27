@@ -39,7 +39,7 @@ export const Button: React.FC<ButtonProps> = ({
   const classes = classNames(
     className,
     prefix,
-    `${prefix}--${variant.replace('-', '--')}`,
+    `${prefix}--${variant}`,
     iconButton && `${prefix}--icon`,
     iconRight && `${prefix}--icon-right`,
     iconLeft && `${prefix}--icon-left`,
