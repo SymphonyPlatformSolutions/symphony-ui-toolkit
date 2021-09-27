@@ -57,7 +57,7 @@ export const Button: React.FC<ButtonProps> = ({
       type={type}
       {...rest}
     >
-      {loading ? <i className="animate-spin tk-icon-loading" /> : iconLeft ? <>{iconLeft}{children}</> : iconRight ? <>{iconLeft}{children}</> : children}
+      {loading ? <i className="animate-spin tk-icon-loading" /> : iconLeft ? <>{iconLeft}{children}</> : iconRight ? <>{iconRight}{children}</> : children}
     </button>
   );
 };
