@@ -2,7 +2,7 @@ import * as React from 'react';
 import classNames from 'classnames';
 import Icon from '../icon';
 
-type DrawerProps = {
+type DrawerProps = React.HTMLProps<HTMLDivElement> & {
   width?: number;
   position?: 'right' | 'left';
   relativeToWindow?: boolean;
@@ -14,10 +14,7 @@ type DrawerProps = {
   hasBackdrop?: boolean;
 };
 
-type DrawerContentProps = {
-  className?: string;
-  children?: React.ReactNode;
-};
+type DrawerContentProps = React.HTMLProps<HTMLDivElement>;
 
 const prefix = 'tk-drawer';
 const buildClass = (classStr: string) => `${prefix}__${classStr}`;
