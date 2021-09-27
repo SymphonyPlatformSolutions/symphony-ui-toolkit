@@ -1,5 +1,12 @@
 export default {
   title: 'Components/Dialogs',
+  parameters: {
+    creevey: {
+      skip: [
+        { in: 'chrome', reason: 'Skipping this storie, because of issues found it https://perzoinc.atlassian.net/browse/APP-4534' },
+      ],
+    },
+  },
 };
 
 export const smallDialog = () => `
