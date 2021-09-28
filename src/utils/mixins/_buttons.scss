@@ -60,7 +60,6 @@
     color: map-get($colorMap, textDisabled);
   }
   &.loading {
-    min-width: toRem(79);
     background-color: transparent;
     @include addBorder(toRem(2), map-get($colorMap, text));
     @include addFontIconColor(map-get($colorMap, text));

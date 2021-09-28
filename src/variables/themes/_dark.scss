@@ -1,9 +1,15 @@
 .tk-dark,
 .dark {
+  // Primary button
+  --tk-button-color-primary-disabled: #{getColor($electricity, '70')};
+  --tk-button-color-primary-text-disabled: #{getColor($electricity, '60')};
+  --tk-button-color-destructive-disabled: #{getColor($red, '70')};
+  --tk-button-color-destructive-text-disabled: #{getColor($red, '60')};
+
   // Secondary btn
-  --tk-btn-color-tertiary-default: #{getColor($graphite, '30')};
-  --tk-btn-color-secondary-hover: transparent;
-  --tk-btn-color-secondary-active: transparent;
+  --tk-btn-color-secondary-default: #{getColor($graphite, '30')};
+  --tk-btn-color-secondary-hover: #{getColor($graphite, '70')};
+  --tk-btn-color-secondary-active: #{getColor($graphite, '70')};
   --tk-btn-color-secondary-hover-text: #{getColor($graphite, '20')};
   --tk-btn-color-secondary-active-text: #{getColor($graphite, '30')};
   --tk-btn-color-secondary-disabled: #{getColor($graphite, '60')};
@@ -24,7 +30,7 @@
   --tk-btn-color-tertiary-active: #{getColor($graphite, '70')};
   --tk-btn-color-tertiary-hover-text: #{getColor($graphite, '30')};
   --tk-btn-color-tertiary-active-text: #{getColor($graphite, '40')};
-  --tk-btn-color-tertiary-disabled-text: #{getColor($graphite, '60')};
+  --tk-btn-color-tertiary-text-disabled: #{getColor($graphite, '60')};
   --tk-btn-color-tertiary-disabled: transparent;
   --tk-btn-color-tertiary-text: #{getColor($graphite, '30')};
 
@@ -36,31 +42,21 @@
   --tk-btn-color-destructive-tertiary-active-text: #{getColor($red, '40')};
   --tk-btn-color-destructive-tertiary-disabled: transparent;
   --tk-btn-color-destructive-tertiary-text-disabled: #{getColor($red, '70')};
+  --tk-btn-color-destructive-tertiary-text: #{getColor($red, '70')};
 
-  // tertiary active
-  --tk-btn-color-active-tertiary-default: transparent;
-  --tk-btn-color-active-tertiary-text: #{getColor($electricity, '30')};
-  --tk-btn-color-active-tertiary-hover: #{getColor($electricity, '60')};
-  --tk-btn-color-active-tertiary-active: #{getColor($electricity, '70')};
-  --tk-btn-color-active-tertiary-hover-text: #{getColor($electricity, '30')};
-  --tk-btn-color-active-tertiary-active-text: #{getColor($electricity, '40')};
-  --tk-btn-color-active-tertiary-disabled: transparent;
-  --tk-btn-color-active-tertiary-text-disabled: #{getColor($electricity, '60')};
+  // tertiary accent
+  --tk-btn-color-accent-tertiary-default: transparent;
+  --tk-btn-color-accent-tertiary-text: #{getColor($electricity, '30')};
+  --tk-btn-color-accent-tertiary-hover: #{getColor($electricity, '60')};
+  --tk-btn-color-accent-tertiary-active: #{getColor($electricity, '70')};
+  --tk-btn-color-accent-tertiary-hover-text: #{getColor($electricity, '30')};
+  --tk-btn-color-accent-tertiary-active-text: #{getColor($electricity, '40')};
+  --tk-btn-color-accent-tertiary-disabled: transparent;
+  --tk-btn-color-accent-tertiary-text-disabled: #{getColor($electricity, '60')};
 
   --tk-color-error: #{$scolor-red-darker};
 
   --tk-main-text-color: #{$scolor-graphite-minus-89};
-
-  --tk-button-color-primary-disabled: #{getColor($electricity, '70')};
-  --tk-button-color-primary-text-disabled: #{getColor($electricity, '60')};
-  --tk-button-color-destructive-text-disabled: #{getColor($red, '60')};
-
-  --tk-button-color-tertiary-hover: #{$scolor-elements-tertiary-hover-dark};
-  --tk-button-color-tertiary-active: #{$scolor-elements-tertiary-active-dark};
-  --tk-button-color-tertiary-text: #{$scolor-graphite-minus-72};
-  --tk-button-color-tertiary-text-disabled: #{$scolor-graphite-minus-24};
-
-  --tk-button-color-destructive-disabled: #{$scolor-elements-destructive-disabled-dark};
 
   --tk-input-default-inactive-color: #{$scolor-graphite-minus-48};
   --tk-input-default-active-color: #{$scolor-graphite-minus-96};

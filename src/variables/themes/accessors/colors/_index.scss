@@ -104,7 +104,7 @@ $--tk-button-color-secondary: (
     var(--tk-btn-color-secondary-active-text, getColor($graphite, '60')),
   text: var(--tk-btn-color-secondary-text, getColor($graphite, '50')),
   textDisabled:
-    var(--tk-btn-color-secondary-disabled, getColor($graphite, '30')),
+    var(--tk-btn-color-secondary-disabled, getColor($graphite, '20')),
   disabled: var(--tk-btn-color-secondary-disabled, getColor($graphite, '30')),
 );
 
@@ -116,7 +116,7 @@ $--tk-button-color-tertiary: (
   disabled: var(--tk-btn-color-tertiary-disabled, transparent),
   text: var(--tk-btn-color-tertiary-text, getColor($graphite, '50')),
   textDisabled:
-    var(--tk-button-color-tertiary-text-disabled, getColor($graphite, '20')),
+    var(--tk-btn-color-tertiary-text-disabled, getColor($graphite, '20')),
 );
 
 $--tk-button-color-destructive-primary: (
@@ -127,6 +127,7 @@ $--tk-button-color-destructive-primary: (
   text: var(--tk-button-color-destructive-text, $scolor-white),
   textDisabled: var(--tk-button-color-destructive-text-disabled, $scolor-white),
 );
+
 $--tk-button-color-destructive-secondary: (
   default: var(--tk-btn-color-destructive-second-default, getColor($red, '50')),
   hover: var(--tk-btn-color-destructive-second-hover, getColor($red, '05')),
@@ -147,22 +148,27 @@ $--tk-button-color-destructive-tertiary: (
   hover: var(--tk-btn-color-destructive-tertiary-hover, getColor($red, '10')),
   active: var(--tk-btn-color-destructive-tertiary-active, getColor($red, '20')),
   disabled: var(--tk-btn-color-destructive-tertiary-disabled, transparent),
-  text: var(--tk-btn-color-destructive-tertiary-text, getColor($red, '40')),
+  text: var(--tk-btn-color-destructive-tertiary-text, getColor($red, '50')),
   textDisabled:
     var(--tk-btn-color-destructive-tertiary-text-disabled, getColor($red, '20')),
 );
-$--tk-button-color-active-tertiary: (
-  default: var(--tk-btn-color-active-tertiary-default, transparent),
-  hover:
-    var(--tk-btn-color-active-tertiary-hover, getColor($electricity, '10')),
-  active: var(--tk-btn-color-active-tertiary-active, getColor($electricity, '20')),
-  disabled: var(--tk-btn-color-active-tertiary-disabled, transparent),
-  text:
-    var(--tk-btn-color-active-tertiary-text, getColor($electricity, '50')),
+
+$--tk-button-color-accent-tertiary: (
+  default: var(--tk-btn-color-accent-tertiary-default, transparent),
+  hover: var(--tk-btn-color-accent-tertiary-hover, getColor($electricity, '10')),
+  active:
+    var(--tk-btn-color-accent-tertiary-active, getColor($electricity, '20')),
+  disabled: var(--tk-btn-color-accent-tertiary-disabled, transparent),
+  text: var(--tk-btn-color-accent-tertiary-text, getColor($electricity, '50')),
   textDisabled:
     var(
-      --tk-btn-color-active-tertiary-text-disabled,
+      --tk-btn-color-accent-tertiary-text-disabled,
       getColor($electricity, '20')
+    ),
+  activeText:
+    var(
+      --tk-btn-color-accent-tertiary-text-active,
+      getColor($electricity, '60')
     ),
 );
 
