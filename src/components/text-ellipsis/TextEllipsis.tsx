@@ -12,7 +12,7 @@ interface TextEllipsisProps extends Omit<React.HTMLProps<HTMLSpanElement>, 'type
     /** Wheather a tooltip should be shown on hover when the text is ellipsed */
     tooltipOnEllipsis?: boolean;
 
-    tooltipProps?: TooltipProps;
+    tooltipProps?: Partial<TooltipProps>;
 }
 
 export const TextEllipsis: React.FC<TextEllipsisProps> = ({
@@ -39,7 +39,7 @@ export const TextEllipsis: React.FC<TextEllipsisProps> = ({
 
   const getTextEllipsisHTML = () => {
     return (<span
-      className={ classnames(className, 'tk-text-ellipsis') }
+      className={ classnames(className, 'tk-text-ellipsis', { 'tk-text-ellipsis__multiple-rows': rows > 1 }) }
       style={{ WebkitLineClamp: rows, ...style}}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
@@ -48,15 +48,15 @@ export const TextEllipsis: React.FC<TextEllipsisProps> = ({
       { children }
     </span>)
   }
-
+  
   if(tooltipOnEllipsis) {
     return(
       <Tooltip
-        description={ children as JSX.Element }
-        placement={ 'top' }
-        type="tooltip"
-        visible={ showTooltip }
-        { ...tooltipProps }
+        {...tooltipProps}
+        description={ tooltipProps?.description ?? children as JSX.Element }
+        placement={ tooltipProps?.placement ?? 'top' }
+        type={ tooltipProps?.type ?? 'tooltip' }
+        visible={ tooltipProps?.visible ?? showTooltip }
       >
         {getTextEllipsisHTML()}
       </Tooltip>
