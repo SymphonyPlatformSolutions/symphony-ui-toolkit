@@ -1,0 +1,73 @@
+.tk-drawer--relative-to-window {
+  &.tk-drawer-backdrop, &.tk-drawer {
+    position: fixed;
+  }
+}
+
+.tk-drawer-backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.5s ease;
+  background: $--tk-drawer-backdrop-color;
+  z-index: $z-index-drawer;
+}
+
+.tk-drawer {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  box-sizing: border-box;
+  transition: transform 0.5s ease;
+  -webkit-transform: translateX(0);
+  transform: translateX(0);
+  z-index: $z-index-drawer;
+  display: flex;
+  flex-direction: column;
+  background-color: $--tk-drawer-background-color;
+  @extend .tk-p-2;
+
+  &--right {
+    right: 0;
+    border-left: 1px solid $--tk-drawer-border;
+    .tk-drawer-hidden {
+      -webkit-transform: translateX(100%);
+      transform: translateX(100%);
+    }
+  }
+
+  &--left {
+    left: 0;
+    border-right: 1px solid $--tk-drawer-border;
+    .tk-drawer-hidden {
+      -webkit-transform: translateX(-100%);
+      transform: translateX(-100%);
+    }
+  }
+
+  &__close {
+    cursor: pointer;
+    position: absolute;
+    @extend .tk-pt-2;
+    @extend .tk-pr-2;
+  }
+
+  &__title {
+    @extend .tk-typography--h1;
+    @extend .tk-pr-3;
+  }
+
+  &__body {
+    flex: 1;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    @extend .tk-mt-2;
+  }
+
+  &__footer {
+    align-self: flex-end;
+    @extend .tk-mt-2;
+  }
+}

@@ -192,6 +192,12 @@ $--tk-dialog-hover-cross-color: var(
 );
 $--tk-dialog-backdrop-color: var(--tk-dialog-backdrop-color, $dialog-backdrop);
 
+/** ======== Drawer ======== */
+$drawer-backdrop: rgba(0, 0, 0, 0.8);
+$--tk-drawer-border: var(--tk-drawer-border, getColor($graphite, '40'));
+$--tk-drawer-background-color: var(--tk-drawer-background-color, $scolor-white);
+$--tk-drawer-backdrop-color: var(--tk-drawer-background-color, $drawer-backdrop);
+
 /** ======== List ======== */
 $--tk-select-background-color: var(--tk-select-background-color, $scolor-white);
 $--tk-select-option-color: var(

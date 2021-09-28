@@ -108,6 +108,10 @@
 
   --tk-avatar-border-color: #{$scolor-graphite};
 
+  // Drawer
+  --tk-drawer-border: #{getColor($graphite, '60')};
+  --tk-drawer-background-color: #{getColor($graphite, '80')};
+
   // Card component
   $card-shadow-bottom: rgba($scolor-graphite-minus-72, 0.251);
   $card-shadow-left: rgba($scolor-graphite-minus-72, 0.08);
