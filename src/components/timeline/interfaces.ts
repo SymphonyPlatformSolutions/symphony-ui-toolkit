@@ -21,7 +21,7 @@ export interface UseTimeLineResult<T> {
   Timeline: React.FC<TimelineProps<T>>;
 }
 
-export interface TimelineProps<T> {
+export interface TimelineProps<T> extends React.HTMLProps<HTMLDivElement> {
   onCollapseChange: (time: string) => void;
   items: TimeLineItem<T>[];
   itemHeaderRenderer: (item?: T) => React.ReactNode | string;

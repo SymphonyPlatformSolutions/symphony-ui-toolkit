@@ -15,9 +15,13 @@ const Timeline = <T,>({
   items,
   itemHeaderRenderer,
   itemBodyRenderer,
+  className,
+  ...otherProps
 }: TimelineProps<T>) => {
   return (
-    <div className={prefix}>
+    <div
+      className={classNames(prefix, className)} 
+      {...otherProps}>
       {items.map((item) => {
         const itemBody = item.hasBody && itemBodyRenderer?.(item.value);
         const itemHeader = itemHeaderRenderer(item.value);

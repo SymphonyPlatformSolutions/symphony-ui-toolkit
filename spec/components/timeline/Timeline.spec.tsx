@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { render } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 import { renderHook, act } from '@testing-library/react-hooks'
 
 import { useTimeline, TimeLineItem } from '../../../src/components/timeline';
@@ -61,13 +61,19 @@ describe('Timeline Component', () => {
     expect(container.firstChild).toHaveClass('tk-timeline');
   });
 
-  it('isAllExpanded', () => {
+  it('isAllExpanded', async () => {
     const { result } = renderHook(() => useTimeline<MyItem>({
       items: DATA,
       itemBodyRenderer: Body,
       itemHeaderRenderer: Header,
     }));
     expect(result.current.isAllExpanded).toEqual(false);
+    const { Timeline, timelineProps } = result.current;
+    let component = render(<Timeline {...timelineProps}/>);
+    expect(component.container.firstChild).toHaveClass('tk-timeline');
+    expect(result.current.isAllExpanded).toEqual(false);
+    let body = await component.queryAllByTestId('body');
+    expect(body.length).toBe(0);
 
     const { result: resultExpanded } = renderHook(() => useTimeline<MyItem>({
       items: DATA,
@@ -76,6 +82,9 @@ describe('Timeline Component', () => {
       expanded: true,
     }));
     expect(resultExpanded.current.isAllExpanded).toEqual(true);
+    component = render(<Timeline {...resultExpanded.current.timelineProps}/>);
+    body = await component.queryAllByTestId('body');
+    expect(body.length).toBe(3);
 
   })
 
@@ -164,5 +173,67 @@ describe('Timeline Component', () => {
       result.current.collapseAll();
     })
     expect(result.current.isAllExpanded).toEqual(false);
+  });
+
+  it('Button to collapse and expand all', async () => {
+    
+    const { result } = renderHook(() => useTimeline<MyItem>({
+      items: DATA,
+      itemBodyRenderer: Body,
+      itemHeaderRenderer: Header,
+      expanded: true,
+    }));
+    const { Timeline, timelineProps, isAllExpanded, collapseAll, expandAll } = result.current;
+    
+
+    const component = render(<>
+      <button data-testid="collapse-button" onClick={isAllExpanded ? collapseAll : expandAll} className="tk-mb-2h">
+        {isAllExpanded ? 'COLLAPSE ALL' : 'EXPAND ALL'}
+      </button>
+      <Timeline {...timelineProps}/>
+    </>);
+    let body = await component.queryAllByTestId('body');
+    const collapseButton = await component.getByTestId('collapse-button')
+
+    expect(isAllExpanded).toEqual(true);
+    expect(collapseButton.textContent).toBe('COLLAPSE ALL');
+    expect(body.length).toBe(3);
+
+    
+    
+    act(() => {
+      // Click on the collapse button
+      fireEvent.click(collapseButton);
+    })
+
+    component.rerender(<>
+      <button data-testid="collapse-button" onClick={result.current.isAllExpanded ? collapseAll : expandAll} className="tk-mb-2h">
+        {result.current.isAllExpanded ? 'COLLAPSE ALL' : 'EXPAND ALL'}
+      </button>
+      <Timeline {...result.current.timelineProps}/>
+    </>)
+    body = await component.queryAllByTestId('body');
+
+    expect(result.current.isAllExpanded).toEqual(false);
+    expect(collapseButton.textContent).toBe('EXPAND ALL');
+    expect(body.length).toBe(0);
+
+    act(() => {
+      // Click on the collapse button
+      fireEvent.click(collapseButton);
+    })
+
+    component.rerender(<>
+      <button data-testid="collapse-button" onClick={result.current.isAllExpanded ? collapseAll : expandAll} className="tk-mb-2h">
+        {result.current.isAllExpanded ? 'COLLAPSE ALL' : 'EXPAND ALL'}
+      </button>
+      <Timeline {...result.current.timelineProps}/>
+    </>)
+    body = await component.queryAllByTestId('body');
+
+    expect(result.current.isAllExpanded).toEqual(true);
+    expect(collapseButton.textContent).toBe('COLLAPSE ALL');
+    expect(body.length).toBe(3);
+
   });
 });
