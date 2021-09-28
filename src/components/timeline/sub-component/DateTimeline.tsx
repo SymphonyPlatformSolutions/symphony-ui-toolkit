@@ -34,9 +34,9 @@ export function DateTimeline({ time }: DateProps) {
   const hours = formatDate(new Date(time).toISOString(), 'pp');
   const day = formatDate(new Date(time).toISOString(), 'd MMM yyyy');
   return (
-    <div className={buildClass('item-date')}>
-      <div className={buildClass('item-day')}>{day}</div>
-      <div className={buildClass('item-hours')}>{hours}</div>
+    <div className={buildClass('item--date')}>
+      <div className={buildClass('item--day')}>{day}</div>
+      <div className={buildClass('item--hours')}>{hours}</div>
     </div>
   );
 }

@@ -33,11 +33,11 @@ const Timeline = <T,>({
             onClick={itemBody ? () => onCollapseChange(item.time) : undefined}
             key={item.time}
           >
-            <div className={buildClass('item-icon')}>{item.icon}</div>
+            <div className={buildClass('item--icon')}>{item.icon}</div>
             <DateTimeline time={item.time} />
             <div
-              className={classNames(buildClass('item-contentWrapper'), {
-                [buildClass('item-onlyHeader')]: !itemBody,
+              className={classNames(buildClass('item--content'), {
+                [buildClass('item--header-only')]: !itemBody,
               })}
             >
               {itemBody ? (

@@ -16,15 +16,15 @@ export function ExpandCollapse({
 }: ExpandCollapseProps) {
   return (
     <div className={buildClass('collapse')}>
-      <div className={buildClass('collapse-headerContainer')}>
+      <div className={buildClass('collapse--header-container')}>
         <Icon
-          className={buildClass('collapse-icon')}
+          className={buildClass('collapse--icon')}
           iconName={expanded ? 'top' : 'bottom'}
         />
-        <div className={buildClass('collapse-header')}>{header}</div>
+        <div className={buildClass('collapse--header')}>{header}</div>
       </div>
       {expanded ? (
-        <div className={buildClass('collapse-body')}>{content}</div>
+        <div className={buildClass('collapse--body')}>{content}</div>
       ) : null}
     </div>
   );
