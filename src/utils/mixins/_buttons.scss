@@ -1,8 +1,15 @@
 /* Define color on current text and eventual font icons */
 @mixin addFontIconColor($fontColor) {
   // Icon styling selector takes precendence over the button colors
-  &, i {
+  &,
+  i {
     color: $fontColor;
+  }
+}
+@mixin addIconSize($size) {
+  &,
+  i {
+    font-size: toRem($size);
   }
 }
 
@@ -11,14 +18,21 @@
   background-color: map-get($colorMap, default);
   @include addFontIconColor(map-get($colorMap, text));
   &:hover {
-      background-color: map-get($colorMap, hover);
+    background-color: map-get($colorMap, hover);
+    color: map-get($colorMap, hoverText);
   }
   &:active {
-      background-color: map-get($colorMap, active);
+    background-color: map-get($colorMap, active);
+    @include addFontIconColor(map-get($colorMap, activeText));
   }
   &:disabled {
-      background-color: map-get($colorMap, disabled);
-      @include addFontIconColor(map-get($colorMap, textDisabled))
+    background-color: map-get($colorMap, disabled);
+    @include addFontIconColor(map-get($colorMap, textDisabled));
+  }
+  &.loading {
+    min-width: toRem(79);
+    background-color: map-get($colorMap, default);
+    @include addFontIconColor(map-get($colorMap, text));
   }
 }
 
@@ -28,19 +42,27 @@
   @include addBorder(toRem(2), map-get($colorMap, default));
   @include addFontIconColor(map-get($colorMap, default));
   &:hover {
-      background-color: transparent;
-      @include addBorder(toRem(2), map-get($colorMap, hover));
-      @include addFontIconColor(map-get($colorMap, hover));
+    background-color: map-get($colorMap, hover);
+    color: map-get($colorMap, hoverText);
+    @include addFontIconColor(map-get($colorMap, hoverText));
+    @include addBorder(toRem(2), map-get($colorMap, hoverText));
   }
   &:active {
-      background-color: transparent;
-      @include addBorder(toRem(2), map-get($colorMap, active));
-      @include addFontIconColor(map-get($colorMap, active));
+    background-color: map-get($colorMap, active);
+    @include addBorder(toRem(2), map-get($colorMap, activeText));
+    color: map-get($colorMap, activeText);
+    @include addFontIconColor(map-get($colorMap, activeText));
   }
   &:disabled {
-      background-color: transparent;
-      @include addBorder(toRem(2), map-get($colorMap, disabled));
-      @include addFontIconColor(map-get($colorMap, textDisabled));
+    background-color: transparent;
+    @include addBorder(toRem(2), map-get($colorMap, disabled));
+    @include addFontIconColor(map-get($colorMap, textDisabled));
+    color: map-get($colorMap, textDisabled);
+  }
+  &.loading {
+    min-width: toRem(79);
+    background-color: transparent;
+    @include addBorder(toRem(2), map-get($colorMap, text));
+    @include addFontIconColor(map-get($colorMap, text));
   }
 }
-

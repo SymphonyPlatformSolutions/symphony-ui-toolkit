@@ -13,7 +13,8 @@
     "build-storybook": "build-storybook -c .storybook -o dist/storybook",
     "build": "bash ./build.sh",
     "watch": "sass --watch --no-source-map --load-path=node_modules --style compressed uitoolkit.scss:dist/css/uitoolkit.css",
-    "icons": "node src/scripts/generate-icons"
+    "icons": "node src/scripts/generate-icons",
+    "test": "yarn creevey"
   },
   "keywords": [
     "scss",
@@ -31,7 +32,8 @@
     "@symphony/tempo-ui": "./deps/tempo-ui-0.0.54.tgz",
     "autoprefixer": "^10.0.2",
     "babel-loader": "^8.1.0",
-    "icon-font-generator": "^2.1.10",
+    "creevey": "^0.7.37",
+    "icon-font-generator": "^2.1.11",
     "markdown-loader": "^6.0.0",
     "postcss": "^8.1.7",
     "postcss-cli": "^8.3.0",

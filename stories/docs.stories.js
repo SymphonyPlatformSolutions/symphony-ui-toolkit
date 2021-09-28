@@ -5,6 +5,13 @@ import sandbox from '../docs/sandbox.md';
 
 export default {
   title: 'Welcome/Docs',
+  parameters: {
+    creevey: {
+      skip: [
+        { in: 'chrome', reason: 'Not necessary validate Welcome' },
+      ],
+    },
+  },
 };
 
 export const GettingStarted = () => start;
