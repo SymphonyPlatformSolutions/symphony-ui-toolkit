@@ -3,10 +3,9 @@ import {
   Drawer,
   DrawerTitle,
   DrawerBody,
-  DrawerFooter, Modal, ModalHeader, ModalBody
+  DrawerFooter,
 } from '../../../src/components';
 import { fireEvent, render, screen } from '@testing-library/react';
-import { Keys } from '../../../src/components/common/keyUtils';
 
 describe('Drawer', () => {
   it('should render the content with correct class and without crash', async () => {

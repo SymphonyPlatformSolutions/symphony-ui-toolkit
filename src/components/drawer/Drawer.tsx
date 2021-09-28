@@ -1,20 +1,7 @@
 import * as React from 'react';
 import classNames from 'classnames';
 import Icon from '../icon';
-
-type DrawerProps = React.HTMLProps<HTMLDivElement> & {
-  width?: number;
-  position?: 'right' | 'left';
-  relativeToWindow?: boolean;
-  className?: string;
-  children?: React.ReactNode;
-  closeButton?: boolean;
-  show?: boolean;
-  onClose?: () => void;
-  hasBackdrop?: boolean;
-};
-
-type DrawerContentProps = React.HTMLProps<HTMLDivElement>;
+import { DrawerProps, DrawerContentProps } from './interfaces';
 
 const prefix = 'tk-drawer';
 const buildClass = (classStr: string) => `${prefix}__${classStr}`;
@@ -33,7 +20,7 @@ export const DrawerTitle: React.FC<DrawerContentProps> = (props: DrawerContentPr
 export const DrawerBody: React.FC<DrawerContentProps> = (props: DrawerContentProps) => componentFactory(props, 'body');
 export const DrawerFooter: React.FC<DrawerContentProps> = (props: DrawerContentProps) => componentFactory(props, 'footer');
 
-const Drawer: React.FC<DrawerProps> = ({
+export const Drawer: React.FC<DrawerProps> = ({
   width = 350,
   position = 'right',
   relativeToWindow = false,
@@ -101,5 +88,3 @@ const Drawer: React.FC<DrawerProps> = ({
     </div>
   );
 };
-
-export default Drawer;

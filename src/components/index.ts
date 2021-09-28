@@ -18,12 +18,6 @@ import {
   ModalHeader,
   ModalTitle,
 } from './modal';
-import {
-  Drawer,
-  DrawerBody,
-  DrawerFooter,
-  DrawerTitle,
-} from './drawer';
 import { Checkbox, Radio, Switch } from './selection';
 import Tooltip, { TooltipProps } from './tooltip';
 import Typography from './typography';
@@ -41,6 +35,7 @@ export * from './text-ellipsis';
 export * from './nav';
 export * from './time-picker';
 export * from './toast';
+export * from './drawer';
 export {
   Card,
   Checkbox,
@@ -68,8 +63,4 @@ export {
   ModalFooter,
   Typography,
   Loader,
-  Drawer,
-  DrawerTitle,
-  DrawerBody,
-  DrawerFooter,
 };
