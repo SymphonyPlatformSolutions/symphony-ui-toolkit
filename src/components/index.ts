@@ -35,6 +35,7 @@ export * from './text-ellipsis';
 export * from './nav';
 export * from './time-picker';
 export * from './toast';
+export * from './drawer';
 export {
   Card,
   Checkbox,
