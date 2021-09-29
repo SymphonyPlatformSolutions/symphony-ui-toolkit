@@ -46,18 +46,32 @@ export const Button: React.FC<ButtonProps> = ({
     `${loading ? 'loading' : ''}`,
     `${prefix}--${size}`
   );
-  if(variant==='destructive') {
+
+  const [width, setWidth] = React.useState(0);
+  const ref = React.useRef(null);
+  React.useEffect(() => {
+    if (ref.current && ref.current.getBoundingClientRect().width) {
+      setWidth(ref.current.getBoundingClientRect().width);
+    }
+ 
+  }, [children]);
+
+  if(variant === 'destructive') {
     console.warn('The button variant: \'destructive\' will be deprecated.\n Please use: \'primary-destructive\' instead')
   }
+
   return (
     <button
+      ref={ref}
+      role="button"
       className={classes}
       disabled={loading || disabled}
       /* eslint-disable react/button-has-type */
       type={type}
+      style={loading && children ? {width: `${width}px`}: {}}
       {...rest}
     >
-      {loading ? <i className="animate-spin tk-icon-loading" /> : iconLeft ? <>{iconLeft}{children}</> : iconRight ? <>{iconRight}{children}</> : children}
+      {loading ? <i className="animate-spin tk-icon-loading" /> : iconLeft ? <>{iconLeft}{children}</> : iconRight ? <>{children}{iconRight}</> : children}
     </button>
   );
 };
