@@ -26,4 +26,4 @@ export const StylesInjection = (props: Props) => {
       </CacheProvider>
     </StyleSheetManager>
   )
-}
+};

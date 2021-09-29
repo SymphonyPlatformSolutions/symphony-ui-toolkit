@@ -102,6 +102,7 @@
     "mdx-embed": "^0.0.19",
     "prettier": "^2.2.1",
     "react": "^16.13.1",
+    "react-docgen-typescript-loader": "^3.7.2",
     "react-dom": "^16.13.1",
     "sass": "^1.26.11",
     "sass-loader": "^10.0.2",

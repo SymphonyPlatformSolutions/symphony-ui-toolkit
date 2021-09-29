@@ -1,9 +1,7 @@
 import * as React from 'react';
 import { Button, Card, Typography } from '../src/components';
 
-const Template = (args) => {
-  return <Card {...args}></Card>;
-};
+const Template = (args) => (<Card {...args} />);
 
 export const Default = Template.bind({});
 

@@ -22,31 +22,29 @@ reprehenderit qui in ea voluptate velit esse quam nihil molestiae
 consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla
 pariatur?`;
 
-const Template = (args) => {
-  return (
-    <div>
-      <ExpandableCard
-        {...args}
-        onToggle={(el) => console.log('ExpandableCard toggled', el)}
-        header={
-          <div>
-            An example of a header with a An example of a header with a An
-            example of a header with a An example of a header with a An example
-            of a header with a An example of a header with a{' '}
-            <Link url={'https://www.symphony.com'}>link</Link>
-          </div>
-        }
+const Template = (args) => (
+  <div>
+    <ExpandableCard
+      {...args}
+      onToggle={(el) => console.log('ExpandableCard toggled', el)}
+      header={
+        <div>
+          An example of a header with a An example of a header with a An
+          example of a header with a An example of a header with a An example
+          of a header with a An example of a header with a{' '}
+          <Link url={'https://www.symphony.com'}>link</Link>
+        </div>
+      }
+    >
+      <CropContent
+        className="tk-quote-container tk-quote-container--error"
+        onToggle={(el) => console.log('CropContent toggled', el)}
       >
-        <CropContent
-          className="tk-quote-container tk-quote-container--error"
-          onToggle={(el) => console.log('CropContent toggled', el)}
-        >
-          {sampleText}
-        </CropContent>
-      </ExpandableCard>
-    </div>
-  );
-};
+        {sampleText}
+      </CropContent>
+    </ExpandableCard>
+  </div>
+);
 
 export const Default = Template.bind({});
 

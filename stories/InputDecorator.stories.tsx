@@ -17,17 +17,15 @@ export default {
   children: { control: { disable: true } },
 };
 
-const Template = (args) => {
-  return (
-    <InputDecorator
-      label={args.description}
-      tooltip="A tooltip"
-      rightDecorators={args.rightDecorators}
-    >
-      {args.children}
-    </InputDecorator>
-  );
-};
+const Template = (args) => (
+  <InputDecorator
+    label={args.description}
+    tooltip="A tooltip"
+    rightDecorators={args.rightDecorators}
+  >
+    {args.children}
+  </InputDecorator>
+);
 
 export const Standard = Template.bind({});
 Standard.args = {

@@ -349,7 +349,7 @@ export const getISOTimeFromLocalTime = (
  * @param time Time with {hours, seconds, minutes}
  * @param format
  */
-export const getFormattedTime = (time: Time, format = null): string => {
+export const getFormattedTime = (time: Time, format: string = null): string => {
   if (!time) {
     // Time null or undefined
     return null;

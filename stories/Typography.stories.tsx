@@ -2,9 +2,7 @@ import * as React from 'react';
 import Typography from '../src/components/typography';
 
 
-const Template = (args) => {
-  return <Typography {...args}>Title h1 italic and bold</Typography>;
-};
+const Template = (args) => (<Typography {...args}>Title h1 italic and bold</Typography>);
 
 export const Titles = Template.bind({});
 Titles.args = {

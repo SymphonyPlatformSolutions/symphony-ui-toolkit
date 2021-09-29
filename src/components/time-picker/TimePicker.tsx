@@ -1,12 +1,10 @@
 import { Dropdown, DropdownOption } from '../dropdown';
-import { HasValidationProps } from '../validation/interfaces';
-import { HasTooltipProps } from '../tooltip/interfaces';
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import { useEffect, useMemo, useState } from 'react';
 import { Keys } from '../common/keyUtils';
 import { ErrorMessages } from '../validation/interfaces';
-import { DisabledTime, TimePickerValue } from './interfaces';
+import { DisabledTime, TimePickerProps } from './interfaces';
 import {
   formatTimeISO,
   formatISOTimeToSeconds,
@@ -33,17 +31,17 @@ enum STEP {
 export const TimePicker: React.FC<TimePickerProps> = ({
   id,
   disabled,
-  disabledTimes = [],
-  format = getUserFormat(),
+  disabledTimes,
+  format,
   label,
-  min = '00:00:00',
-  max = '23:59:59',
+  min,
+  max,
   name,
   onChange,
   onValidationChanged,
   placeholder,
-  step = STEP.DEFAULT_STEP_VALUE,
-  strict = true,
+  step,
+  strict,
   tooltip,
   tooltipCloseLabel,
   showRequired,
@@ -245,23 +243,6 @@ export const TimePicker: React.FC<TimePickerProps> = ({
   );
 };
 
-export type TimePickerProps = {
-  id?: string;
-  disabled?: boolean;
-  disabledTimes?: DisabledTime | Array<DisabledTime>;
-  format?: string;
-  label?: string;
-  min?: string;
-  max?: string;
-  name?: string;
-  placeholder?: string;
-  step?: number;
-  strict?: boolean;
-  value?: string;
-  showRequired?: boolean;
-} & HasValidationProps<TimePickerValue> &
-  HasTooltipProps;
-
 TimePicker.propTypes = {
   id: PropTypes.string,
   disabled: PropTypes.bool,
@@ -433,5 +414,14 @@ const handleFocus = (event) => {
     }
   }
 };
+
+TimePicker.defaultProps = {
+  disabledTimes: [],
+  format: getUserFormat(),
+  min: '00:00:00',
+  max: '23:59:59',
+  step: STEP.DEFAULT_STEP_VALUE,
+  strict: true,
+}
 
 export default TimePicker;
