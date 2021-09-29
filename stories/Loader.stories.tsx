@@ -1,9 +1,7 @@
 import * as React from 'react';
 import Loader from '../src/components/loader';
 
-const Template = (args) => {
-  return <Loader {...args} />;
-};
+const Template = (args) => (<Loader {...args} />);
 
 export const Default = Template.bind({});
 

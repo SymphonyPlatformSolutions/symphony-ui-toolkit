@@ -2,9 +2,7 @@ import React, { useRef, useState } from 'react';
 import { Button, TextArea, Validation } from '../src/components';
 import { Validators } from '../src/core/validators/validators';
 
-const Template = (args) => {
-  return <TextArea {...args} />;
-};
+const Template = (args) => (<TextArea {...args} />);
 
 export const Default = Template.bind({});
 

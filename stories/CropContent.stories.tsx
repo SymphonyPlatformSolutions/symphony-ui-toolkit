@@ -16,19 +16,17 @@ reprehenderit qui in ea voluptate velit esse quam nihil molestiae
 consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla
 pariatur?`;
 
-const Template = (args) => {
-  return (
-    <CropContent {...args}>
-      {sampleText}
-      <div
-        className="tk-m-2h"
-        style={{ display: 'flex', justifyContent: 'center' }}
-      >
-        <Button>Got it!</Button>
-      </div>
-    </CropContent>
-  );
-};
+const Template = (args) => (
+  <CropContent {...args}>
+    {sampleText}
+    <div
+      className="tk-m-2h"
+      style={{ display: 'flex', justifyContent: 'center' }}
+    >
+      <Button>Got it!</Button>
+    </div>
+  </CropContent>
+);
 export const Default = Template.bind({});
 Default.args = {
   className: 'tk-quote-container',

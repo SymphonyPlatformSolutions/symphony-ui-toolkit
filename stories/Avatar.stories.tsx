@@ -6,13 +6,11 @@ const img1 = require('./static/avatar.png');
 const img2 = require('./static/avatar1.png');
 const img3 = require('./static/avatar2.png');
 
-const Template = (args) => {
-  return (
-    <Avatar {...args}>
-      <img src={img1} alt="avatar" />
-    </Avatar>
-  );
-};
+const Template = (args) => (
+  <Avatar {...args}>
+    <img src={img1} alt="avatar" />
+  </Avatar>
+);
 
 export const Default = Template.bind({});
 

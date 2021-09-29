@@ -5,9 +5,7 @@ import LabelPlacements from '../src/components/selection/LabelPlacements';
 import SelectionStatus from '../src/components/selection/SelectionStatus';
 import { action } from '@storybook/addon-actions';
 
-const Template = (args) => {
-  return <Switch {...args} />;
-};
+const Template = (args) => (<Switch {...args} />);
 
 export const Default = Template.bind({});
 Default.args = {

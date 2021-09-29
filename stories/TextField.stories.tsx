@@ -3,9 +3,7 @@ import { Button, TextField, Icon, Validation } from '../src/components';
 
 import { Validators } from '../src/core/validators/validators';
 
-const Template = (args) => {
-  return <TextField {...args} />;
-};
+const Template = (args) => (<TextField {...args} />);
 
 export const Default = Template.bind({});
 

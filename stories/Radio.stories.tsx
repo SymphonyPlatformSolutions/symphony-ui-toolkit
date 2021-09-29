@@ -5,9 +5,7 @@ import LabelPlacements from '../src/components/selection/LabelPlacements';
 import { action } from '@storybook/addon-actions';
 import SelectionStatus from '../src/components/selection/SelectionStatus';
 
-const Template = (args) => {
-  return <Radio {...args} />;
-};
+const Template = (args) => (<Radio {...args} />);
 
 export const Default = Template.bind({});
 Default.args = {
