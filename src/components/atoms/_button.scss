@@ -19,9 +19,6 @@ $tk-btn-size: toRem(32);
   i {
     font-size: toRem(16);
   }
-  &.loading {
-    min-width: toRem(79);
-  }
   &--primary {
     @include styleFilledButton($--tk-button-color-primary);
     &-destructive {
@@ -60,9 +57,6 @@ $tk-btn-size: toRem(32);
     }
   }
   &--small {
-    &.loading {
-      min-width: toRem(71);
-    }
     padding: toRem(0) toRem(12);
     @include addIconSize(12);
     $tk-btn-size: toRem(24);
@@ -80,9 +74,6 @@ $tk-btn-size: toRem(32);
     }
   }
   &--large {
-    &.loading {
-      min-width: toRem(103);
-    }
     padding: toRem(0) toRem(24);
     font-size: toRem(14);
     $tk-btn-size: toRem(40);
