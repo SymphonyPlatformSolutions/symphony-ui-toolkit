@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { useEffect, useMemo, useState } from 'react';
 import classNames from 'classnames';
-import { nanoid } from 'nanoid';
+import shortid from 'shortid';
 
 import { HasValidationProps } from '../validation/interfaces';
 import { HasTooltipProps } from '../tooltip/interfaces';
@@ -119,10 +119,10 @@ const TextComponent: React.FC<
 
     // Generate unique ID if not provided
     const inputId = useMemo(() => {
-      return id || `tk-input-${nanoid()}`;
+      return id || `tk-input-${shortid.generate()}`;
     }, [id]);
 
-    const tooltipId = useMemo(() => `tk-hint-${nanoid()}`, []);
+    const tooltipId = useMemo(() => `tk-hint-${shortid.generate()}`, []);
 
     const handleViewText = (event) => {
       if (disabled) return;

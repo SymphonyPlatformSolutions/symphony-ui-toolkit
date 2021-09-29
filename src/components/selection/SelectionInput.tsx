@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useEffect, useMemo, useState } from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { nanoid } from 'nanoid';
+import shortid from 'shortid';
 import SelectionTypes, { SelectionInputTypes } from './SelectionTypes';
 import SelectionStatus, { getCheckedValue } from './SelectionStatus';
 import LabelPlacements from './LabelPlacements';
@@ -48,7 +48,7 @@ const SelectionInput: React.FC<SelectionInputPropsWithType> = ({
 }) => {
   // Generate unique ID if not provided
   const memoizedId = useMemo(() => {
-    return id || `${type}-${nanoid()}`;
+    return id || `${type}-${shortid.generate()}`;
   }, [id]);
 
   // Default labelPlacement on right if not provided

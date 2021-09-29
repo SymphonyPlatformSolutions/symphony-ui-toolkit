@@ -1,8 +1,8 @@
 import * as React from 'react';
 import classnames from 'classnames';
-import Tooltip from '../tooltip';
+import Tooltip, { TooltipProps } from '../tooltip';
 
-interface TextEllipsisProps extends Omit<React.HTMLProps<HTMLDivElement>, 'type'> {
+interface TextEllipsisProps extends Omit<React.HTMLProps<HTMLSpanElement>, 'type'> {
     /** Text that should be ellipsed */
     children?: React.ReactNode;
 
@@ -12,11 +12,7 @@ interface TextEllipsisProps extends Omit<React.HTMLProps<HTMLDivElement>, 'type'
     /** Wheather a tooltip should be shown on hover when the text is ellipsed */
     tooltipOnEllipsis?: boolean;
 
-    tooltipPlacement?:
-      | 'bottom'
-      | 'left'
-      | 'right'
-      | 'top'
+    tooltipProps?: Partial<TooltipProps>;
 }
 
 export const TextEllipsis: React.FC<TextEllipsisProps> = ({
@@ -24,7 +20,8 @@ export const TextEllipsis: React.FC<TextEllipsisProps> = ({
   className,
   rows,
   tooltipOnEllipsis,
-  tooltipPlacement,
+  tooltipProps,
+  style,
   ...otherProps
 }: TextEllipsisProps) => {
 
@@ -42,8 +39,8 @@ export const TextEllipsis: React.FC<TextEllipsisProps> = ({
 
   const getTextEllipsisHTML = () => {
     return (<span
-      className={ classnames(className, 'tk-text-ellipsis') }
-      style={{ WebkitLineClamp: rows}}
+      className={ classnames(className, 'tk-text-ellipsis', { 'tk-text-ellipsis__multiple-rows': rows > 1 }) }
+      style={{ WebkitLineClamp: rows, ...style}}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       {...otherProps}
@@ -51,14 +48,15 @@ export const TextEllipsis: React.FC<TextEllipsisProps> = ({
       { children }
     </span>)
   }
-
+  
   if(tooltipOnEllipsis) {
     return(
       <Tooltip
-        description={ children as JSX.Element }
-        placement={tooltipPlacement || 'bottom'}
-        type="tooltip"
-        visible={showTooltip}
+        {...tooltipProps}
+        description={ tooltipProps?.description ?? children as JSX.Element }
+        placement={ tooltipProps?.placement ?? 'top' }
+        type={ tooltipProps?.type ?? 'tooltip' }
+        visible={ tooltipProps?.visible ?? showTooltip }
       >
         {getTextEllipsisHTML()}
       </Tooltip>
@@ -72,7 +70,6 @@ export const TextEllipsis: React.FC<TextEllipsisProps> = ({
 
 TextEllipsis.defaultProps = {
   rows: 1,
-  tooltipPlacement: 'top',
   tooltipOnEllipsis: true,
 }
 

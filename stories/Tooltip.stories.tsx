@@ -45,7 +45,7 @@ const addExplanation = (explanation) => (Story) => (
 export const Standard = Template.bind({});
 
 Standard.args = {
-  children: <input type="text" name="fname" />,
+  children: <input type="text" name="fname" onChange={ null } />,
   description: 'Some text',
   placement: 'top',
   visible: true,
@@ -56,7 +56,7 @@ WithACloseAction.args = {
   description: 'Some text',
   placement: 'top',
   closeLabel: 'Close',
-  children: <input type="text" name="fname" />,
+  children: <input type="text" name="fname" onChange={ null } />,
 };
 
 export const ShowHide = Template.bind({});
@@ -64,7 +64,7 @@ ShowHide.args = {
   description: 'Toggle the visibility of the Tooltip in the Controls tab',
   placement: 'top',
   visible: true,
-  children: <input type="text" name="fname" />,
+  children: <input type="text" name="fname" onChange={ null } />,
 };
 ShowHide.argTypes = {
   placement: { control: { disable: true } },
@@ -137,14 +137,14 @@ export const OnATextField = Template.bind({});
 OnATextField.args = {
   description: 'Attached on a text field',
   placement: 'top',
-  children: <input type="text" name="textTextField" />,
+  children: <input type="text" name="textTextField" onChange={ null } />,
 };
 
 export const OnATextArea = Template.bind({});
 OnATextArea.args = {
   description: 'Attached on a text area',
   placement: 'top',
-  children: <textarea name="aTextArea" rows={4} cols={50} value="Some text" />,
+  children: <textarea name="aTextArea" rows={4} cols={50} defaultValue="Some text"/>,
 };
 
 export const OnAnIcon = Template.bind({});
@@ -158,7 +158,7 @@ export const OnADatePicker = Template.bind({});
 OnADatePicker.args = {
   description: 'Attached on a date picker',
   placement: 'top',
-  children: <input type="date" id="meeting" name="meeting" />,
+  children: <input type="date" id="meeting" name="meeting" onChange={ null } />,
 };
 
 export const OnAnImage = Template.bind({});
@@ -172,3 +172,20 @@ OnAnImage.args = {
     />
   ),
 };
+
+export const MultipleChildren = (args) => {
+  return (
+    <div>
+      <Tooltip {...args}>
+        <p>First paragraph</p>
+        <p>Second paragraph</p>
+      </Tooltip>
+    </div>
+  )
+}
+
+MultipleChildren.args = {
+  description: 'Tooltip for both children',
+  displayTrigger: 'hover',
+  placement: 'top'
+}

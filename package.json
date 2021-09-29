@@ -31,6 +31,7 @@
   },
   "dependencies": {
     "@popperjs/core": "^2.4.4",
+    "@seznam/compose-react-refs": "^1.0.6",
     "@symphony-ui/uitoolkit-styles": "^2.6.0",
     "@types/classnames": "^2.2.10",
     "classnames": "^2.2.6",
@@ -38,7 +39,6 @@
     "emoji-js": "^3.5.0",
     "github-markdown-css": "^4.0.0",
     "lodash": "^4.17.21",
-    "nanoid": "^3.1.25",
     "prop-types": "^15.7.2",
     "react-cool-onclickoutside": "^1.5.8",
     "react-popper": "^2.2.3",
@@ -46,6 +46,7 @@
     "react-select": "^4.3.1",
     "react-transition-group": "^4.4.1",
     "react-virtualized": "^9.22.2",
+    "shortid": "^2.2.16",
     "styled-components": "^5.1.1"
   },
   "devDependencies": {
