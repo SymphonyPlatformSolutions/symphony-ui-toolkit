@@ -1,7 +1,11 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { Button, Validation } from '../src';
-import { TimePicker } from '../src/components';
+import {
+  TimePicker,
+  Button,
+  Validation,
+} from '../src/components';
+
 import './styles/dropdownMenu.stories.css';
 
 const logChange = (value, errorsMap) => {
@@ -13,13 +17,7 @@ const logChange = (value, errorsMap) => {
   }
 };
 
-const Template = (args) => {
-  return (
-    <div className="flex-col" style={{ width: '100%', height: '350px' }}>
-      <TimePicker {...args} />
-    </div>
-  );
-};
+const Template = (args) => (<TimePicker {...args} />);
 
 export const Default = Template.bind({});
 Default.args = {
@@ -190,4 +188,11 @@ export const WithValidationComponent: React.SFC = () => {
 export default {
   title: 'Components/Input/TimePicker',
   component: TimePicker,
+  decorators: [
+    (Story) => (
+      <div className="flex-col" style={{ width: '100%', height: '350px' }}>
+        <Story />
+      </div>
+    ),
+  ],
 };
