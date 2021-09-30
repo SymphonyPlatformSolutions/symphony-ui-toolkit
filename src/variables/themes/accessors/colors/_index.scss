@@ -93,6 +93,8 @@ $--tk-button-color-primary: (
     var(--tk-button-color-primary-disabled, getColor($electricity, '20')),
   text: var(--tk-button-color-primary-text, $scolor-white),
   textDisabled: var(--tk-button-color-primary-text-disabled, $scolor-white),
+  focus: var(--tk-button-color-primary-focus, getColor($electricity, '60')),
+  focusText: var(--tk-button-color-primary-focus-text, $scolor-white),
 );
 
 $--tk-button-color-secondary: (
@@ -107,6 +109,9 @@ $--tk-button-color-secondary: (
   textDisabled:
     var(--tk-button-color-secondary-disabled, getColor($graphite, '20')),
   disabled: var(--tk-button-color-secondary-disabled, getColor($graphite, '30')),
+  focus: var(--tk-button-color-secondary-focus, getColor($graphite, '20')),
+  focusText:
+    var(--tk-button-color-secondary-focus-text, getColor($graphite, '60')),
 );
 
 $--tk-button-color-tertiary: (
@@ -119,6 +124,9 @@ $--tk-button-color-tertiary: (
   text: var(--tk-button-color-tertiary-text, getColor($graphite, '50')),
   textDisabled:
     var(--tk-button-color-tertiary-text-disabled, getColor($graphite, '20')),
+  focus: var(--tk-button-color-tertiary-focus, getColor($graphite, '20')),
+  focusText:
+    var(--tk-button-color-tertiary-focus-text, getColor($graphite, '60')),
 );
 
 $--tk-button-color-destructive-primary: (
@@ -128,6 +136,8 @@ $--tk-button-color-destructive-primary: (
   disabled: var(--tk-button-color-destructive-disabled, getColor($red, '20')),
   text: var(--tk-button-color-destructive-text, $scolor-white),
   textDisabled: var(--tk-button-color-destructive-text-disabled, $scolor-white),
+  focus: var(--tk-button-color-destructive-focus, getColor($red, '60')),
+  focusText: var(--tk-button-color-destructive-focus-text, $scolor-white),
 );
 
 $--tk-button-color-destructive-secondary: (
@@ -147,6 +157,9 @@ $--tk-button-color-destructive-secondary: (
       --tk-button-color-destructive-second-text-disabled,
       getColor($red, '30')
     ),
+  focus: var(--tk-button-color-destructive-second-focus, getColor($red, '20')),
+  focusText:
+    var(--tk-button-color-destructive-second-focus-text, getColor($red, '60')),
 );
 
 $--tk-button-color-destructive-tertiary: (
@@ -161,6 +174,9 @@ $--tk-button-color-destructive-tertiary: (
       --tk-button-color-destructive-tertiary-text-disabled,
       getColor($red, '20')
     ),
+  focus: var(--tk-button-color-destructive-tertiary-focus, getColor($red, '20')),
+  focusText:
+    var(--tk-button-color-destructive-tertiary-focus-text, getColor($red, '60')),
 );
 
 $--tk-button-color-accent-tertiary: (
@@ -182,7 +198,15 @@ $--tk-button-color-accent-tertiary: (
       --tk-button-color-accent-tertiary-text-active,
       getColor($electricity, '60')
     ),
+  focus:
+    var(--tk-button-color-accent-tertiary-focus, getColor($electricity, '20')),
+  focusText:
+    var(
+      --tk-button-color-accent-tertiary-focus-text,
+      getColor($electricity, '60')
+    ),
 );
+$--tk-button-focus-shadow: var(--tk-button-focus-shadow, $scolor-white);
 
 /** ======== DatePickers ======== */
 $--tk-datepicker-default-color: var(
