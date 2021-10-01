@@ -41,7 +41,7 @@ export const Button: React.FC<ButtonProps> = ({
     prefix,
     `${prefix}--${variant}`,
     iconButton && `${prefix}--icon`,
-    loading && 'loading',
+    `${loading ? 'loading' : ''}`,
     `${prefix}--${size}`
   );
 
@@ -51,7 +51,6 @@ export const Button: React.FC<ButtonProps> = ({
 
   return (
     <button
-      role="button"
       className={classes}
       disabled={loading || disabled}
       /* eslint-disable react/button-has-type */
@@ -59,7 +58,7 @@ export const Button: React.FC<ButtonProps> = ({
       {...rest}
     >
       {loading && <i className="animate-spin tk-icon-loading" />}
-      <span className={classNames(iconRight && `${prefix}--icon-right`,iconLeft && `${prefix}--icon-left`)}
+      <span className={classNames({ [`${prefix}--icon-right`] : iconRight , [`${prefix}--icon-left`]: iconLeft })}
         style={{ visibility: loading ? 'hidden' : null }}>
         {iconLeft}{children}{iconRight}
       </span>

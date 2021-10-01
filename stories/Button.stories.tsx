@@ -13,11 +13,10 @@ Default.args = {
 };
 
 export const Variants: React.FC = () => (
-  <div>
+  <div className="button-storybook">
     <h2>Primary</h2>
-    <h3>default</h3>
     <div style={{ display: 'flex', margin: 16 }}>
-      <Button>Button</Button>
+      <Button variant="primary" >Button</Button>
       <Button variant="primary" iconLeft={<Icon iconName="lock"/>}>
         Icon left
       </Button>
@@ -31,10 +30,10 @@ export const Variants: React.FC = () => (
         <Icon iconName="lock"></Icon>
       </Button>
       <Button variant="primary" disabled>
-        Button
+      Disabled
       </Button>
-
     </div>
+ 
     <h3>destructive</h3>
     <div style={{ display: 'flex', margin: 16 }}>
       <Button variant="primary-destructive"> Button</Button>
@@ -48,12 +47,11 @@ export const Variants: React.FC = () => (
         <Icon iconName="lock"></Icon>
       </Button>
       <Button variant="primary-destructive" disabled>
-        Button
+      Disabled
       </Button>
     </div>
 
-    <h2>Secondary</h2>
-    <h3>default</h3>
+    <h2 className="tk-mt-5h">Secondary</h2>
     <div style={{ display: 'flex', margin: 16 }}>
       <Button variant="secondary">Button</Button>
       <Button variant="secondary" iconLeft={<Icon iconName="lock"/>}>
@@ -69,7 +67,7 @@ export const Variants: React.FC = () => (
         <Icon iconName="lock"></Icon>
       </Button>
       <Button variant="secondary" disabled>
-        Button
+      Disabled
       </Button>
 
 
@@ -87,12 +85,11 @@ export const Variants: React.FC = () => (
         <Icon iconName="lock"></Icon>
       </Button>
       <Button variant="secondary-destructive" disabled>
-        Button
+      Disabled
       </Button>
     </div>
 
-    <h2>Tertiary</h2>
-    <h3>default</h3>
+    <h2 className="tk-mt-5h">Tertiary</h2>
     <div style={{ display: 'flex', margin: 16 }}>
       <Button variant="tertiary">Button</Button>
       <Button variant="tertiary" iconLeft={<Icon iconName="lock"/>}>
@@ -108,7 +105,7 @@ export const Variants: React.FC = () => (
         <Icon iconName="lock"></Icon>
       </Button>
       <Button variant="tertiary" disabled>
-        Button
+      Disabled
       </Button>
     </div>
 
@@ -125,7 +122,7 @@ export const Variants: React.FC = () => (
         <Icon iconName="lock"></Icon>
       </Button>
       <Button variant="tertiary-destructive" disabled>
-        Button
+      Disabled
       </Button>
     </div>
     <h3>active</h3>
@@ -141,15 +138,14 @@ export const Variants: React.FC = () => (
         <Icon iconName="lock"></Icon>
       </Button>
       <Button variant="tertiary-accent" disabled>
-        Button
+      Disabled
       </Button>
     </div>
   </div>
 );
 
 export const Sizes: React.FC = () => (
-  <div>
-    <h3>Default</h3>
+  <div className="button-storybook">
     <div style={{ display: 'flex', margin: 16 }}>
       <Button variant="primary"> Button</Button>
       <Button variant="primary" iconLeft={<Icon iconName="lock"/>}>
@@ -165,7 +161,7 @@ export const Sizes: React.FC = () => (
         <Icon iconName="lock"></Icon>
       </Button>
       <Button variant="primary" disabled>
-        Button
+      Disabled
       </Button>
     </div>
     <div style={{ display: 'flex', margin: 16 }}>
@@ -184,7 +180,7 @@ export const Sizes: React.FC = () => (
         <Icon iconName="lock"></Icon>
       </Button>
       <Button variant="secondary" disabled>
-        Button
+      Disabled
       </Button>
     </div>
     <div style={{ display: 'flex', margin: 16 }}>
@@ -202,7 +198,7 @@ export const Sizes: React.FC = () => (
         <Icon iconName="lock"></Icon>
       </Button>
       <Button variant="tertiary" disabled>
-        Button
+      Disabled
       </Button>
     </div>
     <h3>Small</h3>
@@ -239,7 +235,7 @@ export const Sizes: React.FC = () => (
         <Icon iconName="lock"></Icon>
       </Button>
       <Button variant="secondary" size="small" disabled>
-        Button
+      Disabled
       </Button>
     </div>
     <div style={{ display: 'flex', margin: 16 }}>
@@ -276,7 +272,7 @@ export const Sizes: React.FC = () => (
         <Icon iconName="lock"></Icon>
       </Button>
       <Button variant="primary" size="large" disabled>
-        Button
+      Disabled
       </Button>
     </div>
     <div style={{ display: 'flex', margin: 16 }}>
@@ -312,7 +308,7 @@ export const Sizes: React.FC = () => (
         <Icon iconName="lock"></Icon>
       </Button>
       <Button variant="tertiary" size="large" disabled>
-        Button
+        Disabled
       </Button>
     </div>
   </div>

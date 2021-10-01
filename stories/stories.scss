@@ -40,3 +40,8 @@ html {
   display: -webkit-box;
   width: -webkit-fill-available;
 }
+.button-storybook {
+  button {
+    margin-right: 8px;
+  }
+}
