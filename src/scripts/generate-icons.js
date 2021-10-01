@@ -19,12 +19,12 @@ const getCodePoints = () => {
   return JSON.parse(rawdata);
 }
 
-const generateTKFonts = () => {
+const generateTKFonts = async () => {
   createDirectories();
 
   const codepoints = getCodePoints();
 
-  return generateFonts({
+  await generateFonts({
     name: 'tk-icons',
     prefix: 'tk-icon',
     inputDir: `${SRC_ICONS}svg`,
