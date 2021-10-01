@@ -1,4 +1,4 @@
-$tk-btn-size: toRem(32);
+$tk-button-size: toRem(32);
 .tk-button {
   font-size: toRem(12);
   display: inline-block;
@@ -8,7 +8,7 @@ $tk-btn-size: toRem(32);
   letter-spacing: toRem(0.5);
   text-transform: uppercase;
   text-align: center;
-  height: $tk-btn-size;
+  height: $tk-button-size;
   width: auto;
   white-space: nowrap;
   cursor: pointer;
@@ -45,8 +45,8 @@ $tk-btn-size: toRem(32);
   }
   &--icon {
     padding: 0;
-    min-width: $tk-btn-size;
-    min-height: $tk-btn-size;
+    min-width: $tk-button-size;
+    min-height: $tk-button-size;
     display: inline-block;
     border-radius: 50%;
     &-right > i {
@@ -59,12 +59,12 @@ $tk-btn-size: toRem(32);
   &--small {
     padding: toRem(0) toRem(12);
     @include addIconSize(12);
-    $tk-btn-size: toRem(24);
-    height: $tk-btn-size;
+    $tk-button-size: toRem(24);
+    height: $tk-button-size;
     &.tk-button--icon {
       padding: 0;
-      min-height: $tk-btn-size;
-      min-width: $tk-btn-size;
+      min-height: $tk-button-size;
+      min-width: $tk-button-size;
       &-right > i {
         margin-left: toRem(4);
       }
@@ -76,12 +76,12 @@ $tk-btn-size: toRem(32);
   &--large {
     padding: toRem(0) toRem(24);
     font-size: toRem(14);
-    $tk-btn-size: toRem(40);
-    height: $tk-btn-size;
+    $tk-button-size: toRem(40);
+    height: $tk-button-size;
     &.tk-button--icon {
       padding: 0;
-      min-height: $tk-btn-size;
-      min-width: $tk-btn-size;
+      min-height: $tk-button-size;
+      min-width: $tk-button-size;
     }
   }
 }
