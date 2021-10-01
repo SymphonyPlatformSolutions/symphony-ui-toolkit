@@ -41,20 +41,9 @@ export const Button: React.FC<ButtonProps> = ({
     prefix,
     `${prefix}--${variant}`,
     iconButton && `${prefix}--icon`,
-    iconRight && `${prefix}--icon-right`,
-    iconLeft && `${prefix}--icon-left`,
-    `${loading ? 'loading' : ''}`,
+    loading && 'loading',
     `${prefix}--${size}`
   );
-
-  const [width, setWidth] = React.useState(0);
-  const ref = React.useRef(null);
-  React.useEffect(() => {
-    if (ref.current && ref.current.getBoundingClientRect().width) {
-      setWidth(ref.current.getBoundingClientRect().width);
-    }
- 
-  }, [children]);
 
   if(variant === 'destructive') {
     console.warn('The button variant: \'destructive\' will be deprecated.\n Please use: \'primary-destructive\' instead')
@@ -62,16 +51,18 @@ export const Button: React.FC<ButtonProps> = ({
 
   return (
     <button
-      ref={ref}
       role="button"
       className={classes}
       disabled={loading || disabled}
       /* eslint-disable react/button-has-type */
       type={type}
-      style={loading && children ? {width: `${width}px`}: {}}
       {...rest}
     >
-      {loading ? <i className="animate-spin tk-icon-loading" /> : iconLeft ? <>{iconLeft}{children}</> : iconRight ? <>{children}{iconRight}</> : children}
+      {loading && <i className="animate-spin tk-icon-loading" />}
+      <span className={classNames(iconRight && `${prefix}--icon-right`,iconLeft && `${prefix}--icon-left`)}
+        style={{ visibility: loading ? 'hidden' : null }}>
+        {iconLeft}{children}{iconRight}
+      </span>
     </button>
   );
 };
