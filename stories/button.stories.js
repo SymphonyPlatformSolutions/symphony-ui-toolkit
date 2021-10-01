@@ -124,12 +124,12 @@ export const Variants = () =>`
   <button class="tk-button tk-button--primary" disabled>Disabled</button>
   <button class="tk-button tk-button--primary" disabled>Disabled <i class="tk-icon-lock"></i></button>
   <h4>Destructive</h4>
-  <button class="tk-button tk-button--primary--destructive">Button</button>
-  <button class="tk-button tk-button--primary--destructive "><i class="tk-icon-lock"></i> Icon left</button>
-  <button class="tk-button tk-button--primary--destructive ">Icon right <i class="tk-icon-lock"></i></button>
-  <button class="tk-button tk-button--primary--destructive tk-button--icon"><i class="tk-icon-video-off"></i></button>
-  <button class="tk-button tk-button--primary--destructive" disabled>Disabled</button>
-  <button class="tk-button tk-button--primary--destructive" disabled>Disabled <i class="tk-icon-lock"></i></button>
+  <button class="tk-button tk-button--primary-destructive">Button</button>
+  <button class="tk-button tk-button--primary-destructive "><i class="tk-icon-lock"></i> Icon left</button>
+  <button class="tk-button tk-button--primary-destructive ">Icon right <i class="tk-icon-lock"></i></button>
+  <button class="tk-button tk-button--primary-destructive tk-button--icon"><i class="tk-icon-video-off"></i></button>
+  <button class="tk-button tk-button--primary-destructive" disabled>Disabled</button>
+  <button class="tk-button tk-button--primary-destructive" disabled>Disabled <i class="tk-icon-lock"></i></button>
 </div>
 <div style="margin: 16px; margin-top:40px">
   <h2>Secondary</h2>
@@ -141,12 +141,12 @@ export const Variants = () =>`
   <button class="tk-button tk-button--secondary" disabled>Disabled</button>
   <button class="tk-button tk-button--secondary" disabled>Disabled <i class="tk-icon-lock"></i></button>
   <h4>Destructive</h4>
-  <button class="tk-button tk-button--secondary--destructive">Button</button>
-  <button class="tk-button tk-button--secondary--destructive "><i class="tk-icon-lock"></i> Icon left</button>
-  <button class="tk-button tk-button--secondary--destructive ">Icon right <i class="tk-icon-lock"></i></button>
-  <button class="tk-button tk-button--secondary--destructive tk-button--icon"><i class="tk-icon-video-off"></i></button>
-  <button class="tk-button tk-button--secondary--destructive" disabled>Disabled</button>
-  <button class="tk-button tk-button--secondary--destructive" disabled>Disabled <i class="tk-icon-lock"></i></button>
+  <button class="tk-button tk-button--secondary-destructive">Button</button>
+  <button class="tk-button tk-button--secondary-destructive "><i class="tk-icon-lock"></i> Icon left</button>
+  <button class="tk-button tk-button--secondary-destructive ">Icon right <i class="tk-icon-lock"></i></button>
+  <button class="tk-button tk-button--secondary-destructive tk-button--icon"><i class="tk-icon-video-off"></i></button>
+  <button class="tk-button tk-button--secondary-destructive" disabled>Disabled</button>
+  <button class="tk-button tk-button--secondary-destructive" disabled>Disabled <i class="tk-icon-lock"></i></button>
 </div>
 <div style="margin: 16px; margin-top:40px">
   <h2>Tertiary</h2>
@@ -158,20 +158,20 @@ export const Variants = () =>`
   <button class="tk-button tk-button--tertiary" disabled>Disabled</button>
   <button class="tk-button tk-button--tertiary" disabled>Disabled <i class="tk-icon-lock"></i></button>
   <h4>Destructive</h4>
-  <button class="tk-button tk-button--tertiary--destructive">Button</button>
-  <button class="tk-button tk-button--tertiary--destructive "><i class="tk-icon-lock"></i> Icon left</button>
-  <button class="tk-button tk-button--tertiary--destructive ">Icon right <i class="tk-icon-lock"></i></button>
-  <button class="tk-button tk-button--tertiary--destructive tk-button--icon"><i class="tk-icon-video-off"></i></button>
-  <button class="tk-button tk-button--tertiary--destructive" disabled>Disabled</button>
-  <button class="tk-button tk-button--tertiary--destructive" disabled>Disabled <i class="tk-icon-lock"></i></button>
+  <button class="tk-button tk-button--tertiary-destructive">Button</button>
+  <button class="tk-button tk-button--tertiary-destructive "><i class="tk-icon-lock"></i> Icon left</button>
+  <button class="tk-button tk-button--tertiary-destructive ">Icon right <i class="tk-icon-lock"></i></button>
+  <button class="tk-button tk-button--tertiary-destructive tk-button--icon"><i class="tk-icon-video-off"></i></button>
+  <button class="tk-button tk-button--tertiary-destructive" disabled>Disabled</button>
+  <button class="tk-button tk-button--tertiary-destructive" disabled>Disabled <i class="tk-icon-lock"></i></button>
 
-  <h4>Active</h4>
-  <button class="tk-button tk-button--tertiary--accent">Button</button>
-  <button class="tk-button tk-button--tertiary--accent "><i class="tk-icon-lock"></i> Icon left</button>
-  <button class="tk-button tk-button--tertiary--accent ">Icon right <i class="tk-icon-lock"></i></button>
-  <button class="tk-button tk-button--tertiary--accent tk-button--icon"><i class="tk-icon-video-off"></i></button>
-  <button class="tk-button tk-button--tertiary--accent" disabled>Disabled</button>
-  <button class="tk-button tk-button--tertiary--accent" disabled>Disabled <i class="tk-icon-lock"></i></button>
+  <h4>Accent</h4>
+  <button class="tk-button tk-button--tertiary-accent">Button</button>
+  <button class="tk-button tk-button--tertiary-accent "><i class="tk-icon-lock"></i> Icon left</button>
+  <button class="tk-button tk-button--tertiary-accent ">Icon right <i class="tk-icon-lock"></i></button>
+  <button class="tk-button tk-button--tertiary-accent tk-button--icon"><i class="tk-icon-video-off"></i></button>
+  <button class="tk-button tk-button--tertiary-accent" disabled>Disabled</button>
+  <button class="tk-button tk-button--tertiary-accent" disabled>Disabled <i class="tk-icon-lock"></i></button>
 
 </div>
 `
