@@ -1,5 +1,6 @@
 $tk-button-size: toRem(32);
 .tk-button {
+  position: relative;
   font-size: toRem(12);
   display: inline-block;
   border: none;
@@ -83,5 +84,12 @@ $tk-button-size: toRem(32);
       min-height: $tk-button-size;
       min-width: $tk-button-size;
     }
+  }
+  .tk-icon-loading {
+    position: absolute;
+    margin: 0 auto;
+    top: 25%;
+    left: 0;
+    right: 0;
   }
 }
