@@ -32,7 +32,7 @@
     "chime": 61727,
     "code": 61728,
     "collection": 61729,
-    "community": 61730,
+    "person-community": 61730,
     "copy": 61731,
     "cross-round": 61732,
     "cross": 61733,
@@ -160,5 +160,6 @@
     "video": 61855,
     "voice": 61856,
     "world": 61857,
-    "zoom-out": 61858
+    "zoom-out": 61858,
+    "community": 61730
 }
