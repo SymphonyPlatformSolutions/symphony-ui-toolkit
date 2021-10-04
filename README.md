@@ -38,6 +38,13 @@ src/
 |   |– svg/
 ```
 
+**Aliases:** To use several names for the same icon. You can define aliases in the file ['src/icons/tk-icons.aliases.json'](./src/icons/tk-icons.aliases.json).
+
+```
+"another-name":"activity"
+```
+"tk-icon-another-name" and "tk-icon-activity" will render the same icon.
+
 ## 🤖 Visual Testing
 
 Automated visual testing uses software to automate the process of comparing visual elements across various screen combinations to uncover visual defects.
