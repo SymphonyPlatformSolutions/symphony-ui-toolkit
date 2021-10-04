@@ -41,14 +41,14 @@ export const Button: React.FC<ButtonProps> = ({
     prefix,
     `${prefix}--${variant}`,
     iconButton && `${prefix}--icon`,
-    iconRight && `${prefix}--icon-right`,
-    iconLeft && `${prefix}--icon-left`,
     `${loading ? 'loading' : ''}`,
     `${prefix}--${size}`
   );
-  if(variant==='destructive') {
+
+  if(variant === 'destructive') {
     console.warn('The button variant: \'destructive\' will be deprecated.\n Please use: \'primary-destructive\' instead')
   }
+
   return (
     <button
       className={classes}
@@ -57,7 +57,11 @@ export const Button: React.FC<ButtonProps> = ({
       type={type}
       {...rest}
     >
-      {loading ? <i className="animate-spin tk-icon-loading" /> : iconLeft ? <>{iconLeft}{children}</> : iconRight ? <>{iconRight}{children}</> : children}
+      {loading && <i className="animate-spin tk-icon-loading" />}
+      <span className={classNames({ [`${prefix}--icon-right`] : iconRight , [`${prefix}--icon-left`]: iconLeft })}
+        style={{ visibility: loading ? 'hidden' : null }}>
+        {iconLeft}{children}{iconRight}
+      </span>
     </button>
   );
 };
