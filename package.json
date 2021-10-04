@@ -34,7 +34,6 @@
     "babel-loader": "^8.1.0",
     "creevey": "^0.7.37",
     "fantasticon": "^1.2.2",
-    "icon-font-generator": "^2.1.11",
     "markdown-loader": "^6.0.0",
     "postcss": "^8.1.7",
     "postcss-cli": "^8.3.0",
