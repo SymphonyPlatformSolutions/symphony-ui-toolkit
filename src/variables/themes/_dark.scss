@@ -57,6 +57,8 @@
       '60'
     )};
 
+  --tk-button-focus-shadow: #{getColor($graphite, '90')};
+
   --tk-color-error: #{$scolor-red-darker};
 
   --tk-main-text-color: #{$scolor-graphite-minus-89};
