@@ -14,10 +14,34 @@ const createDirectories = () => {
   execSync(`mkdir -p ${GENERATED_DIR}`);
 }
 
+const getAliases = () => (JSON.parse(fs.readFileSync(`${SRC_ICONS}tk-icons.aliases.json`)));
+
 const getCodePoints = () => {
-  const rawdata = fs.readFileSync(`${SRC_ICONS}tk-icons.codepoints.json`);
-  return JSON.parse(rawdata);
+  const codepoints = JSON.parse(fs.readFileSync(`${SRC_ICONS}tk-icons.codepoints.json`));
+  const aliases = getAliases();
+
+  for (const alias in aliases) {
+    const target = aliases[alias];
+    if(codepoints[target]){
+      console.log(`Alias: "${alias}" -> "${target}" (codepoint ${codepoints[target]})`);
+      codepoints[alias] = codepoints[target];
+    }
+    else {
+      try {
+        if (!fs.existsSync(`${SRC_ICONS}]${target}.svg`)) {
+          console.error(`Alias: "${alias}" -> "${target}" (Missing "${target}.svg" file)`);
+        }
+        else {
+          console.error(`Alias: "${alias}" -> "${target}" (Missing target codepoint)`);
+        }
+      } catch(err) {
+        console.error(err)
+      }
+    }
+  }
+  return codepoints;
 }
+
 
 const generateTKFonts = async () => {
   createDirectories();
@@ -34,15 +58,14 @@ const generateTKFonts = async () => {
     templates:{
       scss: `${SRC_ICONS}templates/tk-icons.scss.hbs`,
       html: `${SRC_ICONS}templates/tk-icons.stories.js.hbs`,
-      json: `${SRC_ICONS}templates/tk-icons.codepoints.json.hbs`,
     },
     pathOptions: {
       scss: `${GENERATED_DIR}tk-icons-definitions.scss`,
-      html: `${STORIES_DIR}icons.stories.js`,             // Generate our Storybook story
-      json: `${SRC_ICONS}tk-icons.codepoints.json`,       // Keep the generated CodePoints
+      html: `${STORIES_DIR}icons.stories.js`,               // Generate our Storybook story
+      json: `${SRC_ICONS}tk-icons.codepoints.json`,         // Keep the generated CodePoints
     },
     getIconId: ({basename}) => (basename), // To fix conflict name with "more-.svg" and "more.svg"
-    codepoints, 
+    codepoints,
     fontHeight: 128,
   });
 }
