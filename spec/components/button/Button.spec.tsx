@@ -32,7 +32,7 @@ describe('Button Component', () => {
       expect(wrapper.length).toEqual(1);
       expect(wrapper.find('i').hasClass('animate-spin')).toBe(true);
       expect(wrapper.find('i').hasClass('tk-icon-loading')).toBe(true);
-      expect(wrapper.text().includes(text)).toBe(false);
+      expect(wrapper.text().includes(text)).toBe(true);
     });
   });
 });
