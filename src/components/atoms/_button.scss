@@ -41,7 +41,7 @@ $tk-button-size: toRem(32);
       @include styleFilledButton($--tk-button-color-accent-tertiary);
     }
   }
-  &-destructive {
+  &--destructive {
     @include styleFilledButton($--tk-button-color-destructive-primary);
   }
   &--icon {
