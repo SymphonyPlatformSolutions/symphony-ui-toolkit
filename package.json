@@ -7,6 +7,7 @@
   },
   "main": "index.css",
   "scripts": {
+    "prepare": "husky install",
     "prestart": "yarn icons",
     "start": "start-storybook -p 6006 -c .storybook watch-css -s ./src",
     "prebuild": "yarn icons && sh src/scripts/generate-cdn.sh",
@@ -34,6 +35,7 @@
     "babel-loader": "^8.1.0",
     "creevey": "^0.7.37",
     "fantasticon": "^1.2.2",
+    "husky": "^7.0.0",
     "markdown-loader": "^6.0.0",
     "postcss": "^8.1.7",
     "postcss-cli": "^8.3.0",
