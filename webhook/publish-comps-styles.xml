@@ -1,0 +1,9 @@
+<!-- This is not used yet ! We can you it once the repos comps and styles are merged -->
+<messageML>
+<p><b>UI-Toolkit-Components ${entity.version.components}</b> (<a href="https://www.npmjs.com/package/@symphony-ui/uitoolkit-components">npm</a>) &amp; <b>UI-Toolkit-Styles ${entity.version.styles}</b> (<a href="https://www.npmjs.com/package/@symphony-ui/uitoolkit-styles">npm</a> &amp; <a href="https://cdn.symphony.com/resources/ui-toolkit/${entity.version.styles}/css/uitoolkit.css">cdn</a>) have been released! 🎉</p> 
+<p>Release notes:</p>
+<ul>
+<li><a href="https://github.com/SymphonyPlatformSolutions/symphony-bdk-ui-toolkit-components/releases/tag/${entity.version.components}">UI-Toolkit-Components ${entity.version.components}</a></li>
+<li><a href="https://github.com/SymphonyPlatformSolutions/symphony-bdk-ui-toolkit-styles/releases/tag/${entity.version.styles}">UI-Toolkit-Styles ${entity.version.styles}</a></li>
+</ul>
+</messageML>

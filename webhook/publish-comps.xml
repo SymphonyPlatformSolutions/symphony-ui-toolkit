@@ -1,0 +1,4 @@
+<messageML>
+  <p><b>UI-Toolkit-Components ${entity.version.components}</b> (<a href="https://www.npmjs.com/package/@symphony-ui/uitoolkit-components">npm</a>) has been released! 🎉</p> 
+  <p>Release note: <a href="https://github.com/SymphonyPlatformSolutions/symphony-bdk-ui-toolkit-components/releases/tag/${entity.version.components}">UI-Toolkit-Components ${entity.version.components}</a></p>
+</messageML>
