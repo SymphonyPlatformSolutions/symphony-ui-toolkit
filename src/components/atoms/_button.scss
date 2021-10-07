@@ -66,6 +66,8 @@ $tk-button-size: toRem(32);
       padding: 0;
       min-height: $tk-button-size;
       min-width: $tk-button-size;
+    }
+    .tk-button--icon {
       &-right > i {
         margin-left: toRem(4);
       }
