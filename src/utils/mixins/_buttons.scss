@@ -13,6 +13,23 @@
   }
 }
 
+@mixin focus-visible($colorMap, $insetShadow: false) {
+  &:focus-visible {
+    background-color: map-get($colorMap, focus);
+    color: map-get($colorMap, focusText);
+    @include addFontIconColor(map-get($colorMap, focusText));
+    outline: 0;
+    @if $insetShadow {
+      box-shadow: inset 0 0 0 toRem(2) map-get($colorMap, focusText),
+        0 0 0 toRem(1) $--tk-button-focus-shadow,
+        0 0 0 toRem(3) #{getColor($electricity, '40')};
+    } @else {
+      box-shadow: 0 0 0 toRem(1) $--tk-button-focus-shadow,
+        0 0 0 toRem(3) #{getColor($electricity, '40')};
+    }
+  }
+}
+
 /* Applies color styles to filled buttons, buttons that do not have borders */
 @mixin styleFilledButton($colorMap) {
   background-color: map-get($colorMap, default);
@@ -33,14 +50,7 @@
     background-color: map-get($colorMap, default);
     @include addFontIconColor(map-get($colorMap, text));
   }
-  &:focus-visible {
-    background-color: map-get($colorMap, focus);
-    color: map-get($colorMap, focusText);
-    @include addFontIconColor(map-get($colorMap, focusText));
-    outline: 0;
-    box-shadow: 0 0 0 toRem(1) $--tk-button-focus-shadow,
-      0 0 0 toRem(4) #{getColor($electricity, '40')};
-  }
+  @include focus-visible($colorMap);
 }
 
 /* Applies color styles to outline buttons, buttons that do not have a background */
@@ -71,13 +81,5 @@
     @include addBorder(toRem(2), map-get($colorMap, text));
     @include addFontIconColor(map-get($colorMap, text));
   }
-  &:focus-visible {
-    background-color: map-get($colorMap, focus);
-    color: map-get($colorMap, focusText);
-    @include addFontIconColor(map-get($colorMap, focusText));
-    outline: 0;
-    box-shadow: inset 0 0 0 toRem(2) map-get($colorMap, focusText),
-      0 0 0 toRem(1) $--tk-button-focus-shadow,
-      0 0 0 toRem(4) #{getColor($electricity, '40')};
-  }
+  @include focus-visible($colorMap, true);
 }
