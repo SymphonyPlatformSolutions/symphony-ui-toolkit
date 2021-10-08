@@ -30,7 +30,7 @@ function publish() {
 }
 
 function postToUniversalWebhook() {
-    curl --location --request POST 'https://corporate.symphony.com/integration/v1/whi/simpleWebHookIntegration/5810d144e4b0f884b709cc90/615f08105c5f4d4c40a0ad18' -F 'message=@webhook/publish-comps.xml' -F 'data={"version": { "components": "'"$CIRCLE_TAG"'" }}'
+    curl --location --request POST "$WEBHOOK_CONTRIBUTORS_URL" -F 'message=@webhook/publish-comps.xml' -F 'data={"version": { "components": "'"$CIRCLE_TAG"'" }}'
 }
 
 # ====> Start
