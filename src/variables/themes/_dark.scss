@@ -145,4 +145,11 @@
   --tk-badge-background-color-attention: #{getColor($yellow, '60')};
   --tk-badge-text-color-warning: #{getColor($red, '20')};
   --tk-badge-background-color-warning: #{getColor($red, '60')};
+
+  // Timeline
+  --tk-timeline-background-color: #{getColor($graphite, '50')};
+  --tk-timeline-text-color: #{$scolor-white};
+  --tk-timeline-border-color: #{getColor($graphite, '50')};
+  --tk-timeline-expand-icon-color: #{getColor($graphite, '40')};
+  --tk-timeline-hours-color: #{getColor($graphite, '05')};
 }

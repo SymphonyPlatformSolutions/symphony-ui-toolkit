@@ -377,3 +377,22 @@ $--tk-badge-external: (
   backgroundColor:
     var(--tk-badge-background-color-external, getColor($yellow, '20')),
 );
+
+/** ======== Timeline ======== */
+$--tk-timeline-background-color: var(
+  --tk-timeline-background-color,
+  getColor($graphite, '30')
+);
+$--tk-timeline-text-color: var(--tk-timeline-text-color, $scolor-white);
+$--tk-timeline-border-color: var(
+  --tk-timeline-border-color,
+  getColor($graphite, '30')
+);
+$--tk-timeline-expand-icon-color: var(
+  --tk-timeline-expand-icon-color,
+  getColor($graphite, '60')
+);
+$--tk-timeline-hours-color: var(
+  --tk-timeline-hours-color,
+  getColor($graphite, '70')
+);

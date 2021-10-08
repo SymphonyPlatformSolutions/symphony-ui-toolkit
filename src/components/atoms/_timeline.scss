@@ -1,0 +1,85 @@
+.tk-timeline {
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  overflow-x: hidden;
+
+  &__item {
+    display: flex;
+    flex-direction: row;
+    margin-left: toRem(10);
+    padding-bottom: toRem(12);
+
+    &--expandable {
+      cursor: pointer;
+    }
+
+    &--icon {
+      margin-left: toRem(-11);
+      background: $--tk-timeline-background-color;
+      color: $--tk-timeline-text-color;
+      height: toRem(24);
+      width: toRem(24);
+      border-radius: toRem(12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    &:not(:last-of-type) {
+      border-left: toRem(2) solid $--tk-timeline-border-color;
+    }
+
+    &:last-of-type {
+      margin-left: toRem(12);
+    }
+
+    &--content {
+      width: toRem(300);
+    }
+
+    &--header-only {
+      margin-top: toRem(8);
+    }
+
+    &--date {
+      margin: toRem(4) toRem(12);
+    }
+
+    &--day {
+      font-weight: bold;
+    }
+
+    &--hours {
+      color: $--tk-timeline-hours-color;
+    }
+  }
+
+  &__collapse {
+    display: flex;
+    flex-direction: column;
+
+    &--body {
+      margin-left: toRem(10);
+      border-left: toRem(1) solid $--tk-timeline-expand-icon-color;
+      padding-left: toRem(22);
+      padding-top: toRem(4);
+    }
+
+    &--header-container {
+      display: flex;
+      flex-direction: row;
+      align-items: baseline;
+    }
+
+    &--icon {
+      padding: toRem(4);
+      margin-right: toRem(12);
+    }
+
+    &--header {
+      display: flex;
+      align-items: baseline;
+    }
+  }
+}
