@@ -68,6 +68,15 @@ type SyncProps<T> = {
   defaultOptions?: undefined;
 } & HasValidationProps<T>;
 
+export type MenuPortalProps = {
+  /** Custom styles applied on menu portal */
+  menuPortalStyles?: CSSProperties;
+  /** Whether the menu should use a portal, and where it should attach */
+  menuPortalTarget?: HTMLElement;
+  /** Whether to block scroll events when the menu is open */
+  menuShouldBlockScroll?: boolean;
+};
+
 export type DropdownProps<T> = {
   /** Allows to scroll automatically to selected option */
   autoScrollToCurrent?: boolean;
@@ -116,12 +125,6 @@ export type DropdownProps<T> = {
   menuPlacement?: MenuPlacement;
   /** Whether the Dropdown menu should scroll into view when pressed */
   menuShouldScrollIntoView?: boolean;
-  /** Custom styles applied on menu portal */
-  menuPortalStyles?: CSSProperties;
-  /** Whether the menu should use a portal, and where it should attach */
-  menuPortalTarget?: HTMLElement;
-  /** Whether to block scroll events when the menu is open */
-  menuShouldBlockScroll?: boolean;
   /** Styling options depending on the need */
   mode?: 'nested' | 'aligned';
   name?: string;
@@ -161,6 +164,7 @@ export type DropdownProps<T> = {
     | React.FunctionComponent<TagRendererProps<T>>;
   /** Message to be display on the header of the menu list when searching by term */
   termSearchMessage?: ((term: string) => string) | string;
-} & HasTooltipProps &
+} & MenuPortalProps &
+  HasTooltipProps &
   (MultiModeProps<T> | SingleModeProps<T>) &
   (AsyncProps<T> | SyncProps<T>);

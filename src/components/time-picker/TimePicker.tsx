@@ -46,6 +46,9 @@ export const TimePicker: React.FC<TimePickerProps> = ({
   tooltipCloseLabel,
   showRequired,
   value,
+  menuPortalStyles,
+  menuPortalTarget,
+  menuShouldBlockScroll,
 }) => {
   const [hours, setHours] = useState('');
   const [minutes, setMinutes] = useState('');
@@ -239,6 +242,9 @@ export const TimePicker: React.FC<TimePickerProps> = ({
       tooltip={tooltip}
       tooltipCloseLabel={tooltipCloseLabel}
       showRequired={showRequired}
+      menuPortalStyles={menuPortalStyles}
+      menuPortalTarget={menuPortalTarget}
+      menuShouldBlockScroll={menuShouldBlockScroll}
     />
   );
 };
@@ -261,6 +267,9 @@ TimePicker.propTypes = {
   tooltipCloseLabel: PropTypes.string,
   showRequired: PropTypes.bool,
   value: PropTypes.string,
+  menuPortalStyles: PropTypes.object,
+  menuPortalTarget: PropTypes.instanceOf(HTMLElement),
+  menuShouldBlockScroll: PropTypes.bool
 };
 
 /**
