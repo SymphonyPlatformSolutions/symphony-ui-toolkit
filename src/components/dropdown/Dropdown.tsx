@@ -1,5 +1,6 @@
 import * as React from 'react';
-import Select,{ ActionMeta, createFilter, MenuPlacement } from 'react-select';
+import { CSSProperties } from 'react';
+import Select, { ActionMeta, createFilter, MenuPlacement } from 'react-select';
 import AsyncSelect from 'react-select/async';
 import {
   ClearIndicator,
@@ -77,6 +78,12 @@ export type DropdownProps<T> = {
   menuPlacement?: MenuPlacement;
   /** Whether the Dropdown menu should scroll into view when pressed */
   menuShouldScrollIntoView?: boolean;
+  /** Custom styles applied on menu portal */
+  menuPortalStyles?: CSSProperties,
+  /** Whether the menu should use a portal, and where it should attach */
+  menuPortalTarget?: HTMLElement;
+  /** Whether to block scroll events when the menu is open */
+  menuShouldBlockScroll?: boolean,
   /** Styling options depending on the need */
   mode?: 'nested' | 'aligned';
   name?: string;
@@ -86,8 +93,8 @@ export type DropdownProps<T> = {
   placeHolder?: string;
   /** Custom component used to override the default appearance of the list items. */
   optionRenderer?:
-    | React.Component<OptionRendererProps<T>, any>
-    | React.FunctionComponent<OptionRendererProps<T>>;
+  | React.Component<OptionRendererProps<T>, any>
+  | React.FunctionComponent<OptionRendererProps<T>>;
   /** Handle blur events on the control */
   onBlur?: (e) => any;
   /** Handle key down events on the select */
@@ -112,8 +119,8 @@ export type DropdownProps<T> = {
   tabSelectsValue?: boolean;
   /** Custom component used to override the default appearance of the dropdown select input item/s */
   tagRenderer?:
-    | React.Component<TagRendererProps<T>, any>
-    | React.FunctionComponent<TagRendererProps<T>>;
+  | React.Component<TagRendererProps<T>, any>
+  | React.FunctionComponent<TagRendererProps<T>>;
   /** Message to be display on the header of the menu list when searching by term */
   termSearchMessage?: ((term: string) => string) | string;
 } &
@@ -139,12 +146,12 @@ type SingleModeProps<T> = {
 type AsyncProps<T> = {
   options?: undefined;
   /** Load the options that populate the dropdown from a returned promise */
-  asyncOptions: (inputValue: string) =>Promise<DropdownOption<T>[]>;
+  asyncOptions: (inputValue: string) => Promise<DropdownOption<T>[]>;
   /**
    * The default set of options to show before the user starts searching. When
    * set to `true`, the results for asyncOptions('') will be autoloaded.
    */
-  defaultOptions?:  DropdownOption<T>[] | boolean;
+  defaultOptions?: DropdownOption<T>[] | boolean;
 } & HasValidationProps<T>;
 type SyncProps<T> = {
   /** Array of options that populate the dropdown menu */
@@ -236,7 +243,7 @@ export class Dropdown<T = LabelValue> extends React.Component<
 
   handleIsOptionSelected = this.props.isOptionSelected
     ? (option: any) => this.props.isOptionSelected(option.data)
-    :  (option: DropdownOption<T>, selectValue: T[]) => selectValue?.some(i => i === option);
+    : (option: DropdownOption<T>, selectValue: T[]) => selectValue?.some(i => i === option);
 
   get internalOptions() {
     if (this.props?.options) {
@@ -245,16 +252,16 @@ export class Dropdown<T = LabelValue> extends React.Component<
         : this.props.options;
     }
   }
-  
-  internalAsyncOptions = async (inputValue:string) => {
+
+  internalAsyncOptions = async (inputValue: string) => {
     return this.props?.asyncOptions(inputValue)
-      .then(options => new Promise(resolve => 
+      .then(options => new Promise(resolve =>
         resolve(this.props.enableTermSearch ?
-          [this.searchHeaderOption as T, ...options] 
+          [this.searchHeaderOption as T, ...options]
           : options))
       )
   }
-  
+
   bindValue = this.props.bindValue
     ? (option) => option[this.props.bindValue]
     : undefined;
@@ -305,6 +312,9 @@ export class Dropdown<T = LabelValue> extends React.Component<
       defaultOptions,
       menuPlacement,
       menuShouldScrollIntoView,
+      menuPortalStyles,
+      menuPortalTarget,
+      menuShouldBlockScroll,
       ...otherProps
     } = this.props;
 
@@ -321,8 +331,10 @@ export class Dropdown<T = LabelValue> extends React.Component<
         <DropdownTag
           {...otherProps}
           styles={{
-            valueContainer: provided => ({
-              ...provided,  maxHeight:`${maxHeight}px`})
+            menuPortal: (base: CSSProperties) => ({ ...base, ...menuPortalStyles }),
+            valueContainer: (base: CSSProperties) => ({
+              ...base, maxHeight: `${maxHeight}px`
+            })
           }}
           parentInstance={this}
           ref={this.myRef}
@@ -386,6 +398,8 @@ export class Dropdown<T = LabelValue> extends React.Component<
           termSearchMessage={termSearchMessage}
           getOptionValue={this.bindValue}
           blurInputOnSelect={blurInputOnSelect}
+          menuPortalTarget={menuPortalTarget}
+          menuShouldBlockScroll={menuShouldBlockScroll}
           menuShouldScrollIntoView={menuShouldScrollIntoView}
         />
       </div>
@@ -399,8 +413,10 @@ export class Dropdown<T = LabelValue> extends React.Component<
     isTypeAheadEnabled: true,
     autoScrollToCurrent: false,
     enableTermSearch: false,
-    menuShouldScrollIntoView: true,
-    menuPlacement: 'auto'
+    menuPlacement: 'auto',
+    menuPortalStyles: {},
+    menuShouldBlockScroll: false,
+    menuShouldScrollIntoView: true
   };
 }
 
