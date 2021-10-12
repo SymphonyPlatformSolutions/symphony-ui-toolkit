@@ -186,19 +186,26 @@ export const TimePicker: React.FC<TimePickerProps> = ({
   return (
     <Dropdown
       autoScrollToCurrent={true}
-      isDisabled={disabled}
-      iconName="recent"
       displayArrowIndicator={false}
+      filterFunction={() => true}
+      iconName="recent"
       id={id}
-      name={name}
-      label={label}
-      placeHolder={placeholder}
-      options={options}
-      value={selectedOption}
+      isDisabled={disabled}
       isOptionDisabled={(time) => isTimeDisabled(time, disabledTimes)}
       isOptionSelected={(time) =>
         isTimeSelected(time, hours, minutes, seconds, disabledTimes)
       }
+      inputAlwaysDisplayed={true}
+      inputValue={inputValue}
+      label={label}
+      menuIsOpen={menuIsOpen}
+      menuPortalStyles={menuPortalStyles}
+      menuPortalTarget={menuPortalTarget}
+      menuShouldBlockScroll={menuShouldBlockScroll}
+      name={name}
+      onMenuClose={() => setMenuIsOpen(false)}
+      onMenuOpen={() => setMenuIsOpen(true)}
+      options={options}
       onChange={(newValue) => {
         const option =
           newValue && newValue.target && newValue.target.value
@@ -232,44 +239,37 @@ export const TimePicker: React.FC<TimePickerProps> = ({
         }
         setNavigationInMenu(false);
       }}
-      inputValue={inputValue}
-      inputAlwaysDisplayed={true}
-      filterFunction={() => true}
-      menuIsOpen={menuIsOpen}
-      onMenuOpen={() => setMenuIsOpen(true)}
-      onMenuClose={() => setMenuIsOpen(false)}
+      placeHolder={placeholder}
+      showRequired={showRequired}
       tabSelectsValue={false}
       tooltip={tooltip}
       tooltipCloseLabel={tooltipCloseLabel}
-      showRequired={showRequired}
-      menuPortalStyles={menuPortalStyles}
-      menuPortalTarget={menuPortalTarget}
-      menuShouldBlockScroll={menuShouldBlockScroll}
+      value={selectedOption}
     />
   );
 };
 
 TimePicker.propTypes = {
-  id: PropTypes.string,
   disabled: PropTypes.bool,
   disabledTimes: PropTypes.array,
   format: PropTypes.string,
+  id: PropTypes.string,
   label: PropTypes.string,
-  min: PropTypes.string,
   max: PropTypes.string,
+  min: PropTypes.string,
+  menuPortalStyles: PropTypes.object,
+  menuPortalTarget: PropTypes.instanceOf(HTMLElement),
+  menuShouldBlockScroll: PropTypes.bool,
   name: PropTypes.string,
   onChange: PropTypes.func,
   onValidationChanged: PropTypes.func,
   placeholder: PropTypes.string,
+  showRequired: PropTypes.bool,
   step: PropTypes.number,
   strict: PropTypes.bool,
   tooltip: PropTypes.string,
   tooltipCloseLabel: PropTypes.string,
-  showRequired: PropTypes.bool,
-  value: PropTypes.string,
-  menuPortalStyles: PropTypes.object,
-  menuPortalTarget: PropTypes.instanceOf(HTMLElement),
-  menuShouldBlockScroll: PropTypes.bool
+  value: PropTypes.string
 };
 
 /**
@@ -427,8 +427,8 @@ const handleFocus = (event) => {
 TimePicker.defaultProps = {
   disabledTimes: [],
   format: getUserFormat(),
-  min: '00:00:00',
   max: '23:59:59',
+  min: '00:00:00',
   step: STEP.DEFAULT_STEP_VALUE,
   strict: true,
 }
