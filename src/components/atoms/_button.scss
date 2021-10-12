@@ -9,6 +9,7 @@ $tk-button-size: toRem(32);
   letter-spacing: toRem(0.5);
   text-transform: uppercase;
   text-align: center;
+  line-height: toRem(16);
   height: $tk-button-size;
   width: auto;
   white-space: nowrap;
