@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Dropdown, DropdownOption, Icon, LabelValue, OptionRendererProps, SearchHeaderOption, TagRendererProps } from '../src/components';
+import { PortalTemplate } from './templates';
 
 const defaultOptions: LabelValue[] = [
   { label: 'Option 1', value: '1' },
@@ -8,8 +9,8 @@ const defaultOptions: LabelValue[] = [
 ];
 
 interface Person {
-  label:string;
-  value:string;
+  label: string;
+  value: string;
   name: string;
 }
 
@@ -20,17 +21,17 @@ const personSelectorOptions: DropdownOption<Person>[] = [
       { label: 'Emma Jones', value: '1', name: 'a' },
       { label: 'Mehmet Guest', value: '2', name: 'a' },
       { label: 'Charleigh Whitworth', value: '3', name: 'a' },
-      { label: 'Hugo Svein', value: '4' , name: 'a'},
+      { label: 'Hugo Svein', value: '4', name: 'a' },
       { label: 'Alena Fedrick', value: '5', name: 'a' },
-      { label: 'Philip Earl', value: '6' , name: 'a'},
+      { label: 'Philip Earl', value: '6', name: 'a' },
       { label: 'Junita Torrey2', value: '7', name: 'a' },
       { label: 'Alena Fedrick2', value: '8', name: 'a' },
-      { label: 'Philip Earl2', value: '9' , name: 'a'},
-      { label: 'Junita Torrey Long description Very long description. ', value: '10', name: 'a' }, 
+      { label: 'Philip Earl2', value: '9', name: 'a' },
+      { label: 'Junita Torrey Long description Very long description. ', value: '10', name: 'a' },
       { label: 'Emma Jones', value: '11', name: 'a' },
       { label: 'Mehmet Guest2', value: '12', name: 'a' },
       { label: 'Charleigh Whitworth2', value: '13', name: 'a' },
-      { label: 'Hugo Svein2', value: '14' , name: 'a'},
+      { label: 'Hugo Svein2', value: '14', name: 'a' },
     ]
   }
 ];
@@ -42,9 +43,9 @@ const filterDefaultOptions = async (inputValue: string) => {
   );
 };
 
-const promiseOptions = (inputValue: string): Promise<DropdownOption<LabelValue>[]>  =>
+const promiseOptions = (inputValue: string): Promise<DropdownOption<LabelValue>[]> =>
   new Promise(resolve => {
-    setTimeout(() => 
+    setTimeout(() =>
       resolve(filterDefaultOptions(inputValue)), 1000);
   });
 
@@ -65,8 +66,8 @@ const timeZoneOptions: DropdownOption<LabelValue>[] = [
 
 /** Icon custom renderers */
 interface Icon {
-  displayName:string;
-  value:string;
+  displayName: string;
+  value: string;
 }
 
 const iconData: DropdownOption<Icon>[] = [
@@ -83,7 +84,7 @@ const iconData: DropdownOption<Icon>[] = [
 ];
 
 const IconPickerTagRenderer = (props: TagRendererProps<Icon>) => {
-  const {data, remove} = props;
+  const { data, remove } = props;
   return (
     <div>
       {data.displayName}
@@ -94,7 +95,7 @@ const IconPickerTagRenderer = (props: TagRendererProps<Icon>) => {
 };
 
 const IconPickerRenderer = (props: OptionRendererProps<Icon>) => {
-  const {data} = props;
+  const { data } = props;
   return (
     <div>
       {data.displayName}
@@ -104,7 +105,7 @@ const IconPickerRenderer = (props: OptionRendererProps<Icon>) => {
 };
 
 const filterFunction = (icon: Icon, input: string) => {
-  return !input || icon.displayName.indexOf(input)>-1 ;
+  return !input || icon.displayName.indexOf(input) > -1;
 };
 
 const Template = (args) => {
@@ -126,8 +127,8 @@ const onClear = () => {
 }
 export const Default = Template.bind({});
 Default.args = {
-  options: defaultOptions, 
-  enableTermSearch: true, 
+  options: defaultOptions,
+  enableTermSearch: true,
   onTermSearch: onTermSearch,
   onChange: onChange
 };
@@ -136,73 +137,73 @@ export const Select: React.FC = () => (
   <div>
     <p>Let`s have a look on the different props than can be used to render the dropdown: </p>
     <p className="tk-mt-4">
-			With <strong>placeholder</strong>:
+      With <strong>placeholder</strong>:
     </p>
     <Dropdown options={defaultOptions} placeHolder="Customized placeholder: Please select an option.." />
     <p className="tk-mt-4">
-			With <strong>label</strong>:
+      With <strong>label</strong>:
     </p>
     <Dropdown options={defaultOptions} label="Field label" />
     <p className="tk-mt-4">
-			With <strong>label required</strong>:
+      With <strong>label required</strong>:
     </p>
-    <Dropdown options={defaultOptions} label="Field label" showRequired/>
+    <Dropdown options={defaultOptions} label="Field label" showRequired />
     <p className="tk-mt-4">
-			With <strong>tooltip</strong>:
+      With <strong>tooltip</strong>:
     </p>
     <Dropdown options={defaultOptions} tooltip="Hint to help the user" tooltipCloseLabel="Got it" />
     <p className="tk-mt-4">
-			Clear selection with <strong>isInputClearable</strong>:
+      Clear selection with <strong>isInputClearable</strong>:
     </p>
-    <Dropdown options={defaultOptions} isInputClearable onClear={onClear}/>
+    <Dropdown options={defaultOptions} isInputClearable onClear={onClear} />
 
     <p className="tk-mt-4">
-			With <strong>noOptionMessage</strong> customize the message that the dropdown will display when does not found any item on the list:
+      With <strong>noOptionMessage</strong> customize the message that the dropdown will display when does not found any item on the list:
     </p>
-    <Dropdown options={defaultOptions} noOptionMessage="No options custom message"/>
+    <Dropdown options={defaultOptions} noOptionMessage="No options custom message" />
     <p className="tk-mt-4">
-			With <strong>isDisabled</strong>:
+      With <strong>isDisabled</strong>:
     </p>
     <Dropdown options={defaultOptions} placeHolder="No option available" isDisabled label="Field label" />
     <p className="tk-mt-4">
-			With <strong>iconName</strong> displays the specified icon on the left side of the dropdown:
+      With <strong>iconName</strong> displays the specified icon on the left side of the dropdown:
     </p>
-    <Dropdown options={defaultOptions} iconName="app"/>
+    <Dropdown options={defaultOptions} iconName="app" />
     <h3 className="tk-mt-4">Grouped option list</h3>
     <p>With <b>aligned</b> mode (default)</p>
-    <Dropdown options={timeZoneOptions} mode="aligned"/>
+    <Dropdown options={timeZoneOptions} mode="aligned" />
     <p>With <b>nested</b> mode</p>
-    <Dropdown options={timeZoneOptions} mode="nested"/>
+    <Dropdown options={timeZoneOptions} mode="nested" />
 
     <h2 className="tk-mt-4">Enable term search</h2>
     <p>- With <strong>enableTermSearch</strong> prop activated you can add a fixed option on the header of the Dropdown Menu that will be displayed when the user starts typing.</p>
     <p>- With <strong>onTermSearch</strong> prop you can handle the action to be done if the user selects the search by term option</p>
-    <Dropdown options={defaultOptions} enableTermSearch onTermSearch={onTermSearch}/>
+    <Dropdown options={defaultOptions} enableTermSearch onTermSearch={onTermSearch} />
     <p>In addition, you can customize the message with <strong>termSearchMessage</strong> prop:</p>
-    <Dropdown options={defaultOptions} enableTermSearch termSearchMessage="This is my customized term search message. Term: "/>
-    
+    <Dropdown options={defaultOptions} enableTermSearch termSearchMessage="This is my customized term search message. Term: " />
+
     <h2 className="tk-mt-5h">MultiSelect</h2>
     <p>The Dropdown component can handle multiple selections. It is enabled with the <strong>isMultiSelect</strong> prop:</p>
-    <Dropdown options={personSelectorOptions} isMultiSelect placeHolder="Search for People" isInputClearable/>
+    <Dropdown options={personSelectorOptions} isMultiSelect placeHolder="Search for People" isInputClearable />
     <p>With the <strong>maxHeight</strong> prop you can control the height of the multiple selection before scrolling on the input.</p>
-    <Dropdown options={personSelectorOptions} isMultiSelect maxHeight={70} placeHolder="Search for People" isInputClearable noOptionMessage={'No options'}/>
-   
+    <Dropdown options={personSelectorOptions} isMultiSelect maxHeight={70} placeHolder="Search for People" isInputClearable noOptionMessage={'No options'} />
+
     <h2 className="tk-mt-5h">Loading options</h2>
     <p>Use the <strong>asyncOptions</strong> prop to load options from a remote source as the user starts typing on the input.</p>
     <p>The <strong>asyncOptions</strong> prop:</p>
     <h3>defaultOptions</h3>
     <p>The <strong>defaultOptions</strong> prop is enabled by default (The options are iniatially loaded).</p>
-    <Dropdown asyncOptions={promiseOptions} placeHolder="Async select" isInputClearable noOptionMessage={'No options'}/> 
+    <Dropdown asyncOptions={promiseOptions} placeHolder="Async select" isInputClearable noOptionMessage={'No options'} />
     <p>* To disable: <strong>defaultOptions=false</strong>. (Start typing to load the options)</p>
-    <Dropdown defaultOptions={false} asyncOptions={promiseOptions}  maxHeight={70} placeHolder="Async select" isInputClearable noOptionMessage={'No options'}/>
+    <Dropdown defaultOptions={false} asyncOptions={promiseOptions} maxHeight={70} placeHolder="Async select" isInputClearable noOptionMessage={'No options'} />
     <h3>Multiple Select</h3>
     <Dropdown asyncOptions={promiseOptions} isMultiSelect placeHolder="Async select" isInputClearable noOptionMessage={'No options'} />
     <h3>Loading with term search enabled</h3>
-    <Dropdown asyncOptions={promiseOptions} placeHolder="Async select" enableTermSearch termSearchMessage="Term: "/>
-  
+    <Dropdown asyncOptions={promiseOptions} placeHolder="Async select" enableTermSearch termSearchMessage="Term: " />
+
     <h2 className="tk-mt-5h">Customized selects</h2>
     <p>
-    You can easily customize the appearance of the UIToolkit Dropdown and render your own components.
+      You can easily customize the appearance of the UIToolkit Dropdown and render your own components.
     </p>
     <p className="tk-mt-4">With <strong> optionRenderer </strong>prop you can customize the rendering of the option list: </p>
     <Dropdown
@@ -244,6 +245,16 @@ export const Select: React.FC = () => (
     />
   </div>
 );
+
+export const Portal = PortalTemplate.bind({});
+Portal.args = {
+  title: 'A Dropdown Menu in a Portal',
+  component: <Dropdown
+    options={defaultOptions}
+    menuPortalTarget={document.body}
+    menuShouldBlockScroll={true}
+    menuPortalStyles={{ zIndex: 100 }} />,
+};
 
 export default {
   title: 'Components/Input/Dropdown',

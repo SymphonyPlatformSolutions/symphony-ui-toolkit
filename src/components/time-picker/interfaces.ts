@@ -1,5 +1,6 @@
 import { HasTooltipProps } from '../tooltip/interfaces';
 import { HasValidationProps } from '../validation/interfaces';
+import { MenuPortalProps } from '../dropdown/interfaces';
 
 export type TimePickerValue = string;
 
@@ -38,5 +39,6 @@ export type TimePickerProps = {
   /** Date with ISO_8601 format (HH:mm:ss). */
   value?: string;
   showRequired?: boolean;
-} & HasValidationProps<TimePickerValue> &
+} & MenuPortalProps &
+  HasValidationProps<TimePickerValue> &
   HasTooltipProps;
