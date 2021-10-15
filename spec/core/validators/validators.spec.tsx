@@ -7,6 +7,16 @@ describe('Input Validators', () => {
     expect(await Validators.Required('  ')).toEqual({ required: true });
     expect(await Validators.Required('a')).toEqual(null);
   });
+  it('should validate required field correcltly', async () => {
+    expect(await Validators.Email(null)).toEqual(null);
+    expect(await Validators.Email('')).toEqual(null);
+    expect(await Validators.Email('a')).toEqual({ email: true });
+    expect(await Validators.Email('Example.WITH.Capital@gmail')).toEqual({ email: true });
+    expect(await Validators.Email('FIRSTname.Lastname@morganstanley.com')).toEqual(null);
+    expect(await Validators.Email('alicia.marin@symphony.com')).toEqual(null);
+    expect(await Validators.Email('firstname.last-name@capitalmarkets.online')).toEqual(null);
+    expect(await Validators.Email('Example.WITH.Capital@gmail.com')).toEqual(null);
+  });
 
   it('should validate empty string field correcltly', async () => {
     expect(await Validators.EmptyString(null)).toEqual({ emptyString: true });
