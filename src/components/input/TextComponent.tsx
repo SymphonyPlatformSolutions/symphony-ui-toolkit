@@ -23,6 +23,7 @@ type TextComponentProps = {
   /** React Element to display inside the Field, on the right side */
   rightDecorators?: JSX.Element | JSX.Element[];
   className?: string;
+  /** When present, it specifies that the field is disabled. */
   disabled?: boolean;
   /** React Element to display inside the Field, on the left side */
   iconElement?: JSX.Element;
@@ -30,14 +31,16 @@ type TextComponentProps = {
   label?: string;
   /** Force the text to display masked "••••" */
   isMasked?: boolean;
-  /** Deprecated, please use rightDecorators instead */
+  /** @deprecated Deprecated, please use rightDecorators instead */
   masked?: boolean;
   placeholder?: string;
   onClick?: () => any;
   onFocus?: () => any;
   onKeyDown?: (event) => any;
-  value?: string;
   showRequired?: boolean;
+  /** When present, it specifies that the field is read-only. */
+  readonly?: boolean;
+  value?: string;
 } & HasTooltipProps &
   HasValidationProps<string>;
 
@@ -71,10 +74,11 @@ const TextComponentPropTypes = {
   onClick: PropTypes.func,
   onFocus: PropTypes.func,
   onKeyDown: PropTypes.func,
+  readonly: PropTypes.bool,
+  showRequired: PropTypes.bool,
   tooltip: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   tooltipCloseLabel: PropTypes.string,
   value: PropTypes.string,
-  showRequired: PropTypes.bool,
 };
 
 const TextComponent: React.FC<
@@ -93,10 +97,11 @@ const TextComponent: React.FC<
       label,
       placeholder,
       masked,
+      readonly,
+      showRequired,
       tooltip,
       tooltipCloseLabel,
       value,
-      showRequired,
       onInit,
       onChange,
       onBlur,
@@ -138,10 +143,13 @@ const TextComponent: React.FC<
       TagName = 'input';
     }
 
+    const typeTextField = type === Types.TEXTFIELD ? (isMasked || (masked && hideText)) ? 'password' : 'text' : undefined; // TODO : make it more readable
+
     return (
       <div
         className={classNames('tk-input-group', {
           'tk-input-group--disabled': disabled,
+          'tk-input-group--readonly': readonly,
         })}
       >
         <LabelTooltipDecorator
@@ -156,6 +164,7 @@ const TextComponent: React.FC<
         <div
           className={classNames(className, 'tk-input__container', {
             'tk-input__container--disabled': disabled,
+            'tk-input__container--readonly': readonly,
           })}
         >
           <TagName
@@ -165,26 +174,19 @@ const TextComponent: React.FC<
             aria-describedby={tooltip && tooltipId}
             aria-label={label}
             aria-placeholder={placeholder}
-            aria-readonly={disabled}
+            aria-readonly={readonly}
             aria-multiline={type === Types.TEXTAREA}
             className={classNames('tk-input')}
-            placeholder={placeholder}
-            value={value}
+            disabled={disabled}
             onBlur={onBlur}
             onClick={onClick}
             onFocus={onFocus}
             onKeyDown={onKeyDown}
             onChange={onChange}
-            type={type === Types.TEXTFIELD ? 'text' : null}
-            style={
-              {
-                WebkitTextSecurity:
-                  type == Types.TEXTFIELD &&
-                  (isMasked || (masked && hideText)) &&
-                  'disc',
-              } as React.CSSProperties
-            }
-            disabled={disabled}
+            placeholder={placeholder}
+            type={typeTextField}
+            readOnly={readonly} // TODO readonly or readOnly?
+            value={value}
             {...rest}
           />
 

@@ -4,6 +4,7 @@ import { isEmpty } from 'lodash';
 import classNames from 'classnames';
 import { ValidatorFn } from '../../core/validators/validators';
 import { ACTION, ErrorMessages } from './interfaces';
+import { Icon } from '..';
 
 const ValidationPropTypes = {
   validator: PropTypes.oneOfType([
@@ -223,7 +224,7 @@ class Validation extends React.Component<
         {hasErrors ? (
           <ul className="tk-validation__errors">
             {this.state.errors.map((error, index) => (
-              <li key={index}>{error}</li>
+              <li key={index}><Icon iconName="alert-triangle tk-mr-h"/>{error}</li>
             ))}
           </ul>
         ) : null}
