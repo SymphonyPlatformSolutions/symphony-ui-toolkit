@@ -3,7 +3,7 @@ import { Button, TextField, Icon, Validation } from '../src/components';
 
 import { Validators } from '../src/core/validators/validators';
 
-const Template = (args) => (<TextField {...args} />);
+const Template = (args) => <TextField {...args} />;
 
 export const Default = Template.bind({});
 
@@ -144,15 +144,15 @@ export const TextFields: React.FC = () => {
           rightDecorators={
             value?.length
               ? [
-                <button
-                  key="button"
-                  className="tk-input__hide"
-                  tabIndex={value && value.length === 0 ? -1 : 0}
-                  onClick={() => setHideText(!hideText)}
-                >
-                  {hideText ? 'show' : 'hide'}
-                </button>,
-              ]
+                  <button
+                    key="button"
+                    className="tk-input__hide"
+                    tabIndex={value && value.length === 0 ? -1 : 0}
+                    onClick={() => setHideText(!hideText)}
+                  >
+                    {hideText ? 'SHOW' : 'HIDE'}
+                  </button>,
+                ]
               : null
           }
         ></TextField>
@@ -167,19 +167,19 @@ export const TextFields: React.FC = () => {
           rightDecorators={
             value?.length
               ? [
-                <span
-                  key="span-copy"
-                  style={{ alignSelf: 'center', marginRight: '1rem' }}
-                >
-                  <Icon iconName="copy"></Icon>
-                </span>,
-                <span
-                  key="span-search"
-                  style={{ alignSelf: 'center', marginRight: '1rem' }}
-                >
-                  <Icon iconName="search"></Icon>
-                </span>,
-              ]
+                  <span
+                    key="span-copy"
+                    style={{ alignSelf: 'center', marginRight: '1rem' }}
+                  >
+                    <Icon iconName="copy"></Icon>
+                  </span>,
+                  <span
+                    key="span-search"
+                    style={{ alignSelf: 'center', marginRight: '1rem' }}
+                  >
+                    <Icon iconName="search"></Icon>
+                  </span>,
+                ]
               : null
           }
         ></TextField>
@@ -187,6 +187,41 @@ export const TextFields: React.FC = () => {
     </div>
   );
 };
+
+export const ReadOnly: React.FC = () => {
+  return (
+    <div>
+      <p>
+        Text Field <strong>read only</strong>. A read-only input field cannot be modified (however, a user can tab to it, highlight it, and copy the text from it).
+      </p>
+      <TextField
+        label="Ipsum"
+        tooltip="More information"
+        tooltipCloseLabel="Got it"
+        readonly
+        value="Lorem Ipsum"
+      ></TextField>
+    </div>
+  );
+};
+
+export const Disabled: React.FC = () => {
+  return (
+    <div>
+      <p>
+        Text Field <strong>disabled</strong>. A disabled input element is unusable and un-clickable.
+      </p>
+      <TextField
+        disabled
+        label="Ipsum"
+        placeholder="Type something"
+        tooltip="More information"
+        tooltipCloseLabel="Got it"
+      ></TextField>
+    </div>
+  );
+};
+
 
 export const ChangeProgrammatically = () => {
   const child = useRef(null);
