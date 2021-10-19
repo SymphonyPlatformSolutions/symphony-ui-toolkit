@@ -1,9 +1,9 @@
 export default {
-  title: "Components/Inputs/Radio",
+    title: "Components/Inputs/Radio",
 };
 
 export const Radio = () => {
-  return `
+    return `
   <div class="tk-text-color" style="width: 50%;">
     <h1>Radio</h1>
     <div>

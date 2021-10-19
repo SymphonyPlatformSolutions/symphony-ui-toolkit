@@ -1,12 +1,11 @@
-@mixin checkbox_radio_common($fontSize){
+@mixin checkbox_radio_common($fontSize) {
+
   display: flex;
   align-items: center;
-  color: $--tk-input-default-active-color;
   min-height: toRem(20);
 
   // Padding for outline focus display
-  $focusPadding: toRem(2);
-  padding: $focusPadding;
+  padding: toRem(2);
 
   &--focus-visible {
     @include browserOutline();
@@ -32,6 +31,7 @@
 
   &__icon {
     display: flex;
+
     &:before {
       font-family: 'tk-icons';
       font-size: toRem(16);
@@ -41,10 +41,6 @@
       line-height: 1em;
       text-align: center;
     }
-  }
-
-  &__input:checked:enabled + &__icon:before {
-    color: $--tk-color-primary;
   }
 
   &__label {
@@ -83,11 +79,52 @@
     }
   }
 
-  &__input:enabled {
+  &:not(&--disabled) &__input, 
+  &:not(&--disabled) &__label {
     cursor: pointer;
   }
 
-  &__input:disabled + &__icon:before {
-    color: $--tk-input-disabled-color;
+  /* Color management */
+
+  // Default
+  &__icon:before {
+    color: map-get($--tk-input-checkbox-radio-color, iconDefault);
+  }
+
+  &__label {
+    color: map-get($--tk-input-checkbox-radio-color, textDefault);
+  }
+
+  &:hover &__icon:before {
+    color: map-get($--tk-input-checkbox-radio-color, iconHover);
+  }
+
+  // Checked
+  &__input:checked:enabled + &__icon:before {
+    color: map-get($--tk-input-checkbox-radio-color, iconChecked);
+  }
+
+  &:hover &__input:checked:enabled + &__icon:before {
+    color: map-get($--tk-input-checkbox-radio-color, iconHover);
+  }
+
+  // Disabled
+  &--disabled &__icon:before,
+  &--disabled:hover &__icon:before {
+    color: map-get($--tk-input-checkbox-radio-color, iconDisabled);
+  }
+
+  &--disabled &__label, 
+  &--disabled:hover &__label {
+    color: map-get($--tk-input-checkbox-radio-color, textDisabled);
+  }
+
+  // Error
+  .tk-validation--error &__inputContainer &__input + &__icon:before {
+    color: map-get($--tk-input-checkbox-radio-color, iconError);
+  }
+
+  .tk-validation--error &:hover &__inputContainer &__input + &__icon:before {
+    color: map-get($--tk-input-checkbox-radio-color, iconErrorHover);
   }
 }

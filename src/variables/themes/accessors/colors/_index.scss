@@ -61,9 +61,20 @@ $--tk-input-disabled-background-color: var(
   $scolor-graphite-minus-88
 );
 
+$--tk-input-checkbox-radio-color: (
+  iconDefault: var(--tk-input-checkbox-radio-color-icon-default, getColor($graphite, '50')), 
+  iconHover: var(--tk-input-checkbox-radio-color-icon-hover, getColor($electricity, '40')),
+  iconDisabled: var(--tk-input-checkbox-radio-color-icon-disabled, getColor($graphite, '20')), 
+  iconError: var(--tk-input-checkbox-radio-color-icon-error, getColor($red, '50')),
+  iconErrorHover: var(--tk-input-checkbox-radio-color-icon-error-hover, getColor($red, '40')),
+  iconChecked: var(--tk-input-checkbox-radio-color-icon-checked, getColor($electricity, '50')), 
+  textDefault: var(--tk-input-checkbox-radio-color-icon-text-default, getColor($graphite, '80')), 
+  textDisabled: var(--tk-input-checkbox-radio-color-icon-text-disabled, getColor($graphite, '30')),
+);
+
 $--tk-input-switch-default-line-color: var(
   --tk-input-switch-default-line-color,
-  $scolor-graphite-minus-72
+  getColor($graphite, '10')
 );
 $--tk-input-switch-default-circle-color: var(
   --tk-input-switch-default-circle-color,
@@ -71,16 +82,15 @@ $--tk-input-switch-default-circle-color: var(
 );
 $--tk-input-switch-default-circle-border-color: var(
   --tk-input-switch-default-circle-border-color,
-  $scolor-electricity
+  getColor($electricity, '50')
 );
-
 $--tk-input-switch-disabled-line-color: var(
   --tk-input-switch-disabled-line-color,
-  $scolor-graphite-minus-88
+  getColor($graphite, '10')
 );
 $--tk-input-switch-disabled-circle-color: var(
   --tk-input-switch-disabled-circle-color,
-  $scolor-graphite-minus-48
+  getColor($graphite, '30')
 );
 
 /** ======== Buttons ======== */
