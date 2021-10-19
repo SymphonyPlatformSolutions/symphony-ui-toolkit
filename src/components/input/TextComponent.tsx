@@ -13,6 +13,8 @@ enum Types {
   TEXTFIELD = 'TextField',
 }
 
+const prefix = 'tk-input';
+
 export type InputBaseProps = {
   onCopy?: (event) => any;
   onCut?: (event) => any;
@@ -40,6 +42,8 @@ type TextComponentProps = {
   showRequired?: boolean;
   /** When present, it specifies that the field is read-only. */
   readonly?: boolean;
+  /** Size of the button */
+  size?: 'small' | 'medium';
   value?: string;
 } & HasTooltipProps &
   HasValidationProps<string>;
@@ -75,6 +79,7 @@ const TextComponentPropTypes = {
   onFocus: PropTypes.func,
   onKeyDown: PropTypes.func,
   readonly: PropTypes.bool,
+  // size: PropTypes.oneOf(['small', 'large' , 'medium']),
   showRequired: PropTypes.bool,
   tooltip: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   tooltipCloseLabel: PropTypes.string,
@@ -98,6 +103,7 @@ const TextComponent: React.FC<
       placeholder,
       masked,
       readonly,
+      size,
       showRequired,
       tooltip,
       tooltipCloseLabel,
@@ -124,7 +130,7 @@ const TextComponent: React.FC<
 
     // Generate unique ID if not provided
     const inputId = useMemo(() => {
-      return id || `tk-input-${shortid.generate()}`;
+      return id || `${prefix}-${shortid.generate()}`;
     }, [id]);
 
     const tooltipId = useMemo(() => `tk-hint-${shortid.generate()}`, []);
@@ -147,24 +153,16 @@ const TextComponent: React.FC<
 
     return (
       <div
-        className={classNames('tk-input-group', {
-          'tk-input-group--disabled': disabled,
-          'tk-input-group--readonly': readonly,
+        className={classNames(`${prefix}-group`, `${prefix}-group--${size}`, {
+          [`${prefix}-group--disabled`]: disabled,
+          [`${prefix}-group--readonly`]: readonly,
         })}
       >
-        <LabelTooltipDecorator
-          id={tooltipId}
-          htmlFor={inputId}
-          label={label}
-          placement={'top'}
-          tooltip={tooltip}
-          tooltipCloseLabel={tooltipCloseLabel}
-          showRequired={showRequired}
-        />
+
         <div
-          className={classNames(className, 'tk-input__container', {
-            'tk-input__container--disabled': disabled,
-            'tk-input__container--readonly': readonly,
+          className={classNames(className, `${prefix}__container`, `${prefix}__container--${size}`, {
+            [`${prefix}__container--disabled`]: disabled,
+            [`${prefix}__container--readonly`]: readonly,
           })}
         >
           <TagName
@@ -176,7 +174,7 @@ const TextComponent: React.FC<
             aria-placeholder={placeholder}
             aria-readonly={readonly}
             aria-multiline={type === Types.TEXTAREA}
-            className={classNames('tk-input')}
+            className={classNames(prefix, `${prefix}--${size}`)}
             disabled={disabled}
             onBlur={onBlur}
             onClick={onClick}
@@ -190,14 +188,16 @@ const TextComponent: React.FC<
             {...rest}
           />
 
-          {rightDecorators && type == Types.TEXTFIELD
-            ? Array.isArray(rightDecorators)
-              ? rightDecorators.map((decorator) => decorator)
-              : rightDecorators
-            : null}
+          <span className={`${prefix}__right-decorators`}>
+            {rightDecorators && type == Types.TEXTFIELD
+              ? Array.isArray(rightDecorators)
+                ? rightDecorators.map((decorator) => decorator)
+                : rightDecorators
+              : null}
+          </span>
           {type == Types.TEXTFIELD && masked && value?.length ? (
             <button
-              className="tk-input__hide"
+              className={`${prefix}__hide`}
               tabIndex={value && value.length === 0 ? -1 : 0}
               onClick={handleViewText}
             >
@@ -205,19 +205,33 @@ const TextComponent: React.FC<
             </button>
           ) : null}
           {iconElement && type == Types.TEXTFIELD
-            ? // Clone the iconElement in order to attach className 'tk-input__icon'
+            ? // Clone the iconElement in order to attach className '${prefix}__icon'
             React.cloneElement(iconElement, {
               className: classNames(
-                'tk-input__icon',
+                `${prefix}__icon`,
                 iconElement.props.className
               ),
             })
             : null}
         </div>
+        <LabelTooltipDecorator
+          id={tooltipId}
+          htmlFor={inputId}
+          label={label}
+          placement={'top'}
+          tooltip={tooltip}
+          tooltipCloseLabel={tooltipCloseLabel}
+          showRequired={showRequired}
+        />
       </div>
     );
   }
 );
+
+TextComponent.defaultProps = {
+  size: 'medium',
+};
+
 
 TextComponent.propTypes = {
   ...TextComponentPropTypes,

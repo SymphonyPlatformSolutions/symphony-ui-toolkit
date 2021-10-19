@@ -144,18 +144,18 @@ export const TextFields: React.FC = () => {
           rightDecorators={
             value?.length
               ? [
-                  <button
-                    key="button"
-                    className="tk-input__hide"
-                    tabIndex={value && value.length === 0 ? -1 : 0}
-                    onClick={() => setHideText(!hideText)}
-                  >
-                    {hideText ? 'SHOW' : 'HIDE'}
-                  </button>,
-                ]
+                <button
+                  key="button"
+                  className="tk-input__hide"
+                  tabIndex={value && value.length === 0 ? -1 : 0}
+                  onClick={() => setHideText(!hideText)}
+                >
+                  {hideText ? 'SHOW' : 'HIDE'}
+                </button>,
+              ]
               : null
           }
-        ></TextField>
+        />
       </div>
       <div>
         <p>
@@ -167,19 +167,19 @@ export const TextFields: React.FC = () => {
           rightDecorators={
             value?.length
               ? [
-                  <span
-                    key="span-copy"
-                    style={{ alignSelf: 'center', marginRight: '1rem' }}
-                  >
-                    <Icon iconName="copy"></Icon>
-                  </span>,
-                  <span
-                    key="span-search"
-                    style={{ alignSelf: 'center', marginRight: '1rem' }}
-                  >
-                    <Icon iconName="search"></Icon>
-                  </span>,
-                ]
+                <span
+                  key="span-copy"
+                  style={{ alignSelf: 'center' }}
+                >
+                  <Icon iconName="copy"></Icon>
+                </span>,
+                <span
+                  key="span-search"
+                  style={{ alignSelf: 'center' }}
+                >
+                  <Icon iconName="search"></Icon>
+                </span>,
+              ]
               : null
           }
         ></TextField>
@@ -199,6 +199,15 @@ export const ReadOnly: React.FC = () => {
         tooltip="More information"
         tooltipCloseLabel="Got it"
         readonly
+        value="Lorem Ipsum"
+      ></TextField>
+      <div className="tk-mt-1"/>
+      <TextField
+        label="Ipsum"
+        tooltip="More information"
+        tooltipCloseLabel="Got it"
+        readonly
+        size="small"
         value="Lorem Ipsum"
       ></TextField>
     </div>

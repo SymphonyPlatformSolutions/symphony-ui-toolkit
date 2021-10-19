@@ -109,11 +109,13 @@ const InputDecorator: React.FC<InputDecoratorProps> = ({
       >
         {childWithId}
 
-        {rightDecorators
-          ? Array.isArray(rightDecorators)
-            ? rightDecorators.map((decorator) => decorator)
-            : rightDecorators
-          : null}
+        <span className={'tk-input__right-decorators'}>
+          {rightDecorators
+            ? Array.isArray(rightDecorators)
+              ? rightDecorators.map((decorator) => decorator)
+              : rightDecorators
+            : null}
+        </span>
       </div>
     </div>
   );
