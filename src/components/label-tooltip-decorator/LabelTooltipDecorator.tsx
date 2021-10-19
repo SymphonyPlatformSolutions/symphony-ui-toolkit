@@ -55,6 +55,7 @@ const LabelTooltipDecorator: React.FC<LabelTooltipDecoratorProps> = ({
             <Icon
               iconName="info-round"
               onClick={() => setShowTooltip(!showTooltip)}
+              tabIndex={0}
             />
           </Tooltip>
         </LabelTooltipDecoratorTooltip>
