@@ -27,7 +27,7 @@ export const Switch = () => {
                 tabindex="-1">Switch by default</label>
         </span>
         <h2>Disabled Switch</h2>
-        <span class="tk-switch"
+        <span class="tk-switch tk-switch--disabled"
             tabindex="0">
             <div class="tk-switch__inputContainer" tab-index="-1">
                 <input class="tk-switch__input"
@@ -38,18 +38,7 @@ export const Switch = () => {
             <label class="tk-switch__label" for="switch-x8ESD33S3W"
                 tabindex="-1">Switch</label>
         </span>
-        <span class="tk-switch tk-switch--mixed"
-            tabindex="0">
-            <div class="tk-switch__inputContainer" tab-index="-1">
-                <input class="tk-switch__input"
-                    type="checkbox" id="switch-Y6ospnNQOs" name="disabled-switch" disabled="" tabindex="-1"
-                    value="disabled-switch-2">
-                <span class="tk-switch__icon" aria-hidden></span>
-            </div>
-            <label class="tk-switch__label" for="switch-Y6ospnNQOs"
-                tabindex="-1">Switch</label>
-        </span>
-        <span class="tk-switch"
+        <span class="tk-switch tk-switch--disabled"
             tabindex="0">
             <div class="tk-switch__inputContainer" tab-index="-1">
                 <input class="tk-switch__input"

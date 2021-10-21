@@ -1,9 +1,9 @@
 export default {
-  title: 'Components/Inputs/Checkbox',
+    title: 'Components/Inputs/Checkbox',
 };
 
 export const Checkbox = () => {
-  return `
+    return `
   <div class="tk-text-color" style="width: 50%;">
     <h1>Checkbox</h1>
         <h2>Active Checkbox</h2>
@@ -36,8 +36,9 @@ export const Checkbox = () => {
             <label class="tk-checkbox__label" for="checkbox-rWqEZbrVP1"
                 tabindex="-1">Checkbox by default</label>
         </span>
+
         <h2>Disabled Checkbox</h2>
-        <span class="tk-checkbox"
+        <span class="tk-checkbox tk-checkbox--disabled"
             tabindex="0">
             <div class="tk-checkbox__inputContainer" tab-index="-1">
                 <input class="tk-checkbox__input"
@@ -48,7 +49,7 @@ export const Checkbox = () => {
             <label class="tk-checkbox__label" for="checkbox-x8ESD33S3W"
                 tabindex="-1">Checkbox</label>
         </span>
-        <span class="tk-checkbox tk-checkbox--mixed"
+        <span class="tk-checkbox tk-checkbox--mixed tk-checkbox--disabled"
             tabindex="0">
             <div class="tk-checkbox__inputContainer" tab-index="-1">
                 <input class="tk-checkbox__input"
@@ -59,7 +60,7 @@ export const Checkbox = () => {
             <label class="tk-checkbox__label" for="checkbox-Y6ospnNQOs"
                 tabindex="-1">Checkbox</label>
         </span>
-        <span class="tk-checkbox"
+        <span class="tk-checkbox tk-checkbox--disabled"
             tabindex="0">
             <div class="tk-checkbox__inputContainer" tab-index="-1">
                 <input class="tk-checkbox__input"
@@ -70,6 +71,48 @@ export const Checkbox = () => {
             <label class="tk-checkbox__label" for="checkbox-2rgjiQCh_S"
                 tabindex="-1">Checkbox</label>
         </span>
+
+        <h2>Error Checkbox</h2>
+        <span class="tk-validation--error">
+            <span class="tk-checkbox"
+                tabindex="0">
+                <div class="tk-checkbox__inputContainer" tab-index="-1">
+                    <input class="tk-checkbox__input"
+                        type="checkbox" id="checkbox-x8ESD33S3W" name="disabled-checkbox" tabindex="-1"
+                        value="disabled-checkbox-1" checked>
+                    <span class="tk-checkbox__icon" aria-hidden></span>
+                </div>
+                <label class="tk-checkbox__label" for="checkbox-x8ESD33S3W"
+                    tabindex="-1">Checkbox</label>
+            </span>
+        </span>
+        <span class="tk-validation--error">
+            <span class="tk-checkbox tk-checkbox--mixed"
+                tabindex="0">
+                <div class="tk-checkbox__inputContainer" tab-index="-1">
+                    <input class="tk-checkbox__input"
+                        type="checkbox" id="checkbox-Y6ospnNQOs" name="disabled-checkbox" tabindex="-1"
+                        value="disabled-checkbox-2" checked>
+                    <span class="tk-checkbox__icon" aria-hidden></span>
+                </div>
+                <label class="tk-checkbox__label" for="checkbox-Y6ospnNQOs"
+                    tabindex="-1">Checkbox</label>
+            </span>
+        </span>
+        <span class="tk-validation--error">
+            <span class="tk-checkbox"
+                tabindex="0">
+                <div class="tk-checkbox__inputContainer" tab-index="-1">
+                    <input class="tk-checkbox__input"
+                        type="checkbox" id="checkbox-2rgjiQCh_S" name="disabled-checkbox" tabindex="-1"
+                        value="disabled-checkbox-3">
+                    <span class="tk-checkbox__icon" aria-hidden></span>
+                </div>
+                <label class="tk-checkbox__label" for="checkbox-2rgjiQCh_S"
+                    tabindex="-1">Checkbox</label>
+            </span>
+        </span>
+
         <h2>Checkbox with focus</h2>
         <p>Add the CSS class '.tk-checkbox--focus-visible'.</p>
         <span class="tk-checkbox tk-checkbox--focus-visible" tabindex="0">
