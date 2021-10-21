@@ -71,6 +71,33 @@ export const Checkboxes = () => {
         />
       </div>
       <div>
+        <h2>Error Checkbox</h2>
+        <p>In the following examples the checkboxes are wrapped around a Validation component that is in error</p>
+        <span className="tk-validation--error">
+          <Checkbox
+            label="Checkbox 'checked'"
+            name="active-checkbox"
+            value="active-checkbox-1"
+            status={SelectionStatus.CHECKED}
+          />
+        </span>
+        <span className="tk-validation--error">
+          <Checkbox
+            label="Checkbox 'mixed'"
+            name="active-checkbox"
+            value="active-checkbox-2"
+            status={SelectionStatus.MIXED}
+          />
+        </span>
+        <span className="tk-validation--error">
+          <Checkbox
+            label="Checkbox by default"
+            name="active-checkbox"
+            value="active-checkbox-3"
+          />
+        </span>
+      </div>
+      <div>
         <h2>Label placements</h2>
         <p>
           The label can be positioned at the{' '}
