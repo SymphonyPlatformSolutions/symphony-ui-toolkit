@@ -6,9 +6,7 @@
     "outDir": "./dist",
     "strict": true,
     "jsx": "react",
-    "rootDirs": [
-      "stories"
-    ],
+    "rootDirs": ["stories"],
     "esModuleInterop": true,
     "noImplicitAny": false,
     "strictNullChecks": false,
@@ -16,14 +14,7 @@
     "allowSyntheticDefaultImports": false,
     "skipLibCheck": true
   },
-  "include": [
-    "src/**/*.ts",
-    "spec/**/*.ts",
-    "stories/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules",
-    "coverage"
-  ],
+  "include": ["src/**/*.ts", "spec/**/*.ts", "stories/**/*.ts"],
+  "exclude": ["node_modules", "coverage", "stories/templates/*"],
   "jsx": "react"
 }

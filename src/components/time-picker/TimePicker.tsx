@@ -38,6 +38,7 @@ export const TimePicker: React.FC<TimePickerProps> = ({
   max,
   name,
   onChange,
+  onFocus,
   onValidationChanged,
   placeholder,
   step,
@@ -183,6 +184,13 @@ export const TimePicker: React.FC<TimePickerProps> = ({
     placeholder = format ? format : getUserFormat();
   }
 
+  const onFocusWrapped = (event: React.FocusEvent<HTMLElement>) => {
+    if (onFocus) {
+      onFocus(event);
+    }
+    handleFocus(event)
+  };
+
   return (
     <Dropdown
       autoScrollToCurrent={true}
@@ -214,7 +222,7 @@ export const TimePicker: React.FC<TimePickerProps> = ({
         // Called when the user select an option in the Dropdown menu
         setSelectedOption(option);
       }}
-      onFocus={handleFocus}
+      onFocus={onFocusWrapped}
       onKeyDown={(event) =>
         handleKeyDown(
           event,
@@ -262,6 +270,7 @@ TimePicker.propTypes = {
   menuShouldBlockScroll: PropTypes.bool,
   name: PropTypes.string,
   onChange: PropTypes.func,
+  onFocus: PropTypes.func,
   onValidationChanged: PropTypes.func,
   placeholder: PropTypes.string,
   showRequired: PropTypes.bool,

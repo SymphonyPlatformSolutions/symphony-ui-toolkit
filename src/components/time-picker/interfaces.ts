@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { HasTooltipProps } from '../tooltip/interfaces';
 import { HasValidationProps } from '../validation/interfaces';
 import { MenuPortalProps } from '../dropdown/interfaces';
@@ -30,6 +31,7 @@ export type TimePickerProps = {
   max?: string;
   /** Identifies the time picker. */
   name?: string;
+  onFocus?: (event: React.FocusEvent<HTMLElement>) => void;
   /** If null, then it will use the time format. */
   placeholder?: string;
   /** The step interval in seconds to be used to define the suggested times (min: 600, max: 43200, default: 900).*/
