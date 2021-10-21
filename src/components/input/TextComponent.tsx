@@ -79,7 +79,6 @@ const TextComponentPropTypes = {
   onFocus: PropTypes.func,
   onKeyDown: PropTypes.func,
   readonly: PropTypes.bool,
-  // size: PropTypes.oneOf(['small', 'large' , 'medium']),
   showRequired: PropTypes.bool,
   tooltip: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   tooltipCloseLabel: PropTypes.string,
@@ -149,7 +148,8 @@ const TextComponent: React.FC<
       TagName = 'input';
     }
 
-    const typeTextField = type === Types.TEXTFIELD ? (isMasked || (masked && hideText)) ? 'password' : 'text' : undefined; // TODO : make it more readable
+    const shouldHideText = (isMasked || (masked && hideText));
+    const typeTextField = type === Types.TEXTFIELD ? shouldHideText ? 'password' : 'text' : undefined;
 
     return (
       <div
@@ -236,6 +236,7 @@ TextComponent.defaultProps = {
 TextComponent.propTypes = {
   ...TextComponentPropTypes,
   ...InputBasePropTypes,
+  size: PropTypes.oneOf(['small' , 'medium']),
   type: PropTypes.oneOf(Object.values(Types)).isRequired,
 };
 TextComponent.displayName = 'TextComponent';
