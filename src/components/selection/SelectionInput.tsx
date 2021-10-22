@@ -155,6 +155,7 @@ const SelectionInput: React.FC<SelectionInputPropsWithType> = ({
           [`${tkClassName}--focused`]: isFocused,
           [`${tkClassName}--focus-visible`]: isFocusVisible,
           [`${tkClassName}--mixed`]: status === SelectionStatus.MIXED,
+          [`${tkClassName}--disabled`]: disabled,
         }
       )}
       tab-index="-1"
