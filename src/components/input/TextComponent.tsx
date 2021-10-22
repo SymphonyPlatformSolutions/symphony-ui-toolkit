@@ -41,7 +41,7 @@ type TextComponentProps = {
   onKeyDown?: (event) => any;
   showRequired?: boolean;
   /** When present, it specifies that the field is read-only. */
-  readonly?: boolean;
+  readOnly?: boolean;
   /** Size of the button */
   size?: 'small' | 'medium';
   value?: string;
@@ -78,7 +78,7 @@ const TextComponentPropTypes = {
   onClick: PropTypes.func,
   onFocus: PropTypes.func,
   onKeyDown: PropTypes.func,
-  readonly: PropTypes.bool,
+  readOnly: PropTypes.bool,
   showRequired: PropTypes.bool,
   tooltip: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   tooltipCloseLabel: PropTypes.string,
@@ -101,7 +101,7 @@ const TextComponent: React.FC<
       label,
       placeholder,
       masked,
-      readonly,
+      readOnly,
       size,
       showRequired,
       tooltip,
@@ -155,14 +155,14 @@ const TextComponent: React.FC<
       <div
         className={classNames(`${prefix}-group`, `${prefix}-group--${size}`, {
           [`${prefix}-group--disabled`]: disabled,
-          [`${prefix}-group--readonly`]: readonly,
+          [`${prefix}-group--readonly`]: readOnly,
         })}
       >
 
         <div
           className={classNames(className, `${prefix}__container`, `${prefix}__container--${size}`, {
             [`${prefix}__container--disabled`]: disabled,
-            [`${prefix}__container--readonly`]: readonly,
+            [`${prefix}__container--readonly`]: readOnly,
           })}
         >
           <TagName
@@ -172,7 +172,7 @@ const TextComponent: React.FC<
             aria-describedby={tooltip && tooltipId}
             aria-label={label}
             aria-placeholder={placeholder}
-            aria-readonly={readonly}
+            aria-readonly={readOnly}
             aria-multiline={type === Types.TEXTAREA}
             className={classNames(prefix, `${prefix}--${size}`)}
             disabled={disabled}
@@ -183,7 +183,7 @@ const TextComponent: React.FC<
             onChange={onChange}
             placeholder={placeholder}
             type={typeTextField}
-            readOnly={readonly} // TODO readonly or readOnly?
+            readOnly={readOnly}
             value={value}
             {...rest}
           />
@@ -236,7 +236,6 @@ TextComponent.defaultProps = {
 TextComponent.propTypes = {
   ...TextComponentPropTypes,
   ...InputBasePropTypes,
-  size: PropTypes.oneOf(['small' , 'medium']),
   type: PropTypes.oneOf(Object.values(Types)).isRequired,
 };
 TextComponent.displayName = 'TextComponent';

@@ -198,7 +198,7 @@ export const ReadOnly: React.FC = () => {
         label="Ipsum"
         tooltip="More information"
         tooltipCloseLabel="Got it"
-        readonly
+        readOnly
         value="Lorem Ipsum"
       ></TextField>
       <div className="tk-mt-1"/>
@@ -206,7 +206,7 @@ export const ReadOnly: React.FC = () => {
         label="Ipsum"
         tooltip="More information"
         tooltipCloseLabel="Got it"
-        readonly
+        readOnly
         size="small"
         value="Lorem Ipsum"
       ></TextField>
