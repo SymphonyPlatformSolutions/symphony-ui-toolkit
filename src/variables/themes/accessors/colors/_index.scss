@@ -406,3 +406,9 @@ $--tk-timeline-hours-color: var(
   --tk-timeline-hours-color,
   getColor($graphite, '70')
 );
+
+/** ======== divider ======== */
+$--tk-divider-color: var(
+  --tk-divider-color,
+  getColor($graphite, '20')
+);
