@@ -215,4 +215,14 @@ describe('Validation Component', () => {
     );
     expect(validator).not.toHaveBeenCalled();
   });
+  it('should be small ', () => {
+    const wrapper = shallow(
+      <Validation errors={['Required.', 'This is not a valid name']}>
+        <TextField size="small"/>
+      </Validation>
+    );
+    wrapper.render();
+    const errorText = wrapper.find('.tk-validation--small');
+    expect(errorText).toBeDefined();
+  });
 });

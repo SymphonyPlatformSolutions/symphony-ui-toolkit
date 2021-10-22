@@ -233,18 +233,24 @@ export const Disabled: React.FC = () => {
 
 
 export const ChangeProgrammatically = () => {
-  const child = useRef(null);
+  const child1 = useRef(null);
+  const child2 = useRef(null);
 
   const [value, setValue] = useState('');
 
-  const reset = () => child.current.reset();
-  const refresh = () =>
-    child.current.refreshValidation().then((isValid) => console.log(isValid));
+  const reset = () => {
+    child1.current.reset();
+    child2.current.reset();
+  }
+  const refresh = () => {
+    child1.current.refreshValidation().then((isValid) => console.log(isValid));
+    child2.current.refreshValidation().then((isValid) => console.log(isValid));
+  }
 
   return (
     <div style={{ width: '50%' }}>
       <Validation
-        ref={child}
+        ref={child1}
         validator={Validators.Required}
         errorMessage={{ required: 'This field is mandatory' }}
       >
@@ -252,6 +258,19 @@ export const ChangeProgrammatically = () => {
           placeholder="Firstname"
           value={value}
           onChange={(e) => setValue(e.target.value)}
+        ></TextField>
+      </Validation>
+      <br/>
+      <Validation
+        ref={child2}
+        validator={Validators.Required}
+        errorMessage={{ required: 'This field is mandatory' }}
+      >
+        <TextField
+          placeholder="Firstname"
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+          size="small"
         ></TextField>
       </Validation>
       <div style={{ display: 'flex', marginTop: '1rem' }}>

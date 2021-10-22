@@ -91,6 +91,20 @@ export const Validations = () => {
           }}
         />
       </Validation>
+      <br/>
+      <Validation
+        onValidationChanged={logChange}
+        validator={Validators.Required}
+        errorMessage={'This field is mandatory'}
+      >
+        <TextField
+          size="small"
+          placeholder="Firstname"
+          onChange={() => {
+            console.log('Existing onChange method called');
+          }}
+        />
+      </Validation>
       <p>
         with <strong>MinLength validator</strong>
       </p>
@@ -100,6 +114,14 @@ export const Validations = () => {
         errorMessage={'You need to enter 3 characters minimum'}
       >
         <TextField placeholder="How are you?" />
+      </Validation>
+      <br/>
+      <Validation
+        onValidationChanged={logChange}
+        validator={Validators.MinLength(3)}
+        errorMessage={'You need to enter 3 characters minimum'}
+      >
+        <TextField placeholder="How are you?" size="small"/>
       </Validation>
       <p>
         Using <strong>pattern validator</strong>
