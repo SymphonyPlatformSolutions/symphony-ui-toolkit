@@ -4,6 +4,7 @@ import { isEmpty } from 'lodash';
 import classNames from 'classnames';
 import { ValidatorFn } from '../../core/validators/validators';
 import { ACTION, ErrorMessages } from './interfaces';
+import { Icon } from '..';
 
 const ValidationPropTypes = {
   validator: PropTypes.oneOfType([
@@ -212,18 +213,20 @@ class Validation extends React.Component<
       childWithValidation = this.getChildWithValidation(child);
     }
 
+    const size = childWithValidation?.props?.['size']; // Experimental - Put itself automatically in small variant if the child is small
     const hasErrors = this.state.errors && this.state.errors.length;
     return (
       <span
         className={classNames('tk-validation', {
           'tk-validation--error': hasErrors,
+          [`tk-validation--${size}`]: size,
         })}
       >
         {childWithValidation}
         {hasErrors ? (
           <ul className="tk-validation__errors">
             {this.state.errors.map((error, index) => (
-              <li key={index}>{error}</li>
+              <li key={index}><Icon iconName="alert-triangle"/>{error}</li>
             ))}
           </ul>
         ) : null}

@@ -25,7 +25,7 @@ const InputDecoratorPropTypes = {
 
 type InputDecoratorProps = {
   rightDecorators?: JSX.Element | JSX.Element[];
-  className?: string,
+  className?: string;
   children: React.ReactElement;
 } & LabelTooltipDecoratorProps &
   HasValidationProps<string>;
@@ -93,6 +93,21 @@ const InputDecorator: React.FC<InputDecoratorProps> = ({
         'tk-input-group--disabled': disabled,
       })}
     >
+      <div
+        className={classnames('tk-input__container', {
+          'tk-input__container--disabled': disabled,
+        })}
+      >
+        {childWithId}
+
+        {rightDecorators ? (
+          <span className={'tk-input__right-decorators'}>
+            {Array.isArray(rightDecorators)
+              ? rightDecorators.map((decorator) => decorator)
+              : rightDecorators}
+          </span>
+        ) : null}
+      </div>
       <LabelTooltipDecorator
         id={tooltipId}
         htmlFor={inputId}
@@ -102,19 +117,6 @@ const InputDecorator: React.FC<InputDecoratorProps> = ({
         tooltipCloseLabel={tooltipCloseLabel}
         showRequired={showRequired}
       />
-      <div
-        className={classnames('tk-input__container', {
-          'tk-input__container--disabled': disabled,
-        })}
-      >
-        {childWithId}
-
-        {rightDecorators
-          ? Array.isArray(rightDecorators)
-            ? rightDecorators.map((decorator) => decorator)
-            : rightDecorators
-          : null}
-      </div>
     </div>
   );
 };

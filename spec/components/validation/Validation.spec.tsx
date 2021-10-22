@@ -91,7 +91,7 @@ describe('Validation Component', () => {
         </Validation>
       );
       wrapper.find('DatePicker').simulate('validationChanged', mockEvent);
-      expect(wrapper.find('.tk-validation__errors').text()).toEqual('this message is displayed');
+      expect(wrapper.find('.tk-validation__errors').text()).toContain('this message is displayed');
     });
     it('validation should be called with custom error message', async () => {
       const mockEvent = { format: 'this is message is overriden' };
@@ -109,7 +109,7 @@ describe('Validation Component', () => {
         </Validation>
       );
       wrapper.find('DatePicker').simulate('validationChanged', mockEvent);
-      expect(wrapper.find('.tk-validation__errors').text()).toEqual('custom format error');
+      expect(wrapper.find('.tk-validation__errors').text()).toContain('custom format error');
     });
     it('validation should be called at initialization if validateOnInit is defined', async () => {
       const validate = jest.spyOn(Validation.prototype, 'updateState');
@@ -145,7 +145,7 @@ describe('Validation Component', () => {
       await promiseAll;
       await validate;
       wrapper.render();
-      expect(wrapper.find('.tk-validation__errors').text()).toEqual('Number');
+      expect(wrapper.find('.tk-validation__errors').text()).toContain('Number');
     });
     it('should force validation', async () => {
       const zone = {
@@ -166,7 +166,7 @@ describe('Validation Component', () => {
       await validator;
       await validate;
       wrapper.render();
-      expect(wrapper.find('.tk-validation__errors').text()).toEqual('Required');
+      expect(wrapper.find('.tk-validation__errors').text()).toContain('Required');
     });
     it('should reset validation', async () => {
       const zone = {
@@ -185,7 +185,7 @@ describe('Validation Component', () => {
       await validator;
       await validate;
       wrapper.render();
-      expect(wrapper.find('.tk-validation__errors').text()).toEqual('Required');
+      expect(wrapper.find('.tk-validation__errors').text()).toContain('Required');
 
       (wrapper.instance() as Validation).reset();
       await validator;
@@ -206,9 +206,23 @@ describe('Validation Component', () => {
     );
     wrapper.render();
     const validator = jest.spyOn(zone, 'validator');
-    expect(wrapper.find('.tk-validation__errors').text()).toEqual(
-      'Required.This is not a valid name'
+    const errorText = wrapper.find('.tk-validation__errors').text();
+    expect(errorText).toContain(
+      'Required.'
+    );
+    expect(errorText).toContain(
+      'This is not a valid name'
     );
     expect(validator).not.toHaveBeenCalled();
+  });
+  it('should be small ', () => {
+    const wrapper = shallow(
+      <Validation errors={['Required.', 'This is not a valid name']}>
+        <TextField size="small"/>
+      </Validation>
+    );
+    wrapper.render();
+    const errorText = wrapper.find('.tk-validation--small');
+    expect(errorText).toBeDefined();
   });
 });

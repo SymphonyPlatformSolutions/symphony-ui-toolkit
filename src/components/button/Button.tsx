@@ -16,8 +16,9 @@ export type ButtonProps = {
   loading?: boolean;
   type?: 'button' | 'reset' | 'submit';
   onClick?: (event: React.MouseEvent<HTMLElement>) => void;
-   /** The variant to use*/
+   /** Color variant of the button*/
   variant?: 'primary' | 'secondary' | 'tertiary' | 'destructive' | 'primary-destructive' | 'secondary-destructive'|'tertiary-destructive' |'tertiary-accent';
+  /** Size of the button */
   size?: 'large' | 'small' | 'medium';
   iconRight?: React.ReactNode;
   iconLeft?: React.ReactNode;

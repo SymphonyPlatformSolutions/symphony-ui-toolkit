@@ -3,7 +3,7 @@ import { Button, TextField, Icon, Validation } from '../src/components';
 
 import { Validators } from '../src/core/validators/validators';
 
-const Template = (args) => (<TextField {...args} />);
+const Template = (args) => <TextField {...args} />;
 
 export const Default = Template.bind({});
 
@@ -150,12 +150,12 @@ export const TextFields: React.FC = () => {
                   tabIndex={value && value.length === 0 ? -1 : 0}
                   onClick={() => setHideText(!hideText)}
                 >
-                  {hideText ? 'show' : 'hide'}
+                  {hideText ? 'SHOW' : 'HIDE'}
                 </button>,
               ]
               : null
           }
-        ></TextField>
+        />
       </div>
       <div>
         <p>
@@ -169,13 +169,13 @@ export const TextFields: React.FC = () => {
               ? [
                 <span
                   key="span-copy"
-                  style={{ alignSelf: 'center', marginRight: '1rem' }}
+                  style={{ alignSelf: 'center' }}
                 >
                   <Icon iconName="copy"></Icon>
                 </span>,
                 <span
                   key="span-search"
-                  style={{ alignSelf: 'center', marginRight: '1rem' }}
+                  style={{ alignSelf: 'center' }}
                 >
                   <Icon iconName="search"></Icon>
                 </span>,
@@ -188,19 +188,69 @@ export const TextFields: React.FC = () => {
   );
 };
 
+export const ReadOnly: React.FC = () => {
+  return (
+    <div>
+      <p>
+        Text Field <strong>read only</strong>. A read-only input field cannot be modified (however, a user can tab to it, highlight it, and copy the text from it).
+      </p>
+      <TextField
+        label="Ipsum"
+        tooltip="More information"
+        tooltipCloseLabel="Got it"
+        readOnly
+        value="Lorem Ipsum"
+      ></TextField>
+      <div className="tk-mt-1"/>
+      <TextField
+        label="Ipsum"
+        tooltip="More information"
+        tooltipCloseLabel="Got it"
+        readOnly
+        size="small"
+        value="Lorem Ipsum"
+      ></TextField>
+    </div>
+  );
+};
+
+export const Disabled: React.FC = () => {
+  return (
+    <div>
+      <p>
+        Text Field <strong>disabled</strong>. A disabled input element is unusable and un-clickable.
+      </p>
+      <TextField
+        disabled
+        label="Ipsum"
+        placeholder="Type something"
+        tooltip="More information"
+        tooltipCloseLabel="Got it"
+      ></TextField>
+    </div>
+  );
+};
+
+
 export const ChangeProgrammatically = () => {
-  const child = useRef(null);
+  const child1 = useRef(null);
+  const child2 = useRef(null);
 
   const [value, setValue] = useState('');
 
-  const reset = () => child.current.reset();
-  const refresh = () =>
-    child.current.refreshValidation().then((isValid) => console.log(isValid));
+  const reset = () => {
+    child1.current.reset();
+    child2.current.reset();
+  }
+  const refresh = () => {
+    child1.current.refreshValidation().then((isValid) => console.log(isValid));
+    child2.current.refreshValidation().then((isValid) => console.log(isValid));
+  }
 
   return (
     <div style={{ width: '50%' }}>
       <Validation
-        ref={child}
+        ref={child1}
         validator={Validators.Required}
         errorMessage={{ required: 'This field is mandatory' }}
       >
@@ -208,6 +258,19 @@ export const ChangeProgrammatically = () => {
           placeholder="Firstname"
           value={value}
           onChange={(e) => setValue(e.target.value)}
+        ></TextField>
+      </Validation>
+      <br/>
+      <Validation
+        ref={child2}
+        validator={Validators.Required}
+        errorMessage={{ required: 'This field is mandatory' }}
+      >
+        <TextField
+          placeholder="Firstname"
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+          size="small"
         ></TextField>
       </Validation>
       <div style={{ display: 'flex', marginTop: '1rem' }}>
