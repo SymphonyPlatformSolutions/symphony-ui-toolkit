@@ -87,7 +87,7 @@ const TextComponentPropTypes = {
 
 const TextComponent: React.FC<
   TextComponentPropsWithType &
-  React.RefAttributes<HTMLInputElement | HTMLTextAreaElement>
+    React.RefAttributes<HTMLInputElement | HTMLTextAreaElement>
 > = React.forwardRef(
   (
     {
@@ -160,10 +160,15 @@ const TextComponent: React.FC<
       >
 
         <div
-          className={classNames(className, `${prefix}__container`, `${prefix}__container--${size}`, {
-            [`${prefix}__container--disabled`]: disabled,
-            [`${prefix}__container--readonly`]: readOnly,
-          })}
+          className={classNames(
+            className,
+            `${prefix}__container`,
+            `${prefix}__container--${size}`,
+            {
+              [`${prefix}__container--disabled`]: disabled,
+              [`${prefix}__container--readonly`]: readOnly,
+            }
+          )}
         >
           <TagName
             id={inputId}
@@ -188,13 +193,13 @@ const TextComponent: React.FC<
             {...rest}
           />
 
-          <span className={`${prefix}__right-decorators`}>
-            {rightDecorators && type == Types.TEXTFIELD
-              ? Array.isArray(rightDecorators)
+          {rightDecorators && type == Types.TEXTFIELD ? (
+            <span className={`${prefix}__right-decorators`}>
+              {Array.isArray(rightDecorators)
                 ? rightDecorators.map((decorator) => decorator)
-                : rightDecorators
-              : null}
-          </span>
+                : rightDecorators}
+            </span>
+          ) : null}
           {type == Types.TEXTFIELD && masked && value?.length ? (
             <button
               className={`${prefix}__hide`}
