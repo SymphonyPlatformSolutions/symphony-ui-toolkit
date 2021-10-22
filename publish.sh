@@ -37,7 +37,7 @@ function postToUniversalWebhook {
 # Otherwise it does nothing (i.e: X.Y.Z-rc.1, X.Y.Z-SNAPTHOT.1, etc...)
 function postIfOfficialRelease {
     # if version start by v or not (i.e: vX.Y.Z or X.Y.Z)
-    if [[ $CIRCLE_TAG =~ ^v?([0-9]|[1-9][0-9]*)\\.([0-9]|[1-9][0-9]*)\\.([0-9]|[1-9][0-9]*)?$ ]];
+    if [[ "$CIRCLE_TAG" =~ ^v?([0-9]|[1-9][0-9]*)\\.([0-9]|[1-9][0-9]*)\\.([0-9]|[1-9][0-9]*)?$ ]];
     then postToUniversalWebhook;
     fi
 }
