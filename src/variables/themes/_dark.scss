@@ -160,4 +160,8 @@
   --tk-timeline-border-color: #{getColor($graphite, '50')};
   --tk-timeline-expand-icon-color: #{getColor($graphite, '40')};
   --tk-timeline-hours-color: #{getColor($graphite, '05')};
+  
+  // Divider
+  $--tk-divider-color: #{getColor($graphite, '70')};
+
 }
