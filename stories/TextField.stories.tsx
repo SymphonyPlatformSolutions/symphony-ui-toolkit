@@ -146,9 +146,11 @@ export const TextFields: React.FC = () => {
               ? [
                 <button
                   key="button"
+                  role="button"
                   className="tk-input__hide"
                   tabIndex={value && value.length === 0 ? -1 : 0}
                   onClick={() => setHideText(!hideText)}
+                  onKeyDown={(event) => (event.key === 'Enter') && setHideText(!hideText)} // not sure why we need to specify
                 >
                   {hideText ? 'SHOW' : 'HIDE'}
                 </button>,
