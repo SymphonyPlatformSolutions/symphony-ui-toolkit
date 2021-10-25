@@ -20,6 +20,14 @@ $colorMap: (
     }
 }
 
+.tk-bg-color {
+  background-color: $--tk-background;
+}
+
+.tk-bg-color--reverse {
+  background-color: $--tk-background-reverse;
+}
+
 .tk-text-color {
   color: $--tk-main-text-color;
 }
