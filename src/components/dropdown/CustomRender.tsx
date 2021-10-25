@@ -132,8 +132,7 @@ export const ClearIndicator = (props: any) =>
 
 export const Control = ({ children, selectProps, ...props }: any) => {
   const {iconName} = selectProps;
-  return (<div className="tk-input-group__header">
-    {<label className="tk-label tk-mb-h">{selectProps?.label}</label>}
+  return (<div className="tk-input-group__header tk-pt-h">
     <components.Control {...props} className="tk-input__container">
       {iconName && <Icon iconName={iconName} className="tk-input__icon" tabIndex={0}/>}
       {children}
