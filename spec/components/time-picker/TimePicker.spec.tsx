@@ -52,6 +52,19 @@ describe('TimePicker Component', () => {
     expect(wrapperPicker.prop('placeHolder')).toBe(props.placeholder);
   });
 
+  it('should trigger onFocus', async () => {
+    const props = createTestProps({
+      value: '09:00:00',
+      format: 'HH:mm:ss',
+      onFocus: jest.fn(),
+    });
+    render(<TimePicker {...props} />);
+    const input = screen.getByRole('textbox');
+    expect(props.onFocus).toHaveBeenCalledTimes(0);
+    userEvent.click(input);
+    expect(props.onFocus).toHaveBeenCalledTimes(1);
+  });
+
   describe('should move focus', () => {
     test.each([
       ['09', '09:', 3],

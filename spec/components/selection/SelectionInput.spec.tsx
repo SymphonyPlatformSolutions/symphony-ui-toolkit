@@ -13,23 +13,59 @@ describe('SelectionInput Component', () => {
     });
 
     it('render a Checkbox with default props and initial value and test if a input html tag is used', () => {
+      const props = {
+        type: SelectionTypes.CHECKBOX,
+        name: 'SelectionInput-test-name',
+        value: 'SelectionInput-test-value',
+      }
+
       const wrapper = shallow(
-        <SelectionInput
-          type={SelectionTypes.CHECKBOX}
-          name="SelectionInput-test-name"
-          value="SelectionInput-test-value"
-        />
+        <SelectionInput {...props} />
       );
+
       expect(wrapper.length).toEqual(1);
       expect(wrapper.find('.tk-checkbox').length).toBe(1);
       expect(wrapper.find('input').length).toBe(1);
-      expect(wrapper.find('input').prop('name')).toEqual(
-        'SelectionInput-test-name'
-      );
-      expect(wrapper.find('input').prop('value')).toEqual(
-        'SelectionInput-test-value'
-      );
+      expect(wrapper.find('input').prop('name')).toEqual(props.name);
+      expect(wrapper.find('input').prop('value')).toEqual(props.value);
     });
+
+    it('render a Radio with default props and initial value', () => {
+      const props = {
+        type: SelectionTypes.RADIO,
+        name: 'SelectionInput-test-name',
+        value: 'SelectionInput-test-value',
+      }
+
+      const wrapper = shallow(
+        <SelectionInput {...props} />
+      );
+
+      expect(wrapper.length).toEqual(1);
+      expect(wrapper.find('.tk-radio').length).toBe(1);
+      expect(wrapper.find('input').length).toBe(1);
+      expect(wrapper.find('input').prop('name')).toEqual(props.name);
+      expect(wrapper.find('input').prop('value')).toEqual(props.value);
+    });
+
+    it('render a Switch with default props and initial value', () => {
+      const props = {
+        type: SelectionTypes.SWITCH,
+        name: 'SelectionInput-test-name',
+        value: 'SelectionInput-test-value',
+      }
+
+      const wrapper = shallow(
+        <SelectionInput {...props} />
+      );
+
+      expect(wrapper.length).toEqual(1);
+      expect(wrapper.find('.tk-switch').length).toBe(1);
+      expect(wrapper.find('input').length).toBe(1);
+      expect(wrapper.find('input').prop('name')).toEqual(props.name);
+      expect(wrapper.find('input').prop('value')).toEqual(props.value);
+    });
+
     it('extra props are forwarded to the input element', () => {
       const ariaLabel = 'field';
       const wrapper = shallow(
@@ -42,6 +78,20 @@ describe('SelectionInput Component', () => {
       );
       expect(wrapper.length).toEqual(1);
       expect(wrapper.find('input').prop('aria-label')).toEqual(ariaLabel);
+    });
+
+    it('renders a disabled input if disabled prop is true', () => {
+      const wrapper = shallow(
+        <SelectionInput
+          type={SelectionTypes.CHECKBOX}
+          name="SelectionInput-test-name2"
+          value="SelectionInput-test-value"
+          disabled
+        />
+      );
+
+      expect(wrapper.find('.tk-checkbox--disabled')).toBeDefined();
+      expect(wrapper.find('input').prop('disabled')).toEqual(true);
     });
 
     it('with click handler', () => {
@@ -63,6 +113,7 @@ describe('SelectionInput Component', () => {
       wrapper.find('input').simulate('change');
       expect(changeCallback).toBeCalled();
     });
+
     it('should select the checkbox when the "Space" touch is pressed', async () => {
       // Set-up event listener mock
       const map = {};
@@ -98,6 +149,7 @@ describe('SelectionInput Component', () => {
       wrapper.update();
       expect(clickCallback).toBeCalled();
     });
+
     it('should add "focus-visible" CSS class when "Tab" touch is pressed', async () => {
       // Set-up event listener mock
       const map = {};
@@ -141,6 +193,7 @@ describe('SelectionInput Component', () => {
       expect(wrapper.find('.tk-checkbox--focus-visible').length).toBe(1);
       expect(wrapper.find('.tk-checkbox--focused').length).toBe(1);
     });
+
     it('should remove the "focused" CSS class on blur', async () => {
       // Set-up event listener mock
       const map = {};

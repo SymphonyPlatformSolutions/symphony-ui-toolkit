@@ -7,6 +7,7 @@ import {
 } from '../src/components';
 
 import './styles/dropdownMenu.stories.css';
+import { PortalTemplate } from './templates';
 
 const logChange = (value, errorsMap) => {
   if (!value) {
@@ -183,6 +184,20 @@ export const WithValidationComponent: React.SFC = () => {
       </Validation>
     </div>
   );
+};
+
+WithOnChange.args = {
+  menuPortalTarget: document.body,
+  menuShouldBlockScroll: true,
+};
+
+export const Portal = PortalTemplate.bind({});
+Portal.args = {
+  title: 'A TimePicker Menu in a Portal',
+  component: <TimePicker
+    menuPortalTarget={document.body}
+    menuShouldBlockScroll={true}
+    menuPortalStyles={{ zIndex: 100 }} />,
 };
 
 export default {

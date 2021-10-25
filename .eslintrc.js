@@ -25,5 +25,6 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': 'off',
     indent: ['error', 2],
     '@typescript-eslint/no-var-requires': 0,
+    'no-control-regex': 0
   },
 };
