@@ -49,6 +49,18 @@ const MinLength = (minlength: number): ValidatorFn => {
     return Promise.resolve({ minlength: true });
   };
 };
+/**
+ * Checks if a provided value has the max length, returns {maxLenght:true} if error, return null if value has the max length
+ * @param value Value to test
+ */
+const MaxLength = (maxLength: number): ValidatorFn => {
+  return (value) => {
+    if (value && maxLength >= value.length) {
+      return Promise.resolve(null);
+    }
+    return Promise.resolve({ maxLength: true });
+  };
+};
 
 /**
  * Checks if a provided value is a number , returns {number:true} if not a number, return null if number
@@ -111,4 +123,5 @@ export const Validators = {
   MinLength,
   Number,
   Pattern,
+  MaxLength,
 };
