@@ -29,10 +29,11 @@
 
   .tk-validation--error & {
     @include styleLabels {
-      @extend .tk-label--error;
+      // Duplicated @extend 
+     // @extend .tk-label--error;
     }
     .tk-input__container {
-      @extend .tk-validation--error;
+ //     @extend .tk-validation--error;
     }
   }
 
