@@ -124,3 +124,12 @@ pre {
   padding: 16px;
   width: 300px
 } 
+
+/*
+ * Arbitrary dimensions to allow creevey (visual testing) to snapshot a component with "position: absolute" wrapper
+ * It is used to be able to test the dialog styles
+*/
+.visual-testing-min-size {
+  min-height: 500px;
+  max-width: 700px;
+}
