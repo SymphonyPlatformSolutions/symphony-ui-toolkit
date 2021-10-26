@@ -187,6 +187,7 @@ const TextComponent: React.FC<
             onKeyDown={onKeyDown}
             onChange={onChange}
             placeholder={placeholder}
+            role="textbox"
             type={typeTextField}
             readOnly={readOnly}
             value={value}
