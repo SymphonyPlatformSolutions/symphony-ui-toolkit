@@ -2,7 +2,6 @@ $ICONS_FONTS_PATH: '../dist/fonts';
 @import '../uitoolkit.scss';
 
 body {
-
   font-family: 'system-ui', 'Lato', 'Segoe UI', 'Helvetica Neue', 'Verdana',
     'Arial', sans-serif;
   font-size: 16px;
@@ -123,8 +122,8 @@ pre {
   background: grey;
   margin: 16px 0px 64px 16px;
   padding: 16px;
-  width: 300px
-} 
+  width: 300px;
+}
 
 /*
  * Arbitrary dimensions to allow creevey (visual testing) to snapshot a component with "position: absolute" wrapper
@@ -133,5 +132,4 @@ pre {
 .visual-testing-min-size {
   min-height: 500px;
   max-width: 700px;
-  width: 300px;
 }
