@@ -57,7 +57,7 @@ const MinLength = (minlength: number): ValidatorFn => {
  */
 const MaxLength = (maxLength: number): ValidatorFn => {
   return (value) => {
-    if (Object.keys(value).length === 0 || maxLength >= value.length) {
+    if (!value|| maxLength >= value.length) {
       return Promise.resolve(null);
     }
     return Promise.resolve({ maxLength: true });
