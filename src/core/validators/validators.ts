@@ -50,12 +50,14 @@ const MinLength = (minlength: number): ValidatorFn => {
   };
 };
 /**
- * Checks if a provided value has the max length, returns {maxLenght:true} if error, return null if value has the max length
+ * Checks if a provided value has the maxLength
+ * return { maxLength: true } when value is bigger maxLenght
+ * return null when value is valid. 
  * @param value Value to test
  */
 const MaxLength = (maxLength: number): ValidatorFn => {
   return (value) => {
-    if (value && maxLength >= value.length) {
+    if (Object.keys(value).length === 0 || maxLength >= value.length) {
       return Promise.resolve(null);
     }
     return Promise.resolve({ maxLength: true });

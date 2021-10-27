@@ -307,7 +307,7 @@ export const Validations = () => {
       <h2>Multiple validators</h2>
       <p>
         Text Field with <strong>multiple validators</strong>: Mandatory number,
-        with a minimum length of 3 characters
+        with a minimum length of 3 characters, max length of 4
       </p>
       <Validation
         onValidationChanged={logChange}
@@ -315,11 +315,13 @@ export const Validations = () => {
           Validators.Required,
           Validators.Number,
           Validators.MinLength(3),
+          Validators.MaxLength(4),
         ]}
         errorMessage={{
           required: 'This field is mandatory',
           number: 'Should be a number',
           minlength: 'Please type at least 3 numbers',
+          maxLength: 'Max 4 characters',
         }}
       >
         <TextField label="Number" placeholder="Age" />

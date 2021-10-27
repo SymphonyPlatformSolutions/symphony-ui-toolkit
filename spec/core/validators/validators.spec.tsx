@@ -31,6 +31,7 @@ describe('Input Validators', () => {
   });
   it('should validate maxLength correctly', async () => {
     expect(await Validators.MaxLength(3)('a')).toEqual(null);
+    expect(await Validators.MaxLength(3)('')).toEqual(null);
     expect(await Validators.MaxLength(3)('abcd')).toEqual({ maxLength: true });
   });
   it('should validate number correctly', async () => {
