@@ -1,15 +1,24 @@
-/* Define color on current text and eventual font icons */
-@mixin addFontIconColor($fontColor) {
-  // Icon styling selector takes precendence over the button colors
-  &,
-  i {
-    color: $fontColor;
-  }
-}
 @mixin addIconSize($size) {
   &,
   i {
     font-size: toRem($size);
+  }
+}
+
+@mixin getButtonStyle(
+  $colorMap,
+  $textColor,
+  $backgroundColor,
+  $borderColor: false
+) {
+  $color: map-get($colorMap, $textColor);
+  color: $color;
+  background-color: map-get($colorMap, $backgroundColor);
+  @if $borderColor {
+    @include addBorder(toRem(2), map-get($colorMap, $borderColor));
+  }
+  .tk-button-icon--loading {
+    color: $color;
   }
 }
 
@@ -34,34 +43,19 @@
   background-color: map-get($colorMap, default);
   color: map-get($colorMap, text);
   &:hover {
-    background-color: map-get($colorMap, hover);
-    color: map-get($colorMap, hoverText);
-    .tk-button-icon--loading {
-      color: map-get($colorMap, hoverText);
-    }
+    @include getButtonStyle($colorMap, hoverText, hover);
   }
   &:active {
-    background-color: map-get($colorMap, active);
-    color: map-get($colorMap, activeText);
-    .tk-button-icon--loading {
-      color: map-get($colorMap, activeText);
-    }
+    @include getButtonStyle($colorMap, activeText, active);
   }
   &:disabled {
-    background-color: map-get($colorMap, disabled);
-    color: map-get($colorMap, textDisabled);
-    .tk-button-icon--loading {
-      color: map-get($colorMap, textDisabled);
-    }
+    @include getButtonStyle($colorMap, textDisabled, disabled);
   }
   &:disabled.loading {
     background-color: map-get($colorMap, default);
   }
   &.loading {
-    color: map-get($colorMap, text);
-    .tk-button-icon--loading {
-      color: map-get($colorMap, text);
-    }
+    @include getButtonStyle($colorMap, text, default);
   }
   @include focus-visible($colorMap);
 }
@@ -72,35 +66,18 @@
   color: map-get($colorMap, default);
   @include addBorder(toRem(2), map-get($colorMap, default));
   &:hover {
-    background-color: map-get($colorMap, hover);
-    color: map-get($colorMap, hoverText);
-    @include addBorder(toRem(2), map-get($colorMap, hoverText));
-    .tk-button-icon--loading {
-      color: map-get($colorMap, hoverText);
-    }
+    @include getButtonStyle($colorMap, hoverText, hover, hoverText);
   }
   &:active {
-    background-color: map-get($colorMap, active);
-    color: map-get($colorMap, activeText);
-    @include addBorder(toRem(2), map-get($colorMap, activeText));
-    .tk-button-icon--loading {
-      color: map-get($colorMap, activeText);
-    }
+    @include getButtonStyle($colorMap, activeText, active, activeText);
   }
   &:disabled {
+    @include getButtonStyle($colorMap, textDisabled, disabled, disabled);
     background-color: transparent;
-    color: map-get($colorMap, textDisabled);
-    @include addBorder(toRem(2), map-get($colorMap, disabled));
-    .tk-button-icon--loading {
-      color: map-get($colorMap, textDisabled);
-    }
   }
   &.loading {
-    color: map-get($colorMap, text);
-    @include addBorder(toRem(2), map-get($colorMap, default));
-    .tk-button-icon--loading {
-      color: map-get($colorMap, text);
-    }
+    @include getButtonStyle($colorMap, text, default, default);
+    background-color: transparent;
   }
   @include focus-visible($colorMap, true);
 }
