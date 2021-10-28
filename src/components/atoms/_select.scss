@@ -5,7 +5,7 @@ select.tk-select {
   background-position-x: 96%;
   background-position-y: 50%;
 
-  &+i::before {
+  & + i::before {
     color: getColor($graphite, '50');
     position: relative;
     right: toRem(24);
@@ -15,7 +15,7 @@ select.tk-select {
     @include tk-icon-drop-down;
   }
 
-  &--expanded+i::before {
+  &--expanded + i::before {
     @include tk-icon-drop-up;
   }
 }
@@ -25,7 +25,6 @@ select.tk-select {
 
 .tk-select {
   &__helper {
-   // @extend .tk-label;
     margin-top: toRem(4);
   }
 }
