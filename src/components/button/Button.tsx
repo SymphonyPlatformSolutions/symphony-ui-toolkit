@@ -7,7 +7,7 @@ const prefix = 'tk-button';
 export type ButtonProps = {
   /** If true, add an Icon component as children */
   iconButton?: boolean;
-   /** Content of the button*/
+  /** Content of the button*/
   children?: React.ReactNode;
   /** Optional CSS class name */
   className?: string;
@@ -16,8 +16,8 @@ export type ButtonProps = {
   loading?: boolean;
   type?: 'button' | 'reset' | 'submit';
   onClick?: (event: React.MouseEvent<HTMLElement>) => void;
-   /** The variant to use*/
-  variant?: 'primary' | 'secondary' | 'tertiary' | 'destructive' | 'primary-destructive' | 'secondary-destructive'|'tertiary-destructive' |'tertiary-accent';
+  /** The variant to use*/
+  variant?: 'primary' | 'secondary' | 'tertiary' | 'destructive' | 'primary-destructive' | 'secondary-destructive' | 'tertiary-destructive' | 'tertiary-accent';
   size?: 'large' | 'small' | 'medium';
   iconRight?: React.ReactNode;
   iconLeft?: React.ReactNode;
@@ -45,7 +45,7 @@ export const Button: React.FC<ButtonProps> = ({
     `${prefix}--${size}`
   );
 
-  if(variant === 'destructive') {
+  if (variant === 'destructive') {
     console.warn('The button variant: \'destructive\' will be deprecated.\n Please use: \'primary-destructive\' instead')
   }
 
@@ -58,7 +58,7 @@ export const Button: React.FC<ButtonProps> = ({
       {...rest}
     >
       {loading && <i className="animate-spin tk-icon-loading" />}
-      <span className={classNames({ [`${prefix}--icon-right`] : iconRight , [`${prefix}--icon-left`]: iconLeft })}
+      <span className={classNames({ [`${prefix}--icon-right`]: iconRight, [`${prefix}--icon-left`]: iconLeft })}
         style={{ visibility: loading ? 'hidden' : null }}>
         {iconLeft}{children}{iconRight}
       </span>
@@ -83,9 +83,9 @@ Button.propTypes = {
   disabled: PropTypes.bool,
   loading: PropTypes.bool,
   type: PropTypes.oneOf(['button', 'reset', 'submit']),
-  variant: PropTypes.oneOf(['primary' , 'secondary' , 'tertiary' , 'destructive' , 'primary-destructive' , 'secondary-destructive','tertiary-destructive' ,'tertiary-accent']),
+  variant: PropTypes.oneOf(['primary', 'secondary', 'tertiary', 'destructive', 'primary-destructive', 'secondary-destructive', 'tertiary-destructive', 'tertiary-accent']),
   onClick: PropTypes.func,
-  size: PropTypes.oneOf(['small', 'large' , 'medium']),
+  size: PropTypes.oneOf(['small', 'large', 'medium']),
   iconLeft: PropTypes.node,
   iconRight: PropTypes.node,
 }
