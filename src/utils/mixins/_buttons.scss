@@ -17,7 +17,6 @@
   &:focus-visible {
     background-color: map-get($colorMap, focus);
     color: map-get($colorMap, focusText);
-    @include addFontIconColor(map-get($colorMap, focusText));
     outline: 0;
     @if $insetShadow {
       box-shadow: inset 0 0 0 toRem(2) map-get($colorMap, focusText),
@@ -33,22 +32,36 @@
 /* Applies color styles to filled buttons, buttons that do not have borders */
 @mixin styleFilledButton($colorMap) {
   background-color: map-get($colorMap, default);
-  @include addFontIconColor(map-get($colorMap, text));
+  color: map-get($colorMap, text);
   &:hover {
     background-color: map-get($colorMap, hover);
     color: map-get($colorMap, hoverText);
+    .tk-button-icon--loading {
+      color: map-get($colorMap, hoverText);
+    }
   }
   &:active {
     background-color: map-get($colorMap, active);
-    @include addFontIconColor(map-get($colorMap, activeText));
+    color: map-get($colorMap, activeText);
+    .tk-button-icon--loading {
+      color: map-get($colorMap, activeText);
+    }
   }
   &:disabled {
     background-color: map-get($colorMap, disabled);
-    @include addFontIconColor(map-get($colorMap, textDisabled));
+    color: map-get($colorMap, textDisabled);
+    .tk-button-icon--loading {
+      color: map-get($colorMap, textDisabled);
+    }
+  }
+  &:disabled.loading {
+    background-color: map-get($colorMap, default);
   }
   &.loading {
-    background-color: map-get($colorMap, default);
-    @include addFontIconColor(map-get($colorMap, text));
+    color: map-get($colorMap, text);
+    .tk-button-icon--loading {
+      color: map-get($colorMap, text);
+    }
   }
   @include focus-visible($colorMap);
 }
@@ -56,30 +69,38 @@
 /* Applies color styles to outline buttons, buttons that do not have a background */
 @mixin styleOutlinedButton($colorMap) {
   background-color: transparent;
+  color: map-get($colorMap, default);
   @include addBorder(toRem(2), map-get($colorMap, default));
-  @include addFontIconColor(map-get($colorMap, default));
   &:hover {
     background-color: map-get($colorMap, hover);
     color: map-get($colorMap, hoverText);
-    @include addFontIconColor(map-get($colorMap, hoverText));
     @include addBorder(toRem(2), map-get($colorMap, hoverText));
+    .tk-button-icon--loading {
+      color: map-get($colorMap, hoverText);
+    }
   }
   &:active {
     background-color: map-get($colorMap, active);
-    @include addBorder(toRem(2), map-get($colorMap, activeText));
     color: map-get($colorMap, activeText);
-    @include addFontIconColor(map-get($colorMap, activeText));
+    @include addBorder(toRem(2), map-get($colorMap, activeText));
+    .tk-button-icon--loading {
+      color: map-get($colorMap, activeText);
+    }
   }
   &:disabled {
     background-color: transparent;
-    @include addBorder(toRem(2), map-get($colorMap, disabled));
-    @include addFontIconColor(map-get($colorMap, textDisabled));
     color: map-get($colorMap, textDisabled);
+    @include addBorder(toRem(2), map-get($colorMap, disabled));
+    .tk-button-icon--loading {
+      color: map-get($colorMap, textDisabled);
+    }
   }
   &.loading {
-    background-color: transparent;
-    @include addBorder(toRem(2), map-get($colorMap, text));
-    @include addFontIconColor(map-get($colorMap, text));
+    color: map-get($colorMap, text);
+    @include addBorder(toRem(2), map-get($colorMap, default));
+    .tk-button-icon--loading {
+      color: map-get($colorMap, text);
+    }
   }
   @include focus-visible($colorMap, true);
 }
