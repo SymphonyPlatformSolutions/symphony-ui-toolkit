@@ -64,7 +64,7 @@ describe('Validation Component', () => {
       await validate;
       expect(validate).toHaveBeenCalledWith(mockEvent.target.value);
     });
-    it('validation should be called when the child component loses focus', async () => {
+    it('validation should be called when the child component loses focus on inut', async () => {
       const zone = {
         onBlur: () => null,
         validator: Validators.Required,
@@ -76,11 +76,24 @@ describe('Validation Component', () => {
           <TextField onBlur={zone.onBlur} />
         </Validation>
       );
-      const mockEvent = { target: { value: 'This is just for test' } };
-      wrapper.find('TextField').simulate('blur', mockEvent);
-      expect(blur).toHaveBeenCalledWith(mockEvent);
+      wrapper.find('TextField').simulate('blur');
       await validate;
-      expect(validate).toHaveBeenCalledWith(mockEvent.target.value);
+      expect(blur).toHaveBeenCalledWith(undefined);
+    });
+    it('validation should be called when the child component loses focus with change', async () => {
+      const zone = {
+        onBlur: () => null,
+        validator: Validators.Required,
+      };
+      const blur = jest.spyOn(zone, 'onBlur');
+      const wrapper = shallow(
+        <Validation validator={zone.validator} errorMessage={'Required'}>
+          <TextField onBlur={zone.onBlur} />
+        </Validation>
+      );
+      const mockEvent = { target: { value: 'This is just for test' } };
+      wrapper.find('TextField').simulate('blur', mockEvent.target.value);
+      expect(blur).toHaveBeenCalledWith(mockEvent.target.value);
     });
     it('validation should be called when the child component send onValidationChanged', async () => {
       const mockEvent = { format: 'this message is displayed' };
