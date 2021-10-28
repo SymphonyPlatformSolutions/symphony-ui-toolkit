@@ -40,9 +40,8 @@ export const Button: React.FC<ButtonProps> = ({
     className,
     prefix,
     `${prefix}--${variant}`,
-    iconButton && `${prefix}--icon`,
-    `${loading ? 'loading' : ''}`,
-    `${prefix}--${size}`
+    `${prefix}--${size}`,
+    { [`${prefix}--icon`]: iconButton, 'loading': loading, [`${prefix}--icon-left`]: iconLeft, [`${prefix}--icon-right`]: iconRight },
   );
 
   if (variant === 'destructive') {
@@ -51,18 +50,17 @@ export const Button: React.FC<ButtonProps> = ({
 
   return (
     <button
+      aria-label={loading ? 'loading' : null}
       className={classes}
       disabled={loading || disabled}
+      style={{ color: loading ? 'transparent' : null }}
       /* eslint-disable react/button-has-type */
       type={type}
       {...rest}
     >
       {loading && <i className="animate-spin tk-icon-loading" />}
-      <span className={classNames({ [`${prefix}--icon-right`]: iconRight, [`${prefix}--icon-left`]: iconLeft })}
-        style={{ visibility: loading ? 'hidden' : null }}>
-        {iconLeft}{children}{iconRight}
-      </span>
-    </button>
+      {iconLeft}{children}{iconRight}
+    </button >
   );
 };
 
