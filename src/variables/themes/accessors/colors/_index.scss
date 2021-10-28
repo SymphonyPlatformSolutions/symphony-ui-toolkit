@@ -12,6 +12,10 @@ $--tk-main-text-color: var(--tk-main-text-color, $scolor-graphite);
 
 $--tk-outline-color: #88c0fb;
 
+$--tk-background:var(--tk-background, $scolor-white);
+
+$--tk-background-reverse:var( --tk-background-reverse,  getColor($graphite, '80'));
+
 /** ======== Inputs and text areas ======== */
 
 $--tk-input-default-inactive-color: var(

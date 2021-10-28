@@ -1,5 +1,9 @@
 .tk-dark,
 .dark {
+  // globals
+  --tk-background: #{getColor($graphite, '80')};
+  --tk-background-reverse: #{$scolor-white};
+ 
   // Primary button
   --tk-button-color-primary-disabled: #{getColor($electricity, '70')};
   --tk-button-color-primary-text-disabled: #{getColor($electricity, '60')};
@@ -81,7 +85,10 @@
   --tk-input-checkbox-radio-color-icon-error-hover: #{getColor($red, '30')};
   --tk-input-checkbox-radio-color-icon-checked: #{getColor($electricity, '40')};
   --tk-input-checkbox-radio-color-icon-text-default: #{getColor($graphite, '20')};
-  --tk-input-checkbox-radio-color-icon-text-disabled: #{getColor($graphite, '60')};
+  --tk-input-checkbox-radio-color-icon-text-disabled: #{getColor(
+      $graphite,
+      '60'
+    )};
 
   --tk-input-switch-default-line-color: #{getColor($graphite, '60')};
   --tk-input-switch-default-circle-color: #{getColor($graphite, '80')};

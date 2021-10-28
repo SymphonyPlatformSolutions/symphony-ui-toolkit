@@ -12,13 +12,23 @@ export const TextColors = () =>
     <div class="tk-mb-2 tk-text-color--attention">Attention text color .tk-text-color--attention</div>
   </div>`;
 
-  export const BackgroundColors = () =>
+export const BackgroundColors = () =>
   `<div class="tk-ml-2">
     <h1>Text colors</h1>
     <div class="tk-mb-2 tk-bg-color--primary">Primary background color .tk-bg-color--primary</div>
     <div class="tk-mb-2 tk-bg-color--warning">Warning background color .tk-bg-color--warning</div>
     <div class="tk-mb-2 tk-bg-color--ok">Ok background color .tk-bg-color--ok</div>
     <div class="tk-mb-2 tk-bg-color--attention">Attention background color .tk-bg-color--attention</div>
+  </div>`;
+
+
+
+export const ApplicationBackground = () =>
+  `<div class="tk-ml-2">
+    <h1>Base color</h1>
+    <div class="tk-mb-2 tk-bg-color">Base color .tk-bg-color</div>
+    <h1>Reverse color</h1>
+    <div class="tk-mb-2 tk-bg-color--reverse">Reverse color .tk-bg-color--reverse</div>
   </div>`;
 
 export const spacing = () =>
@@ -214,8 +224,8 @@ export const spacing = () =>
     `;
 
 
-    const text = "Research and development refer to activities in connection with corporate or government innovation";
-    export const Typography = () => `
+const text = "Research and development refer to activities in connection with corporate or government innovation";
+export const Typography = () => `
       <div class="tk-ml-2h">
       <h1 class="tk-mb-4h">Typography</h1>
       <h1 class="tk-typography tk-typography--h1 tk-mb-2h">H1. ${text}</h1>
