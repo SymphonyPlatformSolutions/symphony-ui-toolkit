@@ -8,6 +8,8 @@ import {
   Validation,
 } from '../src/components';
 
+import { PortalTemplate } from './templates';
+
 const now = new Date();
 const logChange = (value, errorsMap) => {
   if (!value) {
@@ -457,6 +459,15 @@ export const DisabledState: React.SFC = () => {
       />
     </div>
   );
+};
+
+export const Portal = PortalTemplate.bind({});
+Portal.args = {
+  title: 'Date Picker rendering its content inside a Portal',
+  component: <DatePicker
+    menuPortalTarget={document.body}
+    menuShouldBlockScroll={true}
+    menuPortalStyles={{ zIndex: 100 }} />,
 };
 
 export default {

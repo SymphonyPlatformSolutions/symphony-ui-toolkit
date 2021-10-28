@@ -248,7 +248,7 @@ export const Select: React.FC = () => (
 
 export const Portal = PortalTemplate.bind({});
 Portal.args = {
-  title: 'A Dropdown Menu in a Portal',
+  title: 'A Dropdown rendering its menu inside a Portal',
   component: <Dropdown
     options={defaultOptions}
     menuPortalTarget={document.body}
