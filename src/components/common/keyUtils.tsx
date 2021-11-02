@@ -15,13 +15,22 @@ export enum Keys {
   BACKSPACE = 'Backspace',
 }
 
+export enum EventListener {
+  DOMMouseScroll = 'DOMMouseScroll',
+  keydown = 'keydown',
+  mousewheel = 'mousewheel',
+  onwheel = 'onwheel',
+  touchmove = 'touchmove',
+  wheel = 'wheel',
+}
+
 export function cancelEvent(e) {
   e.preventDefault();
   e.stopPropagation();
 }
 
 export function getScrollParent(node) {
-  if (node == null) {
+  if (!node) {
     return null;
   }
 

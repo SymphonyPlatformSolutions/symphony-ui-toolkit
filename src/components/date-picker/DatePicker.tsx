@@ -20,7 +20,7 @@ import { PopperContainer } from '../common/popperUtils';
 import { matchDay, matchDayMax, matchDayMin } from './utils/matchDayUtils';
 import { Direction } from './model/Direction';
 
-import { cancelEvent, getScrollParent, Keys } from '../common/keyUtils';
+import { cancelEvent, EventListener, getScrollParent, Keys } from '../common/keyUtils';
 
 import { modifierPropTypes } from './utils/propTypesUtils';
 
@@ -292,9 +292,12 @@ class DatePicker extends Component<
     if (menuShouldBlockScroll) {
       const scrollContainer = getScrollParent(refContainer);
       if (scrollContainer) {
-        scrollContainer.addEventListener('touchmove',this.handleScrollParent);
-        scrollContainer.addEventListener('DOMMouseScroll',this.handleScrollParent);
-        scrollContainer.addEventListener('mousewheel',this.handleScrollParent);
+        const wheelEvent = EventListener.onwheel in document.createElement('div') ? EventListener.wheel : EventListener.mousewheel;
+
+        scrollContainer.addEventListener(EventListener.DOMMouseScroll,this.handleScrollParent); // older Firefox
+        scrollContainer.addEventListener(EventListener.touchmove,this.handleScrollParent); // mobile
+        scrollContainer.addEventListener(wheelEvent, this.handleScrollParent); // modern desktop
+        scrollContainer.addEventListener(EventListener.keydown,this.handleScrollParent);
       }
     }
   }
@@ -309,9 +312,12 @@ class DatePicker extends Component<
       if (menuShouldBlockScroll) {
         const scrollContainer = getScrollParent(refContainer);
         if (scrollContainer) {
-          scrollContainer.removeEventListener('touchmove',this.handleScrollParent);
-          scrollContainer.removeEventListener('DOMMouseScroll',this.handleScrollParent);
-          scrollContainer.removeEventListener('mousewheel',this.handleScrollParent);
+          const wheelEvent = EventListener.onwheel in document.createElement('div') ? EventListener.wheel : EventListener.mousewheel;
+
+          scrollContainer.removeEventListener(EventListener.DOMMouseScroll,this.handleScrollParent);
+          scrollContainer.removeEventListener(EventListener.touchmove,this.handleScrollParent);
+          scrollContainer.removeEventListener(wheelEvent, this.handleScrollParent);
+          scrollContainer.removeEventListener(EventListener.keydown,this.handleScrollParent);
         }
       }
     }
