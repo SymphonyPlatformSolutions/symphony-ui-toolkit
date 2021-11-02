@@ -1,7 +1,7 @@
 import * as React from 'react';
 import classNames from 'classnames';
 import {useEffect, useRef} from 'react';
-import {Keys} from '../common/keyUtils';
+import {Keys} from '../common/eventUtils';
 
 interface DropdownMenuProps extends React.HTMLProps<HTMLDivElement> {
   show?: boolean;

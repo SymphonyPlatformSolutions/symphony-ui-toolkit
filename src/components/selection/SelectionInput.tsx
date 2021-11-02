@@ -6,7 +6,7 @@ import shortid from 'shortid';
 import SelectionTypes, { SelectionInputTypes } from './SelectionTypes';
 import SelectionStatus, { getCheckedValue } from './SelectionStatus';
 import LabelPlacements from './LabelPlacements';
-import { Keys } from '../common/keyUtils';
+import { Keys } from '../common/eventUtils';
 import { HasValidationProps } from '../validation/interfaces';
 
 interface SelectionInputProps {

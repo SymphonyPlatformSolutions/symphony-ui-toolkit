@@ -13,7 +13,8 @@ import {
   fireEvent,
 } from '@testing-library/react';
 
-import { Keys } from '../../../src/components/common/keyUtils';
+import { Keys } from '../../../src/components/common/eventUtils';
+import { Modal, ModalBody } from '../../../src/components/modal';
 
 describe('DatePicker Component', () => {
   afterEach(() => {
@@ -328,5 +329,26 @@ describe('DatePicker Component', () => {
     expect(props.onBlur).toHaveBeenCalledTimes(0);
     fireEvent.mouseDown(screen.getByText('outside'))
     expect(props.onBlur).toHaveBeenCalledTimes(1);
+  });
+
+  it('should ignore showOverlay when menuPortalTarget', () => {
+    const props = createTestProps({ showOverlay: true, menuPortalTarget: document.body });
+    const { container } = render(<DatePicker {...props} />);
+    expect(container.querySelector('.DatePickerContainer')).toEqual(null);
+  });
+
+  it('should attach block scroll event listener to scroll parent', async () => {
+    const props = createTestProps({ menuShouldBlockScroll: true });
+    const { container, getByRole } = render(<Modal size="medium" show={true}>
+      <ModalBody>
+        <DatePicker {...props} />
+      </ModalBody>
+    </Modal>);
+    fireEvent.mouseDown(getByRole('textbox')); // mount picker
+    const scrollContainer = container.querySelector('.tk-dialog__body');
+    fireEvent.scroll(scrollContainer, { target: { scrollY: 100 } });
+    fireEvent.keyDown(container, { key: Keys.ESC }); // unmount picker
+    
+    expect(scrollContainer.scrollTop).toEqual(0);
   });
 });

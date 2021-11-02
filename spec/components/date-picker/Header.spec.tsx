@@ -7,7 +7,7 @@ import {
   fireEvent,
 } from '@testing-library/react';
 
-import { Keys } from '../../../src/components/common/keyUtils';
+import { Keys } from '../../../src/components/common/eventUtils';
 
 import Header from '../../../src/components/date-picker/sub-component/Header';
 

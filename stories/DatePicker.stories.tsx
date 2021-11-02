@@ -467,6 +467,7 @@ Portal.args = {
   component: <DatePicker
     menuPortalTarget={document.body}
     menuShouldBlockScroll={true}
+    showOverlay={true}
     menuPortalStyles={{ zIndex: 100 }} />,
 };
 

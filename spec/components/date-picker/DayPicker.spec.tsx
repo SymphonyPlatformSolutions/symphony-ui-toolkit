@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 
-import { Keys } from '../../../src/components/common/keyUtils';
+import { Keys } from '../../../src/components/common/eventUtils';
 
 import DayPicker from '../../../src/components/date-picker/sub-component/DayPicker';
 import Header from '../../../src/components/date-picker/sub-component/Header';

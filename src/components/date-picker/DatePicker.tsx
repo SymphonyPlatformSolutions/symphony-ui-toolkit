@@ -20,7 +20,7 @@ import { PopperContainer } from '../common/popperUtils';
 import { matchDay, matchDayMax, matchDayMin } from './utils/matchDayUtils';
 import { Direction } from './model/Direction';
 
-import { cancelEvent, EventListener, getScrollParent, Keys } from '../common/keyUtils';
+import { cancelEvent, EventListener, getScrollParent, Keys } from '../common/eventUtils';
 
 import { modifierPropTypes } from './utils/propTypesUtils';
 
@@ -63,6 +63,7 @@ type DatePickerComponentProps = {
   locale?: string;
   placement?: 'top' | 'bottom' | 'right' | 'left';
   todayButton?: string;
+  /* The picker is open on render (not supported with menuPortalTarget) */
   showOverlay?: boolean;
   showRequired?: boolean;
 } & HasTooltipProps &
@@ -176,7 +177,7 @@ class DatePicker extends Component<
   componentDidMount() {
     const { onInit, date } = this.props;
     document.addEventListener('mousedown', this.handleClickOutside);
-    if (this.props.showOverlay) {
+    if (this.props.showOverlay && !this.props.menuPortalTarget) { // doesn't open if inside a portal
       this.setState({ showPicker: true });
     }
     if (onInit && date) {
