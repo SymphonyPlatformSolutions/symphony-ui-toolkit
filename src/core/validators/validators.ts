@@ -15,7 +15,7 @@ export type ValidatorFn = (
  * @param value Value to test
  */
 const Required: ValidatorFn = (value) => {
-  if (!value?.length || (typeof value==='string' && value?.trim?.() === '')) {
+  if (isEmpty(value)) {
     return Promise.resolve({ required: true });
   }
   return Promise.resolve(null);
@@ -31,7 +31,7 @@ const EmptyString: ValidatorFn = (value) => {
   console.warn(
     'Calling a deprecated validator (EmptyString), please use the Required validator instead'
   );
-  if (!value?.length|| (typeof value==='string' && value?.trim?.() === '')) {
+  if (isEmpty(value)) {
     return Promise.resolve({ emptyString: true });
   }
   return Promise.resolve(null);
@@ -118,6 +118,10 @@ const Email: ValidatorFn = (value) => {
   }
   return Promise.resolve(null);
 };
+
+const isEmpty = (value: string | any[]) => {
+  return !value?.length || (typeof value==='string' && value?.trim?.() === '');
+}
 
 export const Validators = {
   Email,

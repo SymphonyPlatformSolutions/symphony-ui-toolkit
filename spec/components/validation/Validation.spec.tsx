@@ -64,7 +64,7 @@ describe('Validation Component', () => {
       await validate;
       expect(validate).toHaveBeenCalledWith(mockEvent.target.value);
     });
-    it('validation should be called when the child component loses focus on inut', async () => {
+    it('validation should be called when the child component loses focus on input', async () => {
       const zone = {
         onBlur: () => null,
         validator: Validators.Required,
