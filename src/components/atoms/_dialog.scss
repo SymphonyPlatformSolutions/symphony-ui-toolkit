@@ -14,7 +14,7 @@ $dialog-scrollbar-box-shadow: rgba($scolor-black, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
-  @extend .tk-p-2;
+  padding: toRem(16);
 }
 
 .tk-dialog {
@@ -34,9 +34,8 @@ $dialog-scrollbar-box-shadow: rgba($scolor-black, 0.5);
   outline: none;
   border-radius: toRem(8);
   width: toRem(480); // Default medium
-  @extend .tk-py-3;
-  @extend .tk-px-4;
-  @extend .tk-text-color;
+  padding: toRem(24) toRem(32);
+  color: $--tk-main-text-color;
 
   /* Size variants */
   &--small {
@@ -56,8 +55,10 @@ $dialog-scrollbar-box-shadow: rgba($scolor-black, 0.5);
   }
   /* Subcomponents */
   &__title {
-    @extend .tk-pr-2;
-    @extend .tk-typography--h1;
+    padding-right: toRem(16);
+    font-size: toRem(18);
+    font-weight: 600;
+    line-height: toRem(24);
   }
 
   &__close {
@@ -75,7 +76,7 @@ $dialog-scrollbar-box-shadow: rgba($scolor-black, 0.5);
     cursor: pointer;
     outline: none;
     color: $--tk-dialog-cross-color;
-    @extend .tk-p-0;
+    padding: 0;
 
     &:before {
       font-family: 'tk-icons';
@@ -94,15 +95,15 @@ $dialog-scrollbar-box-shadow: rgba($scolor-black, 0.5);
   }
 
   &__header {
-    @extend .tk-mt-2;
+    margin-top: toRem(16);
   }
 
   &__body {
     flex: 1;
     overflow-x: auto;
     overflow-y: scroll;
-    @extend .tk-mt-2;
-    @extend .tk-pr-1;
+    margin-top: toRem(16);
+    padding-right: toRem(8);
 
     // Vendor prefix because the custom scrollbar is not yet supported in Autoprefixer
     // See https://github.com/postcss/autoprefixer/issues/821
@@ -119,7 +120,7 @@ $dialog-scrollbar-box-shadow: rgba($scolor-black, 0.5);
   }
 
   &__footer {
-    @extend .tk-mt-2;
+    margin-top: toRem(16);
     display: flex;
     justify-content: flex-end;
     flex-wrap: wrap;

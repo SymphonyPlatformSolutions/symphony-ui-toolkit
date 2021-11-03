@@ -1,11 +1,11 @@
-$ICONS_FONTS_PATH: "../dist/fonts";
-@import "../uitoolkit.scss";
+$ICONS_FONTS_PATH: '../dist/fonts';
+@import '../uitoolkit.scss';
 
 body {
-  font-family: "system-ui", "Lato", "Segoe UI", "Helvetica Neue", "Verdana",
-    "Arial", sans-serif;
+  font-family: 'system-ui', 'Lato', 'Segoe UI', 'Helvetica Neue', 'Verdana',
+    'Arial', sans-serif;
   font-size: 16px;
-  @extend .tk-text-color;
+  color: $--tk-main-text-color;
   a {
     @extend .tk-link;
   }
@@ -91,7 +91,7 @@ until we have a design for them in the UI Toolkit. */
 // Docs
 pre {
   background-color: $scolor-graphite-minus-88;
-  @extend .tk-p-2h;
+  padding: toRem(20);
 }
 .dark pre {
   background-color: $scolor-graphite-plus-24;
@@ -122,8 +122,8 @@ pre {
   background: grey;
   margin: 16px 0px 64px 16px;
   padding: 16px;
-  width: 300px
-} 
+  width: 300px;
+}
 
 /*
  * Arbitrary dimensions to allow creevey (visual testing) to snapshot a component with "position: absolute" wrapper

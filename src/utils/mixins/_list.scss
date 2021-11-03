@@ -12,7 +12,7 @@ $list-box-shadow: rgba($scolor-graphite-plus-89, 0.122);
     position: absolute;
     right: toRem(16);
     font-style: normal;
-    font-family: "tk-icons";
+    font-family: 'tk-icons';
     color: $--tk-list-selected-color;
     font-size: $list-font-size-icon;
     @include tk-icon-check;
@@ -23,8 +23,7 @@ $list-box-shadow: rgba($scolor-graphite-plus-89, 0.122);
     color: $--tk-main-text-color;
     display: block;
     cursor: pointer;
-    @extend .tk-pl-2;
-
+    padding-left: toRem(16);
     &:hover {
       background-color: $--tk-list-hover-color;
     }

@@ -1,24 +1,23 @@
 .tk-dropdown-menu {
   @include listStyle;
   z-index: $z-index-dropdown-menu;
-  @extend .tk-py-1;
+  padding: toRem(8) 0;
 
   &__icon {
     color: $--tk-list-selected-color;
     font-size: $list-font-size-icon;
-    @extend .tk-pr-1;
+    padding-right: toRem(8);
   }
 
   &__item {
-    @extend .tk-pr-4h;
-    @extend .tk-py-1;
+    padding: toRem(8) toRem(0) toRem(8) toRem(36);
   }
 
   &--expandable::before {
     position: absolute;
     right: toRem(16);
     font-style: normal;
-    font-family: "tk-icons";
+    font-family: 'tk-icons';
     font-size: $list-font-size-icon;
     color: $scolor-electricity;
     @include tk-icon-right;
