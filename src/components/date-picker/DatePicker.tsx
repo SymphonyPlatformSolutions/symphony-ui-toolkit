@@ -1,5 +1,6 @@
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
+import { createPortal } from 'react-dom';
 import { Component, createRef } from 'react';
 import classNames from 'classnames';
 
@@ -19,7 +20,7 @@ import { PopperContainer } from '../common/popperUtils';
 import { matchDay, matchDayMax, matchDayMin } from './utils/matchDayUtils';
 import { Direction } from './model/Direction';
 
-import { cancelEvent, Keys } from '../common/keyUtils';
+import { cancelEvent, EventListener, getScrollParent, Keys } from '../common/eventUtils';
 
 import { modifierPropTypes } from './utils/propTypesUtils';
 
@@ -30,6 +31,7 @@ import { format as formatDate, isValid } from 'date-fns';
 import { ErrorMessages, HasValidationProps } from '../validation/interfaces';
 import { HasTooltipProps } from '../tooltip/interfaces';
 import { InputBaseProps, InputBasePropTypes } from '../input/TextComponent';
+import { MenuPortalProps } from '../dropdown/interfaces';
 
 // z-index: 4; equivalent to $z-index-tooltip
 const DatePickerContainer = styled.div`
@@ -57,13 +59,18 @@ type DatePickerComponentProps = {
     nextMonth: string;
   };
   name?: string;
+  /** Handle focus event */
+  onFocus?: (event: React.FocusEvent<HTMLElement>) => void;
   placeholder?: string;
   locale?: string;
   placement?: 'top' | 'bottom' | 'right' | 'left';
   todayButton?: string;
+  /* The picker is open on render (not supported with menuPortalTarget) */
   showOverlay?: boolean;
   showRequired?: boolean;
-} & HasTooltipProps & HasValidationProps<Date>;
+} & HasTooltipProps &
+  HasValidationProps<Date> &
+  MenuPortalProps;
 
 type DatePickerComponentState = {
   locale: Locale;
@@ -123,7 +130,7 @@ class DatePicker extends Component<
     tooltipCloseLabel: PropTypes.string,
     showRequired: PropTypes.bool,
     showOverlay: PropTypes.bool,
-    ...InputBasePropTypes
+    ...InputBasePropTypes,
   };
   refPicker = null;
   dayPickerInstance = null;
@@ -165,15 +172,17 @@ class DatePicker extends Component<
 
     this.mountDayPickerInstance = this.mountDayPickerInstance.bind(this);
     this.unmountDayPickerInstance = this.unmountDayPickerInstance.bind(this);
+
+    this.handleScrollParent = this.handleScrollParent.bind(this);
   }
 
   componentDidMount() {
-    const {onInit, date} = this.props;
+    const { onInit, date } = this.props;
     document.addEventListener('mousedown', this.handleClickOutside);
-    if (this.props.showOverlay) {
+    if (this.props.showOverlay && !this.props.menuPortalTarget) { // doesn't open if inside a portal
       this.setState({ showPicker: true });
     }
-    if(onInit && date){
+    if (onInit && date) {
       onInit(this.computeDate(date));
     }
   }
@@ -226,8 +235,13 @@ class DatePicker extends Component<
   }
 
   private handleClickOutside(event) {
-    const { refContainer, showPicker } = this.state;
-    if (refContainer && !refContainer.contains(event.target)) {
+    const { popperElement, refContainer, showPicker } = this.state;
+    if (
+      refContainer &&
+      !refContainer.contains(event.target) &&
+      popperElement &&
+      !popperElement.contains(event.target)
+    ) {
       const { date, onBlur } = this.props;
       if (showPicker) {
         this.setState({ showPicker: false });
@@ -242,19 +256,19 @@ class DatePicker extends Component<
     }
   }
 
-  private setRefContainer(node) {
+  private setRefContainer(node: HTMLDivElement) {
     this.setState({ refContainer: node });
   }
-  private setPopperElement(node) {
+  private setPopperElement(node: HTMLDivElement) {
     this.setState({ popperElement: node });
   }
-  private setReferenceElement(node) {
+  private setReferenceElement(node: HTMLDivElement) {
     this.setState({ referenceElement: node });
   }
 
   mountDayPickerInstance() {
-    const { placement } = this.props;
-    const { popperElement, referenceElement } = this.state;
+    const { placement, menuShouldBlockScroll } = this.props;
+    const { popperElement, referenceElement, refContainer } = this.state;
     this.dayPickerInstance = createPopper(referenceElement, popperElement, {
       placement: `${placement}-start` as
         | 'bottom-start'
@@ -276,12 +290,39 @@ class DatePicker extends Component<
         },
       ],
     });
+
+
+    if (menuShouldBlockScroll) {
+      const scrollContainer = getScrollParent(refContainer);
+      if (scrollContainer) {
+        const wheelEvent = EventListener.onwheel in document.createElement('div') ? EventListener.wheel : EventListener.mousewheel;
+
+        scrollContainer.addEventListener(EventListener.DOMMouseScroll,this.handleScrollParent); // older Firefox
+        scrollContainer.addEventListener(EventListener.touchmove,this.handleScrollParent); // mobile
+        scrollContainer.addEventListener(wheelEvent, this.handleScrollParent); // modern desktop
+        scrollContainer.addEventListener(EventListener.keydown,this.handleScrollParent);
+      }
+    }
   }
 
   unmountDayPickerInstance() {
+    const { menuShouldBlockScroll } = this.props;
+    const { refContainer } = this.state;
+
     if (this.dayPickerInstance) {
       this.dayPickerInstance.destroy();
       Reflect.deleteProperty(this, 'dayPickerInstance');
+      if (menuShouldBlockScroll) {
+        const scrollContainer = getScrollParent(refContainer);
+        if (scrollContainer) {
+          const wheelEvent = EventListener.onwheel in document.createElement('div') ? EventListener.wheel : EventListener.mousewheel;
+
+          scrollContainer.removeEventListener(EventListener.DOMMouseScroll,this.handleScrollParent);
+          scrollContainer.removeEventListener(EventListener.touchmove,this.handleScrollParent);
+          scrollContainer.removeEventListener(wheelEvent, this.handleScrollParent);
+          scrollContainer.removeEventListener(EventListener.keydown,this.handleScrollParent);
+        }
+      }
     }
   }
 
@@ -311,6 +352,13 @@ class DatePicker extends Component<
       return { disabledDate: 'This date is not available' };
     } else {
       return null;
+    }
+  }
+
+
+  private handleScrollParent(e) {
+    if (this.state.showPicker) {
+      cancelEvent(e);
     }
   }
 
@@ -419,34 +467,67 @@ class DatePicker extends Component<
     }
   }
 
-  render() {
+  renderCalendar() {
     const {
-      id,
       date,
       disabledDays,
-      disabled,
       dir,
-      format,
       highlightedDays,
       label,
       labels,
+      todayButton,
+      menuPortalTarget,
+      menuPortalStyles,
+    } = this.props;
+    const { locale, navigationDate, showPicker } = this.state;
+
+    const portalStyles = menuPortalTarget ? menuPortalStyles : undefined;
+    return (
+      <DatePickerContainer
+        role="tooltip"
+        ref={this.setPopperElement}
+        className="DatePickerContainer"
+        style={{
+          display: showPicker ? 'block' : 'none',
+          ...portalStyles,
+        }}
+      >
+        <DayPicker
+          ref={(el) => (this.refPicker = el)}
+          aria-labelledby={label}
+          selectedDays={this.computeDate(date)}
+          disabledDays={disabledDays}
+          dir={dir}
+          highlightedDays={highlightedDays}
+          locale={locale}
+          month={navigationDate}
+          todayButton={todayButton}
+          labels={labels}
+          onDayClick={this.handleDayClick}
+          onClose={this.handleOnClose}
+        />
+      </DatePickerContainer>
+    );
+  }
+
+  render() {
+    const {
+      id,
+      disabled,
+      format,
+      label,
+      menuPortalTarget,
       name,
       placeholder,
-      todayButton,
       tooltip,
       tooltipCloseLabel,
       showRequired,
       onCopy,
       onCut,
       onDrag,
+      onFocus,
     } = this.props;
-    const {
-      inputValue,
-      locale,
-      navigationDate,
-      showPicker,
-      refIcon,
-    } = this.state;
+    const { inputValue, showPicker, refIcon } = this.state;
     const textfieldProps = {
       id,
       disabled,
@@ -459,6 +540,7 @@ class DatePicker extends Component<
       onCopy,
       onCut,
       onDrag,
+      onFocus,
     };
 
     return (
@@ -488,29 +570,13 @@ class DatePicker extends Component<
             onKeyDown={this.handleKeyDownInput}
           ></TextField>
         </div>
-        <DatePickerContainer
-          role="tooltip"
-          ref={this.setPopperElement}
-          className="DatePickerContainer"
-          style={{
-            display: showPicker ? 'block' : 'none',
-          }}
-        >
-          <DayPicker
-            ref={(el) => (this.refPicker = el)}
-            aria-labelledby={label}
-            selectedDays={this.computeDate(date)}
-            disabledDays={disabledDays}
-            dir={dir}
-            highlightedDays={highlightedDays}
-            locale={locale}
-            month={navigationDate}
-            todayButton={todayButton}
-            labels={labels}
-            onDayClick={this.handleDayClick}
-            onClose={this.handleOnClose}
-          />
-        </DatePickerContainer>
+        {menuPortalTarget
+          ? createPortal(
+            this.renderCalendar(),
+            menuPortalTarget
+          )
+          : this.renderCalendar()
+        }
       </div>
     );
   }

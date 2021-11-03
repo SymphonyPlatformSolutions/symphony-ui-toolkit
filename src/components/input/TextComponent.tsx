@@ -34,7 +34,7 @@ type TextComponentProps = {
   masked?: boolean;
   placeholder?: string;
   onClick?: () => any;
-  onFocus?: () => any;
+  onFocus?: (event?: React.FocusEvent<HTMLElement>) => any;
   onKeyDown?: (event) => any;
   value?: string;
   showRequired?: boolean;

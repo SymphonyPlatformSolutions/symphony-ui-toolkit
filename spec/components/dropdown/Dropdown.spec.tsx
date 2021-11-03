@@ -5,7 +5,7 @@ import Dropdown, { DropdownOption, LabelValue } from '../../../src/components/dr
 import '@testing-library/jest-dom/extend-expect';
 import { Button, Validation } from '../../../src/components';
 import { Validators } from '../../../src/core/validators/validators';
-import { Keys } from '../../../src/components/common/keyUtils';
+import { Keys } from '../../../src/components/common/eventUtils';
 
 const CustomComponent = (props) => {
   if (props.data) {

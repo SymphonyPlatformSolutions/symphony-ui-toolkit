@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import classNames from 'classnames';
-import { Keys } from '../common/keyUtils';
+import { Keys } from '../common/eventUtils';
 
 type ModalProps = {
   size: 'small' | 'medium' | 'large' | 'full-width';

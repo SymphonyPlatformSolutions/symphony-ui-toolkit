@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Modal, ModalBody, ModalFooter, ModalHeader, ModalTitle } from '../../../src/components';
-import { Keys } from '../../../src/components/common/keyUtils';
+import { Keys } from '../../../src/components/common/eventUtils';
 
 import {
   render,

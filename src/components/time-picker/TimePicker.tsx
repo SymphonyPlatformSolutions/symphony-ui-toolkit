@@ -2,7 +2,7 @@ import { Dropdown, DropdownOption } from '../dropdown';
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import { useEffect, useMemo, useState } from 'react';
-import { Keys } from '../common/keyUtils';
+import { Keys } from '../common/eventUtils';
 import { ErrorMessages } from '../validation/interfaces';
 import { DisabledTime, TimePickerProps } from './interfaces';
 import {
