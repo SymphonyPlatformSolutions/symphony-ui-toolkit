@@ -6,6 +6,8 @@ describe('Input Validators', () => {
     expect(await Validators.Required('')).toEqual({ required: true });
     expect(await Validators.Required('  ')).toEqual({ required: true });
     expect(await Validators.Required('a')).toEqual(null);
+    expect(await Validators.Required([])).toEqual({ required: true });
+    expect(await Validators.Required(undefined)).toEqual({ required: true });
   });
   it('should validate required field correcltly', async () => {
     expect(await Validators.Email(null)).toEqual(null);
@@ -23,11 +25,25 @@ describe('Input Validators', () => {
     expect(await Validators.EmptyString('')).toEqual({ emptyString: true });
     expect(await Validators.EmptyString(' ')).toEqual({ emptyString: true });
     expect(await Validators.EmptyString('a')).toEqual(null);
+    expect(await Validators.EmptyString([])).toEqual({ emptyString: true });
+    expect(await Validators.EmptyString([{value:'a'}])).toEqual(null);
+    expect(await Validators.EmptyString(undefined)).toEqual({ emptyString: true });
   });
 
   it('should validate minlength correctly', async () => {
     expect(await Validators.MinLength(3)('a')).toEqual({ minlength: true });
     expect(await Validators.MinLength(3)('abcd')).toEqual(null);
+    expect(await Validators.MinLength(3)([])).toEqual({ minlength: true });
+    expect(await Validators.MinLength(2)([{value:'a'}])).toEqual( {minlength: true});
+    expect(await Validators.MinLength(3)(undefined)).toEqual({ minlength: true });
+  });
+  it('should validate maxLength correctly', async () => {
+    expect(await Validators.MaxLength(3)('a')).toEqual(null);
+    expect(await Validators.MaxLength(3)('')).toEqual(null);
+    expect(await Validators.MaxLength(3)([])).toEqual(null);
+    expect(await Validators.MaxLength(1)([{value:'a'},{value:'b'}])).toEqual( {maxLength: true});
+    expect(await Validators.MaxLength(3)(undefined)).toEqual(null);
+    expect(await Validators.MaxLength(3)('abcd')).toEqual({ maxLength: true });
   });
   it('should validate number correctly', async () => {
     expect(await Validators.Number('a')).toEqual({ number: true });

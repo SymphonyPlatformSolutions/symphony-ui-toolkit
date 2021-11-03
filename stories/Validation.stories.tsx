@@ -102,6 +102,18 @@ export const Validations = () => {
         <TextField placeholder="How are you?" />
       </Validation>
       <p>
+        with <strong>maxLength validator</strong>
+      </p>
+      <Validation
+        onValidationChanged={logChange}
+        validator={
+          Validators.MaxLength(6)
+        }
+        errorMessage={ 'Booking code: max 6 characters'}
+      >
+        <TextField label="Booking code" placeholder="Booking code" />
+      </Validation>
+      <p>
         Using <strong>pattern validator</strong>
       </p>
       <Validation
@@ -170,6 +182,31 @@ export const Validations = () => {
             setMultiDropdown(e.target.value);
           }}
           isMultiSelect
+        />
+      </Validation>
+      <p>
+        with <strong>maxLength validator</strong>
+      </p>
+      <Validation
+        onValidationChanged={logChange}
+        validator={[
+          Validators.MaxLength(6),
+        ]}
+        errorMessage={ 'Select max 6 options'}
+      >
+        <Dropdown
+          isMultiSelect
+          label={'Dropdown label'}
+          placeHolder="Multi select..."
+          options={[
+            { value: '1', label: 'option 1' },
+            { value: '2', label: 'option 2' },
+            { value: '3', label: 'option 3' },
+            { value: '4', label: 'option 4' },
+            { value: '5', label: 'option 5' },
+            { value: '6', label: 'option 6' },
+            { value: '7', label: 'option 7' },
+          ]}    
         />
       </Validation>
       <h3>InputDecorator</h3>
@@ -270,7 +307,7 @@ export const Validations = () => {
       <h2>Multiple validators</h2>
       <p>
         Text Field with <strong>multiple validators</strong>: Mandatory number,
-        with a minimum length of 3 characters
+        with a minimum length of 3 characters, max length of 4
       </p>
       <Validation
         onValidationChanged={logChange}
@@ -278,11 +315,13 @@ export const Validations = () => {
           Validators.Required,
           Validators.Number,
           Validators.MinLength(3),
+          Validators.MaxLength(4),
         ]}
         errorMessage={{
           required: 'This field is mandatory',
           number: 'Should be a number',
           minlength: 'Please type at least 3 numbers',
+          maxLength: 'Max 4 characters',
         }}
       >
         <TextField label="Number" placeholder="Age" />
