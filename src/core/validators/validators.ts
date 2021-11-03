@@ -7,7 +7,7 @@
  * Returns null if no validation error
  */
 export type ValidatorFn = (
-  value?: string | [],
+  value?: string | any[],
 ) => Promise<{ [id: string]: boolean }> | Promise<null>;
 
 /**
