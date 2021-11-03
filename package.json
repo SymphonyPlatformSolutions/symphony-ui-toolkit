@@ -1,6 +1,6 @@
 {
   "name": "@symphony-ui/uitoolkit-components",
-  "version": "2.8.0",
+  "version": "2.9.0",
   "description": "React components for the Symphony UI design system",
   "publishConfig": {
     "registry": "https://registry.npmjs.org"
