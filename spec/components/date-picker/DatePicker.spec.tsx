@@ -7,6 +7,8 @@ import DayPicker from '../../../src/components/date-picker/sub-component/DayPick
 import TextField from '../../../src/components/input/TextField';
 import Icon from '../../../src/components/icon/Icon';
 
+import * as eventUtils from '../../../src/components/common/eventUtils';
+
 import {
   render,
   screen,
@@ -14,7 +16,6 @@ import {
 } from '@testing-library/react';
 
 import { Keys } from '../../../src/components/common/eventUtils';
-import { Modal, ModalBody } from '../../../src/components/modal';
 
 describe('DatePicker Component', () => {
   afterEach(() => {
@@ -338,17 +339,26 @@ describe('DatePicker Component', () => {
   });
 
   it('should attach block scroll event listener to scroll parent', async () => {
-    const props = createTestProps({ menuShouldBlockScroll: true });
-    const { container, getByRole } = render(<Modal size="medium" show={true}>
-      <ModalBody>
-        <DatePicker {...props} />
-      </ModalBody>
-    </Modal>);
-    fireEvent.mouseDown(getByRole('textbox')); // mount picker
-    const scrollContainer = container.querySelector('.tk-dialog__body');
-    fireEvent.scroll(scrollContainer, { target: { scrollY: 100 } });
-    fireEvent.keyDown(container, { key: Keys.ESC }); // unmount picker
-    
-    expect(scrollContainer.scrollTop).toEqual(0);
+    jest.spyOn(eventUtils, 'getScrollParent').mockReturnValue(document.body);  // spy on getScrollParent
+
+    const wrapper = mount(<DatePicker menuShouldBlockScroll={true}/>);
+    await act(async () => { // mount
+      wrapper.find('.tk-input').simulate('keyDown', {
+        key: Keys.ENTER,
+        preventDefault: jest.fn(),
+        stopPropagation: jest.fn(),
+      });
+    });
+    wrapper.update();
+
+    await act(async () => { // unmount
+      wrapper.find('.tk-input').simulate('keyDown', {
+        key: Keys.ESC,
+        preventDefault: jest.fn(),
+        stopPropagation: jest.fn(),
+      });
+    });
+
+    wrapper.unmount(); 
   });
 });

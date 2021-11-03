@@ -59,6 +59,8 @@ type DatePickerComponentProps = {
     nextMonth: string;
   };
   name?: string;
+  /** Handle focus event */
+  onFocus?: (event: React.FocusEvent<HTMLElement>) => void;
   placeholder?: string;
   locale?: string;
   placement?: 'top' | 'bottom' | 'right' | 'left';
@@ -523,6 +525,7 @@ class DatePicker extends Component<
       onCopy,
       onCut,
       onDrag,
+      onFocus,
     } = this.props;
     const { inputValue, showPicker, refIcon } = this.state;
     const textfieldProps = {
@@ -537,6 +540,7 @@ class DatePicker extends Component<
       onCopy,
       onCut,
       onDrag,
+      onFocus,
     };
 
     return (

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { Button, CropContent, ExpandableCard, Link, Modal, ModalBody, ModalFooter, ModalTitle } from '../../src/components';
+import { Button, CropContent, ExpandableCard, Modal, ModalBody, ModalFooter, ModalTitle } from '../../src/components';
 
 export const PortalTemplate = (args) => {
   const { title, component } = args;
@@ -25,7 +25,7 @@ export const PortalTemplate = (args) => {
     <h4>Inside a Card</h4>
     <ExpandableCard
       initCollapsed={false}
-      header={"The component inside the Expandable Card use a portal to render"}
+      header={'The component inside the Expandable Card use a portal to render'}
     >
       <CropContent className="tk-quote-container" >
         {component}
