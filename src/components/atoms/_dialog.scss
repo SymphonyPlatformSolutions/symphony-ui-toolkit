@@ -1,0 +1,128 @@
+$dialog-box-shadow-bottom: rgba($scolor-midnight, 0.122);
+$dialog-box-shadow-sides: rgba($scolor-midnight, 0.24);
+$dialog-scrollbar-box-shadow: rgba($scolor-black, 0.5);
+
+.tk-dialog-backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: $z-index-dialog-backdrop;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  background: $--tk-dialog-backdrop-color;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: toRem(16);
+}
+
+.tk-dialog {
+  $maxSize: calc(100% - #{toRem(24 * 2)});
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: $z-index-dialog;
+  box-sizing: border-box;
+  min-width: toRem(296);
+  min-height: toRem(164);
+  max-height: $maxSize;
+  max-width: $maxSize;
+  box-shadow: 0 0 toRem(4) $dialog-box-shadow-bottom,
+    0 toRem(8) toRem(24) $dialog-box-shadow-sides;
+  background: $--tk-dialog-background-color;
+  outline: none;
+  border-radius: toRem(8);
+  width: toRem(480); // Default medium
+  padding: toRem(24) toRem(32);
+  color: $--tk-main-text-color;
+
+  /* Size variants */
+  &--small {
+    width: toRem(320);
+  }
+
+  &--medium {
+    width: toRem(448);
+  }
+
+  &--large {
+    width: toRem(640);
+  }
+
+  &--full-width {
+    width: 100%;
+  }
+  /* Subcomponents */
+  &__title {
+    padding-right: toRem(16);
+    font-size: toRem(18);
+    font-weight: 600;
+    line-height: toRem(24);
+  }
+
+  &__close {
+    position: absolute;
+    top: toRem(32);
+    right: toRem(32);
+    z-index: $z-index-dialog;
+    box-shadow: none;
+    box-sizing: border-box;
+    border: none;
+    background: none;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    cursor: pointer;
+    outline: none;
+    color: $--tk-dialog-cross-color;
+    padding: 0;
+
+    &:before {
+      font-family: 'tk-icons';
+      font-size: toRem(14);
+      @include tk-icon-cross;
+    }
+
+    &:hover {
+      color: $--tk-dialog-hover-cross-color;
+    }
+
+    &:focus {
+      @include addOutline();
+      outline-offset: toRem(4);
+    }
+  }
+
+  &__header {
+    margin-top: toRem(16);
+  }
+
+  &__body {
+    flex: 1;
+    overflow-x: auto;
+    overflow-y: scroll;
+    margin-top: toRem(16);
+    padding-right: toRem(8);
+
+    // Vendor prefix because the custom scrollbar is not yet supported in Autoprefixer
+    // See https://github.com/postcss/autoprefixer/issues/821
+    //     https://caniuse.com/css-scrollbar
+    &::-webkit-scrollbar {
+      width: toRem(5);
+    }
+    &::-webkit-scrollbar-thumb {
+      border-radius: toRem(5);
+      background-color: $dialog-scrollbar-box-shadow;
+      // Remove the border, because Mana defines a 4px transparent border that reduces the width of our scrollbar.
+      border: none;
+    }
+  }
+
+  &__footer {
+    margin-top: toRem(16);
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+  }
+}

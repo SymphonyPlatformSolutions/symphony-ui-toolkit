@@ -1,0 +1,182 @@
+.tk-input__container {
+  position: relative;
+}
+
+textarea.tk-input {
+  text-overflow: ellipsis;
+
+  &:not([rows]) {
+    min-height: toRem(110);
+  }  
+}
+
+.tk-input {
+  // keep independent logic for a standalone tk-input
+  width: 100%;
+  box-sizing: border-box;
+  font-family: inherit;
+  font-size: toRem(14);
+  line-height: toRem(20);
+  padding: toRem(8) toRem(8) toRem(8) toRem(8);
+  background-color: transparent;
+  border-color: transparent;
+  border-radius: toRem(4);
+  border: none;
+  outline: none;
+  @include addTransition();
+
+  @include styleInput(
+    $--tk-input-default-inactive-color,
+    $--tk-input-default-focus-border-color,
+    $--tk-input-default-hover-color,
+    $--tk-input-default-active-color,
+    $--tk-input-default-background-color
+  );
+
+  .tk-validation--error :not(.tk-input__container) > & {
+    @include styleInput(
+      $--tk-input-error-inactive-color,
+      $--tk-input-error-focus-border-color,
+      $--tk-input-error-active-color,
+      $--tk-input-error-active-color,
+      $--tk-input-error-background-color
+    );
+  }
+  &:disabled {
+    @include styleInput(
+      $--tk-input-disabled-color,
+      $--tk-input-disabled-color,
+      $--tk-input-disabled-color,
+      $--tk-input-disabled-color,
+      $--tk-input-disabled-background-color
+    );
+  }
+}
+
+.tk-input__container {
+  display: flex;
+
+  width: 100%;
+
+  background-color: transparent;
+  border-color: transparent;
+  border-radius: toRem(4);
+  border: none;
+  outline: none;
+  @include addTransition();
+
+  @include styleInput(
+    $--tk-input-default-inactive-color,
+    $--tk-input-default-focus-border-color,
+    $--tk-input-default-hover-color,
+    $--tk-input-default-active-color,
+    $--tk-input-default-background-color
+  );
+
+  @include styleInputIcon(
+    $--tk-input-default-inactive-color,
+    $--tk-input-default-focus-border-color,
+    $--tk-input-default-hover-color,
+    $--tk-input-default-background-color
+  );
+
+  .tk-validation--error & {
+    @include styleInput(
+      $--tk-input-error-inactive-color,
+      $--tk-input-error-focus-border-color,
+      $--tk-input-error-active-color,
+      $--tk-input-error-active-color,
+      $--tk-input-error-background-color
+    );
+    @include styleInputIcon(
+      $--tk-input-error-inactive-color,
+      $--tk-input-error-focus-border-color,
+      $--tk-input-error-active-color,
+      $--tk-input-error-background-color
+    );
+  }
+
+  &--disabled {
+    @include styleInput(
+      $--tk-input-disabled-color,
+      $--tk-input-disabled-color,
+      $--tk-input-disabled-color,
+      $--tk-input-disabled-color,
+      $--tk-input-disabled-background-color
+    );
+    .tk-input__icon {
+      outline: none;
+    }
+    @include styleInputIcon(
+      $--tk-input-disabled-color,
+      $--tk-input-disabled-color,
+      $--tk-input-disabled-color,
+      $--tk-input-disabled-background-color
+    );
+  }
+  .tk-input {
+    box-shadow: none; // force cancel tk-input border
+    padding: 0;
+    flex-grow: 1;
+    margin: toRem(8) toRem(12);
+    line-height: toRem(20);
+    &:disabled:hover {
+      box-shadow: none; // force cancel tk-input border
+    }
+
+    .tk-validation--error & {
+      color: $--tk-input-error-active-color;
+      background-color: $--tk-input-error-background-color;
+    }
+
+    &__icon {
+      order: -1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      min-width: toRem(32);
+      width: toRem(32);
+      height: toRem(36);
+
+      border-radius: toRem(4) 0 0 toRem(4);
+      color: $scolor-white;
+      @include addTransition();
+    }
+
+    &__hide {
+      height: 100%;
+      max-height: toRem(39);
+      margin-right: toRem(8);
+      background-color: transparent;
+      color: $scolor-electricity;
+      border: none;
+      cursor: pointer;
+      align-self: center;
+      &:focus:not(.focus-visible) {
+        outline: none;
+      }
+    }
+
+    &__helper {
+      @extend .tk-label;
+      margin-top: toRem(4);
+    }
+  }
+}
+
+.tk-validation {
+  &--error {
+    color: $--tk-input-error-inactive-color;
+  }
+
+  &--error:focus-within &__errors,
+  &--error:hover &__errors {
+    color: $--tk-input-error-active-color;
+  }
+
+  &__errors {
+    @extend .tk-label;
+    @extend .tk-label--error;
+  }
+}

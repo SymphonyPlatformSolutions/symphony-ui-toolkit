@@ -1,0 +1,32 @@
+.tk-dropdown-menu {
+  @include listStyle;
+  z-index: $z-index-dropdown-menu;
+  padding: toRem(8) 0;
+
+  &__icon {
+    color: $--tk-list-selected-color;
+    font-size: $list-font-size-icon;
+    padding-right: toRem(8);
+  }
+
+  &__item {
+    padding: toRem(8) toRem(0) toRem(8) toRem(36);
+  }
+
+  &--expandable::before {
+    position: absolute;
+    right: toRem(16);
+    font-style: normal;
+    font-family: 'tk-icons';
+    font-size: $list-font-size-icon;
+    color: $scolor-electricity;
+    @include tk-icon-right;
+  }
+}
+
+.tk-dropdown-menu-divider {
+  height: 0;
+  margin: toRem(5.6) 0;
+  overflow: hidden;
+  border-top: toRem(1) solid $--tk-list-divider-color;
+}

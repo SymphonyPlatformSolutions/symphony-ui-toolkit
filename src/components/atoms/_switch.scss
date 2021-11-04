@@ -1,0 +1,64 @@
+$fontSize: 14;
+
+.tk-switch {
+  @include checkbox_radio_common($fontSize);
+
+  &__input {
+    z-index: $z-index-input;
+  }
+
+  &__icon {
+    position: relative;
+    width: toRem(28);
+    height: toRem(16);
+    cursor: pointer;
+
+    // line
+    &:before {
+      content: '';
+      position: absolute;
+      top: toRem(4);
+      left: 0;
+
+      height: toRem(8);
+      width: 100%;
+      background-color: $--tk-input-switch-default-line-color;
+      border-radius: toRem(4);
+
+      .tk-switch__input:disabled + & {
+        background-color: $--tk-input-switch-disabled-line-color;
+      }
+    }
+
+    // circle
+    &:after {
+      content: '';
+      position: absolute;
+      transition: all 0.3s;
+      left: 0;
+
+      width: toRem(12);
+      height: toRem(12);
+      border-radius: 50%;
+      background-color: $--tk-input-switch-default-circle-color;
+      border: toRem(2) solid $--tk-input-switch-default-circle-border-color;
+
+
+      .tk-switch__input:checked + & {
+        left: toRem(12);
+
+        background-color: $--tk-input-switch-default-circle-border-color;
+        border-color: $--tk-input-switch-default-circle-border-color;
+      }
+
+      .tk-switch__input:disabled + & {
+        border-color: $--tk-input-switch-disabled-circle-color;
+        background-color: $--tk-input-switch-disabled-line-color;
+      }
+
+      .tk-switch__input:disabled:checked + & {
+        background-color: $--tk-input-switch-disabled-circle-color;
+      }
+    }
+  }
+}

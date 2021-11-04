@@ -1,0 +1,44 @@
+select.tk-select {
+  @extend .tk-input;
+  -webkit-appearance: none;
+  background: transparent no-repeat;
+  background-position-x: 96%;
+  background-position-y: 50%;
+
+  & + i::before {
+    color: getColor($graphite, '50');
+    position: relative;
+    right: toRem(24);
+    font-style: normal;
+    font-family: 'tk-icons';
+    font-size: toRem(14);
+    @include tk-icon-drop-down;
+  }
+
+  &--expanded + i::before {
+    @include tk-icon-drop-up;
+  }
+}
+.tk-select-group {
+  @extend .tk-input-group;
+}
+
+.tk-select {
+  &__helper {
+    margin-top: toRem(4);
+  }
+}
+
+.tk-select--custom-dropdown {
+  @include listStyle;
+  @extend .tk-py-1;
+  max-height: toRem(288);
+  overflow-x: auto;
+  overflow-y: scroll;
+  z-index: $z-index-input;
+
+  &__item {
+    @extend .tk-py-1h;
+    @extend .tk-pr-2h;
+  }
+}

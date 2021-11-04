@@ -1,0 +1,27 @@
+.tk-label {
+  @include addTransition();
+  display: block;
+  font-size: toRem(12);
+  line-height: toRem(16);
+  color: $--tk-input-default-inactive-color;
+  &:hover,
+  .tk-validation--error &:hover,
+  &--error:hover {
+    color: $--tk-input-default-active-color;
+  }
+  .tk-validation--error &,
+  &--error {
+    color: $--tk-input-error-inactive-color;
+  }
+  &--disabled,
+  &--disabled:hover {
+    color: $--tk-input-disabled-color;
+  }
+  &--required::after {
+    content: "*";
+    color: $scolor-red;
+    margin-left: toRem(2);
+    font-size: toRem(16);
+    font-weight: 600;
+  }
+}

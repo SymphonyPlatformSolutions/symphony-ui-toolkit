@@ -1,0 +1,22 @@
+.tk-link {
+  font-size: toRem(14);
+  line-height: toRem(20);
+  color: $--tk-color-primary;
+  text-decoration-line: underline;
+  outline: none;
+
+  &:hover {
+    text-decoration-line: none;
+    cursor: pointer;
+  }
+  &:focus {
+    @include addOutline();
+  }
+}
+
+/* Reset browser button styles */
+button.tk-link {
+  background: none;
+  border: none;
+  padding: 0;
+}

@@ -1,0 +1,23 @@
+.tk-tooltip {
+  background-color: $scolor-midnight;
+  border: toRem(1) solid rgba($scolor-white, 0.4);
+  border-radius: toRem(11);
+  color: $scolor-graphite-minus-96;
+  display: flex;
+  flex-direction: column;
+  font-size: toRem(14);
+  justify-content: space-between;
+  line-height: toRem(16);
+  padding-bottom: toRem(2);
+  padding-left: toRem(8);
+  padding-right: toRem(8);
+  padding-top: toRem(2);
+  text-align: center;
+  width: fit-content;
+  z-index: $z-index-tooltip;
+  
+  &__wrapper {
+    display: inline-block;
+    max-width: 100%;
+  }
+}

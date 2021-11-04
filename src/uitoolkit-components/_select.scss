@@ -1,0 +1,218 @@
+//Override the css classes from react-select library to reuse the UIToolkit classes.
+@mixin active-select {
+  border-color: $--tk-input-default-focus-border-color;
+  box-shadow: inset 0 0 0 toRem(2) $--tk-input-default-focus-border-color;
+}
+
+@mixin error-select {
+  box-shadow: inset 0 0 0 toRem(2) $--tk-input-error-focus-border-color;
+  border-color: $--tk-input-error-focus-border-color;
+}
+
+.tk-select {
+  .tk-select {
+    &__single-value {
+      @extend .tk-text-color;
+    }
+    &__control {
+      @extend .tk-input;
+      padding: 0;
+      background-color: $--tk-select-background-color;
+      .tk-input__icon {
+        cursor: pointer;
+      }
+      &.tk-select__control {
+        position: relative;
+        @extend .tk-input__container;
+        &--is-focused {
+          @include active-select;
+          .tk-validation--error & {
+            @include error-select;
+            .tk-input__icon {
+              @include error-select;
+            }
+          }
+        }
+        &--menu-is-open,
+        &--menu-is-focused {
+          color: $--tk-input-default-active-color;
+          @include active-select;
+          .tk-input__icon {
+            @include active-select;
+            color: $scolor-white;
+            background-color: $--tk-input-default-focus-border-color;
+          }
+        }
+        &--is-disabled {
+          color: $--tk-input-default-inactive-color;
+          background-color: $--tk-input-disabled-background-color;
+        }
+      }
+      .tk-select__value-container {
+        .tk-select__multi-value {
+          padding: 0;
+          box-sizing: border-box;
+          min-height: toRem(24);
+          border-radius: toRem(4);
+          background: $--tk-tag-background-color;
+          border: toRem(1) solid $--tk-tag-border-and-group-heading-color;
+          color: $--tk-main-text-color;
+          &:hover {
+            background: $--tk-tag-background-hover-color;
+            border: toRem(1) solid $--tk-tag-border-hover-color;
+          }
+          &__label {
+            color: $--tk-main-text-color;
+            padding: toRem(2);
+            font-size: toRem(12);
+            .tk-icon-cross {
+              font-size: toRem(10);
+            }
+          }
+        }
+        .tk-select__single-value {
+          color: inherit;
+          white-space: nowrap;
+        }
+      }
+      &:hover {
+        .tk-select__placeholder {
+          color: $--tk-input-default-active-color;
+          @include addTransition();
+        }
+      }
+      .tk-validation--error & {
+        &:hover {
+          .tk-select__placeholder {
+            color: $--tk-input-error-active-color;
+            @include addTransition();
+          }
+        }
+        .tk-select__placeholder {
+          color: $--tk-input-error-inactive-color;
+          @include addTransition();
+        }
+      }
+    }
+    &__group-heading {
+      color: $--tk-tag-border-and-group-heading-color;
+      font-size: toRem(12);
+      line-height: toRem(16);
+      font-weight: 600;
+    }
+  }
+
+  &__indicators {
+    .tk-select__indicator-separator {
+      display: none;
+    }
+    .tk-select__indicator {
+      cursor: pointer;
+      color: inherit;
+      &.tk-select__clear-indicator {
+        color: $--tk-input-default-active-color;
+        &:hover {
+          color: $--tk-input-default-active-color;
+        }
+        .tk-select__close-icon {
+          &:focus-visible {
+            box-shadow: 0 0 0 toRem(2) var(--tk-color-electricity);
+            border-radius: 50%;
+            outline: 0;
+          }
+        }
+      }
+      &.tk-select__dropdown-indicator {
+        color: inherit;
+        .tk-select__single-value {
+          color: inherit;
+        }
+      }
+    }
+  }
+  .tk-input__container {
+    &:focus-within {
+      @include active-select;
+    }
+    &.tk-select__control {
+      min-height: toRem(32);
+      .tk-select__value-container {
+        cursor: text;
+        padding: toRem(1) toRem(12);
+        margin: toRem(3);
+        margin-left: 0;
+        &--is-multi {
+          .tk-tag {
+            padding-right: toRem(4);
+            max-width: toRem(200);
+            text-overflow: ellipsis;
+            overflow: hidden;
+          }
+          overflow: auto;
+          overflow-x: hidden;
+          &::-webkit-scrollbar {
+            width: toRem(12);
+          }
+          &::-webkit-scrollbar-thumb {
+            background-color: $--tk-select-scrollbar-color;
+            background-clip: padding-box;
+            border-radius: toRem(12);
+            border: toRem(4) solid transparent;
+          }
+        }
+        .tk-select__input {
+          color: $--tk-input-default-active-color;
+        }
+      }
+    }
+  }
+
+  &,// '.tk-select' is the root CSS class name when no React Portal is used
+  &__menu-portal // '.tk-select__menu-portal' is the name of the root CSS class when the menu has been moved with a React Portal
+  {
+    font-size: toRem(14);
+    .tk-select__menu {
+      margin-top: toRem(6);
+      color: $--tk-select-option-color;
+      z-index: $z-index-dropdown-menu;
+      @include boxContainer();
+      .tk-select {
+        &__option {
+          cursor: pointer;
+          color: $--tk-input-default-active-color;
+          padding: toRem(6) toRem(38) toRem(6) toRem(16);
+          &--is-focused,
+          &--is-focused.tk-select__option--is-selected {
+            background-color: $--tk-list-hover-color;
+          }
+          &--is-selected {
+            background-color: transparent;
+          }
+          &--is-disabled {
+            cursor: not-allowed;
+            color: $--tk-list-disabled-color;
+          }
+          &--is-selected {
+            @extend .tk-select--custom-dropdown--selected;
+          }
+        }
+        &__group {
+          .tk-option .tk-select__option {
+            &--nested {
+              padding-left: toRem(24);
+            }
+          }
+        }
+        &-loading {
+          color: $scolor-graphite-plus-50;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          height: toRem(80);
+          box-sizing: border-box;
+          font-size: toRem(32);
+        }
+      }
+    }
+  }
+}

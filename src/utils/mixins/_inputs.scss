@@ -1,0 +1,69 @@
+@mixin styleHoverInput($borderColor, $fontColor) {
+  color: $fontColor;
+  @include addBorder(toRem(2), $borderColor);
+  &::placeholder, input::placeholder {
+    color: $fontColor;
+  }
+}
+@mixin styleInput(
+  $inactiveColor,
+  $focusBorderColor,
+  $hoverColor,
+  $activeColor,
+  $backgroundColor
+) {
+  color: $activeColor;
+  background-color: $backgroundColor;
+  @include addBorder(toRem(2), $inactiveColor);
+  &::placeholder, ::placeholder {
+    @include addTransition();
+    color: $inactiveColor;
+  }
+  &:hover {
+    @include styleHoverInput($hoverColor, $activeColor);
+  }
+  &:focus,
+  &:active,
+  &.active {
+    color: $activeColor;
+    @include addBorder(toRem(2), $focusBorderColor);
+  }
+
+  &:focus-within {
+    @include addBorder(toRem(2), $focusBorderColor);
+  }
+}
+
+@mixin styleInputIcon(
+  $inactiveColor,
+  $focusBorderColor,
+  $hoverColor,
+  $iconColor
+) {
+  .tk-input__icon {
+    color: $iconColor;
+    background-color: $inactiveColor;
+  }
+  &:hover {
+    .tk-input__icon {
+      background-color: $hoverColor;
+    }
+  }
+  &:focus,
+  &:focus-within {
+    .tk-input__icon {
+      background-color: $focusBorderColor;
+    }
+  }
+  .tk-input__icon.active {
+    background-color: $focusBorderColor;
+    color: $scolor-white;
+  }
+}
+
+@mixin boxContainer() {
+  box-shadow: 0 toRem(24) toRem(48) rgba($scolor-box-shadow, 0.12),
+    0 toRem(4) toRem(8) rgba($scolor-box-shadow, 0.24);
+  border-radius: toRem(8);
+  background-color: $--tk-input-default-background-color;
+}

@@ -1,0 +1,7 @@
+$sizes: xx-small, x-small, small, medium, large, x-large, xx-large;
+
+@each $size in $sizes {
+  .tk-size-#{$size} {
+    font-size: $size !important;
+  }
+}
