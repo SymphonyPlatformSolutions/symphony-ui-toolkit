@@ -339,9 +339,9 @@ describe('DatePicker Component', () => {
   });
 
   it('should attach block scroll event listener to scroll parent', async () => {
-    jest.spyOn(eventUtils, 'getScrollParent').mockReturnValue(document.body);  // spy on getScrollParent
+    const wrapper = mount(<div className="scroll"><DatePicker menuShouldBlockScroll={true}/></div>);
+    jest.spyOn(eventUtils, 'getScrollParent').mockReturnValue(wrapper.find('.scroll').getDOMNode());  // spy on getScrollParent
 
-    const wrapper = mount(<DatePicker menuShouldBlockScroll={true}/>);
     await act(async () => { // mount
       wrapper.find('.tk-input').simulate('keyDown', {
         key: Keys.ENTER,
