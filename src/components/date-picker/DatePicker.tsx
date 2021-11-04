@@ -174,6 +174,7 @@ class DatePicker extends Component<
     this.unmountDayPickerInstance = this.unmountDayPickerInstance.bind(this);
 
     this.handleScrollParent = this.handleScrollParent.bind(this);
+    this.handleKeydownScrollParent = this.handleKeydownScrollParent.bind(this);
   }
 
   componentDidMount() {
@@ -300,7 +301,7 @@ class DatePicker extends Component<
         scrollContainer.addEventListener(EventListener.DOMMouseScroll,this.handleScrollParent); // older Firefox
         scrollContainer.addEventListener(EventListener.touchmove,this.handleScrollParent); // mobile
         scrollContainer.addEventListener(wheelEvent, this.handleScrollParent); // modern desktop
-        scrollContainer.addEventListener(EventListener.keydown,this.handleScrollParent);
+        scrollContainer.addEventListener(EventListener.keydown,this.handleKeydownScrollParent);
       }
     }
   }
@@ -320,7 +321,7 @@ class DatePicker extends Component<
           scrollContainer.removeEventListener(EventListener.DOMMouseScroll,this.handleScrollParent);
           scrollContainer.removeEventListener(EventListener.touchmove,this.handleScrollParent);
           scrollContainer.removeEventListener(wheelEvent, this.handleScrollParent);
-          scrollContainer.removeEventListener(EventListener.keydown,this.handleScrollParent);
+          scrollContainer.removeEventListener(EventListener.keydown,this.handleKeydownScrollParent);
         }
       }
     }
@@ -359,6 +360,15 @@ class DatePicker extends Component<
   private handleScrollParent(e) {
     if (this.state.showPicker) {
       cancelEvent(e);
+    }
+  }
+
+  private handleKeydownScrollParent(e) {
+    const scrollingKeys = [Keys.PAGE_UP, Keys.PAGE_DOWN, Keys.HOME, Keys.END, Keys.ARROW_UP, Keys.ARROW_DOWN];
+    if (this.state.showPicker) {
+      if (scrollingKeys.includes(e.key)) {
+        cancelEvent(e);
+      }
     }
   }
 
