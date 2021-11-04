@@ -1,0 +1,14 @@
+{
+  "name": "@symphony-ui/uitoolkit",
+  "private": true,
+  "version": "2.8.0",
+  "description": "React components for the Symphony UI design system",
+  "workspaces": [
+    "packages/*"
+  ],
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
+  },
+  "author": "Symphony",
+  "license": "ISC"
+}
