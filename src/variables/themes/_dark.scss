@@ -169,6 +169,6 @@
   --tk-timeline-hours-color: #{getColor($graphite, '05')};
   
   // Divider
-  $--tk-divider-color: #{getColor($graphite, '70')};
+  --tk-divider-color: #{getColor($graphite, '70')};
 
 }

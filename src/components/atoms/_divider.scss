@@ -1,6 +1,7 @@
 .tk-divider {
-  border-top: 1px solid var(--tk-color-divider);
+  border-top: 1px solid $--tk-divider-color;
   border-left: 0;
   border-right: 0;
+  border-bottom: 0;
   width: 100%;
 }
