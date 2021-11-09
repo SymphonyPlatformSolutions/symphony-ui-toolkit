@@ -1,3 +1,5 @@
+
+type Value = string | { [key: string]: string } | { [key: string]: string }[];
 /**
  * A ValidatorFn takes a value as a string and returns an error object {'validationName':true}
  * ex: Required => {'required':true}
@@ -7,7 +9,7 @@
  * Returns null if no validation error
  */
 export type ValidatorFn = (
-  value?: string | any[],
+  value?: Value,
 ) => Promise<{ [id: string]: boolean }> | Promise<null>;
 
 /**
@@ -15,7 +17,7 @@ export type ValidatorFn = (
  * @param value Value to test
  */
 const Required: ValidatorFn = (value) => {
-  if (isEmpty(value)) {
+  if (isEmptyValue(value)) {
     return Promise.resolve({ required: true });
   }
   return Promise.resolve(null);
@@ -31,7 +33,7 @@ const EmptyString: ValidatorFn = (value) => {
   console.warn(
     'Calling a deprecated validator (EmptyString), please use the Required validator instead'
   );
-  if (isEmpty(value)) {
+  if (isEmptyValue(value)) {
     return Promise.resolve({ emptyString: true });
   }
   return Promise.resolve(null);
@@ -43,7 +45,7 @@ const EmptyString: ValidatorFn = (value) => {
  */
 const MinLength = (minlength: number): ValidatorFn => {
   return (value) => {
-    if (value && minlength <= value.length) {
+    if (value && minlength <= value.length || Object.getPrototypeOf(value) === Object.prototype){
       return Promise.resolve(null);
     }
     return Promise.resolve({ minlength: true });
@@ -57,7 +59,7 @@ const MinLength = (minlength: number): ValidatorFn => {
  */
 const MaxLength = (maxLength: number): ValidatorFn => {
   return (value) => {
-    if (!value|| maxLength >= value.length) {
+    if (!value|| maxLength >= value.length || Object.getPrototypeOf(value) === Object.prototype) {
       return Promise.resolve(null);
     }
     return Promise.resolve({ maxLength: true });
@@ -119,8 +121,8 @@ const Email: ValidatorFn = (value) => {
   return Promise.resolve(null);
 };
 
-const isEmpty = (value: string | any[]) => {
-  return !value?.length || (typeof value==='string' && value?.trim?.() === '');
+const isEmptyValue = (value: Value) => {
+  return !value || (typeof value==='string' && value?.trim?.() === '') || Object.keys(value).length === 0;
 }
 
 export const Validators = {
