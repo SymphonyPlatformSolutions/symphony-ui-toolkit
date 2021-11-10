@@ -7,7 +7,7 @@
  * Returns null if no validation error
  */
 export type ValidatorFn = (
-  value: string
+  value?: string | any[],
 ) => Promise<{ [id: string]: boolean }> | Promise<null>;
 
 /**
@@ -15,7 +15,7 @@ export type ValidatorFn = (
  * @param value Value to test
  */
 const Required: ValidatorFn = (value) => {
-  if (!value || value?.trim?.() === '') {
+  if (isEmpty(value)) {
     return Promise.resolve({ required: true });
   }
   return Promise.resolve(null);
@@ -31,7 +31,7 @@ const EmptyString: ValidatorFn = (value) => {
   console.warn(
     'Calling a deprecated validator (EmptyString), please use the Required validator instead'
   );
-  if (!value || value?.trim?.() === '') {
+  if (isEmpty(value)) {
     return Promise.resolve({ emptyString: true });
   }
   return Promise.resolve(null);
@@ -47,6 +47,20 @@ const MinLength = (minlength: number): ValidatorFn => {
       return Promise.resolve(null);
     }
     return Promise.resolve({ minlength: true });
+  };
+};
+/**
+ * Checks if a provided value has the maxLength
+ * return { maxLength: true } when value is bigger maxLenght
+ * return null when value is valid. 
+ * @param value Value to test
+ */
+const MaxLength = (maxLength: number): ValidatorFn => {
+  return (value) => {
+    if (!value|| maxLength >= value.length) {
+      return Promise.resolve(null);
+    }
+    return Promise.resolve({ maxLength: true });
   };
 };
 
@@ -94,14 +108,20 @@ const Email: ValidatorFn = (value) => {
   if (!value) {
     return Promise.resolve(null);
   }
-  const match = value?.match(
-    /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/g
-  );
-  if (!match) {
-    return Promise.resolve({ email: true });
+  if(typeof value ==='string') {
+    const match = value?.match(
+      /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/g
+    );
+    if (!match) {
+      return Promise.resolve({ email: true });
+    }
   }
   return Promise.resolve(null);
 };
+
+const isEmpty = (value: string | any[]) => {
+  return !value?.length || (typeof value==='string' && value?.trim?.() === '');
+}
 
 export const Validators = {
   Email,
@@ -111,4 +131,5 @@ export const Validators = {
   MinLength,
   Number,
   Pattern,
+  MaxLength,
 };

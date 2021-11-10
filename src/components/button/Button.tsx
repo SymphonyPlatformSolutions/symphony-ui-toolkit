@@ -7,7 +7,7 @@ const prefix = 'tk-button';
 export type ButtonProps = {
   /** If true, add an Icon component as children */
   iconButton?: boolean;
-   /** Content of the button*/
+  /** Content of the button*/
   children?: React.ReactNode;
   /** Optional CSS class name */
   className?: string;
@@ -16,8 +16,8 @@ export type ButtonProps = {
   loading?: boolean;
   type?: 'button' | 'reset' | 'submit';
   onClick?: (event: React.MouseEvent<HTMLElement>) => void;
-   /** Color variant of the button*/
-  variant?: 'primary' | 'secondary' | 'tertiary' | 'destructive' | 'primary-destructive' | 'secondary-destructive'|'tertiary-destructive' |'tertiary-accent';
+  /** Color variant of the button*/
+  variant?: 'primary' | 'secondary' | 'tertiary' | 'destructive' | 'primary-destructive' | 'secondary-destructive' | 'tertiary-destructive' | 'tertiary-accent';
   /** Size of the button */
   size?: 'large' | 'small' | 'medium';
   iconRight?: React.ReactNode;
@@ -41,29 +41,27 @@ export const Button: React.FC<ButtonProps> = ({
     className,
     prefix,
     `${prefix}--${variant}`,
-    iconButton && `${prefix}--icon`,
-    `${loading ? 'loading' : ''}`,
-    `${prefix}--${size}`
+    `${prefix}--${size}`,
+    { [`${prefix}--icon`]: iconButton, 'loading': loading, [`${prefix}--icon-left`]: iconLeft, [`${prefix}--icon-right`]: iconRight },
   );
 
-  if(variant === 'destructive') {
+  if (variant === 'destructive') {
     console.warn('The button variant: \'destructive\' will be deprecated.\n Please use: \'primary-destructive\' instead')
   }
 
   return (
     <button
+      aria-label={loading ? 'loading' : null}
       className={classes}
       disabled={loading || disabled}
+      style={{ color: loading ? 'transparent' : null }}
       /* eslint-disable react/button-has-type */
       type={type}
       {...rest}
     >
-      {loading && <i className="animate-spin tk-icon-loading" />}
-      <span className={classNames({ [`${prefix}--icon-right`] : iconRight , [`${prefix}--icon-left`]: iconLeft })}
-        style={{ visibility: loading ? 'hidden' : null }}>
-        {iconLeft}{children}{iconRight}
-      </span>
-    </button>
+      {loading && <i className="tk-button-icon--loading animate-spin tk-icon-loading" />}
+      {iconLeft}{children}{iconRight}
+    </button >
   );
 };
 
@@ -84,9 +82,9 @@ Button.propTypes = {
   disabled: PropTypes.bool,
   loading: PropTypes.bool,
   type: PropTypes.oneOf(['button', 'reset', 'submit']),
-  variant: PropTypes.oneOf(['primary' , 'secondary' , 'tertiary' , 'destructive' , 'primary-destructive' , 'secondary-destructive','tertiary-destructive' ,'tertiary-accent']),
+  variant: PropTypes.oneOf(['primary', 'secondary', 'tertiary', 'destructive', 'primary-destructive', 'secondary-destructive', 'tertiary-destructive', 'tertiary-accent']),
   onClick: PropTypes.func,
-  size: PropTypes.oneOf(['small', 'large' , 'medium']),
+  size: PropTypes.oneOf(['small', 'large', 'medium']),
   iconLeft: PropTypes.node,
   iconRight: PropTypes.node,
 }

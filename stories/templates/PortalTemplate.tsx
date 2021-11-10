@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { Button, Modal, ModalBody, ModalFooter, ModalTitle } from '../../src/components';
+import { Button, CropContent, ExpandableCard, Modal, ModalBody, ModalFooter, ModalTitle } from '../../src/components';
 
 export const PortalTemplate = (args) => {
   const { title, component } = args;
@@ -22,6 +22,16 @@ export const PortalTemplate = (args) => {
         <p>ℹ️ The menu is displayed by using some JSS (CSS in JS), but you can overwrite the inline CSS properties by using this attribute.</p>
       </li>
     </ul>
+    <h4>Inside a Card</h4>
+    <ExpandableCard
+      initCollapsed={false}
+      header={'The component inside the Expandable Card use a portal to render'}
+    >
+      <CropContent className="tk-quote-container" >
+        {component}
+      </CropContent>
+    </ExpandableCard>
+    <h4>Inside a Modal</h4>
     <Button onClick={() => setShow(true)}>Open Modal</Button>
     <Modal size="medium" closeButton show={show} onClose={handleClose}>
       <ModalTitle>{title}</ModalTitle>

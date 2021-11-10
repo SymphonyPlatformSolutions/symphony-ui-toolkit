@@ -25,21 +25,12 @@ function publish() {
     echo "Running publish..."
     setVersion;
     executePublish;
-    postIfOfficialRelease;
+    postToUniversalWebhook;
     echo "Publish End"
 }
 
-function postToUniversalWebhook {
+function postToUniversalWebhook() {
     curl --location --request POST "$WEBHOOK_CONTRIBUTORS_URL" -F 'message=@webhook/publish-comps.xml' -F 'data={"version": { "components": "'"$CIRCLE_TAG"'" }}'
-}
-
-# If the version has a structure like X.Y.Z, then it post the message through Universal Webhook
-# Otherwise it does nothing (i.e: X.Y.Z-rc.1, X.Y.Z-SNAPTHOT.1, etc...)
-function postIfOfficialRelease {
-    # if version start by v or not (i.e: vX.Y.Z or X.Y.Z)
-    if [[ "$CIRCLE_TAG" =~ ^v?([0-9]|[1-9][0-9]*)\\.([0-9]|[1-9][0-9]*)\\.([0-9]|[1-9][0-9]*)?$ ]];
-    then postToUniversalWebhook;
-    fi
 }
 
 # ====> Start

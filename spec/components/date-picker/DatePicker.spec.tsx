@@ -7,13 +7,15 @@ import DayPicker from '../../../src/components/date-picker/sub-component/DayPick
 import TextField from '../../../src/components/input/TextField';
 import Icon from '../../../src/components/icon/Icon';
 
+import * as eventUtils from '../../../src/components/common/eventUtils';
+
 import {
   render,
   screen,
   fireEvent,
 } from '@testing-library/react';
 
-import { Keys } from '../../../src/components/common/keyUtils';
+import { Keys } from '../../../src/components/common/eventUtils';
 
 describe('DatePicker Component', () => {
   afterEach(() => {
@@ -328,5 +330,35 @@ describe('DatePicker Component', () => {
     expect(props.onBlur).toHaveBeenCalledTimes(0);
     fireEvent.mouseDown(screen.getByText('outside'))
     expect(props.onBlur).toHaveBeenCalledTimes(1);
+  });
+
+  it('should ignore showOverlay when menuPortalTarget', () => {
+    const props = createTestProps({ showOverlay: true, menuPortalTarget: document.body });
+    const { container } = render(<DatePicker {...props} />);
+    expect(container.querySelector('.DatePickerContainer')).toEqual(null);
+  });
+
+  it('should attach block scroll event listener to scroll parent', async () => {
+    const wrapper = mount(<div className="scroll"><DatePicker menuShouldBlockScroll={true}/></div>);
+    jest.spyOn(eventUtils, 'getScrollParent').mockReturnValue(wrapper.find('.scroll').getDOMNode());  // spy on getScrollParent
+
+    await act(async () => { // mount
+      wrapper.find('.tk-input').simulate('keyDown', {
+        key: Keys.ENTER,
+        preventDefault: jest.fn(),
+        stopPropagation: jest.fn(),
+      });
+    });
+    wrapper.update();
+
+    await act(async () => { // unmount
+      wrapper.find('.tk-input').simulate('keyDown', {
+        key: Keys.ESC,
+        preventDefault: jest.fn(),
+        stopPropagation: jest.fn(),
+      });
+    });
+
+    wrapper.unmount(); 
   });
 });

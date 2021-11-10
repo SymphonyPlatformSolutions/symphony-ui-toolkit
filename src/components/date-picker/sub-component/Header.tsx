@@ -5,7 +5,7 @@ import * as React from 'react';
 import Icon from '../../icon/Icon';
 import { addMonths, addYears } from 'date-fns';
 
-import { Keys, cancelEvent } from '../../common/keyUtils';
+import { Keys, cancelEvent } from '../../common/eventUtils';
 import { Direction } from '../model/Direction';
 import { HeaderLabel } from '../model/HeaderLabel';
 

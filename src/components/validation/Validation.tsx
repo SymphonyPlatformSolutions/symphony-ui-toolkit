@@ -99,7 +99,7 @@ class Validation extends React.Component<
         }
       },
       onBlur: (event: any) => {
-        this.updateState(event.target.value);
+        this.updateState(this.state.lastValue);
         if (child.props.onBlur) {
           child.props.onBlur(event);
         }

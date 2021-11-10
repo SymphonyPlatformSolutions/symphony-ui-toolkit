@@ -10,7 +10,7 @@ import { modifierPropTypes } from '../utils/propTypesUtils';
 
 import Header from './Header';
 
-import { Keys, cancelEvent } from '../../common/keyUtils';
+import { Keys, cancelEvent } from '../../common/eventUtils';
 
 import {
   formatDay,

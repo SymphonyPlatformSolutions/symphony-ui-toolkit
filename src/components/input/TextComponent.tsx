@@ -37,7 +37,7 @@ type TextComponentProps = {
   masked?: boolean;
   placeholder?: string;
   onClick?: () => any;
-  onFocus?: () => any;
+  onFocus?: (event?: React.FocusEvent<HTMLElement>) => any;
   onKeyDown?: (event) => any;
   showRequired?: boolean;
   /** When present, it specifies that the field is read-only. */
