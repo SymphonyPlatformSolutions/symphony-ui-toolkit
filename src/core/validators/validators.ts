@@ -45,6 +45,9 @@ const EmptyString: ValidatorFn = (value) => {
  * @param value Value to test
  */
 const MinLength = (minlength: number): ValidatorFn => {
+  if (minlength === 0) {
+    throw 'Validator minlength can not be 0, use the required Validator instead';
+  }
   return (value) => {
     if (value && (minlength <= value.length || Object.getPrototypeOf(value) === Object.prototype)) {
       return Promise.resolve(null);
@@ -59,6 +62,9 @@ const MinLength = (minlength: number): ValidatorFn => {
  * @param value Value to test
  */
 const MaxLength = (maxLength: number): ValidatorFn => {
+  if (maxLength === 0) {
+    throw 'Validator maxLength can not be 0';
+  }
   return (value) => {
     if (!value|| maxLength >= value.length || Object.getPrototypeOf(value) === Object.prototype) {
       return Promise.resolve(null);
