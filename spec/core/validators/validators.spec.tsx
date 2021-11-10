@@ -51,7 +51,7 @@ describe('Input Validators', () => {
     expect(await Validators.EmptyString(emptyArray)).toEqual({ emptyString: true });
   });
 
- it('should validate "minlength" Input correctly', async () => {
+  it('should validate "minlength" Input correctly', async () => {
     expect(await Validators.MinLength(3)('aaa')).toEqual(null);
     expect(await Validators.MinLength(3)(null)).toEqual({ minlength: true });
     expect(await Validators.MinLength(3)(undefined)).toEqual({ minlength: true });
@@ -61,7 +61,7 @@ describe('Input Validators', () => {
     expect(await Validators.MinLength(3)(emptyArray)).toEqual( {minlength: true});
     expect(await Validators.MinLength(3)(arrayWithValues)).toEqual( {minlength: true});
     expect(await Validators.MinLength(1)(arrayWithValues)).toEqual(null);
-
+  });
   it('should validate "maxLength" Input correctly', async () => {
     expect(await Validators.MaxLength(3)('abcd')).toEqual({ maxLength: true });
     expect(await Validators.MaxLength(3)(stringWithValue)).toEqual(null);
@@ -73,6 +73,10 @@ describe('Input Validators', () => {
     expect(await Validators.MaxLength(3)(emptyArray)).toEqual(null);
     expect(await Validators.MaxLength(2)(arrayWithValues)).toEqual(null);
     expect(await Validators.MaxLength(1)(arrayWithValues)).toEqual( {maxLength: true});
+  });
+  it('should validate "minValue" Input correctly', async () => {
+    expect(await Validators.MinValue(3)('2')).toEqual({ minValue: true });
+    expect(await Validators.MinValue(3)('4')).toEqual(null);
   });
   it('should validate number correctly', async () => {
     expect(await Validators.Number('a')).toEqual({ number: true });

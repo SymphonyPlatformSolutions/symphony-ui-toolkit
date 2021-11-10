@@ -1,3 +1,4 @@
+import * as _ from 'lodash';
 
 type Value = string | { [key: string]: string } | { [key: string]: string }[];
 /**
@@ -45,7 +46,7 @@ const EmptyString: ValidatorFn = (value) => {
  */
 const MinLength = (minlength: number): ValidatorFn => {
   return (value) => {
-    if (value && minlength <= value.length || Object.getPrototypeOf(value) === Object.prototype){
+    if (value && (minlength <= value.length || Object.getPrototypeOf(value) === Object.prototype)) {
       return Promise.resolve(null);
     }
     return Promise.resolve({ minlength: true });
@@ -122,7 +123,7 @@ const Email: ValidatorFn = (value) => {
 };
 
 const isEmptyValue = (value: Value) => {
-  return !value || (typeof value==='string' && value?.trim?.() === '') || Object.keys(value).length === 0;
+  return  _.isEmpty(value) || (typeof value==='string' && value?.trim?.() === '');
 }
 
 export const Validators = {
