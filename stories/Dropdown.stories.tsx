@@ -1,11 +1,23 @@
 import * as React from 'react';
-import { Dropdown, DropdownOption, Icon, LabelValue, OptionRendererProps, SearchHeaderOption, TagRendererProps } from '../src/components';
+import {
+  Dropdown,
+  DropdownOption,
+  Icon,
+  LabelValue,
+  OptionRendererProps,
+  SearchHeaderOption,
+  TagRendererProps,
+} from '../src/components';
 import { PortalTemplate } from './templates';
 
 const defaultOptions: LabelValue[] = [
   { label: 'Option 1', value: '1' },
   { label: 'Option 2', value: '2' },
-  { label: 'Option 3 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse elementum gravida neque, suscipit ornare ex pulvinar id. Etiam vitae erat at dolor pharetra suscipit. Donec at nunc malesuada', value: '3' },
+  {
+    label:
+      'Option 3 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse elementum gravida neque, suscipit ornare ex pulvinar id. Etiam vitae erat at dolor pharetra suscipit. Donec at nunc malesuada',
+    value: '3',
+  },
 ];
 
 interface Person {
@@ -38,7 +50,7 @@ const personSelectorOptions: DropdownOption<Person>[] = [
 
 // Function provided by the user to filter the options
 const filterDefaultOptions = async (inputValue: string) => {
-  return defaultOptions.filter(i =>
+  return defaultOptions.filter((i) =>
     i?.label?.toLowerCase().includes(inputValue?.toLowerCase())
   );
 };
@@ -48,7 +60,6 @@ const promiseOptions = (inputValue: string): Promise<DropdownOption<LabelValue>[
     setTimeout(() =>
       resolve(filterDefaultOptions(inputValue)), 1000);
   });
-
 
 const timeZoneOptions: DropdownOption<LabelValue>[] = [
   { label: '(GMT +03:00) Tanzania', value: '8' },
@@ -132,6 +143,38 @@ Default.args = {
   onTermSearch: onTermSearch,
   onChange: onChange
 };
+
+export const Sizes: React.FC = () => (
+  <>
+    <h4>Small</h4>
+    <div style={{ display: 'flex' }}>
+      <div style={{ width: '384px', marginRight: '32px' }}>
+        <Dropdown options={defaultOptions} size="small" />
+      </div>
+      <div style={{ width: '384px' }}>
+        <Dropdown options={defaultOptions} isMultiSelect size="small" />
+      </div>
+    </div>
+    <h4>Medium</h4>
+    <div style={{ display: 'flex' }}>
+      <div style={{ width: '384px', marginRight: '32px' }}>
+        <Dropdown options={defaultOptions} size="medium" />
+      </div>
+      <div style={{ width: '384px' }}>
+        <Dropdown options={defaultOptions} isMultiSelect size="medium" />
+      </div>
+    </div>
+    <h4>Large</h4>
+    <div style={{ display: 'flex' }}>
+      <div style={{ width: '384px', marginRight: '32px' }}>
+        <Dropdown options={defaultOptions} size="large" />
+      </div>
+      <div style={{ width: '384px' }}>
+        <Dropdown options={defaultOptions} isMultiSelect size="large" />
+      </div>
+    </div>
+  </>
+);
 
 export const Select: React.FC = () => (
   <div>
