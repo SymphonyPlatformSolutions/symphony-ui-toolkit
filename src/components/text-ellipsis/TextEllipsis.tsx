@@ -48,12 +48,16 @@ export const TextEllipsis: React.FC<TextEllipsisProps> = ({
       { children }
     </span>)
   }
+
+  if(!tooltipProps?.description && !children) {
+    return null
+  }
   
   if(tooltipOnEllipsis) {
     return(
       <Tooltip
         {...tooltipProps}
-        description={ tooltipProps?.description ?? children as JSX.Element }
+        description={ tooltipProps?.description ?? (children as JSX.Element) }
         placement={ tooltipProps?.placement ?? 'top' }
         type={ tooltipProps?.type ?? 'tooltip' }
         visible={ tooltipProps?.visible ?? showTooltip }
