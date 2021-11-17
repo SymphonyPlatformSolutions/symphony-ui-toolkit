@@ -46,7 +46,7 @@ const EmptyString: ValidatorFn = (value) => {
  */
 const MinLength = (minlength: number): ValidatorFn => {
   if (minlength === 0) {
-    throw 'Validator minlength can not be 0, use the required Validator instead';
+    console.warn('Validator minlength can not be 0, use the required Validator instead');
   }
   return (value) => {
     if (value && (minlength <= value.length || Object.getPrototypeOf(value) === Object.prototype)) {
