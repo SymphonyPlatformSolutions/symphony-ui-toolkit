@@ -97,7 +97,7 @@ const iconData: DropdownOption<Icon>[] = [
 const IconPickerTagRenderer = (props: TagRendererProps<Icon>) => {
   const { data, remove } = props;
   return (
-    <div>
+    <div style={{backgroundColor: 'rgba(0, 200, 0, 0.5)', borderRadius: '4px', margin: '2px', padding: '0 4px'}}>
       {data.displayName}
       <Icon className="tk-pl-1" iconName={data.displayName} />
       <Icon className="tk-ml-1" iconName="cross" onClick={remove} />
@@ -144,9 +144,17 @@ Default.args = {
   onChange: onChange
 };
 
+export const Variants: React.FC = () => (<>
+  <h4>Default color</h4>
+  <Dropdown options={defaultOptions} />
+  <h4>Destructive</h4>
+  <Dropdown options={defaultOptions} variant="destructive" />
+</>
+);
+
 export const Sizes: React.FC = () => (
   <>
-    <h4>Small</h4>
+    {/* <h4>Small</h4>
     <div style={{ display: 'flex' }}>
       <div style={{ width: '384px', marginRight: '32px' }}>
         <Dropdown options={defaultOptions} size="small" />
@@ -154,7 +162,7 @@ export const Sizes: React.FC = () => (
       <div style={{ width: '384px' }}>
         <Dropdown options={defaultOptions} isMultiSelect size="small" />
       </div>
-    </div>
+    </div> */}
     <h4>Medium</h4>
     <div style={{ display: 'flex' }}>
       <div style={{ width: '384px', marginRight: '32px' }}>
@@ -257,6 +265,17 @@ export const Select: React.FC = () => (
       filterFunction={filterFunction}
       tagRenderer={IconPickerRenderer}
       onTermSearch={onTermSearch}
+    />
+    <br/>
+    <Dropdown
+      options={iconData}
+      optionRenderer={IconPickerRenderer}
+      placeHolder="Select an icon.."
+      enableTermSearch
+      filterFunction={filterFunction}
+      tagRenderer={IconPickerRenderer}
+      onTermSearch={onTermSearch}
+      variant="destructive"
     />
 
     <p className="tk-mt-4">With <strong> tagRenderer </strong>prop you can customize the rendering of the selected item/s: </p>
