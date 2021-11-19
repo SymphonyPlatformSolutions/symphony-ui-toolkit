@@ -27,32 +27,32 @@ export const DropdownMenu = () => {
       <h3>With icons</h3>
       <div class="tk-dropdown-menu" style="width:200px">
         <div class="tk-dropdown-menu__item">
-          <i class="tk-dropdown-menu__icon tk-icon-plus"></i>
+          <i class="tk-icon-plus"></i>
           New direct chat
         </div>
         <div class="tk-dropdown-menu__item">
-        <i class="tk-dropdown-menu__icon tk-icon-chats"></i>New room...</div>
+        <i class="tk-icon-chats"></i>New room...</div>
         <div class="tk-dropdown-menu-divider"></div>
         <div class="tk-dropdown-menu__item">
-          <i class="tk-dropdown-menu__icon tk-icon-minus-round"></i>Cut</div>
+          <i class="tk-icon-minus-round"></i>Cut</div>
         <div class="tk-dropdown-menu__item">
-          <i class="tk-dropdown-menu__icon tk-icon-copy"></i>Copy</div>
+          <i class="tk-icon-copy"></i>Copy</div>
         <div class="tk-dropdown-menu__item">
-          <i class="tk-dropdown-menu__icon tk-icon-forward"></i>Paste
+          <i class="tk-icon-forward"></i>Paste
           <i class="tk-dropdown-menu--selected"></i>
         </div>
         <div class="tk-dropdown-menu-divider"></div>
         <div class="tk-dropdown-menu__item">
-          <i class="tk-dropdown-menu__icon tk-icon-fullscreen-on"></i>Full screen</div>
+          <i class="tk-icon-fullscreen-on"></i>Full screen</div>
         <div class="tk-dropdown-menu__item">
-          <i class="tk-dropdown-menu__icon tk-icon-fullscreen-off"></i>Minimize</div>
+          <i class="tk-icon-fullscreen-off"></i>Minimize</div>
       </div>
     </div>
     <div class="flex-col">
       <h3>Expandable</h3>
       <div class="tk-dropdown-menu" style="width:200px">
         <div class="tk-dropdown-menu__item">
-          <i class="tk-dropdown-menu__icon tk-icon-star"></i>Star</div>
+          <i class="tk-icon-star"></i>Star</div>
           <div class="tk-dropdown-menu-divider"></div>
         <div class="tk-dropdown-menu__item tk-pl-5">Move to
         <i class="tk-dropdown-menu--expandable"></i>

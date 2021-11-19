@@ -2,15 +2,14 @@
   @include listStyle;
   z-index: $z-index-dropdown-menu;
   padding: toRem(8) 0;
-
-  &__icon {
+  i {
     color: $--tk-list-selected-color;
     font-size: $list-font-size-icon;
     padding-right: toRem(8);
   }
 
   &__item {
-    padding: toRem(8) toRem(0) toRem(8) toRem(36);
+    padding: toRem(8) toRem(0) toRem(8) toRem(16);
   }
 
   &--expandable::before {
