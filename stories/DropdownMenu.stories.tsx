@@ -20,25 +20,25 @@ const Default: React.FC = () => (
       </DropdownMenuItem>
       <DropdownMenuDivider />
       <DropdownMenuItem>
-        <Icon iconName="minus-round" className="leftIcon" />
+        <Icon iconName="minus-round"/>
         Cut
       </DropdownMenuItem>
       <DropdownMenuItem>
-        <Icon iconName="copy" className="leftIcon" />
+        <Icon iconName="copy"/>
         Copy
         <i className="tk-dropdown-menu--selected" />
       </DropdownMenuItem>
       <DropdownMenuItem>
-        <Icon iconName="forward" className="leftIcon" />
+        <Icon iconName="forward"/>
         Paste
       </DropdownMenuItem>
       <DropdownMenuDivider />
       <DropdownMenuItem>
-        <Icon iconName="fullscreen-on" className="leftIcon" />
+        <Icon iconName="fullscreen-on"/>
         Full screen
       </DropdownMenuItem>
       <DropdownMenuItem>
-        <Icon iconName="fullscreen-off" className="leftIcon" />
+        <Icon iconName="fullscreen-off"/>
         Minimize
       </DropdownMenuItem>
     </DropdownMenu>
@@ -59,25 +59,25 @@ const WithOrWithoutIcons: React.FC = () => {
         </DropdownMenuItem>
         <DropdownMenuDivider />
         <DropdownMenuItem>
-          <Icon iconName="minus-round" className="leftIcon" />
+          <Icon iconName="minus-round"/>
           Cut
         </DropdownMenuItem>
         <DropdownMenuItem>
-          <Icon iconName="copy" className="tk-dropdown-menu__icon" />
+          <Icon iconName="copy"/>
           Copy
           <i className="tk-dropdown-menu--selected"/>
         </DropdownMenuItem>
         <DropdownMenuItem>
-          <Icon iconName="forward" className="leftIcon" />
+          <Icon iconName="forward"/>
           Paste
         </DropdownMenuItem>
         <DropdownMenuDivider />
         <DropdownMenuItem>
-          <Icon iconName="fullscreen-on" className="leftIcon" />
+          <Icon iconName="fullscreen-on"/>
           Full screen
         </DropdownMenuItem>
         <DropdownMenuItem>
-          <Icon iconName="fullscreen-off" className="leftIcon" />
+          <Icon iconName="fullscreen-off"/>
           Minimize
         </DropdownMenuItem>
       </DropdownMenu>
