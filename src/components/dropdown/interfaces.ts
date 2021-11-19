@@ -156,7 +156,7 @@ export type DropdownProps<T> = {
   onTermSearch?: (option: SearchHeaderOption) => any;
   /** Flag to show the label with a specific styling if the field is required */
   showRequired?: boolean;
-  /** Size of the input */
+  /** Size of the dropdown */
   size?: /*'small' |*/ 'medium' | 'large';
   /** Select the currently focused option when the user presses tab */
   tabSelectsValue?: boolean;
@@ -166,8 +166,8 @@ export type DropdownProps<T> = {
     | React.FunctionComponent<TagRendererProps<T>>;
   /** Message to be display on the header of the menu list when searching by term */
   termSearchMessage?: ((term: string) => string) | string;
-  /** Color variant of the button*/
-  variant?: 'destructive'; // todo: default value? nothing, or primary?
+  /** Color variant of the dropdown */
+  variant?: 'destructive';
 } & MenuPortalProps &
   HasTooltipProps &
   (MultiModeProps<T> | SingleModeProps<T>) &

@@ -133,7 +133,6 @@ export const Control = ({ children, selectProps, ...props }: any) => {
   const {iconName} = selectProps;
   return (<div>
     <components.Control {...props} className="tk-select__container">
-      {/* replacing tk-input__container by tk-select__container is a breaking change... but I don't want tk-input__container styles! */}
       {iconName && <Icon iconName={iconName} className="tk-input__icon" tabIndex={0}/>}
       {children}
     </components.Control>

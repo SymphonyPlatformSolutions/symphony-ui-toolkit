@@ -15,7 +15,7 @@ const defaultOptions: LabelValue[] = [
   { label: 'Option 2', value: '2' },
   {
     label:
-      'Option 3 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse elementum gravida neque, suscipit ornare ex pulvinar id. Etiam vitae erat at dolor pharetra suscipit. Donec at nunc malesuada',
+    'Option 3 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse elementum gravida neque, suscipit ornare ex pulvinar id. Etiam vitae erat at dolor pharetra suscipit. Donec at nunc malesuada',
     value: '3',
   },
 ];
@@ -149,6 +149,7 @@ export const Variants: React.FC = () => (<>
   <Dropdown options={defaultOptions} />
   <h4>Destructive</h4>
   <Dropdown options={defaultOptions} variant="destructive" />
+  <div className="tk-py-5"/><div className="tk-py-5"/>
 </>
 );
 
@@ -181,6 +182,7 @@ export const Sizes: React.FC = () => (
         <Dropdown options={defaultOptions} isMultiSelect size="large" />
       </div>
     </div>
+    <div className="tk-py-5"/><div className="tk-py-5"/>
   </>
 );
 
@@ -215,7 +217,7 @@ export const Select: React.FC = () => (
     <p className="tk-mt-4">
       With <strong>isDisabled</strong>:
     </p>
-    <Dropdown options={defaultOptions} placeHolder="No option available" isDisabled label="Field label" />
+    <Dropdown options={defaultOptions} defaultValue={defaultOptions[0]} placeHolder="No option available" isDisabled label="Field label" />
     <p className="tk-mt-4">
       With <strong>iconName</strong> displays the specified icon on the left side of the dropdown:
     </p>
