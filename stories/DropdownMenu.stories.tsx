@@ -23,10 +23,10 @@ const Default: React.FC = () => (
         <Icon iconName="minus-round" className="leftIcon" />
         Cut
       </DropdownMenuItem>
-      <DropdownMenuItem className="withRightIcon">
+      <DropdownMenuItem>
         <Icon iconName="copy" className="leftIcon" />
         Copy
-        <Icon iconName="check" className="rightIcon" />
+        <i className="tk-dropdown-menu--selected" />
       </DropdownMenuItem>
       <DropdownMenuItem>
         <Icon iconName="forward" className="leftIcon" />
@@ -62,10 +62,10 @@ const WithOrWithoutIcons: React.FC = () => {
           <Icon iconName="minus-round" className="leftIcon" />
           Cut
         </DropdownMenuItem>
-        <DropdownMenuItem className="withRightIcon">
-          <Icon iconName="copy" className="leftIcon" />
+        <DropdownMenuItem>
+          <Icon iconName="copy" className="tk-dropdown-menu__icon" />
           Copy
-          <Icon iconName="check" className="rightIcon" />
+          <i className="tk-dropdown-menu--selected"/>
         </DropdownMenuItem>
         <DropdownMenuItem>
           <Icon iconName="forward" className="leftIcon" />
