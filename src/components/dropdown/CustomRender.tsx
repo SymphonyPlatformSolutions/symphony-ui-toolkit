@@ -81,21 +81,20 @@ export const DefaultTagRenderer = (props: any) => {
   const TagRender = props.selectProps?.tagRenderer;
   const rendererProps = { remove: props.removeProps.onClick, data: props.data };
   return (<>
-    {TagRender ? 
+    {TagRender ?
       <div onMouseDown={stopPropagation}>
         <TagRender {...rendererProps} />
       </div>
       : <components.MultiValue {...props}>
-        <div onMouseDown={stopPropagation} className="tk-px-1" style={{display:'flex'} }>
-          <div className="tk-tag tk-pr-1">
+        <div onMouseDown={stopPropagation} style={{display:'flex', alignItems: 'center'} }>
+          <div className="tk-tag">
             {props.data?.label}
           </div>
-          <div>
-            <Icon iconName="cross" onClick={props.removeProps.onClick}/>
-          </div>
+          <Icon iconName="cross-round" onClick={props.removeProps.onClick}/>
         </div>
       </components.MultiValue>}
-  </>);
+  </>
+  );
 };
 
 export const MultiValueContainerOverride = ({ children, ...props }: any) => 
@@ -132,8 +131,8 @@ export const ClearIndicator = (props: any) =>
 
 export const Control = ({ children, selectProps, ...props }: any) => {
   const {iconName} = selectProps;
-  return (<div className="tk-input-group__header tk-pt-h">
-    <components.Control {...props} className="tk-input__container">
+  return (<div>
+    <components.Control {...props} className="tk-select__container">
       {iconName && <Icon iconName={iconName} className="tk-input__icon" tabIndex={0}/>}
       {children}
     </components.Control>

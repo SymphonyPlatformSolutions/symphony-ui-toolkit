@@ -1,11 +1,23 @@
 import * as React from 'react';
-import { Dropdown, DropdownOption, Icon, LabelValue, OptionRendererProps, SearchHeaderOption, TagRendererProps } from '../src/components';
+import {
+  Dropdown,
+  DropdownOption,
+  Icon,
+  LabelValue,
+  OptionRendererProps,
+  SearchHeaderOption,
+  TagRendererProps,
+} from '../src/components';
 import { PortalTemplate } from './templates';
 
 const defaultOptions: LabelValue[] = [
   { label: 'Option 1', value: '1' },
   { label: 'Option 2', value: '2' },
-  { label: 'Option 3 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse elementum gravida neque, suscipit ornare ex pulvinar id. Etiam vitae erat at dolor pharetra suscipit. Donec at nunc malesuada', value: '3' },
+  {
+    label:
+    'Option 3 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse elementum gravida neque, suscipit ornare ex pulvinar id. Etiam vitae erat at dolor pharetra suscipit. Donec at nunc malesuada',
+    value: '3',
+  },
 ];
 
 interface Person {
@@ -38,7 +50,7 @@ const personSelectorOptions: DropdownOption<Person>[] = [
 
 // Function provided by the user to filter the options
 const filterDefaultOptions = async (inputValue: string) => {
-  return defaultOptions.filter(i =>
+  return defaultOptions.filter((i) =>
     i?.label?.toLowerCase().includes(inputValue?.toLowerCase())
   );
 };
@@ -48,7 +60,6 @@ const promiseOptions = (inputValue: string): Promise<DropdownOption<LabelValue>[
     setTimeout(() =>
       resolve(filterDefaultOptions(inputValue)), 1000);
   });
-
 
 const timeZoneOptions: DropdownOption<LabelValue>[] = [
   { label: '(GMT +03:00) Tanzania', value: '8' },
@@ -86,7 +97,7 @@ const iconData: DropdownOption<Icon>[] = [
 const IconPickerTagRenderer = (props: TagRendererProps<Icon>) => {
   const { data, remove } = props;
   return (
-    <div>
+    <div style={{backgroundColor: 'rgba(0, 200, 0, 0.5)', borderRadius: '4px', margin: '2px', padding: '0 4px'}}>
       {data.displayName}
       <Icon className="tk-pl-1" iconName={data.displayName} />
       <Icon className="tk-ml-1" iconName="cross" onClick={remove} />
@@ -133,6 +144,48 @@ Default.args = {
   onChange: onChange
 };
 
+export const Variants: React.FC = () => (<>
+  <h4>Default color</h4>
+  <Dropdown options={defaultOptions} />
+  <h4>Destructive</h4>
+  <Dropdown options={defaultOptions} variant="destructive" />
+  <div className="tk-py-5"/><div className="tk-py-5"/>
+</>
+);
+
+export const Sizes: React.FC = () => (
+  <>
+    {/* <h4>Small</h4>
+    <div style={{ display: 'flex' }}>
+      <div style={{ width: '384px', marginRight: '32px' }}>
+        <Dropdown options={defaultOptions} size="small" />
+      </div>
+      <div style={{ width: '384px' }}>
+        <Dropdown options={defaultOptions} isMultiSelect size="small" />
+      </div>
+    </div> */}
+    <h4>Medium</h4>
+    <div style={{ display: 'flex' }}>
+      <div style={{ width: '384px', marginRight: '32px' }}>
+        <Dropdown options={defaultOptions} size="medium" />
+      </div>
+      <div style={{ width: '384px' }}>
+        <Dropdown options={defaultOptions} isMultiSelect size="medium" />
+      </div>
+    </div>
+    <h4>Large</h4>
+    <div style={{ display: 'flex' }}>
+      <div style={{ width: '384px', marginRight: '32px' }}>
+        <Dropdown options={defaultOptions} size="large" />
+      </div>
+      <div style={{ width: '384px' }}>
+        <Dropdown options={defaultOptions} isMultiSelect size="large" />
+      </div>
+    </div>
+    <div className="tk-py-5"/><div className="tk-py-5"/>
+  </>
+);
+
 export const Select: React.FC = () => (
   <div>
     <p>Let`s have a look on the different props than can be used to render the dropdown: </p>
@@ -164,7 +217,7 @@ export const Select: React.FC = () => (
     <p className="tk-mt-4">
       With <strong>isDisabled</strong>:
     </p>
-    <Dropdown options={defaultOptions} placeHolder="No option available" isDisabled label="Field label" />
+    <Dropdown options={defaultOptions} defaultValue={defaultOptions[0]} placeHolder="No option available" isDisabled label="Field label" />
     <p className="tk-mt-4">
       With <strong>iconName</strong> displays the specified icon on the left side of the dropdown:
     </p>
@@ -214,6 +267,17 @@ export const Select: React.FC = () => (
       filterFunction={filterFunction}
       tagRenderer={IconPickerRenderer}
       onTermSearch={onTermSearch}
+    />
+    <br/>
+    <Dropdown
+      options={iconData}
+      optionRenderer={IconPickerRenderer}
+      placeHolder="Select an icon.."
+      enableTermSearch
+      filterFunction={filterFunction}
+      tagRenderer={IconPickerRenderer}
+      onTermSearch={onTermSearch}
+      variant="destructive"
     />
 
     <p className="tk-mt-4">With <strong> tagRenderer </strong>prop you can customize the rendering of the selected item/s: </p>

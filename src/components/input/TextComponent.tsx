@@ -42,7 +42,7 @@ type TextComponentProps = {
   showRequired?: boolean;
   /** When present, it specifies that the field is read-only. */
   readOnly?: boolean;
-  /** Size of the button */
+  /** Size of the input */
   size?: 'small' | 'medium';
   value?: string;
 } & HasTooltipProps &
