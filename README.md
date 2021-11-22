@@ -36,7 +36,7 @@ yarn add @symphony-ui/uitoolkit-components
 ```
 
 ```
-import { Button } from "@symphony-ui/uitoolkit-components/components";
+import { Button } from "@symphony-ui/uitoolkit-components";
 ```
 
 ## 📦 Releasing from GitHub
