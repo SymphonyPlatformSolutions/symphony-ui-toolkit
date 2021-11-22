@@ -1,7 +1,7 @@
 import * as React from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import classNames from 'classnames';
-import {useEffect, useRef} from 'react';
-import {Keys} from '../common/eventUtils';
+import { Keys } from '../common/eventUtils';
 
 interface DropdownMenuProps extends React.HTMLProps<HTMLDivElement> {
   show?: boolean;
@@ -65,7 +65,7 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({children, className, 
     className,
   )
 
-  const menu = useRef(null);
+  const menu = useRef<HTMLDivElement>();
   const keyboardEventHandler = (e: KeyboardEvent) => {
     e.stopPropagation();
     if (e.key === Keys.ESC && onClose) {
@@ -80,15 +80,25 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({children, className, 
     }
   }
 
+  const removeListeners = useCallback(() => {
+    window.removeEventListener('keyup', keyboardEventHandler);
+    window.removeEventListener('click', mouseEventHandler);
+  }, [])
+
   useEffect(() => {
+    if (!show) {
+      removeListeners();
+      return;
+    }
+    
     window.addEventListener('keyup', keyboardEventHandler);
     window.addEventListener('click', mouseEventHandler);
 
-    return function cleanup() {
-      window.removeEventListener('keyup', keyboardEventHandler);
-      window.removeEventListener('click', mouseEventHandler);
+    return () => {
+      removeListeners()
     }
-  })
+  }, [show, removeListeners])
+  
   return show && (
     <div {...rest} className={classes} ref={menu}>
       {children}
