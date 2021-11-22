@@ -36,6 +36,20 @@ describe('DropdownMenu', () => {
     expect(close).toHaveBeenCalled();
   });
 
+  it('shouldn\'t call onClose when clicking outside if show=false', () => {
+    const close = jest.fn();
+    render(
+      <div>
+        <div>some other div</div>
+        <DropdownMenu show={false} onClose={close}>
+          <DropdownMenuItem>Hello world</DropdownMenuItem>
+        </DropdownMenu>
+      </div>
+    ) ;
+    fireEvent.click(getByText(document.body, 'some other div'));
+    expect(close).not.toHaveBeenCalled();
+  });
+
   it('should close the menu when pressing esc key', () => {
     const close = jest.fn();
     render(
