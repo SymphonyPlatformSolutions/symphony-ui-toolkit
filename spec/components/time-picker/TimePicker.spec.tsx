@@ -31,6 +31,9 @@ describe('TimePicker Component', () => {
       format: 'hh:mm:ss a',
       onBlur: jest.fn(),
       onChange: jest.fn(),
+      onCopy: jest.fn(),
+      onCut: jest.fn(),
+      onDrag: jest.fn(),
       onValidationChanged: jest.fn(),
       ...props,
     };
@@ -50,6 +53,9 @@ describe('TimePicker Component', () => {
     expect(wrapperPicker.prop('showRequired')).toBe(props.showRequired);
     expect(wrapperPicker.prop('name')).toBe(props.name);
     expect(wrapperPicker.prop('placeHolder')).toBe(props.placeholder);
+    expect(wrapperPicker.prop('onCopy')).toBe(props.onCopy);
+    expect(wrapperPicker.prop('onCut')).toBe(props.onCut);
+    expect(wrapperPicker.prop('onDrag')).toBe(props.onDrag);
   });
 
   it('should trigger onFocus', async () => {

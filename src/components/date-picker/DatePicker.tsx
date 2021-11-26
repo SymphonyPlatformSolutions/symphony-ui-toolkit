@@ -30,7 +30,6 @@ import { format as formatDate, isValid } from 'date-fns';
 
 import { ErrorMessages, HasValidationProps } from '../validation/interfaces';
 import { HasTooltipProps } from '../tooltip/interfaces';
-import { InputBaseProps, InputBasePropTypes } from '../input/TextComponent';
 import { MenuPortalProps } from '../dropdown/interfaces';
 
 // z-index: 4; equivalent to $z-index-tooltip
@@ -68,7 +67,7 @@ type DatePickerComponentProps = {
   /* The picker is open on render (not supported with menuPortalTarget) */
   showOverlay?: boolean;
   showRequired?: boolean;
-} & HasTooltipProps &
+} & React.HTMLProps<HTMLInputElement> & HasTooltipProps &
   HasValidationProps<Date> &
   MenuPortalProps;
 
@@ -84,7 +83,7 @@ type DatePickerComponentState = {
 };
 
 class DatePicker extends Component<
-  DatePickerComponentProps & InputBaseProps,
+  DatePickerComponentProps,
   DatePickerComponentState
 > {
   static defaultProps = {
@@ -129,8 +128,7 @@ class DatePicker extends Component<
     tooltip: PropTypes.string,
     tooltipCloseLabel: PropTypes.string,
     showRequired: PropTypes.bool,
-    showOverlay: PropTypes.bool,
-    ...InputBasePropTypes,
+    showOverlay: PropTypes.bool
   };
   refPicker = null;
   dayPickerInstance = null;
@@ -298,10 +296,10 @@ class DatePicker extends Component<
       if (scrollContainer) {
         const wheelEvent = EventListener.onwheel in document.createElement('div') ? EventListener.wheel : EventListener.mousewheel;
 
-        scrollContainer.addEventListener(EventListener.DOMMouseScroll,this.handleScrollParent); // older Firefox
-        scrollContainer.addEventListener(EventListener.touchmove,this.handleScrollParent); // mobile
+        scrollContainer.addEventListener(EventListener.DOMMouseScroll, this.handleScrollParent); // older Firefox
+        scrollContainer.addEventListener(EventListener.touchmove, this.handleScrollParent); // mobile
         scrollContainer.addEventListener(wheelEvent, this.handleScrollParent); // modern desktop
-        scrollContainer.addEventListener(EventListener.keydown,this.handleKeydownScrollParent);
+        scrollContainer.addEventListener(EventListener.keydown, this.handleKeydownScrollParent);
       }
     }
   }
@@ -318,10 +316,10 @@ class DatePicker extends Component<
         if (scrollContainer) {
           const wheelEvent = EventListener.onwheel in document.createElement('div') ? EventListener.wheel : EventListener.mousewheel;
 
-          scrollContainer.removeEventListener(EventListener.DOMMouseScroll,this.handleScrollParent);
-          scrollContainer.removeEventListener(EventListener.touchmove,this.handleScrollParent);
+          scrollContainer.removeEventListener(EventListener.DOMMouseScroll, this.handleScrollParent);
+          scrollContainer.removeEventListener(EventListener.touchmove, this.handleScrollParent);
           scrollContainer.removeEventListener(wheelEvent, this.handleScrollParent);
-          scrollContainer.removeEventListener(EventListener.keydown,this.handleKeydownScrollParent);
+          scrollContainer.removeEventListener(EventListener.keydown, this.handleKeydownScrollParent);
         }
       }
     }

@@ -1,10 +1,9 @@
 import { Dropdown, DropdownOption } from '../dropdown';
-import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import { useEffect, useMemo, useState } from 'react';
 import { Keys } from '../common/eventUtils';
 import { ErrorMessages } from '../validation/interfaces';
-import { DisabledTime, TimePickerProps } from './interfaces';
+import { DisabledTime, TimePickerProps, TimePickerPropTypes } from './interfaces';
 import {
   formatTimeISO,
   formatISOTimeToSeconds,
@@ -38,6 +37,9 @@ export const TimePicker: React.FC<TimePickerProps> = ({
   max,
   name,
   onChange,
+  onCopy,
+  onCut,
+  onDrag,
   onFocus,
   onValidationChanged,
   placeholder,
@@ -184,7 +186,7 @@ export const TimePicker: React.FC<TimePickerProps> = ({
     placeholder = format ? format : getUserFormat();
   }
 
-  const onFocusWrapped = (event: React.FocusEvent<HTMLElement>) => {
+  const onFocusWrapped = (event: React.FocusEvent<HTMLInputElement>) => {
     if (onFocus) {
       onFocus(event);
     }
@@ -199,8 +201,8 @@ export const TimePicker: React.FC<TimePickerProps> = ({
       iconName="recent"
       id={id}
       isDisabled={disabled}
-      isOptionDisabled={(time) => isTimeDisabled(time, disabledTimes)}
-      isOptionSelected={(time) =>
+      isOptionDisabled={(time: any) => isTimeDisabled(time, disabledTimes)}
+      isOptionSelected={(time: any) =>
         isTimeSelected(time, hours, minutes, seconds, disabledTimes)
       }
       inputAlwaysDisplayed={true}
@@ -222,6 +224,9 @@ export const TimePicker: React.FC<TimePickerProps> = ({
         // Called when the user select an option in the Dropdown menu
         setSelectedOption(option);
       }}
+      onCopy={onCopy}
+      onCut={onCut}
+      onDrag={onDrag}
       onFocus={onFocusWrapped}
       onKeyDown={(event) =>
         handleKeyDown(
@@ -257,29 +262,7 @@ export const TimePicker: React.FC<TimePickerProps> = ({
   );
 };
 
-TimePicker.propTypes = {
-  disabled: PropTypes.bool,
-  disabledTimes: PropTypes.array,
-  format: PropTypes.string,
-  id: PropTypes.string,
-  label: PropTypes.string,
-  max: PropTypes.string,
-  min: PropTypes.string,
-  menuPortalStyles: PropTypes.object,
-  menuPortalTarget: PropTypes.instanceOf(HTMLElement),
-  menuShouldBlockScroll: PropTypes.bool,
-  name: PropTypes.string,
-  onChange: PropTypes.func,
-  onFocus: PropTypes.func,
-  onValidationChanged: PropTypes.func,
-  placeholder: PropTypes.string,
-  showRequired: PropTypes.bool,
-  step: PropTypes.number,
-  strict: PropTypes.bool,
-  tooltip: PropTypes.string,
-  tooltipCloseLabel: PropTypes.string,
-  value: PropTypes.string
-};
+TimePicker.propTypes = TimePickerPropTypes;
 
 /**
  * Test if the input value raised an error to the Validation component
