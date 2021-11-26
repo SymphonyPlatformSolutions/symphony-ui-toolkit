@@ -164,7 +164,8 @@ export type DropdownProps<T> = {
     | React.FunctionComponent<TagRendererProps<T>>;
   /** Message to be display on the header of the menu list when searching by term */
   termSearchMessage?: ((term: string) => string) | string;
-} & MenuPortalProps &
+} & React.HTMLProps<HTMLInputElement> &
+  MenuPortalProps &
   HasTooltipProps &
   (MultiModeProps<T> | SingleModeProps<T>) &
   (AsyncProps<T> | SyncProps<T>);
