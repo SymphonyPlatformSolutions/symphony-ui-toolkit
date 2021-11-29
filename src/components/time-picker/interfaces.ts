@@ -1,3 +1,4 @@
+import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import { HasTooltipProps } from '../tooltip/interfaces';
 import { HasValidationProps } from '../validation/interfaces';
@@ -31,7 +32,6 @@ export type TimePickerProps = {
   max?: string;
   /** Identifies the time picker. */
   name?: string;
-  onFocus?: (event: React.FocusEvent<HTMLElement>) => void;
   /** If null, then it will use the time format. */
   placeholder?: string;
   /** The step interval in seconds to be used to define the suggested times (min: 600, max: 43200, default: 900).*/
@@ -41,6 +41,31 @@ export type TimePickerProps = {
   /** Date with ISO_8601 format (HH:mm:ss). */
   value?: string;
   showRequired?: boolean;
-} & MenuPortalProps &
+} & React.HTMLProps<HTMLInputElement> &
+  MenuPortalProps &
   HasValidationProps<TimePickerValue> &
   HasTooltipProps;
+
+export const TimePickerPropTypes = {
+  disabled: PropTypes.bool,
+  disabledTimes: PropTypes.array,
+  format: PropTypes.string,
+  id: PropTypes.string,
+  label: PropTypes.string,
+  max: PropTypes.string,
+  min: PropTypes.string,
+  menuPortalStyles: PropTypes.object,
+  menuPortalTarget: PropTypes.instanceOf(HTMLElement),
+  menuShouldBlockScroll: PropTypes.bool,
+  name: PropTypes.string,
+  onChange: PropTypes.func,
+  onFocus: PropTypes.func,
+  onValidationChanged: PropTypes.func,
+  placeholder: PropTypes.string,
+  showRequired: PropTypes.bool,
+  step: PropTypes.number,
+  strict: PropTypes.bool,
+  tooltip: PropTypes.string,
+  tooltipCloseLabel: PropTypes.string,
+  value: PropTypes.string,
+};
