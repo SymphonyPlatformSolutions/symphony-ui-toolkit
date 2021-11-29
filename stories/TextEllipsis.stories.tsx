@@ -1,114 +1,122 @@
 import * as React from 'react';
-import {
-  Icon,
-  TextEllipsis
-} from '../src/components';
+import { Icon, TextEllipsis } from '../src/components';
 
 export default {
   title: 'Components/Text Ellipsis',
   component: TextEllipsis,
   argTypes: {
     tooltipProps: {
-      description: 'See props in Tooltip'
+      description: 'See props in Tooltip',
     },
     rows: {
       control: {
-        type: 'number'
-      }
+        type: 'number',
+      },
     },
   },
 };
 
+interface StoryBackgroundProps {
+  children: React.ReactNode;
+  style?: React.CSSProperties;
+}
+
+const StoryBackground: React.FC<StoryBackgroundProps> = (
+  props: StoryBackgroundProps
+) => (
+  <div
+    style={{
+      background: 'grey',
+      margin: '16px 0',
+      padding: 16,
+      width: 350,
+      ...props.style,
+    }}
+  >
+    {props.children}
+  </div>
+);
+
 // eslint-disable-next-line react/display-name
 const addExplanation = (explanation) => (Story) => (
-  <div>
+  <>
     <p>{explanation}</p>
     <Story />
-  </div>
+  </>
 );
 
 const Template = (args) => {
   return (
-    <div>
-      <h4>
-        1 row ellipse - tooltip on hover
-      </h4>
-      <div style={{ background: 'grey', margin: '16px 0px', padding: '16px', width: '350px'}}>
-        <TextEllipsis
-          rows={ 1 }
-          {...args}
-        >
-          { 'Really, really, really, really, really, really, long text that gets cut!' }
+    <>
+      <h4>1 row ellipse - tooltip on hover</h4>
+      <StoryBackground>
+        <TextEllipsis rows={1} {...args}>
+          Really, really, really, really, really, really, long text that gets
+          cut!
         </TextEllipsis>
-      </div>
-    </div>
+      </StoryBackground>
+    </>
   );
 };
 
 export const Default = Template.bind({});
-
 Default.args = {
-  children: 'Really, really, really, really, really, really, long text that gets cut!',
+  children:
+    'Really, really, really, really, really, really, long text that gets cut!',
   rows: 1,
 };
 
-export const EllipseAfterTwoRows = (args) => {
-  return (
-    <div style={{ background: 'grey', margin: '16px 0px', padding: '16px', width: '350px'}}>
-      <TextEllipsis
-        rows={ 2 }
-        {...args}
-      >
-        { 'Really, really, really, really, really, really, really, really, really, really, really, really, really, really, really, really, really, long text that gets cut!' }
-      </TextEllipsis>
-    </div>
-  )
-}
+export const EllipseAfterTwoRows: React.FC = () => (
+  <StoryBackground>
+    <TextEllipsis rows={2}>
+      Really, really, really, really, really, really, really, really, really,
+      really, really, really, really, really, really, really, really, long text
+      that gets cut!
+    </TextEllipsis>
+  </StoryBackground>
+);
 
-export const EllipseAContinuousString = (args) => {
-  return (
-    <div style={{ background: 'grey', margin: '16px 0px', padding: '16px', width: '350px'}}>
-      <TextEllipsis
-        {...args}
-      >
-        { 'A really longcontinuousstringthatseeminglyneverends' }
-      </TextEllipsis>
-    </div>
-  )
-}
+export const EllipseAContinuousString: React.FC = () => (
+  <StoryBackground>
+    <TextEllipsis>
+      A really longcontinuousstringthatseeminglyneverends
+    </TextEllipsis>
+  </StoryBackground>
+);
 
-export const EllipseAContinuousStringTwoRows = (args) => {
-  return (
-    <div style={{ background: 'grey', margin: '16px 0px', padding: '16px', width: '350px'}}>
-      <TextEllipsis
-        rows={ 2 }
-        {...args}
-      >
-        { 'A really, really, long string that wraps two rows and ends with a longcontinuousstringthatseeminglyneverends' }
-      </TextEllipsis>
-    </div>
-  )
-}
+export const EllipseAContinuousStringTwoRows = () => (
+  <StoryBackground>
+    <TextEllipsis rows={2}>
+      A really, really, long string that wraps two rows and ends with a
+      longcontinuousstringthatseeminglyneverends
+    </TextEllipsis>
+  </StoryBackground>
+);
 
 EllipseAContinuousStringTwoRows.decorators = [
-  addExplanation('A known limitation of TextEllipsis is if the last word of a multi-line ellipsis is a continuous string it will ellipse before the end.')
-]
+  addExplanation(
+    'A known limitation of TextEllipsis is if the last word of a multi-line ellipsis is a continuous string it will ellipse before the end.'
+  ),
+];
 
-export const TooltipNotAffectingStyling = (args) => {
+export const TooltipNotAffectingStyling = () => {
   return (
-    <div style={{ background: 'grey', display: 'flex', margin: '16px 0px', padding: '16px', width: '350px'}}>
+    <StoryBackground style={{ display: 'flex' }}>
       <TextEllipsis
-        rows={ 1 }
+        rows={1}
         tooltipProps={{
-          wrapperClassName: 'text-ellipsis-tooltip'
+          wrapperClassName: 'text-ellipsis-tooltip',
         }}
-        {...args}
       >
-        { 'Icon should be pushed to the right' }
+        Icon should be pushed to the right
       </TextEllipsis>
-      <Icon iconName="community" style={{ paddingLeft: '8px' }}></Icon>
-    </div>
-  )
-}
+      <Icon iconName="community" style={{ paddingLeft: 8 }}></Icon>
+    </StoryBackground>
+  );
+};
 
-TooltipNotAffectingStyling.decorators = [addExplanation("Use the tooltip prop 'wrapperClassName' to change the styling of the wrapping tooltip element")]
+TooltipNotAffectingStyling.decorators = [
+  addExplanation(
+    "Use the tooltip prop 'wrapperClassName' to change the styling of the wrapping tooltip element"
+  ),
+];
