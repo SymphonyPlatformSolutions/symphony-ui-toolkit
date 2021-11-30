@@ -65,6 +65,12 @@ describe('CropContent Component', () => {
       wrapper = getWrapper();
       expect(wrapper.state('collapsed')).toBeTruthy();
     });
+    it('should control the collapse logic from external', () => {
+      const wrapper = getWrapper({ collapsed: true });
+      expect(wrapper.state('collapsed')).toBeTruthy();
+      wrapper.setProps({ collapsed: false })
+      expect(wrapper.state('collapsed')).toBeFalsy();
+    });
     it('content should crop at 80px by default', () => {
       const wrapper = getWrapper();
       simResize(wrapper, 100, 50);

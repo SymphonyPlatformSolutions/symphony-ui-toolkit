@@ -10,6 +10,8 @@ type CropContentProps = {
   className?: string;
   /** If true, the crop will be collapsed initially. */
   initCollapsed?: boolean;
+  /** Control the collapsed state, otherwise it is uncontrolled */
+  collapsed?: boolean;
   /** Optional inline style */
   style?: React.CSSProperties;
   /** Method triggered when clicking on "Show more/less" return the collapsed boolean and the element itself */
@@ -70,6 +72,9 @@ export default class CropContent extends React.Component<CropContentProps, CropC
   componentDidUpdate(prevProps) {
     if (prevProps.cropHeight !== this.props.cropHeight) {
       this.computeState();
+    }
+    if ((this.props.collapsed !== undefined) && (this.state.collapsed !== this.props.collapsed)) {
+      this.setState({ collapsed: this.props.collapsed });
     }
   }
   componentWillUnmount(){
