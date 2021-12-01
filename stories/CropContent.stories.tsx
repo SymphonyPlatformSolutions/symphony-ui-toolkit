@@ -93,7 +93,7 @@ export const Controlled = () => {
       <Button onClick={() => setIsCollapsed(true)} variant="secondary">
         Close content
       </Button>
-      <Button variant="tertiary" onClick={() => setIsCollapsed(isCollapsed => !isCollapsed)}>Reverse content</Button>
+      <Button variant="tertiary" onClick={() => setIsCollapsed(isCollapsed => !isCollapsed)}>Toggle content</Button>
       <div className="tk-py-1"/>
       <CropContent className="tk-quote-container" collapsed={isCollapsed} onToggle={onToggle}>
         {sampleText}
