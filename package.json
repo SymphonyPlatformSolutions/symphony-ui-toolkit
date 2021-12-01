@@ -32,7 +32,7 @@
   "dependencies": {
     "@popperjs/core": "^2.4.4",
     "@seznam/compose-react-refs": "^1.0.6",
-    "@symphony-ui/uitoolkit-styles": "^2.9.2",
+    "@symphony-ui/uitoolkit-styles": "^2.11.0",
     "@types/classnames": "^2.2.10",
     "classnames": "^2.2.6",
     "date-fns": "^2.16.1",
