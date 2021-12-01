@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button, CropContent } from '../src/components';
+import { Button, CropContent, Icon } from '../src/components';
 
 const sampleText = `Sed ut perspiciatis unde omnis iste natus error sit voluptatem
 accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
@@ -98,6 +98,8 @@ export const Controlled = () => {
       <CropContent className="tk-quote-container" collapsed={isCollapsed} onToggle={onToggle}>
         {sampleText}
       </CropContent>
+      <p><Icon iconName="alert-triangle tk-mr-h tk-text-color--primary"/> When using the prop <b>collapsed</b>, the collapsed logic will not rely on the internal state anymore. Thus to keep <b>collapsed</b> up-to-date from an internal change, you need to listen to the event <b>onToggle</b>.</p>
+
     </div>
   );
 };

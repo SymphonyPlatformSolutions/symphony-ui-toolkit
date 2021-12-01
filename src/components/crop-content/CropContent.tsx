@@ -49,7 +49,10 @@ export default class CropContent extends React.Component<CropContentProps, CropC
     const { collapsed } = this.state;
     
     const reverseCollapsed = !collapsed;
-    this.setState({ collapsed: reverseCollapsed });
+
+    if (this.props.collapsed !== undefined) { // if we are in controlled mode, no need to change here the internal state
+      this.setState({ collapsed: reverseCollapsed });
+    }
 
     if (onToggle) {
       onToggle(reverseCollapsed, this.containerElRef);
