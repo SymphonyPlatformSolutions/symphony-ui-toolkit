@@ -25,12 +25,11 @@ export default {
         options: ['small', 'medium'],
       },
     },
-  }
+  },
 };
 
 const Template = (args) => {
   const { onClose, ...restProps } = args;
-
   const [showBanner, setShowBanner] = useState(true);
 
   const handleClickClose = () => {
@@ -38,21 +37,26 @@ const Template = (args) => {
     onClose();
   };
 
-  return <Banner
-    onClose={handleClickClose}
-    show={showBanner}
-    content="Banner text content here"
-    {...restProps}
-  />;
+  return (
+    <Banner
+      onClose={handleClickClose}
+      show={showBanner}
+      content="Banner text content here"
+      {...restProps}
+    />
+  );
 };
-
 
 const commonProps = {
   actionText: 'Action',
-  onAction: () => { alert('action clicked') },
+  onAction: () => {
+    alert('action clicked');
+  },
   isClosable: true,
-  onClose: () => { alert('close clicked') },
-}
+  onClose: () => {
+    alert('close clicked');
+  },
+};
 
 export const Default = Template.bind({});
 Default.args = {
@@ -60,44 +64,72 @@ Default.args = {
   content: 'Banner text content here',
 };
 
-export const WithActionOnly = Template.bind({});
-WithActionOnly.args = {
-  actionText: 'Action',
-  onAction: () => { alert('action clicked') },
-};
+export const WithActionOnly: React.FC = () => (
+  <Banner
+    content="Banner text content here"
+    actionText="Action"
+    onAction={() => alert('action clicked')}
+  />
+);
 
-export const WithCloseOnly = Template.bind({});
-WithCloseOnly.args = {
-  isClosable: true,
-  onClose: () => { alert('close clicked') },
-};
+export const WithCloseOnly: React.FC = () => (
+  <Banner
+    content="Banner text content here"
+    onClose={() => alert('close clicked')}
+    isClosable
+  />
+);
 
-export const MultilineContent = Template.bind({});
-MultilineContent.args = {
-  ...commonProps,
-  content: 'This is a very long banner content that should be displayed on multiple lines. This is a very long banner content that should be displayed on multiple lines.'
-};
+export const MultilineContent: React.FC = () => (
+  <Banner
+    content="This is a very long banner content that should be displayed on multiple lines. This is a very long banner content that should be displayed on multiple lines."
+    actionText="Action"
+    onAction={() => alert('action clicked')}
+    onClose={() => alert('close clicked')}
+    isClosable
+  />
+);
 
-export const SuccessVariant = Template.bind({});
-SuccessVariant.args = {
-  ...commonProps,
-  variant: BannerType.SUCCESS,
-};
+export const SuccessVariant: React.FC = () => (
+  <Banner
+    content="Banner text content here"
+    actionText="Action"
+    onAction={() => alert('action clicked')}
+    onClose={() => alert('close clicked')}
+    isClosable
+    variant={BannerType.SUCCESS}
+  />
+);
 
-export const WarningVariant = Template.bind({});
-WarningVariant.args = {
-  ...commonProps,
-  variant: BannerType.WARNING,
-};
+export const WarningVariant: React.FC = () => (
+  <Banner
+    content="Banner text content here"
+    actionText="Action"
+    onAction={() => alert('action clicked')}
+    onClose={() => alert('close clicked')}
+    isClosable
+    variant={BannerType.WARNING}
+  />
+);
 
-export const ErrorVariant = Template.bind({});
-ErrorVariant.args = {
-  ...commonProps,
-  variant: BannerType.ERROR,
-};
+export const ErrorVariant: React.FC = () => (
+  <Banner
+    content="Banner text content here"
+    actionText="Action"
+    onAction={() => alert('action clicked')}
+    onClose={() => alert('close clicked')}
+    isClosable
+    variant={BannerType.ERROR}
+  />
+);
 
-export const SmallSize = Template.bind({});
-SmallSize.args = {
-  ...commonProps,
-  size: 'small',
-};
+export const SmallSize: React.FC = () => (
+  <Banner
+    content="Banner text content here"
+    actionText="Action"
+    onAction={() => alert('action clicked')}
+    onClose={() => alert('close clicked')}
+    isClosable
+    size="small"
+  />
+);

@@ -62,6 +62,9 @@ export const Input = (props: any) => {
   const inputAlwaysDisplayed = props?.selectProps?.inputAlwaysDisplayed;
   return <components.Input
     {...props}
+    onCopy={props?.selectProps?.onCopy}
+    onCut={props?.selectProps?.onCut}
+    onDrag={props?.selectProps?.onDrag}
     onKeyUp={props?.selectProps?.onKeyUp}  
     isHidden={inputAlwaysDisplayed ? !inputAlwaysDisplayed : false}
   />;

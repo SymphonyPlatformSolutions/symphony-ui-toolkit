@@ -168,7 +168,8 @@ export type DropdownProps<T> = {
   termSearchMessage?: ((term: string) => string) | string;
   /** Color variant of the dropdown */
   variant?: 'destructive';
-} & MenuPortalProps &
+} & React.HTMLProps<HTMLInputElement> &
+  MenuPortalProps &
   HasTooltipProps &
   (MultiModeProps<T> | SingleModeProps<T>) &
   (AsyncProps<T> | SyncProps<T>);

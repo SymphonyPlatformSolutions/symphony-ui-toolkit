@@ -25,21 +25,25 @@ const Template = (args) => {
 export const Main = Template.bind({});
 Main.args = { show: true };
 
+const StoryBackground: React.FC = ({ children }: any) => (
+  <div style={{ position: 'relative', height: 650 }}>{children}</div>
+);
+
 const header = (
   <>
     <hr />
     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-      <Icon iconName={'lock'} />
-      <Icon iconName={'call'} />
-      <Icon iconName={'app'} />
-      <Icon iconName={'bot'} />
+      <Icon iconName="lock" />
+      <Icon iconName="call" />
+      <Icon iconName="app" />
+      <Icon iconName="bot" />
     </div>
     <hr />
   </>
 );
 
 const body = (
-  <Typography type={'body'}>
+  <Typography type="body">
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
     tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
     quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
@@ -51,66 +55,80 @@ const body = (
 
 const footer = (
   <>
-    <Button variant={'tertiary'}>Cancel</Button>
-    <Button variant={'primary'}>Confirm</Button>
+    <Button variant="tertiary">Cancel</Button>
+    <Button variant="primary">Confirm</Button>
   </>
 );
 
 export const SmallModal: React.FC = () => {
   return (
-    <Modal size="small" closeButton show>
-      <ModalTitle>Small modal with header</ModalTitle>
-      <ModalHeader>{header}</ModalHeader>
-      <ModalBody>{body}</ModalBody>
-      <ModalFooter>{footer}</ModalFooter>
-    </Modal>
+    <StoryBackground>
+      <Modal size="small" closeButton show>
+        <ModalTitle>Small modal with header</ModalTitle>
+        <ModalHeader>{header}</ModalHeader>
+        <ModalBody>{body}</ModalBody>
+        <ModalFooter>{footer}</ModalFooter>
+      </Modal>
+    </StoryBackground>
   );
 };
 
 export const MediumModal: React.FC = () => {
   return (
-    <Modal size="medium" closeButton show>
-      <ModalTitle>Medium modal without header</ModalTitle>
-      <ModalBody>{body}</ModalBody>
-      <ModalFooter>{footer}</ModalFooter>
-    </Modal>
+    <StoryBackground>
+      <Modal size="medium" closeButton show>
+        <ModalTitle>Medium modal without header</ModalTitle>
+        <ModalBody>{body}</ModalBody>
+        <ModalFooter>{footer}</ModalFooter>
+      </Modal>
+    </StoryBackground>
   );
 };
 
 export const LargeModal: React.FC = () => {
   return (
-    <Modal size={'large'} closeButton show>
-      <ModalTitle>Large modal without header</ModalTitle>
-      <ModalBody>{body}</ModalBody>
-      <ModalFooter>{footer}</ModalFooter>
-    </Modal>
+    <StoryBackground>
+      <Modal size="large" closeButton show>
+        <ModalTitle>Large modal without header</ModalTitle>
+        <ModalBody>{body}</ModalBody>
+        <ModalFooter>{footer}</ModalFooter>
+      </Modal>
+    </StoryBackground>
   );
 };
 
 export const FullPageModal: React.FC = () => {
   return (
-    <Modal size={'full-width'} closeButton show>
-      <ModalTitle>Full width modal without header</ModalTitle>
-      <ModalBody>{body}</ModalBody>
-      <ModalFooter>{footer}</ModalFooter>
-    </Modal>
+    <StoryBackground>
+      <Modal size="full-width" closeButton show>
+        <ModalTitle>Full width modal without header</ModalTitle>
+        <ModalBody>{body}</ModalBody>
+        <ModalFooter>{footer}</ModalFooter>
+      </Modal>
+    </StoryBackground>
   );
 };
 
 export const CustomCssClassModal: React.FC = () => {
   return (
-    <Modal size={'medium'} className={'myModalClass'} closeButton show>
-      <ModalTitle className={'myModalTitleClass'}>Modal with additional custom CSS classes</ModalTitle>
-      <ModalHeader className={'myModalHeaderClass'}>{body}</ModalHeader>
-      <ModalBody className={'myModalBodyClass'}>{body}</ModalBody>
-      <ModalFooter className={'myModalFooterClass'}>{footer}</ModalFooter>
-    </Modal>
+    <StoryBackground>
+      <Modal size="medium" className="myModalClass" closeButton show>
+        <ModalTitle className="myModalTitleClass">
+          Modal with additional custom CSS classes
+        </ModalTitle>
+        <ModalHeader className="myModalHeaderClass">{body}</ModalHeader>
+        <ModalBody className="myModalBodyClass">{body}</ModalBody>
+        <ModalFooter className="myModalFooterClass">{footer}</ModalFooter>
+      </Modal>
+    </StoryBackground>
   );
 };
 
 export const ModalWithCloseHandler: React.FC = () => {
   const [show, setShow] = React.useState(true);
-  const handleClose = () => { setShow(false) }
+  const handleClose = () => {
+    setShow(false);
+  };
   return (
     <div>
       <Button onClick={() => setShow(true)}>Open the Modal</Button>
@@ -118,8 +136,12 @@ export const ModalWithCloseHandler: React.FC = () => {
         <ModalTitle>Medium modal with onClose prop</ModalTitle>
         <ModalBody>{body}</ModalBody>
         <ModalFooter>
-          <Button variant={'tertiary'} onClick={handleClose}>Cancel</Button>
-          <Button variant={'primary'} onClick={handleClose}>Confirm</Button>
+          <Button variant={'tertiary'} onClick={handleClose}>
+            Cancel
+          </Button>
+          <Button variant={'primary'} onClick={handleClose}>
+            Confirm
+          </Button>
         </ModalFooter>
       </Modal>
     </div>

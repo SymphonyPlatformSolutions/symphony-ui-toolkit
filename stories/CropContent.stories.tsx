@@ -32,7 +32,7 @@ Default.args = {
   className: 'tk-quote-container',
 };
 
-export const CropContentContainer = () => {
+export const WithoutContentOverflow = () => {
   return (
     <div style={{ width: '80%' }}>
       <div className="flex-row">
@@ -45,7 +45,9 @@ export const CropContentContainer = () => {
           </p>
           <CropContent
             className="tk-quote-container tk-quote-container--error"
-            onToggle={(collapsed, el) => console.log('CropContent toggled', collapsed, el)}
+            onToggle={(collapsed, el) =>
+              console.log('CropContent toggled', collapsed, el)
+            }
           >
             Sed ut perspiciatis unde omnis iste natus error sit voluptatem
             accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
@@ -54,16 +56,48 @@ export const CropContentContainer = () => {
           </CropContent>
         </div>
       </div>
+    </div>
+  );
+};
+
+export const Unstyled = () => {
+  return (
+    <div style={{ width: '80%' }}>
       <div className="flex-row">
         <div className="flex-col">
           <h2>Unstyled</h2>
           <CropContent
-            onToggle={(collapsed, el) => console.log('CropContent toggled', collapsed, el)}
+            onToggle={(collapsed, el) =>
+              console.log('CropContent toggled', collapsed, el)
+            }
           >
             {sampleText}
           </CropContent>
         </div>
       </div>
+    </div>
+  );
+};
+
+export const Controlled = () => {
+  const [isCollapsed, setIsCollapsed] = React.useState(false);
+
+  const onToggle = (collapsed, el) => {
+    setIsCollapsed(collapsed);
+    console.log('CropContent toggled', collapsed, el);
+  };
+  return (
+    <div style={{ width: '80%' }}>
+      <p>Control the collapse logic from external</p>
+      <Button onClick={() => setIsCollapsed(false)}>Open content</Button>
+      <Button onClick={() => setIsCollapsed(true)} variant="secondary">
+        Close content
+      </Button>
+      <Button variant="tertiary" onClick={() => setIsCollapsed(isCollapsed => !isCollapsed)}>Toggle content</Button>
+      <div className="tk-py-1"/>
+      <CropContent className="tk-quote-container" collapsed={isCollapsed} onToggle={onToggle}>
+        {sampleText}
+      </CropContent>
     </div>
   );
 };

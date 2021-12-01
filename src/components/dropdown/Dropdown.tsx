@@ -162,6 +162,9 @@ export class Dropdown<T = LabelValue> extends React.Component<
       name,
       noOptionMessage,
       placeHolder,
+      onCopy,
+      onCut,
+      onDrag,
       onFocus,
       onInputChange,
       onKeyDown,
@@ -224,6 +227,9 @@ export class Dropdown<T = LabelValue> extends React.Component<
           inputAlwaysDisplayed={inputAlwaysDisplayed}
           onChange={this.handleChange}
           onBlur={this.handleBlur}
+          onCopy={onCopy}
+          onCut={onCut}
+          onDrag={onDrag}
           onFocus={onFocus}
           onInputChange={onInputChange}
           onKeyDown={onKeyDown}
