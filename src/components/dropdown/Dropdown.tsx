@@ -192,7 +192,8 @@ export class Dropdown<T = LabelValue> extends React.Component<
             menuPortal: (base: CSSProperties) => ({ ...base, ...menuPortalStyles }),
             valueContainer: (base: CSSProperties) => ({
               ...base, maxHeight: `${maxHeight}px`
-            })
+            }),
+            input: (size === 'small') ? (base: CSSProperties) => ({...base, margin: '0 2px'}) : undefined,
           }}
           parentInstance={this}
           ref={this.myRef}

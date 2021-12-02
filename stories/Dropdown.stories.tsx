@@ -155,7 +155,7 @@ export const Variants: React.FC = () => (<>
 
 export const Sizes: React.FC = () => (
   <>
-    {/* <h4>Small</h4>
+    <h4>Small</h4>
     <div style={{ display: 'flex' }}>
       <div style={{ width: '384px', marginRight: '32px' }}>
         <Dropdown options={defaultOptions} size="small" />
@@ -163,7 +163,7 @@ export const Sizes: React.FC = () => (
       <div style={{ width: '384px' }}>
         <Dropdown options={defaultOptions} isMultiSelect size="small" />
       </div>
-    </div> */}
+    </div>
     <h4>Medium</h4>
     <div style={{ display: 'flex' }}>
       <div style={{ width: '384px', marginRight: '32px' }}>

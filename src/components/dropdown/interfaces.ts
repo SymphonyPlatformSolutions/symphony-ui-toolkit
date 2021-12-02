@@ -157,7 +157,7 @@ export type DropdownProps<T> = {
   /** Flag to show the label with a specific styling if the field is required */
   showRequired?: boolean;
   /** Size of the dropdown */
-  size?: /*'small' |*/ 'medium' | 'large';
+  size?: 'small' | 'medium' | 'large';
   /** Select the currently focused option when the user presses tab */
   tabSelectsValue?: boolean;
   /** Custom component used to override the default appearance of the dropdown select input item/s */
