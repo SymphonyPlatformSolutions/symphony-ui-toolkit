@@ -423,6 +423,26 @@ export const WithLabelAndTooltip: React.SFC = () => {
   );
 };
 
+export const WithHelperText: React.SFC = () => {
+  const [date, setDate] = useState(null);
+
+  return (
+    <div>
+      <p>
+        Date Picker using <strong>helperText</strong>
+      </p>
+      <DatePicker
+        helperText="Helper text"
+        date={date}
+        id={'date-picker-unique'}
+        onChange={(e) => {
+          setDate(e.target.value);
+        }}
+      />
+    </div>
+  );
+};
+
 export const WithRequiredLabel: React.SFC = () => {
   const [date, setDate] = useState(null);
 
@@ -435,7 +455,6 @@ export const WithRequiredLabel: React.SFC = () => {
         label="Expense"
         showRequired
         date={date}
-        id={'date-picker-unique'}
         onChange={(e) => {
           setDate(e.target.value);
         }}

@@ -72,6 +72,17 @@ export const TextFields: React.FC = () => {
           showRequired
         ></TextField>
       </div>
+      <div>
+        <p>
+          Text Field with a <strong>helperText</strong>
+        </p>
+     
+        <TextField
+          id="input-1234567899"
+          helperText="Helper text"
+          placeholder="Lastname"
+        ></TextField>
+      </div>
       <hr />
       <div>
         <p>

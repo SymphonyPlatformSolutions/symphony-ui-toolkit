@@ -38,6 +38,7 @@ type TextComponentProps = {
   onKeyDown?: (event) => any;
   value?: string;
   showRequired?: boolean;
+  helperText?: string
 } & HasTooltipProps &
   HasValidationProps<string>;
 
@@ -97,6 +98,7 @@ const TextComponent: React.FC<
       tooltipCloseLabel,
       value,
       showRequired,
+      helperText,
       onInit,
       onChange,
       onBlur,
@@ -212,6 +214,7 @@ const TextComponent: React.FC<
             })
             : null}
         </div>
+        {helperText &&  <div className="tk-input__helper">{helperText}</div>}
       </div>
     );
   }
