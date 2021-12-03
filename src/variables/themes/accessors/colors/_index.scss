@@ -12,9 +12,12 @@ $--tk-main-text-color: var(--tk-main-text-color, $scolor-graphite);
 
 $--tk-outline-color: #88c0fb;
 
-$--tk-background:var(--tk-background, $scolor-white);
+$--tk-background: var(--tk-background, $scolor-white);
 
-$--tk-background-reverse:var( --tk-background-reverse,  getColor($graphite, '80'));
+$--tk-background-reverse: var(
+  --tk-background-reverse,
+  getColor($graphite, '80')
+);
 
 /** ======== Inputs and text areas ======== */
 
@@ -66,14 +69,37 @@ $--tk-input-disabled-background-color: var(
 );
 
 $--tk-input-checkbox-radio-color: (
-  iconDefault: var(--tk-input-checkbox-radio-color-icon-default, getColor($graphite, '50')), 
-  iconHover: var(--tk-input-checkbox-radio-color-icon-hover, getColor($electricity, '40')),
-  iconDisabled: var(--tk-input-checkbox-radio-color-icon-disabled, getColor($graphite, '20')), 
-  iconError: var(--tk-input-checkbox-radio-color-icon-error, getColor($red, '50')),
-  iconErrorHover: var(--tk-input-checkbox-radio-color-icon-error-hover, getColor($red, '40')),
-  iconChecked: var(--tk-input-checkbox-radio-color-icon-checked, getColor($electricity, '50')), 
-  textDefault: var(--tk-input-checkbox-radio-color-icon-text-default, getColor($graphite, '80')), 
-  textDisabled: var(--tk-input-checkbox-radio-color-icon-text-disabled, getColor($graphite, '30')),
+  iconDefault:
+    var(--tk-input-checkbox-radio-color-icon-default, getColor($graphite, '50')),
+  iconHover:
+    var(
+      --tk-input-checkbox-radio-color-icon-hover,
+      getColor($electricity, '40')
+    ),
+  iconDisabled:
+    var(
+      --tk-input-checkbox-radio-color-icon-disabled,
+      getColor($graphite, '20')
+    ),
+  iconError:
+    var(--tk-input-checkbox-radio-color-icon-error, getColor($red, '50')),
+  iconErrorHover:
+    var(--tk-input-checkbox-radio-color-icon-error-hover, getColor($red, '40')),
+  iconChecked:
+    var(
+      --tk-input-checkbox-radio-color-icon-checked,
+      getColor($electricity, '50')
+    ),
+  textDefault:
+    var(
+      --tk-input-checkbox-radio-color-icon-text-default,
+      getColor($graphite, '80')
+    ),
+  textDisabled:
+    var(
+      --tk-input-checkbox-radio-color-icon-text-disabled,
+      getColor($graphite, '30')
+    ),
 );
 
 $--tk-input-switch-default-line-color: var(
@@ -182,11 +208,14 @@ $--tk-button-color-destructive-tertiary: (
   default: var(--tk-button-color-destructive-tertiary-default, transparent),
   hover: var(--tk-button-color-destructive-tertiary-hover, getColor($red, '10')),
   hoverText:
-  var(--tk-button-color-destructive-tertiary-hover-text, getColor($red, '50')),
+    var(--tk-button-color-destructive-tertiary-hover-text, getColor($red, '50')),
   active:
-  var(--tk-button-color-destructive-tertiary-active, getColor($red, '20')),
+    var(--tk-button-color-destructive-tertiary-active, getColor($red, '20')),
   activeText:
-  var(--tk-button-color-destructive-tertiary-active-text, getColor($red, '60')),
+    var(
+      --tk-button-color-destructive-tertiary-active-text,
+      getColor($red, '60')
+    ),
   disabled: var(--tk-button-color-destructive-tertiary-disabled, transparent),
   text: var(--tk-button-color-destructive-tertiary-text, getColor($red, '50')),
   textDisabled:
@@ -207,7 +236,7 @@ $--tk-button-color-accent-tertiary: (
     var(--tk-button-color-accent-tertiary-active, getColor($electricity, '20')),
   activeText:
     var(
-      --tk-button-color-accent-tertiary-text-active,
+      --tk-button-color-accent-tertiary-active-text,
       getColor($electricity, '60')
     ),
   disabled: var(--tk-button-color-accent-tertiary-disabled, transparent),
@@ -418,7 +447,4 @@ $--tk-timeline-hours-color: var(
 );
 
 /** ======== divider ======== */
-$--tk-divider-color: var(
-  --tk-divider-color,
-  getColor($graphite, '20')
-);
+$--tk-divider-color: var(--tk-divider-color, getColor($graphite, '20'));

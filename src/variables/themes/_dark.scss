@@ -3,7 +3,7 @@
   // globals
   --tk-background: #{getColor($graphite, '80')};
   --tk-background-reverse: #{$scolor-white};
- 
+
   // Primary button
   --tk-button-color-primary-disabled: #{getColor($electricity, '70')};
   --tk-button-color-primary-text-disabled: #{getColor($electricity, '60')};
@@ -54,7 +54,7 @@
   --tk-button-color-accent-tertiary-hover: #{getColor($electricity, '60')};
   --tk-button-color-accent-tertiary-active: #{getColor($electricity, '70')};
   --tk-button-color-accent-tertiary-hover-text: #{getColor($electricity, '30')};
-  --tk-button-color-accent-tertiary-text-active: #{getColor($electricity, '40')};
+  --tk-button-color-accent-tertiary-active-text: #{getColor($electricity, '40')};
   --tk-button-color-accent-tertiary-disabled: transparent;
   --tk-button-color-accent-tertiary-text-disabled: #{getColor(
       $electricity,
@@ -170,5 +170,4 @@
 
   // Divider
   --tk-divider-color: #{getColor($graphite, '70')};
-
 }
