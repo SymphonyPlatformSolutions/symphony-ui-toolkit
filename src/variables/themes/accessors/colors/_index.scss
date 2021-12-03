@@ -179,6 +179,8 @@ $--tk-button-color-destructive-secondary: (
 $--tk-button-color-destructive-tertiary: (
   default: var(--tk-button-color-destructive-tertiary-default, transparent),
   hover: var(--tk-button-color-destructive-tertiary-hover, getColor($red, '10')),
+  hoverText:
+  var(--tk-button-color-destructive-tertiary-hover-text, getColor($red, '50')),
   active:
     var(--tk-button-color-destructive-tertiary-active, getColor($red, '20')),
   disabled: var(--tk-button-color-destructive-tertiary-disabled, transparent),
