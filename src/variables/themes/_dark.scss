@@ -3,7 +3,7 @@
   // globals
   --tk-background: #{getColor($graphite, '80')};
   --tk-background-reverse: #{$scolor-white};
- 
+
   // Primary button
   --tk-button-color-primary-disabled: #{getColor($electricity, '70')};
   --tk-button-color-primary-text-disabled: #{getColor($electricity, '60')};
@@ -46,7 +46,7 @@
   --tk-button-color-destructive-tertiary-active-text: #{getColor($red, '40')};
   --tk-button-color-destructive-tertiary-disabled: transparent;
   --tk-button-color-destructive-tertiary-text-disabled: #{getColor($red, '70')};
-  --tk-button-color-destructive-tertiary-text: #{getColor($red, '70')};
+  --tk-button-color-destructive-tertiary-text: #{getColor($red, '40')};
 
   // tertiary accent
   --tk-button-color-accent-tertiary-default: transparent;
@@ -167,8 +167,7 @@
   --tk-timeline-border-color: #{getColor($graphite, '50')};
   --tk-timeline-expand-icon-color: #{getColor($graphite, '40')};
   --tk-timeline-hours-color: #{getColor($graphite, '05')};
-  
+
   // Divider
   --tk-divider-color: #{getColor($graphite, '70')};
-
 }
