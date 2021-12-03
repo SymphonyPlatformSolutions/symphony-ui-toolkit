@@ -185,7 +185,7 @@ export class Dropdown<T = LabelValue> extends React.Component<
     } = this.props;
 
     return (
-      <div className={classNames(className, `${prefix}-group`)}>
+      <div className={classNames(className, `tk-input-group`)}>
         <DropdownTag
           {...otherProps}
           styles={{
