@@ -134,6 +134,8 @@ $--tk-button-color-tertiary: (
   hoverText:
     var(--tk-button-color-tertiary-hover-text, getColor($graphite, '50')),
   active: var(--tk-button-color-tertiary-active, getColor($graphite, '20')),
+  activeText:
+    var(--tk-button-color-tertiary-active-text, getColor($graphite, '60')),
   disabled: var(--tk-button-color-tertiary-disabled, transparent),
   text: var(--tk-button-color-tertiary-text, getColor($graphite, '50')),
   textDisabled:
@@ -182,7 +184,9 @@ $--tk-button-color-destructive-tertiary: (
   hoverText:
   var(--tk-button-color-destructive-tertiary-hover-text, getColor($red, '50')),
   active:
-    var(--tk-button-color-destructive-tertiary-active, getColor($red, '20')),
+  var(--tk-button-color-destructive-tertiary-active, getColor($red, '20')),
+  activeText:
+  var(--tk-button-color-destructive-tertiary-active-text, getColor($red, '60')),
   disabled: var(--tk-button-color-destructive-tertiary-disabled, transparent),
   text: var(--tk-button-color-destructive-tertiary-text, getColor($red, '50')),
   textDisabled:
@@ -201,6 +205,11 @@ $--tk-button-color-accent-tertiary: (
     var(--tk-button-color-accent-tertiary-hover, getColor($electricity, '10')),
   active:
     var(--tk-button-color-accent-tertiary-active, getColor($electricity, '20')),
+  activeText:
+    var(
+      --tk-button-color-accent-tertiary-text-active,
+      getColor($electricity, '60')
+    ),
   disabled: var(--tk-button-color-accent-tertiary-disabled, transparent),
   text:
     var(--tk-button-color-accent-tertiary-text, getColor($electricity, '50')),
@@ -208,11 +217,6 @@ $--tk-button-color-accent-tertiary: (
     var(
       --tk-button-color-accent-tertiary-text-disabled,
       getColor($electricity, '20')
-    ),
-  activeText:
-    var(
-      --tk-button-color-accent-tertiary-text-active,
-      getColor($electricity, '60')
     ),
   focus:
     var(--tk-button-color-accent-tertiary-focus, getColor($electricity, '20')),

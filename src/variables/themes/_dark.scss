@@ -46,7 +46,7 @@
   --tk-button-color-destructive-tertiary-active-text: #{getColor($red, '40')};
   --tk-button-color-destructive-tertiary-disabled: transparent;
   --tk-button-color-destructive-tertiary-text-disabled: #{getColor($red, '70')};
-  --tk-button-color-destructive-tertiary-text: #{getColor($red, '70')};
+  --tk-button-color-destructive-tertiary-text: #{getColor($red, '40')};
 
   // tertiary accent
   --tk-button-color-accent-tertiary-default: transparent;
@@ -54,7 +54,7 @@
   --tk-button-color-accent-tertiary-hover: #{getColor($electricity, '60')};
   --tk-button-color-accent-tertiary-active: #{getColor($electricity, '70')};
   --tk-button-color-accent-tertiary-hover-text: #{getColor($electricity, '30')};
-  --tk-button-color-accent-tertiary-active-text: #{getColor($electricity, '40')};
+  --tk-button-color-accent-tertiary-text-active: #{getColor($electricity, '40')};
   --tk-button-color-accent-tertiary-disabled: transparent;
   --tk-button-color-accent-tertiary-text-disabled: #{getColor(
       $electricity,
@@ -167,7 +167,7 @@
   --tk-timeline-border-color: #{getColor($graphite, '50')};
   --tk-timeline-expand-icon-color: #{getColor($graphite, '40')};
   --tk-timeline-hours-color: #{getColor($graphite, '05')};
-  
+
   // Divider
   --tk-divider-color: #{getColor($graphite, '70')};
 
