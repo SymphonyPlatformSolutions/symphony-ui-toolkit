@@ -2813,10 +2813,6 @@
     resolve-from "^5.0.0"
     store2 "^2.12.0"
 
-"@symphony/tempo-ui@./deps/tempo-ui-0.0.54.tgz":
-  version "0.0.54"
-  resolved "./deps/tempo-ui-0.0.54.tgz#fab287e0ec198ea9d337c99549278a082a9ca441"
-
 "@tootallnate/once@1":
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/@tootallnate/once/-/once-1.1.2.tgz#ccb91445360179a04e7fe6aff78c00ffc1eeaf82"
