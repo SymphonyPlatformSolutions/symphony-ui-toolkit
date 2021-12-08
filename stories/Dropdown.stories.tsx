@@ -152,6 +152,12 @@ export const Select: React.FC = () => (
       With <strong>tooltip</strong>:
     </p>
     <Dropdown options={defaultOptions} tooltip="Hint to help the user" tooltipCloseLabel="Got it" />
+    
+    <p className="tk-mt-4">
+      With <strong>helperText</strong>:
+    </p>
+    <Dropdown options={defaultOptions} helperText="Helper text" />
+    
     <p className="tk-mt-4">
       Clear selection with <strong>isInputClearable</strong>:
     </p>

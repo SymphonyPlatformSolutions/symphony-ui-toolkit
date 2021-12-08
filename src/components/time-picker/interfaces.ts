@@ -41,6 +41,7 @@ export type TimePickerProps = {
   /** Date with ISO_8601 format (HH:mm:ss). */
   value?: string;
   showRequired?: boolean;
+  helperText?: string;
 } & React.HTMLProps<HTMLInputElement> &
   MenuPortalProps &
   HasValidationProps<TimePickerValue> &

@@ -44,6 +44,16 @@ export const TextAreas: React.SFC = () => {
           placeholder="Type something"
         ></TextArea>
       </div>
+      <div>
+        <p>
+          Text Area with a <strong>helperText</strong>
+        </p>
+        <TextArea
+          id="input"
+          helperText="Helper text"
+          placeholder="Type something"
+        ></TextArea>
+      </div>
       <hr />
       <div>
         <p>

@@ -155,6 +155,7 @@ export class Dropdown<T = LabelValue> extends React.Component<
       name,
       noOptionMessage,
       placeHolder,
+      helperText,
       onCopy,
       onCut,
       onDrag,
@@ -268,6 +269,7 @@ export class Dropdown<T = LabelValue> extends React.Component<
           menuShouldBlockScroll={menuShouldBlockScroll}
           menuShouldScrollIntoView={menuShouldScrollIntoView}
         />
+        {helperText &&  <div className="tk-input__helper">{helperText}</div>}
       </div>
     );
   }
