@@ -93,7 +93,7 @@ export const DefaultTagRenderer = (props: any) => {
           <div className="tk-tag">
             {props.data?.label}
           </div>
-          <Icon iconName="cross-round" onClick={props.removeProps.onClick}/>
+          <Icon className="tk-tag__close-icon" iconName="cross-round" onClick={props.removeProps.onClick} tabIndex={0}/>
         </div>
       </components.MultiValue>}
   </>

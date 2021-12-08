@@ -193,7 +193,7 @@ export class Dropdown<T = LabelValue> extends React.Component<
             valueContainer: (base: CSSProperties) => ({
               ...base, maxHeight: `${maxHeight}px`
             }),
-            input: (size === 'small') ? (base: CSSProperties) => ({...base, margin: '0 2px'}) : undefined,
+            input: (base: CSSProperties) => ({...base, margin: (size === 'small') ? '0 2px' : undefined, color: 'inherit'}),
           }}
           parentInstance={this}
           ref={this.myRef}

@@ -82,16 +82,16 @@ interface Icon {
 }
 
 const iconData: DropdownOption<Icon>[] = [
-  { value: '1', displayName: 'app' },
-  { value: '2', displayName: 'bot' },
-  { value: '9', displayName: 'hide' },
-  { value: '10', displayName: 'link' },
-  { value: '3', displayName: 'adjust' },
-  { value: '4', displayName: 'archive' },
-  { value: '5', displayName: 'cashtag' },
-  { value: '6', displayName: 'emoticon' },
-  { value: '7', displayName: 'following' },
-  { value: '8', displayName: 'flags' }
+  { value: '1', displayName: 'app', label: 'app' },
+  { value: '2', displayName: 'bot', label: 'bot' },
+  { value: '9', displayName: 'hide', label: 'hide' },
+  { value: '10', displayName: 'link', label: 'link' },
+  { value: '3', displayName: 'adjust', label: 'adjust' },
+  { value: '4', displayName: 'archive', label: 'archive' },
+  { value: '5', displayName: 'cashtag', label: 'cashtag' },
+  { value: '6', displayName: 'emoticon', label: 'emoticon' },
+  { value: '7', displayName: 'following', label: 'following' },
+  { value: '8', displayName: 'flags', label: 'flags' }
 ];
 
 const IconPickerTagRenderer = (props: TagRendererProps<Icon>) => {
@@ -108,15 +108,15 @@ const IconPickerTagRenderer = (props: TagRendererProps<Icon>) => {
 const IconPickerRenderer = (props: OptionRendererProps<Icon>) => {
   const { data } = props;
   return (
-    <div>
+    <>
+      <Icon className="tk-pr-1" iconName={data.displayName} />
       {data.displayName}
-      <Icon className="tk-pl-1" iconName={data.displayName} />
-    </div>
+    </>
   );
 };
 
 const filterFunction = (icon: Icon, input: string) => {
-  return !input || icon.displayName.indexOf(input) > -1;
+  return !input || icon.displayName.indexOf(input) > -1 || icon.value.indexOf(input) > -1;
 };
 
 const Template = (args) => {
@@ -264,7 +264,6 @@ export const Select: React.FC = () => (
       optionRenderer={IconPickerRenderer}
       placeHolder="Select an icon.."
       enableTermSearch
-      filterFunction={filterFunction}
       tagRenderer={IconPickerRenderer}
       onTermSearch={onTermSearch}
     />
@@ -274,7 +273,6 @@ export const Select: React.FC = () => (
       optionRenderer={IconPickerRenderer}
       placeHolder="Select an icon.."
       enableTermSearch
-      filterFunction={filterFunction}
       tagRenderer={IconPickerRenderer}
       onTermSearch={onTermSearch}
       variant="destructive"
@@ -287,11 +285,10 @@ export const Select: React.FC = () => (
       optionRenderer={IconPickerRenderer}
       isMultiSelect
       placeHolder="Select an icon.."
-      filterFunction={filterFunction}
     />
 
-    <h2 className="tk-mt-5h">Custom Filter logic</h2>
-    <p>If you would like to rewrite the filtration logic from the ground up, simply declare a new <strong> filterFunction </strong> to be passed in as a prop:</p>
+    <h2 className="tk-mt-5h">Custom Filter</h2>
+    <p>To add a custom filter, you can simply use pass a method to the <strong> filterFunction </strong> prop:</p>
     <Dropdown
       options={iconData}
       tagRenderer={IconPickerTagRenderer}
