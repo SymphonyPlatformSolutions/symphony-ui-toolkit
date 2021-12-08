@@ -2,8 +2,8 @@
 set -e
 # Execute publish
 function executePublish {
-    npm pack
-    npm publish --access public
+    yarn pack
+    yarn publish --access public
     git add package.json
     git config --global user.email "$GIT_USEREMAIL"
     git config --global user.name "$GIT_USERNAME"
@@ -14,7 +14,7 @@ function executePublish {
 # Set version
 function setVersion {
     echo "Found tag, setting version to $CIRCLE_TAG"
-    npm --no-git-tag-version version ${CIRCLE_TAG//v}
+    yarn --no-git-tag-version version ${CIRCLE_TAG//v}
 }
 
 # Version and publish logic
