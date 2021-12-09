@@ -23,7 +23,8 @@
     "test-once": "jest -w 1",
     "cover": "jest -w 1 --coverage",
     "check-circular": "madge --circular --extensions ts,tsx ./",
-    "linkit": "yarn build && cp package.json ./dist && cd ./dist && yarn link && cd .."
+    "linkit": "yarn build && cp package.json ./dist && cd ./dist && yarn link && cd ..",
+    "prepare": "husky install"
   },
   "peerDependencies": {
     "react": ">=16.8.0",
@@ -120,12 +121,9 @@
   },
   "lint-staged": {
     "src/**/*.{ts,tsx}": [
-      "eslint"
-    ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
+      "eslint --fix"
+    ],
+    "*.{ts,tsx,js,jsx}": "eslint --cache --fix",
+    "*.{js,css,md}": "prettier --write"
   }
 }
