@@ -206,8 +206,8 @@ class DatePicker extends Component<
         locale: getLocale,
         inputValue: this.computeDate(this.props.date)
           ? formatDate(this.props.date, this.props.format, {
-            locale: getLocale,
-          })
+              locale: getLocale,
+            })
           : null,
       });
     }
@@ -354,7 +354,6 @@ class DatePicker extends Component<
     }
   }
 
-
   private handleScrollParent(e) {
     if (this.state.showPicker) {
       cancelEvent(e);
@@ -417,48 +416,48 @@ class DatePicker extends Component<
   private handleKeyDownIcon(e: React.KeyboardEvent): void {
     const { showPicker } = this.state;
     switch (e.key) {
-    case Keys.TAB:
-      if (!e.shiftKey && showPicker && this.refPicker) {
-        cancelEvent(e);
-        const elCell = this.refPicker.dayPicker.querySelector(
-          '.tk-daypicker-day[tabindex="0"]'
-        );
-        if (elCell) {
-          elCell.focus();
+      case Keys.TAB:
+        if (!e.shiftKey && showPicker && this.refPicker) {
+          cancelEvent(e);
+          const elCell = this.refPicker.dayPicker.querySelector(
+            '.tk-daypicker-day[tabindex="0"]'
+          );
+          if (elCell) {
+            elCell.focus();
+          }
         }
-      }
-      break;
-    case Keys.SPACE:
-    case Keys.SPACEBAR:
-    case Keys.ENTER:
-      cancelEvent(e);
-      this.handleClickIcon();
-      break;
-    case Keys.ESC:
-      cancelEvent(e);
-      this.handleOnClose();
-      break;
-    default:
-      break;
+        break;
+      case Keys.SPACE:
+      case Keys.SPACEBAR:
+      case Keys.ENTER:
+        cancelEvent(e);
+        this.handleClickIcon();
+        break;
+      case Keys.ESC:
+        cancelEvent(e);
+        this.handleOnClose();
+        break;
+      default:
+        break;
     }
   }
 
   private handleKeyDownInput(e: React.KeyboardEvent): void {
     const { showPicker } = this.state;
     switch (e.key) {
-    case Keys.ENTER:
-      cancelEvent(e);
-      this.setState({ showPicker: !showPicker });
-      break;
-    case Keys.ESC:
-      cancelEvent(e);
-      this.setState({ showPicker: false });
-      break;
-    case Keys.TAB:
-      this.setState({ showPicker: false });
-      break;
-    default:
-      break;
+      case Keys.ENTER:
+        cancelEvent(e);
+        this.setState({ showPicker: !showPicker });
+        break;
+      case Keys.ESC:
+        cancelEvent(e);
+        this.setState({ showPicker: false });
+        break;
+      case Keys.TAB:
+        this.setState({ showPicker: false });
+        break;
+      default:
+        break;
     }
   }
 
@@ -559,9 +558,9 @@ class DatePicker extends Component<
             className={classNames({
               active: showPicker,
             })}
-            iconElement={
+            rightDecorators={
               <Icon
-                className={classNames({
+                className={classNames('tk-input__right-decorators__clickable', {
                   active: showPicker,
                 })}
                 disabled={disabled}

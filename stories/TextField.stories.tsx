@@ -144,17 +144,17 @@ export const TextFields: React.FC = () => {
           rightDecorators={
             value?.length
               ? [
-                <button
-                  key="button"
-                  role="button"
-                  className="tk-input__hide"
-                  tabIndex={value && value.length === 0 ? -1 : 0}
-                  onClick={() => setHideText(!hideText)}
-                  onKeyDown={(event) => (event.key === 'Enter') && setHideText(!hideText)} // not sure why we need to specify
-                >
-                  {hideText ? 'SHOW' : 'HIDE'}
-                </button>,
-              ]
+                  <button
+                    key="button"
+                    role="button"
+                    className="tk-input__hide"
+                    tabIndex={value && value.length === 0 ? -1 : 0}
+                    onClick={() => setHideText(!hideText)}
+                    onKeyDown={(event) => (event.key === 'Enter') && setHideText(!hideText)} // not sure why we need to specify
+                  >
+                    {hideText ? 'SHOW' : 'HIDE'}
+                  </button>,
+                ]
               : null
           }
         />
@@ -163,25 +163,21 @@ export const TextFields: React.FC = () => {
         <p>
           Text Field with other <strong>right decorators</strong>
         </p>
+        <p style={{fontSize: '12px'}}>Adding the class <br/>  <b>.tk-input__right-decorators__clickable</b> will provide a clickable style to the decorator</p>
+        <TextField
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+          rightDecorators={<Icon iconName="copy" tabIndex={0} className='tk-input__right-decorators__clickable'></Icon>}
+        ></TextField>
         <TextField
           value={value}
           onChange={(e) => setValue(e.target.value)}
           rightDecorators={
             value?.length
               ? [
-                <span
-                  key="span-copy"
-                  style={{ alignSelf: 'center' }}
-                >
-                  <Icon iconName="copy"></Icon>
-                </span>,
-                <span
-                  key="span-search"
-                  style={{ alignSelf: 'center' }}
-                >
-                  <Icon iconName="search"></Icon>
-                </span>,
-              ]
+                  <Icon iconName="copy" tabIndex={0} className='tk-input__right-decorators__clickable' key="copy"></Icon>,
+                  <Icon iconName="search" tabIndex={0} className='tk-input__right-decorators__clickable' key="search"></Icon>,
+                ]
               : null
           }
         ></TextField>
@@ -220,7 +216,7 @@ export const Disabled: React.FC = () => {
   return (
     <div>
       <p>
-        Text Field <strong>disabled</strong>. A disabled input element is unusable and un-clickable.
+      Text Field <strong>disabled</strong>. A disabled input element is unusable and un-clickable.
       </p>
       <TextField
         disabled
@@ -232,7 +228,6 @@ export const Disabled: React.FC = () => {
     </div>
   );
 };
-
 
 export const ChangeProgrammatically = () => {
   const child1 = useRef(null);
