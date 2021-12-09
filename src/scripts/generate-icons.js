@@ -54,7 +54,7 @@ const generateTKFonts = async () => {
     inputDir: `${SRC_ICONS}svg`,
     outputDir: DIST_FONTS,
     fontTypes: [FontAssetType.EOT, FontAssetType.SVG, FontAssetType.TTF, FontAssetType.WOFF, FontAssetType.WOFF2],
-    assetTypes: [OtherAssetType.HTML, OtherAssetType.JSON, OtherAssetType.SCSS],
+    assetTypes: [OtherAssetType.HTML, OtherAssetType.JSON, OtherAssetType.SCSS, OtherAssetType.TS],
     templates:{
       scss: `${SRC_ICONS}templates/tk-icons.scss.hbs`,
       html: `${SRC_ICONS}templates/tk-icons.stories.js.hbs`,
