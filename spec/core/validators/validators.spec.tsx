@@ -39,6 +39,23 @@ describe('Input Validators', () => {
     expect(await Validators.Email(emptyArray)).toEqual(null);
   });
 
+  it('should validate "Url" Input correctly', async () => {
+    expect(await Validators.Url('google.com')).toEqual({ url: true });
+    expect(await Validators.Url('https://google.com')).toEqual(null);
+    expect(await Validators.Url('http://google.com')).toEqual(null);
+    expect(await Validators.Url('ftp://google.com')).toEqual(null);
+    expect(await Validators.Url('http://localhost')).toEqual(null);
+    expect(await Validators.Url(null)).toEqual(null);
+    expect(await Validators.Url(undefined)).toEqual(null);
+    expect(await Validators.Url(emptyString)).toEqual(null);
+    expect(await Validators.Url(stringWithValue)).toEqual({ url: true });
+    expect(await Validators.Url(stringWithSpaces)).toEqual({ url: true });
+    expect(await Validators.Url(objectWithValue)).toEqual(null);
+    expect(await Validators.Url(emptyObject)).toEqual(null);
+    expect(await Validators.Url(arrayWithValues)).toEqual(null);
+    expect(await Validators.Url(emptyArray)).toEqual(null);
+  });
+
   it('should validate "emptyString" Input correctly', async () => {
     expect(await Validators.EmptyString(null)).toEqual({ emptyString: true });
     expect(await Validators.EmptyString(undefined)).toEqual({ emptyString: true });

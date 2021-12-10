@@ -102,7 +102,7 @@ export const Validations = () => {
         <TextField placeholder="How are you?" />
       </Validation>
       <p>
-        with <strong>maxLength validator</strong>
+        with <strong>MaxLength validator</strong>
       </p>
       <Validation
         onValidationChanged={logChange}
@@ -112,6 +112,26 @@ export const Validations = () => {
         errorMessage={ 'Booking code: max 6 characters'}
       >
         <TextField label="Booking code" placeholder="Booking code" />
+      </Validation>
+      <p>
+        with <strong>Email validator</strong>
+      </p>
+      <Validation
+        onValidationChanged={logChange}
+        validator={Validators.Email}
+        errorMessage={'Please enter a valid email address'}
+      >
+        <TextField placeholder="Email Address" />
+      </Validation>
+      <p>
+        with <strong>URL validator</strong>
+      </p>
+      <Validation
+        onValidationChanged={logChange}
+        validator={Validators.Url}
+        errorMessage={'Please enter a valid URL'}
+      >
+        <TextField placeholder="Website" />
       </Validation>
       <p>
         Using <strong>pattern validator</strong>
