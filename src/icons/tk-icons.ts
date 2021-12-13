@@ -1,4 +1,4 @@
-export type TkIcons=
+export type TkIcon =
   | "accent"
   | "activity"
   | "adjust"

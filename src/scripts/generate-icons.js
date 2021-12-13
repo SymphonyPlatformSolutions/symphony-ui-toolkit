@@ -96,7 +96,7 @@ const blockSvgProp = (property) => {
 const generateIconTypes = () => {
   fs.readFile(`${SRC_ICONS}tk-icons.ts`, 'utf8', (err, src) => {
     const tkIconsId = src.toString();
-    const tkIcons = `export type TkIcons${tkIconsId.substring(tkIconsId.indexOf("="), tkIconsId.indexOf(";"))};`;
+    const tkIcons = `export type TkIcon ${tkIconsId.substring(tkIconsId.indexOf("="), tkIconsId.indexOf(";"))};`;
     fs.writeFileSync(`${SRC_ICONS}tk-icons.ts`, tkIcons);
   });
 }
