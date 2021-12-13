@@ -144,17 +144,17 @@ export const TextFields: React.FC = () => {
           rightDecorators={
             value?.length
               ? [
-                  <button
-                    key="button"
-                    role="button"
-                    className="tk-input__hide"
-                    tabIndex={value && value.length === 0 ? -1 : 0}
-                    onClick={() => setHideText(!hideText)}
-                    onKeyDown={(event) => (event.key === 'Enter') && setHideText(!hideText)} // not sure why we need to specify
-                  >
-                    {hideText ? 'SHOW' : 'HIDE'}
-                  </button>,
-                ]
+                <button
+                  key="button"
+                  role="button"
+                  className="tk-input__hide"
+                  tabIndex={value && value.length === 0 ? -1 : 0}
+                  onClick={() => setHideText(!hideText)}
+                  onKeyDown={(event) => (event.key === 'Enter') && setHideText(!hideText)} // not sure why we need to specify
+                >
+                  {hideText ? 'SHOW' : 'HIDE'}
+                </button>,
+              ]
               : null
           }
         />
@@ -167,7 +167,7 @@ export const TextFields: React.FC = () => {
         <TextField
           value={value}
           onChange={(e) => setValue(e.target.value)}
-          rightDecorators={<Icon iconName="copy" tabIndex={0} className='tk-input__right-decorators__clickable'></Icon>}
+          rightDecorators={<Icon iconName="copy" tabIndex={0} className="tk-input__right-decorators__clickable"></Icon>}
         ></TextField>
         <TextField
           value={value}
@@ -175,9 +175,9 @@ export const TextFields: React.FC = () => {
           rightDecorators={
             value?.length
               ? [
-                  <Icon iconName="copy" tabIndex={0} className='tk-input__right-decorators__clickable' key="copy"></Icon>,
-                  <Icon iconName="search" tabIndex={0} className='tk-input__right-decorators__clickable' key="search"></Icon>,
-                ]
+                <Icon iconName="copy" tabIndex={0} className="tk-input__right-decorators__clickable" key="copy"></Icon>,
+                <Icon iconName="search" tabIndex={0} className="tk-input__right-decorators__clickable" key="search"></Icon>,
+              ]
               : null
           }
         ></TextField>

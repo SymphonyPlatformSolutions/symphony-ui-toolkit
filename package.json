@@ -108,6 +108,7 @@
     "sass": "^1.26.11",
     "sass-loader": "^10.0.2",
     "storybook-addon-mdx-embed": "^0.0.19",
+    "storybook-addon-themes": "^6.1.0",
     "storybook-dark-mode": "^1.0.3",
     "style-loader": "^1.2.1",
     "ts-jest": "^26.0.0",

@@ -158,28 +158,28 @@ export const Sizes: React.FC = () => (
     <h4>Small</h4>
     <div style={{ display: 'flex' }}>
       <div style={{ width: '384px', marginRight: '32px' }}>
-        <Dropdown options={defaultOptions} size="small" />
+        <Dropdown options={defaultOptions} size="small" label="Field label" />
       </div>
       <div style={{ width: '384px' }}>
-        <Dropdown options={defaultOptions} isMultiSelect size="small" />
+        <Dropdown options={defaultOptions} isMultiSelect size="small" label="Field label" />
       </div>
     </div>
     <h4>Medium</h4>
     <div style={{ display: 'flex' }}>
       <div style={{ width: '384px', marginRight: '32px' }}>
-        <Dropdown options={defaultOptions} size="medium" />
+        <Dropdown options={defaultOptions} size="medium" label="Field label" />
       </div>
       <div style={{ width: '384px' }}>
-        <Dropdown options={defaultOptions} isMultiSelect size="medium" />
+        <Dropdown options={defaultOptions} isMultiSelect size="medium" label="Field label" />
       </div>
     </div>
     <h4>Large</h4>
     <div style={{ display: 'flex' }}>
       <div style={{ width: '384px', marginRight: '32px' }}>
-        <Dropdown options={defaultOptions} size="large" />
+        <Dropdown options={defaultOptions} size="large" label="Field label" />
       </div>
       <div style={{ width: '384px' }}>
-        <Dropdown options={defaultOptions} isMultiSelect size="large" />
+        <Dropdown options={defaultOptions} isMultiSelect size="large" label="Field label" />
       </div>
     </div>
     <div className="tk-py-5"/><div className="tk-py-5"/>

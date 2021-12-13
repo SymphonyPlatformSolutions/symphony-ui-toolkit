@@ -185,7 +185,7 @@ export class Dropdown<T = LabelValue> extends React.Component<
     } = this.props;
 
     return (
-      <div className={classNames(className, `tk-input-group`)}>
+      <div className={classNames(className, 'tk-input-group', `tk-input-group--${size}`)}>
         <DropdownTag
           {...otherProps}
           styles={{
@@ -286,7 +286,8 @@ export class Dropdown<T = LabelValue> extends React.Component<
     menuPlacement: 'auto',
     menuPortalStyles: {},
     menuShouldBlockScroll: false,
-    menuShouldScrollIntoView: true
+    menuShouldScrollIntoView: true,
+    size: 'medium'
   };
 }
 
