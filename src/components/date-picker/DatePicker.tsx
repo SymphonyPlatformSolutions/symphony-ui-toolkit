@@ -541,6 +541,7 @@ class DatePicker extends Component<
     const textfieldProps = {
       id,
       disabled,
+      helperText,
       label,
       name,
       placeholder: placeholder || format.toUpperCase(),
@@ -578,7 +579,6 @@ class DatePicker extends Component<
             onChange={this.handleInputChange}
             onClick={() => this.setState({ showPicker: true })}
             onKeyDown={this.handleKeyDownInput}
-            helperText={helperText}
           ></TextField>
         </div>
         {menuPortalTarget
