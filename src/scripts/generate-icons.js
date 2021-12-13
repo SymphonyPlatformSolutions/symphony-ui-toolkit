@@ -63,6 +63,7 @@ const generateTKFonts = async () => {
       scss: `${GENERATED_DIR}tk-icons-definitions.scss`,
       html: `${STORIES_DIR}icons.stories.js`,               // Generate our Storybook story
       json: `${SRC_ICONS}tk-icons.codepoints.json`,         // Keep the generated CodePoints
+      ts:`${SRC_ICONS}tk-icons.ts`,                         // Generate Icon types
     },
     getIconId: ({basename}) => (basename), // To fix conflict name with "more-.svg" and "more.svg"
     codepoints,
@@ -71,7 +72,9 @@ const generateTKFonts = async () => {
 }
 
 const generateIcons = async () => {
+  blockSvgProp(`fill-rule="evenodd"`);
   await generateTKFonts();
+  generateIconTypes();
   console.info('Auto-generated icons.stories.js ✅');
 };
 
@@ -90,5 +93,13 @@ const blockSvgProp = (property) => {
   });
   }
 
-blockSvgProp(`fill-rule="evenodd"`);
+const generateIconTypes = () => {
+  fs.readFile(`${SRC_ICONS}tk-icons.ts`, 'utf8', (err, src) => {
+    const iconTypes = src.toString();
+    const start = iconTypes.indexOf("export type TkIconsId =");
+    const end = iconTypes.indexOf(";")+1;
+    fs.writeFileSync(`${SRC_ICONS}tk-icons.ts`, iconTypes.substring(start, end));
+  });
+}
+
 generateIcons();

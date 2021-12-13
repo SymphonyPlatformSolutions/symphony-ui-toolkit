@@ -25,25 +25,9 @@ yarn start
 
 In order to install and start using the library you can read the detailed guide on [getting-started.md](https://github.com/SymphonyPlatformSolutions/symphony-bdk-ui-toolkit-styles/blob/master/docs/getting-started.md)
 
-## 😀 Icons
 
-To add a new icon in UIToolkit Styles:
 
-- Add the <em>\*.svg</em> source file to:
 
-```
-src/
-|
-|– icons/
-|   |– svg/
-```
-
-**Aliases:** To use several names for the same icon. You can define aliases in the file ['src/icons/tk-icons.aliases.json'](./src/icons/tk-icons.aliases.json).
-
-```
-"another-name":"activity"
-```
-"tk-icon-another-name" and "tk-icon-activity" will render the same icon.
 
 ## 🤖 Visual Testing
 
