@@ -17,10 +17,10 @@ It adds a layer of logic above the visual part already implemented in UIToolkit 
 
 ## Defining a new component
 
-DevX team is the official owner of UIToolkit and the creation of any new component implies the following steps:
+Solution Frameworks team is the official owner of UIToolkit and the creation of any new component implies the following steps:
 
 - Discussing the creation of the new component by providing example use cases and contexts in UIToolkit Contributors room
-- Providing a clear design and description to devX team through a confluence document and a figma provided by UX team
+- Providing a clear design and description to SolFwk team through a confluence document and a UIToolkit Handoff figma provided by UX team
 - The confluence page should document the CSS convention for using the component
 
 ## Structure and Styleguide
