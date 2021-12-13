@@ -22,6 +22,7 @@ import { Checkbox, Radio, Switch } from './selection';
 import Tooltip, { TooltipProps } from './tooltip';
 import Typography from './typography';
 import Validation from './validation';
+import Validators from '../core/validators';
 import VirtualizedList from './virtualized-list';
 
 /* Let's move into exporting everything with interfaces */
@@ -63,4 +64,5 @@ export {
   ModalFooter,
   Typography,
   Loader,
+  Validators,
 };
