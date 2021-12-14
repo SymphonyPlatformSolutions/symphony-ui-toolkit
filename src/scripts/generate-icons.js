@@ -63,7 +63,7 @@ const generateTKFonts = async () => {
       scss: `${GENERATED_DIR}tk-icons-definitions.scss`,
       html: `${STORIES_DIR}icons.stories.js`,               // Generate our Storybook story
       json: `${SRC_ICONS}tk-icons.codepoints.json`,         // Keep the generated CodePoints
-      ts:`${SRC_ICONS}tk-icons.ts`,                         // Generate Icon types
+      ts:`${DIST_FONTS}tk-icons.ts`,                         // Generate Icon types
     },
     getIconId: ({basename}) => (basename), // To fix conflict name with "more-.svg" and "more.svg"
     codepoints,
@@ -99,10 +99,10 @@ const generateIconTypes = () => {
     aliases+=`  | "${alias}"\n`;
   }
   
-  fs.readFile(`${SRC_ICONS}tk-icons.ts`, 'utf8', (err, src) => {
+  fs.readFile(`${DIST_FONTS}tk-icons.ts`, 'utf8', (err, src) => {
     const tkIconsId = src.toString();
     const tkIcons = `export type TkIcon ${tkIconsId.substring(tkIconsId.indexOf("="), tkIconsId.indexOf(";"))}${aliases};`;
-    fs.writeFileSync(`${SRC_ICONS}tk-icons.ts`, tkIcons);
+    fs.writeFileSync(`${DIST_FONTS}tk-icons.ts`, tkIcons);
   });
 }
 

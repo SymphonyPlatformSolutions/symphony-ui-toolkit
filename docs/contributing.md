@@ -38,16 +38,6 @@ src/
 |– icons/
 |   |– svg/
 ```
-2. Run:
-```
-yarn start
-```
-
-3. Verify the following files have been updated including the **new icons**:
-```
-tk-icons.ts
-tk-icons.codepoints.json
-```
 
 - The name of the icon should be in kebab-case.
 
