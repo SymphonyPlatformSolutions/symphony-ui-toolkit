@@ -54,7 +54,7 @@ const generateTKFonts = async () => {
     inputDir: `${SRC_ICONS}svg`,
     outputDir: DIST_FONTS,
     fontTypes: [FontAssetType.EOT, FontAssetType.SVG, FontAssetType.TTF, FontAssetType.WOFF, FontAssetType.WOFF2],
-    assetTypes: [OtherAssetType.HTML, OtherAssetType.JSON, OtherAssetType.SCSS],
+    assetTypes: [OtherAssetType.HTML, OtherAssetType.JSON, OtherAssetType.SCSS, OtherAssetType.TS],
     templates:{
       scss: `${SRC_ICONS}templates/tk-icons.scss.hbs`,
       html: `${SRC_ICONS}templates/tk-icons.stories.js.hbs`,
@@ -63,6 +63,7 @@ const generateTKFonts = async () => {
       scss: `${GENERATED_DIR}tk-icons-definitions.scss`,
       html: `${STORIES_DIR}icons.stories.js`,               // Generate our Storybook story
       json: `${SRC_ICONS}tk-icons.codepoints.json`,         // Keep the generated CodePoints
+      ts:`${SRC_ICONS}tk-icons.ts`,                         // Generate Icon types
     },
     getIconId: ({basename}) => (basename), // To fix conflict name with "more-.svg" and "more.svg"
     codepoints,
@@ -71,7 +72,9 @@ const generateTKFonts = async () => {
 }
 
 const generateIcons = async () => {
+  blockSvgProp(`fill-rule="evenodd"`);
   await generateTKFonts();
+  generateIconTypes();
   console.info('Auto-generated icons.stories.js ✅');
 };
 
@@ -90,5 +93,17 @@ const blockSvgProp = (property) => {
   });
   }
 
-blockSvgProp(`fill-rule="evenodd"`);
+const generateIconTypes = () => {
+  let aliases = '\n';
+  for (const alias in getAliases()) {
+    aliases+=`  | "${alias}"\n`;
+  }
+  
+  fs.readFile(`${SRC_ICONS}tk-icons.ts`, 'utf8', (err, src) => {
+    const tkIconsId = src.toString();
+    const tkIcons = `export type TkIcon ${tkIconsId.substring(tkIconsId.indexOf("="), tkIconsId.indexOf(";"))}${aliases};`;
+    fs.writeFileSync(`${SRC_ICONS}tk-icons.ts`, tkIcons);
+  });
+}
+
 generateIcons();

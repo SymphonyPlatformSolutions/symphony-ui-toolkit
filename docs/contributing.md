@@ -27,10 +27,38 @@ In order to keep consistency between components the following aspects are to be 
 - Atomic components (buttons, inputs) should go under atoms directory while composed ones (input group) should go under molecules
 - All components should implement light AND dark theme for this use static colors palette (variables/colors/statics) and theme accessors to be used in your component (variables/themes/accessors)
 
-## Icons
-- Adding new icons consists of adding a new file in the icons directory and the build process does the magic
-- The name of the icon should be in kebab-case
-> If your SVG contains an __evenodd__ filling rule it can't be added to the project as it won't render properly under windows. SVGs added should not contain this rule.
+## 😀 Icons
+
+To add **new icons** on UIToolkit:
+
+1. Add the <em>\*.svg</em> source file to:
+```
+src/
+|
+|– icons/
+|   |– svg/
+```
+2. Run:
+```
+yarn start
+```
+
+3. Verify the following files have been updated including the **new icons**:
+```
+tk-icons.ts
+tk-icons.codepoints.json
+```
+
+- The name of the icon should be in kebab-case.
+
+- If your SVG contains an __evenodd__ filling rule it can't be added to the project as it won't render properly under windows. SVGs added should not contain this rule.
+
+- **Aliases:** To use several names for the same icon. You can define aliases in the file ['src/icons/tk-icons.aliases.json'](./src/icons/tk-icons.aliases.json).
+
+>```
+>"another-name":"activity"
+>```
+>"tk-icon-another-name" and "tk-icon-activity" will render the same icon.
 
 ## Documentation
 
