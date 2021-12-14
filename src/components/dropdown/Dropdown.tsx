@@ -185,7 +185,7 @@ export class Dropdown<T = LabelValue> extends React.Component<
     } = this.props;
 
     return (
-      <div className={classNames(className, `tk-input-group`)}>
+      <div className={classNames(className, 'tk-input-group', `tk-input-group--${size}`)}>
         <DropdownTag
           {...otherProps}
           styles={{
@@ -193,7 +193,7 @@ export class Dropdown<T = LabelValue> extends React.Component<
             valueContainer: (base: CSSProperties) => ({
               ...base, maxHeight: `${maxHeight}px`
             }),
-            input: (size === 'small') ? (base: CSSProperties) => ({...base, margin: '0 2px'}) : undefined,
+            input: (base: CSSProperties) => ({...base, margin: (size === 'small') ? '0 2px' : undefined, color: 'inherit'}),
           }}
           parentInstance={this}
           ref={this.myRef}
@@ -286,7 +286,8 @@ export class Dropdown<T = LabelValue> extends React.Component<
     menuPlacement: 'auto',
     menuPortalStyles: {},
     menuShouldBlockScroll: false,
-    menuShouldScrollIntoView: true
+    menuShouldScrollIntoView: true,
+    size: 'medium'
   };
 }
 

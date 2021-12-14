@@ -224,7 +224,7 @@ describe('DatePicker Component', () => {
         await act(async () => {
           wrapper
             .find(TextField)
-            .find('.tk-input__icon .tk-icon-calendar')
+            .find('.tk-input__right-decorators .tk-icon-calendar')
             .simulate('keyDown', { key });
         });
         wrapper.update();
@@ -238,7 +238,7 @@ describe('DatePicker Component', () => {
       await act(async () => {
         wrapper
           .find(TextField)
-          .find('.tk-input__icon .tk-icon-calendar')
+          .find('.tk-input__right-decorators .tk-icon-calendar')
           .simulate('click');
       });
       wrapper.update();
@@ -266,7 +266,7 @@ describe('DatePicker Component', () => {
       await act(async () => {
         wrapper
           .find(TextField)
-          .find('.tk-input__icon .tk-icon-calendar')
+          .find('.tk-input__right-decorators .tk-icon-calendar')
           .simulate('keyDown', { key: Keys.ESC });
       });
       wrapper.update();

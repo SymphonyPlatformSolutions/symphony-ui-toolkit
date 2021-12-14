@@ -354,7 +354,6 @@ class DatePicker extends Component<
     }
   }
 
-
   private handleScrollParent(e) {
     if (this.state.showPicker) {
       cancelEvent(e);
@@ -559,9 +558,9 @@ class DatePicker extends Component<
             className={classNames({
               active: showPicker,
             })}
-            iconElement={
+            rightDecorators={
               <Icon
-                className={classNames({
+                className={classNames('tk-input__right-decorators__clickable', {
                   active: showPicker,
                 })}
                 disabled={disabled}
