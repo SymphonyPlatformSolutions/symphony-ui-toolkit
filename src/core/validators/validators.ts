@@ -128,11 +128,28 @@ const Email: ValidatorFn = (value) => {
   return Promise.resolve(null);
 };
 
+const Url: ValidatorFn = (value) => {
+  // if the value is empty, we don't return any error of email format
+  // -> Use Required validator if you want to block empty value
+  if (!value) {
+    return Promise.resolve(null);
+  }
+  if(typeof value ==='string') {
+    try {
+      new URL(value);
+    } catch {
+      return Promise.resolve({ url: true });
+    }
+  }
+  return Promise.resolve(null);
+};
+
 const isEmptyValue = (value: Value) => {
   return  _.isEmpty(value) || (typeof value==='string' && value?.trim?.() === '');
 }
 
 export const Validators = {
+  Url,
   Email,
   EmptyString,
   Required,
