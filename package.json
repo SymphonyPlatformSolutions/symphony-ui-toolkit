@@ -23,7 +23,8 @@
     "test-once": "jest -w 1",
     "cover": "jest -w 1 --coverage",
     "check-circular": "madge --circular --extensions ts,tsx ./",
-    "linkit": "yarn build && cp package.json ./dist && cd ./dist && yarn link && cd .."
+    "linkit": "yarn build && cp package.json ./dist && cd ./dist && yarn link && cd ..",
+    "prepare": "husky install"
   },
   "peerDependencies": {
     "react": ">=16.8.0",
@@ -93,10 +94,10 @@
     "eslint-plugin-react-hooks": "^2.5.1",
     "focus-visible": "^5.2.0",
     "html-react-parser": "^0.14.0",
-    "husky": "^5.1.3",
+    "husky": "^7.0.4",
     "jest": "^26.0.1",
     "jest-extended": "^0.11.5",
-    "lint-staged": "^10.5.4",
+    "lint-staged": ">=10",
     "madge": "^4.0.0",
     "markdown-loader": "^6.0.0",
     "mdx-embed": "^0.0.19",
@@ -119,13 +120,7 @@
     "**/lodash": "^4.17.21"
   },
   "lint-staged": {
-    "src/**/*.{ts,tsx}": [
-      "eslint"
-    ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
+    "*.{ts,tsx,js,jsx}": "eslint --cache --fix",
+    "*.{js,css,md}": "prettier --write"
   }
 }
