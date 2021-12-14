@@ -161,4 +161,7 @@ export type TkIcon =
   | "video"
   | "voice"
   | "world"
-  | "zoom-out";
+  | "zoom-out"
+  | "community"
+  | "following"
+;

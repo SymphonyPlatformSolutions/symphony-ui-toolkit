@@ -94,9 +94,14 @@ const blockSvgProp = (property) => {
   }
 
 const generateIconTypes = () => {
+  let aliases = '\n';
+  for (const alias in getAliases()) {
+    aliases+=`  | "${alias}"\n`;
+  }
+  
   fs.readFile(`${SRC_ICONS}tk-icons.ts`, 'utf8', (err, src) => {
     const tkIconsId = src.toString();
-    const tkIcons = `export type TkIcon ${tkIconsId.substring(tkIconsId.indexOf("="), tkIconsId.indexOf(";"))};`;
+    const tkIcons = `export type TkIcon ${tkIconsId.substring(tkIconsId.indexOf("="), tkIconsId.indexOf(";"))}${aliases};`;
     fs.writeFileSync(`${SRC_ICONS}tk-icons.ts`, tkIcons);
   });
 }
