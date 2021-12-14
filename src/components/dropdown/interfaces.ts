@@ -94,6 +94,8 @@ export type DropdownProps<T> = {
   enableTermSearch?: boolean;
   /** Decides if an item with data and current input value should be displayed in dropdown menu or not */
   filterFunction?: (data: T, inputValue: string) => boolean;
+  /** Helper text for the dropdown */
+  helperText?: string;
   /** Hide the selected option from the list */
   hideSelectedOptions?: boolean;
   /** If provided, it renders an icon on the left side of the dropdown input*/
@@ -168,7 +170,7 @@ export type DropdownProps<T> = {
   termSearchMessage?: ((term: string) => string) | string;
   /** Color variant of the dropdown */
   variant?: 'destructive';
-} & React.HTMLProps<HTMLInputElement> &
+} & Omit<React.HTMLProps<HTMLInputElement>, 'onChange'> &
   MenuPortalProps &
   HasTooltipProps &
   (MultiModeProps<T> | SingleModeProps<T>) &

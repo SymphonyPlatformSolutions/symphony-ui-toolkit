@@ -48,6 +48,11 @@ WithShowRequired.args = {
   label: 'timePickerLabel',
   showRequired: true,
 };
+export const WithHelperText = Template.bind({});
+WithHelperText.args = {
+  helperText: 'Helper text', 
+  showRequired: true,
+};
 
 export const WithValue = Template.bind({});
 WithValue.parameters = {

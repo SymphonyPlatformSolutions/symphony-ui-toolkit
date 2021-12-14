@@ -48,6 +48,7 @@ export const TimePicker: React.FC<TimePickerProps> = ({
   tooltip,
   tooltipCloseLabel,
   showRequired,
+  helperText,
   value,
   menuPortalStyles,
   menuPortalTarget,
@@ -258,6 +259,7 @@ export const TimePicker: React.FC<TimePickerProps> = ({
       tooltip={tooltip}
       tooltipCloseLabel={tooltipCloseLabel}
       value={selectedOption}
+      helperText={helperText}
     />
   );
 };

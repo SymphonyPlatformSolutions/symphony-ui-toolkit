@@ -48,6 +48,7 @@ type DatePickerComponentProps = {
   disabled?: boolean;
   dir?: Direction;
   format?: string;
+  helperText?: string;
   highlightedDays?: Modifier | Modifier[];
   initialMonth?: Date;
   label?: string;
@@ -110,6 +111,7 @@ class DatePicker extends Component<
     highlightedDays: PropTypes.oneOfType(modifierPropTypes),
     initialMonth: PropTypes.instanceOf(Date),
     label: PropTypes.string,
+    helperText: PropTypes.string,
     labels: PropTypes.exact({
       previousYear: PropTypes.string,
       previousMonth: PropTypes.string,
@@ -529,6 +531,7 @@ class DatePicker extends Component<
       tooltip,
       tooltipCloseLabel,
       showRequired,
+      helperText,
       onCopy,
       onCut,
       onDrag,
@@ -575,6 +578,7 @@ class DatePicker extends Component<
             onChange={this.handleInputChange}
             onClick={() => this.setState({ showPicker: true })}
             onKeyDown={this.handleKeyDownInput}
+            helperText={helperText}
           ></TextField>
         </div>
         {menuPortalTarget

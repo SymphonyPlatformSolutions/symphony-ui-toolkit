@@ -45,6 +45,7 @@ type TextComponentProps = {
   /** Size of the input */
   size?: 'small' | 'medium';
   value?: string;
+  helperText?: string
 } & HasTooltipProps &
   HasValidationProps<string>;
 
@@ -107,6 +108,7 @@ const TextComponent: React.FC<
       tooltip,
       tooltipCloseLabel,
       value,
+      helperText,
       onInit,
       onChange,
       onBlur,
@@ -229,6 +231,7 @@ const TextComponent: React.FC<
           tooltipCloseLabel={tooltipCloseLabel}
           showRequired={showRequired}
         />
+        {helperText &&  <div className="tk-input__helper">{helperText}</div>}
       </div>
     );
   }

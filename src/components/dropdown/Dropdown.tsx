@@ -162,6 +162,7 @@ export class Dropdown<T = LabelValue> extends React.Component<
       name,
       noOptionMessage,
       placeHolder,
+      helperText,
       onCopy,
       onCut,
       onDrag,
@@ -272,6 +273,7 @@ export class Dropdown<T = LabelValue> extends React.Component<
           tooltipCloseLabel={tooltipCloseLabel}
           showRequired={showRequired}
         />
+        {helperText &&  <div className="tk-input__helper">{helperText}</div>}
       </div>
     );
   }
