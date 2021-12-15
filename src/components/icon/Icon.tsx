@@ -1,10 +1,11 @@
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import classnames from 'classnames';
+import { TkIcon } from  '@symphony-ui/uitoolkit-styles/dist/fonts/tk-icons';
 
 export interface IconProps extends React.HTMLProps<HTMLElement> {
   /** Required; Designates a specific icon */
-  iconName: string;
+  iconName: TkIcon;
   /** Optional CSS class name */
   className?: string;
   /** If true, the icon will be disabled */
@@ -52,7 +53,7 @@ const Icon: React.FC<IconProps> = ({
 };
 
 Icon.propTypes = {
-  iconName: PropTypes.string.isRequired,
+  iconName: PropTypes.any.isRequired,
   className: PropTypes.string,
   disabled: PropTypes.bool,
   forwardRef: PropTypes.any,
