@@ -1,66 +1,54 @@
-@mixin styleLabels {
-  label,
-  .tk-input__helper,
-  .tk-validation__errors {
-    @content;
-  }
-}
-
 .tk-input-group {
-  display: flex;
-  flex-direction: column;
+  @include styleInputGroup;
+  
+  .tk-input__helper {
+    @include styleLabel;
+    margin-top: toRem(4);
+  }
 
-  &__header {
+  .tk-input-group__header {
     margin-bottom: toRem(4);
-  }
-
-  label {
-    @extend .tk-label;
-  }
-
-  &:hover,
-  &:focus-within {
-    @include styleLabels {
-      color: $--tk-input-default-active-color;
-    }
-    .tk-input:not(:focus).tk-input__icon:not(:focus) {
-      @include styleHoverInput(
-        $--tk-input-default-hover-color,
-        $--tk-input-default-active-color
-      );
+    .tk-tooltip__wrapper {
+      font-size: toRem(16);
     }
   }
+  .tk-input__helper {
+    margin-top: toRem(4);
+  }
 
-  .tk-validation--error & {
-    .tk-input__container {
-      @extend .tk-validation--error;
+  &--disabled {
+    .tk-input-group__header {
+      label {
+        color: getColor($--tk-input-color, disabledText);
+      }
+    }
+    .tk-input__helper {
+      color: getColor($--tk-input-color, disabledText);
     }
   }
 
-  .tk-validation--error:hover &,
-  .tk-validation--error:focus-within & {
-    @include styleLabels {
-      color: $--tk-input-error-active-color;
+
+  &--small, #{condensed('--medium')}, #{condensed('')} {
+    .tk-input-group__header {
+      margin-bottom: toRem(2);
+      .tk-tooltip__wrapper {
+        font-size: toRem(12);
+      }
     }
-    .tk-input__container:not(:focus) {
-      @include styleHoverInput(
-        $--tk-input-error-active-color,
-        $--tk-input-error-active-color
-      );
+    .tk-input__helper {
+      margin-top: toRem(2);
     }
   }
 
-  &--disabled:hover,
-  &--disabled:focus-within {
-    @include styleLabels {
-      @extend .tk-label--disabled;
+  &--medium, &--large, #{condensed('--large')} {
+    .tk-input-group__header {
+      margin-bottom: toRem(4);
+      .tk-tooltip__wrapper {
+        font-size: toRem(16);
+      }
     }
-    .tk-input__container:focus,
-    .tk-input__container:not(:focus) {
-      @include styleHoverInput(
-        $--tk-input-disabled-color,
-        $--tk-input-disabled-color
-      );
+    .tk-input__helper {
+      margin-top: toRem(4);
     }
   }
 }

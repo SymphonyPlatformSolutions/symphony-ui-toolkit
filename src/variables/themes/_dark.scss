@@ -67,6 +67,44 @@
 
   --tk-main-text-color: #{$scolor-graphite-minus-89};
 
+  --tk-input-color-default: #{getColor($graphite, '50')};
+  --tk-input-color-default-bg: #{getColor($graphite, '90')};
+  --tk-input-color-hover: #{getColor($electricity, '30')};
+  --tk-input-color-active: #{getColor($electricity, '40')};
+  --tk-input-color-read-only-bg: #{getColor($graphite, '70')};
+  --tk-input-color-disabled: #{getColor($graphite, '60')};
+  --tk-input-color-error-active: #{getColor($red, '40')};
+  --tk-input-color-error-hover: #{getColor($red, '30')};
+  --tk-input-color-empty-text: #{getColor($graphite, '40')};
+  --tk-input-color-filled-text: #{getColor($graphite, '20')};
+  --tk-input-color-disabled-text: #{getColor($graphite, '60')};
+  
+  --tk-input-hide-color-default: #{getColor($electricity, '40')};
+  --tk-input-hide-color-disabled: #{getColor($electricity, '30')};
+  
+  --tk-label-color: #{getColor($electricity, '20')};
+
+  --tk-select-color-active-menu-bg: #{getColor($graphite, '30')};
+  --tk-select-color-hover-menu-bg: #{getColor($graphite, '20')};
+  --tk-select-color-hover-menu-text: #{getColor($graphite, '80')};
+  --tk-select-color-default-menu-icon: #{getColor($graphite, '40')};
+  --tk-select-color-hover-menu-icon: #{getColor($graphite, '60')};
+  --tk-select-color-clear-icon: #{getColor($graphite, '20')};
+  
+  --tk-select-color-destructive-menu-text: #{getColor($red, '40')};
+  
+  --tk-select-tag-color-default: #{getColor($graphite, '05')};
+  --tk-select-tag-color-default-icon: #{getColor($graphite, '30')};
+  --tk-select-tag-color-default-bg: #{getColor($graphite, '60')};
+
+
+  --tk-label-color: #{getColor($graphite, '20')};
+  --tk-label-required-color: #{getColor($red, '40')};
+  
+  --tk-label-color-default: #{getColor($graphite, '40')};
+
+  --tk-hint-color-default: #{getColor($graphite, '30')};
+
   --tk-input-default-inactive-color: #{$scolor-graphite-minus-48};
   --tk-input-default-active-color: #{$scolor-graphite-minus-96};
   --tk-input-default-hover-color: #{$scolor-graphite-minus-72};

@@ -1,72 +1,66 @@
 //Override the css classes from react-select library to reuse the UIToolkit classes.
-@mixin active-select {
-  border-color: $--tk-input-default-focus-border-color;
-  box-shadow: inset 0 0 0 toRem(2) $--tk-input-default-focus-border-color;
-}
-
-@mixin error-select {
-  box-shadow: inset 0 0 0 toRem(2) $--tk-input-error-focus-border-color;
-  border-color: $--tk-input-error-focus-border-color;
-}
 
 .tk-select {
   .tk-select {
     &__single-value {
-      @extend .tk-text-color;
+      color: getColor($--tk-input-color, filledText);
     }
     &__control {
-      @extend .tk-input;
-      padding: 0;
-      background-color: $--tk-select-background-color;
+      padding-left: toRem(12);
+      background-color: getColor($--tk-input-color, defaultBg);
       .tk-input__icon {
-        cursor: pointer;
+        color: getColor($--tk-input-color, emptyText);
+        margin-right: toRem(8);
       }
-      &.tk-select__control {
-        position: relative;
-        @extend .tk-input__container;
-        &--is-focused {
-          @include active-select;
-          .tk-validation--error & {
-            @include error-select;
-            .tk-input__icon {
-              @include error-select;
-            }
-          }
+      position: relative;
+
+      @include styleTKInputContainer;
+
+      &--menu-is-open,
+      &--menu-is-focused {
+        color: getColor(
+          $--tk-input-color,
+          filledText
+        );
+        .tk-input__icon {
+          color: getColor($graphite, '50');
         }
-        &--menu-is-open,
-        &--menu-is-focused {
-          color: $--tk-input-default-active-color;
-          @include active-select;
-          .tk-input__icon {
-            @include active-select;
-            color: $scolor-white;
-            background-color: $--tk-input-default-focus-border-color;
-          }
-        }
-        &--is-disabled {
-          color: $--tk-input-default-inactive-color;
-          background-color: $--tk-input-disabled-background-color;
-        }
+      }
+      &--is-disabled {
+        @include styleInput(
+          getColor($--tk-input-color, disabledText),
+          getColor($--tk-input-color, disabledText),
+          getColor($--tk-input-color, disabled),
+          getColor($--tk-input-color, disabled),
+          getColor($--tk-input-color, disabled),
+          getColor($--tk-input-color, defaultBg)
+        );
       }
       .tk-select__value-container {
         .tk-select__multi-value {
-          padding: 0;
+          padding: 0 toRem(4);
+
           box-sizing: border-box;
           min-height: toRem(24);
-          border-radius: toRem(4);
-          background: $--tk-tag-background-color;
-          border: toRem(1) solid $--tk-tag-border-and-group-heading-color;
-          color: $--tk-main-text-color;
-          &:hover {
-            background: $--tk-tag-background-hover-color;
-            border: toRem(1) solid $--tk-tag-border-hover-color;
-          }
+          border-radius: toRem(16);
+          background: getColor($--tk-select-tag-color, defaultBg);
+          color: getColor(
+            $--tk-select-tag-color,
+            default
+          );
           &__label {
-            color: $--tk-main-text-color;
-            padding: toRem(2);
-            font-size: toRem(12);
-            .tk-icon-cross {
-              font-size: toRem(10);
+            display: flex;
+            align-items: center;
+            height: 100%;
+            color: getColor(
+              $--tk-select-tag-color,
+              default
+            );
+            padding: 0 toRem(4);
+            font-size: toRem(14);
+            i::before {
+              font-size: toRem(16);
+              color: getColor($--tk-select-tag-color, defaultIcon);
             }
           }
         }
@@ -75,27 +69,9 @@
           white-space: nowrap;
         }
       }
-      &:hover {
-        .tk-select__placeholder {
-          color: $--tk-input-default-active-color;
-          @include addTransition();
-        }
-      }
-      .tk-validation--error & {
-        &:hover {
-          .tk-select__placeholder {
-            color: $--tk-input-error-active-color;
-            @include addTransition();
-          }
-        }
-        .tk-select__placeholder {
-          color: $--tk-input-error-inactive-color;
-          @include addTransition();
-        }
-      }
     }
     &__group-heading {
-      color: $--tk-tag-border-and-group-heading-color;
+      color: $--tk-label-color;
       font-size: toRem(12);
       line-height: toRem(16);
       font-weight: 600;
@@ -103,6 +79,7 @@
   }
 
   &__indicators {
+    font-size: toRem(16);
     .tk-select__indicator-separator {
       display: none;
     }
@@ -110,43 +87,55 @@
       cursor: pointer;
       color: inherit;
       &.tk-select__clear-indicator {
-        color: $--tk-input-default-active-color;
-        &:hover {
-          color: $--tk-input-default-active-color;
-        }
+        color: getColor(
+          $--tk-select-color,
+          'clearIcon'
+        ); 
         .tk-select__close-icon {
-          &:focus-visible {
-            box-shadow: 0 0 0 toRem(2) var(--tk-color-electricity);
-            border-radius: 50%;
-            outline: 0;
-          }
+          @include addFocusStyle('false');
+        }
+        &:hover {
+          color: getColor($electricity, '40');
+        }
+        &:active {
+          color: getColor($electricity, '50');
         }
       }
       &.tk-select__dropdown-indicator {
-        color: inherit;
+        color: getColor($graphite, '50');
+        padding: 0; // override lib styles
+        padding-right: toRem(12);
         .tk-select__single-value {
-          color: inherit;
+          color: getColor($graphite, '50');
         }
       }
     }
   }
-  .tk-input__container {
+  .tk-select__container {
     &:focus-within {
-      @include active-select;
     }
     &.tk-select__control {
       min-height: toRem(32);
       .tk-select__value-container {
         cursor: text;
-        padding: toRem(1) toRem(12);
-        margin: toRem(3);
-        margin-left: 0;
+        padding: toRem(4) 0;
         &--is-multi {
+          padding: toRem(6) 0;
           .tk-tag {
             padding-right: toRem(4);
             max-width: toRem(200);
             text-overflow: ellipsis;
             overflow: hidden;
+            &__close-icon {
+              font-size: toRem(16);
+              @include addFocusStyle();
+              &:hover::before {
+                color: getColor($electricity, '40');
+              }
+              &:active::before {
+                color: getColor($electricity, '50');
+              }
+            }
           }
           overflow: auto;
           overflow-x: hidden;
@@ -160,9 +149,6 @@
             border: toRem(4) solid transparent;
           }
         }
-        .tk-select__input {
-          color: $--tk-input-default-active-color;
-        }
       }
     }
   }
@@ -173,27 +159,47 @@
     font-size: toRem(14);
     .tk-select__menu {
       margin-top: toRem(6);
-      color: $--tk-select-option-color;
       z-index: $z-index-dropdown-menu;
       @include boxContainer();
+      &-list {
+        padding: 0;
+      }
       .tk-select {
         &__option {
           cursor: pointer;
-          color: $--tk-input-default-active-color;
+          color: getColor(
+            $--tk-input-color,
+            filledText
+          );
           padding: toRem(6) toRem(38) toRem(6) toRem(16);
+          line-height: toRem(20);
           &--is-focused,
           &--is-focused.tk-select__option--is-selected {
-            background-color: $--tk-list-hover-color;
+            color: getColor($--tk-select-color, hoverMenuText);
+            background-color: getColor(
+              $--tk-select-color,
+              hoverMenuBg
+            );
+            &::before {
+              color: getColor($--tk-select-color, hoverMenuIcon);
+            }
           }
           &--is-selected {
             background-color: transparent;
           }
           &--is-disabled {
             cursor: not-allowed;
-            color: $--tk-list-disabled-color;
+            color: getColor($--tk-input-color, disabledText);
           }
           &--is-selected {
             @extend .tk-select--custom-dropdown--selected;
+          }
+          &:active {
+            color: getColor($--tk-select-color, hoverMenuText);
+            background-color: getColor($--tk-select-color, activeMenuBg);
+            &::before {
+              color: getColor($--tk-select-color, hoverMenuText);
+            }
           }
         }
         &__group {
@@ -204,13 +210,99 @@
           }
         }
         &-loading {
-          color: $scolor-graphite-plus-50;
+          color: getColor($--tk-select-color, defaultMenuIcon);
           display: flex;
           align-items: center;
           justify-content: center;
           height: toRem(80);
           box-sizing: border-box;
           font-size: toRem(32);
+        }
+      }
+    }
+    &--destructive {
+      .tk-select__menu {
+        .tk-select__option {
+          color: getColor($--tk-select-color-destructive, menuText);
+          .tk-input__icon, &::before {
+            color: getColor($red, '50');
+          }
+          &--is-focused,
+          &--is-focused.tk-select__option--is-selected {
+            color: $scolor-white;
+            background-color: getColor($red, '50');
+            &::before {
+              color: $scolor-white;
+            }
+          }
+          &:active {
+            color: $scolor-white;
+            background-color: getColor($red, '60');
+            &::before {
+              color: $scolor-white;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &--small, #{condensed('--medium')}, #{condensed('')} {
+    .tk-select__container.tk-select__control {
+      min-height: toRem(24);
+      padding-left: toRem(8);
+      .tk-select__value-container {
+        padding: 0;
+        &--is-multi {
+          padding: toRem(4) 0;
+        }
+        .tk-select__multi-value {
+          min-height: toRem(20);
+          &__label {
+            i, i::before {
+              font-size: toRem(12);
+            }
+          }
+        }
+      }
+    }
+  }
+  &--medium, #{condensed('--large')} {
+    .tk-select__container.tk-select__control {
+      min-height: toRem(32);
+      padding-left: toRem(12);
+      .tk-select__value-container {
+        padding: toRem(4) 0;
+        &--is-multi {
+          padding: toRem(6) 0;
+        }
+        .tk-select__multi-value {
+          min-height: toRem(24);
+          &__label {
+            i, i::before {
+              font-size: toRem(16);
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  &--large {
+    .tk-select__container.tk-select__control {
+      padding-left: toRem(16);
+      .tk-select__value-container {
+        padding: toRem(8) 0;
+        &--is-multi {
+          padding: toRem(12) 0;
+
+        }
+      }
+    }
+    .tk-select__indicators {
+      .tk-select__indicator {
+        &.tk-select__dropdown-indicator {
+          padding-right: toRem(16);
         }
       }
     }

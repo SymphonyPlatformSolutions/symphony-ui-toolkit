@@ -1,31 +1,22 @@
-$list-font-size-icon: toRem(16);
 $list-box-shadow: rgba($scolor-graphite-plus-89, 0.122);
 
 @mixin listStyle {
-  background-color: $--tk-select-background-color;
   text-align: left;
-  border: toRem(1) solid $list-box-shadow;
   border-radius: toRem(8);
   box-shadow: 0 toRem(2) toRem(4) $list-box-shadow;
-
   &--selected::before {
     position: absolute;
     right: toRem(16);
     font-style: normal;
     font-family: 'tk-icons';
-    color: $--tk-list-selected-color;
-    font-size: $list-font-size-icon;
+    font-size: toRem(14);
     @include tk-icon-check;
   }
 
   &__item {
     position: relative;
-    color: $--tk-main-text-color;
     display: block;
     cursor: pointer;
     padding-left: toRem(16);
-    &:hover {
-      background-color: $--tk-list-hover-color;
-    }
   }
 }

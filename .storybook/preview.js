@@ -3,6 +3,8 @@ import { addParameters } from '@storybook/html';
 import addons from '@storybook/addons';
 import { themes } from '@storybook/theming';
 
+import 'focus-visible';
+
 setTimeout(() => init());
 addParameters({
   options: {

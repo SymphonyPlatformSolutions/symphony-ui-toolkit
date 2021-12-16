@@ -14,12 +14,56 @@ $--tk-outline-color: #88c0fb;
 
 $--tk-background: var(--tk-background, $scolor-white);
 
-$--tk-background-reverse: var(
-  --tk-background-reverse,
-  getColor($graphite, '80')
-);
+$--tk-background-reverse:var(--tk-background-reverse,  getColor($graphite, '80'));
 
 /** ======== Inputs and text areas ======== */
+$--tk-input-color: (
+  default: var(--tk-input-color-default, getColor($graphite, '40')),
+  defaultBg: var(--tk-input-color-default-bg, $scolor-white),
+  hover: var(--tk-input-color-hover, getColor($electricity, '40')),
+  active: var(--tk-input-color-active, getColor($electricity, '50')), // "focus" uses "active" colors
+  disabled: var(--tk-input-color-disabled, getColor($graphite, '20')),
+  readonly: var(--tk-input-color-default, getColor($graphite, '20')), // readonly uses "default" on dark mode
+  readonlyBg: var(--tk-input-color-read-only-bg, getColor($graphite, '05')), // readonly uses "default" on dark mode
+  errorActive: var(--tk-input-color-error-active, getColor($red, '50')),
+  errorHover: var(--tk-input-color-error-hover, getColor($red, '40')),
+  emptyText: var(--tk-input-color-empty-text, getColor($graphite, '50')),
+  filledText: var(--tk-input-color-filled-text, getColor($graphite, '80')),
+  disabledText: var(--tk-input-color-disabled-text, getColor($graphite, '30')),
+);
+
+$--tk-input-hide-color: (
+  default: var(--tk-input-hide-color-default, getColor($electricity, '50')),
+  disabled: var(--tk-input-hide-color-disabled, getColor($electricity, '60')),
+);
+
+$--tk-label-color: var(--tk-label-color, getColor($graphite, '60'));
+$--tk-label-required-color: var(
+  --tk-label-required-color,
+  getColor($red, '50')
+);
+$--tk-hint-color: (
+  default: var(--tk-hint-color-default, getColor($graphite, '50'))
+);
+
+$--tk-select-color: (
+  activeMenuBg: var(--tk-select-color-active-menu-bg, getColor($graphite, '70')),
+  hoverMenuBg: var(--tk-select-color-hover-menu-bg, getColor($graphite, '60')),
+  hoverMenuText: var(--tk-select-color-hover-menu-text, $scolor-white),
+  defaultMenuIcon: var(--tk-select-color-default-menu-icon, getColor($graphite, '50')),
+  hoverMenuIcon: var(--tk-select-color-hover-menu-icon, getColor($graphite, '20')), // equivalent of tk-input-disabled
+  clearIcon: var(--tk-select-color-clear-icon, getColor($graphite, '70')),
+);
+
+$--tk-select-color-destructive: (
+  menuText: var(--tk-select-color-destructive-menu-text, getColor($red, '50')),
+);
+
+$--tk-select-tag-color: (
+  default: var(--tk-select-tag-color-default, getColor($graphite, '80')),
+  defaultIcon: var(--tk-select-tag-color-default-icon, getColor($graphite, '50')),
+  defaultBg: var(--tk-select-tag-color-default-bg, getColor($graphite, '10'))
+);
 
 $--tk-input-default-inactive-color: var(
   --tk-input-default-inactive-color,

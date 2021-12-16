@@ -77,8 +77,14 @@ until we have a design for them in the UI Toolkit. */
 
 .code {
   white-space: pre;
-  padding: 1em;
-  background-color: $scolor-graphite-minus-96;
+  font-size: toRem(14);
+  font-family: monospace;
+  background-color: #{getColor($graphite, '10')};
+  padding: toRem(4);
+}
+.dark .code,
+.dark pre {
+  background-color: #{getColor($graphite, '60')};
 }
 
 .card-icon {
@@ -92,9 +98,6 @@ until we have a design for them in the UI Toolkit. */
 pre {
   background-color: $scolor-graphite-minus-88;
   padding: toRem(20);
-}
-.dark pre {
-  background-color: $scolor-graphite-plus-24;
 }
 .sb-heading,
 .sb-errordisplay_code pre {

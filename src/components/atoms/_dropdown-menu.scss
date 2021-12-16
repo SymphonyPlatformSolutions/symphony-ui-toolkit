@@ -1,3 +1,5 @@
+$list-font-size-icon: toRem(14);
+
 .tk-dropdown-menu {
   @include listStyle;
   z-index: $z-index-dropdown-menu;

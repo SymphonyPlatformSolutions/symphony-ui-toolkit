@@ -31,8 +31,16 @@ $backgroundColor: $scolor-graphite-plus-48;
   }
 
   &__close {
-    color: $scolor-white;
+    cursor: pointer;
+    color: getColor($graphite, '30');
     text-transform: uppercase;
-    padding: toRem(8) toRem(16);
+    padding: toRem(4) toRem(8);
+    border-radius: toRem(23);
+    font-size: toRem(12); 
+    line-height: toRem(16); 
+    font-weight: 600;
+    &:focus-visible {
+      @include outlineStyle;
+    }
   }
 }

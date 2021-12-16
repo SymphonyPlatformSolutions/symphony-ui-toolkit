@@ -1,31 +1,28 @@
-@mixin styleHoverInput($borderColor, $fontColor) {
-  color: $fontColor;
+@mixin styleHoverInput($borderColor) {
   @include addBorder(toRem(2), $borderColor);
-  &::placeholder, input::placeholder {
-    color: $fontColor;
-  }
 }
 @mixin styleInput(
-  $inactiveColor,
+  $textColor,
+  $placeholderColor,
+  $borderColor,
   $focusBorderColor,
-  $hoverColor,
-  $activeColor,
-  $backgroundColor
+  $hoverBorderColor,
+  $backgroundColor,
 ) {
-  color: $activeColor;
+  color: $textColor;
   background-color: $backgroundColor;
-  @include addBorder(toRem(2), $inactiveColor);
-  &::placeholder, ::placeholder {
+  @include addBorder(toRem(2), $borderColor);
+  &::placeholder,
+  ::placeholder {
     @include addTransition();
-    color: $inactiveColor;
+    color: $placeholderColor;
   }
   &:hover {
-    @include styleHoverInput($hoverColor, $activeColor);
+    @include styleHoverInput($hoverBorderColor);
   }
   &:focus,
   &:active,
   &.active {
-    color: $activeColor;
     @include addBorder(toRem(2), $focusBorderColor);
   }
 
@@ -34,31 +31,125 @@
   }
 }
 
-@mixin styleInputIcon(
-  $inactiveColor,
-  $focusBorderColor,
-  $hoverColor,
-  $iconColor
-) {
-  .tk-input__icon {
-    color: $iconColor;
-    background-color: $inactiveColor;
-  }
-  &:hover {
-    .tk-input__icon {
-      background-color: $hoverColor;
+@mixin styleLabel {
+  @include addTransition();
+  display: block;
+  font-size: toRem(12);
+  line-height: toRem(16);
+}
+
+@mixin styleInputGroup {
+  display: flex;
+  flex-direction: column;
+
+  &__header {
+    order: -1;
+    margin-bottom: toRem(4);
+    label {
+      @include styleLabel;
+    }
+    .tk-icon-info-round {
+      @include addFocusStyle;
+    }
+    .tk-tooltip__wrapper {
+      line-height: toRem(16);
     }
   }
-  &:focus,
-  &:focus-within {
-    .tk-input__icon {
-      background-color: $focusBorderColor;
-    }
+}
+
+@mixin styleTKInput {
+  // keep independent logic for a standalone tk-input
+  width: 100%;
+  box-sizing: border-box;
+  font-family: inherit;
+  font-size: toRem(14);
+  line-height: toRem(20);
+  @include spacingField(0.5, 1.5, 'padding');
+  background-color: transparent;
+  border-color: transparent;
+  border-radius: toRem(4);
+  border: none;
+  outline: none;
+  @include addTransition();
+
+  @include styleInput(
+    getColor($--tk-input-color, filledText),
+    getColor($--tk-input-color, emptyText),
+    getColor($--tk-input-color, default),
+    getColor($--tk-input-color, active),
+    getColor($--tk-input-color, hover),
+    getColor($--tk-input-color, defaultBg)
+  );
+
+  &--small, #{condensed('--medium')}, #{condensed('')} {
+    @include spacingField(0, 1, 'padding');
   }
-  .tk-input__icon.active {
-    background-color: $focusBorderColor;
-    color: $scolor-white;
+
+  &--medium, #{condensed('--large')} {
+    @include spacingField(0.5, 1.5, 'padding');
   }
+  &--large {
+    @include spacingField(1, 2, 'padding');
+  }
+
+  &:disabled {
+    background-color: getColor($--tk-input-color, defaultBg);
+  }
+
+  .tk-validation--error & {
+    @include styleInput(
+      getColor($--tk-input-color, filledText),
+      getColor($--tk-input-color, emptyText),
+      getColor($--tk-input-color, errorActive),
+      getColor($--tk-input-color, errorActive),
+      getColor($--tk-input-color, errorHover),
+      getColor($--tk-input-color, defaultBg)
+    );
+  }
+  &:disabled {
+    @include styleInput(
+      getColor($--tk-input-color, disabledText),
+      getColor($--tk-input-color, disabledText),
+      getColor($--tk-input-color, disabled),
+      getColor($--tk-input-color, disabled),
+      getColor($--tk-input-color, disabled),
+      getColor($--tk-input-color, defaultBg)
+    );
+  }
+}
+
+@mixin styleTKInputContainer {
+  display: flex;
+
+  border-radius: toRem(4);
+  border: none;
+  @include addTransition();
+
+  @include styleInput(
+    getColor($--tk-input-color, filledText),
+    getColor($--tk-input-color, emptyText),
+    getColor($--tk-input-color, default),
+    getColor($--tk-input-color, active),
+    getColor($--tk-input-color, hover),
+    getColor($--tk-input-color, defaultBg)
+  );
+
+  .tk-validation--error & {
+    @include styleInput(
+      getColor($--tk-input-color, filledText),
+      getColor($--tk-input-color, emptyText),
+      getColor($--tk-input-color, errorActive),
+      getColor($--tk-input-color, errorActive),
+      getColor($--tk-input-color, errorHover),
+      getColor($--tk-input-color, defaultBg)
+    );
+  }
+}
+
+/* Will calculate as padding or margin the spacing height: 2+8*factor or width: 8*factor */
+/* Used for Text Field inner spacing */
+@mixin spacingField($factorHeight, $factorWidth, $property: 'margin') {
+  #{$property}: toRem(2+8 * $factorHeight) toRem(8 * $factorWidth);
 }
 
 @mixin boxContainer() {

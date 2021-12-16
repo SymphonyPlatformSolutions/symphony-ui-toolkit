@@ -1,7 +1,9 @@
-@mixin addIconSize($size) {
+/* Define color on current text and eventual font icons */
+@mixin addFontIconColor($fontColor) {
+  // Icon styling selector takes precendence over the button colors
   &,
   i {
-    font-size: toRem($size);
+    color: $fontColor;
   }
 }
 
@@ -19,22 +21,6 @@
   }
   .tk-button-icon--loading {
     color: $color;
-  }
-}
-
-@mixin focus-visible($colorMap, $insetShadow: false) {
-  &:focus-visible {
-    background-color: map-get($colorMap, focus);
-    color: map-get($colorMap, focusText);
-    outline: 0;
-    @if $insetShadow {
-      box-shadow: inset 0 0 0 toRem(2) map-get($colorMap, focusText),
-        0 0 0 toRem(1) $--tk-button-focus-shadow,
-        0 0 0 toRem(3) #{getColor($electricity, '40')};
-    } @else {
-      box-shadow: 0 0 0 toRem(1) $--tk-button-focus-shadow,
-        0 0 0 toRem(3) #{getColor($electricity, '40')};
-    }
   }
 }
 
@@ -57,7 +43,6 @@
   &.loading {
     @include getButtonStyle($colorMap, text, default);
   }
-  @include focus-visible($colorMap);
 }
 
 /* Applies color styles to outline buttons, buttons that do not have a background */
@@ -79,5 +64,52 @@
     @include getButtonStyle($colorMap, text, default, default);
     background-color: transparent;
   }
-  @include focus-visible($colorMap, true);
+}
+
+/* Button sizes */
+@mixin condensedButton {
+  .condensed,
+  .tk-theme-condensed {
+    :not(.tk-escape-condensed *) {
+      &.tk-button--large {
+        @include mediumButton; // Large -> medium on condensed
+      }
+      &.tk-button--medium {
+        @include smallButton; // Medium -> small on condensed
+      }
+    }
+  }
+}
+@mixin smallButton {
+  padding: toRem(4) toRem(12);
+  height: toRem(24);
+  font-size: toRem(12);
+  @include iconSizes(toRem(24), toRem(12), toRem(4));
+}
+@mixin mediumButton {
+  padding: toRem(8) toRem(16);
+  height: toRem(32);
+  font-size: toRem(12);
+  @include iconSizes(toRem(32), toRem(16), toRem(8));
+}
+@mixin largeButton {
+  padding: toRem(12) toRem(24);
+  height: toRem(40);
+  font-size: toRem(14);
+  @include iconSizes(toRem(40), toRem(16), toRem(8));
+}
+@mixin iconSizes($size, $font-size, $margin) {
+  &.tk-button--icon {
+    min-height: $size;
+    min-width: $size;
+    &-right > i {
+      margin-left: $margin;
+    }
+    &-left > i {
+      margin-right: $margin;
+    }
+  }
+  i {
+    font-size: $font-size;
+  }
 }

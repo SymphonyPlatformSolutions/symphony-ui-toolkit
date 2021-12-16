@@ -2,181 +2,200 @@
   position: relative;
 }
 
-textarea.tk-input {
-  text-overflow: ellipsis;
-
-  &:not([rows]) {
-    min-height: toRem(110);
-  }  
-}
-
 .tk-input {
-  // keep independent logic for a standalone tk-input
-  width: 100%;
-  box-sizing: border-box;
-  font-family: inherit;
-  font-size: toRem(14);
-  line-height: toRem(20);
-  padding: toRem(8) toRem(8) toRem(8) toRem(8);
-  background-color: transparent;
-  border-color: transparent;
-  border-radius: toRem(4);
-  border: none;
-  outline: none;
-  @include addTransition();
-
-  @include styleInput(
-    $--tk-input-default-inactive-color,
-    $--tk-input-default-focus-border-color,
-    $--tk-input-default-hover-color,
-    $--tk-input-default-active-color,
-    $--tk-input-default-background-color
-  );
-
-  .tk-validation--error :not(.tk-input__container) > & {
+  &:read-only {
     @include styleInput(
-      $--tk-input-error-inactive-color,
-      $--tk-input-error-focus-border-color,
-      $--tk-input-error-active-color,
-      $--tk-input-error-active-color,
-      $--tk-input-error-background-color
+      getColor($--tk-input-color, filledText),
+      getColor($--tk-input-color, emptyText),
+      getColor($--tk-input-color, readonly),
+      getColor($--tk-input-color, readonly),
+      getColor($--tk-input-color, readonly),
+      getColor($--tk-input-color, readonlyBg)
     );
   }
-  &:disabled {
-    @include styleInput(
-      $--tk-input-disabled-color,
-      $--tk-input-disabled-color,
-      $--tk-input-disabled-color,
-      $--tk-input-disabled-color,
-      $--tk-input-disabled-background-color
-    );
-  }
+  @include styleTKInput;
+
 }
 
 .tk-input__container {
-  display: flex;
+  textarea.tk-input {
+    padding-right: toRem(4);
+  }
+  @include styleTKInputContainer;
 
-  width: 100%;
-
-  background-color: transparent;
   border-color: transparent;
-  border-radius: toRem(4);
-  border: none;
   outline: none;
-  @include addTransition();
+  padding: 0 toRem(12);
 
-  @include styleInput(
-    $--tk-input-default-inactive-color,
-    $--tk-input-default-focus-border-color,
-    $--tk-input-default-hover-color,
-    $--tk-input-default-active-color,
-    $--tk-input-default-background-color
-  );
 
-  @include styleInputIcon(
-    $--tk-input-default-inactive-color,
-    $--tk-input-default-focus-border-color,
-    $--tk-input-default-hover-color,
-    $--tk-input-default-background-color
-  );
-
-  .tk-validation--error & {
-    @include styleInput(
-      $--tk-input-error-inactive-color,
-      $--tk-input-error-focus-border-color,
-      $--tk-input-error-active-color,
-      $--tk-input-error-active-color,
-      $--tk-input-error-background-color
-    );
-    @include styleInputIcon(
-      $--tk-input-error-inactive-color,
-      $--tk-input-error-focus-border-color,
-      $--tk-input-error-active-color,
-      $--tk-input-error-background-color
-    );
+  &.active {
+    .tk-input {
+      &__right-decorators {
+        color: getColor($electricity, '50');
+      }
+    }  
   }
 
-  &--disabled {
-    @include styleInput(
-      $--tk-input-disabled-color,
-      $--tk-input-disabled-color,
-      $--tk-input-disabled-color,
-      $--tk-input-disabled-color,
-      $--tk-input-disabled-background-color
-    );
-    .tk-input__icon {
-      outline: none;
-    }
-    @include styleInputIcon(
-      $--tk-input-disabled-color,
-      $--tk-input-disabled-color,
-      $--tk-input-disabled-color,
-      $--tk-input-disabled-background-color
-    );
-  }
   .tk-input {
     box-shadow: none; // force cancel tk-input border
     padding: 0;
     flex-grow: 1;
-    margin: toRem(8) toRem(12);
+    @include spacingField(0.5, 0);
     line-height: toRem(20);
-    &:disabled:hover {
-      box-shadow: none; // force cancel tk-input border
-    }
 
-    .tk-validation--error & {
-      color: $--tk-input-error-active-color;
-      background-color: $--tk-input-error-background-color;
+    &:disabled:hover, &:disabled:active, &:read-only:hover, &:read-only:active, &:read-only:focus-within {
+      box-shadow: none; // force cancel tk-input border
     }
 
     &__icon {
       order: -1;
       display: flex;
+      align-self: center;
       justify-content: center;
       align-items: center;
 
-      min-width: toRem(32);
-      width: toRem(32);
-      height: toRem(36);
+      color: getColor($graphite, '50');
+
+      margin-right: toRem(8);
+      max-width: toRem(16);
+      max-height: toRem(16);
 
       border-radius: toRem(4) 0 0 toRem(4);
-      color: $scolor-white;
       @include addTransition();
     }
 
     &__hide {
-      height: 100%;
       max-height: toRem(39);
-      margin-right: toRem(8);
+      font-size: toRem(12);
+      line-height: toRem(16);
+      padding: 0 toRem(2);
       background-color: transparent;
-      color: $scolor-electricity;
+      color: getColor($--tk-input-hide-color, default);
       border: none;
       cursor: pointer;
       align-self: center;
       &:focus:not(.focus-visible) {
         outline: none;
       }
+      @include addFocusStyle('false');
+      outline-offset: toRem(2);
     }
 
-    &__helper {
-      @extend .tk-label;
-      margin-top: toRem(4);
+    &__right-decorators {
+      display: flex;
+      i {
+        align-self: center;
+      }
+      > *:not(:last-child) {
+        margin-right: toRem(8);
+      }
+      &__clickable {
+        @include addFocusStyle('false');
+        cursor: pointer;
+        &:hover {
+          color: getColor($electricity, '40');
+        }
+        &:active {
+          color: getColor($electricity, '50');
+        }
+      }
+    }
+  
+    &--small, #{condensed('--medium')}, #{condensed('')} {
+      @include spacingField(0, 0);
+    }
+    &--medium, #{condensed('--large')} {
+      @include spacingField(0.5, 0);
+    }
+    &--large {
+      @include spacingField(1, 0);
+    }
+  }
+  &--small, #{condensed('--medium')}, #{condensed('')} {
+    padding: 0 toRem(8);
+    .tk-input {
+      @include spacingField(0, 0);
+    }
+    .tk-input__icon {
+      font-size: toRem(12);
+      margin-right: toRem(4);
+    }
+    .tk-input__hide:focus-visible {
+      outline-offset: 0;
+    }
+    .tk-input__right-decorators {
+      font-size: toRem(12);
+      > *:not(:last-child) {
+        margin-right: toRem(4);
+      }
+    }
+  }
+  &--medium, #{condensed('--large')} {
+    padding: 0 toRem(12);
+    .tk-input {
+      @include spacingField(0.5, 0);
+    }
+    .tk-input__icon {
+      margin-right: toRem(8);
+    }
+    .tk-input__right-decorators {
+      > *:not(:last-child) {
+        margin-right: toRem(8);
+      }
+    }
+  }
+  &--large {
+    padding: 0 toRem(16);
+    .tk-input {
+      @include spacingField(1, 0);
+    }
+  }
+  &--readonly {
+    @include styleInput(
+      getColor($--tk-input-color, filledText),
+      getColor($--tk-input-color, emptyText),
+      getColor($--tk-input-color, readonly),
+      getColor($--tk-input-color, readonly),
+      getColor($--tk-input-color, readonly),
+      getColor($--tk-input-color, readonlyBg)
+    );
+    .tk-input__hide {
+      color: getColor($--tk-input-hide-color, disabled);
+    }
+  }
+
+  &--disabled {
+    @include styleInput(
+      getColor($--tk-input-color, disabledText),
+      getColor($--tk-input-color, emptyText),
+      getColor($--tk-input-color, disabled),
+      getColor($--tk-input-color, disabled),
+      getColor($--tk-input-color, disabled),
+      getColor($--tk-input-color, defaultBg)
+    );
+    .tk-input__icon { // left icon
+      outline: none;
+      color: getColor($--tk-input-color, disabled); // same as border
+    }
+    .tk-input__right-decorators { // right icons
+      color: getColor($--tk-input-color, disabled); // same as border
+    }
+    .tk-input__hide {
+      display: none;
     }
   }
 }
 
-.tk-validation {
-  &--error {
-    color: $--tk-input-error-inactive-color;
+textarea.tk-input {
+  text-overflow: ellipsis;
+  padding-right: toRem(16);
+  &:not([rows]), &--medium:not([rows]) {
+    min-height: toRem(128);
   }
-
-  &--error:focus-within &__errors,
-  &--error:hover &__errors {
-    color: $--tk-input-error-active-color;
-  }
-
-  &__errors {
-    @extend .tk-label;
-    @extend .tk-label--error;
+  &--small, #{condensed('--medium')}, #{condensed('')} {
+    &:not([rows]) {
+      min-height: toRem(116);
+      padding-right: toRem(12);
+    }
   }
 }

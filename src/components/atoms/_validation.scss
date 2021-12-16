@@ -1,7 +1,29 @@
 .tk-validation {
   &__errors {
+    @include styleLabel;
+
     list-style-type: none;
     padding: 0;
     margin: toRem(4) 0 0 0;
+    color: getColor($--tk-input-color, errorActive);
+    i {
+      margin-right: toRem(4);
+    }
+  }
+  &--small, #{condensed('--medium')}, #{condensed('')} {
+    .tk-validation__errors {
+      margin: toRem(2) 0 0 0;
+      i {
+        margin-right: toRem(2);
+      }
+    }
+  }
+  &--large, #{condensed('--large')} {
+    .tk-validation__errors {
+      margin: toRem(4) 0 0 0;
+      i {
+        margin-right: toRem(4);
+      }
+    }
   }
 }
