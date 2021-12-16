@@ -1,6 +1,10 @@
 import * as _ from 'lodash';
 
-type Value = string | { [key: string]: string } | { [key: string]: string }[];
+type Value =
+  | string
+  | { [key: string]: string }
+  | { [key: string]: string }[]
+  | Date;
 /**
  * A ValidatorFn takes a value as a string and returns an error object {'validationName':true}
  * ex: Required => {'required':true}
@@ -49,7 +53,11 @@ const MinLength = (minlength: number): ValidatorFn => {
     console.warn('Validator minlength can not be 0, use the required Validator instead');
   }
   return (value) => {
-    if (value && (minlength <= value.length || Object.getPrototypeOf(value) === Object.prototype)) {
+    if (
+      value &&
+      (minlength <= (value as any).length ||
+        Object.getPrototypeOf(value) === Object.prototype)
+    ) {
       return Promise.resolve(null);
     }
     return Promise.resolve({ minlength: true });
@@ -66,7 +74,11 @@ const MaxLength = (maxLength: number): ValidatorFn => {
     throw 'Validator maxLength can not be 0';
   }
   return (value) => {
-    if (!value|| maxLength >= value.length || Object.getPrototypeOf(value) === Object.prototype) {
+    if (
+      !value ||
+      maxLength >= (value as any).length ||
+      Object.getPrototypeOf(value) === Object.prototype
+    ) {
       return Promise.resolve(null);
     }
     return Promise.resolve({ maxLength: true });
@@ -134,7 +146,7 @@ const Url: ValidatorFn = (value) => {
   if (!value) {
     return Promise.resolve(null);
   }
-  if(typeof value ==='string') {
+  if (typeof value ==='string') {
     try {
       new URL(value);
     } catch {
@@ -145,8 +157,10 @@ const Url: ValidatorFn = (value) => {
 };
 
 const isEmptyValue = (value: Value) => {
-  return  _.isEmpty(value) || (typeof value==='string' && value?.trim?.() === '');
-}
+  return value instanceof Date
+    ? false
+    : _.isEmpty(value) || (typeof value === 'string' && value?.trim?.() === '');
+};
 
 export const Validators = {
   Url,
