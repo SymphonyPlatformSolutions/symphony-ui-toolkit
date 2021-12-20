@@ -107,14 +107,7 @@
 
   --tk-input-default-inactive-color: #{$scolor-graphite-minus-48};
   --tk-input-default-active-color: #{$scolor-graphite-minus-96};
-  --tk-input-default-hover-color: #{$scolor-graphite-minus-72};
-  --tk-input-default-focus-border-color: #{$scolor-electricity};
   --tk-input-default-background-color: #{$scolor-graphite-plus-24};
-
-  --tk-input-error-background-color: #{$scolor-graphite-plus-24};
-
-  --tk-input-disabled-color: #{$scolor-graphite-minus-48};
-  --tk-input-disabled-background-color: #{$scolor-graphite-plus-48};
 
   --tk-input-checkbox-radio-color-icon-default: #{getColor($graphite, '40')};
   --tk-input-checkbox-radio-color-icon-hover: #{getColor($electricity, '30')};
@@ -145,21 +138,12 @@
   --tk-dialog-cross-color: #{$scolor-graphite-minus-48};
   --tk-dialog-cross-hover-color: #{$scolor-graphite-plus-72};
 
-  --tk-select-background-color: #{$scolor-graphite-plus-24};
-  --tk-select-option-color: #{$scolor-graphite-minus-96};
   --tk-select-scrollbar-color: #{$scolor-graphite};
-  --tk-list-hover-color: #{$scolor-graphite};
   --tk-list-selected-color: #{$scolor-graphite-minus-88};
   --tk-list-divider-color: #{$scolor-graphite-minus-24};
-  --tk-list-disabled-color: #{$scolor-graphite-minus-24};
-  --tk-list-tag-color: #{$scolor-graphite-minus-21};
-  --tk-tag-border-and-group-heading-color: #{$scolor-graphite-minus-72};
-  --tk-tag-border-disabled-color: #{$scolor-graphite-minus-48};
-  --tk-tag-border-hover-color: #{$scolor-graphite-minus-72};
   --tk-tag-background-disabled-color: #{$scolor-graphite-plus-24};
-  --tk-tag-background-hover-color: #{$scolor-graphite};
-  --tk-tag-background-color: #{$scolor-graphite};
 
+  // avatar
   --tk-avatar-border-color: #{$scolor-graphite};
 
   // Drawer

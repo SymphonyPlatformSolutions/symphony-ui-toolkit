@@ -73,43 +73,10 @@ $--tk-input-default-active-color: var(
   --tk-input-default-active-color,
   $scolor-graphite-plus-72
 );
-$--tk-input-default-hover-color: var(
-  --tk-input-default-hover-color,
-  $scolor-graphite
-);
-$--tk-input-default-focus-border-color: var(
-  --tk-input-default-focus-border-color,
-  $scolor-electricity
-);
+
 $--tk-input-default-background-color: var(
   --tk-input-default-background-color,
   $scolor-white
-);
-
-$--tk-input-error-inactive-color: var(
-  --tk-input-error-inactive-color,
-  $--tk-color-error
-);
-$--tk-input-error-active-color: var(
-  --tk-input-error-active-color,
-  $scolor-elements-destructive-active
-);
-$--tk-input-error-focus-border-color: var(
-  --tk-input-error-focus-border-color,
-  $scolor-elements-destructive-active
-);
-$--tk-input-error-background-color: var(
-  --tk-input-error-background-color,
-  $scolor-white
-);
-
-$--tk-input-disabled-color: var(
-  --tk-input-disabled-color,
-  $scolor-graphite-minus-24
-);
-$--tk-input-disabled-background-color: var(
-  --tk-input-disabled-background-color,
-  $scolor-graphite-minus-88
 );
 
 $--tk-input-checkbox-radio-color: (
@@ -337,51 +304,17 @@ $--tk-drawer-backdrop-color: var(
 );
 
 /** ======== List ======== */
-$--tk-select-background-color: var(--tk-select-background-color, $scolor-white);
-$--tk-select-option-color: var(
-  --tk-select-option-color,
-  $scolor-graphite-minus-72
-);
+
 $--tk-select-scrollbar-color: var(
   --tk-select-scrollbar-color,
   $scolor-graphite-minus-55
 );
-$--tk-list-hover-color: var(--tk-list-hover-color, $scolor-graphite-minus-88);
 $--tk-list-selected-color: var(
   --tk-list-selected-color,
   $scolor-graphite-minus-24
 );
 $--tk-list-divider-color: var(
   --tk-list-divider-color,
-  $scolor-graphite-minus-88
-);
-$--tk-list-disabled-color: var(
-  --tk-list-disabled-color,
-  $scolor-graphite-minus-48
-);
-$--tk-list-tag-color: var(--tk-list-tag-color, $scolor-graphite-minus-89);
-$--tk-tag-border-and-group-heading-color: var(
-  --tk-tag-border-and-group-heading-color,
-  $scolor-graphite-minus-24
-);
-$--tk-tag-background-color: var(
-  --tk-tag-background-color,
-  $scolor-graphite-minus-88
-);
-$--tk-tag-border-disabled-color: var(
-  --tk-tag-border-disabled-color,
-  $scolor-graphite-minus-48
-);
-$--tk-tag-backgroung-disabled-color: var(
-  --tk-tag-border-disabled-color,
-  $scolor-graphite-minus-96
-);
-$--tk-tag-border-hover-color: var(
-  --tk-tag-border-hover-color,
-  $scolor-graphite-minus-24
-);
-$--tk-tag-background-hover-color: var(
-  --tk-tag-background-hover-color,
   $scolor-graphite-minus-88
 );
 

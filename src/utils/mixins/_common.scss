@@ -43,3 +43,12 @@
     outline-style: auto;
   }
 }
+
+@mixin condensed {
+  .condensed,
+  .tk-theme-condensed {
+    :not(.tk-escape-condensed *) {
+      @content;
+    }
+  }
+}

@@ -68,15 +68,12 @@
 
 /* Button sizes */
 @mixin condensedButton {
-  .condensed,
-  .tk-theme-condensed {
-    :not(.tk-escape-condensed *) {
-      &.tk-button--large {
-        @include mediumButton; // Large -> medium on condensed
-      }
-      &.tk-button--medium {
-        @include smallButton; // Medium -> small on condensed
-      }
+  @include condensed {
+    &.tk-button--large {
+      @include mediumButton; // Large -> medium on condensed
+    }
+    &.tk-button--medium {
+      @include smallButton; // Medium -> small on condensed
     }
   }
 }

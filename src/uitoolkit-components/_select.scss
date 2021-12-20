@@ -1,4 +1,56 @@
-//Override the css classes from react-select library to reuse the UIToolkit classes.
+@mixin smallSize {
+  --tk-select__control-min-height: #{toRem(24)};
+  --tk-select__control-padding-left: #{toRem(8)};
+  --tk-select__value-container-padding: 0; 
+  --tk-select__value-container--is-multi-padding: #{toRem(4)} 0; 
+  --tk-select__multi-value-min-height: #{toRem(20)}; 
+  --tk-select__multi-value__label-icon-font-size: #{toRem(12)}; 
+}
+
+@mixin mediumSize {
+  --tk-select__control-min-height: #{toRem(32)};
+  --tk-select__control-padding-left: #{toRem(12)};
+  --tk-select__value-container-padding: #{toRem(4)} 0; 
+  --tk-select__value-container--is-multi-padding: #{toRem(6)} 0; 
+  --tk-select__multi-value-min-height: #{toRem(24)}; 
+  --tk-select__multi-value__label-icon-font-size: #{toRem(16)}; 
+}
+
+body {
+  @include mediumSize;
+  --tk-select__dropdown-indicator-padding-right: #{toRem(12)};
+}
+
+.tk-select--small {
+  --tk-input-padding-height: #{toRem(2)};
+  --tk-input-padding-width: #{toRem(8)};
+  @include smallSize;
+}
+.tk-select--medium {
+  --tk-input-padding-height: #{toRem(6)};
+  --tk-input-padding-width: #{toRem(12)};
+  @include mediumSize;
+}
+
+.tk-select--large {
+  --tk-input-padding-height: #{toRem(10)};
+  --tk-input-padding-width: #{toRem(16)};
+
+  --tk-select__control-padding-left: #{toRem(16)};
+  --tk-select__value-container-padding: #{toRem(8)} 0; 
+  --tk-select__value-container--is-multi-padding: #{toRem(12)} 0;
+
+  --tk-select__dropdown-indicator-padding-right: #{toRem(16)};
+}
+
+@include condensed {
+  .tk-select, .tk-select--medium {
+    @include smallSize;
+  }
+  .tk-select--large {
+    @include mediumSize;
+  }
+}
 
 .tk-select {
   .tk-select {
@@ -41,7 +93,7 @@
           padding: 0 toRem(4);
 
           box-sizing: border-box;
-          min-height: toRem(24);
+          min-height: var(--tk-select__multi-value-min-height);
           border-radius: toRem(16);
           background: getColor($--tk-select-tag-color, defaultBg);
           color: getColor(
@@ -58,8 +110,8 @@
             );
             padding: 0 toRem(4);
             font-size: toRem(14);
-            i::before {
-              font-size: toRem(16);
+            i, i::before {
+              font-size: var(--tk-select__multi-value__label-icon-font-size);
               color: getColor($--tk-select-tag-color, defaultIcon);
             }
           }
@@ -104,7 +156,7 @@
       &.tk-select__dropdown-indicator {
         color: getColor($graphite, '50');
         padding: 0; // override lib styles
-        padding-right: toRem(12);
+        padding-right: var(--tk-select__dropdown-indicator-padding-right);
         .tk-select__single-value {
           color: getColor($graphite, '50');
         }
@@ -112,15 +164,14 @@
     }
   }
   .tk-select__container {
-    &:focus-within {
-    }
     &.tk-select__control {
-      min-height: toRem(32);
+      min-height: var(--tk-select__control-min-height);
+      padding-left: var(--tk-select__control-padding-left);
       .tk-select__value-container {
         cursor: text;
-        padding: toRem(4) 0;
+        padding: var(--tk-select__value-container-padding);
         &--is-multi {
-          padding: toRem(6) 0;
+          padding: var(--tk-select__value-container--is-multi-padding);
           .tk-tag {
             padding-right: toRem(4);
             max-width: toRem(200);
@@ -242,67 +293,6 @@
               color: $scolor-white;
             }
           }
-        }
-      }
-    }
-  }
-
-  &--small, #{condensed('--medium')}, #{condensed('')} {
-    .tk-select__container.tk-select__control {
-      min-height: toRem(24);
-      padding-left: toRem(8);
-      .tk-select__value-container {
-        padding: 0;
-        &--is-multi {
-          padding: toRem(4) 0;
-        }
-        .tk-select__multi-value {
-          min-height: toRem(20);
-          &__label {
-            i, i::before {
-              font-size: toRem(12);
-            }
-          }
-        }
-      }
-    }
-  }
-  &--medium, #{condensed('--large')} {
-    .tk-select__container.tk-select__control {
-      min-height: toRem(32);
-      padding-left: toRem(12);
-      .tk-select__value-container {
-        padding: toRem(4) 0;
-        &--is-multi {
-          padding: toRem(6) 0;
-        }
-        .tk-select__multi-value {
-          min-height: toRem(24);
-          &__label {
-            i, i::before {
-              font-size: toRem(16);
-            }
-          }
-        }
-      }
-    }
-  }
-  
-  &--large {
-    .tk-select__container.tk-select__control {
-      padding-left: toRem(16);
-      .tk-select__value-container {
-        padding: toRem(8) 0;
-        &--is-multi {
-          padding: toRem(12) 0;
-
-        }
-      }
-    }
-    .tk-select__indicators {
-      .tk-select__indicator {
-        &.tk-select__dropdown-indicator {
-          padding-right: toRem(16);
         }
       }
     }

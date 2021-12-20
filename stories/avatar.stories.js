@@ -165,40 +165,40 @@ export const AvatarWithBadge = () => `
     <div class="flex-col">
       <div class="tk-avatar tk-avatar--xxlarge tk-mr-5h">
         <img alt="avatar" class="tk-avatar" src=${avatar}>
-        <span class="tk-badge tk-badge--top tk-bg-color--warning"
+        <span class="tk-avatar__badge tk-avatar__badge--top tk-bg-color--warning"
           style="width:30%; height:30%; border-radius:50%;"></span>
       </div>
     </div>
     <div class="flex-col">
       <div class="tk-avatar tk-avatar--xlarge tk-mr-5h">
         <img alt="avatar" class="tk-avatar" src=${avatar1}>
-        <span class="tk-badge tk-badge--top tk-bg-color--ok" style="width:30%; height:30%; border-radius:50%;"></span>
+        <span class="tk-avatar__badge tk-avatar__badge--top tk-bg-color--ok" style="width:30%; height:30%; border-radius:50%;"></span>
       </div>
     </div>
     <div class="flex-col">
       <div class="tk-avatar tk-avatar--large tk-mr-5h">
         <img alt="avatar" class="tk-avatar" src=${avatar2}>
-        <span class="tk-badge tk-badge--top tk-bg-color--attention"
+        <span class="tk-avatar__badge tk-avatar__badge--top tk-bg-color--attention"
           style="width:30%; height:30%; border-radius:50%;"></span>
       </div>
     </div>
     <div class="flex-col">
       <div class="tk-avatar tk-avatar--medium tk-mr-5h">
         <img alt="avatar" class="tk-avatar" src=${avatar}>
-        <span class="tk-badge tk-badge--top tk-bg-color--warning"
+        <span class="tk-avatar__badge tk-avatar__badge--top tk-bg-color--warning"
           style="width:30%; height:30%; border-radius:50%;"></span>
       </div>
     </div>
     <div class="flex-col">
       <div class="tk-avatar tk-avatar--small tk-mr-5h">
         <img alt="avatar" class="tk-avatar" src=${avatar1}>
-        <span class="tk-badge tk-badge--top tk-bg-color--ok" style="width:30%; height:30%; border-radius:50%;"></span>
+        <span class="tk-avatar__badge tk-avatar__badge--top tk-bg-color--ok" style="width:30%; height:30%; border-radius:50%;"></span>
       </div>
     </div>
     <div class="flex-col">
       <div class="tk-avatar tk-avatar--xsmall tk-mr-5h">
         <img alt="avatar" class="tk-avatar" src=${avatar2}>
-        <span class="tk-badge tk-badge--top tk-bg-color--attention"
+        <span class="tk-avatar__badge tk-avatar__badge--top tk-bg-color--attention"
           style="width:30%; height:30%; border-radius:50%;"></span>
       </div>
     </div>
@@ -210,42 +210,42 @@ export const AvatarWithBadge = () => `
     <div class="flex-col">
       <div class="tk-avatar tk-avatar--xxlarge tk-mr-5h">
         <img alt="avatar" class="tk-avatar" src=${avatar}>
-        <span class="tk-badge tk-badge--bottom tk-bg-color--warning"
+        <span class="tk-avatar__badge tk-avatar__badge--bottom tk-bg-color--warning"
           style="width:30%; height:30%; border-radius:50%;"></span>
       </div>
     </div>
     <div class="flex-col">
       <div class="tk-avatar tk-avatar--xlarge tk-mr-5h">
         <img alt="avatar" lass="tk-avatar" src=${avatar1}>
-        <span class="tk-badge tk-badge--bottom tk-bg-color--ok"
+        <span class="tk-avatar__badge tk-avatar__badge--bottom tk-bg-color--ok"
           style="width:30%; height:30%; border-radius:50%;"></span>
       </div>
     </div>
     <div class="flex-col">
       <div class="tk-avatar tk-avatar--large tk-mr-5h">
         <img alt="avatar" class="tk-avatar" src=${avatar2}>
-        <span class="tk-badge tk-badge--bottom tk-bg-color--attention"
+        <span class="tk-avatar__badge tk-avatar__badge--bottom tk-bg-color--attention"
           style="width:30%; height:30%; border-radius:50%;"></span>
       </div>
     </div>
     <div class="flex-col">
       <div class="tk-avatar tk-avatar--medium tk-mr-5h">
         <img alt="avatar" class="tk-avatar" src=${avatar}>
-        <span class="tk-badge tk-badge--bottom tk-bg-color--warning"
+        <span class="tk-avatar__badge tk-avatar__badge--bottom tk-bg-color--warning"
           style="width:30%; height:30%; border-radius:50%;"></span>
       </div>
     </div>
     <div class="flex-col">
       <div class="tk-avatar tk-avatar--small tk-mr-5h">
         <img alt="avatar" class="tk-avatar" src=${avatar1}>
-        <span class="tk-badge tk-badge--bottom tk-bg-color--ok"
+        <span class="tk-avatar__badge tk-avatar__badge--bottom tk-bg-color--ok"
           style="width:30%; height:30%; border-radius:50%;"></span>
       </div>
     </div>
     <div class="flex-col">
       <div class="tk-avatar tk-avatar--xsmall tk-mr-5h">
         <img alt="avatar" class="tk-avatar" src=${avatar2}>
-        <span class="tk-badge tk-badge--bottom tk-bg-color--attention"
+        <span class="tk-avatar__badge tk-avatar__badge--bottom tk-bg-color--attention"
           style="width:30%; height:30%; border-radius:50%;"></span>
       </div>
     </div>
@@ -271,7 +271,7 @@ export const AvatarWithBadge = () => `
         </svg>
         <img alt="avatar" src=${avatar} style="clip-path:url(#avatar_badge);">
         <div style="font-size:0.85em">
-          <i class="tk-badge tk-badge--bottom tk-icon-busy tk-text-color--warning"></i>
+          <i class="tk-avatar__badge tk-avatar__badge--bottom tk-icon-busy tk-text-color--warning"></i>
         </div>
       </div>
     </div>
@@ -279,7 +279,7 @@ export const AvatarWithBadge = () => `
       <div class="tk-avatar tk-avatar--xlarge tk-mr-5h">
         <img alt="avatar" src=${avatar1} style="clip-path:url(#avatar_badge);">
         <div style="font-size:0.8em">
-          <i class="tk-badge tk-badge--bottom tk-icon-offline"></i>
+          <i class="tk-avatar__badge tk-avatar__badge--bottom tk-icon-offline"></i>
         </div>
       </div>
     </div>
@@ -287,7 +287,7 @@ export const AvatarWithBadge = () => `
       <div class="tk-avatar tk-avatar--large tk-mr-5h">
         <img alt="avatar" src=${avatar2} style="clip-path:url(#avatar_badge);">
         <div style="font-size:0.7em">
-          <i class="tk-badge tk-badge--bottom tk-icon-online tk-text-color--ok"></i>
+          <i class="tk-avatar__badge tk-avatar__badge--bottom tk-icon-online tk-text-color--ok"></i>
         </div>
       </div>
     </div>
@@ -296,7 +296,7 @@ export const AvatarWithBadge = () => `
       <div class="tk-avatar tk-avatar--medium tk-mr-5h">
         <img alt="avatar" src=${avatar} style="clip-path:url(#avatar_badge);">
         <div style="font-size:0.75em">
-          <i class="tk-badge tk-badge--bottom tk-icon-idle tk-text-color--attention" ></i>
+          <i class="tk-avatar__badge tk-avatar__badge--bottom tk-icon-idle tk-text-color--attention" ></i>
         </div>
       </div>
     </div>
@@ -304,7 +304,7 @@ export const AvatarWithBadge = () => `
     <div class="tk-avatar tk-avatar--small tk-mr-5h">
       <img alt="avatar" src=${avatar} style="clip-path:url(#avatar_badge);">
       <div style="font-size:0.6em">
-        <i class="tk-badge tk-badge--bottom tk-icon-busy tk-text-color--warning"></i>
+        <i class="tk-avatar__badge tk-avatar__badge--bottom tk-icon-busy tk-text-color--warning"></i>
       </div>
     </div>
   </div>
@@ -312,7 +312,7 @@ export const AvatarWithBadge = () => `
     <div class="tk-avatar tk-avatar--xsmall tk-mr-5h">
       <img alt="avatar" src=${avatar1} style="clip-path:url(#avatar_badge);">
       <div style="font-size:0.7em">
-        <i class="tk-badge tk-badge--bottom tk-icon-offline"></i>
+        <i class="tk-avatar__badge tk-avatar__badge--bottom tk-icon-offline"></i>
       </div>
     </div>
   </div>

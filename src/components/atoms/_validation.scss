@@ -1,29 +1,38 @@
+body {
+  --tk-validation__errors-margin: #{toRem(4)} 0 0 0;
+  --tk-validation__errors-icon-margin-right: #{toRem(4)};
+}
+
+.tk-validation--small {
+  --tk-validation__errors-margin: #{toRem(2)} 0 0 0;
+  --tk-validation__errors-icon-margin-right: #{toRem(2)};
+}
+.tk-validation--medium, .tk-validation--large {
+  --tk-validation__errors-margin: #{toRem(4)} 0 0 0;
+  --tk-validation__errors-icon-margin-right: #{toRem(4)};
+}
+
+@include condensed {
+  &.tk-validation, &.tk-validation--medium {
+    --tk-validation__errors-margin: #{toRem(2)} 0 0 0;
+    --tk-validation__errors-icon-margin-right: #{toRem(2)};
+  }
+  &.tk-validation--large {
+    --tk-validation__errors-margin: #{toRem(4)} 0 0 0;
+    --tk-validation__errors-icon-margin-right: #{toRem(4)};
+  }
+}
+
 .tk-validation {
   &__errors {
     @include styleLabel;
 
     list-style-type: none;
     padding: 0;
-    margin: toRem(4) 0 0 0;
+    margin: var(--tk-validation__errors-margin);
     color: getColor($--tk-input-color, errorActive);
     i {
-      margin-right: toRem(4);
-    }
-  }
-  &--small, #{condensed('--medium')}, #{condensed('')} {
-    .tk-validation__errors {
-      margin: toRem(2) 0 0 0;
-      i {
-        margin-right: toRem(2);
-      }
-    }
-  }
-  &--large, #{condensed('--large')} {
-    .tk-validation__errors {
-      margin: toRem(4) 0 0 0;
-      i {
-        margin-right: toRem(4);
-      }
+      margin-right: var(--tk-validation__errors-icon-margin-right);
     }
   }
 }

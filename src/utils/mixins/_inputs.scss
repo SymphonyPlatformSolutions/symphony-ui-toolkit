@@ -64,7 +64,7 @@
   font-family: inherit;
   font-size: toRem(14);
   line-height: toRem(20);
-  @include spacingField(0.5, 1.5, 'padding');
+  padding: var(--tk-input-padding-height) var(--tk-input-padding-width);
   background-color: transparent;
   border-color: transparent;
   border-radius: toRem(4);
@@ -80,17 +80,6 @@
     getColor($--tk-input-color, hover),
     getColor($--tk-input-color, defaultBg)
   );
-
-  &--small, #{condensed('--medium')}, #{condensed('')} {
-    @include spacingField(0, 1, 'padding');
-  }
-
-  &--medium, #{condensed('--large')} {
-    @include spacingField(0.5, 1.5, 'padding');
-  }
-  &--large {
-    @include spacingField(1, 2, 'padding');
-  }
 
   &:disabled {
     background-color: getColor($--tk-input-color, defaultBg);
@@ -144,12 +133,6 @@
       getColor($--tk-input-color, defaultBg)
     );
   }
-}
-
-/* Will calculate as padding or margin the spacing height: 2+8*factor or width: 8*factor */
-/* Used for Text Field inner spacing */
-@mixin spacingField($factorHeight, $factorWidth, $property: 'margin') {
-  #{$property}: toRem(2+8 * $factorHeight) toRem(8 * $factorWidth);
 }
 
 @mixin boxContainer() {

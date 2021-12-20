@@ -13,7 +13,3 @@ $SPACING_FACTOR: toRem(8);
 @function if-important($important) {
   @return #{if($important, '!important', '')};
 }
-
-@function condensed($size) {
-  @return '.condensed &#{$size}, .tk-theme-condensed &#{$size}'
-}

@@ -8,7 +8,7 @@ export const TextField = () => {
   <h1>Text Fields</h1>
   <h2>Simple Text Field</h2>
   <h3>Default</h3>
-  <input type="text" class="tk-input" placeholder="Type something..." />
+  <input type="text" class="tk-input tk-input--medium" placeholder="Type something..." />
   <div class="tk-mt-2"></div>
   <input
     type="text"
@@ -41,7 +41,7 @@ export const TextField = () => {
   <h3>Read Only</h3>
     <input
     type="text"
-    class="tk-input"
+    class="tk-input tk-input--medium"
     placeholder="Type something..."
     value="Lorem Ipsum"
     readonly
@@ -57,7 +57,7 @@ export const TextField = () => {
   <h3>Disabled</h3>
   <input
     type="text"
-    class="tk-input"
+    class="tk-input tk-input--medium"
     placeholder="Type something..."
     disabled
   />
@@ -70,29 +70,29 @@ export const TextField = () => {
   />
   <h2>Text Field with icon</h2>
   <h3>Default</h3>
-  <div class="tk-input__container">
-    <input
-      id="input2"
-      type="text"
-      class="tk-input tk-input--with-icon"
-      placeholder="Type something..."
-    />
-    <div class="tk-input__icon">
+    <div class="tk-input__container">
+      <input
+        id="input2"
+        type="text"
+        class="tk-input tk-input--with-icon"
+        placeholder="Type something..."
+      />
+      <div class="tk-input__icon">
         <i class="tk-icon-people"></i>
       </div>
     </div>
     <div class="tk-mt-2"></div>
     <div class="tk-input__container tk-input__container--small">
-    <input
-      id="input2"
-      type="text"
-      class="tk-input tk-input--small tk-input--with-icon"
-      placeholder="Type something..."
-    />
-    <div class="tk-input__icon">
-    <i class="tk-icon-people"></i>
+      <input
+        id="input2"
+        type="text"
+        class="tk-input tk-input--small tk-input--with-icon"
+        placeholder="Type something..."
+      />
+      <div class="tk-input__icon">
+      <i class="tk-icon-people"></i>
+    </div>
   </div>
-</div>
   <div class="tk-mt-4"></div>
   <div class="tk-input__container tk-input__container--medium"><input class="tk-input tk-input--medium" type="text" value="Lorem Ipsum"><span class="tk-input__right-decorators"><span style="align-self: center;"><i class="tk-icon-copy"></i></span><span style="align-self: center;"><i class="tk-icon-search"></i></span></span></div>
   <div class="tk-mt-2"></div>
@@ -209,7 +209,7 @@ export const TextField = () => {
       <input
         id="input"
         type="text"
-        class="tk-input"
+        class="tk-input tk-input--medium"
         placeholder="Type something..."
       />
     </div>
@@ -276,7 +276,7 @@ export const TextField = () => {
         <input
           id="input-error"
           type="text"
-          class="tk-input"
+          class="tk-input tk-input--medium"
           placeholder="Type something..."
         />
       </div>
@@ -313,7 +313,7 @@ export const TextField = () => {
       <input
         id="input-readonly"
         type="text"
-        class="tk-input"
+        class="tk-input tk-input--medium"
         value="Lorem Ipsum"
         readonly
       />
@@ -347,7 +347,7 @@ export const TextField = () => {
       <input
         id="input-disabled"
         type="text"
-        class="tk-input"
+        class="tk-input tk-input--medium"
         value="Lorem Ipsum"
         disabled
       />
@@ -418,7 +418,7 @@ export const TextField = () => {
         <input
           id="input-error"
           type="text"
-          class="tk-input"
+          class="tk-input tk-input--medium"
           placeholder="Type something..."
         />
         <div class="tk-input__icon">
@@ -532,7 +532,68 @@ export const TextField = () => {
       </div>
     </div>
   </div>
+  <h2>Condensed theme</h2>
+  <div class="tk-my-h">This component supports the condensed theme. </div>
+  <div class="tk-my-1h">Adding the <span class="code">.condensed</span> or <span
+      class="code">.tk-theme-condensed</span> class on a parent element of the component will
+    apply the condensed style to the <span class="font-bold">medium</span> size.
+  <div>You can enable from the storybook theme addon button</div>
+  <h3 class="tk-mt-5h">Escape condensed mode</h3>
+  <div class="tk-m-2">Adding the <span class="code">.tk-escape-condensed</span> class on a parent element, the
+    condensed mode will not be applied:</div>
+  <div id="escape-area" class="tk-escape-condensed">
+    <span class="tk-switch tk-m-3">
+      <div class="tk-switch__inputContainer " onclick="escapeCondensed()">
+        <input class="tk-switch__input" type="checkbox" id="switch1" value="active-switch-1" checked>
+        <span class="tk-switch__icon"></span>
+      </div>
+      <label class="tk-switch__label" for="switch" id="escape">Escape condensed</label>
+    </span>
+      <input type="text" class="tk-input tk-input--medium" placeholder="Type something..." />
+      <div class="tk-mt-2"></div>
+      <span class="tk-validation tk-validation--error">
+      <input
+        type="text"
+        class="tk-input tk-input--error"
+        placeholder="Type something..."
+      />
+      <ul class="tk-validation__errors">
+        <li><i class="tk-icon-alert-triangle"></i>This field is required.</li>
+      </ul>
+    </span>
+    <div class="tk-mt-2"></div>
+    <div class="tk-input-group">
+    <div class="tk-input-group__header">
+      <label class="tk-label" for="input">Field label</label>
+    </div>
+    <div class="tk-input__container">
+      <input
+        id="input"
+        type="text"
+        class="tk-input tk-input--medium"
+        placeholder="Type something..."
+      />
+    </div>
+    <div class="tk-input__helper">This is a helper.</div>
+  </div>
+  </div>
+  </div>
 </div>
+
+<script>
+var escape = true;
+function escapeCondensed() {
+  if (!escape) {
+    document.getElementById("escape-area").className = "tk-escape-condensed";
+    document.getElementById("escape").innerText = "Escape condensed";
+  }
+  else {
+    document.getElementById("escape-area").className = "";
+    document.getElementById("escape").innerText = "Default";
+  }
+  escape = !escape;
+}
+</script>
     `;
 };
 
@@ -810,7 +871,7 @@ export const Select = () => {
 export const TextArea = () => {
   return `
   <h3>Default</h3>
-  <textarea class="tk-input" placeholder="Medium"></textarea>
+  <textarea class="tk-input tk-input--medium" placeholder="Medium"></textarea>
   <div class="tk-mt-2"></div>
   <textarea class="tk-input tk-input--small" placeholder="Small"></textarea>
   <h3>Error</h3>
@@ -822,11 +883,11 @@ export const TextArea = () => {
     <textarea class="tk-input tk-input--small tk-input--error" placeholder="Small"></textarea>
   </span>
   <h3>Read only</h3>
-  <textarea class="tk-input" readonly>Medium</textarea>
+  <textarea class="tk-input tk-input--medium" readonly>Medium</textarea>
   <div class="tk-mt-2"></div>
   <textarea class="tk-input tk-input--small" readonly>Small</textarea>
   <h3>Disabled</h3>
-  <textarea class="tk-input" placeholder="Medium" disabled></textarea>
+  <textarea class="tk-input tk-input--medium" placeholder="Medium" disabled></textarea>
   <div class="tk-mt-2"></div>
   <textarea class="tk-input tk-input--small" placeholder="Small" disabled></textarea>
   
@@ -836,7 +897,7 @@ export const TextArea = () => {
       <label class="tk-label" for="input">Field label</label>
     </div>
     <div class="tk-input__container">
-      <textarea class="tk-input" placeholder="Medium"></textarea>
+      <textarea class="tk-input tk-input--medium" placeholder="Medium"></textarea>
     </div>
     <div class="tk-input__helper">This is a helper.</div>
   </div>
@@ -862,7 +923,7 @@ export const TextArea = () => {
         <label class="tk-label" for="input-error">Field label</label>
       </div>
       <div class="tk-input__container">
-        <textarea class="tk-input" placeholder="Medium"></textarea>
+        <textarea class="tk-input tk-input--medium" placeholder="Medium"></textarea>
       </div>
       </div>
       <ul class="tk-validation__errors">
@@ -894,7 +955,7 @@ export const TextArea = () => {
       <label class="tk-label" for="input-readonly">Field label</label>
     </div>
     <div class="tk-input__container tk-input__container--readonly">
-      <textarea class="tk-input" readonly>Medium</textarea>
+      <textarea class="tk-input tk-input--medium" readonly>Medium</textarea>
     </div>
     <div class="tk-input__helper">This is a helper.</div>
   </div>
@@ -926,7 +987,7 @@ export const TextArea = () => {
         tk-input__container tk-input__container tk-input__container--disabled
       "
     >
-      <textarea class="tk-input tk-input" placeholder="Medium" disabled></textarea>
+      <textarea class="tk-input tk-input--medium" placeholder="Medium" disabled></textarea>
     </div>
     <div class="tk-input__helper">This is a helper.</div>
   </div>
