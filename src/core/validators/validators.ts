@@ -160,7 +160,7 @@ const Url: ValidatorFn = (value) => {
 
 const isEmptyValue = (value: Value) =>
   (_.isEmpty(value) && !_.isDate(value)) ||
-  (_.isString(value) && value?.trim?.() === '');
+  (_.isString(value) && value.trim() === '');
 
 export const Validators = {
   Url,
