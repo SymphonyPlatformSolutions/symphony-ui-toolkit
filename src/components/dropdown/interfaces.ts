@@ -7,6 +7,11 @@ export interface OptionRendererProps<T> {
   data: T;
 }
 
+export type HTMLInputProps = Omit<
+  React.HTMLProps<HTMLInputElement>,
+  'onChange' | 'value'
+>;
+
 export interface TagRendererProps<T> extends OptionRendererProps<T> {
   remove: () => any;
 }
@@ -164,7 +169,7 @@ export type DropdownProps<T> = {
     | React.FunctionComponent<TagRendererProps<T>>;
   /** Message to be display on the header of the menu list when searching by term */
   termSearchMessage?: ((term: string) => string) | string;
-} & React.HTMLProps<HTMLInputElement> &
+} & HTMLInputProps &
   MenuPortalProps &
   HasTooltipProps &
   (MultiModeProps<T> | SingleModeProps<T>) &
