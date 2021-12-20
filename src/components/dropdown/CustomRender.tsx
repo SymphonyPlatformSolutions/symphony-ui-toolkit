@@ -136,7 +136,7 @@ export const Control = ({ children, selectProps, ...props }: any) => {
   const {iconName} = selectProps;
   return (<div>
     <components.Control {...props} className="tk-select__container">
-      {iconName && <Icon iconName={iconName} className="tk-input__icon" tabIndex={0}/>}
+      {iconName && <Icon iconName={iconName} className="tk-input__icon"/>}
       {children}
     </components.Control>
   </div>);
