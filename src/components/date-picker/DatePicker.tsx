@@ -30,7 +30,7 @@ import { format as formatDate, isValid } from 'date-fns';
 
 import { ErrorMessages, HasValidationProps } from '../validation/interfaces';
 import { HasTooltipProps } from '../tooltip/interfaces';
-import { MenuPortalProps } from '../dropdown/interfaces';
+import { HTMLInputProps, MenuPortalProps } from '../dropdown/interfaces';
 
 // z-index: 4; equivalent to $z-index-tooltip
 const DatePickerContainer = styled.div`
@@ -68,7 +68,8 @@ type DatePickerComponentProps = {
   /* The picker is open on render (not supported with menuPortalTarget) */
   showOverlay?: boolean;
   showRequired?: boolean;
-} & React.HTMLProps<HTMLInputElement> & HasTooltipProps &
+} & HTMLInputProps &
+  HasTooltipProps &
   HasValidationProps<Date> &
   MenuPortalProps;
 

@@ -2,7 +2,7 @@ import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import { HasTooltipProps } from '../tooltip/interfaces';
 import { HasValidationProps } from '../validation/interfaces';
-import { MenuPortalProps } from '../dropdown/interfaces';
+import { HTMLInputProps, MenuPortalProps } from '../dropdown/interfaces';
 
 export type TimePickerValue = string;
 
@@ -42,7 +42,7 @@ export type TimePickerProps = {
   value?: string;
   showRequired?: boolean;
   helperText?: string;
-} & React.HTMLProps<HTMLInputElement> &
+} & HTMLInputProps &
   MenuPortalProps &
   HasValidationProps<TimePickerValue> &
   HasTooltipProps;
