@@ -24,17 +24,26 @@ describe('Time Utils', () => {
         {
           label: '09:30:35 AM',
           value: '09:30:35',
-          data: { hours: '09', minutes: '30', seconds: '35' },
+          data: {
+            index: 0,
+            time: new Time('09', '30', '35'),
+          }
         },
         {
           label: '10:40:25 AM',
           value: '10:40:25',
-          data: { hours: '10', minutes: '40', seconds: '25' },
+          data: {
+            index: 1,
+            time: new Time('10', '40', '25')
+          },
         },
         {
           label: '05:50:12 PM',
           value: '17:50:12',
-          data: { hours: '17', minutes: '50', seconds: '12' },
+          data: {
+            index: 2,
+            time: new Time('17', '50', '12')
+          },
         },
       ],
       {
@@ -169,17 +178,23 @@ describe('Time Utils', () => {
         {
           label: '00:00:00',
           value: '00:00:00',
-          data: { index: 0, hours: '00', minutes: '00', seconds: '00' },
+          data: {
+            index: 0, time: new Time('00', '00', '00')
+          },
         },
         {
           label: '00:30:00',
           value: '00:30:00',
-          data: { index: 1, hours: '00', minutes: '30', seconds: '00' },
+          data: {
+            index: 1, time: new Time('00', '30', '00'),
+          }
         },
         {
           label: '01:00:00',
           value: '01:00:00',
-          data: { index: 2, hours: '01', minutes: '00', seconds: '00' },
+          data: {
+            index: 2, time: new Time('01', '00', '00')
+          },
         },
       ],
     ],

@@ -16,9 +16,10 @@ export interface TagRendererProps<T> extends OptionRendererProps<T> {
   remove: () => any;
 }
 
-export interface LabelValue {
+export interface LabelValue<T = string, O = void> {
   label: string;
-  value: string;
+  value: T;
+  data?: O; // Optional data
 }
 
 interface DropdownOptionsGroup<T> {
@@ -146,15 +147,15 @@ export type DropdownProps<T> = {
   /** Handle blur events on the control */
   onBlur?: (e) => any;
   /** Handle key down events on the select */
-  onKeyDown?: (event) => any;
+  onKeyDown?: (event: React.KeyboardEvent<HTMLElement>) => void;
   /** Handle key up events on the select */
-  onKeyUp?: (event) => any;
+  onKeyUp?: (event: React.KeyboardEvent<HTMLElement>) => void;
   /** Handle change events on the input */
   onInputChange?: (string, any) => any;
   /** Handle clear event */
   onClear?: () => any;
   /** Handle focus event */
-  onFocus?: (event) => any;
+  onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
   /** Handle the menu opening */
   onMenuOpen?: () => void;
   /** Handle the menu closing */
