@@ -3,8 +3,6 @@ import addons from '@storybook/addons';
 import { addParameters, forceReRender } from '@storybook/react';
 import { themes } from '@storybook/theming';
 
-import 'focus-visible';
-
 let globalDarkMode = undefined;
 
 setTimeout(() => init());
@@ -36,6 +34,11 @@ addParameters({
       brandImage: 'https://symphony.com/wp-content/uploads/2019/06/logo.png',
       brandTitle: 'UIToolkit Components',
     },
+  },
+  themes: {
+    list: [
+      { name: 'Condensed', class: ['tk-theme-condensed', 'condensed']}
+    ],
   },
 });
 // this allows us to add a dark class to body element to be able to render our component in dark mode  in sync with storybook's

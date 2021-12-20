@@ -2,8 +2,9 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
 import classNames from 'classnames';
-import { ValidatorFn } from '../../core/validators/validators';
+import { ValidatorFn, Validators } from '../../core/validators/validators';
 import { ACTION, ErrorMessages } from './interfaces';
+import { Icon } from '..';
 
 const ValidationPropTypes = {
   validator: PropTypes.oneOfType([
@@ -195,7 +196,7 @@ class Validation extends React.Component<
   }
 
   render() {
-    const { children } = this.props;
+    const { children, validator } = this.props;
 
     let childWithValidation;
     if (React.Children.count(children) === 0) {
@@ -212,18 +213,24 @@ class Validation extends React.Component<
       childWithValidation = this.getChildWithValidation(child);
     }
 
+    const size = childWithValidation?.props?.['size']; // Experimental - Put itself automatically in small variant if the child is small
     const hasErrors = this.state.errors && this.state.errors.length;
+
+    // aria-label to true if Validation contains a Required
+    const ariaRequired = validator instanceof Array ? !!validator.find(v => v === Validators.Required) : validator === Validators.Required;
     return (
       <span
         className={classNames('tk-validation', {
           'tk-validation--error': hasErrors,
+          [`tk-validation--${size}`]: size,
         })}
+        aria-required={ariaRequired}
       >
         {childWithValidation}
         {hasErrors ? (
           <ul className="tk-validation__errors">
             {this.state.errors.map((error, index) => (
-              <li key={index}>{error}</li>
+              <li key={index} aria-errormessage={error}><Icon iconName="alert-triangle"/>{error}</li>
             ))}
           </ul>
         ) : null}

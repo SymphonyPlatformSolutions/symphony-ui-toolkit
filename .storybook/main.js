@@ -9,6 +9,7 @@ module.exports = {
     'storybook-dark-mode/register',
     '@storybook/addon-controls',
     '@storybook/preset-scss',
+    'storybook-addon-themes',
   ],
   webpackFinal: async (config) => {
     config.module.rules.push(

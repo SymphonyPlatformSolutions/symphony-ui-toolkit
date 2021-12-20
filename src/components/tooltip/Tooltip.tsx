@@ -39,9 +39,6 @@ const TooltipContainer = styled.div`
   }
 `;
 
-const TooltipClose = styled.span`
-  cursor: pointer;
-`;
 export interface TooltipProps extends Omit<React.HTMLProps<HTMLDivElement>, 'as' | 'ref'> {
   /** Clickable text to display that fires onHintClose */
   closeLabel?: string;
@@ -194,12 +191,14 @@ const Tooltip: React.FC<TooltipProps> = ({
               </div>
               <div className="tk-hint__footer">
                 {closeLabel ? (
-                  <TooltipClose
+                  <span
                     className="tk-hint__close"
                     onClick={onHintClose}
+                    onKeyDown={(event) => (event.key === 'Enter') && onHintClose()}
+                    tabIndex={0}
                   >
                     {closeLabel}
-                  </TooltipClose>
+                  </span>
                 ) : null}
               </div>
             </>

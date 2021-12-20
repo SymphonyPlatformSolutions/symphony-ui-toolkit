@@ -13,6 +13,8 @@ enum Types {
   TEXTFIELD = 'TextField',
 }
 
+const prefix = 'tk-input';
+
 export type InputBaseProps = {
   onCopy?: (event) => any;
   onCut?: (event) => any;
@@ -23,6 +25,7 @@ type TextComponentProps = {
   /** React Element to display inside the Field, on the right side */
   rightDecorators?: JSX.Element | JSX.Element[];
   className?: string;
+  /** When present, it specifies that the field is disabled. */
   disabled?: boolean;
   /** React Element to display inside the Field, on the left side */
   iconElement?: JSX.Element;
@@ -30,14 +33,18 @@ type TextComponentProps = {
   label?: string;
   /** Force the text to display masked "••••" */
   isMasked?: boolean;
-  /** Deprecated, please use rightDecorators instead */
+  /** @deprecated Deprecated, please use rightDecorators instead */
   masked?: boolean;
   placeholder?: string;
   onClick?: () => any;
   onFocus?: (event?: React.FocusEvent<HTMLElement>) => any;
   onKeyDown?: (event) => any;
-  value?: string;
   showRequired?: boolean;
+  /** When present, it specifies that the field is read-only. */
+  readOnly?: boolean;
+  /** Size of the input */
+  size?: 'small' | 'medium';
+  value?: string;
   helperText?: string
 } & HasTooltipProps &
   HasValidationProps<string>;
@@ -72,15 +79,16 @@ const TextComponentPropTypes = {
   onClick: PropTypes.func,
   onFocus: PropTypes.func,
   onKeyDown: PropTypes.func,
+  readOnly: PropTypes.bool,
+  showRequired: PropTypes.bool,
   tooltip: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   tooltipCloseLabel: PropTypes.string,
   value: PropTypes.string,
-  showRequired: PropTypes.bool,
 };
 
 const TextComponent: React.FC<
   TextComponentPropsWithType &
-  React.RefAttributes<HTMLInputElement | HTMLTextAreaElement>
+    React.RefAttributes<HTMLInputElement | HTMLTextAreaElement>
 > = React.forwardRef(
   (
     {
@@ -94,10 +102,12 @@ const TextComponent: React.FC<
       label,
       placeholder,
       masked,
+      readOnly,
+      size,
+      showRequired,
       tooltip,
       tooltipCloseLabel,
       value,
-      showRequired,
       helperText,
       onInit,
       onChange,
@@ -121,7 +131,7 @@ const TextComponent: React.FC<
 
     // Generate unique ID if not provided
     const inputId = useMemo(() => {
-      return id || `tk-input-${shortid.generate()}`;
+      return id || `${prefix}-${shortid.generate()}`;
     }, [id]);
 
     const tooltipId = useMemo(() => `tk-hint-${shortid.generate()}`, []);
@@ -140,12 +150,78 @@ const TextComponent: React.FC<
       TagName = 'input';
     }
 
+    const shouldHideText = (isMasked || (masked && hideText));
+    const typeTextField = type === Types.TEXTFIELD ? shouldHideText ? 'password' : 'text' : undefined;
+
     return (
       <div
-        className={classNames('tk-input-group', {
-          'tk-input-group--disabled': disabled,
+        className={classNames(`${prefix}-group`, `${prefix}-group--${size}`, {
+          [`${prefix}-group--disabled`]: disabled,
+          [`${prefix}-group--readonly`]: readOnly,
         })}
       >
+
+        <div
+          className={classNames(
+            className,
+            `${prefix}__container`,
+            `${prefix}__container--${size}`,
+            {
+              [`${prefix}__container--disabled`]: disabled,
+              [`${prefix}__container--readonly`]: readOnly,
+            }
+          )}
+        >
+          <TagName
+            id={inputId}
+            ref={ref}
+            aria-autocomplete="none"
+            aria-describedby={tooltip && tooltipId}
+            aria-label={label}
+            aria-placeholder={placeholder}
+            aria-readonly={readOnly}
+            aria-multiline={type === Types.TEXTAREA}
+            className={classNames(prefix, `${prefix}--${size}`)}
+            disabled={disabled}
+            onBlur={onBlur}
+            onClick={onClick}
+            onFocus={onFocus}
+            onKeyDown={onKeyDown}
+            onChange={onChange}
+            placeholder={placeholder}
+            role="textbox"
+            type={typeTextField}
+            readOnly={readOnly}
+            value={value}
+            {...rest}
+          />
+
+          {rightDecorators && type == Types.TEXTFIELD ? (
+            <span className={`${prefix}__right-decorators`}>
+              {Array.isArray(rightDecorators)
+                ? rightDecorators.map((decorator) => decorator)
+                : rightDecorators}
+            </span>
+          ) : null}
+          {type == Types.TEXTFIELD && masked && value?.length ? (
+            <button
+              className={`${prefix}__hide`}
+              tabIndex={value && value.length === 0 ? -1 : 0}
+              onClick={handleViewText}
+            >
+              {hideText ? 'show' : 'hide'}
+            </button>
+          ) : null}
+          {iconElement && type == Types.TEXTFIELD
+            ? // Clone the iconElement in order to attach className '${prefix}__icon'
+            React.cloneElement(iconElement, {
+              className: classNames(
+                `${prefix}__icon`,
+                iconElement.props.className
+              ),
+            })
+            : null}
+        </div>
         <LabelTooltipDecorator
           id={tooltipId}
           htmlFor={inputId}
@@ -155,70 +231,16 @@ const TextComponent: React.FC<
           tooltipCloseLabel={tooltipCloseLabel}
           showRequired={showRequired}
         />
-        <div
-          className={classNames(className, 'tk-input__container', {
-            'tk-input__container--disabled': disabled,
-          })}
-        >
-          <TagName
-            id={inputId}
-            ref={ref}
-            aria-autocomplete="none"
-            aria-describedby={tooltip && tooltipId}
-            aria-label={label}
-            aria-placeholder={placeholder}
-            aria-readonly={disabled}
-            aria-multiline={type === Types.TEXTAREA}
-            className={classNames('tk-input')}
-            placeholder={placeholder}
-            value={value}
-            onBlur={onBlur}
-            onClick={onClick}
-            onFocus={onFocus}
-            onKeyDown={onKeyDown}
-            onChange={onChange}
-            type={type === Types.TEXTFIELD ? 'text' : null}
-            style={
-              {
-                WebkitTextSecurity:
-                  type == Types.TEXTFIELD &&
-                  (isMasked || (masked && hideText)) &&
-                  'disc',
-              } as React.CSSProperties
-            }
-            disabled={disabled}
-            {...rest}
-          />
-
-          {rightDecorators && type == Types.TEXTFIELD
-            ? Array.isArray(rightDecorators)
-              ? rightDecorators.map((decorator) => decorator)
-              : rightDecorators
-            : null}
-          {type == Types.TEXTFIELD && masked && value?.length ? (
-            <button
-              className="tk-input__hide"
-              tabIndex={value && value.length === 0 ? -1 : 0}
-              onClick={handleViewText}
-            >
-              {hideText ? 'show' : 'hide'}
-            </button>
-          ) : null}
-          {iconElement && type == Types.TEXTFIELD
-            ? // Clone the iconElement in order to attach className 'tk-input__icon'
-            React.cloneElement(iconElement, {
-              className: classNames(
-                'tk-input__icon',
-                iconElement.props.className
-              ),
-            })
-            : null}
-        </div>
         {helperText &&  <div className="tk-input__helper">{helperText}</div>}
       </div>
     );
   }
 );
+
+TextComponent.defaultProps = {
+  size: 'medium',
+};
+
 
 TextComponent.propTypes = {
   ...TextComponentPropTypes,

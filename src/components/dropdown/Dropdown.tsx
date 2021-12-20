@@ -23,6 +23,7 @@ import {
   LabelValue,
 } from './interfaces';
 import LabelTooltipDecorator from '../label-tooltip-decorator/LabelTooltipDecorator';
+import classNames from 'classnames';
 
 // css baseclass prefix
 const prefix = 'tk-select';
@@ -137,6 +138,7 @@ export class Dropdown<T = LabelValue> extends React.Component<
       autoScrollToCurrent,
       blurInputOnSelect,
       className,
+      defaultOptions,
       defaultValue,
       enableTermSearch,
       iconName,
@@ -151,6 +153,11 @@ export class Dropdown<T = LabelValue> extends React.Component<
       maxHeight,
       maxMenuHeight,
       menuIsOpen,
+      menuPlacement,
+      menuPortalStyles,
+      menuPortalTarget,
+      menuShouldBlockScroll,
+      menuShouldScrollIntoView,
       mode,
       name,
       noOptionMessage,
@@ -166,39 +173,28 @@ export class Dropdown<T = LabelValue> extends React.Component<
       onMenuOpen,
       onMenuClose,
       optionRenderer,
+      showRequired,
+      size,
+      tabSelectsValue,
       tagRenderer,
+      termSearchMessage,
       tooltip,
       tooltipCloseLabel,
-      showRequired,
-      tabSelectsValue,
-      termSearchMessage,
       value,
-      defaultOptions,
-      menuPlacement,
-      menuShouldScrollIntoView,
-      menuPortalStyles,
-      menuPortalTarget,
-      menuShouldBlockScroll,
+      variant,
       ...otherProps
     } = this.props;
 
     return (
-      <div className={className}>
-        <LabelTooltipDecorator
-          htmlFor={id}
-          label={label}
-          placement={'top'}
-          tooltip={tooltip}
-          tooltipCloseLabel={tooltipCloseLabel}
-          showRequired={showRequired}
-        />
+      <div className={classNames(className, 'tk-input-group', `tk-input-group--${size}`)}>
         <DropdownTag
           {...otherProps}
           styles={{
             menuPortal: (base: CSSProperties) => ({ ...base, ...menuPortalStyles }),
             valueContainer: (base: CSSProperties) => ({
               ...base, maxHeight: `${maxHeight}px`
-            })
+            }),
+            input: (base: CSSProperties) => ({...base, margin: (size === 'small') ? '0 2px' : undefined, color: 'inherit'}),
           }}
           parentInstance={this}
           ref={this.myRef}
@@ -225,7 +221,7 @@ export class Dropdown<T = LabelValue> extends React.Component<
           defaultValue={defaultValue}
           id={id}
           name={name}
-          className={prefix}
+          className={classNames(prefix, {[`${prefix}--${variant}`]: variant}, {[`${prefix}--${size}`]: size})}
           closeMenuOnSelect={closeMenuOnSelect}
           classNamePrefix={prefix}
           value={value}
@@ -269,6 +265,14 @@ export class Dropdown<T = LabelValue> extends React.Component<
           menuShouldBlockScroll={menuShouldBlockScroll}
           menuShouldScrollIntoView={menuShouldScrollIntoView}
         />
+        <LabelTooltipDecorator
+          htmlFor={id}
+          label={label}
+          placement={'top'}
+          tooltip={tooltip}
+          tooltipCloseLabel={tooltipCloseLabel}
+          showRequired={showRequired}
+        />
         {helperText &&  <div className="tk-input__helper">{helperText}</div>}
       </div>
     );
@@ -284,7 +288,8 @@ export class Dropdown<T = LabelValue> extends React.Component<
     menuPlacement: 'auto',
     menuPortalStyles: {},
     menuShouldBlockScroll: false,
-    menuShouldScrollIntoView: true
+    menuShouldScrollIntoView: true,
+    size: 'medium'
   };
 }
 
