@@ -50,11 +50,7 @@ const MinLength = (minlength: number): ValidatorFn => {
     );
   }
   return (value) => {
-    if (
-      value &&
-      (minlength <= (value as any).length ||
-        Object.getPrototypeOf(value) === Object.prototype)
-    ) {
+    if (value && (minlength <= value.length || Object.getPrototypeOf(value) === Object.prototype)) {
       return Promise.resolve(null);
     }
     return Promise.resolve({ minlength: true });
@@ -71,11 +67,7 @@ const MaxLength = (maxLength: number): ValidatorFn => {
     throw 'Validator maxLength can not be 0';
   }
   return (value) => {
-    if (
-      !value ||
-      maxLength >= (value as any).length ||
-      Object.getPrototypeOf(value) === Object.prototype
-    ) {
+    if (!value|| maxLength >= value.length || Object.getPrototypeOf(value) === Object.prototype) {
       return Promise.resolve(null);
     }
     return Promise.resolve({ maxLength: true });
