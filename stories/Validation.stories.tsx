@@ -216,6 +216,7 @@ export const Validations = () => {
         errorMessage={{ required: 'This field is required' }}
       >
         <Dropdown
+          className="tk-my-2"
           value={dropdown}
           options={[
             { value: '1', label: 'option 1' },

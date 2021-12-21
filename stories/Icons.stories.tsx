@@ -6,12 +6,12 @@ import { TkIcon } from '@symphony-ui/uitoolkit-styles/dist/fonts/tk-icons';
 const iconNames  = Object.keys(IconCodepoints).sort();
 export const Icons: React.FC = () => (
   <div>
-    {iconNames.map((value, index) => {
+    {iconNames.map((iconName, index) => {
       return (
         <div key={index} className="preview">
-          <Icon iconName={value as TkIcon}></Icon>
-          <br></br>
-          <span>{value}</span>
+          <Icon iconName={iconName as TkIcon}/>
+          <br/>
+          <span>{iconName}</span>
         </div>
       );
     })}
