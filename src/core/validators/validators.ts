@@ -1,6 +1,5 @@
 import * as _ from 'lodash';
 
-type Value = string | { [key: string]: string } | { [key: string]: string }[];
 /**
  * A ValidatorFn takes a value as a string and returns an error object {'validationName':true}
  * ex: Required => {'required':true}
@@ -10,7 +9,7 @@ type Value = string | { [key: string]: string } | { [key: string]: string }[];
  * Returns null if no validation error
  */
 export type ValidatorFn = (
-  value?: Value,
+  value?: any
 ) => Promise<{ [id: string]: boolean }> | Promise<null>;
 
 /**
@@ -46,7 +45,9 @@ const EmptyString: ValidatorFn = (value) => {
  */
 const MinLength = (minlength: number): ValidatorFn => {
   if (minlength === 0) {
-    console.warn('Validator minlength can not be 0, use the required Validator instead');
+    console.warn(
+      'Validator minlength can not be 0, use the required Validator instead'
+    );
   }
   return (value) => {
     if (value && (minlength <= value.length || Object.getPrototypeOf(value) === Object.prototype)) {
@@ -58,7 +59,7 @@ const MinLength = (minlength: number): ValidatorFn => {
 /**
  * Checks if a provided value has the maxLength
  * return { maxLength: true } when value is bigger maxLenght
- * return null when value is valid. 
+ * return null when value is valid.
  * @param value Value to test
  */
 const MaxLength = (maxLength: number): ValidatorFn => {
@@ -117,7 +118,7 @@ const Email: ValidatorFn = (value) => {
   if (!value) {
     return Promise.resolve(null);
   }
-  if(typeof value ==='string') {
+  if (typeof value === 'string') {
     const match = value?.match(
       /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/g
     );
@@ -134,7 +135,7 @@ const Url: ValidatorFn = (value) => {
   if (!value) {
     return Promise.resolve(null);
   }
-  if(typeof value ==='string') {
+  if (typeof value === 'string') {
     try {
       new URL(value);
     } catch {
@@ -144,9 +145,10 @@ const Url: ValidatorFn = (value) => {
   return Promise.resolve(null);
 };
 
-const isEmptyValue = (value: Value) => {
-  return  _.isEmpty(value) || (typeof value==='string' && value?.trim?.() === '');
-}
+const isEmptyValue = (value: any) =>
+  ((_.isArray(value) || _.isPlainObject(value)) && _.isEmpty(value)) ||
+  _.isNil(value) ||
+  (_.isString(value) && value.trim() === '');
 
 export const Validators = {
   Url,
