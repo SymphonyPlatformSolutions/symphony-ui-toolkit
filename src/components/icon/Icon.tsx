@@ -53,7 +53,7 @@ const Icon: React.FC<IconProps> = ({
 };
 
 Icon.propTypes = {
-  iconName: PropTypes.any.isRequired,
+  iconName: PropTypes.string.isRequired as PropTypes.Validator<TkIcon>,
   className: PropTypes.string,
   disabled: PropTypes.bool,
   forwardRef: PropTypes.any,

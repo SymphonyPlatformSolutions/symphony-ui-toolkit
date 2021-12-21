@@ -82,7 +82,7 @@ Toast.propTypes = {
   className: PropTypes.string,
   closeIcon: PropTypes.bool,
   content: PropTypes.oneOfType([PropTypes.string, PropTypes.element]).isRequired,
-  leftIcon: PropTypes.any,
+  leftIcon: PropTypes.string as PropTypes.Validator<TkIcon>,
   onClickClose: PropTypes.func,
   placement: PropTypes.any,
   show: PropTypes.bool.isRequired,
