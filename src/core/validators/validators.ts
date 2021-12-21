@@ -1,10 +1,5 @@
 import * as _ from 'lodash';
 
-type Value =
-  | string
-  | { [key: string]: string }
-  | { [key: string]: string }[]
-  | Date;
 /**
  * A ValidatorFn takes a value as a string and returns an error object {'validationName':true}
  * ex: Required => {'required':true}
@@ -14,7 +9,7 @@ type Value =
  * Returns null if no validation error
  */
 export type ValidatorFn = (
-  value?: Value
+  value?: any
 ) => Promise<{ [id: string]: boolean }> | Promise<null>;
 
 /**
@@ -158,8 +153,9 @@ const Url: ValidatorFn = (value) => {
   return Promise.resolve(null);
 };
 
-const isEmptyValue = (value: Value) =>
-  (_.isEmpty(value) && !_.isDate(value)) ||
+const isEmptyValue = (value: any) =>
+  ((_.isArray(value) || _.isPlainObject(value)) && _.isEmpty(value)) ||
+  _.isNil(value) ||
   (_.isString(value) && value.trim() === '');
 
 export const Validators = {

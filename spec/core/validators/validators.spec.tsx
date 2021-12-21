@@ -19,6 +19,7 @@ describe('Input Validators', () => {
     expect(await Validators.Required(objectWithValue)).toEqual(null);
     expect(await Validators.Required(arrayWithValues)).toEqual(null);
     expect(await Validators.Required(new Date())).toEqual(null);
+    expect(await Validators.Required(3)).toEqual(null);
     expect(await Validators.Required(emptyObject)).toEqual({ required: true }); 
     expect(await Validators.Required(emptyArray)).toEqual({ required: true });
 
