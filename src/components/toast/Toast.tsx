@@ -3,6 +3,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Icon from '../icon';
+import { TkIcon } from  '@symphony-ui/uitoolkit-styles/dist/fonts/tk-icons';
 
 interface Placement {
     horizontal: 'left' | 'center' | 'right';
@@ -17,7 +18,7 @@ export interface ToastProps extends Omit<React.HTMLProps<HTMLDivElement>, 'child
     /** Content of the Toast */
     content: string | JSX.Element;
     /** If set, icon will be placed to the left */
-    leftIcon?: string;
+    leftIcon?: TkIcon;
     /** Function to call on close action */
     onClickClose?: () => void;
     /** Placement of Toast, relative to parent container */
@@ -81,7 +82,7 @@ Toast.propTypes = {
   className: PropTypes.string,
   closeIcon: PropTypes.bool,
   content: PropTypes.oneOfType([PropTypes.string, PropTypes.element]).isRequired,
-  leftIcon: PropTypes.string,
+  leftIcon: PropTypes.string as PropTypes.Validator<TkIcon>,
   onClickClose: PropTypes.func,
   placement: PropTypes.any,
   show: PropTypes.bool.isRequired,
