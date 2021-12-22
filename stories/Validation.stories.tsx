@@ -185,6 +185,27 @@ export const Validations = () => {
           }}
         />
       </Validation>
+      <h3>Time Picker</h3>
+      <p>
+        with <strong>Required validator</strong>
+      </p>
+      <Validation
+        onValidationChanged={logChange}
+        validator={Validators.Required}
+        errorMessage={'This field is mandatory'}
+      >
+        <TimePicker
+          label={'TimePicker'}
+          min={'08:00:00'}
+          max={'20:00:00'}
+          disabledTimes={disabledTimes}
+          value={time}
+          onChange={(e) => {
+            const value = e.target.value;
+            setTime(value);
+          }}
+        />
+      </Validation>
       <h3>Dropdown</h3>
       <p>
         with <strong>Required validator</strong>
@@ -195,6 +216,7 @@ export const Validations = () => {
         errorMessage={{ required: 'This field is required' }}
       >
         <Dropdown
+          className="tk-my-2"
           value={dropdown}
           options={[
             { value: '1', label: 'option 1' },
@@ -448,6 +470,7 @@ export const Validations = () => {
           }}
         />
       </Validation>
+   
       <h2>Can be attached to anything</h2>
       <p>The Validation component wraps the component to be validated.</p>
       <p>
