@@ -1,8 +1,7 @@
 import { format as formatTime, parse as parseTime, isValid } from 'date-fns';
 
 import Time from './Time';
-import { DropdownOption } from '../../dropdown';
-import { DisabledTime } from '../interfaces';
+import { DisabledTime, TimePickerOption } from '../interfaces';
 
 export const TIME_REGEXPR = {
   HH_MM_SS_12: /^(0[0-9]|1[0-2]):([0-5][0-9]):?([0-5][0-9])?\s+([AaPp][Mm])?$/,
@@ -215,8 +214,8 @@ export const getOptions = (
   min: number,
   max: number,
   step: number
-): Array<DropdownOption<any>> => {
-  const options: Array<DropdownOption<any>> = [];
+): Array<TimePickerOption> => {
+  const options: Array<TimePickerOption> = [];
   for (
     let currentTime = min, index = 0;
     currentTime <= max;
@@ -228,7 +227,7 @@ export const getOptions = (
       value: formatTimeISO(time),
       data: {
         index, // Save the index of the Option, for easy access to the previous/next option if needed
-        ...time, // hours, minutes, seconds
+        time, // hours, minutes, seconds
       },
     });
   }
@@ -274,15 +273,15 @@ export const isTimeDisabled = (
  */
 export const isTimeProposed = (
   time: Time,
-  options: Array<DropdownOption<any>>
+  options: Array<TimePickerOption>
 ): boolean =>
   time &&
   options &&
   options.some(
     (option) =>
-      option?.data?.hours === time.hours &&
-      option?.data?.minutes === time.minutes &&
-      option?.data?.seconds === time.seconds
+      option?.data?.time?.hours === time.hours &&
+      option?.data?.time?.minutes === time.minutes &&
+      option?.data?.time?.seconds === time.seconds
   );
 
 /**
@@ -403,7 +402,7 @@ export const getTimeFromSeconds = (time: number): Time => {
  * @param disabledTimes
  */
 export const getSteps = (
-  options: Array<any>,
+  options: Array<TimePickerOption>,
   disabledTimes: DisabledTime | Array<DisabledTime>
 ) => {
   const hoursValues = new Set<string>();
@@ -411,7 +410,7 @@ export const getSteps = (
   const secondsValues = new Set<string>();
 
   options.forEach((option) => {
-    if (!isTimeDisabled(option.data, disabledTimes)) {
+    if (!isTimeDisabled(option?.data?.time, disabledTimes)) {
       const time = getTimeFromString(option.label);
       if (time) {
         hoursValues.add(time.hours);
