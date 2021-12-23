@@ -118,21 +118,11 @@ body {
   }
 
   .tk-input {
-    box-shadow: none; // force cancel tk-input border
-    &:hover {
-      box-shadow: none; // force cancel tk-input border
-    }
     padding: 0;
     flex-grow: 1;
     line-height: toRem(20);
 
-    &:disabled:hover,
-    &:disabled:active,
-    &:read-only:hover,
-    &:read-only:active,
-    &:read-only:focus-within {
-      box-shadow: none; // force cancel tk-input border
-    }
+    @include cancelBorder;
 
     &__icon {
       order: -1;

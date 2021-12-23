@@ -38,6 +38,19 @@
   line-height: toRem(16);
 }
 
+@mixin cancelBorder {
+  box-shadow: none; // force cancel tk-input border
+  &:hover,
+  &:disabled:hover,
+  &:disabled:active,
+  &:read-only:hover,
+  &:read-only:active,
+  &:read-only:focus-within {
+    box-shadow: none; // force cancel tk-input border
+    border-color: none; // force cancel tk-input border
+  }
+}
+
 @mixin styleInputGroup {
   display: flex;
   flex-direction: column;
@@ -132,6 +145,9 @@
       getColor($--tk-input-color, errorHover),
       getColor($--tk-input-color, defaultBg)
     );
+    .tk-input {
+      @include cancelBorder;
+    }
   }
 }
 
