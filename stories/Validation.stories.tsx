@@ -210,25 +210,26 @@ export const Validations = () => {
       <p>
         with <strong>Required validator</strong>
       </p>
-      <Validation
-        onValidationChanged={logChange}
-        validator={[Validators.Required]}
-        errorMessage={{ required: 'This field is required' }}
-      >
-        <Dropdown
-          className="tk-my-2"
-          value={dropdown}
-          options={[
-            { value: '1', label: 'option 1' },
-            { value: '2', label: 'option 2' },
-            { value: '3', label: 'option 3' },
-          ]}
-          onChange={(e) => {
-            setDropdown(e.target.value);
-          }}
-          isInputClearable
-        />
-      </Validation>
+      <div  className="tk-my-2">
+        <Validation
+          onValidationChanged={logChange}
+          validator={[Validators.Required]}
+          errorMessage={{ required: 'This field is required' }}
+        >
+          <Dropdown
+            value={dropdown}
+            options={[
+              { value: '1', label: 'option 1' },
+              { value: '2', label: 'option 2' },
+              { value: '3', label: 'option 3' },
+            ]}
+            onChange={(e) => {
+              setDropdown(e.target.value);
+            }}
+            isInputClearable
+          />
+        </Validation>
+      </div>
       <Validation
         onValidationChanged={logChange}
         validator={[Validators.Required]}
