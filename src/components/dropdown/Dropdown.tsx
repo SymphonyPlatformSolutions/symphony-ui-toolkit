@@ -195,6 +195,7 @@ export class Dropdown<T = LabelValue> extends React.Component<
               ...base, maxHeight: `${maxHeight}px`
             }),
             input: (base: CSSProperties) => ({...base, margin: (size === 'small') ? '0 2px' : undefined, color: 'inherit'}),
+            multiValue: (base: CSSProperties) => ({ ...base, margin: '0' })
           }}
           parentInstance={this}
           ref={this.myRef}
