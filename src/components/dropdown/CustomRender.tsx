@@ -89,7 +89,7 @@ export const DefaultTagRenderer = (props: any) => {
         <TagRender {...rendererProps} />
       </div>
       : <components.MultiValue {...props}>
-        <div onMouseDown={stopPropagation} style={{display:'flex', alignItems: 'center'} }>
+        <div onMouseDown={stopPropagation} className="tk-tag__container">
           <div className="tk-tag">
             {props.data?.label}
           </div>

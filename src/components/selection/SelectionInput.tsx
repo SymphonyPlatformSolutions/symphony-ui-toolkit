@@ -16,7 +16,7 @@ interface SelectionInputProps {
   labelPlacement?: LabelPlacements;
   value: string;
   status?: SelectionStatus;
-  onClick?: (event) => void;
+  onClick?: (event: React.MouseEvent<HTMLElement>) => void;
   onChange?: (event) => void;
   required?: boolean;
   disabled?: boolean;
