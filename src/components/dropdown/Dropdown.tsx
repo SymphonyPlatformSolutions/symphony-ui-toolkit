@@ -99,11 +99,11 @@ export class Dropdown<T = LabelValue> extends React.Component<
   };
 
   handleIsOptionDisabled = this.props.isOptionDisabled
-    ? (option: any) => this.props.isOptionDisabled(option.data)
+    ? (option: T) => this.props.isOptionDisabled(option)
     : undefined;
 
   handleIsOptionSelected = this.props.isOptionSelected
-    ? (option: any) => this.props.isOptionSelected(option.data)
+    ? (option: T) => this.props.isOptionSelected(option)
     : (option: DropdownOption<T>, selectValue: T[]) => selectValue?.some(i => i === option);
 
   get internalOptions() {

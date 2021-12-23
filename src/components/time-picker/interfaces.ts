@@ -1,8 +1,12 @@
 import * as PropTypes from 'prop-types';
-import * as React from 'react';
 import { HasTooltipProps } from '../tooltip/interfaces';
 import { HasValidationProps } from '../validation/interfaces';
-import { HTMLInputProps, MenuPortalProps } from '../dropdown/interfaces';
+import {
+  HTMLInputProps,
+  LabelValue,
+  MenuPortalProps,
+} from '../dropdown/interfaces';
+import { Time } from './utils';
 
 export type TimePickerValue = string;
 
@@ -16,6 +20,14 @@ interface DisabledTimeRange {
 }
 
 export type DisabledTime = DisabledExactTime | DisabledTimeRange;
+
+export type TimePickerOption = LabelValue<
+  string,
+  {
+    index: number;
+    time: Time;
+  }
+>;
 
 export type TimePickerProps = {
   id?: string;

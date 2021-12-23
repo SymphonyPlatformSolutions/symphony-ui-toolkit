@@ -1,9 +1,9 @@
-import { Dropdown, DropdownOption } from '../dropdown';
+import { Dropdown } from '../dropdown';
 import * as React from 'react';
 import { useEffect, useMemo, useState } from 'react';
 import { Keys } from '../common/eventUtils';
 import { ErrorMessages } from '../validation/interfaces';
-import { DisabledTime, TimePickerProps, TimePickerPropTypes } from './interfaces';
+import { DisabledTime, TimePickerOption, TimePickerProps, TimePickerPropTypes } from './interfaces';
 import {
   formatTimeISO,
   formatISOTimeToSeconds,
@@ -76,13 +76,13 @@ export const TimePicker: React.FC<TimePickerProps> = ({
   useEffect(() => {
     let newSelectedOption = options.find(
       (option) =>
-        option.data.hours === hours &&
-        option.data.minutes === minutes &&
-        option.data.seconds === seconds
+        option?.data?.time?.hours === hours &&
+        option?.data?.time?.minutes === minutes &&
+        option?.data?.time?.seconds === seconds
     );
     if (
       !newSelectedOption ||
-      isTimeDisabled(newSelectedOption.data, disabledTimes)
+      isTimeDisabled(newSelectedOption?.data?.time, disabledTimes)
     ) {
       newSelectedOption = null;
     }
@@ -195,16 +195,16 @@ export const TimePicker: React.FC<TimePickerProps> = ({
   };
 
   return (
-    <Dropdown
+    <Dropdown<TimePickerOption>
       autoScrollToCurrent={true}
       displayArrowIndicator={false}
       filterFunction={() => true}
       iconName="recent"
       id={id}
       isDisabled={disabled}
-      isOptionDisabled={(time: any) => isTimeDisabled(time, disabledTimes)}
-      isOptionSelected={(time: any) =>
-        isTimeSelected(time, hours, minutes, seconds, disabledTimes)
+      isOptionDisabled={(option: TimePickerOption) => isTimeDisabled(option?.data?.time, disabledTimes)}
+      isOptionSelected={(option: TimePickerOption) =>
+        isTimeSelected(option?.data?.time, hours, minutes, seconds, disabledTimes)
       }
       inputAlwaysDisplayed={true}
       inputValue={inputValue}
@@ -283,7 +283,7 @@ const computeError = (
   max: string,
   disabledTimes: DisabledTime | Array<DisabledTime>,
   strict: boolean,
-  options: Array<DropdownOption<any>>
+  options: Array<TimePickerOption>
 ): ErrorMessages => {
   if (!value) {
     return null;
