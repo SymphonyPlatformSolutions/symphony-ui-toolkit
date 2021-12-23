@@ -1,3 +1,4 @@
+import { TkIcon } from '@symphony-ui/uitoolkit-styles/dist/fonts/tk-icons';
 import * as React from 'react';
 import {
   Dropdown,
@@ -77,7 +78,7 @@ const timeZoneOptions: DropdownOption<LabelValue>[] = [
 
 /** Icon custom renderers */
 interface Icon {
-  displayName: string;
+  displayName: TkIcon;
   value: string;
 }
 
@@ -97,7 +98,7 @@ const iconData: DropdownOption<Icon>[] = [
 const IconPickerTagRenderer = (props: TagRendererProps<Icon>) => {
   const { data, remove } = props;
   return (
-    <div style={{backgroundColor: 'rgba(0, 200, 0, 0.5)', borderRadius: '4px', margin: '2px', padding: '0 4px'}}>
+    <div style={{backgroundColor: 'rgba(0, 200, 0, 0.5)', borderRadius: '4px', padding: '0 4px'}}>
       {data.displayName}
       <Icon className="tk-pl-1" iconName={data.displayName} />
       <Icon className="tk-ml-1" iconName="cross" onClick={remove} />
@@ -158,28 +159,28 @@ export const Sizes: React.FC = () => (
     <h4>Small</h4>
     <div style={{ display: 'flex' }}>
       <div style={{ width: '384px', marginRight: '32px' }}>
-        <Dropdown options={defaultOptions} size="small" label="Field label" />
+        <Dropdown options={defaultOptions} size="small" label="Field label"  isInputClearable/>
       </div>
       <div style={{ width: '384px' }}>
-        <Dropdown options={defaultOptions} isMultiSelect size="small" label="Field label" />
+        <Dropdown options={defaultOptions} isMultiSelect size="small" label="Field label"  isInputClearable/>
       </div>
     </div>
     <h4>Medium</h4>
     <div style={{ display: 'flex' }}>
       <div style={{ width: '384px', marginRight: '32px' }}>
-        <Dropdown options={defaultOptions} size="medium" label="Field label" />
+        <Dropdown options={defaultOptions} size="medium" label="Field label" isInputClearable />
       </div>
       <div style={{ width: '384px' }}>
-        <Dropdown options={defaultOptions} isMultiSelect size="medium" label="Field label" />
+        <Dropdown options={defaultOptions} isMultiSelect size="medium" label="Field label"  isInputClearable />
       </div>
     </div>
     <h4>Large</h4>
     <div style={{ display: 'flex' }}>
       <div style={{ width: '384px', marginRight: '32px' }}>
-        <Dropdown options={defaultOptions} size="large" label="Field label" />
+        <Dropdown options={defaultOptions} size="large" label="Field label"  isInputClearable />
       </div>
       <div style={{ width: '384px' }}>
-        <Dropdown options={defaultOptions} isMultiSelect size="large" label="Field label" />
+        <Dropdown options={defaultOptions} isMultiSelect size="large" label="Field label" isInputClearable/>
       </div>
     </div>
     <div className="tk-py-5"/><div className="tk-py-5"/>
