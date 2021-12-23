@@ -9,7 +9,7 @@ export interface OptionRendererProps<T> {
 
 export type HTMLInputProps = Omit<
   React.HTMLProps<HTMLInputElement>,
-  'onChange' | 'value'
+  'onChange' | 'value' | 'defaultValue'
 >;
 
 export interface TagRendererProps<T> extends OptionRendererProps<T> {
