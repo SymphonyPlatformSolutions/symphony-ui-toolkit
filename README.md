@@ -5,7 +5,12 @@ The official styles library of Symphony's design system
 ## Requirements
 
 - Node 12+
-- Yarn
+- Yarn 1.22+
+
+## Browser support
+
+- Chrome: Latest
+- Edge: Latest
 
 ## 🛠 Install
 
@@ -25,10 +30,6 @@ yarn start
 
 In order to install and start using the library you can read the detailed guide on [getting-started.md](https://github.com/SymphonyPlatformSolutions/symphony-bdk-ui-toolkit-styles/blob/master/docs/getting-started.md)
 
-
-
-
-
 ## 🤖 Visual Testing
 
 Automated visual testing uses software to automate the process of comparing visual elements across various screen combinations to uncover visual defects.
@@ -41,10 +42,12 @@ Automated visual testing uses software to automate the process of comparing visu
 yarn start
 yarn test
 ```
+
 And that's it.
 
 **NOTE:** After changes or new Components, the tests will fail or need to be included in validation.
 In order to update them, you may approve them all in one command:
+
 ```bash
 yarn test --update
 ```
