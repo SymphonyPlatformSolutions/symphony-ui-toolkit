@@ -36,21 +36,37 @@ Automated visual testing uses software to automate the process of comparing visu
 
 [Creevey](https://github.com/wKich/creevey/) is a Cross-browser screenshot testing tool for Storybook with a fancy UI Runner.
 
-- Start storybook and then start Visual Testing Execution.
+- Selenium Grid it is an dependency of Creevey, to configure follow the steps below:
+
+Download Selenium Server
+```bash
+curl -L -O https://github.com/SeleniumHQ/selenium/releases/download/selenium-4.1.0/selenium-server-4.1.1.jar
+```
+
+Configure Selenium Grid
+```bash
+java -jar selenium-server-4.1.1.jar hub
+```
+
+In other terminal run Selenium Node
+```bash
+java -jar selenium-server-4.1.1.jar node
+````
+
+- Now Start storybook and then start Visual Testing Execution.
 
 ```bash
 yarn start
 yarn test
 ```
-
-And that's it.
-
 **NOTE:** After changes or new Components, the tests will fail or need to be included in validation.
 In order to update them, you may approve them all in one command:
 
 ```bash
 yarn test --update
 ```
+**NOTE:** The images could be different from local env against CircleCI. In our pipelines, are able to find the report
+with all images during the execution into report.zip. 
 
 ## 🧩 Theming components
 

@@ -2,7 +2,7 @@
 defaults: &defaults
   executor:
     name: node/default
-    tag: 'lts'
+    tag: 'lts-browsers'
 cdn-credentials: &cdn-credentials
   aws-access-key-id: AWS_ACCESS_KEY_CDN
   aws-secret-access-key: AWS_SECRET_ACCESS_KEY_CDN
@@ -12,17 +12,50 @@ version: 2.1
 orbs:
   node: circleci/node@2.1
   aws-s3: circleci/aws-s3@1.1.1
+  browser-tools: circleci/browser-tools@1.2.3
 jobs:
   build-and-publish:
     <<: *defaults
     steps:
+      - browser-tools/install-chrome
+      - browser-tools/install-chromedriver
       - checkout
+      - run: curl -L -O https://github.com/SeleniumHQ/selenium/releases/download/selenium-4.1.0/selenium-server-4.1.1.jar
       - run: yarn
       - run: yarn build
       - run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
       - run: bash ./publish.sh
       - run: rm -f ~/.npmrc
       - run: yarn build-storybook
+      - run:
+          name: Storybook Start
+          command: yarn start
+          background: true
+      - run:
+          name: Configure Selenium Grid
+          command: java -jar selenium-server-4.1.1.jar hub
+          background: true
+      - run:
+          name: Run Selenium Node
+          command: |
+            # Waiting for the Selenium Grid become ready
+            sleep 45
+            java -jar selenium-server-4.1.1.jar node
+          background: true
+      - run:
+          name: Execute Visual Tests
+          command: |
+            # Waiting for the Selenium Grid and Node become ready
+            sleep 50
+            yarn test
+      - run:
+          name: Preparing artifacts
+          when: always
+          command: zip -r .creevey/report/report.zip .creevey/report
+
+      - store_artifacts:
+         path: .creevey/report
+        
       - persist_to_workspace:
           root: dist
           paths:
