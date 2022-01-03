@@ -36,38 +36,48 @@ Automated visual testing uses software to automate the process of comparing visu
 
 [Creevey](https://github.com/wKich/creevey/) is a Cross-browser screenshot testing tool for Storybook with a fancy UI Runner.
 
-- Selenium Grid it is an dependency of Creevey, to configure follow the steps below:
+**Requirements**  
 
-Download Selenium Server
+ - Selenium Grid
+ - [Chromedriver](https://chromedriver.chromium.org/downloads)  
+
+**Setting Up**  
+
+ 1. Download Selenium Server.
+
 ```bash
 curl -L -O https://github.com/SeleniumHQ/selenium/releases/download/selenium-4.1.0/selenium-server-4.1.1.jar
 ```
 
-Configure Selenium Grid
+2. Configure Selenium Grid.
+
 ```bash
 java -jar selenium-server-4.1.1.jar hub
 ```
+3. In other terminal run Selenium Node.
 
-In other terminal run Selenium Node
 ```bash
 java -jar selenium-server-4.1.1.jar node
 ````
 
-- Now Start storybook and then start Visual Testing Execution.
-
+4. Now Start storybook and then start Visual Testing Execution.
 ```bash
 yarn start
 yarn test
 ```
-**NOTE:** After changes or new Components, the tests will fail or need to be included in validation.
-In order to update them, you may approve them all in one command:
+**Update the test images**  
 
-```bash
-yarn test --update
-```
-**NOTE:** The images could be different from local env against CircleCI. In our pipelines, are able to find the report
-with all images during the execution into report.zip. 
+When the visual testing detects new components or changes on the existing one’s it will fail the tests. In order to fix it you will need to:
 
+ 1. Download report.zip from the CircleCI build.
+ 2. Replace on .creevey/report.
+ 3. Execute the command below, to approve the new images.
+	```bash
+	yarn test --update
+	```
+4. Push into your PR.
+
+**NOTE:** The images could be different from local env against CircleCI. In our pipelines, are able to find the report with all images during the execution into report.zip.
 ## 🧩 Theming components
 
 Read detailed guide on [theming-guide.md](https://github.com/SymphonyPlatformSolutions/symphony-bdk-ui-toolkit-styles/blob/master/docs/theming-guide.md)
