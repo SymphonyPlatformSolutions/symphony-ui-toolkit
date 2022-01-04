@@ -1,8 +1,7 @@
 @mixin smallSize {
-  --tk-select__control-min-height: #{toRem(20)};
+  --tk-select__control-min-height: #{toRem(24)};
   --tk-select__control-padding-left: #{toRem(8)};
-  --tk-select__value-container-padding: 0; 
-  --tk-select__value-container--is-multi-padding: #{toRem(2)} 0; 
+  --tk-select__value-container--is-multi-padding: #{toRem(4)} 0; 
   --tk-select__multi-value-min-height: #{toRem(20)}; 
   --tk-select__multi-value__label-icon-font-size: #{toRem(12)}; 
   --tk-select__value-container--is-multi-gap: #{toRem(4)};
@@ -13,10 +12,9 @@
 }
 
 @mixin mediumSize {
-  --tk-select__control-min-height: #{toRem(28)};
+  --tk-select__control-min-height: #{toRem(32)};
   --tk-select__control-padding-left: #{toRem(12)};
-  --tk-select__value-container-padding: #{toRem(6)} 0; 
-  --tk-select__value-container--is-multi-padding: #{toRem(4)} 0; 
+  --tk-select__value-container--is-multi-padding: #{toRem(6)} 0; 
   --tk-select__multi-value-min-height: #{toRem(24)}; 
   --tk-select__multi-value__label-icon-font-size: #{toRem(16)};
   --tk-select__value-container--is-multi-gap: #{toRem(8)};
@@ -44,12 +42,12 @@ body {
   --tk-input-padding-height: #{toRem(10)};
   --tk-input-padding-width: #{toRem(16)};
 
-  --tk-select__control-min-height: #{toRem(36)};
+  --tk-select__control-min-height: #{toRem(40)};
 
   --tk-select__control-padding-left: #{toRem(16)};
-  --tk-select__value-container-padding: #{toRem(8)} 0; 
+  --tk-select__value-container-padding: 0; 
   --tk-select__value-container--is-multi-padding: #{toRem(8)} 0;
-  --tk-select__value-container--is-multi-min-height: #{toRem(44)};
+  --tk-select__value-container--is-multi-min-height: #{toRem(48)};
 
   --tk-select__dropdown-indicator-padding-right: #{toRem(16)};
 }
@@ -69,7 +67,7 @@ body {
       color: getColor($--tk-input-color, filledText);
     }
     &__control {
-      padding-left: toRem(12);
+      padding-left:  var(--tk-select__control-padding-left);
       background-color: getColor($--tk-input-color, defaultBg);
       .tk-input__icon {
         color: getColor($--tk-input-color, emptyText);
@@ -175,14 +173,13 @@ body {
   .tk-select__container {
     &.tk-select__control {
       min-height: var(--tk-select__control-min-height);
-      padding: toRem(2) 0 toRem(2) var(--tk-select__control-padding-left);
       .tk-select__value-container {
         cursor: text;
-        padding: var(--tk-select__value-container-padding);
+        padding:0;
         &--is-multi {
           min-height: var(--tk-select__value-container--is-multi-min-height);
           gap: var(--tk-select__value-container--is-multi-gap);
-          padding-left: var(--tk-select__value-container--is-multi-padding);
+          padding: var(--tk-select__value-container--is-multi-padding);
           .tk-tag__container {
             display: flex;
             align-items: center;
