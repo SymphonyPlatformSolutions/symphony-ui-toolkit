@@ -85,6 +85,7 @@ export const Validations = () => {
         errorMessage={'This field is mandatory'}
       >
         <TextField
+          helperText="Helper text"
           placeholder="Firstname"
           onChange={() => {
             console.log('Existing onChange method called');
@@ -175,6 +176,7 @@ export const Validations = () => {
         errorMessage={{ required: 'This field is required' }}
       >
         <DatePicker
+          helperText="Helper text"
           todayButton="today"
           tooltip="Departure date"
           label="Expense"
@@ -195,6 +197,7 @@ export const Validations = () => {
         errorMessage={'This field is mandatory'}
       >
         <TimePicker
+          helperText="Helper text"
           label={'TimePicker'}
           min={'08:00:00'}
           max={'20:00:00'}
@@ -227,6 +230,7 @@ export const Validations = () => {
               setDropdown(e.target.value);
             }}
             isInputClearable
+            helperText="Helper text"
           />
         </Validation>
       </div>
@@ -236,6 +240,7 @@ export const Validations = () => {
         errorMessage={{ required: 'This field is required' }}
       >
         <Dropdown
+          helperText="Helper text"
           value={multiDropdown}
           placeHolder="Multi select..."
           options={[
@@ -248,6 +253,21 @@ export const Validations = () => {
           }}
           isMultiSelect
         />
+      </Validation>
+      <h3>Text area</h3>
+      <p>
+        with <strong>Required validator</strong>
+      </p>
+      <Validation
+        onValidationChanged={logChange}
+        validator={[
+          Validators.Required,
+        ]}
+        errorMessage={{
+          required: 'This field is mandatory',
+        }}
+      >
+        <TextArea placeholder="Type something" helperText="Helper text"/>
       </Validation>
       <p>
         with <strong>maxLength validator</strong>
