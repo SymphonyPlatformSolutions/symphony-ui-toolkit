@@ -86,6 +86,7 @@ jobs:
           at: /tmp/dist
       - run: echo 'MOCK deploy-storybook'
       - run: ls /tmp/dist/storybook
+      # MOCK
 #      - aws-s3/sync:
 #          arguments: --delete
 #          aws-access-key-id: AWS_ACCESS_KEY_STORYBOOK
