@@ -3,7 +3,8 @@ set -e
 # Execute publish
 function executePublish {
     yarn pack
-    yarn publish --access public
+    #yarn publish --access public
+    echo "[MOCK COMPONENTS] yarn publish"
     #git add package.json
     #git config --global user.email "$GIT_USEREMAIL"
     #git config --global user.name "$GIT_USERNAME"
