@@ -84,13 +84,15 @@ jobs:
     steps:
       - attach_workspace:
           at: /tmp/dist
-      - aws-s3/sync:
-          arguments: --delete
-          aws-access-key-id: AWS_ACCESS_KEY_STORYBOOK
-          aws-secret-access-key: AWS_SECRET_ACCESS_KEY_STORYBOOK
-          aws-region: AWS_REGION_STORYBOOK
-          from: /tmp/dist/storybook
-          to: s3://uitoolkit-storybook/styles/master
+      - run: echo 'MOCK deploy-storybook'
+      - run: ls /tmp/dist/storybook
+#      - aws-s3/sync:
+#          arguments: --delete
+#          aws-access-key-id: AWS_ACCESS_KEY_STORYBOOK
+#          aws-secret-access-key: AWS_SECRET_ACCESS_KEY_STORYBOOK
+#          aws-region: AWS_REGION_STORYBOOK
+#          from: /tmp/dist/storybook
+#          to: s3://uitoolkit-storybook/styles/master
 
   package-styles-deploy-cdn:
     <<: *defaults
@@ -101,16 +103,22 @@ jobs:
     steps:
       - attach_workspace:
           at: /tmp/dist
-      - aws-s3/sync:
-          arguments: '--delete --exclude "*" --include "*.ttf" --include "*.eot" --include "*.woff" --include "*.woff2" --include "*.svg"'
-          <<: *cdn-credentials
-          from: /tmp/dist/fonts
-          to: s3://www-prod.symphony.com/resources/ui-toolkit/<< parameters.cdn_version_path >>/fonts
-      - aws-s3/copy:
-          <<: *cdn-credentials
-          arguments: '--content-type "text/css; charset=utf-8"'
-          from: /tmp/dist/css/uitoolkit-cdn.generated.css
-          to: s3://www-prod.symphony.com/resources/ui-toolkit/<< parameters.cdn_version_path >>/css/uitoolkit.css
+      - run: echo 'MOCK deploy-cdn'
+      - run: ls *.ttf
+      - run: ls *.eot
+      - run: ls *.woff
+      - run: ls *.woff2
+      - run: ls *.svg
+#      - aws-s3/sync:
+#         arguments: '--delete --exclude "*" --include "*.ttf" --include "*.eot" --include "*.woff" --include "*.woff2" --include "*.svg"'
+#          <<: *cdn-credentials
+#          from: /tmp/dist/fonts
+#          to: s3://www-prod.symphony.com/resources/ui-toolkit/<< parameters.cdn_version_path >>/fonts
+#      - aws-s3/copy:
+#          <<: *cdn-credentials
+#          arguments: '--content-type "text/css; charset=utf-8"'
+#          from: /tmp/dist/css/uitoolkit-cdn.generated.css
+#          to: s3://www-prod.symphony.com/resources/ui-toolkit/<< parameters.cdn_version_path >>/css/uitoolkit.css
 
 workflows:
   build:
