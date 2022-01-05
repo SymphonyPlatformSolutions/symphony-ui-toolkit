@@ -1,0 +1,120 @@
+# Anchors
+defaults: &defaults
+  executor:
+    name: node/default
+    tag: 'lts-browsers'
+cdn-credentials: &cdn-credentials
+  aws-access-key-id: AWS_ACCESS_KEY_CDN
+  aws-secret-access-key: AWS_SECRET_ACCESS_KEY_CDN
+  aws-region: AWS_REGION_CDN
+
+version: 2.1
+orbs:
+  node: circleci/node@2.1
+  aws-s3: circleci/aws-s3@1.1.1
+  browser-tools: circleci/browser-tools@1.2.3
+jobs:
+  build-and-publish:
+    <<: *defaults
+    steps:
+      - browser-tools/install-chrome
+      - browser-tools/install-chromedriver
+      - checkout
+      - run: curl -L -O https://github.com/SeleniumHQ/selenium/releases/download/selenium-4.1.0/selenium-server-4.1.1.jar
+      - run: yarn
+      - run: yarn build
+      - run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
+      - run: bash ./publish.sh
+      - run: rm -f ~/.npmrc
+      - run: yarn build-storybook
+      - run:
+          name: Storybook Start
+          command: yarn start
+          background: true
+      - run:
+          name: Configure Selenium Grid
+          command: java -jar selenium-server-4.1.1.jar hub
+          background: true
+      - run:
+          name: Run Selenium Node
+          command: |
+            # Waiting for the Selenium Grid become ready
+            sleep 45
+            java -jar selenium-server-4.1.1.jar node
+          background: true
+      - run:
+          name: Execute Visual Tests
+          command: |
+            # Waiting for the Selenium Grid and Node become ready
+            sleep 50
+            yarn test
+      - run:
+          name: Preparing artifacts
+          when: always
+          command: zip -r .creevey/report/report.zip .creevey/report
+
+      - store_artifacts:
+         path: .creevey/report
+        
+      - persist_to_workspace:
+          root: dist
+          paths:
+            - storybook
+            - css
+            - fonts
+
+  deploy-storybook:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: /tmp/dist
+      - aws-s3/sync:
+          arguments: --delete
+          aws-access-key-id: AWS_ACCESS_KEY_STORYBOOK
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY_STORYBOOK
+          aws-region: AWS_REGION_STORYBOOK
+          from: /tmp/dist/storybook
+          to: s3://uitoolkit-storybook/styles/master
+
+  deploy-cdn:
+    <<: *defaults
+    parameters:
+      cdn_version_path:
+        type: string
+        default: master
+    steps:
+      - attach_workspace:
+          at: /tmp/dist
+      - aws-s3/sync:
+          arguments: '--delete --exclude "*" --include "*.ttf" --include "*.eot" --include "*.woff" --include "*.woff2" --include "*.svg"'
+          <<: *cdn-credentials
+          from: /tmp/dist/fonts
+          to: s3://www-prod.symphony.com/resources/ui-toolkit/<< parameters.cdn_version_path >>/fonts
+      - aws-s3/copy:
+          <<: *cdn-credentials
+          arguments: '--content-type "text/css; charset=utf-8"'
+          from: /tmp/dist/css/uitoolkit-cdn.generated.css
+          to: s3://www-prod.symphony.com/resources/ui-toolkit/<< parameters.cdn_version_path >>/css/uitoolkit.css
+
+workflows:
+  build:
+    jobs:
+      - build-and-publish:
+          filters:
+            tags:
+              only: /^v.*$/
+      - deploy-storybook:
+          requires:
+            - build-and-publish
+          filters:
+            branches:
+              only: master
+      - deploy-cdn:
+          cdn_version_path: << pipeline.git.tag >>
+          requires:
+            - build-and-publish
+          filters:
+            branches:
+              only: master
+            tags:
+              only: /^v.*\d$(?!^v.*SNAPSHOT.*$)/

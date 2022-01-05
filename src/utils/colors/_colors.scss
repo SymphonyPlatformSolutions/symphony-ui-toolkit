@@ -1,0 +1,33 @@
+$colorMap: (
+  "primary": $scolor-electricity,
+  "ok": $scolor-green,
+  "attention": $scolor-orange,
+  "warning": $--tk-color-error,
+);
+
+@each $name, $color in $colorMap {
+    .tk-color-action-#{$name} {
+      color: $color !important;
+    }
+    .tk-text-color-#{$name} { // deprecated
+      color: $color !important;
+    }
+    .tk-text-color--#{$name} {
+      color: $color !important;
+    }
+    .tk-bg-color--#{$name} {
+      background-color: $color !important;
+    }
+}
+
+.tk-bg-color {
+  background-color: $--tk-background;
+}
+
+.tk-bg-color--reverse {
+  background-color: $--tk-background-reverse;
+}
+
+.tk-text-color {
+  color: $--tk-main-text-color;
+}

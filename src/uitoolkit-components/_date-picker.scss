@@ -1,0 +1,130 @@
+.tk-datepicker {
+  position: relative;
+}
+
+.tk-daypicker {
+  color: $--tk-datepicker-default-color;
+  font-size: toRem(14);
+  padding: toRem(20) toRem(16) toRem(16)
+    toRem(16);
+  @include boxContainer();
+
+  .tk-daypicker-header {
+    margin-bottom: toRem(12);
+    font-weight: 600;
+
+    display: flex;
+    justify-content: space-between;
+
+    &--prevYear {
+      margin-left: toRem(9);
+      @include styleDayPickerHeaderAction($scolor-electricity);
+    }
+    &--nextYear {
+      margin-right: toRem(9);
+      @include styleDayPickerHeaderAction($scolor-electricity);
+    }
+    &--prevMonth {
+      @include styleDayPickerHeaderAction($scolor-electricity);
+    }
+    &--nextMonth {
+      @include styleDayPickerHeaderAction($scolor-electricity);
+    }
+    &--text {
+      display: flex;
+      justify-content: center;
+      align-self: center;
+      text-transform: uppercase;
+      font-size: toRem(12);
+      line-height: toRem(16);
+    }
+  }
+
+  .tk-daypicker-weekday {
+    color: $--tk-input-default-active-color;
+    font-weight: 600;
+    display: grid;
+    grid-template-columns:
+      toRem(32) toRem(32) toRem(32)
+      toRem(32) toRem(32) toRem(32) toRem(32);
+    grid-template-rows: toRem(20);
+
+    &--text {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-transform: uppercase;
+      font-size: toRem(12);
+      line-height: toRem(16);
+    }
+  }
+
+  .tk-daypicker-body {
+    display: grid;
+    grid-template-columns:
+      toRem(32) toRem(32) toRem(32)
+      toRem(32) toRem(32) toRem(32) toRem(32);
+    grid-template-rows:
+      toRem(32) toRem(32) toRem(32)
+      toRem(32) toRem(32) toRem(32);
+    font-size: toRem(14);
+
+    .tk-daypicker-day {
+      border: none;
+      cursor: pointer;
+      border-radius: toRem(2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 400;
+      &:hover {
+        @include addBorder(toRem(2), $scolor-electricity);
+        box-sizing: border-box;
+        border-radius: toRem(2);
+      }
+      &--today {
+        position: relative;
+        &::after {
+          font-size: toRem(10);
+          content: "";
+          position: absolute;
+          bottom: 0;
+          height: 0.45em;
+          width: 0.45em;
+          background-color: currentColor;
+          border-radius: 50%;
+        }
+      }
+      &--highlighted {
+        color: $scolor-electricity;
+        font-weight: 700;
+      }
+      &--selected {
+        background-color: $scolor-electricity;
+        color: $scolor-graphite-minus-96;
+        border-radius: toRem(2);
+      }
+      &--disabled {
+        cursor: not-allowed;
+        color: $--tk-input-default-inactive-color;
+        text-decoration-line: line-through;
+      }
+      &--outside {
+        visibility: hidden;
+      }
+    }
+  }
+
+  .tk-daypicker-footer {
+    display: flex;
+    justify-content: center;
+    .tk-daypicker-today {
+      cursor: pointer;
+      color: $scolor-electricity;
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: toRem(12);
+      line-height: toRem(16);
+    }
+  }
+}

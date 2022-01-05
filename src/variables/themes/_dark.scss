@@ -1,0 +1,195 @@
+.tk-dark,
+.dark {
+  // globals
+  --tk-background: #{getColor($graphite, '80')};
+  --tk-background-reverse: #{$scolor-white};
+
+  // Primary button
+  --tk-button-color-primary-disabled: #{getColor($electricity, '70')};
+  --tk-button-color-primary-text-disabled: #{getColor($electricity, '60')};
+  --tk-button-color-destructive-disabled: #{getColor($red, '70')};
+  --tk-button-color-destructive-text-disabled: #{getColor($red, '60')};
+
+  // Secondary button
+  --tk-button-color-secondary-default: #{getColor($graphite, '30')};
+  --tk-button-color-secondary-hover: #{getColor($graphite, '70')};
+  --tk-button-color-secondary-active: #{getColor($graphite, '70')};
+  --tk-button-color-secondary-hover-text: #{getColor($graphite, '20')};
+  --tk-button-color-secondary-active-text: #{getColor($graphite, '30')};
+  --tk-button-color-secondary-disabled: #{getColor($graphite, '60')};
+  --tk-button-color-secondary-text: #{getColor($graphite, '30')};
+
+  // Secondary destructive
+  --tk-button-color-destructive-second-default: #{getColor($red, '40')};
+  --tk-button-color-destructive-second-hover: #{getColor($red, '70')};
+  --tk-button-color-destructive-second-active: #{getColor($red, '80')};
+  --tk-button-color-destructive-second-hover-text: #{getColor($red, '30')};
+  --tk-button-color-destructive-second-active-text: #{getColor($red, '40')};
+  --tk-button-color-destructive-second-disabled: #{getColor($red, '60')};
+  --tk-button-color-destructive-second-text-disabled: #{getColor($red, '60')};
+
+  // tertiary button
+  --tk-button-color-tertiary-default: transparent;
+  --tk-button-color-tertiary-hover: #{getColor($graphite, '60')};
+  --tk-button-color-tertiary-active: #{getColor($graphite, '70')};
+  --tk-button-color-tertiary-hover-text: #{getColor($graphite, '30')};
+  --tk-button-color-tertiary-active-text: #{getColor($graphite, '40')};
+  --tk-button-color-tertiary-text-disabled: #{getColor($graphite, '60')};
+  --tk-button-color-tertiary-disabled: transparent;
+  --tk-button-color-tertiary-text: #{getColor($graphite, '30')};
+
+  // tertiary destructive
+  --tk-button-color-destructive-tertiary-default: transparent;
+  --tk-button-color-destructive-tertiary-hover: #{getColor($red, '70')};
+  --tk-button-color-destructive-tertiary-active: #{getColor($red, '80')};
+  --tk-button-color-destructive-tertiary-hover-text: #{getColor($red, '20')};
+  --tk-button-color-destructive-tertiary-active-text: #{getColor($red, '40')};
+  --tk-button-color-destructive-tertiary-disabled: transparent;
+  --tk-button-color-destructive-tertiary-text-disabled: #{getColor($red, '70')};
+  --tk-button-color-destructive-tertiary-text: #{getColor($red, '40')};
+
+  // tertiary accent
+  --tk-button-color-accent-tertiary-default: transparent;
+  --tk-button-color-accent-tertiary-text: #{getColor($electricity, '30')};
+  --tk-button-color-accent-tertiary-hover: #{getColor($electricity, '60')};
+  --tk-button-color-accent-tertiary-active: #{getColor($electricity, '70')};
+  --tk-button-color-accent-tertiary-hover-text: #{getColor($electricity, '30')};
+  --tk-button-color-accent-tertiary-active-text: #{getColor($electricity, '40')};
+  --tk-button-color-accent-tertiary-disabled: transparent;
+  --tk-button-color-accent-tertiary-text-disabled: #{getColor(
+      $electricity,
+      '60'
+    )};
+
+  --tk-button-focus-shadow: #{getColor($graphite, '90')};
+
+  --tk-color-error: #{$scolor-red-darker};
+
+  --tk-main-text-color: #{$scolor-graphite-minus-89};
+
+  --tk-input-color-default: #{getColor($graphite, '50')};
+  --tk-input-color-default-bg: #{getColor($graphite, '90')};
+  --tk-input-color-hover: #{getColor($electricity, '30')};
+  --tk-input-color-active: #{getColor($electricity, '40')};
+  --tk-input-color-read-only-bg: #{getColor($graphite, '70')};
+  --tk-input-color-disabled: #{getColor($graphite, '60')};
+  --tk-input-color-error-active: #{getColor($red, '40')};
+  --tk-input-color-error-hover: #{getColor($red, '30')};
+  --tk-input-color-empty-text: #{getColor($graphite, '40')};
+  --tk-input-color-filled-text: #{getColor($graphite, '20')};
+  --tk-input-color-disabled-text: #{getColor($graphite, '60')};
+  
+  --tk-input-hide-color-default: #{getColor($electricity, '40')};
+  --tk-input-hide-color-disabled: #{getColor($electricity, '30')};
+  
+  --tk-label-color: #{getColor($electricity, '20')};
+
+  --tk-select-color-active-menu-bg: #{getColor($graphite, '30')};
+  --tk-select-color-hover-menu-bg: #{getColor($graphite, '20')};
+  --tk-select-color-hover-menu-text: #{getColor($graphite, '80')};
+  --tk-select-color-default-menu-icon: #{getColor($graphite, '40')};
+  --tk-select-color-hover-menu-icon: #{getColor($graphite, '60')};
+  --tk-select-color-clear-icon: #{getColor($graphite, '20')};
+  
+  --tk-select-color-destructive-menu-text: #{getColor($red, '40')};
+  
+  --tk-select-tag-color-default: #{getColor($graphite, '05')};
+  --tk-select-tag-color-default-icon: #{getColor($graphite, '30')};
+  --tk-select-tag-color-default-bg: #{getColor($graphite, '60')};
+
+
+  --tk-label-color: #{getColor($graphite, '20')};
+  --tk-label-required-color: #{getColor($red, '40')};
+  
+  --tk-label-color-default: #{getColor($graphite, '40')};
+
+  --tk-hint-color-default: #{getColor($graphite, '30')};
+
+  --tk-input-default-inactive-color: #{$scolor-graphite-minus-48};
+  --tk-input-default-active-color: #{$scolor-graphite-minus-96};
+  --tk-input-default-background-color: #{$scolor-graphite-plus-24};
+
+  --tk-input-checkbox-radio-color-icon-default: #{getColor($graphite, '40')};
+  --tk-input-checkbox-radio-color-icon-hover: #{getColor($electricity, '30')};
+  --tk-input-checkbox-radio-color-icon-disabled: #{getColor($graphite, '60')};
+  --tk-input-checkbox-radio-color-icon-error: #{getColor($red, '40')};
+  --tk-input-checkbox-radio-color-icon-error-hover: #{getColor($red, '30')};
+  --tk-input-checkbox-radio-color-icon-checked: #{getColor($electricity, '40')};
+  --tk-input-checkbox-radio-color-icon-text-default: #{getColor($graphite, '20')};
+  --tk-input-checkbox-radio-color-icon-text-disabled: #{getColor(
+      $graphite,
+      '60'
+    )};
+
+  --tk-input-switch-default-line-color: #{getColor($graphite, '60')};
+  --tk-input-switch-default-circle-color: #{getColor($graphite, '80')};
+  --tk-input-switch-default-circle-border-color: #{getColor($electricity, '40')};
+  --tk-input-switch-disabled-line-color: #{getColor($graphite, '70')};
+  --tk-input-switch-disabled-circle-color: #{getColor($graphite, '60')};
+
+  --tk-datepicker-default-color: #{$scolor-graphite-minus-96};
+  --tk-datepicker-disabled-color: #{$scolor-graphite-minus-24};
+
+  --tk-table-hover-color: #{$scolor-graphite-plus-24};
+
+  // dialog
+  --tk-dialog-background-color: #{$scolor-graphite-plus-48};
+  --tk-dialog-box-shadow-color: #{$scolor-graphite-minus-24};
+  --tk-dialog-cross-color: #{$scolor-graphite-minus-48};
+  --tk-dialog-cross-hover-color: #{$scolor-graphite-plus-72};
+
+  --tk-select-scrollbar-color: #{$scolor-graphite};
+  --tk-list-selected-color: #{$scolor-graphite-minus-88};
+  --tk-list-divider-color: #{$scolor-graphite-minus-24};
+  --tk-tag-background-disabled-color: #{$scolor-graphite-plus-24};
+
+  // avatar
+  --tk-avatar-border-color: #{$scolor-graphite};
+
+  // Drawer
+  --tk-drawer-border: #{getColor($graphite, '60')};
+  --tk-drawer-background-color: #{getColor($graphite, '80')};
+
+  // Card component
+  $card-shadow-bottom: rgba($scolor-graphite-minus-72, 0.251);
+  $card-shadow-left: rgba($scolor-graphite-minus-72, 0.08);
+  --tk-card-border-color: #{$scolor-graphite-plus-24};
+  --tk-card-shadow-hover-color: #{$card-shadow-bottom};
+  --tk-card-shadow-hover-side-color: #{$card-shadow-left};
+
+  --tk-nav-color-default: #{$scolor-graphite-minus-48};
+  --tk-nav-color-hover: #{$scolor-graphite-minus-72};
+  --tk-nav-color-active: #{$scolor-white};
+  --tk-nav-color-disabled: #{$scolor-graphite-minus-48};
+  --tk-nav-color-border-bottom: #{$scolor-graphite-minus-48};
+
+  // Banner
+  --tk-banner-foreground-color: #{$scolor-white};
+  --tk-banner-background-color-info: #{getColor($electricity, '60')};
+  --tk-banner-background-color-success: #{getColor($green, '60')};
+  --tk-banner-background-color-warning: #{getColor($yellow, '30')};
+  --tk-banner-background-color-error: #{getColor($red, '60')};
+  --tk-banner-background-color-warning-icon-color: #{getColor($graphite, '80')};
+
+  // Badge
+  --tk-badge-text-color-default: #{getColor($graphite, '20')};
+  --tk-badge-background-color-default: #{getColor($graphite, '60')};
+  --tk-badge-text-color-positive: #{getColor($green, '20')};
+  --tk-badge-background-color-positive: #{getColor($green, '60')};
+  --tk-badge-text-color-neutral: #{getColor($electricity, '20')};
+  --tk-badge-background-color-neutral: #{getColor($electricity, '60')};
+  --tk-badge-text-color-attention: #{getColor($yellow, '20')};
+  --tk-badge-background-color-attention: #{getColor($yellow, '60')};
+  --tk-badge-text-color-warning: #{getColor($red, '20')};
+  --tk-badge-background-color-warning: #{getColor($red, '60')};
+
+  // Timeline
+  --tk-timeline-background-color: #{getColor($graphite, '50')};
+  --tk-timeline-text-color: #{$scolor-white};
+  --tk-timeline-border-color: #{getColor($graphite, '50')};
+  --tk-timeline-expand-icon-color: #{getColor($graphite, '40')};
+  --tk-timeline-hours-color: #{getColor($graphite, '05')};
+
+  // Divider
+  --tk-divider-color: #{getColor($graphite, '70')};
+}

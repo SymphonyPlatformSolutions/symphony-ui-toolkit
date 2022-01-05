@@ -1,0 +1,46 @@
+{
+  "name": "@symphony-ui/uitoolkit-styles",
+  "version": "3.0.0-rc.2",
+  "description": "Symphony UI design system",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
+  },
+  "main": "index.css",
+  "scripts": {
+    "prepare": "husky install",
+    "prestart": "yarn icons",
+    "start": "start-storybook -p 6006 -c .storybook watch-css -s ./src",
+    "prebuild": "yarn icons && sh src/scripts/generate-cdn.sh",
+    "build-storybook": "build-storybook -c .storybook -o dist/storybook",
+    "build": "bash ./build.sh",
+    "watch": "sass --watch --no-source-map --load-path=node_modules --style compressed uitoolkit.scss:dist/css/uitoolkit.css",
+    "icons": "node src/scripts/generate-icons",
+    "test": "yarn creevey"
+  },
+  "keywords": [
+    "scss",
+    "sass",
+    "css",
+    "design"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.9.6",
+    "@storybook/addon-storysource": "6.3.5",
+    "@storybook/addons": "6.3.5",
+    "@storybook/html": "6.3.5",
+    "autoprefixer": "^10.0.2",
+    "babel-loader": "^8.1.0",
+    "creevey": "^0.7.37",
+    "fantasticon": "^1.2.2",
+    "husky": "^7.0.0",
+    "markdown-loader": "^6.0.0",
+    "postcss": "^8.1.7",
+    "postcss-cli": "^8.3.0",
+    "sass": "^1.22.10",
+    "sass-loader": "^7.2.0",
+    "storybook-addon-themes": "^6.1.0",
+    "storybook-dark-mode": "^1.0.8"
+  }
+}
