@@ -1,0 +1,152 @@
+@use "sass:map";
+/** ======== Color palette from SDS ======== */
+
+$graphite: (
+  '05': #f1f1f3,
+  '10': #e3e5e7,
+  '20': #cdcfd4,
+  '30': #b0b3ba,
+  '40': #8f959e,
+  '50': #717681,
+  '60': #52565e,
+  '70': #3a3d43,
+  '80': #27292c,
+  '90': #141618,
+);
+
+$midnight: (
+  '05': #f1f1f3,
+  '10': #e3e5e7,
+  '20': #ceced5,
+  '30': #b2b2be,
+  '40': #9393a4,
+  '50': #75758a,
+  '60': #55556f,
+  '70': #3b3b59,
+  '80': #252547,
+  '90': #111136,
+  '': #000028,
+);
+
+$electricity: (
+  '05': #e9f2f9,
+  '10': #d6e7f7,
+  '20': #aad4f8,
+  '30': #6eb9fd,
+  '40': #2996fd,
+  '50': #0277d6,
+  '60': #27588e,
+  '70': #253f5d,
+  '80': #1c2a3a,
+  '90': #10151d,
+  '':  #008eff,
+);
+
+$green: (
+  '05': #eaf4ea,
+  '10': #d6ebd5,
+  '20': #aadba6,
+  '30': #65c862,
+  '40': #2eaa35,
+  '50': #378535,
+  '60': #32602f,
+  '70': #294425,
+  '80': #1d2d1b,
+  '90': #10170e,
+);
+
+$yellow: (
+  '05': #f8f2d7,
+  '10': #f6e5a6,
+  '20': #f7ca3b,
+  '30': #e7a800,
+  '40': #c98700,
+  '50': #9c6c1a,
+  '60': #70511f,
+  '70': #4d391c,
+  '80': #322715,
+  '90': #1a150c,
+);
+
+$red: (
+  '05': #fbeeed,
+  '10': #fadfdc,
+  '20': #fcc1b9,
+  '30': #ff9789,
+  '40': #ff5d50,
+  '50': #dd342e,
+  '60': #99342c,
+  '70': #662a24,
+  '80': #411f1a,
+  '90': #21110e,
+);
+
+$colors: (
+  'graphite': $graphite,
+  'midnight': $midnight,
+  'electricity': $electricity,
+  'green': $green,
+  'yellow': $yellow,
+  'red': $red,
+  'white': ('': #ffffff),
+  'orange': ('': #ff7a00),
+  'lime': ('': #9fea00),
+  'plum': ('': #c704ff),
+  'rose': ('': #ff49a0),
+  'black': ('': #000000),
+);
+
+@function getColor($color, $num) {
+  @return map-get($color, $num);
+}
+
+/** ======== Former UIToolkit color palette. ======== */
+/** This will be deprecated, use the SDS color palette. */
+$scolor-electricity-minus-21: #36a6ff;
+
+$scolor-electricity: #008eff;
+
+$scolor-midnight: #000028;
+
+$scolor-graphite-minus-96: #f8f8f9;
+
+$scolor-graphite-minus-89: #ececed;
+
+$scolor-graphite-minus-88: #eaebec;
+
+$scolor-graphite-minus-72: #cfd0d2;
+
+$scolor-graphite-minus-55: #b1b3b7;
+
+$scolor-graphite-minus-48: #a5a8ac;
+
+$scolor-graphite-minus-24: #7c7f86;
+
+$scolor-graphite-minus-21: #767a81;
+
+$scolor-graphite: #525760;
+
+$scolor-graphite-plus-24: #3e4249;
+
+$scolor-graphite-plus-48: #2b2d32;
+
+$scolor-graphite-plus-50: #717681;
+
+$scolor-graphite-plus-72: #17181b;
+
+$scolor-graphite-plus-89: #090a0b;
+
+$scolor-green: #5ad269;
+
+$scolor-orange: #f8c43f;
+
+$scolor-red: #ee3d3d;
+
+$scolor-red-darker: #f15c5c;
+
+$scolor-white: #fff;
+
+$scolor-black: #000;
+
+$scolor-box-shadow: #0f1b24;
+

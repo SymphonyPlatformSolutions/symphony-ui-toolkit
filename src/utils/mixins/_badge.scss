@@ -1,0 +1,5 @@
+/* Applies color styles to badge  */
+@mixin styleBadge($variantColorMap) {
+  color: map-get($variantColorMap, color);
+  background-color: map-get($variantColorMap, backgroundColor);
+}

@@ -1,0 +1,22 @@
+$list-box-shadow: rgba($scolor-graphite-plus-89, 0.122);
+
+@mixin listStyle {
+  text-align: left;
+  border-radius: toRem(8);
+  box-shadow: 0 toRem(2) toRem(4) $list-box-shadow;
+  &--selected::before {
+    position: absolute;
+    right: toRem(16);
+    font-style: normal;
+    font-family: 'tk-icons';
+    font-size: toRem(14);
+    @include tk-icon-check;
+  }
+
+  &__item {
+    position: relative;
+    display: block;
+    cursor: pointer;
+    padding-left: toRem(16);
+  }
+}

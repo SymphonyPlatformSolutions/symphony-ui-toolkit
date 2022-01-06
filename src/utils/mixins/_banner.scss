@@ -1,0 +1,11 @@
+/* Applies color styles to banner  */
+@mixin styleBanner($variantColorMap) {
+
+  color: map-get($variantColorMap, color);
+  background-color: map-get($variantColorMap, backgroundColor);
+
+  .tk-banner__variant-icon {
+      color: map-get($variantColorMap, iconColor);
+  }
+
+}
