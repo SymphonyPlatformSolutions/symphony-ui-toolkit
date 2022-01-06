@@ -1,14 +1,21 @@
+# Config dedicated for UI-Toolkit Components
+# All the resources must be prefixed with `package-components-` to avoid conflicts 
+
 version: 2.1
+
 orbs:
   node: circleci/node@2.1
   aws-s3: circleci/aws-s3@1.1.1
+
 jobs:
-  build-and-publish:
+  package-components-build-and-publish:
     executor:
       name: node/default
       tag: 'lts'
+    working_directory: ~/project/packages/components
     steps:
-      - checkout
+      - attach_workspace:
+          at: ~/project
       - run: yarn
       - run: yarn lint
       - run: yarn check-circular
@@ -57,28 +64,32 @@ jobs:
           paths:
             - storybook
 
-  deploy-storybook:
+  package-components-deploy-storybook:
     executor:
       name: node/default
       tag: 'lts'
     steps:
       - attach_workspace:
           at: /tmp/dist
-      - aws-s3/sync:
-          arguments: --delete
-          from: /tmp/dist/storybook
-          to: s3://uitoolkit-storybook/components/master
+      - run: echo 'MOCK deploy-storybook'
+      - run: ls /tmp/dist/storybook
+#      - aws-s3/sync:
+#          arguments: --delete
+#          from: /tmp/dist/storybook
+#          to: s3://uitoolkit-storybook/components/master
 
 workflows:
   build:
     jobs:
-      - build-and-publish:
+      - package-components-build-and-publish:
+          requires:
+            - package-styles-build-and-publish
           filters:
             tags:
               only: /^v.*/
-      - deploy-storybook:
+      - package-components-deploy-storybook:
           requires:
-            - build-and-publish
+            - package-components-build-and-publish
           filters:
             branches:
               only: master
