@@ -14,10 +14,13 @@ import { PortalTemplate } from './templates';
 const defaultOptions: LabelValue[] = [
   { label: 'Option 1', value: '1' },
   { label: 'Option 2', value: '2' },
+  { label: 'Option 3', value: '3' },
+  { label: 'Option 4', value: '4' },
+  { label: 'Option 5', value: '5' },
   {
     label:
-    'Option 3 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse elementum gravida neque, suscipit ornare ex pulvinar id. Etiam vitae erat at dolor pharetra suscipit. Donec at nunc malesuada',
-    value: '3',
+    'Option Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse elementum gravida neque, suscipit ornare ex pulvinar id. Etiam vitae erat at dolor pharetra suscipit. Donec at nunc malesuada',
+    value: 'long',
   },
 ];
 
@@ -228,7 +231,7 @@ export const Select: React.FC = () => (
     <p className="tk-mt-4">
       With <strong>iconName</strong> displays the specified icon on the left side of the dropdown:
     </p>
-    <Dropdown options={defaultOptions} iconName="app" />
+    <Dropdown options={defaultOptions} iconName="search" />
     <h3 className="tk-mt-4">Grouped option list</h3>
     <p>With <b>aligned</b> mode (default)</p>
     <Dropdown options={timeZoneOptions} mode="aligned" />

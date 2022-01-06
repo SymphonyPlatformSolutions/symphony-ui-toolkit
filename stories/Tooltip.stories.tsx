@@ -59,6 +59,11 @@ WithACloseAction.args = {
   children: <input type="text" name="fname" onChange={ null } />,
 };
 
+export const Variants = () => 
+  <> 
+    <Tooltip visible={true} type="tooltip" placement="bottom" description={'Some text'}/>
+    <p className="tk-mt-5">Tooltip variant</p>
+  </>;
 export const ShowHide = Template.bind({});
 ShowHide.args = {
   description: 'Toggle the visibility of the Tooltip in the Controls tab',
