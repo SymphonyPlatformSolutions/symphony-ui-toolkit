@@ -12,7 +12,7 @@ import { HasValidationProps } from '../validation/interfaces';
 interface SelectionInputProps {
   id?: string;
   name: string;
-  label?: string;
+  label?: string | React.ReactNode;
   labelPlacement?: LabelPlacements;
   value: string;
   status?: SelectionStatus;
@@ -196,7 +196,7 @@ const SelectionInput: React.FC<SelectionInputPropsWithType> = ({
 const SelectionInputPropTypes = {
   id: PropTypes.string,
   name: PropTypes.string.isRequired,
-  label: PropTypes.string,
+  label: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
   labelPlacement: PropTypes.oneOf(Object.values(LabelPlacements)),
   value: PropTypes.string.isRequired,
   status: PropTypes.oneOf(Object.values(SelectionStatus)),

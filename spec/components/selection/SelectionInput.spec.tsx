@@ -1,4 +1,6 @@
 import { mount, shallow } from 'enzyme';
+import { render } from '@testing-library/react';
+
 import * as React from 'react';
 import SelectionTypes from '../../../src/components/selection/SelectionTypes';
 
@@ -47,6 +49,22 @@ describe('SelectionInput Component', () => {
       expect(wrapper.find('input').prop('name')).toEqual(props.name);
       expect(wrapper.find('input').prop('value')).toEqual(props.value);
     });
+
+
+    it.each([['string', 'lorem ipsum', 'lorem ipsum'], ['node', <>bold text should display between the quotes &apos;<b>BOLD</b>&apos;</>, 'BOLD']])(
+      'render a Radio with "%s" label',
+      (title, label, expected) => {
+        const props = {
+          type: SelectionTypes.RADIO,
+          name: 'SelectionInput-test-name',
+          value: 'SelectionInput-test-value',
+          label
+        }
+  
+        const { getByText } = render(<SelectionInput {...props}/>);
+        expect(getByText(expected)).toBeInTheDocument();
+      }
+    )
 
     it('render a Switch with default props and initial value', () => {
       const props = {
