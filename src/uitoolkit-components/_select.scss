@@ -5,7 +5,7 @@
   --tk-select__multi-value-min-height: #{toRem(20)}; 
   --tk-select__multi-value__label-icon-font-size: #{toRem(12)}; 
   --tk-select__value-container--is-multi-gap: #{toRem(4)};
-  --tk-select__value-container--is-multi-min-height: #{toRem(28)};
+  --tk-select__value-container--is-multi-min-height: #{toRem(32)};
 
   --tk-select__indicator-font-size: #{toRem(12)};
   --tk-select__indicator-padding: #{toRem(4)} #{toRem(8)} #{toRem(4)} #{toRem(4)};
@@ -18,7 +18,7 @@
   --tk-select__multi-value-min-height: #{toRem(24)}; 
   --tk-select__multi-value__label-icon-font-size: #{toRem(16)};
   --tk-select__value-container--is-multi-gap: #{toRem(8)};
-  --tk-select__value-container--is-multi-min-height: #{toRem(36)};
+  --tk-select__value-container--is-multi-min-height: #{toRem(40)};
   --tk-select__indicator-padding: #{toRem(8)};
 }
 

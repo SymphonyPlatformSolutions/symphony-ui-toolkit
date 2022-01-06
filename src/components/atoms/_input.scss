@@ -28,6 +28,9 @@ body {
 }
 
 .tk-input__container {
+  &--small {
+    --tk-input__icon-font-size: #{toRem(12)};
+  }
   .tk-input {
     --tk-input-padding-height: 0;
     --tk-input-padding-width: #{toRem(12)};
