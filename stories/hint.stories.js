@@ -3,10 +3,10 @@ export default {
 };
 
 export const Hint = () => {
-  return (`
+  return `
   <div style="min-height: 600px">
     <h2>Hint</h2>
-      <div id="hint-vZUXsOqChv" role="hint" class="tk-hint" style="max-width: 400px; position: relative">
+      <div id="hint-vZUXsOqChv" role="hint" class="tk-hint">
           <span class="tk-hint__description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span>
           <div style="position: absolute; left: calc(50% - 10px); bottom: -32px;">
               <div class="tk-hint__arrow" style="transform: rotate(45deg);"></div>       
@@ -16,5 +16,5 @@ export const Hint = () => {
           </div>
       </div>
     </div>
-  `);
+  `;
 };
