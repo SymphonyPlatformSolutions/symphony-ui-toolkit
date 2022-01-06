@@ -33,7 +33,7 @@
   &--right {
     right: 0;
     border-left: 1px solid $--tk-drawer-border;
-    .tk-drawer-hidden {
+    &.tk-drawer-hidden {
       -webkit-transform: translateX(100%);
       transform: translateX(100%);
     }
@@ -42,7 +42,7 @@
   &--left {
     left: 0;
     border-right: 1px solid $--tk-drawer-border;
-    .tk-drawer-hidden {
+    &.tk-drawer-hidden {
       -webkit-transform: translateX(-100%);
       transform: translateX(-100%);
     }
@@ -51,8 +51,8 @@
   &__close {
     cursor: pointer;
     position: absolute;
-    padding-top: toRem(16);
-    padding-right: toRem(16);
+    top: toRem(16);
+    right: toRem(16);
   }
 
   &__title {
