@@ -14,56 +14,7 @@ Default.args = {
   placeholder:'Type something',
 };
 
-export const ChangeProgrammatically = () => {
-  const child1 = useRef(null);
-  const child2 = useRef(null);
 
-  const [value, setValue] = useState('');
-
-  const reset = () => {
-    child1.current.reset();
-    child2.current.reset();
-  }
-  const refresh = () => {
-    child1.current.refreshValidation().then((isValid) => console.log(isValid));
-    child2.current.refreshValidation().then((isValid) => console.log(isValid));
-  }
-  return (
-    <>
-      <Validation
-        ref={child1}
-        validator={Validators.Required}
-        errorMessage={{ required: 'This field is mandatory' }}
-      >
-        <TextField
-          label="Field label"
-          placeholder="Type something"
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-        />
-      </Validation>
-      <div className="tk-mt-2">
-        <Validation
-          ref={child2}
-          validator={Validators.Required}
-          errorMessage={{ required: 'This field is mandatory' }}
-        >
-          <TextField
-            label="Field label"
-            placeholder="Type something"
-            value={value}
-            onChange={(e) => setValue(e.target.value)}
-            size="small"
-          />
-        </Validation>
-      </div>
-      <div style={{ display: 'flex', marginTop: '1rem' }}>
-        <Button size="small" onClick={reset} className="tk-mr-2">Reset</Button>
-        <Button size="small" onClick={refresh}>Refresh validation</Button>
-      </div>
-    </>
-  );
-};
 
 export const Disabled: React.FC = () => 
   <>
@@ -264,6 +215,58 @@ export const WithIcon: React.FC = () =>
       }
     />
   </>;
+
+export const ChangeProgrammatically = () => {
+  const child1 = useRef(null);
+  const child2 = useRef(null);
+
+  const [value, setValue] = useState('');
+  const [value1, setValue1] = useState('');
+
+  const reset = () => {
+    child1.current.reset();
+    child2.current.reset();
+  }
+  const refresh = () => {
+    child1.current.refreshValidation().then((isValid) => console.log(isValid));
+    child2.current.refreshValidation().then((isValid) => console.log(isValid));
+  }
+  return (
+    <>
+      <Validation
+        ref={child1}
+        validator={Validators.Required}
+        errorMessage={{ required: 'This field is mandatory' }}
+      >
+        <TextField
+          label="Field label"
+          placeholder="Type something"
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+        />
+      </Validation>
+      <div className="tk-mt-2">
+        <Validation
+          ref={child2}
+          validator={Validators.Required}
+          errorMessage={{ required: 'This field is mandatory' }}
+        >
+          <TextField
+            label="Field label"
+            placeholder="Type something"
+            value={value1}
+            onChange={(e) => setValue1(e.target.value)}
+            size="small"
+          />
+        </Validation>
+      </div>
+      <div style={{ display: 'flex', marginTop: '1rem' }}>
+        <Button size="small" onClick={reset} className="tk-mr-2">Reset</Button>
+        <Button size="small" onClick={refresh}>Refresh validation</Button>
+      </div>
+    </>
+  );
+};
 
 export default {
   title: 'Components/Input/TextField',
