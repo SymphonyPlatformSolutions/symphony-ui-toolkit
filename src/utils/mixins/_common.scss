@@ -1,0 +1,53 @@
+/* Add extra border without changing size (useful when changing size) */
+@mixin addBorder($size, $color) {
+  box-shadow: inset 0 0 0 $size $color;
+}
+
+/* Outlines are common to all inputs. Blurred outline is not supported yet. */
+/* This mixin will be depracated */
+@mixin addOutline() {
+  outline: toRem(4) auto $--tk-outline-color;
+}
+
+@mixin addTransition() {
+  transition: all 200ms ease-in-out;
+}
+
+/* New outline since SDS migration*/
+@mixin outlineStyle {
+  outline: toRem(2) solid #{getColor($electricity, '40')};
+}
+@mixin addFocusStyle($isRound: 'true') {
+  &:focus-visible {
+    @include outlineStyle;
+    @if ($isRound == 'true') {
+      outline-offset: toRem(1);
+      border-radius: 50%;
+    } @else {
+      border-radius: toRem(2);
+    }
+  }
+}
+
+// Simulate browser outline (Come from https://ghinda.net/article/mimic-native-focus-css)
+@mixin browserOutline() {
+  outline-width: toRem(2);
+  outline-style: solid;
+  outline-color: Highlight;
+
+  /* WebKit gets its native focus styles.
+   */
+  @media (-webkit-min-device-pixel-ratio: 0) {
+    outline-color: -webkit-focus-ring-color;
+    outline-style: auto;
+  }
+}
+
+@mixin condensed {
+  .condensed,
+  .tk-theme-condensed {
+    :not(.tk-escape-condensed *) {
+      @content;
+    }
+  }
+}

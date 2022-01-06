@@ -1,0 +1,13 @@
+$fontSize: 14;
+
+.tk-radio {
+  @include checkbox_radio_common($fontSize);
+  &__icon {
+    &:before {
+      @include tk-icon-radio-button-off;
+    }
+    .tk-radio__input:checked + &:before {
+      @include tk-icon-radio-button-on;
+    }
+  }
+}

@@ -1,0 +1,427 @@
+/** ======== Globals ======== */
+
+$--tk-color-primary: var(--tk-color-primary, $scolor-electricity);
+
+$--tk-color-success: var(--tk-color-success, $scolor-green);
+
+$--tk-color-warning: var(--tk-color-warning, $scolor-orange);
+
+$--tk-color-error: var(--tk-color-error, $scolor-red);
+
+$--tk-main-text-color: var(--tk-main-text-color, $scolor-graphite);
+
+$--tk-outline-color: #88c0fb;
+
+$--tk-background: var(--tk-background, $scolor-white);
+
+$--tk-background-reverse:var(--tk-background-reverse,  getColor($graphite, '80'));
+
+/** ======== Inputs and text areas ======== */
+$--tk-input-color: (
+  default: var(--tk-input-color-default, getColor($graphite, '40')),
+  defaultBg: var(--tk-input-color-default-bg, $scolor-white),
+  hover: var(--tk-input-color-hover, getColor($electricity, '40')),
+  active: var(--tk-input-color-active, getColor($electricity, '50')), // "focus" uses "active" colors
+  disabled: var(--tk-input-color-disabled, getColor($graphite, '20')),
+  readonly: var(--tk-input-color-default, getColor($graphite, '20')), // readonly uses "default" on dark mode
+  readonlyBg: var(--tk-input-color-read-only-bg, getColor($graphite, '05')), // readonly uses "default" on dark mode
+  errorActive: var(--tk-input-color-error-active, getColor($red, '50')),
+  errorHover: var(--tk-input-color-error-hover, getColor($red, '40')),
+  emptyText: var(--tk-input-color-empty-text, getColor($graphite, '50')),
+  filledText: var(--tk-input-color-filled-text, getColor($graphite, '80')),
+  disabledText: var(--tk-input-color-disabled-text, getColor($graphite, '30')),
+);
+
+$--tk-input-hide-color: (
+  default: var(--tk-input-hide-color-default, getColor($electricity, '50')),
+  disabled: var(--tk-input-hide-color-disabled, getColor($electricity, '60')),
+);
+
+$--tk-label-color: var(--tk-label-color, getColor($graphite, '60'));
+$--tk-label-required-color: var(
+  --tk-label-required-color,
+  getColor($red, '50')
+);
+$--tk-hint-color: (
+  default: var(--tk-hint-color-default, getColor($graphite, '50'))
+);
+
+$--tk-select-color: (
+  activeMenuBg: var(--tk-select-color-active-menu-bg, getColor($graphite, '70')),
+  hoverMenuBg: var(--tk-select-color-hover-menu-bg, getColor($graphite, '60')),
+  hoverMenuText: var(--tk-select-color-hover-menu-text, $scolor-white),
+  defaultMenuIcon: var(--tk-select-color-default-menu-icon, getColor($graphite, '50')),
+  hoverMenuIcon: var(--tk-select-color-hover-menu-icon, getColor($graphite, '20')), // equivalent of tk-input-disabled
+  clearIcon: var(--tk-select-color-clear-icon, getColor($graphite, '70')),
+);
+
+$--tk-select-color-destructive: (
+  menuText: var(--tk-select-color-destructive-menu-text, getColor($red, '50')),
+);
+
+$--tk-select-tag-color: (
+  default: var(--tk-select-tag-color-default, getColor($graphite, '80')),
+  defaultIcon: var(--tk-select-tag-color-default-icon, getColor($graphite, '50')),
+  defaultBg: var(--tk-select-tag-color-default-bg, getColor($graphite, '10'))
+);
+
+$--tk-input-default-inactive-color: var(
+  --tk-input-default-inactive-color,
+  $scolor-graphite-minus-24
+);
+$--tk-input-default-active-color: var(
+  --tk-input-default-active-color,
+  $scolor-graphite-plus-72
+);
+
+$--tk-input-default-background-color: var(
+  --tk-input-default-background-color,
+  $scolor-white
+);
+
+$--tk-input-checkbox-radio-color: (
+  iconDefault:
+    var(--tk-input-checkbox-radio-color-icon-default, getColor($graphite, '50')),
+  iconHover:
+    var(
+      --tk-input-checkbox-radio-color-icon-hover,
+      getColor($electricity, '40')
+    ),
+  iconDisabled:
+    var(
+      --tk-input-checkbox-radio-color-icon-disabled,
+      getColor($graphite, '20')
+    ),
+  iconError:
+    var(--tk-input-checkbox-radio-color-icon-error, getColor($red, '50')),
+  iconErrorHover:
+    var(--tk-input-checkbox-radio-color-icon-error-hover, getColor($red, '40')),
+  iconChecked:
+    var(
+      --tk-input-checkbox-radio-color-icon-checked,
+      getColor($electricity, '50')
+    ),
+  textDefault:
+    var(
+      --tk-input-checkbox-radio-color-icon-text-default,
+      getColor($graphite, '80')
+    ),
+  textDisabled:
+    var(
+      --tk-input-checkbox-radio-color-icon-text-disabled,
+      getColor($graphite, '30')
+    ),
+);
+
+$--tk-input-switch-default-line-color: var(
+  --tk-input-switch-default-line-color,
+  getColor($graphite, '10')
+);
+$--tk-input-switch-default-circle-color: var(
+  --tk-input-switch-default-circle-color,
+  $scolor-white
+);
+$--tk-input-switch-default-circle-border-color: var(
+  --tk-input-switch-default-circle-border-color,
+  getColor($electricity, '50')
+);
+$--tk-input-switch-disabled-line-color: var(
+  --tk-input-switch-disabled-line-color,
+  getColor($graphite, '10')
+);
+$--tk-input-switch-disabled-circle-color: var(
+  --tk-input-switch-disabled-circle-color,
+  getColor($graphite, '30')
+);
+
+/** ======== Buttons ======== */
+
+$--tk-button-color-primary: (
+  default: var(--tk-button-color-primary-default, getColor($electricity, '50')),
+  hover: var(--tk-button-color-primary-hover, getColor($electricity, '40')),
+  active: var(--tk-button-color-primary-active, getColor($electricity, '60')),
+  disabled:
+    var(--tk-button-color-primary-disabled, getColor($electricity, '20')),
+  text: var(--tk-button-color-primary-text, $scolor-white),
+  textDisabled: var(--tk-button-color-primary-text-disabled, $scolor-white),
+  focus: var(--tk-button-color-primary-focus, getColor($electricity, '60')),
+  focusText: var(--tk-button-color-primary-focus-text, $scolor-white),
+);
+
+$--tk-button-color-secondary: (
+  default: var(--tk-button-color-secondary-default, getColor($graphite, '50')),
+  hover: var(--tk-button-color-secondary-hover, getColor($graphite, '10')),
+  hoverText:
+    var(--tk-button-color-secondary-hover-text, getColor($graphite, '50')),
+  active: var(--tk-button-color-secondary-active, getColor($graphite, '20')),
+  activeText:
+    var(--tk-button-color-secondary-active-text, getColor($graphite, '60')),
+  text: var(--tk-button-color-secondary-text, getColor($graphite, '50')),
+  textDisabled:
+    var(--tk-button-color-secondary-disabled, getColor($graphite, '20')),
+  disabled: var(--tk-button-color-secondary-disabled, getColor($graphite, '30')),
+  focus: var(--tk-button-color-secondary-focus, getColor($graphite, '20')),
+  focusText:
+    var(--tk-button-color-secondary-focus-text, getColor($graphite, '60')),
+);
+
+$--tk-button-color-tertiary: (
+  default: var(--tk-button-color-tertiary-default, transparent),
+  hover: var(--tk-button-color-tertiary-hover, getColor($graphite, '10')),
+  hoverText:
+    var(--tk-button-color-tertiary-hover-text, getColor($graphite, '50')),
+  active: var(--tk-button-color-tertiary-active, getColor($graphite, '20')),
+  activeText:
+    var(--tk-button-color-tertiary-active-text, getColor($graphite, '60')),
+  disabled: var(--tk-button-color-tertiary-disabled, transparent),
+  text: var(--tk-button-color-tertiary-text, getColor($graphite, '50')),
+  textDisabled:
+    var(--tk-button-color-tertiary-text-disabled, getColor($graphite, '20')),
+  focus: var(--tk-button-color-tertiary-focus, getColor($graphite, '20')),
+  focusText:
+    var(--tk-button-color-tertiary-focus-text, getColor($graphite, '60')),
+);
+
+$--tk-button-color-destructive-primary: (
+  default: var(--tk-button-color-destructive-default, getColor($red, '50')),
+  hover: var(--tk-button-color-destructive-hover, getColor($red, '40')),
+  active: var(--tk-button-color-destructive-active, getColor($red, '60')),
+  disabled: var(--tk-button-color-destructive-disabled, getColor($red, '20')),
+  text: var(--tk-button-color-destructive-text, $scolor-white),
+  textDisabled: var(--tk-button-color-destructive-text-disabled, $scolor-white),
+  focus: var(--tk-button-color-destructive-focus, getColor($red, '60')),
+  focusText: var(--tk-button-color-destructive-focus-text, $scolor-white),
+);
+
+$--tk-button-color-destructive-secondary: (
+  default:
+    var(--tk-button-color-destructive-second-default, getColor($red, '50')),
+  hover: var(--tk-button-color-destructive-second-hover, getColor($red, '05')),
+  hoverText:
+    var(--tk-button-color-destructive-second-hover-text, getColor($red, '60')),
+  active: var(--tk-button-color-destructive-second-active, getColor($red, '20')),
+  activeText:
+    var(--tk-button-color-destructive-second-active-text, getColor($red, '60')),
+  disabled:
+    var(--tk-button-color-destructive-second-disabled, getColor($red, '30')),
+  text: var(--tk-button-color-destructive-second-disabled, getColor($red, '50')),
+  textDisabled:
+    var(
+      --tk-button-color-destructive-second-text-disabled,
+      getColor($red, '30')
+    ),
+  focus: var(--tk-button-color-destructive-second-focus, getColor($red, '20')),
+  focusText:
+    var(--tk-button-color-destructive-second-focus-text, getColor($red, '60')),
+);
+
+$--tk-button-color-destructive-tertiary: (
+  default: var(--tk-button-color-destructive-tertiary-default, transparent),
+  hover: var(--tk-button-color-destructive-tertiary-hover, getColor($red, '10')),
+  hoverText:
+    var(--tk-button-color-destructive-tertiary-hover-text, getColor($red, '50')),
+  active:
+    var(--tk-button-color-destructive-tertiary-active, getColor($red, '20')),
+  activeText:
+    var(
+      --tk-button-color-destructive-tertiary-active-text,
+      getColor($red, '60')
+    ),
+  disabled: var(--tk-button-color-destructive-tertiary-disabled, transparent),
+  text: var(--tk-button-color-destructive-tertiary-text, getColor($red, '50')),
+  textDisabled:
+    var(
+      --tk-button-color-destructive-tertiary-text-disabled,
+      getColor($red, '20')
+    ),
+  focus: var(--tk-button-color-destructive-tertiary-focus, getColor($red, '20')),
+  focusText:
+    var(--tk-button-color-destructive-tertiary-focus-text, getColor($red, '60')),
+);
+
+$--tk-button-color-accent-tertiary: (
+  default: var(--tk-button-color-accent-tertiary-default, transparent),
+  hover:
+    var(--tk-button-color-accent-tertiary-hover, getColor($electricity, '10')),
+  active:
+    var(--tk-button-color-accent-tertiary-active, getColor($electricity, '20')),
+  activeText:
+    var(
+      --tk-button-color-accent-tertiary-active-text,
+      getColor($electricity, '60')
+    ),
+  disabled: var(--tk-button-color-accent-tertiary-disabled, transparent),
+  text:
+    var(--tk-button-color-accent-tertiary-text, getColor($electricity, '50')),
+  textDisabled:
+    var(
+      --tk-button-color-accent-tertiary-text-disabled,
+      getColor($electricity, '20')
+    ),
+  focus:
+    var(--tk-button-color-accent-tertiary-focus, getColor($electricity, '20')),
+  focusText:
+    var(
+      --tk-button-color-accent-tertiary-focus-text,
+      getColor($electricity, '60')
+    ),
+);
+$--tk-button-focus-shadow: var(--tk-button-focus-shadow, $scolor-white);
+
+/** ======== DatePickers ======== */
+$--tk-datepicker-default-color: var(
+  --tk-datepicker-default-color,
+  $scolor-graphite-plus-72
+);
+$--tk-datepicker-disabled-color: var(
+  --tk-datepicker-disabled-color,
+  $scolor-graphite
+);
+
+/** ======== Tables ======== */
+$--tk-table-hover-color: var(--tk-table-hover-color, $scolor-graphite-minus-72);
+
+/** ======== Dialog ======== */
+$dialog-backdrop: rgba($scolor-graphite-plus-72, 0.64);
+$--tk-dialog-background-color: var(--tk-dialog-background-color, $scolor-white);
+$--tk-dialog-cross-color: var(
+  --tk-dialog-cross-color,
+  $scolor-graphite-minus-24
+);
+$--tk-dialog-hover-cross-color: var(
+  --tk-dialog-hover-cross-color,
+  $scolor-graphite
+);
+$--tk-dialog-backdrop-color: var(--tk-dialog-backdrop-color, $dialog-backdrop);
+
+/** ======== Drawer ======== */
+$drawer-backdrop: rgba(0, 0, 0, 0.8);
+$--tk-drawer-border: var(--tk-drawer-border, getColor($graphite, '40'));
+$--tk-drawer-background-color: var(--tk-drawer-background-color, $scolor-white);
+$--tk-drawer-backdrop-color: var(
+  --tk-drawer-background-color,
+  $drawer-backdrop
+);
+
+/** ======== List ======== */
+
+$--tk-select-scrollbar-color: var(
+  --tk-select-scrollbar-color,
+  $scolor-graphite-minus-55
+);
+$--tk-list-selected-color: var(
+  --tk-list-selected-color,
+  $scolor-graphite-minus-24
+);
+$--tk-list-divider-color: var(
+  --tk-list-divider-color,
+  $scolor-graphite-minus-88
+);
+
+/** ======== Avatar ======== */
+$--tk-avatar-border-color: var(
+  --tk-avatar-border-color,
+  $scolor-graphite-minus-88
+);
+
+/** ======== Card ======== */
+$card-shadow: rgba($scolor-black, 0.08);
+$--tk-card-border-color: var(--tk-card-border-color, $scolor-graphite-minus-72);
+$--tk-card-shadow-hover-color: var(--tk-card-shadow-hover-color, $card-shadow);
+$--tk-card-shadow-hover-side-color: var(
+  --tk-card-shadow-hover-side-color,
+  $card-shadow
+);
+
+/** ======== Nav ======== */
+$--tk-nav-color-default: var(--tk-nav-color-default, $scolor-graphite-minus-24);
+$--tk-nav-color-hover: var(--tk-nav-color-hover, $scolor-graphite);
+$--tk-nav-color-active: var(--tk-nav-color-active, $scolor-black);
+$--tk-nav-color-disabled: var(--tk-nav-color-active, $scolor-graphite-minus-24);
+$--tk-nav-color-border-bottom: var(
+  --tk-nav-color-border-bottom,
+  $scolor-graphite-minus-72
+);
+
+/** ======== Banner ======== */
+$--tk-banner-info: (
+  color: var(--tk-banner-foreground-color, getColor($graphite, '80')),
+  backgroundColor:
+    var(--tk-banner-background-color-info, getColor($electricity, '10')),
+  iconColor: var(--tk-banner-foreground-color, getColor($graphite, '80')),
+);
+$--tk-banner-success: (
+  color: var(--tk-banner-foreground-color, getColor($graphite, '80')),
+  backgroundColor:
+    var(--tk-banner-background-color-success, getColor($green, '10')),
+  iconColor: var(--tk-banner-foreground-color, getColor($graphite, '80')),
+);
+$--tk-banner-warning: (
+  color: getColor($graphite, '80'),
+  backgroundColor:
+    var(--tk-banner-background-color-warning, getColor($yellow, '10')),
+  iconColor:
+    var(
+      --tk-banner-background-color-warning-icon-color,
+      getColor($yellow, '40')
+    ),
+);
+$--tk-banner-error: (
+  color: var(--tk-banner-foreground-color, getColor($graphite, '80')),
+  backgroundColor: var(--tk-banner-background-color-error, getColor($red, '10')),
+  iconColor: var(--tk-banner-foreground-color, getColor($red, '50')),
+);
+
+/** ======== Badge ======== */
+$--tk-badge-default: (
+  color: var(--tk-badge-text-color-default, getColor($graphite, '80')),
+  backgroundColor:
+    var(--tk-badge-background-color-default, getColor($graphite, '20')),
+);
+$--tk-badge-positive: (
+  color: var(--tk-badge-text-color-positive, getColor($green, '60')),
+  backgroundColor:
+    var(--tk-badge-background-color-positive, getColor($green, '20')),
+);
+$--tk-badge-neutral: (
+  color: var(--tk-badge-text-color-neutral, getColor($electricity, '60')),
+  backgroundColor:
+    var(--tk-badge-background-color-neutral, getColor($electricity, '20')),
+);
+$--tk-badge-attention: (
+  color: var(--tk-badge-text-color-attention, getColor($yellow, '60')),
+  backgroundColor:
+    var(--tk-badge-background-color-attention, getColor($yellow, '20')),
+);
+$--tk-badge-warning: (
+  color: var(--tk-badge-text-color-warning, getColor($red, '60')),
+  backgroundColor:
+    var(--tk-badge-background-color-warning, getColor($red, '20')),
+);
+$--tk-badge-external: (
+  color: var(--tk-badge-text-color-external, getColor($graphite, '80')),
+  backgroundColor:
+    var(--tk-badge-background-color-external, getColor($yellow, '20')),
+);
+
+/** ======== Timeline ======== */
+$--tk-timeline-background-color: var(
+  --tk-timeline-background-color,
+  getColor($graphite, '30')
+);
+$--tk-timeline-text-color: var(--tk-timeline-text-color, $scolor-white);
+$--tk-timeline-border-color: var(
+  --tk-timeline-border-color,
+  getColor($graphite, '30')
+);
+$--tk-timeline-expand-icon-color: var(
+  --tk-timeline-expand-icon-color,
+  getColor($graphite, '60')
+);
+$--tk-timeline-hours-color: var(
+  --tk-timeline-hours-color,
+  getColor($graphite, '70')
+);
+
+/** ======== divider ======== */
+$--tk-divider-color: var(--tk-divider-color, getColor($graphite, '20'));
