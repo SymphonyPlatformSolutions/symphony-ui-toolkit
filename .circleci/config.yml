@@ -1,0 +1,45 @@
+version: 2.1
+
+setup: << pipeline.parameters.run-setup >>
+
+# The continuation orb is required in order to use dynamic configuration
+orbs:
+  continuation: circleci/continuation@0.2.0
+
+parameters:
+  run-setup:
+    type: boolean
+    default: true
+  run-package-styles:
+    type: boolean
+    default: false
+  run-package-components:
+    type: boolean
+    default: false
+
+jobs:
+  setup:
+    executor: continuation/default
+    steps:
+      - checkout
+      - run:
+          name: Install 'circleci-config-merge'
+          command: |
+              mkdir tools
+              curl -L https://github.com/suzuki-shunsuke/circleci-config-merge/releases/download/v1.1.1/circleci-config-merge_1.1.1_linux_amd64.tar.gz | tar -xz -C ./tools/
+          when: always
+      - run:
+          name: Generate config
+          command: |
+            ./tools/circleci-config-merge merge packages/styles/.circleci/config.yml packages/components/.circleci/config.yml > .circleci/generated_config.yml
+      - run: cat .circleci/generated_config.yml
+      - continuation/continue:
+          configuration_path: .circleci/generated_config.yml # use newly generated config to continue
+          # parameters: "{'run-module-b': 'true'}"
+workflows:
+  setup:
+    jobs:
+      - setup:
+          filters: # See https://circleci.com/docs/2.0/workflows/#executing-workflows-for-a-git-tag
+            tags:
+              only: /^v.*/

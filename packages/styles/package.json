@@ -1,13 +1,13 @@
 {
   "name": "@symphony-ui/uitoolkit-styles",
-  "version": "3.0.0",
+  "version": "3.0.0-rc.2",
   "description": "Symphony UI design system",
   "publishConfig": {
     "registry": "https://registry.npmjs.org"
   },
   "main": "index.css",
   "scripts": {
-    "prepare": "husky install",
+    "prepare": "cd ../.. && husky install",
     "prestart": "yarn icons",
     "start": "start-storybook -p 6006 -c .storybook watch-css -s ./src",
     "prebuild": "yarn icons && sh src/scripts/generate-cdn.sh",
@@ -38,8 +38,8 @@
     "markdown-loader": "^6.0.0",
     "postcss": "^8.1.7",
     "postcss-cli": "^8.3.0",
-    "sass": "^1.22.10",
-    "sass-loader": "^7.2.0",
+    "sass": "^1.26.11",
+    "sass-loader": "^10.0.2",
     "storybook-addon-themes": "^6.1.0",
     "storybook-dark-mode": "^1.0.8"
   }
