@@ -6,10 +6,10 @@
   &--disabled:hover {
     color: getColor($--tk-input-color, disabledText);
   }
-  &--required::before {
+  &--required::after {
     content: "*";
     color: $--tk-label-required-color;
-    margin-right: toRem(2);
+    margin-left: toRem(2);
     font-size: toRem(16);
     font-weight: 600;
   }
