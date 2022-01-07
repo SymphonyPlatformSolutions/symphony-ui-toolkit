@@ -309,6 +309,7 @@ $--tk-select-scrollbar-color: var(
   --tk-select-scrollbar-color,
   $scolor-graphite-minus-55
 );
+$--tk-list-hover-color: var(--tk-list-hover-color, $scolor-graphite-minus-88);
 $--tk-list-selected-color: var(
   --tk-list-selected-color,
   $scolor-graphite-minus-24

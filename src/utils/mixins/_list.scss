@@ -15,8 +15,12 @@ $list-box-shadow: rgba($scolor-graphite-plus-89, 0.122);
 
   &__item {
     position: relative;
+    color: $--tk-main-text-color;
     display: block;
     cursor: pointer;
     padding-left: toRem(16);
+    &:hover {
+      background-color: $--tk-list-hover-color;
+    }
   }
 }
