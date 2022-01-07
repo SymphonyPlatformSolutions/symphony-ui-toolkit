@@ -1,0 +1,12 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+newFiles=`git diff --cached --name-status src/icons/svg`
+if [[ $newFiles ]]
+then
+    echo "🔍 New SVG files detected! Updating font codepoints..."
+    # It will update 'tk-icons.codepoints.json'
+    yarn icons
+    # Add updated icons codepoints in the commit
+    git add src/icons/tk-icons.codepoints.json
+fi

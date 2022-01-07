@@ -1,0 +1,11 @@
+node_modules
+.vscode
+dist
+.DS_Store
+symphony-uitoolkit-styles-*.tgz
+package
+.idea
+icons.stories.js
+*generated*
+.history
+.creevey/report
