@@ -10,7 +10,7 @@
   "main": "index.js",
   "scripts": {
     "prepare": "cd ../.. && husky install",
-    "postinstall" : "yarn workspace @symphony-ui/uitoolkit-styles icons",
+    "postinstall" : "yarn workspace @symphony-ui/uitoolkit-styles build",
     "clean": "rm -rf dist",
     "dedupe": "yarn-deduplicate",
     "init": "mkdir dist",
