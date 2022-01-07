@@ -1,0 +1,42 @@
+/**************************** Icon Font *****************************/
+{{!-- Icon fonts are generated from SVG sources, this is the template of the resulting SCSS file of icons definitions --}}
+@font-face {
+    font-family: "{{ name }}";
+  src: url($ICONS_FONTS_PATH+"/tk-icons.eot?#iefix") format("embedded-opentype"),
+url($ICONS_FONTS_PATH+"/tk-icons.woff2") format("woff2"),
+url($ICONS_FONTS_PATH+"/tk-icons.woff") format("woff"),
+url($ICONS_FONTS_PATH+"/tk-icons.ttf") format("truetype"),
+url($ICONS_FONTS_PATH+"/tk-icons.svg#tk-icons") format("svg");
+  }
+
+  i[class^="tk-icon-"]:before, i[class*=" tk-icon-"]:before {
+    display: inline-block;
+    font-family: {{ name }} !important;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal !important;
+    line-height: 1em;
+    speak: none;
+    text-align: center;  
+    text-decoration: inherit;
+    text-transform: none;
+    vertical-align: top;
+    width: 1em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+{{# each codepoints }}
+.{{ ../prefix }}-{{ @key }}:before {
+    content: "\\{{ codepoint this }}";
+}
+{{/ each }}
+
+{{!-- Useful mixins to use icons directly in scss
+Usage : @include tk-icon-[icon-name] --}}
+/** Mixins **/
+{{# each codepoints }}
+@mixin {{ ../prefix }}-{{ @key }} {
+    content: "\\{{ codepoint this }}";
+}
+{{/ each }}

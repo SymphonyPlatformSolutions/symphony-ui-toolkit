@@ -1,0 +1,130 @@
+@mixin checkbox_radio_common($fontSize) {
+
+  display: flex;
+  align-items: center;
+  min-height: toRem(20);
+
+  // Padding for outline focus display
+  padding: toRem(2);
+
+  &--focus-visible {
+    @include browserOutline();
+  }
+
+  &__input {
+    // Hide the input without using 'display:none'.
+    // Otherwise it will hide the checkbox from both browser and assistive technology (AT) users,
+    // and we would also lose keyboard interactions.
+    position: absolute;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+  }
+
+  &__inputContainer {
+    position: relative;
+  }
+
+  &__icon {
+    display: flex;
+
+    &:before {
+      font-family: 'tk-icons';
+      font-size: toRem(16);
+      font-style: normal;
+      font-weight: normal;
+      width: 1em;
+      line-height: 1em;
+      text-align: center;
+    }
+  }
+
+  &__label {
+    $labelMargin: toRem(8);
+
+    outline: none;
+    font-size: toRem($fontSize);
+    margin-left: $labelMargin;
+
+    &--top {
+      margin-bottom: $labelMargin;
+      margin-left: 0;
+    }
+    &--right {
+      margin-left: $labelMargin;
+    }
+    &--left {
+      margin-right: $labelMargin;
+      margin-left: 0;
+    }
+    &--bottom {
+      margin-top: $labelMargin;
+      margin-left: 0;
+    }
+  }
+
+  &__labelPlacement {
+    &--top {
+      flex-direction: column-reverse;
+    }
+    &--left {
+      flex-direction: row-reverse;
+    }
+    &--bottom {
+      flex-direction: column;
+    }
+  }
+
+  &:not(&--disabled) &__input, 
+  &:not(&--disabled) &__label {
+    cursor: pointer;
+  }
+
+  /* Color management */
+
+  // Default
+  &__icon:before {
+    color: map-get($--tk-input-checkbox-radio-color, iconDefault);
+  }
+
+  &__label {
+    color: map-get($--tk-input-checkbox-radio-color, textDefault);
+  }
+
+  &:hover &__icon:before {
+    color: map-get($--tk-input-checkbox-radio-color, iconHover);
+  }
+
+  // Checked
+  &__input:checked:enabled + &__icon:before {
+    color: map-get($--tk-input-checkbox-radio-color, iconChecked);
+  }
+
+  &:hover &__input:checked:enabled + &__icon:before {
+    color: map-get($--tk-input-checkbox-radio-color, iconHover);
+  }
+
+  // Disabled
+  &--disabled &__icon:before,
+  &--disabled:hover &__icon:before {
+    color: map-get($--tk-input-checkbox-radio-color, iconDisabled);
+  }
+
+  &--disabled &__label, 
+  &--disabled:hover &__label {
+    color: map-get($--tk-input-checkbox-radio-color, textDisabled);
+  }
+
+  // Error
+  .tk-validation--error &__inputContainer &__input + &__icon:before {
+    color: map-get($--tk-input-checkbox-radio-color, iconError);
+  }
+
+  .tk-validation--error &:hover &__inputContainer &__input + &__icon:before {
+    color: map-get($--tk-input-checkbox-radio-color, iconErrorHover);
+  }
+}

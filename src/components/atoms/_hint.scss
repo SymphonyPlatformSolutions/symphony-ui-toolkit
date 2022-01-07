@@ -1,0 +1,47 @@
+$backgroundColor: $scolor-graphite-plus-48;
+
+.tk-hint {
+  z-index: $z-index-tooltip;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  border-radius: toRem(8);
+  background-color: $backgroundColor;
+  font-size: toRem(14);
+  padding: toRem(16);
+  text-align: left;
+  line-height: toRem(20);
+  white-space: pre-line;
+  min-width: toRem(200);
+  max-width: toRem(480);
+  overflow-wrap: break-word;
+  &__description {
+    color: $scolor-graphite-minus-96;
+  }
+
+  &__arrow {
+    $arrowSize: toRem(24);
+    width: $arrowSize;
+    height: $arrowSize;
+    background-color: $backgroundColor;
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  &__close {
+    cursor: pointer;
+    color: getColor($graphite, '30');
+    text-transform: uppercase;
+    padding: toRem(4) toRem(8);
+    border-radius: toRem(23);
+    font-size: toRem(12);
+    line-height: toRem(16);
+    font-weight: 600;
+    &:focus-visible {
+      @include outlineStyle;
+    }
+  }
+}
