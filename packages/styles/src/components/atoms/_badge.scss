@@ -1,0 +1,56 @@
+$badge-font-sizes: (
+  'small': toRem(11),
+  'medium': toRem(12),
+);
+
+$badge-line-sizes: (
+  'small': toRem(14),
+  'medium': toRem(16),
+);
+
+$badge-padding-sizes: (
+  'small': toRem(1) toRem(4),
+  'medium': toRem(4) toRem(8),
+);
+
+.tk-badge {
+  font-size: map-get($badge-font-sizes, 'medium');
+  display: inline-block;
+  border-radius: toRem(3);
+  padding: map-get($badge-padding-sizes, 'medium');
+  text-transform: uppercase;
+  text-align: center;
+  align-items: center;
+  line-height: map-get($badge-line-sizes, 'medium');
+  white-space: nowrap;
+
+  @each $size, $size-value in $badge-font-sizes {
+    &--#{$size} {
+      font-size: $size-value;
+      padding: map-get($badge-padding-sizes, $size);
+      line-height: map-get($badge-line-sizes, $size);
+    }
+  }
+
+  @include styleBadge($--tk-badge-default);
+
+  &--positive {
+    @include styleBadge($--tk-badge-positive);
+  }
+
+  &--neutral {
+    @include styleBadge($--tk-badge-neutral);
+  }
+
+  &--attention {
+    @include styleBadge($--tk-badge-attention);
+  }
+
+  &--warning {
+    @include styleBadge($--tk-badge-warning);
+  }
+
+  &--external {
+    @include styleBadge($--tk-badge-external);
+  }
+}

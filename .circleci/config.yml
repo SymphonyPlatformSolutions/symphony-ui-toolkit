@@ -1,84 +1,45 @@
 version: 2.1
+
+setup: << pipeline.parameters.run-setup >>
+
+# The continuation orb is required in order to use dynamic configuration
 orbs:
-  node: circleci/node@2.1
-  aws-s3: circleci/aws-s3@1.1.1
+  continuation: circleci/continuation@0.2.0
+
+parameters:
+  run-setup:
+    type: boolean
+    default: true
+  run-package-styles:
+    type: boolean
+    default: false
+  run-package-components:
+    type: boolean
+    default: false
+
 jobs:
-  build-and-publish:
-    executor:
-      name: node/default
-      tag: 'lts'
+  setup:
+    executor: continuation/default
     steps:
       - checkout
-      - run: yarn
-      - run: yarn lint
-      - run: yarn check-circular
-      # Run jest tests
       - run:
-          name: Run tests
-          command: yarn test-once
-          environment:
-            NODE_OPTIONS: --max_old_space_size=4096
-      # Run coverage
-      - run:
-          name: Run coverage
-          command: yarn run cover
-          environment:
-            NODE_OPTIONS: --max_old_space_size=4096
-          when: always
-      # Run coverage report for Code Climate
-      - run:
-          name: Setup Code Climate test-reporter
+          name: Install 'circleci-config-merge'
           command: |
-              # download test reporter as a static binary
-              curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-              chmod +x ./cc-test-reporter
-              ./cc-test-reporter before-build
+              mkdir tools
+              curl -L https://github.com/suzuki-shunsuke/circleci-config-merge/releases/download/v1.1.1/circleci-config-merge_1.1.1_linux_amd64.tar.gz | tar -xz -C ./tools/
           when: always
       - run:
-          name: Send coverage report to Code Climate
-          command:
-              ./cc-test-reporter after-build -t lcov
-          environment:
-            CC_TEST_REPORTER_ID: 8150d54c3d819c99c080dda0f89f8a0be0245ed8d9321f8054f8077883ba86c9
-          when: always
-      # Upload results
-      - store_artifacts: # upload test coverage as artifact
-          path: ./coverage/lcov.info
-          prefix: tests
-
-      - run: yarn build
-      - run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
-      - run: bash ./publish.sh
-      - run: rm -f ~/.npmrc
-      - run: rm -rf ./dist
-      - run: yarn build-storybook
-      - persist_to_workspace:
-          root: dist
-          paths:
-            - storybook
-
-  deploy-storybook:
-    executor:
-      name: node/default
-      tag: 'lts'
-    steps:
-      - attach_workspace:
-          at: /tmp/dist
-      - aws-s3/sync:
-          arguments: --delete
-          from: /tmp/dist/storybook
-          to: s3://uitoolkit-storybook/components/master
-
+          name: Generate config
+          command: |
+            ./tools/circleci-config-merge merge packages/styles/.circleci/config.yml packages/components/.circleci/config.yml > .circleci/generated_config.yml
+      - run: cat .circleci/generated_config.yml
+      - continuation/continue:
+          configuration_path: .circleci/generated_config.yml # use newly generated config to continue
+          # parameters: "{'run-module-b': 'true'}"
 workflows:
-  build:
+  setup:
     jobs:
-      - build-and-publish:
-          filters:
+      - setup:
+          filters: # See https://circleci.com/docs/2.0/workflows/#executing-workflows-for-a-git-tag
             tags:
               only: /^v.*/
-      - deploy-storybook:
-          requires:
-            - build-and-publish
-          filters:
-            branches:
-              only: master

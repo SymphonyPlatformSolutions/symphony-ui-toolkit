@@ -1,0 +1,95 @@
+# Config dedicated for UI-Toolkit Components
+# All the resources must be prefixed with `package-components-` to avoid conflicts 
+
+version: 2.1
+
+orbs:
+  node: circleci/node@2.1
+  aws-s3: circleci/aws-s3@1.1.1
+
+jobs:
+  package-components-build-and-publish:
+    executor:
+      name: node/default
+      tag: 'lts'
+    working_directory: ~/project/packages/components
+    steps:
+      - attach_workspace:
+          at: ~/project
+      - run: yarn
+      - run: yarn lint
+      - run: yarn check-circular
+      # Run jest tests
+      - run:
+          name: Run tests
+          command: yarn test-once
+          environment:
+            NODE_OPTIONS: --max_old_space_size=4096
+      # Run coverage
+      - run:
+          name: Run coverage
+          command: yarn run cover
+          environment:
+            NODE_OPTIONS: --max_old_space_size=4096
+          when: always
+      # Run coverage report for Code Climate
+      - run:
+          name: Setup Code Climate test-reporter
+          command: |
+              # download test reporter as a static binary
+              curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+              chmod +x ./cc-test-reporter
+              ./cc-test-reporter before-build
+          when: always
+      - run:
+          name: Send coverage report to Code Climate
+          command:
+              ./cc-test-reporter after-build -t lcov
+          environment:
+            CC_TEST_REPORTER_ID: 8150d54c3d819c99c080dda0f89f8a0be0245ed8d9321f8054f8077883ba86c9
+          when: always
+      # Upload results
+      - store_artifacts: # upload test coverage as artifact
+          path: ./coverage/lcov.info
+          prefix: tests
+
+      - run: yarn build
+      - run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
+      - run: bash ./publish.sh
+      - run: rm -f ~/.npmrc
+      - run: rm -rf ./dist
+      - run: yarn build-storybook
+      - persist_to_workspace:
+          root: dist
+          paths:
+            - storybook
+
+  package-components-deploy-storybook:
+    executor:
+      name: node/default
+      tag: 'lts'
+    steps:
+      - attach_workspace:
+          at: /tmp/dist
+      - run: echo 'MOCK deploy-storybook'
+      - run: ls /tmp/dist/storybook
+      - aws-s3/sync:
+          arguments: --delete
+          from: /tmp/dist/storybook
+          to: s3://uitoolkit-storybook/components/dryrun  # MOCK REPLACE BY master
+
+workflows:
+  build:
+    jobs:
+      - package-components-build-and-publish:
+          requires:
+            - package-styles-build-and-publish
+          filters:
+            tags:
+              only: /^v.*/
+      - package-components-deploy-storybook:
+          requires:
+            - package-components-build-and-publish
+          filters:
+            branches:
+              only: dryrun # MOCK REPLACE BY master

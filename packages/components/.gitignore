@@ -1,0 +1,8 @@
+node_modules
+.vscode
+.history
+coverage
+dist
+/.idea/
+*.log
+.eslintcache
