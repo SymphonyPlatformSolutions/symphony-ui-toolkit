@@ -1,0 +1,22 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# Pre-commit for UI-Toolkit Components
+updatedFiles=`git diff --name-status packages/components`
+if [[ $updatedFiles ]]
+then
+    echo "UI-Toolkit Components precommit"
+    npx lint-staged
+fi
+
+# Pre-commit for UI-Toolkit Styles
+newFiles=`git diff --cached --name-status packages/styles/src/icons/svg`
+if [[ $newFiles ]]
+then
+    echo "UI-Toolkit Styles precommit"
+    echo "🔍 New SVG files detected! Updating font codepoints..."
+    # It will update 'tk-icons.codepoints.json'
+    yarn workspace @symphony-ui/uitoolkit-styles icons
+    # Add updated icons codepoints in the commit
+    git add packages/styles/src/icons/tk-icons.codepoints.json
+fi

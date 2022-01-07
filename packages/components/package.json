@@ -9,6 +9,8 @@
   "sideEffects": false,
   "main": "index.js",
   "scripts": {
+    "prepare": "cd ../.. && husky install",
+    "postinstall" : "yarn workspace @symphony-ui/uitoolkit-styles build",
     "clean": "rm -rf dist",
     "dedupe": "yarn-deduplicate",
     "init": "mkdir dist",
@@ -23,8 +25,7 @@
     "test-once": "jest -w 1",
     "cover": "jest -w 1 --coverage",
     "check-circular": "madge --circular --extensions ts,tsx ./",
-    "linkit": "yarn build && cp package.json ./dist && cd ./dist && yarn link && cd ..",
-    "prepare": "husky install"
+    "linkit": "yarn build && cp package.json ./dist && cd ./dist && yarn link && cd .."
   },
   "peerDependencies": {
     "react": ">=16.8.0",
@@ -33,7 +34,7 @@
   "dependencies": {
     "@popperjs/core": "^2.4.4",
     "@seznam/compose-react-refs": "^1.0.6",
-    "@symphony-ui/uitoolkit-styles": "^3.0.0",
+    "@symphony-ui/uitoolkit-styles": "3.0.0-rc.2",
     "@types/classnames": "^2.2.10",
     "classnames": "^2.2.6",
     "date-fns": "^2.16.1",
@@ -118,9 +119,5 @@
   },
   "resolutions": {
     "**/lodash": "^4.17.21"
-  },
-  "lint-staged": {
-    "*.{ts,tsx,js,jsx}": "eslint --cache --fix",
-    "*.{js,css,md}": "prettier --write"
   }
 }
