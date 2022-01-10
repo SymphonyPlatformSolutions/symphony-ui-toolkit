@@ -58,18 +58,6 @@ describe('Input Validators', () => {
     expect(await Validators.Url(emptyArray)).toEqual(null);
   });
 
-  it('should validate "emptyString" Input correctly', async () => {
-    expect(await Validators.EmptyString(null)).toEqual({ emptyString: true });
-    expect(await Validators.EmptyString(undefined)).toEqual({ emptyString: true });
-    expect(await Validators.EmptyString(emptyString)).toEqual({ emptyString: true });
-    expect(await Validators.EmptyString(stringWithValue)).toEqual(null);
-    expect(await Validators.EmptyString(stringWithSpaces)).toEqual({ emptyString: true });
-    expect(await Validators.EmptyString(objectWithValue)).toEqual(null);
-    expect(await Validators.EmptyString(emptyObject)).toEqual({ emptyString: true });
-    expect(await Validators.EmptyString(arrayWithValues)).toEqual(null);
-    expect(await Validators.EmptyString(emptyArray)).toEqual({ emptyString: true });
-  });
-
   it('should validate "minlength" Input correctly', async () => {
     expect(await Validators.MinLength(3)('aaa')).toEqual(null);
     expect(await Validators.MinLength(3)(null)).toEqual({ minlength: true });

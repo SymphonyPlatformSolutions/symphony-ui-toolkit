@@ -1,3 +1,5 @@
+import { TkIcon } from '@symphony-ui/uitoolkit-styles/dist/fonts/tk-icons';
+
 import Card from './card';
 import CropContent from './crop-content';
 import DatePicker from './date-picker';
@@ -62,6 +64,7 @@ export {
   ModalHeader,
   ModalBody,
   ModalFooter,
+  TkIcon,
   Typography,
   Loader,
   Validators,
