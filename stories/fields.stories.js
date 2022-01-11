@@ -19,7 +19,7 @@ export const TextField = () => {
   <span class="tk-validation tk-validation--error">
     <input
       type="text"
-      class="tk-input tk-input--error"
+      class="tk-input tk-input--medium tk-input--error"
       placeholder="Type something..."
     />
     <ul class="tk-validation__errors">
@@ -70,11 +70,11 @@ export const TextField = () => {
   />
   <h2>Text Field with icon</h2>
   <h3>Default</h3>
-    <div class="tk-input__container">
+    <div class="tk-input__container tk-input__container--medium">
       <input
         id="input2"
         type="text"
-        class="tk-input tk-input--with-icon"
+        class="tk-input tk-input--medium tk-input--with-icon"
         placeholder="Type something..."
       />
       <div class="tk-input__icon">
@@ -104,11 +104,11 @@ export const TextField = () => {
   
   <h3>Error</h3>
   <span class="tk-validation tk-validation--error">
-    <div class="tk-input__container">
+    <div class="tk-input__container tk-input__container--medium">
       <input
         id="input3"
         type="text"
-        class="tk-input tk-input--with-icon"
+        class="tk-input tk-input--medium tk-input--with-icon"
         placeholder="Type something..."
       />
       <div class="tk-input__icon">
@@ -143,7 +143,7 @@ export const TextField = () => {
     <input
       id="input4"
       type="text"
-      class="tk-input tk-input--with-icon"
+      class="tk-input tk-input--medium tk-input--with-icon"
       placeholder="Type something..."
       value="Lorem Ipsum"
       readonly
@@ -178,7 +178,7 @@ export const TextField = () => {
     <input
       id="input4"
       type="text"
-      class="tk-input tk-input--with-icon"
+      class="tk-input tk-input--medium tk-input--with-icon"
       placeholder="Type something..."
       disabled
     />
@@ -205,7 +205,7 @@ export const TextField = () => {
     <div class="tk-input-group__header">
       <label class="tk-label" for="input">Field label</label>
     </div>
-    <div class="tk-input__container">
+    <div class="tk-input__container tk-input__container--medium">
       <input
         id="input"
         type="text"
@@ -237,11 +237,11 @@ export const TextField = () => {
     <div class="tk-input-group__header">
       <label class="tk-label tk-label--required" for="input">Field label</label>
     </div>
-    <div class="tk-input__container">
+    <div class="tk-input__container tk-input__container--medium">
       <input
         id="input2"
         type="text"
-        class="tk-input tk-input--with-icon"
+        class="tk-input tk-input--medium tk-input--with-icon"
         placeholder="Type something..."
       />
       <div class="tk-input__icon">
@@ -272,7 +272,7 @@ export const TextField = () => {
       <div class="tk-input-group__header">
         <label class="tk-label" for="input-error">Field label</label>
       </div>
-      <div class="tk-input__container">
+      <div class="tk-input__container tk-input__container--medium">
         <input
           id="input-error"
           type="text"
@@ -377,11 +377,11 @@ export const TextField = () => {
     <div class="tk-input-group__header">
       <label class="tk-label tk-label--required" for="input">Field label</label>
     </div>
-    <div class="tk-input__container">
+    <div class="tk-input__container tk-input__container--medium">
       <input
         id="input2"
         type="text"
-        class="tk-input tk-input--with-icon"
+        class="tk-input tk-input--medium tk-input--with-icon"
         placeholder="Type something..."
       />
       <div class="tk-input__icon">
@@ -414,7 +414,7 @@ export const TextField = () => {
         >Field label</label
       >
       </div>
-      <div class="tk-input__container">
+      <div class="tk-input__container tk-input__container--medium">
         <input
           id="input-error"
           type="text"
@@ -465,7 +465,7 @@ export const TextField = () => {
       <input
         id="input2"
         type="text"
-        class="tk-input tk-input--with-icon"
+        class="tk-input tk-input--medium tk-input--with-icon"
         placeholder="Type something..."
         value="Lorem Ipsum"
         readonly
@@ -505,7 +505,7 @@ export const TextField = () => {
       <input
         id="input2"
         type="text"
-        class="tk-input tk-input--with-icon"
+        class="tk-input tk-input--medium tk-input--with-icon"
         placeholder="Type something..."
         disabled
       />
@@ -554,7 +554,7 @@ export const TextField = () => {
       <span class="tk-validation tk-validation--error">
       <input
         type="text"
-        class="tk-input tk-input--error"
+        class="tk-input tk-input--medium tk-input--error"
         placeholder="Type something..."
       />
       <ul class="tk-validation__errors">
@@ -566,7 +566,7 @@ export const TextField = () => {
     <div class="tk-input-group__header">
       <label class="tk-label" for="input">Field label</label>
     </div>
-    <div class="tk-input__container">
+    <div class="tk-input__container tk-input__container--medium">
       <input
         id="input"
         type="text"
@@ -876,7 +876,7 @@ export const TextArea = () => {
   <textarea class="tk-input tk-input--small" placeholder="Small"></textarea>
   <h3>Error</h3>
   <span class="tk-validation tk-validation--error">
-    <textarea class="tk-input tk-input--error" placeholder="Medium"></textarea>
+    <textarea class="tk-input tk-input--medium tk-input--error" placeholder="Medium"></textarea>
   </span>
   <div class="tk-mt-2"></div>
   <span class="tk-validation tk-validation--small tk-validation--error">
@@ -896,7 +896,7 @@ export const TextArea = () => {
     <div class="tk-input-group__header">
       <label class="tk-label" for="input">Field label</label>
     </div>
-    <div class="tk-input__container">
+    <div class="tk-input__container tk-input__container--medium">
       <textarea class="tk-input tk-input--medium" placeholder="Medium"></textarea>
     </div>
     <div class="tk-input__helper">This is a helper.</div>
@@ -922,7 +922,7 @@ export const TextArea = () => {
       <div class="tk-input-group__header">
         <label class="tk-label" for="input-error">Field label</label>
       </div>
-      <div class="tk-input__container">
+      <div class="tk-input__container tk-input__container--medium">
         <textarea class="tk-input tk-input--medium" placeholder="Medium"></textarea>
       </div>
       </div>

@@ -53,10 +53,10 @@ body {
 }
 
 @include condensed {
-  .tk-select, .tk-select--medium {
+  &.tk-select, &.tk-select--medium {
     @include smallSize;
   }
-  .tk-select--large {
+  &.tk-select--large {
     @include mediumSize;
   }
 }

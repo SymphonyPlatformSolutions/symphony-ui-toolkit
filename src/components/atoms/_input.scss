@@ -2,14 +2,16 @@ body {
   --tk-input-padding-height: #{toRem(6)};
   --tk-input-padding-width: #{toRem(12)};
 
-  --tk-input-spacing-height: #{toRem(6)};
-  --tk-input__container-padding: 0 #{toRem(12)};
+  --tk-input-spacing-y: #{toRem(6)};
+  --tk-input-spacing-x: #{toRem(12)};
   --tk-input__icon-font-size: #{toRem(16)};
   --tk-input__icon-margin-right: #{toRem(8)};
   --tk-textarea-min-height: #{toRem(128)};
 }
 
 .tk-input--small {
+  --tk-input-height: #{toRem(24)};
+
   --tk-input-padding-height: #{toRem(2)};
   --tk-input-padding-width: #{toRem(8)};
 
@@ -17,32 +19,37 @@ body {
   --tk-textarea-padding-right: #{toRem(12)};
 }
 .tk-input--medium {
+  --tk-input-height: #{toRem(32)};
   --tk-input-padding-height: #{toRem(6)};
   --tk-input-padding-width: #{toRem(12)};
 
   --tk-textarea-min-height: #{toRem(128)};
 }
 .tk-input--large, .tk-select--large {
+  --tk-input-height: #{toRem(40)};
   --tk-input-padding-height: #{toRem(10)};
   --tk-input-padding-width: #{toRem(16)};
 }
 
+.tk-input__container--small {
+  --tk-input__icon-font-size: #{toRem(12)};
+  --tk-input-spacing-x: #{toRem(8)};
+} 
+
 .tk-input__container {
-  &--small {
-    --tk-input__icon-font-size: #{toRem(12)};
-  }
   .tk-input {
+    --tk-input-height: #{toRem(20)};
     --tk-input-padding-height: 0;
     --tk-input-padding-width: #{toRem(12)};
   }
   .tk-input--small {
-    --tk-input-spacing-height: #{toRem(2)};
+    --tk-input-spacing-y: #{toRem(2)};
   }
   .tk-input--medium {
-    --tk-input-spacing-height: #{toRem(6)};
+    --tk-input-spacing-y: #{toRem(6)};
   }
   .tk-input--large {
-    --tk-input-spacing-height: #{toRem(10)};
+    --tk-input-spacing-y: #{toRem(10)};
   }
 }
 
@@ -56,13 +63,15 @@ body {
   }
   &.tk-input--large,
   &.tk-select--large {
+    --tk-input-height: #{toRem(32)};
+
     --tk-input-padding-height: #{toRem(6)};
     --tk-input-padding-width: #{toRem(12)};
   }
 
   &.tk-input__container--medium {
-    --tk-input-spacing-height: #{toRem(2)};
-    --tk-input__container-padding: 0 #{toRem(8)};
+    --tk-input-spacing-y: #{toRem(2)};
+    --tk-input-spacing-x: #{toRem(8)};
     --tk-input__icon-font-size: #{toRem(12)};
     --tk-input__icon-margin-right: #{toRem(4)};
     --tk-input__hide-outline-offset: 0;
@@ -70,10 +79,10 @@ body {
 
   &.tk-input__container {
     .tk-input--medium {
-      --tk-input-spacing-height: #{toRem(2)};
+      --tk-input-spacing-y: #{toRem(2)};
     }
     .tk-input--large {
-      --tk-input-spacing-height: #{toRem(6)};
+      --tk-input-spacing-y: #{toRem(6)};
     }
   }
 
@@ -100,6 +109,7 @@ body {
     );
   }
   @include styleTKInput;
+  height: var(--tk-input-height);
 }
 
 .tk-input__container {
@@ -107,10 +117,9 @@ body {
     padding-right: toRem(4);
   }
   @include styleTKInputContainer;
-
   border-color: transparent;
   outline: none;
-  padding: 0 toRem(12);
+  padding: 0 var(--tk-input-spacing-x);
 
   &.active {
     .tk-input {
@@ -181,10 +190,9 @@ body {
       }
     }
 
-    margin: var(--tk-input-spacing-height) 0;
+    margin: var(--tk-input-spacing-y) 0;;
 
   }
-  padding: var(--tk-input__container-padding);
   .tk-input__icon {
     font-size: var(--tk-input__icon-font-size);
     margin-right: var(--tk-input__icon-margin-right);
@@ -240,6 +248,7 @@ body {
 }
 
 textarea.tk-input {
+  height: auto;
   text-overflow: ellipsis;
   padding-right: toRem(16);
   &:not([rows]) {
