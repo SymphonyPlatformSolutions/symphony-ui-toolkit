@@ -24,22 +24,6 @@ const Required: ValidatorFn = (value) => {
 };
 
 /**
- * @deprecated since >2.5.0 version
- * DEPRECATED - Please use the Required validator instead
- * Checks if a mandatory value isn't empty , returns {emptyString:true} if error, return null if it's not empty
- * @param value Value to test
- */
-const EmptyString: ValidatorFn = (value) => {
-  console.warn(
-    'Calling a deprecated validator (EmptyString), please use the Required validator instead'
-  );
-  if (isEmptyValue(value)) {
-    return Promise.resolve({ emptyString: true });
-  }
-  return Promise.resolve(null);
-};
-
-/**
  * Checks if a provided value has the minimum length, returns {minlength:true} if error, return null if value has the minimum length
  * @param value Value to test
  */
@@ -153,7 +137,6 @@ const isEmptyValue = (value: any) =>
 export const Validators = {
   Url,
   Email,
-  EmptyString,
   Required,
   MinValue,
   MinLength,

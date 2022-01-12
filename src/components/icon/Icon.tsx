@@ -14,10 +14,6 @@ export interface IconProps extends React.HTMLProps<HTMLElement> {
   tabIndex?: number;
   /** Callback when mouse click */
   onClick?: (event: React.MouseEvent<HTMLElement>) => void;
- /** deprecated; use onClick */
-  handleClick?: (
-    event: React.MouseEvent<HTMLElement>
-  ) => void;
   /** Keyboard Event */
   onKeyDown?: (event: React.KeyboardEvent<HTMLElement>) => void;
   /** Keyboard Event */
@@ -28,7 +24,6 @@ const Icon: React.FC<IconProps> = ({
   className,
   disabled,
   iconName,
-  handleClick /** deprecated, please use onClick */,
   onClick,
   onKeyDown,
   onKeyPress,
@@ -37,16 +32,15 @@ const Icon: React.FC<IconProps> = ({
   style,
   ...otherProps
 }) => {
-  const click = onClick ? onClick : handleClick;
   return (
     <i
       {...otherProps}
       className={classnames(`tk-icon-${iconName}`, className)}
-      onClick={!disabled ? click : null}
+      onClick={!disabled ? onClick : null}
       onKeyDown={!disabled ? onKeyDown : null}
       onKeyPress={!disabled ? onKeyPress : null}
       ref={forwardRef}
-      style={{ cursor: !disabled && click && 'pointer', ...style }}
+      style={{ cursor: !disabled && onClick && 'pointer', ...style }}
       tabIndex={tabIndex}
     />
   );
@@ -57,7 +51,6 @@ Icon.propTypes = {
   className: PropTypes.string,
   disabled: PropTypes.bool,
   forwardRef: PropTypes.any,
-  handleClick: PropTypes.func,
   tabIndex: PropTypes.number,
   onClick: PropTypes.func,
   onKeyDown: PropTypes.func,

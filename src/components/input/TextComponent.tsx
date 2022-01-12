@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo } from 'react';
 import classNames from 'classnames';
 import shortid from 'shortid';
 
@@ -33,8 +33,6 @@ type TextComponentProps = {
   label?: string;
   /** Force the text to display masked "••••" */
   isMasked?: boolean;
-  /** @deprecated Deprecated, please use rightDecorators instead */
-  masked?: boolean;
   placeholder?: string;
   onClick?: () => any;
   onFocus?: (event?: React.FocusEvent<HTMLElement>) => any;
@@ -71,7 +69,6 @@ const TextComponentPropTypes = {
   iconElement: PropTypes.element,
   isMasked: PropTypes.bool,
   label: PropTypes.string,
-  masked: PropTypes.bool,
   placeholder: PropTypes.string,
   onInit: PropTypes.func,
   onChange: PropTypes.func,
@@ -101,7 +98,6 @@ const TextComponent: React.FC<
       disabled,
       label,
       placeholder,
-      masked,
       readOnly,
       size,
       showRequired,
@@ -121,8 +117,6 @@ const TextComponent: React.FC<
     },
     ref
   ) => {
-    const [hideText, setHideText] = useState(masked || false);
-
     useEffect(() => {
       if (onInit && value) {
         onInit(value);
@@ -136,13 +130,6 @@ const TextComponent: React.FC<
 
     const tooltipId = useMemo(() => `tk-hint-${shortid.generate()}`, []);
 
-    const handleViewText = (event) => {
-      if (disabled) return;
-
-      event.preventDefault();
-      setHideText(!hideText);
-    };
-
     let TagName;
     if (type == Types.TEXTAREA) {
       TagName = 'textarea';
@@ -150,8 +137,7 @@ const TextComponent: React.FC<
       TagName = 'input';
     }
 
-    const shouldHideText = (isMasked || (masked && hideText));
-    const typeTextField = type === Types.TEXTFIELD ? shouldHideText ? 'password' : 'text' : undefined;
+    const typeTextField = type === Types.TEXTFIELD ? isMasked ? 'password' : 'text' : undefined;
 
     return (
       <div
@@ -202,15 +188,6 @@ const TextComponent: React.FC<
                 ? rightDecorators.map((decorator) => decorator)
                 : rightDecorators}
             </span>
-          ) : null}
-          {type == Types.TEXTFIELD && masked && value?.length ? (
-            <button
-              className={`${prefix}__hide`}
-              tabIndex={value && value.length === 0 ? -1 : 0}
-              onClick={handleViewText}
-            >
-              {hideText ? 'show' : 'hide'}
-            </button>
           ) : null}
           {iconElement && type == Types.TEXTFIELD
             ? // Clone the iconElement in order to attach className '${prefix}__icon'

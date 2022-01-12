@@ -24,4 +24,8 @@ module.exports = {
   // A list of paths to modules that run some code to configure or set up
   // the testing framework before each test
   setupFilesAfterEnv: ['jest-extended', '<rootDir>spec/init/setupTests.js'],
+
+  transformIgnorePatterns: [
+    'node_modules/(?!@symphony-ui/uitoolkit-styles/dist/fonts/tk-icons.ts)',
+  ],
 };

@@ -31,18 +31,8 @@ export const Standard = Template.bind({});
 Standard.args = {
   description: 'Input Type "text"',
   rightDecorators: [
-    <span
-      key="span-copy"
-      style={{ alignSelf: 'center', margin: '0.2rem 0.5rem' }}
-    >
-      <Icon iconName="copy" />
-    </span>,
-    <span
-      key="span-search"
-      style={{ alignSelf: 'center', margin: '0.2rem 0.5rem' }}
-    >
-      <Icon iconName="search" />
-    </span>,
+    <Icon iconName="copy" tabIndex={0} className="tk-input__right-decorators__clickable" key="copy"/>,
+    <Icon iconName="search" tabIndex={0} className="tk-input__right-decorators__clickable" key="search"/>,
   ],
   children: <input type="text" />,
 };
@@ -58,12 +48,7 @@ export const Number = () => (
     label='Input Type "number"'
     tooltip="A tooltip"
     rightDecorators={
-      <span
-        key="span-copy"
-        style={{ alignSelf: 'center', margin: '0.2rem 0.5rem' }}
-      >
-        <Icon iconName="copy" />
-      </span>
+      <Icon iconName="copy" tabIndex={0} className="tk-input__right-decorators__clickable" key="copy"/>
     }
   >
     <input type="number" />
@@ -111,18 +96,8 @@ export const Decorators = () => (
     label="With decorator"
     tooltip="A tooltip"
     rightDecorators={[
-      <span
-        key="span-copy"
-        style={{ alignSelf: 'center', margin: '0.2rem 0.5rem' }}
-      >
-        <Icon iconName="copy" />
-      </span>,
-      <span
-        key="span-search"
-        style={{ alignSelf: 'center', margin: '0.2rem 0.5rem' }}
-      >
-        <Icon iconName="search" />
-      </span>,
+      <Icon iconName="copy" tabIndex={0} className="tk-input__right-decorators__clickable" key="copy"/>,
+      <Icon iconName="search" tabIndex={0} className="tk-input__right-decorators__clickable" key="search"/>,
     ]}
   >
     <input type="password" />
