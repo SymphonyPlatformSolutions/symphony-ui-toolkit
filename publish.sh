@@ -5,7 +5,7 @@ function executePublish {
     cp package.json dist/
     cp README.md dist/
     cd dist
-    yarn publish --access public
+    yarn publish --ignore-scripts --access public
     cd ..
     git add package.json
     git config --global user.email "$GIT_USEREMAIL"
