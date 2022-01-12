@@ -21,12 +21,5 @@
   &__wrapper {
     display: inline-block;
     max-width: 100%;
-    color: getColor($--tk-hint-color, default);
-    :hover {
-      color: getColor($electricity, '40');
-    }
-    :active {
-      color: getColor($electricity, '50');
-    }
   }
 }

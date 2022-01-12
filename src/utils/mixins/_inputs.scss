@@ -61,11 +61,19 @@
     label {
       @include styleLabel;
     }
-    .tk-icon-info-round {
-      @include addFocusStyle;
-    }
     .tk-tooltip__wrapper {
       line-height: toRem(16);
+      color: getColor($--tk-hint-color, default);
+      :hover {
+        color: getColor($electricity, '40');
+      }
+      :active {
+        color: getColor($electricity, '50');
+      }
+
+      .tk-input-group__hint {
+        @include addFocusStyle;
+      }
     }
   }
 }
