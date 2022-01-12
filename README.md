@@ -82,11 +82,12 @@ When the visual testing detects new components or changes on the existing one’
 	yarn test --config .creevey/config_darkmode.js --update
 	```
 
-  If update for DarkMode+Condensed images
+	If update for DarkMode+Condensed images
 
 	```bash
 	yarn test --config .creevey/config_darkmode_condensed.js --update
 	```
+
 4. Push into your PR.
 
 **NOTE:** The images could be different from local env against CircleCI. In our pipelines, are able to find the report with all images during the execution into report.zip.
