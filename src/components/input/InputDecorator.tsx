@@ -26,7 +26,7 @@ const InputDecoratorPropTypes = {
 type InputDecoratorProps = {
   rightDecorators?: JSX.Element | JSX.Element[];
   className?: string;
-  children: React.ReactElement;
+  children?: React.ReactElement;
 } & LabelTooltipDecoratorProps &
   HasValidationProps<string>;
 
@@ -46,15 +46,13 @@ const InputDecorator: React.FC<InputDecoratorProps> = ({
 }) => {
   let child;
 
-  if (React.Children.count(children) === 0) {
-    throw new Error('The Input decorator requires one child component.');
-  } else if (React.Children.count(children) > 1) {
+  if (React.Children.count(children) > 1) {
     throw new Error(
       `The Input decorator can wrap only one component. Found: ${React.Children.count(
         children
       )}`
     );
-  } else {
+  } else if (React.Children.count(children) === 1) {
     child = React.Children.only(children);
     if (child?.type !== 'input') {
       throw new Error(
