@@ -66,13 +66,6 @@ describe('InputDecorator Component', () => {
       ).toThrowError();
       spy.mockRestore();
     });
-    it('throw an error when rendering no children', () => {
-      const spy = jest.spyOn(console, 'error').mockImplementation(() => {
-        return;
-      });
-      expect(() => render(<InputDecorator></InputDecorator>)).toThrowError();
-      spy.mockRestore();
-    });
     it('throw an error when rendering too many children', () => {
       const spy = jest.spyOn(console, 'error').mockImplementation(() => {
         return;
