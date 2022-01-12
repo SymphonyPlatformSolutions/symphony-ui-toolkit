@@ -53,6 +53,7 @@ const LabelTooltipDecorator: React.FC<LabelTooltipDecoratorProps> = ({
             placement={placement || 'top'}
           >
             <Icon
+              className="tk-input-group__hint"
               iconName="info-round"
               onClick={() => setShowTooltip(!showTooltip)}
               onKeyDown={(event) => (event.key === 'Enter') && setShowTooltip(!showTooltip)}
