@@ -43,11 +43,21 @@ jobs:
             java -jar selenium-server-4.1.1.jar node
           background: true
       - run:
-          name: Execute Visual Tests
+          name: Execute Visual Tests - Normal Mode
           command: |
             # Waiting for the Selenium Grid and Node become ready
             sleep 50
-            yarn test
+            yarn test --config .creevey/config.js
+      - run:
+          name: Execute Visual Tests - Dark Mode
+          when: always
+          command: |
+            yarn test --config .creevey/config_darkmode.js 
+      - run:
+          name: Execute Visual Tests - Dark Mode + Condensed
+          when: always
+          command: |
+            yarn test --config .creevey/config_darkmode_condensed.js                    
       - run:
           name: Preparing artifacts
           when: always

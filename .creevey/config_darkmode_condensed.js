@@ -12,17 +12,17 @@ module.exports = {
     // Where original images are stored
     screenDir: path.join(__dirname, 'images'),
     // Report directory that contains data from previous runs
-    reportDir: path.join(__dirname, 'report/normalmode'),
+    reportDir: path.join(__dirname, 'report/darkmode_condensed'),
     browsers: {
-      chrome: {
+      chrome_dark_condensed: {
         browserName: 'chrome',
         // Define initial viewport size
         viewport: { width: 1024, height: 720 },
         // Increase parallel sessions
         limit: 2,
         _storybookGlobals: {
-          dark: false,
-          condensed : false,
+          dark: true,
+          condensed : true,
         },
       },
     },

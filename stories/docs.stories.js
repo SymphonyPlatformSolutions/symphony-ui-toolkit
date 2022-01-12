@@ -10,6 +10,8 @@ export default {
     creevey: {
       skip: [
         { in: 'chrome', reason: 'Not necessary validate Welcome' },
+        { in: 'chrome_dark', reason: 'Not necessary validate Welcome' },
+        { in: 'chrome_dark_condensed', reason: 'Not necessary validate Welcome' },
       ],
     },
   },
