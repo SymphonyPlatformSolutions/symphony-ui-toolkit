@@ -98,7 +98,7 @@ jobs:
           arguments: --delete
           aws-access-key-id: AWS_ACCESS_KEY_ID
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-          aws-region: AWS_REGION_STORYBOOK
+          aws-region: AWS_REGION
           from: /tmp/dist/storybook
           to: s3://uitoolkit-storybook/styles/master
 
