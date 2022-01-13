@@ -1,0 +1,12 @@
+/* CropContent */
+div.tk-crop-content {
+  position: relative;
+  div.content {
+    overflow-y: hidden;
+    transition: max-height 500ms cubic-bezier(0, 1, 0, 1);
+  }
+  div.toggle-container {
+    font-size: 90%;
+    padding-top: toRem(4);
+  }
+}

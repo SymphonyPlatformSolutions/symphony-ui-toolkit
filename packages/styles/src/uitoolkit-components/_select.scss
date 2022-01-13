@@ -1,0 +1,317 @@
+@mixin smallSize {
+  --tk-select__control-min-height: #{toRem(24)};
+  --tk-select__control-padding-left: #{toRem(8)};
+  --tk-select__value-container--is-multi-padding: #{toRem(4)} 0; 
+  --tk-select__multi-value-min-height: #{toRem(20)}; 
+  --tk-select__multi-value__label-icon-font-size: #{toRem(12)}; 
+  --tk-select__value-container--is-multi-gap: #{toRem(4)};
+  --tk-select__value-container--is-multi-min-height: #{toRem(32)};
+
+  --tk-select__indicator-font-size: #{toRem(12)};
+  --tk-select__indicator-padding: #{toRem(4)} #{toRem(8)} #{toRem(4)} #{toRem(4)};
+}
+
+@mixin mediumSize {
+  --tk-select__control-min-height: #{toRem(32)};
+  --tk-select__control-padding-left: #{toRem(12)};
+  --tk-select__value-container--is-multi-padding: #{toRem(6)} 0; 
+  --tk-select__multi-value-min-height: #{toRem(24)}; 
+  --tk-select__multi-value__label-icon-font-size: #{toRem(16)};
+  --tk-select__value-container--is-multi-gap: #{toRem(8)};
+  --tk-select__value-container--is-multi-min-height: #{toRem(40)};
+  --tk-select__indicator-padding: #{toRem(8)};
+}
+
+body {
+  @include mediumSize;
+  --tk-select__dropdown-indicator-padding-right: #{toRem(12)};
+}
+
+.tk-select--small {
+  --tk-input-padding-height: #{toRem(2)};
+  --tk-input-padding-width: #{toRem(8)};
+  @include smallSize;
+}
+.tk-select--medium {
+  --tk-input-padding-height: #{toRem(6)};
+  --tk-input-padding-width: #{toRem(12)};
+  @include mediumSize;
+}
+
+.tk-select--large {
+  --tk-input-padding-height: #{toRem(10)};
+  --tk-input-padding-width: #{toRem(16)};
+
+  --tk-select__control-min-height: #{toRem(40)};
+
+  --tk-select__control-padding-left: #{toRem(16)};
+  --tk-select__value-container-padding: 0; 
+  --tk-select__value-container--is-multi-padding: #{toRem(8)} 0;
+  --tk-select__value-container--is-multi-min-height: #{toRem(48)};
+
+  --tk-select__dropdown-indicator-padding-right: #{toRem(16)};
+}
+
+@include condensed {
+  &.tk-select, &.tk-select--medium {
+    @include smallSize;
+  }
+  &.tk-select--large {
+    @include mediumSize;
+  }
+}
+
+.tk-select {
+  .tk-select {
+    &__single-value {
+      color: getColor($--tk-input-color, filledText);
+    }
+    &__control {
+      padding-left:  var(--tk-select__control-padding-left);
+      background-color: getColor($--tk-input-color, defaultBg);
+      .tk-input__icon {
+        color: getColor($--tk-input-color, emptyText);
+        margin-right: toRem(8);
+      }
+      position: relative;
+
+      @include styleTKInputContainer;
+
+      &--menu-is-open,
+      &--menu-is-focused {
+        color: getColor(
+          $--tk-input-color,
+          filledText
+        );
+        .tk-input__icon {
+          color: getColor($graphite, '50');
+        }
+      }
+      &--is-disabled {
+        @include styleInput(
+          getColor($--tk-input-color, disabledText),
+          getColor($--tk-input-color, disabledText),
+          getColor($--tk-input-color, disabled),
+          getColor($--tk-input-color, disabled),
+          getColor($--tk-input-color, disabled),
+          getColor($--tk-input-color, defaultBg)
+        );
+      }
+      .tk-select__value-container {
+        .tk-select__multi-value {
+          padding: 0 toRem(4);
+
+          box-sizing: border-box;
+          min-height: var(--tk-select__multi-value-min-height);
+          border-radius: toRem(16);
+          background: getColor($--tk-select-tag-color, defaultBg);
+          color: getColor(
+            $--tk-select-tag-color,
+            default
+          );
+          &__label {
+            display: flex;
+            align-items: center;
+            height: 100%;
+            color: getColor(
+              $--tk-select-tag-color,
+              default
+            );
+            padding: 0 toRem(4);
+            font-size: toRem(14);
+          }
+        }
+        .tk-select__single-value {
+          color: inherit;
+          white-space: nowrap;
+        }
+      }
+    }
+    &__group-heading {
+      color: $--tk-label-color;
+      font-size: toRem(12);
+      line-height: toRem(16);
+      font-weight: 600;
+    }
+  }
+
+  &__indicators {
+    font-size: toRem(16);
+    .tk-select__indicator-separator {
+      display: none;
+    }
+    .tk-select__indicator {
+      cursor: pointer;
+      color: inherit;
+      font-size: var(--tk-select__indicator-font-size);
+      padding: var(--tk-select__indicator-padding);
+      &.tk-select__clear-indicator {
+        color: getColor(
+          $--tk-select-color,
+          'clearIcon'
+        ); 
+        .tk-select__close-icon {
+          @include addFocusStyle('false');
+        }
+        &:hover {
+          color: getColor($electricity, '40');
+        }
+        &:active {
+          color: getColor($electricity, '50');
+        }
+      }
+      &.tk-select__dropdown-indicator {
+        color: getColor($graphite, '50');
+        padding: 0; // override lib styles
+        padding-right: var(--tk-select__dropdown-indicator-padding-right);
+        .tk-select__single-value {
+          color: getColor($graphite, '50');
+        }
+      }
+    }
+  }
+  .tk-select__container {
+    &.tk-select__control {
+      min-height: var(--tk-select__control-min-height);
+      .tk-select__value-container {
+        cursor: text;
+        padding:0;
+        &--is-multi {
+          min-height: var(--tk-select__value-container--is-multi-min-height);
+          gap: var(--tk-select__value-container--is-multi-gap);
+          padding: var(--tk-select__value-container--is-multi-padding);
+          .tk-tag__container {
+            display: flex;
+            align-items: center;
+            max-width: toRem(192);
+            .tk-tag {
+              padding-right: toRem(4);
+              max-width: toRem(200);
+              text-overflow: ellipsis;
+              overflow: hidden;
+              &__close-icon {
+                color: getColor($--tk-select-tag-color, defaultIcon);
+                font-size: var(--tk-select__multi-value__label-icon-font-size);
+                @include addFocusStyle();
+                &:hover::before {
+                  color: getColor($electricity, '40');
+                }
+                &:active::before {
+                  color: getColor($electricity, '50');
+                }
+              }
+            }
+          }
+          overflow: auto;
+          overflow-x: hidden;
+          &::-webkit-scrollbar {
+            width: toRem(12);
+          }
+          &::-webkit-scrollbar-thumb {
+            background-color: $--tk-select-scrollbar-color;
+            background-clip: padding-box;
+            border-radius: toRem(12);
+            border: toRem(4) solid transparent;
+          }
+        }
+      }
+    }
+  }
+
+  &,// '.tk-select' is the root CSS class name when no React Portal is used
+  &__menu-portal // '.tk-select__menu-portal' is the name of the root CSS class when the menu has been moved with a React Portal
+  {
+    font-size: toRem(14);
+    .tk-select__placeholder {
+      color: getColor($--tk-input-color, emptyText)
+    }
+    .tk-select__menu {
+      margin-top: toRem(6);
+      z-index: $z-index-dropdown-menu;
+      @include boxContainer();
+      &-list {
+        padding: 0;
+      }
+      .tk-select {
+        &__option {
+          cursor: pointer;
+          color: getColor(
+            $--tk-input-color,
+            filledText
+          );
+          padding: toRem(6) toRem(38) toRem(6) toRem(16);
+          line-height: toRem(20);
+          &--is-focused,
+          &--is-focused.tk-select__option--is-selected {
+            color: getColor($--tk-select-color, hoverMenuText);
+            background-color: getColor(
+              $--tk-select-color,
+              hoverMenuBg
+            );
+            &::before {
+              color: getColor($--tk-select-color, hoverMenuIcon);
+            }
+          }
+          &--is-selected {
+            background-color: transparent;
+          }
+          &--is-disabled {
+            cursor: not-allowed;
+            color: getColor($--tk-input-color, disabledText);
+          }
+          &--is-selected {
+            @extend .tk-select--custom-dropdown--selected;
+          }
+          &:active {
+            color: getColor($--tk-select-color, hoverMenuText);
+            background-color: getColor($--tk-select-color, activeMenuBg);
+            &::before {
+              color: getColor($--tk-select-color, hoverMenuText);
+            }
+          }
+        }
+        &__group {
+          .tk-option .tk-select__option {
+            &--nested {
+              padding-left: toRem(24);
+            }
+          }
+        }
+        &-loading {
+          color: getColor($--tk-select-color, defaultMenuIcon);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          height: toRem(80);
+          box-sizing: border-box;
+          font-size: toRem(32);
+        }
+      }
+    }
+    &--destructive {
+      .tk-select__menu {
+        .tk-select__option {
+          color: getColor($--tk-select-color-destructive, menuText);
+          .tk-input__icon, &::before {
+            color: getColor($red, '50');
+          }
+          &--is-focused,
+          &--is-focused.tk-select__option--is-selected {
+            color: $scolor-white;
+            background-color: getColor($red, '50');
+            &::before {
+              color: $scolor-white;
+            }
+          }
+          &:active {
+            color: $scolor-white;
+            background-color: getColor($red, '60');
+            &::before {
+              color: $scolor-white;
+            }
+          }
+        }
+      }
+    }
+  }
+}

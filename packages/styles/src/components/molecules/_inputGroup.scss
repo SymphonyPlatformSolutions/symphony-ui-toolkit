@@ -1,0 +1,61 @@
+@mixin smallSize {
+  --tk-input-group-margin: #{toRem(2)};
+  --tk-tooltip__wrapper-font-size: #{toRem(12)};
+}
+
+@mixin mediumLargeSize {
+  --tk-input-group-margin: #{toRem(4)};
+  --tk-tooltip__wrapper-font-size: #{toRem(16)};
+}
+
+body {
+  @include mediumLargeSize;
+}
+
+.tk-input-group--small {
+  @include smallSize;
+}
+.tk-input-group--medium,
+.tk-input-group--large {
+  @include mediumLargeSize;
+}
+
+@include condensed {
+  &.tk-input-group--medium,
+  &.tk-input-group {
+    @include smallSize;
+  }
+  &.tk-input-group--large {
+    @include mediumLargeSize;
+  }
+}
+
+.tk-input-group {
+  @include styleInputGroup;
+
+  .tk-input__helper {
+    @include styleLabel;
+    margin-top: toRem(4);
+  }
+
+  .tk-input-group__header {
+    margin-bottom: var(--tk-input-group-margin);
+    .tk-tooltip__wrapper {
+      font-size: var(--tk-tooltip__wrapper-font-size);
+    }
+  }
+  .tk-input__helper {
+    margin-top: var(--tk-input-group-margin);
+  }
+
+  &--disabled {
+    .tk-input-group__header {
+      label {
+        color: getColor($--tk-input-color, disabledText);
+      }
+    }
+    .tk-input__helper {
+      color: getColor($--tk-input-color, disabledText);
+    }
+  }
+}

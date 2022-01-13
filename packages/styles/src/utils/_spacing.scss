@@ -1,0 +1,62 @@
+$sizes: ("0": 0, "h": 0.5, "1": 1, "1h": 1.5, "2": 2, "2h": 2.5, "3": 3, "3h": 3.5, "4": 4,"4h": 4.5,"5": 5, "5h": 5.5);
+$types: "-", "x-", "y-", "t-","b-","l-", "r-";
+$properties: "p", "m";
+
+@each $size, $value in $sizes {
+  .tk- {
+        @each $property in $properties {
+          &#{$property} {
+              @each $type in $types {
+                  &#{$type}#{$size} {
+                      @if ($property == 'p') {
+                          @if($type == "-") {
+                            @include padding($value, true);
+                          }
+                          @if($type == "x-") {
+                            @include padding-x($value, true);
+                          }
+                          @if($type == "y-") {
+                            @include padding-y($value, true);
+                          }
+                          @if($type == "t-") {
+                            @include padding-top($value, true);
+                          }
+                          @if($type == "b-") {
+                            @include padding-bottom($value, true);
+                          }
+                          @if($type == "l-") {
+                            @include padding-left($value, true);
+                          }
+                          @if($type == "r-") {
+                            @include padding-right($value, true);
+                          }
+                      }
+                      @else {
+                          @if($type == "-") {
+                            @include margin($value, true);
+                          }
+                          @if($type == "x-") {
+                            @include margin-x($value, true);
+                          }
+                          @if($type == "y-") {
+                            @include margin-y($value, true);
+                          }
+                          @if($type == "t-") {
+                            @include margin-top($value, true);
+                          }
+                          @if($type == "b-") {
+                            @include margin-bottom($value, true);
+                          }
+                          @if($type == "l-") {
+                            @include margin-left($value, true);
+                          }
+                          @if($type == "r-") {
+                            @include margin-right($value, true);
+                          }
+                      }
+                  }
+              }
+         }
+      }    
+  }    
+}

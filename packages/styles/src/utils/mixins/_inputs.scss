@@ -1,0 +1,167 @@
+@mixin styleHoverInput($borderColor) {
+  @include addBorder(toRem(2), $borderColor);
+}
+@mixin styleInput(
+  $textColor,
+  $placeholderColor,
+  $borderColor,
+  $focusBorderColor,
+  $hoverBorderColor,
+  $backgroundColor,
+) {
+  color: $textColor;
+  background-color: $backgroundColor;
+  @include addBorder(toRem(2), $borderColor);
+  &::placeholder,
+  ::placeholder {
+    @include addTransition();
+    color: $placeholderColor;
+  }
+  &:hover {
+    @include styleHoverInput($hoverBorderColor);
+  }
+  &:focus,
+  &:active,
+  &.active {
+    @include addBorder(toRem(2), $focusBorderColor);
+  }
+
+  &:focus-within {
+    @include addBorder(toRem(2), $focusBorderColor);
+  }
+}
+
+@mixin styleLabel {
+  @include addTransition();
+  display: block;
+  font-size: toRem(12);
+  line-height: toRem(16);
+}
+
+@mixin cancelBorder {
+  box-shadow: none; // force cancel tk-input border
+  &:hover,
+  &:disabled:hover,
+  &:disabled:active,
+  &:read-only:hover,
+  &:read-only:active,
+  &:read-only:focus-within {
+    box-shadow: none; // force cancel tk-input border
+    border-color: none; // force cancel tk-input border
+  }
+}
+
+@mixin styleInputGroup {
+  display: flex;
+  flex-direction: column;
+
+  &__header {
+    order: -1;
+    margin-bottom: toRem(4);
+    label {
+      @include styleLabel;
+    }
+    .tk-tooltip__wrapper {
+      line-height: toRem(16);
+      color: getColor($--tk-hint-color, default);
+      :hover {
+        color: getColor($electricity, '40');
+      }
+      :active {
+        color: getColor($electricity, '50');
+      }
+
+      .tk-input-group__hint {
+        @include addFocusStyle;
+      }
+    }
+  }
+}
+
+@mixin styleTKInput {
+  // keep independent logic for a standalone tk-input
+  width: 100%;
+  box-sizing: border-box;
+  font-family: inherit;
+  font-size: toRem(14);
+  line-height: toRem(20);
+  padding: var(--tk-input-padding-height) var(--tk-input-padding-width);
+  background-color: transparent;
+  border-color: transparent;
+  border-radius: toRem(4);
+  border: none;
+  outline: none;
+  @include addTransition();
+
+  @include styleInput(
+    getColor($--tk-input-color, filledText),
+    getColor($--tk-input-color, emptyText),
+    getColor($--tk-input-color, default),
+    getColor($--tk-input-color, active),
+    getColor($--tk-input-color, hover),
+    getColor($--tk-input-color, defaultBg)
+  );
+
+  &:disabled {
+    background-color: getColor($--tk-input-color, defaultBg);
+  }
+
+  .tk-validation--error & {
+    @include styleInput(
+      getColor($--tk-input-color, filledText),
+      getColor($--tk-input-color, emptyText),
+      getColor($--tk-input-color, errorActive),
+      getColor($--tk-input-color, errorActive),
+      getColor($--tk-input-color, errorHover),
+      getColor($--tk-input-color, defaultBg)
+    );
+  }
+  &:disabled {
+    @include styleInput(
+      getColor($--tk-input-color, disabledText),
+      getColor($--tk-input-color, disabledText),
+      getColor($--tk-input-color, disabled),
+      getColor($--tk-input-color, disabled),
+      getColor($--tk-input-color, disabled),
+      getColor($--tk-input-color, defaultBg)
+    );
+  }
+}
+
+@mixin styleTKInputContainer {
+  display: flex;
+
+  border-radius: toRem(4);
+  border: none;
+  @include addTransition();
+
+  @include styleInput(
+    getColor($--tk-input-color, filledText),
+    getColor($--tk-input-color, emptyText),
+    getColor($--tk-input-color, default),
+    getColor($--tk-input-color, active),
+    getColor($--tk-input-color, hover),
+    getColor($--tk-input-color, defaultBg)
+  );
+
+  .tk-validation--error & {
+    @include styleInput(
+      getColor($--tk-input-color, filledText),
+      getColor($--tk-input-color, emptyText),
+      getColor($--tk-input-color, errorActive),
+      getColor($--tk-input-color, errorActive),
+      getColor($--tk-input-color, errorHover),
+      getColor($--tk-input-color, defaultBg)
+    );
+    .tk-input {
+      @include cancelBorder;
+    }
+  }
+}
+
+@mixin boxContainer() {
+  box-shadow: 0 toRem(24) toRem(48) rgba($scolor-box-shadow, 0.12),
+    0 toRem(4) toRem(8) rgba($scolor-box-shadow, 0.24);
+  border-radius: toRem(8);
+  background-color: $--tk-input-default-background-color;
+}
