@@ -5,7 +5,6 @@ version: 2.1
 
 orbs:
   node: circleci/node@2.1
-  #aws-s3: circleci/aws-s3@1.1.1
   aws-cli: circleci/aws-cli@2.0
 
 jobs:
@@ -18,6 +17,7 @@ jobs:
       - attach_workspace:
           at: ~/project
       - run: yarn
+      - run: yarn workspace @symphony-ui/uitoolkit-styles build # Build UI-TK Styles because some files from 'dist' folder are used in UI-TK Components
       - run: yarn lint
       - run: yarn check-circular
       # Run jest tests
@@ -82,10 +82,6 @@ jobs:
           /tmp/dist/storybook s3://uitoolkit-storybook/components/master \
           --delete \
           --profile uitkComponentsStorybook
-      #- aws-s3/sync:
-      #    arguments: --delete
-      #    from: /tmp/dist/storybook
-      #    to: s3://uitoolkit-storybook/components/master
 
 workflows:
   build:
