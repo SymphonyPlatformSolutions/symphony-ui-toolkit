@@ -112,13 +112,24 @@ jobs:
       - attach_workspace:
           at: /tmp/dist
       - aws-s3/sync:
-          arguments: '--delete --exclude "*" --include "*.ttf" --include "*.eot" --include "*.woff" --include "*.woff2" --include "*.svg"'
-          <<: *cdn-credentials
+          arguments: |
+            --delete \
+            --exclude "*" \
+            --include "*.ttf" \
+            --include "*.eot" \
+            --include "*.woff" \
+            --include "*.woff2" \
+            --include "*.svg"
+          aws-access-key-id: AWS_ACCESS_KEY_CDN
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY_CDN
+          aws-region: AWS_REGION_CDN
           from: /tmp/dist/fonts
           to: s3://www-prod.symphony.com/resources/ui-toolkit/<< parameters.cdn_version_path >>/fonts
       - aws-s3/copy:
-          <<: *cdn-credentials
           arguments: '--content-type "text/css; charset=utf-8"'
+          aws-access-key-id: AWS_ACCESS_KEY_CDN
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY_CDN
+          aws-region: AWS_REGION_CDN
           from: /tmp/dist/css/uitoolkit-cdn.generated.css
           to: s3://www-prod.symphony.com/resources/ui-toolkit/<< parameters.cdn_version_path >>/css/uitoolkit.css
 
