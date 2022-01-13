@@ -5,7 +5,8 @@ version: 2.1
 
 orbs:
   node: circleci/node@2.1
-  aws-s3: circleci/aws-s3@1.1.1
+  #aws-s3: circleci/aws-s3@1.1.1
+  aws-cli: circleci/aws-cli@2.0
 
 jobs:
   package-components-build-and-publish:
@@ -71,10 +72,20 @@ jobs:
     steps:
       - attach_workspace:
           at: /tmp/dist
-      - aws-s3/sync:
-          arguments: --delete
-          from: /tmp/dist/storybook
-          to: s3://uitoolkit-storybook/components/master
+      - aws-cli/setup:
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          aws-region: AWS_REGION
+          profile-name: uitkComponentsStorybook
+      - run: |
+          aws s3 sync \
+          /tmp/dist/storybook s3://uitoolkit-storybook/components/master \
+          --delete \
+          --profile uitkComponentsStorybook
+      #- aws-s3/sync:
+      #    arguments: --delete
+      #    from: /tmp/dist/storybook
+      #    to: s3://uitoolkit-storybook/components/master
 
 workflows:
   build:

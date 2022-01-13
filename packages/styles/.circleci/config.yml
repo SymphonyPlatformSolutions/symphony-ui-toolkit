@@ -15,7 +15,8 @@ cdn-credentials: &cdn-credentials
 
 orbs:
   node: circleci/node@2.1
-  aws-s3: circleci/aws-s3@1.1.1
+  #aws-s3: circleci/aws-s3@1.1.1
+  aws-cli: circleci/aws-cli@2.0
   browser-tools: circleci/browser-tools@1.2.3
 
 jobs:
@@ -94,13 +95,23 @@ jobs:
     steps:
       - attach_workspace:
           at: /tmp/dist
-      - aws-s3/sync:
-          arguments: --delete
+      - aws-cli/setup:
           aws-access-key-id: AWS_ACCESS_KEY_ID
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-          aws-region: AWS_REGION
-          from: /tmp/dist/storybook
-          to: s3://uitoolkit-storybook/styles/master
+          aws-region: AWS_REGION_CDN
+          profile-name: uitkStylesStorybook
+      - run: |
+          aws s3 sync \
+          /tmp/dist/storybook s3://uitoolkit-storybook/styles/master \
+          --delete \
+          --profile uitkStylesStorybook
+      #- aws-s3/sync:
+      #    arguments: --delete
+      #    aws-access-key-id: AWS_ACCESS_KEY_ID
+      #    aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+      #    aws-region: AWS_REGION
+      #    from: /tmp/dist/storybook
+      #    to: s3://uitoolkit-storybook/styles/master
 
   package-styles-deploy-cdn:
     <<: *defaults
@@ -111,27 +122,48 @@ jobs:
     steps:
       - attach_workspace:
           at: /tmp/dist
-      - aws-s3/sync:
-          arguments: |
-            --delete \
-            --exclude "*" \
-            --include "*.ttf" \
-            --include "*.eot" \
-            --include "*.woff" \
-            --include "*.woff2" \
-            --include "*.svg"
+      - aws-cli/setup:
           aws-access-key-id: AWS_ACCESS_KEY_CDN
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY_CDN
           aws-region: AWS_REGION_CDN
-          from: /tmp/dist/fonts
-          to: s3://www-prod.symphony.com/resources/ui-toolkit/<< parameters.cdn_version_path >>/fonts
-      - aws-s3/copy:
-          arguments: '--content-type "text/css; charset=utf-8"'
-          aws-access-key-id: AWS_ACCESS_KEY_CDN
-          aws-secret-access-key: AWS_SECRET_ACCESS_KEY_CDN
-          aws-region: AWS_REGION_CDN
-          from: /tmp/dist/css/uitoolkit-cdn.generated.css
-          to: s3://www-prod.symphony.com/resources/ui-toolkit/<< parameters.cdn_version_path >>/css/uitoolkit.css
+          profile-name: uitkCDN
+      - run: |
+          aws s3 sync \
+          /tmp/dist/fonts s3://www-prod.symphony.com/resources/ui-toolkit/<< parameters.cdn_version_path >>/fonts \
+          --delete \
+          --exclude "*" \
+          --include "*.ttf" \
+          --include "*.eot" \
+          --include "*.woff" \
+          --include "*.woff2" \
+          --include "*.svg" \
+          --profile uitkCDN
+      #- aws-s3/sync:
+      #    arguments: |
+      #      --delete \
+      #      --exclude "*" \
+      #      --include "*.ttf" \
+      #      --include "*.eot" \
+      #      --include "*.woff" \
+      #      --include "*.woff2" \
+      #      --include "*.svg"
+      #    aws-access-key-id: AWS_ACCESS_KEY_CDN
+      #    aws-secret-access-key: AWS_SECRET_ACCESS_KEY_CDN
+      #    aws-region: AWS_REGION_CDN
+      #    from: /tmp/dist/fonts
+      #    to: s3://www-prod.symphony.com/resources/ui-toolkit/<< parameters.cdn_version_path >>/fonts
+      - run: |
+          aws s3 cp \
+          /tmp/dist/css/uitoolkit-cdn.generated.css s3://www-prod.symphony.com/resources/ui-toolkit/<< parameters.cdn_version_path >>/css/uitoolkit.css \
+          --content-type "text/css; charset=utf-8" \
+          --profile uitkCDN
+      #- aws-s3/copy:
+      #    arguments: '--content-type "text/css; charset=utf-8"'
+      #    aws-access-key-id: AWS_ACCESS_KEY_CDN
+      #    aws-secret-access-key: AWS_SECRET_ACCESS_KEY_CDN
+      #    aws-region: AWS_REGION_CDN
+      #    from: /tmp/dist/css/uitoolkit-cdn.generated.css
+      #    to: s3://www-prod.symphony.com/resources/ui-toolkit/<< parameters.cdn_version_path >>/css/uitoolkit.css
 
 workflows:
   build:
