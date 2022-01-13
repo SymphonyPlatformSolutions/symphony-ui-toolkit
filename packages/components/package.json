@@ -1,6 +1,6 @@
 {
   "name": "@symphony-ui/uitoolkit-components",
-  "version": "3.0.0",
+  "version": "3.0.1-rc.0",
   "description": "React components for the Symphony UI design system",
   "publishConfig": {
     "registry": "https://registry.npmjs.org"
@@ -10,7 +10,7 @@
   "main": "index.js",
   "scripts": {
     "prepare": "cd ../.. && husky install",
-    "postinstall" : "yarn workspace @symphony-ui/uitoolkit-styles build",
+    "postinstall": "yarn workspace @symphony-ui/uitoolkit-styles build",
     "clean": "rm -rf dist",
     "dedupe": "yarn-deduplicate",
     "init": "mkdir dist",
@@ -34,7 +34,7 @@
   "dependencies": {
     "@popperjs/core": "^2.4.4",
     "@seznam/compose-react-refs": "^1.0.6",
-    "@symphony-ui/uitoolkit-styles": "^3.0.2",
+    "@symphony-ui/uitoolkit-styles": "3.0.1-rc.0",
     "@types/classnames": "^2.2.10",
     "classnames": "^2.2.6",
     "date-fns": "^2.16.1",
