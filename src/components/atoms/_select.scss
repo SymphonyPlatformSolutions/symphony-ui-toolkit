@@ -1,0 +1,39 @@
+select.tk-select {
+  @include styleTKInput;
+
+  // NOTE: select.tk-select[readonly] is the selector to implement the readonly https://perzoinc.atlassian.net/browse/APP-4667
+
+  -webkit-appearance: none;
+  background: transparent no-repeat;
+  background-position-x: 96%;
+  background-position-y: 50%;
+
+  & + i::before {
+    position: relative;
+    right: toRem(24);
+    top: toRem(1);
+    font-style: normal;
+    font-family: 'tk-icons';
+    font-size: toRem(14);
+    pointer-events: none;
+    @include tk-icon-drop-down;
+  }
+
+  &--expanded + i::before {
+    @include tk-icon-drop-up;
+  }
+}
+
+.tk-select--custom-dropdown {
+  @include listStyle;
+  @include padding-y(1);
+  max-height: toRem(288);
+  overflow-x: auto;
+  overflow-y: scroll;
+  z-index: $z-index-input;
+
+  &__item {
+    @include padding-y(1.5);
+    @include padding-right(2);
+  }
+}

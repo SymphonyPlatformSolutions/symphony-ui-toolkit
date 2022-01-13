@@ -1,0 +1,11 @@
+body {
+  @each $name, $map in $colors {
+    @each $scale, $color in $map {
+      @if $scale != '' {
+        --tk-color-#{$name}-#{$scale}: #{$color};
+      } @else {
+        --tk-color-#{$name}: #{$color};
+      }
+    }
+  }
+}

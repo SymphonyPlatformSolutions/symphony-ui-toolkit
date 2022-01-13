@@ -1,0 +1,19 @@
+export default {
+  title: 'Components/Icon',
+};
+
+export const Icon = () => `
+    <h1>{{ name }}</h1>
+
+    {{# each assets }}
+
+        <div class="preview">
+            <span class="inner">
+                <{{ ../tag }} class="{{ ../prefix }}-{{ @key }}"></{{ ../tag }}>
+            </span>
+            <br>
+            <span class='label'>{{ @key }}</span>
+        </div>
+
+    {{/ each }}
+`;

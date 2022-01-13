@@ -1,0 +1,120 @@
+.tk-banner {
+    box-sizing: border-box;
+    display: flex;
+    width: 100%;
+    border-radius: toRem(4);
+    margin: toRem(8) 0;
+
+    > :not(:last-child) {
+        margin-right: toRem(8);
+    }
+
+    &__content {
+        flex: 1;
+        text-align: left;
+        word-break: break-word;
+    }
+
+    &__action {
+        appearance: none;
+        background-color: transparent;
+        outline: none;
+        border: none;
+        text-decoration: underline;
+    }
+
+    &__content, &__action {
+        font-size: toRem(14);
+        color: currentColor;
+        line-height: toRem(20);
+    }
+
+    &__action, &__close {
+        cursor: pointer;
+    }
+
+    &__action + &__close {
+        margin-left: toRem(8);
+    }
+
+    &__variant-icon, &__action, &__close {
+        max-height: toRem(20);
+    }
+
+    &__variant-icon, &__close {
+        &:before {
+            position: relative;
+
+            font-family: 'tk-icons';
+            font-style: normal;
+            font-variant: normal;
+            font-weight: normal;
+            line-height: 1em;
+            vertical-align: top;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+    }
+
+    &__close:before {
+        @include tk-icon-cross;
+    }
+
+    // Variants
+
+    &--info {
+        .tk-banner__variant-icon:before {
+            @include tk-icon-info-round;
+        }
+
+        @include styleBanner($--tk-banner-info);
+    }
+
+    &--success {
+        .tk-banner__variant-icon:before {
+            @include tk-icon-check-round;
+        }
+
+        @include styleBanner($--tk-banner-success);
+    }
+
+    &--warning {
+        .tk-banner__variant-icon:before {
+            @include tk-icon-alert-triangle;
+        }
+
+        @include styleBanner($--tk-banner-warning);
+    }
+
+    &--error {
+        .tk-banner__variant-icon:before {
+            @include tk-icon-alert-round;
+        }
+
+        @include styleBanner($--tk-banner-error);
+    }
+
+    // Size
+
+    &--small {
+        padding: toRem(2) toRem(8);
+
+        .tk-banner__variant-icon, .tk-banner__close {
+            &:before {
+                font-size: toRem(12);
+                top: toRem(4);
+            }
+        }
+    }
+
+    &--medium {
+        padding: toRem(6) toRem(12);
+
+        .tk-banner__variant-icon, .tk-banner__close {
+            &:before {
+                font-size: toRem(16);
+                top: toRem(2);
+            }
+        }
+    }
+}

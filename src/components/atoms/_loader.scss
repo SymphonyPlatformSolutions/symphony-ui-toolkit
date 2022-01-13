@@ -1,0 +1,34 @@
+.tk-loader-spinner {
+  @extend .animate-spin;
+  font-family: 'tk-icons';
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1em;
+  vertical-align: top;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  &::before {
+    @include tk-icon-loading;
+  }
+}
+
+.tk-loader {
+  &--warning {
+    color: $--tk-color-error !important;
+  }
+
+  &--ok {
+    color: $scolor-green !important;
+  }
+
+  &--attention {
+    color: $scolor-orange !important;
+  }
+
+  &--primary {
+    color: $scolor-electricity !important;
+  }
+
+}
