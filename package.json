@@ -1,0 +1,24 @@
+{
+  "name": "@symphony-ui/uitoolkit",
+  "private": true,
+  "version": "3.0.0",
+  "description": "React components for the Symphony UI design system",
+  "workspaces": [
+    "packages/*"
+  ],
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
+  },
+  "author": "Symphony",
+  "license": "ISC",
+  "scripts": {
+    "prepare": "husky install"
+  },
+  "devDependencies": {
+    "husky": "^7.0.4"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx}": "eslint --cache --fix",
+    "*.{js,css,md}": "prettier --write"
+  }
+}

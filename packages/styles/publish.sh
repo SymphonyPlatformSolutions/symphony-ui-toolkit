@@ -2,28 +2,16 @@
 set -e
 # Execute publish
 function executePublish {
-    yarn pack
-    yarn publish --access public
-    git add package.json
-    git config --global user.email "$GIT_USEREMAIL"
-    git config --global user.name "$GIT_USERNAME"
-    git commit -m "[skip ci] AUTO Bump version"
-    git push origin HEAD:master
-}
-
-# Set version
-function setVersion {
-    echo "Found tag, setting version to $CIRCLE_TAG"
-    yarn version --no-git-tag-version --new-version ${CIRCLE_TAG//v}
+    yarn workspace @symphony-ui/uitoolkit-styles pack
+    yarn workspace @symphony-ui/uitoolkit-styles publish --access public
 }
 
 # Version and publish logic
 function publish() {
-    echo "Running publish..."
-    setVersion;
+    echo "Running UI-Toolkit Styles publish..."
     executePublish;
-    postToUniversalWebhook;
-    echo "Publish End"
+    # postToUniversalWebhook; # Temporary disabled
+    echo "Publish UI-Toolkit Styles End"
 }
 
 function postToUniversalWebhook() {

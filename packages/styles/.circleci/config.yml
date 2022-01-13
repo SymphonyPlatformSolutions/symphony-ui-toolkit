@@ -1,25 +1,41 @@
+# Config dedicated for UI-Toolkit Styles
+# All the resources must be prefixed with `package-styles-` to avoid conflicts
+
+version: 2.1
+
 # Anchors
 defaults: &defaults
   executor:
     name: node/default
-    tag: 'lts-browsers'
+    tag: "lts-browsers"
 cdn-credentials: &cdn-credentials
   aws-access-key-id: AWS_ACCESS_KEY_CDN
   aws-secret-access-key: AWS_SECRET_ACCESS_KEY_CDN
   aws-region: AWS_REGION_CDN
 
-version: 2.1
 orbs:
   node: circleci/node@2.1
   aws-s3: circleci/aws-s3@1.1.1
   browser-tools: circleci/browser-tools@1.2.3
+
 jobs:
-  build-and-publish:
+  checkout-and-bump: # TODO: Move in a common part
     <<: *defaults
     steps:
+      - checkout
+      - run: bash ./setVersion.sh
+      - persist_to_workspace:
+          root: .
+          paths:
+            - ./*
+  package-styles-build-and-publish:
+    <<: *defaults
+    working_directory: ~/project/packages/styles
+    steps:
+      - attach_workspace:
+          at: ~/project
       - browser-tools/install-chrome
       - browser-tools/install-chromedriver
-      - checkout
       - run: curl -L -O https://github.com/SeleniumHQ/selenium/releases/download/selenium-4.1.0/selenium-server-4.1.1.jar
       - run: yarn
       - run: yarn build
@@ -52,20 +68,20 @@ jobs:
           name: Execute Visual Tests - Dark Mode
           when: always
           command: |
-            yarn test --config .creevey/config_darkmode.js 
+            yarn test --config .creevey/config_darkmode.js
       - run:
           name: Execute Visual Tests - Dark Mode + Condensed
           when: always
           command: |
-            yarn test --config .creevey/config_darkmode_condensed.js                    
+            yarn test --config .creevey/config_darkmode_condensed.js
       - run:
           name: Preparing artifacts
           when: always
           command: zip -r .creevey/report/report.zip .creevey/report
 
       - store_artifacts:
-         path: .creevey/report
-        
+          path: .creevey/report
+
       - persist_to_workspace:
           root: dist
           paths:
@@ -73,7 +89,7 @@ jobs:
             - css
             - fonts
 
-  deploy-storybook:
+  package-styles-deploy-storybook:
     <<: *defaults
     steps:
       - attach_workspace:
@@ -86,7 +102,7 @@ jobs:
           from: /tmp/dist/storybook
           to: s3://uitoolkit-storybook/styles/master
 
-  deploy-cdn:
+  package-styles-deploy-cdn:
     <<: *defaults
     parameters:
       cdn_version_path:
@@ -109,20 +125,26 @@ jobs:
 workflows:
   build:
     jobs:
-      - build-and-publish:
+      - checkout-and-bump:
           filters:
             tags:
               only: /^v.*$/
-      - deploy-storybook:
+      - package-styles-build-and-publish:
           requires:
-            - build-and-publish
+            - checkout-and-bump
+          filters:
+            tags:
+              only: /^v.*$/
+      - package-styles-deploy-storybook:
+          requires:
+            - package-styles-build-and-publish
           filters:
             branches:
               only: master
-      - deploy-cdn:
+      - package-styles-deploy-cdn:
           cdn_version_path: << pipeline.git.tag >>
           requires:
-            - build-and-publish
+            - package-styles-build-and-publish
           filters:
             branches:
               only: master
