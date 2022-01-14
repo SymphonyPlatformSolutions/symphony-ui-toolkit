@@ -12,7 +12,8 @@
   "author": "Symphony",
   "license": "ISC",
   "scripts": {
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "postinstall": "yarn workspace @symphony-ui/uitoolkit-styles build"
   },
   "devDependencies": {
     "husky": "^7.0.4"

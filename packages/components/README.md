@@ -2,7 +2,7 @@
 
 The React components library of Symphony`s design system
 
-[![Test Coverage](https://api.codeclimate.com/v1/badges/6eede5cf90ef1734f560/test_coverage)](https://codeclimate.com/github/SymphonyPlatformSolutions/symphony-bdk-ui-toolkit-components/test_coverage)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/2de6b84fb3568eb614cd/test_coverage)](https://codeclimate.com/github/SymphonyPlatformSolutions/symphony-ui-toolkit/test_coverage)
 
 ## Requirements
 
@@ -50,4 +50,4 @@ Full releasing manual [here](https://perzoinc.atlassian.net/wiki/spaces/DevX/pag
 
 ## 💪 Contributing
 
-Read detailed guide on [contribution process](https://github.com/SymphonyOSF/symphony-bdk-ui-toolkit-components/blob/master/docs/contributing.md)
+Read detailed guide on [contribution process](docs/contributing.md)

@@ -47,7 +47,7 @@ jobs:
           command:
               ./cc-test-reporter after-build -t lcov
           environment:
-            CC_TEST_REPORTER_ID: 8150d54c3d819c99c080dda0f89f8a0be0245ed8d9321f8054f8077883ba86c9
+            CC_TEST_REPORTER_ID: 518d1f4c65cb1ed1f1109f6871c416a797b7d91d0bdbcd496b6a3d549eff73a2
           when: always
       # Upload results
       - store_artifacts: # upload test coverage as artifact

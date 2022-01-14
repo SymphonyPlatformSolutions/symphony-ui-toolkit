@@ -10,7 +10,7 @@ function executePublish {
 function publish() {
     echo "Running UI-Toolkit Styles publish..."
     executePublish;
-    # postToUniversalWebhook; # Temporary disabled
+    postToUniversalWebhook;
     echo "Publish UI-Toolkit Styles End"
 }
 
