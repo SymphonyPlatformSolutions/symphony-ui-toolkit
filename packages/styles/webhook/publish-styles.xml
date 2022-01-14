@@ -1,4 +1,4 @@
 <messageML>
   <p><b>UI-Toolkit-Styles ${entity.version.styles}</b> (<a href="https://www.npmjs.com/package/@symphony-ui/uitoolkit-styles">npm</a> &amp; <a href="https://cdn.symphony.com/resources/ui-toolkit/${entity.version.styles}/css/uitoolkit.css">cdn</a>) has been released! 🎉</p> 
-  <p>Release note: <a href="https://github.com/SymphonyPlatformSolutions/symphony-bdk-ui-toolkit-styles/releases/tag/${entity.version.styles}">UI-Toolkit-Styles ${entity.version.styles}</a></p>
+  <p>Release note: <a href="https://github.com/SymphonyPlatformSolutions/symphony-ui-toolkit/releases/tag/${entity.version.styles}">UI-Toolkit-Styles ${entity.version.styles}</a></p>
 </messageML>

@@ -13,7 +13,7 @@ function executePublish {
 function publish() {
     echo "Running UI-Toolkit Components publish..."
     executePublish;
-    # postToUniversalWebhook; # Temporary disabled
+    postToUniversalWebhook;
     echo "Publish UI-Toolkit Components End"
 }
 
