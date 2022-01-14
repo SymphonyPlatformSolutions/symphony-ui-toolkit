@@ -11,7 +11,7 @@ You can use the *default*, *dark* and *condensed* themes provided by UIToolkit o
 
 ## How to define your theme using CSS variables:
 
-1. Import the UIToolkit styles library on your project. See [getting-started.md](https://github.com/SymphonyOSF/symphony-bdk-ui-toolkit-styles/blob/master/docs/getting-started.md)
+1. Import the UIToolkit styles library on your project. See [getting-started.md](getting-started.md)
 
 2. Define a theme class `.your-theme` on your css files to override the default values:
 

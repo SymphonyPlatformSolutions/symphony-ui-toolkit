@@ -294,7 +294,7 @@ export const Theming = () => `
 <div>---tk-button-color-primary-text-disabled;</div>
 </pre>
 
-<p>More information on how to add a theme on UIToolkit <a href="https://github.com/SymphonyOSF/symphony-bdk-ui-toolkit-styles/blob/master/docs/theming-guide.md">theming-guide.md</a></p>
+<p>More information on how to add a theme on UIToolkit <a href="https://github.com/SymphonyOSF/symphony-ui-toolkit/blob/master/packages/styles/docs/theming-guide.md">theming-guide.md</a></p>
 <h3>Example</h3>
 <div class="themed-primary-btn">
 <h4>Primary button</h4>

@@ -26,7 +26,7 @@ yarn link
 cd ../react-dom
 yarn link
 
-cd symphony-bdk-ui-toolkit-components
+cd symphony-ui-toolkit/packages/components
 yarn link
 yarn install
 yarn link react

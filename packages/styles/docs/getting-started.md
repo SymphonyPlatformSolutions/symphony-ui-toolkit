@@ -53,7 +53,7 @@ Alternatively, you can use the [symphony](https://cdn.symphony.com/resources/ui-
 Import the prefered css on your project:
 
 ```bash
-<link rel="stylesheet" href="https://cdn.symphony.com/resources/ui-toolkit/v1.0.10/css/uitoolkit.css">
+<link rel="stylesheet" href="https://cdn.symphony.com/resources/ui-toolkit/v3.0.2/css/uitoolkit.css">
 ```
 
 **Note**

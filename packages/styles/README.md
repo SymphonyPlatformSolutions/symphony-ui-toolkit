@@ -28,7 +28,7 @@ yarn start
 
 ## ✅ Getting started
 
-In order to install and start using the library you can read the detailed guide on [getting-started.md](https://github.com/SymphonyPlatformSolutions/symphony-bdk-ui-toolkit-styles/blob/master/docs/getting-started.md)
+In order to install and start using the library you can read the detailed guide on [getting-started.md](docs/getting-started.md)
 
 ## 🤖 Visual Testing
 
@@ -93,8 +93,8 @@ When the visual testing detects new components or changes on the existing one’
 **NOTE:** The images could be different from local env against CircleCI. In our pipelines, are able to find the report with all images during the execution into report.zip.
 ## 🧩 Theming components
 
-Read detailed guide on [theming-guide.md](https://github.com/SymphonyPlatformSolutions/symphony-bdk-ui-toolkit-styles/blob/master/docs/theming-guide.md)
+Read detailed guide on [theming-guide.md](docs/theming-guide.md)
 
 ## 💪 Contributing
 
-Read detailed guide on [contribution process](https://github.com/SymphonyPlatformSolutions/symphony-bdk-ui-toolkit-styles/blob/master/docs/contributing.md)
+Read detailed guide on [contribution process](docs/contributing.md)
