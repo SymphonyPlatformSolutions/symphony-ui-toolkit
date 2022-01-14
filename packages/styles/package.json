@@ -37,7 +37,7 @@
     "husky": "^7.0.0",
     "markdown-loader": "^6.0.0",
     "postcss": "^8.1.7",
-    "postcss-cli": "^8.3.0",
+    "postcss-cli": "^9.1.0",
     "sass": "^1.26.11",
     "sass-loader": "^10.0.2",
     "storybook-addon-themes": "^6.1.0",
