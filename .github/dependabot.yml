@@ -4,19 +4,25 @@ updates:
     directory: "/packages/styles"
     schedule:
       interval: "daily"
-    labels:
-      - "UI-Toolkit Styles dependencies"
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+    open-pull-requests-limit: 1
 
   - package-ecosystem: "npm"
     directory: "/packages/components"
     schedule:
       interval: "daily"
-    labels:
-      - "UI-Toolkit Components dependencies"
+    ignore: 
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+    open-pull-requests-limit: 1
 
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
       interval: "daily"
-    labels:
-      - "UI-Toolkit Root dependencies"
+    ignore: 
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+    open-pull-requests-limit: 1
