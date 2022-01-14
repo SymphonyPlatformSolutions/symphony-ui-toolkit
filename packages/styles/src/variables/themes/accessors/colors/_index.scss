@@ -47,8 +47,10 @@ $--tk-hint-color: (
 );
 
 $--tk-select-color: (
+  defaultMenuBg: var(--tk-select-color-default-menu-bg, $scolor-white),
   activeMenuBg: var(--tk-select-color-active-menu-bg, getColor($graphite, '70')),
   hoverMenuBg: var(--tk-select-color-hover-menu-bg, getColor($graphite, '60')),
+  defaultMenuText: var(--tk-select-color-default-menu-text, getColor($graphite, '80')),
   hoverMenuText: var(--tk-select-color-hover-menu-text, $scolor-white),
   defaultMenuIcon: var(--tk-select-color-default-menu-icon, getColor($graphite, '50')),
   hoverMenuIcon: var(--tk-select-color-hover-menu-icon, getColor($graphite, '20')), // equivalent of tk-input-disabled

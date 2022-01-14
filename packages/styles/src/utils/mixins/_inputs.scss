@@ -61,19 +61,11 @@
     label {
       @include styleLabel;
     }
+    .tk-icon-info-round {
+      @include addFocusStyle;
+    }
     .tk-tooltip__wrapper {
       line-height: toRem(16);
-      color: getColor($--tk-hint-color, default);
-      :hover {
-        color: getColor($electricity, '40');
-      }
-      :active {
-        color: getColor($electricity, '50');
-      }
-
-      .tk-input-group__hint {
-        @include addFocusStyle;
-      }
     }
   }
 }
@@ -159,9 +151,24 @@
   }
 }
 
+@mixin styleSelectedIcon {
+  &::before {
+    position: absolute;
+    right: toRem(16);
+    font-style: normal;
+    font-family: 'tk-icons';
+    color: getColor(
+      $--tk-select-color,
+      defaultMenuIcon
+    );
+    font-size: toRem(14);
+    @include tk-icon-check;
+  }
+}
+
 @mixin boxContainer() {
   box-shadow: 0 toRem(24) toRem(48) rgba($scolor-box-shadow, 0.12),
     0 toRem(4) toRem(8) rgba($scolor-box-shadow, 0.24);
   border-radius: toRem(8);
-  background-color: $--tk-input-default-background-color;
+  background-color: getColor($--tk-select-color, defaultMenuBg);
 }

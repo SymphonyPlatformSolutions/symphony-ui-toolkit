@@ -84,8 +84,10 @@
   
   --tk-label-color: #{getColor($electricity, '20')};
 
+  --tk-select-color-default-menu-bg: #{getColor($graphite, '80')};
   --tk-select-color-active-menu-bg: #{getColor($graphite, '30')};
   --tk-select-color-hover-menu-bg: #{getColor($graphite, '20')};
+  --tk-select-color-default-menu-text: #{getColor($graphite, '05')};
   --tk-select-color-hover-menu-text: #{getColor($graphite, '80')};
   --tk-select-color-default-menu-icon: #{getColor($graphite, '40')};
   --tk-select-color-hover-menu-icon: #{getColor($graphite, '60')};
