@@ -1,0 +1,17 @@
+# .github/release.yml
+
+changelog:
+  categories:
+    - title: 🛠 Breaking Changes
+      labels:
+        - breaking-change
+    - title: 🎁 Features
+      labels:
+        - feature
+    - title: 🪲 Fixes
+      labels:
+        - bug
+        - enhancement
+    - title: Other Changes
+      labels:
+        - "*"
