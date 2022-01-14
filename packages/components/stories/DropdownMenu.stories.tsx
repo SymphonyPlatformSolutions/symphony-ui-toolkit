@@ -74,7 +74,7 @@ export const Closable: React.FC = () => {
             <DropdownMenuItem className="withRightIcon">
               <Icon iconName="copy" className="leftIcon" />
               Copy
-              <Icon iconName="check" className="rightIcon" />
+              <i className="tk-dropdown-menu--selected" />
             </DropdownMenuItem>
             <DropdownMenuItem>
               <Icon iconName="forward" className="leftIcon" />

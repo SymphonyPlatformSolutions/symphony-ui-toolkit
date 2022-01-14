@@ -24,7 +24,7 @@ $list-font-size-icon: toRem(16);
     font-style: normal;
     font-family: 'tk-icons';
     font-size: $list-font-size-icon;
-    color: $scolor-electricity;
+    color: getColor($--tk-select-color, defaultMenuIcon);
     @include tk-icon-right;
   }
 }
