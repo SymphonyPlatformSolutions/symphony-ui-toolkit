@@ -23,7 +23,7 @@ export const TextField = () => {
       placeholder="Type something..."
     />
     <ul class="tk-validation__errors">
-      <li><i class="tk-icon-alert-triangle"></i>This field is required.</li>
+      <li>This field is required.</li>
     </ul>
   </span>
   <div class="tk-mt-2"></div>
@@ -34,7 +34,7 @@ export const TextField = () => {
         placeholder="Type something..."
       />
       <ul class="tk-validation__errors">
-        <li><i class="tk-icon-alert-triangle"></i>This field is required.</li>
+        <li>This field is required.</li>
       </ul>
 
     </span>
@@ -116,7 +116,7 @@ export const TextField = () => {
       </div>
     </div>
     <ul class="tk-validation__errors">
-    <li><i class="tk-icon-alert-triangle"></i>This field is required.</li>
+    <li>This field is required.</li>
   </ul>
 
   </span>
@@ -134,7 +134,7 @@ export const TextField = () => {
       </div>
     </div>
     <ul class="tk-validation__errors">
-    <li><i class="tk-icon-alert-triangle"></i>This field is required.</li>
+    <li>This field is required.</li>
   </ul>
 
   </span>
@@ -282,7 +282,7 @@ export const TextField = () => {
       </div>
       </div>
       <ul class="tk-validation__errors">
-        <li><i class="tk-icon-alert-triangle"></i>This field is required.</li>
+        <li>This field is required.</li>
       </ul>
   </span>
   <div class="tk-mt-2"></div>
@@ -301,7 +301,7 @@ export const TextField = () => {
       </div>
       </div>
       <ul class="tk-validation__errors">
-        <li><i class="tk-icon-alert-triangle"></i>This field is required.</li>
+        <li>This field is required.</li>
       </ul>
   </span>
   <h3>Read Only</h3>
@@ -427,7 +427,7 @@ export const TextField = () => {
       </div>
       </div>
       <ul class="tk-validation__errors">
-        <li><i class="tk-icon-alert-triangle"></i>This field is required.</li>
+        <li>This field is required.</li>
       </ul>
   </span>
   <div class="tk-mt-2"></div>
@@ -451,7 +451,7 @@ export const TextField = () => {
       </div>
       </div>
       <ul class="tk-validation__errors">
-        <li><i class="tk-icon-alert-triangle"></i>This field is required.</li>
+        <li>This field is required.</li>
       </ul>
   </span>
 
@@ -558,7 +558,7 @@ export const TextField = () => {
         placeholder="Type something..."
       />
       <ul class="tk-validation__errors">
-        <li><i class="tk-icon-alert-triangle"></i>This field is required.</li>
+        <li>This field is required.</li>
       </ul>
     </span>
     <div class="tk-mt-2"></div>
@@ -661,9 +661,7 @@ export const Select = () => {
       <i></i>
     </div>
     <ul class="tk-validation__errors">
-      <li>
-        <i class="tk-icon-alert-triangle"></i>This field is required.
-      </li>
+      <li>This field is required.</li>
     </ul>
   </span>
 
@@ -682,9 +680,7 @@ export const Select = () => {
       </div>
     </div>
     <ul class="tk-validation__errors">
-      <li>
-        <i class="tk-icon-alert-triangle"></i>This field is required.
-      </li>
+      <li>This field is required.</li>
     </ul>
   </span>
 
@@ -750,9 +746,7 @@ export const Select = () => {
       <i></i>
     </div>
     <ul class="tk-validation__errors">
-      <li>
-        <i class="tk-icon-alert-triangle"></i>This field is required.
-      </li>
+      <li>This field is required.</li>
     </ul>
   </span>
 
@@ -771,9 +765,7 @@ export const Select = () => {
       </div>
     </div>
     <ul class="tk-validation__errors">
-      <li>
-        <i class="tk-icon-alert-triangle"></i>This field is required.
-      </li>
+      <li>This field is required.</li>
     </ul>
   </span>
 
@@ -839,9 +831,7 @@ export const Select = () => {
       <i></i>
     </div>
     <ul class="tk-validation__errors">
-      <li>
-        <i class="tk-icon-alert-triangle"></i>This field is required.
-      </li>
+      <li>This field is required.</li>
     </ul>
   </span>
 
@@ -860,9 +850,7 @@ export const Select = () => {
       </div>
     </div>
     <ul class="tk-validation__errors">
-      <li>
-        <i class="tk-icon-alert-triangle"></i>This field is required.
-      </li>
+      <li>This field is required.</li>
     </ul>
   </span>
 `;
@@ -927,9 +915,7 @@ export const TextArea = () => {
       </div>
       </div>
       <ul class="tk-validation__errors">
-        <li>
-          <i class="tk-icon-alert-triangle"></i>This field is required.
-        </li>
+        <li>This field is required.</li>
       </ul>
   </span>
   <div class="tk-mt-2"></div>
@@ -943,9 +929,7 @@ export const TextArea = () => {
       </div>
       </div>
       <ul class="tk-validation__errors">
-        <li>
-          <i class="tk-icon-alert-triangle"></i>This field is required.
-        </li>
+        <li>This field is required.</li>
       </ul>
   </span>
   

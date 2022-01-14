@@ -236,8 +236,8 @@ body {
         &__option {
           cursor: pointer;
           color: getColor(
-            $--tk-input-color,
-            filledText
+            $--tk-select-color,
+            defaultMenuText
           );
           padding: toRem(6) toRem(38) toRem(6) toRem(16);
           line-height: toRem(20);
@@ -260,7 +260,7 @@ body {
             color: getColor($--tk-input-color, disabledText);
           }
           &--is-selected {
-            @extend .tk-select--custom-dropdown--selected;
+            @include styleSelectedIcon;
           }
           &:active {
             color: getColor($--tk-select-color, hoverMenuText);

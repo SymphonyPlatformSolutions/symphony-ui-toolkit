@@ -1,0 +1,22 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/packages/styles"
+    schedule:
+      interval: "daily"
+    labels:
+      - "UI-Toolkit Styles dependencies"
+
+  - package-ecosystem: "npm"
+    directory: "/packages/components"
+    schedule:
+      interval: "daily"
+    labels:
+      - "UI-Toolkit Components dependencies"
+
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    labels:
+      - "UI-Toolkit Root dependencies"

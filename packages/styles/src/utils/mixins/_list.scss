@@ -2,25 +2,28 @@ $list-box-shadow: rgba($scolor-graphite-plus-89, 0.122);
 
 @mixin listStyle {
   text-align: left;
+  border: toRem(1) solid $list-box-shadow;
   border-radius: toRem(8);
   box-shadow: 0 toRem(2) toRem(4) $list-box-shadow;
-  &--selected::before {
-    position: absolute;
-    right: toRem(16);
-    font-style: normal;
-    font-family: 'tk-icons';
-    font-size: toRem(14);
-    @include tk-icon-check;
+  background-color: getColor($--tk-select-color, defaultMenuBg);
+
+  &--selected {
+    @include styleSelectedIcon;
   }
 
   &__item {
     position: relative;
-    color: $--tk-main-text-color;
+    color: getColor($--tk-select-color, defaultMenuText);
     display: block;
     cursor: pointer;
     padding-left: toRem(16);
+
     &:hover {
-      background-color: $--tk-list-hover-color;
+      color: getColor($--tk-select-color, hoverMenuText);
+      background-color: getColor($--tk-select-color, hoverMenuBg);
+      i, i::before {
+        color: getColor($--tk-select-color, hoverMenuIcon);
+      }
     }
   }
 }
