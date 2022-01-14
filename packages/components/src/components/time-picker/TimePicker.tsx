@@ -66,9 +66,9 @@ export const TimePicker: React.FC<TimePickerProps> = ({
   useEffect(() => {
     // Called when the user select an option in the Dropdown menu
     if (selectedOption) {
-      setHours(selectedOption.data.hours);
-      setMinutes(selectedOption.data.minutes);
-      setSeconds(selectedOption.data.seconds);
+      setHours(selectedOption.data.time.hours);
+      setMinutes(selectedOption.data.time.minutes);
+      setSeconds(selectedOption.data.time.seconds);
       setInputValue(selectedOption.label);
     }
   }, [selectedOption]);
