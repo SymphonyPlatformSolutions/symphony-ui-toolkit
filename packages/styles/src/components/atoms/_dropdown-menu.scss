@@ -1,17 +1,21 @@
-$list-font-size-icon: toRem(14);
+$list-font-size-icon: toRem(16);
 
 .tk-dropdown-menu {
   @include listStyle;
+
   z-index: $z-index-dropdown-menu;
   padding: toRem(8) 0;
   i {
-    color: $--tk-list-selected-color;
+    color: getColor($--tk-select-color, defaultMenuIcon);
     font-size: $list-font-size-icon;
     padding-right: toRem(8);
   }
 
   &__item {
-    padding: toRem(8) toRem(0) toRem(8) toRem(16);
+    font-size: toRem(14);
+    height: toRem(20);
+    line-height: toRem(20);
+    padding: toRem(6) toRem(0) toRem(6) toRem(16);
   }
 
   &--expandable::before {
@@ -20,14 +24,14 @@ $list-font-size-icon: toRem(14);
     font-style: normal;
     font-family: 'tk-icons';
     font-size: $list-font-size-icon;
-    color: $scolor-electricity;
+    color: getColor($--tk-select-color, defaultMenuIcon);
     @include tk-icon-right;
   }
 }
 
 .tk-dropdown-menu-divider {
   height: 0;
-  margin: toRem(5.6) 0;
+  margin: toRem(2) 0;
   overflow: hidden;
-  border-top: toRem(1) solid $--tk-list-divider-color;
+  border-top: toRem(1) solid $--tk-divider-color;
 }

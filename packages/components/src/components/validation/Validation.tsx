@@ -230,7 +230,7 @@ class Validation extends React.Component<
         {hasErrors ? (
           <ul className="tk-validation__errors">
             {this.state.errors.map((error, index) => (
-              <li key={index} aria-errormessage={error}><Icon iconName="alert-triangle"/>{error}</li>
+              <li key={index} aria-errormessage={error}>{error}</li>
             ))}
           </ul>
         ) : null}

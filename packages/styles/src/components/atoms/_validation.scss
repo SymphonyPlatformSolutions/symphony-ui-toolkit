@@ -34,8 +34,15 @@ body {
     padding: 0;
     margin: var(--tk-validation__errors-margin);
     color: getColor($--tk-input-color, errorActive);
-    i {
-      margin-right: var(--tk-validation__errors-icon-margin-right);
+
+    li {
+      display: flex;
+      &:before {
+        font-family: 'tk-icons';
+        font-size: toRem(12);
+        @include tk-icon-alert-triangle;
+        margin-right: var(--tk-validation__errors-icon-margin-right);
+      }
     }
   }
 }
