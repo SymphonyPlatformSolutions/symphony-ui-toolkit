@@ -99,7 +99,7 @@
     "lint-staged": "^12.1.2",
     "madge": "^4.0.0",
     "markdown-loader": "^6.0.0",
-    "mdx-embed": "^0.0.19",
+    "mdx-embed": "^0.0.22",
     "prettier": "^2.2.1",
     "react": "^16.13.1",
     "react-docgen-typescript-loader": "^3.7.2",
