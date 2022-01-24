@@ -12,8 +12,9 @@ $list-font-size-icon: toRem(16);
   }
 
   &__item {
+    box-sizing: border-box;
     font-size: toRem(14);
-    height: toRem(20);
+    height: toRem(32);
     line-height: toRem(20);
     padding: toRem(6) toRem(0) toRem(6) toRem(16);
   }
