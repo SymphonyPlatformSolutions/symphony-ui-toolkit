@@ -20,12 +20,6 @@ interface DropdownMenuItemProps extends React.HTMLProps<HTMLDivElement> {
   onClick?: (event: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) => void;
 }
 
-const LoadingDropdownMenuItem: React.FC = () => {
-  return (
-    <Loader />
-  )
-}
-
 export const DropdownMenuDivider: React.FC = () => <div className="tk-dropdown-menu-divider"></div>
 
 export const DropdownMenuItem: React.FC<DropdownMenuItemProps> = ({
@@ -63,9 +57,17 @@ export const DropdownMenuItem: React.FC<DropdownMenuItemProps> = ({
     }
   }
 
+  const onClickHandler = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    if (isLoading) {
+      return;
+    }
+
+    onClick(event);
+  } 
+
   return (
-    <div {...rest} className={classes} onClick={onClick} ref={forwardRef} onKeyDown={onKeyDownHandler} tabIndex={-1}>
-      {isLoading ? <LoadingDropdownMenuItem /> :children}
+    <div {...rest} className={classes} onClick={onClickHandler} ref={forwardRef} onKeyDown={onKeyDownHandler} tabIndex={-1}>
+      {isLoading ? <Loader /> : children}
     </div>
   )
 }
