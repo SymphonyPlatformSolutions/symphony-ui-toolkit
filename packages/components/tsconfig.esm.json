@@ -1,20 +1,21 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "module": "CommonJS",
+    "module": "es6",
+    "target": "es6",
     "declaration": true,
-    "outDir": "./dist",
+    "outDir": "./dist/esm",
     "strict": true,
     "jsx": "react",
     "rootDirs": [
       "stories"
     ],
-    "esModuleInterop": true,
+    "esModuleInterop": false,
     "noImplicitAny": false,
     "strictNullChecks": false,
     "downlevelIteration": true,
     "allowSyntheticDefaultImports": false,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "moduleResolution": "node"
   },
   "include": [
     "src/**/*.ts",
