@@ -65,6 +65,11 @@ jobs:
             sleep 50
             yarn test --config .creevey/config.js
       - run:
+          name: Execute Visual Tests - Normal Mode + Condensed
+          when: always
+          command: |
+            yarn test --config .creevey/config_condensed.js
+      - run:
           name: Execute Visual Tests - Dark Mode
           when: always
           command: |
