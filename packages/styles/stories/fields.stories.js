@@ -6,6 +6,11 @@ export const TextField = () => {
   return `
   <div style="max-width: 600px">
   <h1>Text Fields</h1>
+  <div class="tk-banner tk-banner--warning tk-banner--medium">
+    <div class="tk-banner__variant-icon"></div>
+    <div class="tk-banner__content">All input components are made to match 100% width of the parent. 
+    We highly discourage overriding internal component element styles and recommend you to handle width through parent element</div>
+  </div>
   <h2>Simple Text Field</h2>
   <h3>Default</h3>
   <input type="text" class="tk-input tk-input--medium" placeholder="Type something..." />

@@ -68,14 +68,14 @@ For development purposes, if you want to test the latest features you can use th
 
 The UIToolkit Styles library bases all the Unit mesurements on the `rem` unit.
 
-It is fixed to a base of `16px`. If you need to update it on your project you can change `$UITOOLKIT_REM_BASE` variable.
+It is fixed to a base of `16px` which is browser default. If you need to update it on your project you can use the sass version of the lib and redefine `$UITOOLKIT_REM_BASE` variable.
 
 path: `src/utils/functions/_index.scss`
 
-```css
+```scss
 $UITOOLKIT_REM_BASE: 14;
 ```
 
 ## 🧪 Sandbox
 
-Try UI-Toolkit-Styles in [CodeSandbox](https://codesandbox.io/s/ui-toolkit-styles-sandbox-ty6t6?file=/index.html)
+Try UIToolkit-Styles in [CodeSandbox](https://codesandbox.io/s/ui-toolkit-styles-sandbox-ty6t6?file=/index.html)
