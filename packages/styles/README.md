@@ -71,11 +71,11 @@ When the visual testing detects new components or changes on the existing one’
 
  1. Download report.zip from the CircleCI build.
  2. Replace on .creevey/report.
- 3. Execute the command below, to approve the new images.
+ 3. Execute the Script below, to approve the new images.
 	```bash
-	yarn test --update && yarn test --config .creevey/config_condensed.js --update && yarn test --config .creevey/config_darkmode.js --update && yarn test --config .creevey/config_darkmode_condensed.js --upd
+	./updateImages.sh
 	```
-	
+
 4. Push into your PR.
 
 **NOTE:** The images could be different from local env against CircleCI. In our pipelines, are able to find the report with all images during the execution into report.zip.

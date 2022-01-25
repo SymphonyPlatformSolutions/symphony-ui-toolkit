@@ -1,0 +1,1 @@
+yarn test --update && yarn test --config .creevey/config_condensed.js --update && yarn test --config .creevey/config_darkmode.js --update && yarn test --config .creevey/config_darkmode_condensed.js --update
