@@ -62,7 +62,7 @@ export const DropdownMenuItem: React.FC<DropdownMenuItemProps> = ({
       return;
     }
 
-    onClick(event);
+    onClick?.(event);
   } 
 
   return (
