@@ -67,7 +67,7 @@ export const DropdownMenuItem: React.FC<DropdownMenuItemProps> = ({
 
   return (
     <div {...rest} className={classes} onClick={onClickHandler} ref={forwardRef} onKeyDown={onKeyDownHandler} tabIndex={-1}>
-      {isLoading ? <Loader /> : children}
+      {isLoading ? <Loader variant="primary" /> : children}
     </div>
   )
 }
