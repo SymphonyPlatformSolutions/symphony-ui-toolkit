@@ -17,6 +17,18 @@ $list-font-size-icon: toRem(16);
     height: toRem(32);
     line-height: toRem(20);
     padding: toRem(6) toRem(0) toRem(6) toRem(16);
+
+    &--loading {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: default;
+      padding-right: toRem(16);
+
+      .tk-loader-spinner {
+        padding-right: 0;
+      }
+    }
   }
 
   &--expandable::before {

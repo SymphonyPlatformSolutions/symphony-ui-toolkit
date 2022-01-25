@@ -96,6 +96,50 @@ export const Closable: React.FC = () => {
   );
 };
 
+export const LoadingState: React.FC = () => {
+  return (
+    <>
+      <h3>Loading State</h3>
+      <Typography>
+        This menu can have loading menu item.
+      </Typography>
+      <div className="tk-mb-1" />
+      <DropdownMenu
+        className="dropdownMenu"
+        show
+      >
+        <DropdownMenuItem>New direct chat</DropdownMenuItem>
+        <DropdownMenuItem>New room...</DropdownMenuItem>
+        <DropdownMenuDivider />
+        <DropdownMenuItem isLoading>You should never see this text</DropdownMenuItem>
+        <DropdownMenuDivider />
+        <DropdownMenuItem>
+          <Icon iconName="minus-round" className="leftIcon" />
+          Cut
+        </DropdownMenuItem>
+        <DropdownMenuItem className="withRightIcon">
+          <Icon iconName="copy" className="leftIcon" />
+          Copy
+          <i className="tk-dropdown-menu--selected" />
+        </DropdownMenuItem>
+        <DropdownMenuItem>
+          <Icon iconName="forward" className="leftIcon" />
+          Paste
+        </DropdownMenuItem>
+        <DropdownMenuDivider />
+        <DropdownMenuItem>
+          <Icon iconName="fullscreen-on" className="leftIcon" />
+          Full screen
+        </DropdownMenuItem>
+        <DropdownMenuItem>
+          <Icon iconName="fullscreen-off" className="leftIcon" />
+          Minimize
+        </DropdownMenuItem>
+      </DropdownMenu>
+    </>
+  );
+}
+
 export default {
   title: 'Components/Dropdown Menu',
 };
