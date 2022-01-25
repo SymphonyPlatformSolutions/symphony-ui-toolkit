@@ -21,8 +21,7 @@ const Loader: React.FC<LoaderProps> = ({
   const classes = classNames(
     className,
     `${prefix}-${type}`,
-    `${prefix}--${variant}`,
-    
+    {[`${prefix}--${variant}`]: variant},
   );
   return (
     <i
