@@ -10,7 +10,7 @@ export default {
   decorators: [
     (Story) => (
       <div style={{ margin: '150px auto', textAlign: 'center' }}>
-        <Story />
+        {Story()}
       </div>
     ),
   ],
@@ -39,7 +39,7 @@ const Template = (args) => {
 const addExplanation = (explanation) => (Story) => (
   <div>
     <p>{explanation}</p>
-    <Story />
+    {Story()}
   </div>
 );
 export const Standard = Template.bind({});

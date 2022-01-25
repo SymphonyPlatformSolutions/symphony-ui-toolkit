@@ -211,7 +211,7 @@ export default {
   decorators: [
     (Story) => (
       <div className="flex-col" style={{ width: '100%', height: '350px' }}>
-        <Story />
+        {Story()}
       </div>
     ),
   ],
