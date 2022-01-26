@@ -32,6 +32,7 @@ In order to keep consistency between components the following aspects are to be 
 To add **new icons** on UIToolkit:
 
 1. Add the <em>\*.svg</em> source file to:
+
 ```
 src/
 |
@@ -41,14 +42,15 @@ src/
 
 - The name of the icon should be in kebab-case.
 
-- If your SVG contains an __evenodd__ filling rule it can't be added to the project as it won't render properly under windows. SVGs added should not contain this rule.
+- If your SVG contains an **evenodd** filling rule it can't be added to the project as it won't render properly under windows. SVGs added should not contain this rule, a linter will help you avoiding that.
 
 - **Aliases:** To use several names for the same icon. You can define aliases in the file ['src/icons/tk-icons.aliases.json'](./src/icons/tk-icons.aliases.json).
 
->```
->"another-name":"activity"
->```
->"tk-icon-another-name" and "tk-icon-activity" will render the same icon.
+> ```
+> "another-name":"activity"
+> ```
+>
+> "tk-icon-another-name" and "tk-icon-activity" will render the same icon.
 
 ## Documentation
 

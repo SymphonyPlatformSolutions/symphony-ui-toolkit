@@ -1,9 +1,9 @@
 export default {
-    title: 'Components/Banner',
+  title: 'Components/Banner',
 };
 
 export const Banner = () => {
-    return `
+  return `
     <div class="tk-text-color" style="width: 50%;">
         <h1>Banner</h1>
 
