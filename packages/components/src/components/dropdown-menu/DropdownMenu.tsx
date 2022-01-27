@@ -2,6 +2,7 @@ import * as React from 'react';
 import { useCallback, useEffect, useRef } from 'react';
 import classNames from 'classnames';
 import { Keys } from '../common/eventUtils';
+import { Loader } from '..';
 
 interface DropdownMenuProps extends React.HTMLProps<HTMLDivElement> {
   show?: boolean;
@@ -13,6 +14,7 @@ interface DropdownMenuProps extends React.HTMLProps<HTMLDivElement> {
 interface DropdownMenuItemProps extends React.HTMLProps<HTMLDivElement> {
   children?: React.ReactNode;
   className?: string;
+  loading?: boolean;
   /** To select a certain option in the menu without having to use document.querySelector */
   forwardRef?: React.RefObject<HTMLDivElement>;
   onClick?: (event: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) => void;
@@ -20,10 +22,13 @@ interface DropdownMenuItemProps extends React.HTMLProps<HTMLDivElement> {
 
 export const DropdownMenuDivider: React.FC = () => <div className="tk-dropdown-menu-divider"></div>
 
-export const DropdownMenuItem: React.FC<DropdownMenuItemProps> = ({children, className, onClick, forwardRef, ...rest}: DropdownMenuItemProps) => {
+export const DropdownMenuItem: React.FC<DropdownMenuItemProps> = ({
+  children, className, onClick, forwardRef, loading, ...rest
+}: DropdownMenuItemProps) => {
   const classes = classNames(
     'tk-dropdown-menu__item',
     className,
+    { ['tk-dropdown-menu__item--loading']: loading },
   )
 
   const focusNextOption = (current: HTMLDivElement, direction: number) => {
@@ -35,7 +40,7 @@ export const DropdownMenuItem: React.FC<DropdownMenuItemProps> = ({children, cla
     options[nextElementPosition].focus();
   }
 
-  const onKeyDownHandler = (e: React.KeyboardEvent<HTMLDivElement>) => {
+  const onKeyDownHandler = useCallback((e: React.KeyboardEvent<HTMLDivElement>) => {
     switch (e.key) {
     case Keys.ARROW_DOWN :
       e.stopPropagation();
@@ -46,15 +51,27 @@ export const DropdownMenuItem: React.FC<DropdownMenuItemProps> = ({children, cla
       focusNextOption(e.currentTarget, -1);
       break;
     case Keys.ENTER:
+      if (loading) {
+        return;
+      }
+
       e.stopPropagation();
       onClick(e);
       break;
     }
-  }
+  }, [loading])
+
+  const onClickHandler = useCallback((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    if (loading) {
+      return;
+    }
+
+    onClick?.(event);
+  }, [loading])
 
   return (
-    <div {...rest} className={classes} onClick={onClick} ref={forwardRef} onKeyDown={onKeyDownHandler} tabIndex={-1}>
-      {children}
+    <div {...rest} className={classes} onClick={onClickHandler} ref={forwardRef} onKeyDown={onKeyDownHandler} tabIndex={-1}>
+      {loading ? <Loader variant="primary" /> : children}
     </div>
   )
 }

@@ -97,4 +97,16 @@ describe('DropdownMenu', () => {
     userEvent.type(screen.getByTestId('option_1'), specialChars.enter);
     expect(onClick).toHaveBeenCalled();
   })
+
+  it('shouldn\'t call onClick if menu item is loading', () => {
+    const onClick = jest.fn();
+    render(
+      <DropdownMenu show>
+        <DropdownMenuItem data-testid="option_1" onClick={onClick} loading>Option 1</DropdownMenuItem>
+      </DropdownMenu>
+    )
+
+    userEvent.type(screen.getByTestId('option_1'), specialChars.enter);
+    expect(onClick).not.toHaveBeenCalled();
+  })
 })
