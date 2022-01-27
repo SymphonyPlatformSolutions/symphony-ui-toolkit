@@ -2,7 +2,7 @@
 . "$(dirname "$0")/_/husky.sh"
 
 # Pre-commit for UI-Toolkit Components
-updatedFiles=`git diff --name-status packages/components`
+updatedFiles=`git diff --cached --name-status packages/components`
 if [[ $updatedFiles ]]
 then
     echo "UI-Toolkit Components precommit"
