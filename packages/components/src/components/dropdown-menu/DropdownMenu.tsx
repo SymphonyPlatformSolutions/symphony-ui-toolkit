@@ -14,7 +14,7 @@ interface DropdownMenuProps extends React.HTMLProps<HTMLDivElement> {
 interface DropdownMenuItemProps extends React.HTMLProps<HTMLDivElement> {
   children?: React.ReactNode;
   className?: string;
-  isLoading?: boolean;
+  loading?: boolean;
   /** To select a certain option in the menu without having to use document.querySelector */
   forwardRef?: React.RefObject<HTMLDivElement>;
   onClick?: (event: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) => void;
@@ -23,12 +23,12 @@ interface DropdownMenuItemProps extends React.HTMLProps<HTMLDivElement> {
 export const DropdownMenuDivider: React.FC = () => <div className="tk-dropdown-menu-divider"></div>
 
 export const DropdownMenuItem: React.FC<DropdownMenuItemProps> = ({
-  children, className, onClick, forwardRef, isLoading, ...rest
+  children, className, onClick, forwardRef, loading, ...rest
 }: DropdownMenuItemProps) => {
   const classes = classNames(
     'tk-dropdown-menu__item',
     className,
-    { ['tk-dropdown-menu__item--loading']: isLoading },
+    { ['tk-dropdown-menu__item--loading']: loading },
   )
 
   const focusNextOption = (current: HTMLDivElement, direction: number) => {
@@ -58,7 +58,7 @@ export const DropdownMenuItem: React.FC<DropdownMenuItemProps> = ({
   }
 
   const onClickHandler = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    if (isLoading) {
+    if (loading) {
       return;
     }
 
@@ -67,7 +67,7 @@ export const DropdownMenuItem: React.FC<DropdownMenuItemProps> = ({
 
   return (
     <div {...rest} className={classes} onClick={onClickHandler} ref={forwardRef} onKeyDown={onKeyDownHandler} tabIndex={-1}>
-      {isLoading ? <Loader variant="primary" /> : children}
+      {loading ? <Loader variant="primary" /> : children}
     </div>
   )
 }
