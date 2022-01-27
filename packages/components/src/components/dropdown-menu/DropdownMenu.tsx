@@ -40,7 +40,7 @@ export const DropdownMenuItem: React.FC<DropdownMenuItemProps> = ({
     options[nextElementPosition].focus();
   }
 
-  const onKeyDownHandler = (e: React.KeyboardEvent<HTMLDivElement>) => {
+  const onKeyDownHandler = useCallback((e: React.KeyboardEvent<HTMLDivElement>) => {
     switch (e.key) {
     case Keys.ARROW_DOWN :
       e.stopPropagation();
@@ -51,19 +51,23 @@ export const DropdownMenuItem: React.FC<DropdownMenuItemProps> = ({
       focusNextOption(e.currentTarget, -1);
       break;
     case Keys.ENTER:
+      if (loading) {
+        return;
+      }
+
       e.stopPropagation();
       onClick(e);
       break;
     }
-  }
+  }, [loading])
 
-  const onClickHandler = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+  const onClickHandler = useCallback((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     if (loading) {
       return;
     }
 
     onClick?.(event);
-  } 
+  }, [loading])
 
   return (
     <div {...rest} className={classes} onClick={onClickHandler} ref={forwardRef} onKeyDown={onKeyDownHandler} tabIndex={-1}>
