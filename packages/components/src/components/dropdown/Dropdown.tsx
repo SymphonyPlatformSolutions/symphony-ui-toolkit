@@ -182,6 +182,7 @@ export class Dropdown<T = LabelValue> extends React.Component<
       tooltipCloseLabel,
       value,
       variant,
+      bindLabel,
       ...otherProps
     } = this.props;
 
@@ -194,7 +195,7 @@ export class Dropdown<T = LabelValue> extends React.Component<
             valueContainer: (base: CSSProperties) => ({
               ...base, maxHeight: `${maxHeight}px`
             }),
-            input: (base: CSSProperties) => ({...base, margin: (size === 'small') ? '0 2px' : undefined, color: 'inherit'}),
+            input: (base: CSSProperties) => ({ ...base, margin: (size === 'small') ? '0 2px' : undefined, color: 'inherit' }),
             multiValue: (base: CSSProperties) => ({ ...base, margin: '0' })
           }}
           parentInstance={this}
@@ -222,7 +223,7 @@ export class Dropdown<T = LabelValue> extends React.Component<
           defaultValue={defaultValue}
           id={id}
           name={name}
-          className={classNames(prefix, {[`${prefix}--${variant}`]: variant}, {[`${prefix}--${size}`]: size})}
+          className={classNames(prefix, { [`${prefix}--${variant}`]: variant }, { [`${prefix}--${size}`]: size })}
           closeMenuOnSelect={closeMenuOnSelect}
           classNamePrefix={prefix}
           value={value}
@@ -261,6 +262,7 @@ export class Dropdown<T = LabelValue> extends React.Component<
           enableTermSearch={enableTermSearch}
           termSearchMessage={termSearchMessage}
           getOptionValue={this.bindValue}
+          getOptionLabel={bindLabel}
           blurInputOnSelect={blurInputOnSelect}
           menuPortalTarget={menuPortalTarget}
           menuShouldBlockScroll={menuShouldBlockScroll}
@@ -274,7 +276,7 @@ export class Dropdown<T = LabelValue> extends React.Component<
           tooltipCloseLabel={tooltipCloseLabel}
           showRequired={showRequired}
         />
-        {helperText &&  <div className="tk-input__helper">{helperText}</div>}
+        {helperText && <div className="tk-input__helper">{helperText}</div>}
       </div>
     );
   }
@@ -290,7 +292,8 @@ export class Dropdown<T = LabelValue> extends React.Component<
     menuPortalStyles: {},
     menuShouldBlockScroll: false,
     menuShouldScrollIntoView: true,
-    size: 'medium'
+    size: 'medium',
+    bindLabel: (option) => option.label,
   };
 }
 
