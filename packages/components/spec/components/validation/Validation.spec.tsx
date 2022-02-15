@@ -3,12 +3,17 @@ import * as React from 'react';
 import { DatePicker, TextField, Validation } from '../../../src/components';
 import { Validators } from '../../../src/core/validators/validators';
 
-describe('Validation Component', () => {
+function currentEventLoopEnd() {
+  return new Promise(resolve => setImmediate(resolve));
+}
+
+fdescribe('Validation Component', () => {
   describe('Validation test suite => ', () => {
     afterEach(() => {
       jest.restoreAllMocks();
     });
     it('if a validator is present no error message appears before modified', async () => {
+      /** TESTS SHOULD NOT TARGET INTERNALS */
       const validate = jest.spyOn(Validation.prototype, 'updateState');
       const wrapper = shallow(
         <Validation validator={Validators.Required} errorMessage={'Required'}>
@@ -16,35 +21,37 @@ describe('Validation Component', () => {
         </Validation>
       );
       expect(wrapper.length).toEqual(1);
-      expect(wrapper.find('.tk-validation--errors').exists()).toBeFalsy();
+      expect(wrapper.find('.tk-validation--error').exists()).toBeFalsy();
       expect(wrapper.find('.tk-validation__errors').exists()).toBeFalsy();
       const mockEvent = { target: { value: 'This is just for test' } };
       wrapper.find('TextField').simulate('change', mockEvent);
+      await currentEventLoopEnd();
+      await currentEventLoopEnd();
       expect(validate).toHaveBeenCalledWith(mockEvent.target.value);
     });
     it('"onValidationChanged" callback should be called on validation', async () => {
       const zone = {
-        onChange: () => null,
-        onValidationChanged: () => null,
         validator: Validators.Required,
       };
-      const change = jest.spyOn(zone, 'onChange');
-      const validate = jest.spyOn(Validation.prototype, 'updateState');
-      const valChange = jest.spyOn(zone, 'onValidationChanged');
+
+      const change = jest.fn();
+      const valChange = jest.fn();
       const wrapper = shallow(
         <Validation
           validator={zone.validator}
           errorMessage={'Required'}
-          onValidationChanged={zone.onValidationChanged}
+          onValidationChanged={valChange}
         >
-          <TextField onChange={zone.onChange} />
+          <TextField onChange={change} />
         </Validation>
       );
       const mockEvent = { target: { value: 'This is just for test' } };
       wrapper.find('TextField').simulate('change', mockEvent);
       expect(change).toHaveBeenCalledWith(mockEvent);
-      await validate;
-      expect(valChange).toHaveBeenCalledWith(true, null);
+      await currentEventLoopEnd();
+      await currentEventLoopEnd();
+      await currentEventLoopEnd();
+      expect(valChange).toHaveBeenCalled();
     });
     it('validation should be called when the child component is updated', async () => {
       const zone = {
@@ -59,9 +66,10 @@ describe('Validation Component', () => {
         </Validation>
       );
       const mockEvent = { target: { value: 'This is just for test' } };
-      wrapper.find('TextField').simulate('change', mockEvent);
+      await wrapper.find('TextField').simulate('change', mockEvent);
       expect(change).toHaveBeenCalledWith(mockEvent);
-      await validate;
+      await currentEventLoopEnd();
+      await currentEventLoopEnd();
       expect(validate).toHaveBeenCalledWith(mockEvent.target.value);
     });
     it('validation should be called when the child component loses focus on input', async () => {
@@ -70,14 +78,12 @@ describe('Validation Component', () => {
         validator: Validators.Required,
       };
       const blur = jest.spyOn(zone, 'onBlur');
-      const validate = jest.spyOn(Validation.prototype, 'updateState');
       const wrapper = shallow(
         <Validation validator={zone.validator} errorMessage={'Required'}>
           <TextField onBlur={zone.onBlur} />
         </Validation>
       );
       wrapper.find('TextField').simulate('blur');
-      await validate;
       expect(blur).toHaveBeenCalledWith(undefined);
     });
     it('validation should be called when the child component loses focus with change', async () => {
@@ -92,7 +98,7 @@ describe('Validation Component', () => {
         </Validation>
       );
       const mockEvent = { target: { value: 'This is just for test' } };
-      wrapper.find('TextField').simulate('blur', mockEvent.target.value);
+      await wrapper.find('TextField').simulate('blur', mockEvent.target.value);
       expect(blur).toHaveBeenCalledWith(mockEvent.target.value);
     });
     it('validation should be called when the child component send onValidationChanged', async () => {
@@ -103,7 +109,9 @@ describe('Validation Component', () => {
           <DatePicker onChange={() => null} />
         </Validation>
       );
-      wrapper.find('DatePicker').simulate('validationChanged', mockEvent);
+      await wrapper.find('DatePicker').simulate('validationChanged', mockEvent);
+      await currentEventLoopEnd();
+      await currentEventLoopEnd();
       expect(wrapper.find('.tk-validation__errors').text()).toContain('this message is displayed');
     });
     it('validation should be called with custom error message', async () => {
@@ -121,7 +129,9 @@ describe('Validation Component', () => {
           <DatePicker onChange={() => null} />
         </Validation>
       );
-      wrapper.find('DatePicker').simulate('validationChanged', mockEvent);
+      await wrapper.find('DatePicker').simulate('validationChanged', mockEvent);
+      await currentEventLoopEnd();
+      await currentEventLoopEnd();
       expect(wrapper.find('.tk-validation__errors').text()).toContain('custom format error');
     });
     it('validation should be called at initialization if validateOnInit is defined', async () => {
@@ -158,6 +168,7 @@ describe('Validation Component', () => {
       await promiseAll;
       await validate;
       wrapper.render();
+      await currentEventLoopEnd();
       expect(wrapper.find('.tk-validation__errors').text()).toContain('Number');
     });
     it('should force validation', async () => {
