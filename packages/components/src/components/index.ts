@@ -36,6 +36,7 @@ export * from './button';
 export * from './dropdown';
 export * from './text-ellipsis';
 export * from './nav';
+export * from './table';
 export * from './time-picker';
 export * from './toast';
 export * from './drawer';
