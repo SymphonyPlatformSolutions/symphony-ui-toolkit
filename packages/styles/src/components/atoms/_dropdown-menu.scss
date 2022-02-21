@@ -3,6 +3,7 @@ $list-font-size-icon: toRem(16);
 .tk-dropdown-menu {
   @include listStyle;
 
+  width: max-content;
   z-index: $z-index-dropdown-menu;
   padding: toRem(8) 0;
   i {
@@ -16,7 +17,7 @@ $list-font-size-icon: toRem(16);
     font-size: toRem(14);
     height: toRem(32);
     line-height: toRem(20);
-    padding: toRem(6) toRem(0) toRem(6) toRem(16);
+    padding: toRem(6) toRem(16) toRem(6) toRem(16);
 
     &--loading {
       display: flex;
