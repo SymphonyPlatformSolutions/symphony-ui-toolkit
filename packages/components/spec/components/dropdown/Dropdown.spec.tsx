@@ -108,6 +108,39 @@ describe('Dropdown component test suite =>', () => {
         expect(onClear).toBeCalled();
         expect(getByText('Select...')).toBeTruthy();
       });
+
+
+      it('should support custom option structure', async () => {
+        const customOptions = [
+          { firstName: 'Eve', lastName: 'Hill' },
+          { firstName: 'Justin', lastName: 'Case' },
+          { firstName: 'Anna', lastName: 'Conda' },
+        ]
+        const bindLabel = (option) => option.lastName;
+
+        const { getByText, queryByText } = render(
+          <Dropdown
+            isMultiSelect
+            options={customOptions}
+            onChange={onChange}
+            onClear={onClear}
+            bindLabel={bindLabel}
+          />
+        );
+
+        const input = screen.getByRole('textbox');
+        userEvent.click(input);
+
+        expect(getByText('Hill')).toBeInTheDocument();
+        expect(getByText('Case')).toBeInTheDocument();
+        expect(getByText('Conda')).toBeInTheDocument();
+
+
+        userEvent.click(getByText('Case'));
+        expect(getByText('Case')).toBeInTheDocument();
+        expect(queryByText('Hill')).not.toBeInTheDocument();
+        expect(queryByText('Conda')).not.toBeInTheDocument();
+      });
     });
 
     describe('when is Multiselect', () => {
@@ -539,8 +572,8 @@ describe('Dropdown component test suite =>', () => {
         { label: 'Option 2', value: '1' },
         { label: 'Option 3 ', value: '1' },
       ];
-      
-      render(<Dropdown options={options}/>);
+
+      render(<Dropdown options={options} />);
       const input = screen.getByRole('textbox');
       userEvent.click(input);
       userEvent.click(screen.getByText('Option 1'));
@@ -549,6 +582,6 @@ describe('Dropdown component test suite =>', () => {
       expect(screen.getAllByText('Option 1')[1].classList.contains('tk-select__option--is-selected')).toBeTruthy();
       expect(screen.getByText('Option 2').classList.contains('tk-select__option--is-selected')).toBeFalsy();
       expect(screen.getByText('Option 3').classList.contains('tk-select__option--is-selected')).toBeFalsy();
-    }); 
+    });
   });
 });
