@@ -79,10 +79,6 @@ body {
 
       &--menu-is-open,
       &--menu-is-focused {
-        color: getColor(
-          $--tk-input-color,
-          filledText
-        );
         .tk-input__icon {
           color: getColor($graphite, '50');
         }
@@ -176,6 +172,12 @@ body {
       .tk-select__value-container {
         cursor: text;
         padding:0;
+        .tk-select__input {
+          color: getColor(
+            $--tk-input-color,
+            filledText
+          );
+        }
         &--is-multi {
           min-height: var(--tk-select__value-container--is-multi-min-height);
           gap: var(--tk-select__value-container--is-multi-gap);
