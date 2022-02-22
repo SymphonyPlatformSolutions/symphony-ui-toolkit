@@ -88,6 +88,8 @@ export type DropdownProps<T> = {
   autoScrollToCurrent?: boolean;
   /** Path in custom object to the unique identifier of the option */
   bindValue?: string;
+  /** Path in custom object to the label of the option */
+  bindLabel?: (option: any) => string;
   /** Blur the field when an item is selected */
   blurInputOnSelect?: boolean;
   /** Optional CSS class name for the dropdown container */
@@ -142,8 +144,8 @@ export type DropdownProps<T> = {
   placeHolder?: string;
   /** Custom component used to override the default appearance of the list items. */
   optionRenderer?:
-    | React.Component<OptionRendererProps<T>, any>
-    | React.FunctionComponent<OptionRendererProps<T>>;
+  | React.Component<OptionRendererProps<T>, any>
+  | React.FunctionComponent<OptionRendererProps<T>>;
   /** Handle blur events on the control */
   onBlur?: (e) => any;
   /** Handle key down events on the select */
@@ -170,8 +172,8 @@ export type DropdownProps<T> = {
   tabSelectsValue?: boolean;
   /** Custom component used to override the default appearance of the dropdown select input item/s */
   tagRenderer?:
-    | React.Component<TagRendererProps<T>, any>
-    | React.FunctionComponent<TagRendererProps<T>>;
+  | React.Component<TagRendererProps<T>, any>
+  | React.FunctionComponent<TagRendererProps<T>>;
   /** Message to be display on the header of the menu list when searching by term */
   termSearchMessage?: ((term: string) => string) | string;
   /** Color variant of the dropdown */

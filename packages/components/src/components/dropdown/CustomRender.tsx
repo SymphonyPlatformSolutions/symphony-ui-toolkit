@@ -35,21 +35,21 @@ export const DefaultOptionRenderer = (props: any) => {
     data: props.data,
     inputValue: props.selectProps?.inputValue,
   };
-  
+
   return isSearchHeaderOption && enableTermSearch ? (
-    inputValue && 
-      <components.Option {...props}>
-        <HeaderComp {...props} />
-      </components.Option>
+    inputValue &&
+    <components.Option {...props}>
+      <HeaderComp {...props} />
+    </components.Option>
   ) : <>
-    {OptionRenderer ? 
+    {OptionRenderer ?
       <div className="tk-option" role="option">
         <components.Option {...props}>
           <OptionRenderer {...rendererProps} />
         </components.Option>
       </div>
       : <div className="tk-option" role="option">
-        <components.Option {...props} className={classNames(classNamePrefix && mode ? `${classNamePrefix}__option--${mode}` : null)}/>
+        <components.Option {...props} className={classNames(classNamePrefix && mode ? `${classNamePrefix}__option--${mode}` : null)} />
       </div>
     }
   </>;
@@ -65,7 +65,7 @@ export const Input = (props: any) => {
     onCopy={props?.selectProps?.onCopy}
     onCut={props?.selectProps?.onCut}
     onDrag={props?.selectProps?.onDrag}
-    onKeyUp={props?.selectProps?.onKeyUp}  
+    onKeyUp={props?.selectProps?.onKeyUp}
     isHidden={inputAlwaysDisplayed ? !inputAlwaysDisplayed : false}
   />;
 }
@@ -76,7 +76,7 @@ export const SingleValue = ({ children, data, selectProps, ...props }: any) => {
   const isSearchHeaderSelected = rendererProps.data.searchHeader;
   return (
     <components.SingleValue {...props}>
-      { isSearchHeaderSelected ?  <div>{inputValue}</div> :  (InputRenderer ? <InputRenderer {...rendererProps} /> : children )}
+      {isSearchHeaderSelected ? <div>{inputValue}</div> : (InputRenderer ? <InputRenderer {...rendererProps} /> : children)}
     </components.SingleValue>);
 };
 
@@ -91,16 +91,16 @@ export const DefaultTagRenderer = (props: any) => {
       : <components.MultiValue {...props}>
         <div onMouseDown={stopPropagation} className="tk-tag__container">
           <div className="tk-tag">
-            {props.data?.label}
+            {props.selectProps.getOptionLabel(props.data)}
           </div>
-          <Icon className="tk-tag__close-icon" iconName="cross-round" onClick={props.removeProps.onClick} tabIndex={0}/>
+          <Icon className="tk-tag__close-icon" iconName="cross-round" onClick={props.removeProps.onClick} tabIndex={0} />
         </div>
       </components.MultiValue>}
   </>
   );
 };
 
-export const MultiValueContainerOverride = ({ children, ...props }: any) => 
+export const MultiValueContainerOverride = ({ children, ...props }: any) =>
   <components.MultiValueContainer {...props}>
     <div>{children}</div>
   </components.MultiValueContainer>;
@@ -115,34 +115,34 @@ export const DropdownIndicator = (props: any) => {
   const { isMulti, displayArrowIndicator, menuIsOpen } = props?.selectProps;
 
   return !displayArrowIndicator ?
-    null : 
+    null :
     <components.DropdownIndicator
       {...props}
       innerProps={{ 'data-testid': props.selectProps['data-testid'] }}
     >
       {!isMulti && <Icon
         className="tk-select__single-value"
-        iconName={ menuIsOpen ? 'drop-up' : 'drop-down' }
+        iconName={menuIsOpen ? 'drop-up' : 'drop-down'}
       />}
     </components.DropdownIndicator>;
 };
 
-export const ClearIndicator = (props: any) => 
+export const ClearIndicator = (props: any) =>
   <components.ClearIndicator {...props}>
-    <Icon  className="tk-select__close-icon" iconName="cross-round" onKeyPress={props.clearValue} tabIndex={0} />
+    <Icon className="tk-select__close-icon" iconName="cross-round" onKeyPress={props.clearValue} tabIndex={0} />
   </components.ClearIndicator>;
 
 export const Control = ({ children, selectProps, ...props }: any) => {
-  const {iconName} = selectProps;
+  const { iconName } = selectProps;
   return (<div>
     <components.Control {...props} className="tk-select__container">
-      {iconName && <Icon iconName={iconName} className="tk-input__icon"/>}
+      {iconName && <Icon iconName={iconName} className="tk-input__icon" />}
       {children}
     </components.Control>
   </div>);
 };
 
-export const NoOptionsMessage = ({selectProps, ...props}: any) =>
+export const NoOptionsMessage = ({ selectProps, ...props }: any) =>
   <components.NoOptionsMessage {...props}>
     <div>{selectProps?.noOptionMessage}</div>
   </components.NoOptionsMessage>;
@@ -150,25 +150,25 @@ export const NoOptionsMessage = ({selectProps, ...props}: any) =>
 const HeaderComp = (props: any) => {
   const { termSearchMessage, inputValue } = props.selectProps;
   return (<div>
-    <Icon iconName="right-arrow" className="tk-mr-1h"/>
+    <Icon iconName="right-arrow" className="tk-mr-1h" />
     <span>
       {termSearchMessage && typeof termSearchMessage === 'string'
         ? termSearchMessage : termSearchMessage ? termSearchMessage(inputValue) : 'Search for term '}
-        &apos;{inputValue}&apos;
+      &apos;{inputValue}&apos;
     </span>
   </div>);
 };
 
 /* Override default loading styles to the react-select */
-export const LoadingMessage = () => <div className="tk-select-loading"><Loader/></div>;
+export const LoadingMessage = () => <div className="tk-select-loading"><Loader /></div>;
 
 /* This component is used when the enableTermSearch prop
  * is activated to handle the header Option selection */
-export const DropdownList = ({selectProps, ...props}: any) => {
+export const DropdownList = ({ selectProps, ...props }: any) => {
   if (selectProps?.enableTermSearch) {
     const select = selectProps?.selectRef?.current?.select;
-    const  selectValueSync  = select?.state?.selectValue;
-    const  selectValueAsync  = select?.state?.value?.searchHeader;
+    const selectValueSync = select?.state?.selectValue;
+    const selectValueAsync = select?.state?.value?.searchHeader;
     const { searchHeaderOption } = selectProps?.parentInstance;
     const { inputValue } = selectProps;
     // Focus on first option and differenciate between Group Options and simple options
@@ -178,8 +178,8 @@ export const DropdownList = ({selectProps, ...props}: any) => {
     }
     focusThis = focusThis || searchHeaderOption;
     // Clear the value if header option is selected
-    if (selectValueSync && selectValueSync[0]?.searchHeader ) {
-        select?.clearValue();
+    if (selectValueSync && selectValueSync[0]?.searchHeader) {
+      select?.clearValue();
     }
     if (selectValueAsync) {
       select?.select?.clearValue();
@@ -195,13 +195,13 @@ export const DropdownList = ({selectProps, ...props}: any) => {
     }, [inputValue]);
     // Skip focusing on the headerOption if the inputValue is empty
     React.useEffect(() => {
-      if(select?.state?.focusedOption?.value === '') {
+      if (select?.state?.focusedOption?.value === '') {
         select?.setState({ focusedOption: focusThis });
       }
     }, [select?.state?.focusedOption]);
   }
   return <components.MenuList
-    className={ 'tk-mt-1 tk-mb-1' }
+    className={'tk-mt-1 tk-mb-1'}
     {...props}
   >
     {props.children}
