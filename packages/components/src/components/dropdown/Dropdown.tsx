@@ -293,7 +293,7 @@ export class Dropdown<T = LabelValue> extends React.Component<
     menuShouldBlockScroll: false,
     menuShouldScrollIntoView: true,
     size: 'medium',
-    bindLabel: (option) => option.label,
+    bindLabel: (option) => option?.label,
   };
 }
 
