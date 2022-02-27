@@ -3,7 +3,7 @@ import * as ReactDOM from 'react-dom';
 import classNames from 'classnames';
 import { Keys } from '../common/eventUtils';
 
-type ModalProps = {
+interface ModalProps extends Omit<React.HTMLProps<HTMLDivElement>, 'size'> {
   size: 'small' | 'medium' | 'large' | 'full-width';
   className?: string;
   children?: React.ReactNode;
@@ -11,7 +11,7 @@ type ModalProps = {
   parentNode?: Element;
   show?: boolean;
   onClose?: () => void;
-};
+}
 
 type ModalContentProps = {
   className?: string;
