@@ -44,13 +44,13 @@ export type DropdownOption<T> = T | DropdownOptionsGroup<T>;
 
 type MultiModeProps<T> = {
   /** Support multiple selected options */
-  isMultiSelect: true;
+  isMultiSelect?: true;
   defaultValue?: T[];
   value?: T[];
 } & HasValidationProps<T[]>;
 
 type SingleModeProps<T> = {
-  isMultiSelect: false;
+  isMultiSelect?: false;
   /** Default value selected on the Dropdown */
   defaultValue?: T;
   /** Allows the usage of the component in controlled value mode */

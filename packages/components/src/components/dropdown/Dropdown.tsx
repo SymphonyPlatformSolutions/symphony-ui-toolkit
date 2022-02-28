@@ -35,6 +35,7 @@ export class Dropdown<T = LabelValue> extends React.Component<
   myRef: any;
   searchHeaderOption: any;
   lastSelectedOption: any;
+
   constructor(props) {
     super(props);
     this.myRef = React.createRef();
@@ -64,69 +65,6 @@ export class Dropdown<T = LabelValue> extends React.Component<
     }
   }
 
-  handleChange = (selectedOption, meta: ActionMeta<T>) => {
-    const isClearingTermSearch =
-      this.lastSelectedOption === this.searchHeaderOption && !selectedOption;
-    this.lastSelectedOption = selectedOption;
-    if (
-      this.props.onChange &&
-      !selectedOption?.searchHeader &&
-      !isClearingTermSearch
-    ) {
-      this.props.onChange({ target: { value: selectedOption } });
-    }
-    if (this.props.onTermSearch && selectedOption?.searchHeader) {
-      this.props.onTermSearch(selectedOption);
-    }
-    if (meta.action === 'clear' && this.props.onClear) {
-      this.props.onClear();
-    }
-  };
-
-  handleBlur = () => {
-    const { value } = this.props;
-    if (this.props.onBlur) {
-      this.props.onBlur({ target: { value: value as any } });
-    }
-  };
-
-  private internalFiltering = this.props.filterFunction
-    ? (o, input) => this.props.filterFunction(o.data, input)
-    : createFilter(null);
-
-  private filter = (o, input) => {
-    return o.data.searchHeader || this.internalFiltering(o, input);
-  };
-
-  handleIsOptionDisabled = this.props.isOptionDisabled
-    ? (option: T) => this.props.isOptionDisabled(option)
-    : undefined;
-
-  handleIsOptionSelected = this.props.isOptionSelected
-    ? (option: T) => this.props.isOptionSelected(option)
-    : (option: DropdownOption<T>, selectValue: T[]) => selectValue?.some(i => i === option);
-
-  get internalOptions() {
-    if (this.props?.options) {
-      return this.props.enableTermSearch
-        ? [this.searchHeaderOption as T, ...this.props.options]
-        : this.props.options;
-    }
-  }
-
-  internalAsyncOptions = async (inputValue: string) => {
-    return this.props?.asyncOptions(inputValue)
-      .then(options => new Promise(resolve =>
-        resolve(this.props.enableTermSearch ?
-          [this.searchHeaderOption as T, ...options]
-          : options))
-      )
-  }
-
-  bindValue = this.props.bindValue
-    ? (option) => option[this.props.bindValue]
-    : undefined;
-
   render() {
     const {
       hideSelectedOptions,
@@ -134,13 +72,18 @@ export class Dropdown<T = LabelValue> extends React.Component<
       displayArrowIndicator,
       DropdownTag,
     } = this.state;
+
     const {
+      asyncOptions,
       autoScrollToCurrent,
+      bindLabel,
+      bindValue,
       blurInputOnSelect,
       className,
       defaultOptions,
       defaultValue,
       enableTermSearch,
+      filterFunction,
       iconName,
       id,
       inputAlwaysDisplayed,
@@ -148,6 +91,8 @@ export class Dropdown<T = LabelValue> extends React.Component<
       isDisabled,
       isInputClearable,
       isMultiSelect,
+      isOptionDisabled,
+      isOptionSelected,
       isTypeAheadEnabled,
       label,
       maxHeight,
@@ -163,6 +108,9 @@ export class Dropdown<T = LabelValue> extends React.Component<
       noOptionMessage,
       placeHolder,
       helperText,
+      onBlur,
+      onChange,
+      onClear,
       onCopy,
       onCut,
       onDrag,
@@ -172,7 +120,9 @@ export class Dropdown<T = LabelValue> extends React.Component<
       onKeyUp,
       onMenuOpen,
       onMenuClose,
+      onTermSearch,
       optionRenderer,
+      options,
       showRequired,
       size,
       tabSelectsValue,
@@ -182,14 +132,72 @@ export class Dropdown<T = LabelValue> extends React.Component<
       tooltipCloseLabel,
       value,
       variant,
-      bindLabel,
       ...otherProps
     } = this.props;
+
+    const handleChange = (selectedOption, meta: ActionMeta<T>) => {
+      const isClearingTermSearch =
+        this.lastSelectedOption === this.searchHeaderOption && !selectedOption;
+      this.lastSelectedOption = selectedOption;
+      if (
+        onChange &&
+        !selectedOption?.searchHeader &&
+        !isClearingTermSearch
+      ) {
+        onChange({ target: { value: selectedOption } });
+      }
+      if (onTermSearch && selectedOption?.searchHeader) {
+        onTermSearch(selectedOption);
+      }
+      if (meta.action === 'clear' && onClear) {
+        onClear();
+      }
+    };
+
+    const handleBlur = () => {
+      const { value } = this.props;
+      if (onBlur) {
+        onBlur({ target: { value: value as any } });
+      }
+    };
+
+    const internalFiltering = filterFunction
+      ? (o, input) => filterFunction(o.data, input)
+      : createFilter(null);
+
+    const filter = (o, input) => {
+      return o.data.searchHeader || internalFiltering(o, input);
+    };
+
+    const handleIsOptionDisabled = isOptionDisabled
+      ? (option: T) => isOptionDisabled(option)
+      : undefined;
+
+    const handleIsOptionSelected = isOptionSelected
+      ? (option: T) => isOptionSelected(option)
+      : (option: DropdownOption<T>, selectValue: T[]) => selectValue?.some(i => i === option);
+
+    const internalOptions = options
+      ? enableTermSearch
+        ? [this.searchHeaderOption as T, ...options]
+        : options
+      : undefined;
+
+
+    const internalAsyncOptions = async (inputValue: string) => asyncOptions(inputValue)
+      .then(options => new Promise(resolve =>
+        resolve(enableTermSearch ?
+          [this.searchHeaderOption as T, ...options]
+          : options))
+      );
+
+    const effectiveBindValue = bindValue
+      ? (option) => option[bindValue]
+      : undefined;
 
     return (
       <div className={classNames(className, 'tk-input-group', `tk-input-group--${size}`)}>
         <DropdownTag
-          {...otherProps}
           styles={{
             menuPortal: (base: CSSProperties) => ({ ...base, ...menuPortalStyles }),
             valueContainer: (base: CSSProperties) => ({
@@ -229,8 +237,8 @@ export class Dropdown<T = LabelValue> extends React.Component<
           value={value}
           inputValue={inputValue}
           inputAlwaysDisplayed={inputAlwaysDisplayed}
-          onChange={this.handleChange}
-          onBlur={this.handleBlur}
+          onChange={handleChange}
+          onBlur={handleBlur}
           onCopy={onCopy}
           onCut={onCut}
           onDrag={onDrag}
@@ -238,8 +246,8 @@ export class Dropdown<T = LabelValue> extends React.Component<
           onInputChange={onInputChange}
           onKeyDown={onKeyDown}
           onKeyUp={onKeyUp}
-          options={this.internalOptions}
-          loadOptions={this.internalAsyncOptions}
+          options={internalOptions}
+          loadOptions={internalAsyncOptions}
           defaultOptions={defaultOptions !== undefined ? defaultOptions : true}
           hideSelectedOptions={hideSelectedOptions}
           placeholder={placeHolder}
@@ -247,10 +255,10 @@ export class Dropdown<T = LabelValue> extends React.Component<
           isDisabled={isDisabled}
           iconName={iconName}
           noOptionMessage={noOptionMessage}
-          filterOption={this.filter}
+          filterOption={filter}
           isSearchable={isTypeAheadEnabled}
-          isOptionDisabled={this.handleIsOptionDisabled}
-          isOptionSelected={this.handleIsOptionSelected}
+          isOptionDisabled={handleIsOptionDisabled}
+          isOptionSelected={handleIsOptionSelected}
           menuPlacement={menuPlacement}
           maxMenuHeight={maxMenuHeight}
           mode={mode ? mode : 'aligned'}
@@ -261,12 +269,13 @@ export class Dropdown<T = LabelValue> extends React.Component<
           tabSelectsValue={tabSelectsValue}
           enableTermSearch={enableTermSearch}
           termSearchMessage={termSearchMessage}
-          getOptionValue={this.bindValue}
+          getOptionValue={effectiveBindValue}
           getOptionLabel={bindLabel}
           blurInputOnSelect={blurInputOnSelect}
           menuPortalTarget={menuPortalTarget}
           menuShouldBlockScroll={menuShouldBlockScroll}
           menuShouldScrollIntoView={menuShouldScrollIntoView}
+          {...otherProps}
         />
         <LabelTooltipDecorator
           htmlFor={id}
