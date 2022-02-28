@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Checkbox, Table } from '../src/components';
+import { Table } from '../src/components';
 import '../src/styles';
 import './stories.scss';
 
@@ -20,6 +20,51 @@ export const SimpleTable1: React.FC = () => {
       contact: 'Roland Mendel',
       country: 'Austria',
     },
+    {
+      company: 'Berglunds snabbkop',
+      contact: 'Paul Mendel',
+      country: 'Sweden',
+    },
+    {
+      company: 'North/South',
+      contact: 'Paul Wali',
+      country: 'UK',
+    },
+    {
+      company: 'Koniglich Essen',
+      contact: 'Elia Wendel',
+      country: 'Germani',
+    },
+    {
+      company: 'Magazzini Alimentari Riuniti',
+      contact: 'Fred Cartoni',
+      country: 'Italie',
+    },
+    {
+      company: 'Paris specialites',
+      contact: 'Jean Dujardino',
+      country: 'France',
+    },
+    {
+      company: 'Island Trading',
+      contact: 'Gilles Courant',
+      country: 'UK',
+    },
+    {
+      company: 'Laughing Bacchus Winecellars',
+      contact: 'Caribou Lice',
+      country: 'Canada',
+    },
+    {
+      company: 'Winecellars',
+      contact: 'Angel Chice',
+      country: 'Espagna',
+    },
+    {
+      company: 'Peugeot',
+      contact: 'Francis Gaumont',
+      country: 'France',
+    },
   ];
 
   const header = [
@@ -31,13 +76,12 @@ export const SimpleTable1: React.FC = () => {
       heading: 'contact',
       key: 'contact',
     },
-
     {
       heading: 'country',
       key: 'country',
     },
   ];
-  const checkbox = true;
+  const showCheckbox = true;
   const rowsPerPage = 2;
   const showSorting = true;
   const showPagination = true;
@@ -46,7 +90,7 @@ export const SimpleTable1: React.FC = () => {
     <Table
       items={items}
       header={header}
-      checkbox={checkbox}
+      showCheckbox={showCheckbox}
       rowsPerPage={rowsPerPage}
       showSorting={showSorting}
       showPagination={showPagination}
