@@ -74,49 +74,38 @@ export const TimePicker: React.FC<TimePickerProps> = ({
   }, [selectedOption]);
 
   useEffect(() => {
-    let newSelectedOption = options.find(
-      (option) =>
-        option?.data?.time?.hours === hours &&
-        option?.data?.time?.minutes === minutes &&
-        option?.data?.time?.seconds === seconds
-    );
-    if (
-      !newSelectedOption ||
-      isTimeDisabled(newSelectedOption?.data?.time, disabledTimes)
-    ) {
-      newSelectedOption = null;
-    }
-    setSelectedOption(newSelectedOption);
-  }, [hours, minutes, seconds]);
-
-  useEffect(() => {
     if (inputValue !== null && inputValue !== undefined) {
       // Called when the user enters a new date in the input field
       const newISOTime = getISOTimeFromLocalTime(inputValue, format);
-      if (newISOTime) {
-        setHours(newISOTime.hours);
-        setMinutes(newISOTime.minutes);
-        setSeconds(newISOTime.seconds);
-      } else {
-        setHours('');
-        setMinutes('');
-        setSeconds('');
-      }
+      let newHours = '';
+      let newMinutes = '';
+      let newSeconds = '';
+      let newSelectedOption : TimePickerOption = null;
+      const errors = onValidationChanged ? computeError(
+        inputValue,
+        newISOTime,
+        min,
+        max,
+        disabledTimes,
+        strict,
+        options
+      ) : null;
 
       if (onValidationChanged) {
-        onValidationChanged(
-          computeError(
-            inputValue,
-            newISOTime,
-            min,
-            max,
-            disabledTimes,
-            strict,
-            options
-          )
-        );
+        onValidationChanged(errors);
       }
 
+      if (newISOTime && !errors) {
+        newSelectedOption = options.find(
+          (option: TimePickerOption) =>
+            option?.data?.time?.hours === newISOTime.hours &&
+            option?.data?.time?.minutes === newISOTime.minutes &&
+            option?.data?.time?.seconds === newISOTime.seconds
+        );
+        newHours = newSelectedOption?.data?.time?.hours;
+        newMinutes = newSelectedOption?.data?.time?.minutes;
+        newSeconds = newSelectedOption?.data?.time?.seconds;
+      }
       // Called onChange prop
       if (onChange) {
         onChange({
@@ -125,6 +114,11 @@ export const TimePicker: React.FC<TimePickerProps> = ({
           },
         });
       }
+      // Update values
+      setHours(newHours);
+      setMinutes(newMinutes);
+      setSeconds(newSeconds);
+      setSelectedOption(newSelectedOption)
     }
   }, [inputValue]);
 
