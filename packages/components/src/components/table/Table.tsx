@@ -8,7 +8,6 @@ export type TableProps = {
   showSorting?: boolean;
   showPagination?: boolean;
   showCheckbox?: boolean;
-  className?: string;
 };
 
 export const Table: React.FC<TableProps> = ({
