@@ -146,10 +146,10 @@ export const Table: React.FC<TableProps> = ({
     );
   };
 
+  const totalEntries = data.length;
   const page = getPage(currentPage, getRowsPerPages(select), data);
   const totalPages = getTotalPages(getRowsPerPages(select), data);
   const nextPage = hasNextPage(currentPage, getRowsPerPages(select), data);
-  const totalEntries = data.length;
 
   return (
     <>
