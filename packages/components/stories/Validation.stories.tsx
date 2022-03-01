@@ -13,6 +13,7 @@ import {
 import { ValidatorFn, Validators } from '../src/core/validators/validators';
 
 export const Validations = () => {
+  const [value, setValue] = useState('A value to validate')
   const [date, setDate] = useState(null);
   const [time, setTime] = useState(null);
   const [dropdown, setDropdown] = useState(null);
@@ -421,7 +422,10 @@ export const Validations = () => {
         errorMessage={'Should start with lorem'}
         validateOnInit={'A value to validate'}
       >
-        <TextField value={'A value to validate'} placeholder="Magic word" />
+        <TextField 
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+          placeholder="Magic word" />
       </Validation>
       <h2>Controlled validation</h2>
       <p>
