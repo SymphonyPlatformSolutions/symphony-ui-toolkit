@@ -1,19 +1,73 @@
 .tk-table {
   border-collapse: collapse;
   width: 100%;
+  table-layout: fixed;
+
   th {
     text-align: left;
     border-bottom: toRem(1) solid $scolor-graphite-minus-48;
     height: $--tk-table-cell-height;
+    background-color: getColor($graphite, '10');
   }
-  tbody tr { 
+  tbody tr {
     &:hover {
-    background-color: $--tk-table-hover-color;
+      background-color: getColor($electricity, '10');
     }
   }
   td {
     height: $--tk-table-cell-height;
     vertical-align: middle;
     border-bottom: toRem(1) solid $scolor-graphite-minus-48;
+    font-family: Segoe UI;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: getColor($graphite, '80');
   }
+}
+.tk-table h3 {
+  color: getColor($graphite, '80');
+  font-family: Segoe UI;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 16px;
+  letter-spacing: 0em;
+  text-align: left;
+}
+
+.tk-table-button {
+  margin: 0 5px;
+  color: getColor($graphite, '50');
+}
+
+.tk-table-button-disabled {
+  margin: 0 5px;
+  cursor: default;
+  pointer-events: all;
+  color: getColor($graphite, '30');
+}
+.tk-table-dropdown {
+  width: 65px;
+  margin: 0 10px;
+}
+.tk-table-pagination {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: getColor($graphite, '80');
+  font-family: Segoe UI;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0em;
+  text-align: right;
+}
+.tk-table-checkbox {
+  width: 32px;
 }
