@@ -97,10 +97,7 @@ export const TimePicker: React.FC<TimePickerProps> = ({
 
       if (newISOTime && !errors) {
         newSelectedOption = options.find(
-          (option: TimePickerOption) =>
-            option?.data?.time?.hours === newISOTime.hours &&
-            option?.data?.time?.minutes === newISOTime.minutes &&
-            option?.data?.time?.seconds === newISOTime.seconds
+          (option: TimePickerOption) => newISOTime.isEqual(option?.data?.time)
         );
         newHours = newSelectedOption?.data?.time?.hours;
         newMinutes = newSelectedOption?.data?.time?.minutes;

@@ -10,6 +10,13 @@ class Time {
     this.seconds = seconds;
     this.ampm = ampm;
   }
+
+  isEqual(anotherTime: Time) {
+    return anotherTime && this.hours === anotherTime.hours &&
+      this.minutes === anotherTime.minutes &&
+      this.seconds === anotherTime.seconds &&
+      this.ampm === anotherTime.ampm
+  }
 }
 
 export default Time;
