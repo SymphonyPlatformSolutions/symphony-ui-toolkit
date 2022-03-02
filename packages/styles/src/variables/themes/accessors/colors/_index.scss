@@ -10,6 +10,8 @@ $--tk-color-error: var(--tk-color-error, $scolor-red);
 
 $--tk-main-text-color: var(--tk-main-text-color, $scolor-graphite);
 
+$--tk-modal-text-color: var(--tk-modal-text-color, getColor($graphite, '80'));
+
 $--tk-outline-color: #88c0fb;
 
 $--tk-background: var(--tk-background, $scolor-white);

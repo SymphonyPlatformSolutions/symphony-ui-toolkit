@@ -35,7 +35,7 @@ $dialog-scrollbar-box-shadow: rgba($scolor-black, 0.5);
   border-radius: toRem(8);
   width: toRem(480); // Default medium
   padding: toRem(24) toRem(32);
-  color: $--tk-main-text-color;
+  color: $--tk-modal-text-color;
 
   /* Size variants */
   &--small {
