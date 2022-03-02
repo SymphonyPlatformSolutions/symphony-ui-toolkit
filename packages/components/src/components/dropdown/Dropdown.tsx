@@ -1,7 +1,10 @@
 import * as React from 'react';
 import { CSSProperties } from 'react';
 import Select, { ActionMeta, createFilter } from 'react-select';
+import CreatableSelect from 'react-select/creatable';
 import AsyncSelect from 'react-select/async';
+import AsyncCreatableSelect from 'react-select/async-creatable';
+
 import {
   ClearIndicator,
   Control,
@@ -38,23 +41,34 @@ export class Dropdown<T = LabelValue> extends React.Component<
 
   constructor(props) {
     super(props);
+
     this.myRef = React.createRef();
     this.searchHeaderOption = { ...firstOption };
+
+    const {
+      asyncOptions,
+      isCreatable,
+      isMultiSelect,
+      hideSelectedOptions,
+      closeMenuOnSelect,
+      displayArrowIndicator,
+    } = this.props;
+
+    let DropdownTag: any = Select;
+    if (asyncOptions && !isCreatable) {
+      DropdownTag = AsyncSelect;
+    } else if (asyncOptions && isCreatable) {
+      DropdownTag = AsyncCreatableSelect;
+    } else if (!asyncOptions && isCreatable) {
+      DropdownTag = CreatableSelect;
+    }
+
     this.state = {
-      DropdownTag: this.props.options ? Select : AsyncSelect,
+      DropdownTag,
       selectedOption: null,
-      hideSelectedOptions:
-        this.props.hideSelectedOptions === undefined
-          ? this.props?.isMultiSelect
-          : this.props.hideSelectedOptions,
-      closeMenuOnSelect:
-        this.props.closeMenuOnSelect === undefined
-          ? !this.props?.isMultiSelect
-          : this.props.closeMenuOnSelect,
-      displayArrowIndicator:
-        this.props.displayArrowIndicator === undefined
-          ? !this.props?.isMultiSelect
-          : this.props.displayArrowIndicator,
+      hideSelectedOptions: hideSelectedOptions || isMultiSelect,
+      closeMenuOnSelect: closeMenuOnSelect || !isMultiSelect,
+      displayArrowIndicator: displayArrowIndicator || !isMultiSelect,
     };
   }
 
@@ -293,6 +307,7 @@ export class Dropdown<T = LabelValue> extends React.Component<
   static defaultProps = {
     isDisabled: false,
     isMultiSelect: false,
+    isCreatable: false,
     isInputClearable: false,
     isTypeAheadEnabled: true,
     autoScrollToCurrent: false,

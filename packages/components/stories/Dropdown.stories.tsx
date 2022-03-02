@@ -19,7 +19,7 @@ const defaultOptions: LabelValue[] = [
   { label: 'Option 5', value: '5' },
   {
     label:
-    'Option Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse elementum gravida neque, suscipit ornare ex pulvinar id. Etiam vitae erat at dolor pharetra suscipit. Donec at nunc malesuada',
+      'Option Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse elementum gravida neque, suscipit ornare ex pulvinar id. Etiam vitae erat at dolor pharetra suscipit. Donec at nunc malesuada',
     value: 'long',
   },
 ];
@@ -101,7 +101,7 @@ const iconData: DropdownOption<Icon>[] = [
 const IconPickerTagRenderer = (props: TagRendererProps<Icon>) => {
   const { data, remove } = props;
   return (
-    <div style={{backgroundColor: 'rgba(0, 200, 0, 0.5)', borderRadius: '4px', padding: '0 4px'}}>
+    <div style={{ backgroundColor: 'rgba(0, 200, 0, 0.5)', borderRadius: '4px', padding: '0 4px' }}>
       {data.displayName}
       <Icon className="tk-pl-1" iconName={data.displayName} />
       <Icon className="tk-ml-1" iconName="cross" onClick={remove} />
@@ -153,7 +153,7 @@ export const Variants: React.FC = () => (<>
   <Dropdown options={defaultOptions} />
   <h4>Destructive</h4>
   <Dropdown options={defaultOptions} variant="destructive" />
-  <div className="tk-py-5"/><div className="tk-py-5"/>
+  <div className="tk-py-5" /><div className="tk-py-5" />
 </>
 );
 
@@ -162,10 +162,10 @@ export const Sizes: React.FC = () => (
     <h4>Small</h4>
     <div style={{ display: 'flex' }}>
       <div style={{ width: '384px', marginRight: '32px' }}>
-        <Dropdown options={defaultOptions} size="small" label="Field label"  isInputClearable/>
+        <Dropdown options={defaultOptions} size="small" label="Field label" isInputClearable />
       </div>
       <div style={{ width: '384px' }}>
-        <Dropdown options={defaultOptions} isMultiSelect size="small" label="Field label"  isInputClearable/>
+        <Dropdown options={defaultOptions} isMultiSelect size="small" label="Field label" isInputClearable />
       </div>
     </div>
     <h4>Medium</h4>
@@ -174,19 +174,19 @@ export const Sizes: React.FC = () => (
         <Dropdown options={defaultOptions} size="medium" label="Field label" isInputClearable />
       </div>
       <div style={{ width: '384px' }}>
-        <Dropdown options={defaultOptions} isMultiSelect size="medium" label="Field label"  isInputClearable />
+        <Dropdown options={defaultOptions} isMultiSelect size="medium" label="Field label" isInputClearable />
       </div>
     </div>
     <h4>Large</h4>
     <div style={{ display: 'flex' }}>
       <div style={{ width: '384px', marginRight: '32px' }}>
-        <Dropdown options={defaultOptions} size="large" label="Field label"  isInputClearable />
+        <Dropdown options={defaultOptions} size="large" label="Field label" isInputClearable />
       </div>
       <div style={{ width: '384px' }}>
-        <Dropdown options={defaultOptions} isMultiSelect size="large" label="Field label" isInputClearable/>
+        <Dropdown options={defaultOptions} isMultiSelect size="large" label="Field label" isInputClearable />
       </div>
     </div>
-    <div className="tk-py-5"/><div className="tk-py-5"/>
+    <div className="tk-py-5" /><div className="tk-py-5" />
   </>
 );
 
@@ -209,12 +209,12 @@ export const Select: React.FC = () => (
       With <strong>tooltip</strong>:
     </p>
     <Dropdown options={defaultOptions} tooltip="Hint to help the user" tooltipCloseLabel="Got it" />
-    
+
     <p className="tk-mt-4">
       With <strong>helperText</strong>:
     </p>
     <Dropdown options={defaultOptions} helperText="Helper text" />
-    
+
     <p className="tk-mt-4">
       Clear selection with <strong>isInputClearable</strong>:
     </p>
@@ -251,11 +251,11 @@ export const Select: React.FC = () => (
     <p>With the <strong>maxHeight</strong> prop you can control the height of the multiple selection before scrolling on the input.</p>
     <Dropdown options={personSelectorOptions} isMultiSelect maxHeight={70} placeHolder="Search for People" isInputClearable noOptionMessage={'No options'} />
 
-    <h2 className="tk-mt-5h">Loading options</h2>
+    <h2 className="tk-mt-5h">Async loading options</h2>
     <p>Use the <strong>asyncOptions</strong> prop to load options from a remote source as the user starts typing on the input.</p>
     <p>The <strong>asyncOptions</strong> prop:</p>
     <h3>defaultOptions</h3>
-    <p>The <strong>defaultOptions</strong> prop is enabled by default (The options are iniatially loaded).</p>
+    <p>The <strong>defaultOptions</strong> prop is enabled by default (The options are initially loaded).</p>
     <Dropdown asyncOptions={promiseOptions} placeHolder="Async select" isInputClearable noOptionMessage={'No options'} />
     <p>* To disable: <strong>defaultOptions=false</strong>. (Start typing to load the options)</p>
     <Dropdown defaultOptions={false} asyncOptions={promiseOptions} maxHeight={70} placeHolder="Async select" isInputClearable noOptionMessage={'No options'} />
@@ -263,6 +263,59 @@ export const Select: React.FC = () => (
     <Dropdown asyncOptions={promiseOptions} isMultiSelect placeHolder="Async select" isInputClearable noOptionMessage={'No options'} />
     <h3>Loading with term search enabled</h3>
     <Dropdown asyncOptions={promiseOptions} placeHolder="Async select" enableTermSearch termSearchMessage="Term: " />
+
+    <h2 className="tk-mt-5h">Creatable options</h2>
+    <p>Use the <strong>isCreatable</strong> prop to let the user create option at runtime. An option will be created, based on the input value, and be added the option list.</p>
+    <h3>Default</h3>
+    <Dropdown
+      isCreatable
+      options={defaultOptions}
+      noOptionMessage="No options"
+      placeHolder="Please type a word"
+    />
+    <h3>isValidNewOption (optional)</h3>
+    <p>The <strong>isValidNewOption</strong> prop is optional. By default, any new option is valid.</p>
+    <p>In this example, we only let the user create option containing the character <i>O</i>, and not already part of the existing options:</p>
+    <Dropdown
+      isCreatable
+      options={defaultOptions}
+      noOptionMessage="No options, please type a word with the character 'O' to create a new option"
+      placeHolder="Please type a word with the character 'O'"
+      isValidNewOption={(inputValue, value, options) => {
+        const includesA = inputValue?.includes('O');
+        const isExisting = options?.map((option) => option.label).includes(inputValue);
+        return includesA && !isExisting;
+      }} />
+    <h3>getNewOptionData (optional)</h3>
+    <p>The <strong>getNewOptionData</strong> prop is optional. By default, the created option will have this structure: &#123; value: <i>inputValue</i>, label: <i>inputValue</i> &#125;.</p>
+    <p>In this example, we use options having <strong>id/name</strong> instead of value/label, and we create option having the structure &#123; id: <i>inputValue</i>, name: <i>inputValue</i> &#125;:</p>
+    <Dropdown
+      isCreatable
+      options={[
+        { id: 'id1', name: 'Name 1' },
+        { id: 'id2', name: 'Name 2' },
+        { id: 'id3', name: 'Name 3' },
+      ]}
+      bindLabel={(option) => option.name}
+      placeHolder="Please type a word"
+      noOptionMessage="No options"
+      getNewOptionData={(inputValue) => ({ id: inputValue, name: inputValue })}
+    />
+    <h3>With multi-selection</h3>
+    <Dropdown
+      isCreatable
+      isMultiSelect
+      options={defaultOptions}
+      placeHolder="Please type a word to load options"
+      noOptionMessage="No options"
+    />
+    <h3>With async options loading</h3>
+    <Dropdown
+      isCreatable
+      asyncOptions={promiseOptions}
+      placeHolder="Please type a word to load options"
+      noOptionMessage="No options"
+    />
 
     <h2 className="tk-mt-5h">Customized selects</h2>
     <p>
@@ -277,7 +330,7 @@ export const Select: React.FC = () => (
       tagRenderer={IconPickerRenderer}
       onTermSearch={onTermSearch}
     />
-    <br/>
+    <br />
     <Dropdown
       options={iconData}
       optionRenderer={IconPickerRenderer}
