@@ -1,7 +1,10 @@
 import * as React from 'react';
 import { CSSProperties } from 'react';
 import Select, { ActionMeta, createFilter } from 'react-select';
+import CreatableSelect from 'react-select/creatable';
 import AsyncSelect from 'react-select/async';
+import AsyncCreatableSelect from 'react-select/async-creatable';
+
 import {
   ClearIndicator,
   Control,
@@ -37,23 +40,25 @@ export class Dropdown<T = LabelValue> extends React.Component<
   lastSelectedOption: any;
   constructor(props) {
     super(props);
+
     this.myRef = React.createRef();
     this.searchHeaderOption = { ...firstOption };
+
+    const {
+      asyncOptions,
+      addNewOptions,
+      isMultiSelect,
+      hideSelectedOptions,
+      closeMenuOnSelect,
+      displayArrowIndicator,
+    } = this.props;
+
     this.state = {
-      DropdownTag: this.props.options ? Select : AsyncSelect,
+      DropdownTag: this.getDropdownTag(asyncOptions, addNewOptions),
       selectedOption: null,
-      hideSelectedOptions:
-        this.props.hideSelectedOptions === undefined
-          ? this.props?.isMultiSelect
-          : this.props.hideSelectedOptions,
-      closeMenuOnSelect:
-        this.props.closeMenuOnSelect === undefined
-          ? !this.props?.isMultiSelect
-          : this.props.closeMenuOnSelect,
-      displayArrowIndicator:
-        this.props.displayArrowIndicator === undefined
-          ? !this.props?.isMultiSelect
-          : this.props.displayArrowIndicator,
+      hideSelectedOptions: hideSelectedOptions || isMultiSelect,
+      closeMenuOnSelect: closeMenuOnSelect || !isMultiSelect,
+      displayArrowIndicator: displayArrowIndicator || !isMultiSelect,
     };
   }
 
@@ -62,6 +67,18 @@ export class Dropdown<T = LabelValue> extends React.Component<
     if (onInit && value) {
       onInit(value as any);
     }
+  }
+
+  getDropdownTag = (asyncOptions, addNewOptions) => {
+    let DropdownTag: any = Select;
+    if (asyncOptions && !addNewOptions) {
+      DropdownTag = AsyncSelect;
+    } else if (asyncOptions && addNewOptions) {
+      DropdownTag = AsyncCreatableSelect;
+    } else if (!asyncOptions && addNewOptions) {
+      DropdownTag = CreatableSelect;
+    }
+    return DropdownTag;
   }
 
   handleChange = (selectedOption, meta: ActionMeta<T>) => {
@@ -305,6 +322,7 @@ export class Dropdown<T = LabelValue> extends React.Component<
   static defaultProps = {
     isDisabled: false,
     isMultiSelect: false,
+    addNewOptions: false,
     isInputClearable: false,
     isTypeAheadEnabled: true,
     autoScrollToCurrent: false,
