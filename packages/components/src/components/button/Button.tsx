@@ -4,7 +4,7 @@ import classNames from 'classnames';
 
 const prefix = 'tk-button';
 
-export type ButtonProps = {
+export interface ButtonProps extends Omit<React.HTMLProps<HTMLButtonElement>, 'size'> {
   /** If true, add an Icon component as children */
   iconButton?: boolean;
   /** Content of the button*/
@@ -22,7 +22,7 @@ export type ButtonProps = {
   size?: 'large' | 'small' | 'medium';
   iconRight?: React.ReactNode;
   iconLeft?: React.ReactNode;
-};
+}
 
 export const Button: React.FC<ButtonProps> = ({
   children,
