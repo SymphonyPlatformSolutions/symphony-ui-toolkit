@@ -36,6 +36,7 @@ export const TimePicker: React.FC<TimePickerProps> = ({
   min,
   max,
   name,
+  onBlur,
   onChange,
   onCopy,
   onCut,
@@ -208,6 +209,13 @@ export const TimePicker: React.FC<TimePickerProps> = ({
       onMenuClose={() => setMenuIsOpen(false)}
       onMenuOpen={() => setMenuIsOpen(true)}
       options={options}
+      onBlur={() => {
+        onBlur && onBlur({
+          target: {
+            value: inputValue ? formatTimeISO(getISOTimeFromLocalTime(inputValue, format)) : '',
+          },
+        });
+      }}
       onChange={(newValue) => {
         const option =
           newValue && newValue.target && newValue.target.value
@@ -237,10 +245,6 @@ export const TimePicker: React.FC<TimePickerProps> = ({
         // Called when the user set a new value in the Input field
         if (metadata.action === 'input-change') {
           setInputValue(newValue);
-        } else if (metadata.action === 'input-blur') {
-          if (inputValue === null || inputValue === undefined) {
-            setInputValue(''); // Set to '' to trigger Validation on Blur
-          }
         }
         setNavigationInMenu(false);
       }}
