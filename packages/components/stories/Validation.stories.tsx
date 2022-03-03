@@ -15,7 +15,8 @@ import { ValidatorFn, Validators } from '../src/core/validators/validators';
 export const Validations = () => {
   const [value, setValue] = useState('A value to validate')
   const [date, setDate] = useState(null);
-  const [time, setTime] = useState(null);
+  const [time1, setTime1] = useState(null);
+  const [time2, setTime2] = useState(null);
   const [dropdown, setDropdown] = useState(null);
   const [multiDropdown, setMultiDropdown] = useState(null);
   const logChange = (value, errorsMap) => {
@@ -201,10 +202,9 @@ export const Validations = () => {
           min={'08:00:00'}
           max={'20:00:00'}
           disabledTimes={disabledTimes}
-          value={time}
+          value={time1}
           onChange={(e) => {
-            const value = e.target.value;
-            setTime(value);
+            setTime1(e.target.value);
           }}
         />
       </Validation>
@@ -486,10 +486,9 @@ export const Validations = () => {
           min={'08:00:00'}
           max={'20:00:00'}
           disabledTimes={disabledTimes}
-          value={time}
+          value={time2}
           onChange={(e) => {
-            const value = e.target.value;
-            setTime(value);
+            setTime2(e.target.value);
           }}
         />
       </Validation>

@@ -71,6 +71,7 @@ export const TimePickerPropTypes = {
   menuPortalTarget: PropTypes.instanceOf(HTMLElement),
   menuShouldBlockScroll: PropTypes.bool,
   name: PropTypes.string,
+  onBlur: PropTypes.func,
   onChange: PropTypes.func,
   onFocus: PropTypes.func,
   onValidationChanged: PropTypes.func,
