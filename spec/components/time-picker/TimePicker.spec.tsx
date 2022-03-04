@@ -65,6 +65,28 @@ describe('TimePicker Component', () => {
     expect(props.onFocus).toHaveBeenCalledTimes(1);
   });
 
+  describe('should trigger onBlur when click outside', () => {
+    test.each([
+      [null, ''],
+      [undefined, ''],
+      ['', ''],
+      ['09:00:00', '09:00:00'],
+    ])('with %p on field', async (value, expected) => {
+      const props = createTestProps({
+        value,
+        format: 'HH:mm:ss',
+        onBlur: jest.fn(),
+      });
+      render(<><div>outside</div><TimePicker {...props} /></>);
+      expect(props.onBlur).toHaveBeenCalledTimes(0);
+      const input = screen.getByRole('textbox');
+      userEvent.click(input);
+      expect(props.onBlur).toHaveBeenCalledTimes(0);
+      userEvent.click(screen.getByText('outside'))
+      expect(props.onBlur).toHaveBeenCalledWith({ target: { value: expected } });
+    });
+  });
+
   describe('should move focus', () => {
     test.each([
       ['09', '09:', 3],
