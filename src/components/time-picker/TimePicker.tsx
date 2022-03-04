@@ -37,6 +37,7 @@ export const TimePicker: React.FC<TimePickerProps> = ({
   min,
   max,
   name,
+  onBlur,
   onChange,
   onFocus,
   onValidationChanged,
@@ -71,47 +72,34 @@ export const TimePicker: React.FC<TimePickerProps> = ({
   }, [selectedOption]);
 
   useEffect(() => {
-    let newSelectedOption = options.find(
-      (option) =>
-        option.data.hours === hours &&
-        option.data.minutes === minutes &&
-        option.data.seconds === seconds
-    );
-    if (
-      !newSelectedOption ||
-      isTimeDisabled(newSelectedOption.data, disabledTimes)
-    ) {
-      newSelectedOption = null;
-    }
-    setSelectedOption(newSelectedOption);
-  }, [hours, minutes, seconds]);
-
-  useEffect(() => {
     if (inputValue !== null && inputValue !== undefined) {
       // Called when the user enters a new date in the input field
       const newISOTime = getISOTimeFromLocalTime(inputValue, format);
-      if (newISOTime) {
-        setHours(newISOTime.hours);
-        setMinutes(newISOTime.minutes);
-        setSeconds(newISOTime.seconds);
-      } else {
-        setHours('');
-        setMinutes('');
-        setSeconds('');
-      }
+      let newHours = '';
+      let newMinutes = '';
+      let newSeconds = '';
+      let newSelectedOption = null;
+      const errors = onValidationChanged ? computeError(
+        inputValue,
+        newISOTime,
+        min,
+        max,
+        disabledTimes,
+        strict,
+        options
+      ) : null;
 
       if (onValidationChanged) {
-        onValidationChanged(
-          computeError(
-            inputValue,
-            newISOTime,
-            min,
-            max,
-            disabledTimes,
-            strict,
-            options
-          )
+        onValidationChanged(errors);
+      }
+
+      if (newISOTime && !errors) {
+        newSelectedOption = options.find(
+          (option) => newISOTime.isEqual(option?.data)
         );
+        newHours = newSelectedOption?.data?.hours;
+        newMinutes = newSelectedOption?.data?.minutes;
+        newSeconds = newSelectedOption?.data?.seconds;
       }
 
       // Called onChange prop
@@ -122,6 +110,11 @@ export const TimePicker: React.FC<TimePickerProps> = ({
           },
         });
       }
+      // Update values
+      setHours(newHours);
+      setMinutes(newMinutes);
+      setSeconds(newSeconds);
+      setSelectedOption(newSelectedOption)
     }
   }, [inputValue]);
 
@@ -214,6 +207,13 @@ export const TimePicker: React.FC<TimePickerProps> = ({
       onMenuClose={() => setMenuIsOpen(false)}
       onMenuOpen={() => setMenuIsOpen(true)}
       options={options}
+      onBlur={() => {
+        onBlur && onBlur({
+          target: {
+            value: inputValue ? formatTimeISO(getISOTimeFromLocalTime(inputValue, format)) : '',
+          },
+        });
+      }}
       onChange={(newValue) => {
         const option =
           newValue && newValue.target && newValue.target.value
@@ -240,10 +240,6 @@ export const TimePicker: React.FC<TimePickerProps> = ({
         // Called when the user set a new value in the Input field
         if (metadata.action === 'input-change') {
           setInputValue(newValue);
-        } else if (metadata.action === 'input-blur') {
-          if (inputValue === null || inputValue === undefined) {
-            setInputValue(''); // Set to '' to trigger Validation on Blur
-          }
         }
         setNavigationInMenu(false);
       }}
@@ -269,6 +265,7 @@ TimePicker.propTypes = {
   menuPortalTarget: PropTypes.instanceOf(HTMLElement),
   menuShouldBlockScroll: PropTypes.bool,
   name: PropTypes.string,
+  onBlur: PropTypes.func,
   onChange: PropTypes.func,
   onFocus: PropTypes.func,
   onValidationChanged: PropTypes.func,

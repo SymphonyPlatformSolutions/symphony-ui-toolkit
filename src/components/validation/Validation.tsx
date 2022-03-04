@@ -1,7 +1,7 @@
-import * as React from 'react';
-import * as PropTypes from 'prop-types';
-import { isEmpty } from 'lodash';
 import classNames from 'classnames';
+import { debounce, isEmpty } from 'lodash';
+import * as PropTypes from 'prop-types';
+import * as React from 'react';
 import { ValidatorFn } from '../../core/validators/validators';
 import { ACTION, ErrorMessages } from './interfaces';
 
@@ -50,6 +50,8 @@ class Validation extends React.Component<
     lastAction: null,
   };
 
+  private debouncedUpdateState = debounce(this.updateState);
+
   componentDidMount() {
     if (this.props.validateOnInit || this.props.errors) {
       this.updateState(this.props.validateOnInit);
@@ -60,11 +62,11 @@ class Validation extends React.Component<
     // call updateState whenever value or errorsChildMap change
     if (
       this.state.lastAction !== ACTION.RESET &&
-      this.state !== ACTION.ON_INIT &&
+      this.state.lastAction !== ACTION.ON_INIT &&
       (prevState.lastValue !== this.state.lastValue ||
         prevState.errorsChildMap !== this.state.errorsChildMap)
     ) {
-      this.updateState(this.state.lastValue);
+      this.debouncedUpdateState(this.state.lastValue);
     }
   }
 
@@ -97,8 +99,9 @@ class Validation extends React.Component<
           child.props.onChange(event);
         }
       },
-      onBlur: (event: any) => {
-        this.updateState(event.target.value);
+      onBlur: async (event: any) => {
+        // on blur should not change the value 
+        this.debouncedUpdateState(this.state.lastValue);
         if (child.props.onBlur) {
           child.props.onBlur(event);
         }
@@ -169,7 +172,8 @@ class Validation extends React.Component<
     if (this.props.errors) {
       errors = this.props.errors;
     }
-    this.setState({ isValid: valid, errors, lastValue: value });
+    // don't change the value here otherwise there are risks we get into an infinite loop
+    this.setState({ isValid: valid, errors });
     return errors;
   }
 
