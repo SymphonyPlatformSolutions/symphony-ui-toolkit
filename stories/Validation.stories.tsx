@@ -18,9 +18,7 @@ export const Validations = () => {
   const [dropdown, setDropdown] = useState(null);
   const [multiDropdown, setMultiDropdown] = useState(null);
   const logChange = (value, errorsMap) => {
-    if (!value) {
-      console.log('Component is valid:', value);
-    }
+    console.log('Component is valid:', value);
     if (errorsMap) {
       console.log('Errors Map:', errorsMap);
     }
