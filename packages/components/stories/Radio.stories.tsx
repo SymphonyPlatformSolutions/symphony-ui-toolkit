@@ -4,8 +4,9 @@ import { Radio } from '../src/components';
 import LabelPlacements from '../src/components/selection/LabelPlacements';
 import { action } from '@storybook/addon-actions';
 import SelectionStatus from '../src/components/selection/SelectionStatus';
+import { SelectionInput } from '../src/components/selection/SelectionInput';
 
-const Template = (args) => (<Radio {...args} />);
+const Template = (args: SelectionStatus) => (<Radio {...args} />);
 
 export const Default = Template.bind({});
 Default.args = {
@@ -159,5 +160,5 @@ export const Radios = () => {
 export default {
   title: 'Components/Input/Radio',
   component: Radio,
-  decorators: [],
+  subcomponents: { SelectionInput }
 };
