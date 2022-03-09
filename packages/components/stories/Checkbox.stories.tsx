@@ -4,8 +4,9 @@ import { Checkbox } from '../src/components';
 import LabelPlacements from '../src/components/selection/LabelPlacements';
 import SelectionStatus from '../src/components/selection/SelectionStatus';
 import { action } from '@storybook/addon-actions';
+import { SelectionInput, SelectionInputProps } from '../src/components/selection/SelectionInput';
 
-const Template = (args) => (<Checkbox {...args} />);
+const Template = (args: SelectionInputProps) => (<Checkbox {...args} />);
 
 export const Default = Template.bind({});
 Default.args = {
@@ -219,4 +220,5 @@ export const Checkboxes = () => {
 export default {
   title: 'Components/Input/Checkbox',
   component: Checkbox,
+  subcomponents: { SelectionInput }
 };
