@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Checkbox, Icon, Dropdown } from '..';
+import SelectionStatus from '../selection/SelectionStatus';
 
 export type TableProps = {
   items: { [key: string]: string }[];
@@ -20,8 +21,12 @@ export const Table: React.FC<TableProps> = ({
 }: TableProps) => {
   const [data, setData] = React.useState(items);
   const [currentPage, setCurrentPage] = React.useState(1);
-  const [select, setSelect] = React.useState(rowsPerPage);
+  const [rowNumber, setRowNumber] = React.useState(rowsPerPage);
   const [order, setOrder] = React.useState('DSC');
+  const totalEntries = data.length;
+  const [checkedState, setCheckedState] = React.useState(
+    new Array(totalEntries).fill(false)
+  );
   const [headingKey, setHeadingKey] = React.useState({
     company: true,
     contact: true,
@@ -30,19 +35,22 @@ export const Table: React.FC<TableProps> = ({
 
   const renderIcon = (key) => {
     if ([key] && headingKey[key]) {
-      return <Icon iconName="drop-down" onClick={() => sortingColumn(key)} />;
+      return <Icon iconName="drop-down" onClick={() => sortColumn(key)} />;
     } else {
-      return <Icon iconName="drop-up" onClick={() => sortingColumn(key)} />;
+      return <Icon iconName="drop-up" onClick={() => sortColumn(key)} />;
     }
   };
 
-  const sortingColumn = (key) => {
-    if (key && order === 'ASC') {
+  const sortColumn = (key) => {
+    if (!key) {
+      return;
+    }
+    if (order === 'ASC') {
       const sorted = [...data].sort((a, b) => (a[key] < b[key] ? 1 : -1));
       setData(sorted);
       setOrder('DSC');
       setHeadingKey({ ...headingKey, [key]: true });
-    } else if (key && order === 'DSC') {
+    } else if (order === 'DSC') {
       const sorted = [...data].sort((a, b) => (a[key] > b[key] ? 1 : -1));
       setData(sorted);
       setOrder('ASC');
@@ -50,14 +58,28 @@ export const Table: React.FC<TableProps> = ({
     }
   };
 
-  const handleSelectChange = (e) => {
+  const handleRowsPerPageChange = (e) => {
     setCurrentPage(1);
-    setSelect(e.target.value);
+    setRowNumber(e.target.value);
   };
 
-  const getRowsPerPages = (select) => {
-    if (select.value) {
-      return select.value;
+  const handleCheckboxChange = (e) => {
+    const updatedList = [...checkedState];
+    updatedList[e.target.value] = e.target.checked;
+    setCheckedState(updatedList);
+  };
+
+  console.log(checkedState);
+
+  const checkboxIsChecked = (index) => {
+    if (checkedState[index]) {
+      return 'tk-table-checkbox-isChecked';
+    }
+  };
+
+  const getRowsPerPages = (row) => {
+    if (row.value) {
+      return row.value;
     } else {
       return rowsPerPage;
     }
@@ -77,6 +99,10 @@ export const Table: React.FC<TableProps> = ({
   const hasNextPage = (currentPage, pageSize, array) => {
     const nextPageIndex = currentPage * pageSize;
     return nextPageIndex < array.length;
+  };
+
+  const GetStartIndexPerPage = (currentPage, pageSize) => {
+    return (currentPage - 1) * pageSize;
   };
 
   const renderPagination = () => {
@@ -102,7 +128,7 @@ export const Table: React.FC<TableProps> = ({
         <Dropdown
           className="tk-table-dropdown"
           size="small"
-          onChange={handleSelectChange}
+          onChange={handleRowsPerPageChange}
           placeHolder={rowsPerPage.toString()}
           options={[
             {
@@ -146,19 +172,25 @@ export const Table: React.FC<TableProps> = ({
     );
   };
 
-  const totalEntries = data.length;
-  const page = getPage(currentPage, getRowsPerPages(select), data);
-  const totalPages = getTotalPages(getRowsPerPages(select), data);
-  const nextPage = hasNextPage(currentPage, getRowsPerPages(select), data);
+  const page = getPage(currentPage, getRowsPerPages(rowNumber), data);
+  const totalPages = getTotalPages(getRowsPerPages(rowNumber), data);
+  const nextPage = hasNextPage(currentPage, getRowsPerPages(rowNumber), data);
+  const startIndexPerPage = GetStartIndexPerPage(
+    currentPage,
+    getRowsPerPages(rowNumber)
+  );
 
   return (
     <>
       <table className="tk-table">
         <thead>
           <tr>
-            <th className="tk-table-checkbox">
-              {showCheckbox && <Checkbox label="" name="simple-checkbox" />}
-            </th>
+            {showCheckbox && (
+              <th className="tk-table-checkbox">
+                <Checkbox disabled />{' '}
+              </th>
+            )}
+
             {header.map((value, index) => (
               <th key={index}>
                 <h3>
@@ -171,10 +203,24 @@ export const Table: React.FC<TableProps> = ({
         </thead>
         <tbody>
           {page.map((column, index) => (
-            <tr key={index}>
-              <td>
-                {showCheckbox && <Checkbox label="" name="simple-checkbox" />}
-              </td>
+            <tr
+              key={index}
+              className={checkboxIsChecked(startIndexPerPage + index)}
+            >
+              {showCheckbox && (
+                <td>
+                  <Checkbox
+                    status={
+                      checkedState[startIndexPerPage + index]
+                        ? SelectionStatus.CHECKED
+                        : SelectionStatus.UNCHECKED
+                    }
+                    onChange={(e) => handleCheckboxChange(e)}
+                    value={startIndexPerPage + index}
+                  />
+                </td>
+              )}
+
               {header.map((columnItem, index) => {
                 return <td key={index}>{column[columnItem.key]}</td>;
               })}

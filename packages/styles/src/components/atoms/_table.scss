@@ -2,6 +2,7 @@
   border-collapse: collapse;
   width: 100%;
   table-layout: fixed;
+  font-family: Segoe UI;
 
   th {
     text-align: left;
@@ -18,7 +19,6 @@
     height: $--tk-table-cell-height;
     vertical-align: middle;
     border-bottom: toRem(1) solid $scolor-graphite-minus-48;
-    font-family: Segoe UI;
     font-size: 14px;
     font-style: normal;
     font-weight: 400;
@@ -30,7 +30,6 @@
 }
 .tk-table h3 {
   color: getColor($graphite, '80');
-  font-family: Segoe UI;
   font-size: 12px;
   font-style: normal;
   font-weight: 700;
@@ -60,7 +59,6 @@
   align-items: center;
   justify-content: center;
   color: getColor($graphite, '80');
-  font-family: Segoe UI;
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
@@ -70,4 +68,7 @@
 }
 .tk-table-checkbox {
   width: 32px;
+}
+.tk-table-checkbox-isChecked {
+  background-color: getColor($graphite, '05');
 }
