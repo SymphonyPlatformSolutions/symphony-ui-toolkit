@@ -7,9 +7,9 @@ import { Button, Validation } from '../../../src/components';
 import { Validators } from '../../../src/core/validators/validators';
 import { Keys } from '../../../src/components/common/eventUtils';
 
-const CustomComponent = (props) => {
-  if (props.data) {
-    return (<div>{props?.data?.label}</div>);
+const CustomComponent = ({ data }: any) => {
+  if (data) {
+    return (<div>{data?.label}</div>);
   }
 }
 const filterFunction = (element: any, input: string) => {
@@ -17,6 +17,7 @@ const filterFunction = (element: any, input: string) => {
 };
 
 const onChange = jest.fn();
+const onInit = jest.fn();
 const onTermSearch = jest.fn();
 const onClear = jest.fn();
 const onBlur = jest.fn();
@@ -85,7 +86,7 @@ describe('Dropdown component test suite =>', () => {
         expect(screen.getByText('no options message')).toBeTruthy();
       });
 
-      it('should render costum render dropdown', async () => {
+      it('should render custom render dropdown', async () => {
         const { container, getByText } = render(
           <Dropdown
             isMultiSelect
@@ -108,7 +109,6 @@ describe('Dropdown component test suite =>', () => {
         expect(onClear).toBeCalled();
         expect(getByText('Select...')).toBeTruthy();
       });
-
 
       it('should support custom option structure', async () => {
         const customOptions = [
@@ -140,6 +140,16 @@ describe('Dropdown component test suite =>', () => {
         expect(getByText('Case')).toBeInTheDocument();
         expect(queryByText('Hill')).not.toBeInTheDocument();
         expect(queryByText('Conda')).not.toBeInTheDocument();
+      });
+
+      it('should allow prop propagation (otherProps)', async () => {
+        const { getByTestId } = render(<Dropdown options={dropdownProps.options} data-testid="another-prop" />);
+        expect(getByTestId('another-prop')).toBeInTheDocument();
+      });
+
+      it('should call onInit function at load if provided', async () => {
+        render(<Dropdown options={dropdownProps.options} onInit={onInit} value="value" />);
+        expect(onInit).toHaveBeenCalledWith('value');
       });
     });
 
@@ -310,6 +320,7 @@ describe('Dropdown component test suite =>', () => {
         const { getByText } = render(<Dropdown asyncOptions={() => Promise.resolve(options)} defaultOptions />);
         expect(getByText('Select...')).toBeInTheDocument();
       });
+
       it('should render the `asyncOptions` to the dropdown menu', async () => {
         const { getByText } = render(<Dropdown asyncOptions={() => Promise.resolve(options)} defaultOptions />);
         const input = screen.getByRole('textbox');
@@ -320,6 +331,7 @@ describe('Dropdown component test suite =>', () => {
           expect(getByText('orange')).toBeTruthy();
         })
       });
+
       it('should filter the `asyncOptions` if user types on the input', async () => {
         const { queryByText } = render(<Dropdown asyncOptions={() => Promise.resolve(options)} />);
         const input = screen.getByRole('textbox');
