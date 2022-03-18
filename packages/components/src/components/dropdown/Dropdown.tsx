@@ -134,13 +134,21 @@ export class Dropdown<T = LabelValue> extends React.Component<
       displayArrowIndicator,
       DropdownTag,
     } = this.state;
+
     const {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      asyncOptions,
       autoScrollToCurrent,
+      bindLabel,
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      bindValue,
       blurInputOnSelect,
       className,
       defaultOptions,
       defaultValue,
       enableTermSearch,
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      filterFunction,
       iconName,
       id,
       inputAlwaysDisplayed,
@@ -148,6 +156,10 @@ export class Dropdown<T = LabelValue> extends React.Component<
       isDisabled,
       isInputClearable,
       isMultiSelect,
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      isOptionDisabled,
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      isOptionSelected,
       isTypeAheadEnabled,
       label,
       maxHeight,
@@ -163,6 +175,12 @@ export class Dropdown<T = LabelValue> extends React.Component<
       noOptionMessage,
       placeHolder,
       helperText,
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      onBlur,
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      onChange,
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      onClear,
       onCopy,
       onCut,
       onDrag,
@@ -172,7 +190,11 @@ export class Dropdown<T = LabelValue> extends React.Component<
       onKeyUp,
       onMenuOpen,
       onMenuClose,
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      onTermSearch,
       optionRenderer,
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      options,
       showRequired,
       size,
       tabSelectsValue,
@@ -182,14 +204,12 @@ export class Dropdown<T = LabelValue> extends React.Component<
       tooltipCloseLabel,
       value,
       variant,
-      bindLabel,
       ...otherProps
     } = this.props;
 
     return (
       <div className={classNames(className, 'tk-input-group', `tk-input-group--${size}`)}>
         <DropdownTag
-          {...otherProps}
           styles={{
             menuPortal: (base: CSSProperties) => ({ ...base, ...menuPortalStyles }),
             valueContainer: (base: CSSProperties) => ({
@@ -267,6 +287,7 @@ export class Dropdown<T = LabelValue> extends React.Component<
           menuPortalTarget={menuPortalTarget}
           menuShouldBlockScroll={menuShouldBlockScroll}
           menuShouldScrollIntoView={menuShouldScrollIntoView}
+          {...otherProps}
         />
         <LabelTooltipDecorator
           htmlFor={id}
