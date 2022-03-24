@@ -1,17 +1,16 @@
-import * as React from 'react';
-import userEvent from '@testing-library/user-event';
-import { render, screen, waitFor, waitForElementToBeRemoved, fireEvent } from '@testing-library/react';
-import Dropdown, { DropdownOption, LabelValue } from '../../../src/components/dropdown';
 import '@testing-library/jest-dom/extend-expect';
+import { fireEvent, render, screen, waitFor, waitForElementToBeRemoved } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { object } from 'prop-types';
+import * as React from 'react';
 import { Button, Validation } from '../../../src/components';
-import { Validators } from '../../../src/core/validators/validators';
 import { Keys } from '../../../src/components/common/eventUtils';
+import Dropdown, { DropdownOption, LabelValue } from '../../../src/components/dropdown';
+import { Validators } from '../../../src/core/validators/validators';
 
-const CustomComponent = ({ data }: any) => {
-  if (data) {
-    return (<div>{data?.label}</div>);
-  }
-}
+const CustomComponent = ({ data }) => <div>{data?.label}</div>;
+CustomComponent.propTypes = { data: object };
+
 const filterFunction = (element: any, input: string) => {
   return !input || element.displayName.indexOf(input) > -1;
 };
@@ -154,7 +153,6 @@ describe('Dropdown component test suite =>', () => {
     });
 
     describe('when is Multiselect', () => {
-
       it('should render the Multiselect component by default', async () => {
         const { getByText } = render(<Dropdown options={dropdownProps.options} isMultiSelect />);
         expect(getByText('Select...')).toBeInTheDocument();
@@ -308,6 +306,86 @@ describe('Dropdown component test suite =>', () => {
         userEvent.click(option);
         expect(getByText('banana')).toBeTruthy();
         waitForElementToBeRemoved(() => getByText('This field is required'));
+      });
+    });
+
+    describe('when is Creatable', () => {
+      it('should allow option creation', async () => {
+        const { getByText, getByRole } = render(<Dropdown options={dropdownProps.options} onChange={onChange} addNewOptions />);
+
+        userEvent.type(getByRole('textbox'), 'new');
+
+        await waitFor(() => {
+          expect(getByText('Create "new"')).toBeInTheDocument();
+        });
+
+        userEvent.click(getByText('Create "new"'));
+
+        const onChangeCall = onChange.mock.calls[0][0];
+        const createdOption = onChangeCall.target.value;
+        await waitFor(() => {
+          expect(createdOption.value).toBe('new');
+          expect(createdOption.label).toBe('new');
+        });
+      });
+
+      it('should handle option creation validation', async () => {
+        const validKeyword = 'OK';
+        const validInput = 'This is OK';
+        const invalidInput = 'This is KO';
+
+        const { getByText, getByRole, queryByText } = render(
+          <Dropdown
+            options={dropdownProps.options}
+            onChange={onChange}
+            isValidNewOption={(inputValue) => inputValue?.includes(validKeyword)}
+            addNewOptions
+          />
+        );
+
+        userEvent.type(getByRole('textbox'), invalidInput);
+
+        await waitFor(() => {
+          expect(queryByText(`Create "${invalidInput}"`)).not.toBeInTheDocument();
+        });
+
+        userEvent.clear(getByRole('textbox'));
+        userEvent.type(getByRole('textbox'), validInput);
+
+        await waitFor(() => {
+          expect(getByText(`Create "${validInput}"`)).toBeInTheDocument();
+        });
+      });
+
+      it('should handle specific option structure creation', async () => {
+        const customOptions = dropdownProps.options.map((option) => ({ customValue: option.value, customLabel: option.label }));
+        const { getByText, getByRole } = render(
+          <Dropdown
+            options={customOptions}
+            onChange={onChange}
+            bindLabel={(option) => option.customLabel}
+            getNewOptionData={(inputValue) => ({ customValue: inputValue, customLabel: `custom ${inputValue}`, additionalEntry: 'extra' })}
+            addNewOptions
+          />
+        );
+
+        const userInput = 'hello';
+        userEvent.type(getByRole('textbox'), userInput);
+
+        await waitFor(() => {
+          expect(getByText(`custom ${userInput}`)).toBeInTheDocument();
+        });
+
+        userEvent.click(getByText(`custom ${userInput}`));
+
+        const onChangeCall = onChange.mock.calls[0][0];
+        const createdOption = onChangeCall.target.value;
+
+        await waitFor(() => {
+          expect(createdOption.customValue).toBe(userInput);
+          expect(createdOption.customLabel).toBe(`custom ${userInput}`);
+          expect(createdOption.additionalEntry).toBe('extra');
+        });
       });
     });
   });
@@ -573,6 +651,95 @@ describe('Dropdown component test suite =>', () => {
           expect(getByText('banana')).toBeTruthy();
           waitForElementToBeRemoved(() => getByText('This field is required'));
         })
+      });
+    });
+
+    describe('when is Creatable', () => {
+      it('should allow option creation', async () => {
+        const { getByText, getByRole } = render(
+          <Dropdown
+            asyncOptions={() => Promise.resolve(options)}
+            defaultOptions
+            onChange={onChange}
+            addNewOptions
+          />
+        );
+
+        userEvent.type(getByRole('textbox'), 'new');
+
+        await waitFor(() => {
+          expect(getByText('Create "new"')).toBeInTheDocument();
+        });
+
+        userEvent.click(getByText('Create "new"'));
+
+        const onChangeCall = onChange.mock.calls[0][0];
+        const createdOption = onChangeCall.target.value;
+        await waitFor(() => {
+          expect(createdOption.value).toBe('new');
+          expect(createdOption.label).toBe('new');
+        });
+      });
+
+      it('should handle option creation validation', async () => {
+        const validKeyword = 'OK';
+        const validInput = 'This is OK';
+        const invalidInput = 'This is KO';
+
+        const { getByText, getByRole, queryByText } = render(
+          <Dropdown
+            asyncOptions={() => Promise.resolve(options)}
+            defaultOptions
+            onChange={onChange}
+            isValidNewOption={(inputValue) => inputValue?.includes(validKeyword)}
+            addNewOptions
+          />
+        );
+
+        userEvent.type(getByRole('textbox'), invalidInput);
+
+        await waitFor(() => {
+          expect(queryByText(`Create "${invalidInput}"`)).not.toBeInTheDocument();
+        });
+
+        userEvent.clear(getByRole('textbox'));
+        userEvent.type(getByRole('textbox'), validInput);
+
+        await waitFor(() => {
+          expect(getByText(`Create "${validInput}"`)).toBeInTheDocument();
+        });
+      });
+
+      it('should handle specific option structure creation', async () => {
+        const customOptions = options.map((option) => ({ customLabel: option.label }));
+        const { getByText, getByRole } = render(
+          <Dropdown
+            asyncOptions={() => Promise.resolve(customOptions)}
+            defaultOptions
+            onChange={onChange}
+            bindLabel={(option) => option.customLabel}
+            getNewOptionData={(inputValue) => ({ customValue: inputValue, customLabel: `custom ${inputValue}`, additionalEntry: 'extra' })}
+            addNewOptions
+          />
+        );
+
+        const userInput = 'hello';
+        userEvent.type(getByRole('textbox'), userInput);
+
+        await waitFor(() => {
+          expect(getByText(`custom ${userInput}`)).toBeInTheDocument();
+        });
+
+        userEvent.click(getByText(`custom ${userInput}`));
+
+        const onChangeCall = onChange.mock.calls[0][0];
+        const createdOption = onChangeCall.target.value;
+
+        await waitFor(() => {
+          expect(createdOption.customValue).toBe(userInput);
+          expect(createdOption.customLabel).toBe(`custom ${userInput}`);
+          expect(createdOption.additionalEntry).toBe('extra');
+        });
       });
     });
   });

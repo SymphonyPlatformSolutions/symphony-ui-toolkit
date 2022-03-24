@@ -67,6 +67,16 @@ type AsyncProps<T> = {
    */
   defaultOptions?: DropdownOption<T>[] | boolean;
 } & HasValidationProps<T>;
+
+type CreatableProps<T> = {
+  /** Decides if the user can create new options at runtime */
+  addNewOptions?: boolean;
+  /** Function returning the created option based on the input value */
+  getNewOptionData?: (inputValue: string) => T,
+  /** Function telling if the inputValue can be converted into a new option */
+  isValidNewOption?: (inputValue: string, value: any[], options: DropdownOption<any>[]) => boolean,
+} & HasValidationProps<T>;
+
 type SyncProps<T> = {
   /** Array of options that populate the dropdown menu */
   options: DropdownOption<T>[];
@@ -182,4 +192,5 @@ export type DropdownProps<T> = {
   MenuPortalProps &
   HasTooltipProps &
   (MultiModeProps<T> | SingleModeProps<T>) &
-  (AsyncProps<T> | SyncProps<T>);
+  (AsyncProps<T> | SyncProps<T>) &
+  CreatableProps<T>;
