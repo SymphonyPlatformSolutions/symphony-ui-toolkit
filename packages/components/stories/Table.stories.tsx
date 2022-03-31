@@ -6,11 +6,6 @@ import './stories.scss';
 export const SimpleTable1: React.FC = () => {
   const items = [
     {
-      company: 'Alfreds Futterkiste',
-      contact: 'Maria Anders',
-      country: 'Germany',
-    },
-    {
       company: 'Centro comercial Moctezuma',
       contact: 'Francisco Chang',
       country: 'Mexico',
@@ -64,6 +59,11 @@ export const SimpleTable1: React.FC = () => {
       company: 'Peugeot',
       contact: 'Francis Gaumont',
       country: 'France',
+    },
+    {
+      company: 'Alfreds Futterkiste',
+      contact: 'Maria Anders',
+      country: 'Germany',
     },
   ];
 

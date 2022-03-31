@@ -69,8 +69,6 @@ export const Table: React.FC<TableProps> = ({
     setCheckedState(updatedList);
   };
 
-  console.log(checkedState);
-
   const checkboxIsChecked = (index) => {
     if (checkedState[index]) {
       return 'tk-table-checkbox-isChecked';
@@ -187,7 +185,7 @@ export const Table: React.FC<TableProps> = ({
           <tr>
             {showCheckbox && (
               <th className="tk-table-checkbox">
-                <Checkbox disabled />{' '}
+                <Checkbox name="checkbox-disabled" value="none" disabled />{' '}
               </th>
             )}
 
@@ -210,13 +208,14 @@ export const Table: React.FC<TableProps> = ({
               {showCheckbox && (
                 <td>
                   <Checkbox
+                    name="checkbox-row"
                     status={
                       checkedState[startIndexPerPage + index]
                         ? SelectionStatus.CHECKED
                         : SelectionStatus.UNCHECKED
                     }
                     onChange={(e) => handleCheckboxChange(e)}
-                    value={startIndexPerPage + index}
+                    value={(startIndexPerPage + index).toString()}
                   />
                 </td>
               )}
@@ -234,4 +233,10 @@ export const Table: React.FC<TableProps> = ({
   );
 };
 
+Table.defaultProps = {
+  showCheckbox: true,
+  rowsPerPage: 2,
+  showSorting: true,
+  showPagination: true,
+};
 export default Table;
