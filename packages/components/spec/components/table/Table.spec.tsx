@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import Table from '../../../src/components/table/Table';
+import { Icon } from '../../../src/components';
 
 describe('Table Component', () => {
   const items = [
@@ -145,24 +146,24 @@ describe('Table Component', () => {
       null
     );
     const nodeValueRight = right.singleNodeValue;
-    const rowOne = document.evaluate(
+    const FirstRow = document.evaluate(
       '//table[@class="tk-table"]/tbody//tr[1]',
       document,
       null,
       XPathResult.FIRST_ORDERED_NODE_TYPE,
       null
     );
-    const nodeValueRowOne = rowOne.singleNodeValue;
+    const nodeValueFirstRow = FirstRow.singleNodeValue;
 
     expect(nodeValueRight).toBeInTheDocument();
     expect(nodeValueRight).toContainHTML('style="cursor: pointer;"');
-    expect(nodeValueRowOne).not.toHaveTextContent('Peugeot');
+    expect(nodeValueFirstRow).not.toHaveTextContent('Peugeot');
     fireEvent.click(nodeValueRight);
     expect(getByText('Page 2 of 3')).toBeInTheDocument();
     expect(nodeValueChevronRight).toBeInTheDocument();
     fireEvent.click(nodeValueChevronRight);
     expect(nodeValueRight).not.toContainHTML('style="cursor: pointer;"');
-    expect(nodeValueRowOne).toHaveTextContent('Peugeot');
+    expect(nodeValueFirstRow).toHaveTextContent('Peugeot');
     expect(getByText('Page 3 of 3')).toBeInTheDocument();
     fireEvent.click(nodeValueChevronRight);
     expect(getByText('Page 3 of 3')).toBeInTheDocument();
@@ -206,14 +207,14 @@ describe('Table Component', () => {
     );
     const nodeValueRight = right.singleNodeValue;
 
-    const rowOne = document.evaluate(
+    const FirstRow = document.evaluate(
       '//table[@class="tk-table"]/tbody//tr',
       document,
       null,
       XPathResult.FIRST_ORDERED_NODE_TYPE,
       null
     );
-    const nodeValueRowOne = rowOne.singleNodeValue;
+    const nodeValueFirstRow = FirstRow.singleNodeValue;
 
     expect(nodeValueChevronLeft).toBeInTheDocument();
     expect(nodeValueLeft).toBeInTheDocument();
@@ -223,17 +224,19 @@ describe('Table Component', () => {
     expect(getByText('Page 2 of 3')).toBeInTheDocument();
     expect(nodeValueLeft).toContainHTML('style="cursor: pointer;"');
     expect(nodeValueChevronLeft).toContainHTML('style="cursor: pointer;"');
-    expect(nodeValueRowOne).not.toHaveTextContent('Centro comercial Moctezuma');
+    expect(nodeValueFirstRow).not.toHaveTextContent(
+      'Centro comercial Moctezuma'
+    );
     fireEvent.click(nodeValueChevronLeft);
     expect(getByText('Page 1 of 3')).toBeInTheDocument();
-    expect(nodeValueRowOne).toHaveTextContent('Centro comercial Moctezuma');
+    expect(nodeValueFirstRow).toHaveTextContent('Centro comercial Moctezuma');
     expect(nodeValueChevronLeft).not.toContainHTML('style="cursor: pointer;"');
     fireEvent.click(nodeValueRight);
     expect(getByText('Page 2 of 3')).toBeInTheDocument();
     fireEvent.click(nodeValueLeft);
     expect(getByText('Page 1 of 3')).toBeInTheDocument();
     expect(nodeValueLeft).not.toContainHTML('style="cursor: pointer;"');
-    expect(nodeValueRowOne).toHaveTextContent('Centro comercial Moctezuma');
+    expect(nodeValueFirstRow).toHaveTextContent('Centro comercial Moctezuma');
   });
 
   it('should sort when icon is clicked', () => {
@@ -257,18 +260,18 @@ describe('Table Component', () => {
       null
     );
     const nodeValueDropdown = selectDropdown.singleNodeValue;
-    const rowOne = document.evaluate(
+    const FirstRow = document.evaluate(
       '//table[@class="tk-table"]/tbody//tr[1]',
       document,
       null,
       XPathResult.ANY_UNORDERED_NODE_TYPE,
       null
     );
-    const nodeValueRowOne = rowOne.singleNodeValue;
+    const nodeValueFirstRow = FirstRow.singleNodeValue;
 
-    expect(nodeValueRowOne).not.toHaveTextContent('Alfreds Futterkiste');
+    expect(nodeValueFirstRow).not.toHaveTextContent('Alfreds Futterkiste');
     fireEvent.click(nodeValueDropdown);
-    expect(nodeValueRowOne).toHaveTextContent('Alfreds Futterkiste');
+    expect(nodeValueFirstRow).toHaveTextContent('Alfreds Futterkiste');
 
     //sort DSC
     const selectDropup = document.evaluate(
@@ -282,7 +285,7 @@ describe('Table Component', () => {
 
     expect(nodeValueDropup).not.toHaveTextContent('Winecellars');
     fireEvent.click(nodeValueDropup);
-    expect(nodeValueRowOne).toHaveTextContent('Winecellars');
+    expect(nodeValueFirstRow).toHaveTextContent('Winecellars');
   });
 
   it('should not render optionnal props Sort', () => {
@@ -382,5 +385,33 @@ describe('Table Component', () => {
 
     const selectPagination = document.querySelector('.tk-table-pagination');
     expect(selectPagination).not.toBeInTheDocument();
+  });
+
+  it('should render optionnal function props onCustomRenderer', () => {
+    const onCustomRenderer = (row, columnItem) => {
+      if (columnItem === 'country') {
+        return <Icon iconName="hashtag" />;
+      } else {
+        return row[columnItem];
+      }
+    };
+    render(
+      <Table
+        items={items}
+        header={header}
+        onCustomRenderer={onCustomRenderer}
+      ></Table>
+    );
+    const FirstRow = document.evaluate(
+      '//table[@class="tk-table"]/tbody//tr[1]',
+      document,
+      null,
+      XPathResult.ANY_UNORDERED_NODE_TYPE,
+      null
+    );
+    const nodeValueFirstRow = FirstRow.singleNodeValue;
+
+    expect(nodeValueFirstRow).toContainHTML('Centro comercial Moctezuma');
+    expect(nodeValueFirstRow).toContainHTML('icon-hashtag');
   });
 });
