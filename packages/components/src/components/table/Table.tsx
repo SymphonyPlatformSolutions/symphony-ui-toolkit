@@ -9,6 +9,10 @@ export type TableProps = {
   showSorting?: boolean;
   showPagination?: boolean;
   showCheckbox?: boolean;
+  onCustomRenderer?: (
+    row: { key: string },
+    columnItem: string
+  ) => JSX.Element | string;
 };
 
 export const Table: React.FC<TableProps> = ({
@@ -18,6 +22,7 @@ export const Table: React.FC<TableProps> = ({
   rowsPerPage,
   showSorting,
   showPagination,
+  onCustomRenderer,
 }: TableProps) => {
   const [data, setData] = React.useState(items);
   const [currentPage, setCurrentPage] = React.useState(1);
@@ -170,6 +175,14 @@ export const Table: React.FC<TableProps> = ({
     );
   };
 
+  const renderFunction = (row, columnItem) => {
+    if (onCustomRenderer) {
+      return onCustomRenderer(row, columnItem);
+    } else {
+      return row[columnItem];
+    }
+  };
+
   const page = getPage(currentPage, getRowsPerPages(rowNumber), data);
   const totalPages = getTotalPages(getRowsPerPages(rowNumber), data);
   const nextPage = hasNextPage(currentPage, getRowsPerPages(rowNumber), data);
@@ -200,7 +213,7 @@ export const Table: React.FC<TableProps> = ({
           </tr>
         </thead>
         <tbody>
-          {page.map((column, index) => (
+          {page.map((row, index) => (
             <tr
               key={index}
               className={checkboxIsChecked(startIndexPerPage + index)}
@@ -221,7 +234,9 @@ export const Table: React.FC<TableProps> = ({
               )}
 
               {header.map((columnItem, index) => {
-                return <td key={index}>{column[columnItem.key]}</td>;
+                return (
+                  <td key={index}>{renderFunction(row, columnItem.key)}</td>
+                );
               })}
             </tr>
           ))}
@@ -239,4 +254,5 @@ Table.defaultProps = {
   showSorting: true,
   showPagination: true,
 };
+
 export default Table;

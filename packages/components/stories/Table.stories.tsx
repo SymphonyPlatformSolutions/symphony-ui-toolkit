@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Table } from '../src/components';
+import { Icon, Table } from '../src/components';
 import '../src/styles';
 import './stories.scss';
 
@@ -81,10 +81,19 @@ export const SimpleTable1: React.FC = () => {
       key: 'country',
     },
   ];
+
   const showCheckbox = true;
   const rowsPerPage = 2;
   const showSorting = true;
   const showPagination = true;
+
+  const onCustomRenderer = (row, columnItem) => {
+    if (columnItem === 'country') {
+      return <Icon iconName="hashtag" />;
+    } else {
+      return row[columnItem];
+    }
+  };
 
   return (
     <Table
@@ -94,6 +103,7 @@ export const SimpleTable1: React.FC = () => {
       rowsPerPage={rowsPerPage}
       showSorting={showSorting}
       showPagination={showPagination}
+      onCustomRenderer={onCustomRenderer}
     />
   );
 };
