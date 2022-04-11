@@ -11,7 +11,7 @@ export type TableProps = {
   showCheckbox?: boolean;
   onCustomRenderer?: (
     row: { key: string },
-    columnItem: string
+    columnDef: string
   ) => JSX.Element | string;
 };
 
@@ -175,14 +175,6 @@ export const Table: React.FC<TableProps> = ({
     );
   };
 
-  const renderFunction = (row, columnItem) => {
-    if (onCustomRenderer) {
-      return onCustomRenderer(row, columnItem);
-    } else {
-      return row[columnItem];
-    }
-  };
-
   const page = getPage(currentPage, getRowsPerPages(rowNumber), data);
   const totalPages = getTotalPages(getRowsPerPages(rowNumber), data);
   const nextPage = hasNextPage(currentPage, getRowsPerPages(rowNumber), data);
@@ -233,9 +225,9 @@ export const Table: React.FC<TableProps> = ({
                 </td>
               )}
 
-              {header.map((columnItem, index) => {
+              {header.map((columnDef, index) => {
                 return (
-                  <td key={index}>{renderFunction(row, columnItem.key)}</td>
+                  <td key={index}>{onCustomRenderer(row, columnDef.key)}</td>
                 );
               })}
             </tr>

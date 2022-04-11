@@ -66,6 +66,13 @@ export const SimpleTable1: React.FC = () => {
       country: 'Germany',
     },
   ];
+  const onCustomRenderer = (row, columnDef) => {
+    if (columnDef === 'country') {
+      return <Icon iconName="hashtag" />;
+    } else {
+      return row[columnDef];
+    }
+  };
 
   const header = [
     {
@@ -86,14 +93,6 @@ export const SimpleTable1: React.FC = () => {
   const rowsPerPage = 2;
   const showSorting = true;
   const showPagination = true;
-
-  const onCustomRenderer = (row, columnItem) => {
-    if (columnItem === 'country') {
-      return <Icon iconName="hashtag" />;
-    } else {
-      return row[columnItem];
-    }
-  };
 
   return (
     <Table
