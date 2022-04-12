@@ -32,6 +32,7 @@ export const Table: React.FC<TableProps> = ({
   const [checkedState, setCheckedState] = React.useState(
     new Array(totalEntries).fill(false)
   );
+  const [checkedGlobalState, setCheckedGlobalState] = React.useState(false);
   const [headingKey, setHeadingKey] = React.useState({
     company: true,
     contact: true,
@@ -72,11 +73,34 @@ export const Table: React.FC<TableProps> = ({
     const updatedList = [...checkedState];
     updatedList[e.target.value] = e.target.checked;
     setCheckedState(updatedList);
+    checkboxRow(updatedList);
   };
 
-  const checkboxIsChecked = (index) => {
+  const handleCheckboxHeaderChange = (e) => {
+    setCheckedGlobalState(e.target.checked);
+  };
+
+  const checkboxRowIsChecked = (index) => {
     if (checkedState[index]) {
       return 'tk-table-checkbox-isChecked';
+    }
+  };
+
+  const checkboxHeader = () => {
+    if (checkedGlobalState) {
+      setCheckedState(new Array(totalEntries).fill(false));
+    } else {
+      setCheckedState(new Array(totalEntries).fill(true));
+    }
+  };
+
+  const checkboxRow = (updatedList) => {
+    const found = updatedList.find((value) => value === true);
+
+    if (found) {
+      setCheckedGlobalState(true);
+    } else {
+      setCheckedGlobalState(false);
     }
   };
 
@@ -190,7 +214,17 @@ export const Table: React.FC<TableProps> = ({
           <tr>
             {showCheckbox && (
               <th className="tk-table-checkbox">
-                <Checkbox name="checkbox-disabled" value="none" disabled />{' '}
+                <Checkbox
+                  name="checkbox-disabled"
+                  status={
+                    checkedGlobalState
+                      ? SelectionStatus.CHECKED
+                      : SelectionStatus.UNCHECKED
+                  }
+                  onChange={(e) => handleCheckboxHeaderChange(e)}
+                  onClick={() => checkboxHeader()}
+                  value={'0'}
+                />{' '}
               </th>
             )}
 
@@ -208,7 +242,7 @@ export const Table: React.FC<TableProps> = ({
           {page.map((row, index) => (
             <tr
               key={index}
-              className={checkboxIsChecked(startIndexPerPage + index)}
+              className={checkboxRowIsChecked(startIndexPerPage + index)}
             >
               {showCheckbox && (
                 <td>
