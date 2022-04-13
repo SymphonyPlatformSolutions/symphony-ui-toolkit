@@ -215,7 +215,7 @@ export const Table: React.FC<TableProps> = ({
             {showCheckbox && (
               <th className="tk-table-checkbox">
                 <Checkbox
-                  name="checkbox-disabled"
+                  name="checkbox-th"
                   status={
                     checkedGlobalState
                       ? SelectionStatus.CHECKED
@@ -260,9 +260,13 @@ export const Table: React.FC<TableProps> = ({
               )}
 
               {header.map((columnDef, index) => {
-                return (
-                  <td key={index}>{onCustomRenderer(row, columnDef.key)}</td>
-                );
+                if (onCustomRenderer) {
+                  return (
+                    <td key={index}>{onCustomRenderer(row, columnDef.key)}</td>
+                  );
+                } else {
+                  return <td key={index}>{row[columnDef.key]}</td>;
+                }
               })}
             </tr>
           ))}

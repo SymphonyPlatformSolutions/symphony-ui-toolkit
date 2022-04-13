@@ -146,14 +146,14 @@ describe('Table Component', () => {
       null
     );
     const nodeValueRight = right.singleNodeValue;
-    const FirstRow = document.evaluate(
+    const firstRow = document.evaluate(
       '//table[@class="tk-table"]/tbody//tr[1]',
       document,
       null,
       XPathResult.FIRST_ORDERED_NODE_TYPE,
       null
     );
-    const nodeValueFirstRow = FirstRow.singleNodeValue;
+    const nodeValueFirstRow = firstRow.singleNodeValue;
 
     expect(nodeValueRight).toBeInTheDocument();
     expect(nodeValueRight).toContainHTML('style="cursor: pointer;"');
@@ -207,14 +207,14 @@ describe('Table Component', () => {
     );
     const nodeValueRight = right.singleNodeValue;
 
-    const FirstRow = document.evaluate(
+    const firstRow = document.evaluate(
       '//table[@class="tk-table"]/tbody//tr',
       document,
       null,
       XPathResult.FIRST_ORDERED_NODE_TYPE,
       null
     );
-    const nodeValueFirstRow = FirstRow.singleNodeValue;
+    const nodeValueFirstRow = firstRow.singleNodeValue;
 
     expect(nodeValueChevronLeft).toBeInTheDocument();
     expect(nodeValueLeft).toBeInTheDocument();
@@ -260,14 +260,14 @@ describe('Table Component', () => {
       null
     );
     const nodeValueDropdown = selectDropdown.singleNodeValue;
-    const FirstRow = document.evaluate(
+    const firstRow = document.evaluate(
       '//table[@class="tk-table"]/tbody//tr[1]',
       document,
       null,
       XPathResult.ANY_UNORDERED_NODE_TYPE,
       null
     );
-    const nodeValueFirstRow = FirstRow.singleNodeValue;
+    const nodeValueFirstRow = firstRow.singleNodeValue;
 
     expect(nodeValueFirstRow).not.toHaveTextContent('Alfreds Futterkiste');
     fireEvent.click(nodeValueDropdown);
@@ -386,7 +386,6 @@ describe('Table Component', () => {
     const selectPagination = document.querySelector('.tk-table-pagination');
     expect(selectPagination).not.toBeInTheDocument();
   });
-
   it('should render optionnal function props onCustomRenderer', () => {
     const onCustomRenderer = (row, columnItem) => {
       if (columnItem === 'country') {
@@ -402,16 +401,43 @@ describe('Table Component', () => {
         onCustomRenderer={onCustomRenderer}
       ></Table>
     );
-    const FirstRow = document.evaluate(
+    const firstRow = document.evaluate(
       '//table[@class="tk-table"]/tbody//tr[1]',
       document,
       null,
       XPathResult.ANY_UNORDERED_NODE_TYPE,
       null
     );
-    const nodeValueFirstRow = FirstRow.singleNodeValue;
+    const nodeValueFirstRow = firstRow.singleNodeValue;
 
     expect(nodeValueFirstRow).toContainHTML('Centro comercial Moctezuma');
     expect(nodeValueFirstRow).toContainHTML('icon-hashtag');
+  });
+  it('should switch ischecked / unchecked', () => {
+    const showCheckbox = true;
+    render(
+      <Table items={items} header={header} showCheckbox={showCheckbox}></Table>
+    );
+    const nodeValueSelectTh = document.querySelector('thead th');
+    const nodeValueBoxInputTh = document.querySelector(
+      'thead input[type="checkbox"]'
+    );
+    const nodeValueSelectTr = document.querySelector('tbody tr');
+
+    const nodeValueBoxInputTr = document.querySelector(
+      'tbody input[type="checkbox"]'
+    );
+
+    expect(nodeValueSelectTh).toContainHTML('data-checked="false"');
+    fireEvent.click(nodeValueBoxInputTh);
+    expect(nodeValueSelectTh).toContainHTML('data-checked="true"');
+    fireEvent.click(nodeValueBoxInputTh);
+    expect(nodeValueSelectTh).toContainHTML('data-checked="false"');
+    fireEvent.click(nodeValueBoxInputTr);
+    expect(nodeValueSelectTr).toContainHTML('data-checked="true"');
+    expect(nodeValueSelectTh).toContainHTML('data-checked="true"');
+    fireEvent.click(nodeValueBoxInputTr);
+    expect(nodeValueSelectTr).toContainHTML('data-checked="false"');
+    expect(nodeValueSelectTh).toContainHTML('data-checked="false"');
   });
 });

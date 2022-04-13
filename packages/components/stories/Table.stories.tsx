@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Icon, Table } from '../src/components';
+import { Table } from '../src/components';
 import '../src/styles';
 import './stories.scss';
 
@@ -66,9 +66,10 @@ export const SimpleTable1: React.FC = () => {
       country: 'Germany',
     },
   ];
+
   const onCustomRenderer = (row, columnDef) => {
     if (columnDef === 'country') {
-      return <Icon iconName="hashtag" />;
+      return row.country;
     } else {
       return row[columnDef];
     }
