@@ -1,0 +1,33 @@
+.tk-pagination-container {
+  border-collapse: collapse;
+  width: 100%;
+  font-family: Segoe UI;
+}
+.tk-pagination-button {
+  margin: 0 5px;
+  color: getColor($graphite, '50');
+}
+
+.tk-pagination-button-disabled {
+  margin: 0 5px;
+  cursor: default;
+  pointer-events: all;
+  color: getColor($graphite, '30');
+}
+.tk-pagination-dropdown {
+  width: 65px;
+  margin: 0 10px;
+}
+.tk-pagination {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: getColor($graphite, '80');
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0em;
+  text-align: right;
+}
