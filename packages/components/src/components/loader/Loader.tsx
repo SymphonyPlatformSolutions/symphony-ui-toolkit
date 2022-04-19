@@ -9,12 +9,12 @@ type LoaderProps = {
   /** Constantly animates, use when loading progress is unknown */
   type?: 'spinner';
   /** The variant to use */
-  variant?: 'primary' | 'attention' | 'warning' | 'ok';
+  variant?: 'default' | 'primary' | 'attention' | 'warning' | 'ok';
 };
 
 const Loader: React.FC<LoaderProps> = ({
   className,
-  variant,
+  variant = 'default',
   type,
   ...rest
 }: LoaderProps) => {
@@ -39,6 +39,6 @@ Loader.defaultProps = {
 Loader.propTypes = {
   className: PropTypes.string,
   type: PropTypes.oneOf(['spinner']),
-  variant: PropTypes.oneOf(['primary', 'attention', 'warning', 'ok']),
+  variant: PropTypes.oneOf(['default', 'primary', 'attention', 'warning', 'ok']),
 }
 export default Loader;

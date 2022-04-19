@@ -195,4 +195,7 @@
 
   // Divider
   --tk-divider-color: #{getColor($graphite, '70')};
+
+  // Loader
+  --tk-loader-default: #{getColor($graphite, '10')};
 }
