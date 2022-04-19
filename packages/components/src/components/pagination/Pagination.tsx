@@ -3,7 +3,7 @@ import { Icon, Dropdown } from '..';
 
 export type PaginationProps = {
   items: { [key: string]: string }[];
-  rowsPerPage: number;
+  rowsPerPage: { [key: string]: number | string };
   showDropDown?: boolean;
 };
 
@@ -13,10 +13,7 @@ export const Pagination: React.FC<PaginationProps> = ({
   showDropDown,
 }: PaginationProps) => {
   const [currentPage, setCurrentPage] = React.useState(1);
-  const [rowNumber, setRowNumber] = React.useState({
-    label: 'default',
-    value: rowsPerPage,
-  });
+  const [rowNumber, setRowNumber] = React.useState(rowsPerPage);
 
   const handleRowsPerPageChange = (e) => {
     setCurrentPage(1);
@@ -76,7 +73,7 @@ export const Pagination: React.FC<PaginationProps> = ({
               className="tk-pagination-dropdown"
               size="small"
               onChange={handleRowsPerPageChange}
-              placeHolder={rowsPerPage.toString()}
+              placeHolder={rowNumber.value.toString()}
               options={[
                 {
                   label: '5',
@@ -128,7 +125,7 @@ export const Pagination: React.FC<PaginationProps> = ({
 
 Pagination.defaultProps = {
   showDropDown: false,
-  rowsPerPage: 1,
+  rowsPerPage: { label: 'default', value: 1 },
 };
 
 export default Pagination;

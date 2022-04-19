@@ -26,8 +26,8 @@ export const simplePagination: React.FC = () => {
         'Quisque ultrices viverra porta. Pellentesque nec felis sollicitudin, semper ipsum molestie, pellentesque nunc. Quisque non ligula nisl. Integer interdum, felis et varius feugiat, sem lacus porta mauris, eu dignissim nunc ex et tellus. Phasellus sit amet leo sit amet tortor facilisis finibus. Mauris convallis dui ut nisl luctus, cursus semper tortor mattis. Nam non tortor a leo malesuada porta eget sit amet arcu. Fusce facilisis nibh nec mauris gravida, et convallis mauris porta. Proin et accumsan arcu. Ut euismod quam a mattis egestas. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aliquam fringilla tempus risus non rhoncus. Nullam ut interdum lectus. Donec cursus tellus sem, eget congue sem commodo at. Donec suscipit turpis quis laoreet egestas.',
     },
   ];
-  const rowsPerPage = 1;
-  const showDropDown = false;
+  const rowsPerPage = { label: 'default', value: 1 };
+  const showDropDown = true;
 
   return (
     <Pagination

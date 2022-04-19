@@ -27,12 +27,15 @@ const items = [
 
 describe('Table Component', () => {
   it('render with required props ', () => {
-    const { getByText } = render(<Pagination items={items}></Pagination>);
+    const rowsPerPage = { label: 'default', value: 1 };
+    const { getByText } = render(
+      <Pagination items={items} rowsPerPage={rowsPerPage}></Pagination>
+    );
     expect(getByText(items[0].text)).toBeInTheDocument();
   });
 
   it('should render number of rows per page', () => {
-    const rowsPerPage = 1;
+    const rowsPerPage = { label: 'default', value: 1 };
     const { getByText } = render(
       <Pagination items={items} rowsPerPage={rowsPerPage}></Pagination>
     );
@@ -42,9 +45,14 @@ describe('Table Component', () => {
   });
 
   it('should render rowsPerPage selected', () => {
+    const rowsPerPage = { label: 'default', value: 1 };
     const showDropDown = true;
     const { getByText, queryByText } = render(
-      <Pagination items={items} showDropDown={showDropDown}></Pagination>
+      <Pagination
+        items={items}
+        showDropDown={showDropDown}
+        rowsPerPage={rowsPerPage}
+      ></Pagination>
     );
     const dropdown = document.evaluate(
       '//div[@class="tk-pagination"]//div/i',
@@ -64,7 +72,7 @@ describe('Table Component', () => {
   });
 
   it('should go to the next page when the right chevron is clicked', () => {
-    const rowsPerPage = 1;
+    const rowsPerPage = { label: 'default', value: 1 };
 
     const { getByText } = render(
       <Pagination items={items} rowsPerPage={rowsPerPage}></Pagination>
@@ -111,7 +119,7 @@ describe('Table Component', () => {
   });
 
   it('should go to the first page when left chevron is clicked', () => {
-    const rowsPerPage = 1;
+    const rowsPerPage = { label: 'default', value: 1 };
 
     const { getByText } = render(
       <Pagination items={items} rowsPerPage={rowsPerPage}></Pagination>
