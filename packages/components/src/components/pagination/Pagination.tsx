@@ -3,7 +3,7 @@ import { Icon, Dropdown } from '..';
 
 export type PaginationProps = {
   items: { [key: string]: string }[];
-  rowsPerPage?: number;
+  rowsPerPage: number;
   showDropDown?: boolean;
 };
 
@@ -45,8 +45,15 @@ export const Pagination: React.FC<PaginationProps> = ({
     return nextPageIndex < array.length;
   };
 
-  const renderPagination = () => {
-    return (
+  const page = getPage(currentPage, getRowsPerPages(rowNumber), data);
+  const totalPages = getTotalPages(getRowsPerPages(rowNumber), data);
+  const nextPage = hasNextPage(currentPage, getRowsPerPages(rowNumber), data);
+
+  return (
+    <div className="tk-pagination-container">
+      {page.map((value, index) => {
+        return <div key={index}>{value.text}</div>;
+      })}
       <div className="tk-pagination">
         <Icon
           className={
@@ -121,19 +128,6 @@ export const Pagination: React.FC<PaginationProps> = ({
           onClick={() => setCurrentPage(totalPages)}
         />
       </div>
-    );
-  };
-
-  const page = getPage(currentPage, getRowsPerPages(rowNumber), data);
-  const totalPages = getTotalPages(getRowsPerPages(rowNumber), data);
-  const nextPage = hasNextPage(currentPage, getRowsPerPages(rowNumber), data);
-
-  return (
-    <div className="tk-pagination-container">
-      {page.map((value, index) => {
-        return <div key={index}>{value.text}</div>;
-      })}
-      {renderPagination()}
     </div>
   );
 };
