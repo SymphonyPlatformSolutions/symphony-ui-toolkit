@@ -25,7 +25,7 @@ const items = [
   },
 ];
 
-describe('Table Component', () => {
+describe('Pagination Component', () => {
   it('render with required props ', () => {
     const rowsPerPage = { label: 'default', value: 1 };
     const { getByText } = render(
@@ -41,7 +41,7 @@ describe('Table Component', () => {
     );
 
     expect(getByText(items[0].text)).toBeInTheDocument();
-    expect(1).toEqual(rowsPerPage);
+    expect(rowsPerPage.value).toEqual(1);
   });
 
   it('should render rowsPerPage selected', () => {
