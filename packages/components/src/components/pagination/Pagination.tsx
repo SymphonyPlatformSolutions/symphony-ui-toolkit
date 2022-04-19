@@ -12,21 +12,15 @@ export const Pagination: React.FC<PaginationProps> = ({
   rowsPerPage,
   showDropDown,
 }: PaginationProps) => {
-  const [data, setData] = React.useState(items);
   const [currentPage, setCurrentPage] = React.useState(1);
-  const [rowNumber, setRowNumber] = React.useState(rowsPerPage);
+  const [rowNumber, setRowNumber] = React.useState({
+    label: 'default',
+    value: rowsPerPage,
+  });
 
   const handleRowsPerPageChange = (e) => {
     setCurrentPage(1);
     setRowNumber(e.target.value);
-  };
-
-  const getRowsPerPages = (row) => {
-    if (row.value) {
-      return row.value;
-    } else {
-      return rowsPerPage;
-    }
   };
 
   const getPage = (currentIndex, pageSize, array) => {
@@ -45,9 +39,9 @@ export const Pagination: React.FC<PaginationProps> = ({
     return nextPageIndex < array.length;
   };
 
-  const page = getPage(currentPage, getRowsPerPages(rowNumber), data);
-  const totalPages = getTotalPages(getRowsPerPages(rowNumber), data);
-  const nextPage = hasNextPage(currentPage, getRowsPerPages(rowNumber), data);
+  const page = getPage(currentPage, rowNumber.value, items);
+  const totalPages = getTotalPages(rowNumber.value, items);
+  const nextPage = hasNextPage(currentPage, rowNumber.value, items);
 
   return (
     <div className="tk-pagination-container">

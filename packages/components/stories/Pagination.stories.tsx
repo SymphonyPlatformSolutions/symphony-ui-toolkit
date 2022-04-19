@@ -17,6 +17,14 @@ export const simplePagination: React.FC = () => {
       text:
         'Duis varius sed erat sed lobortis. Mauris viverra vehicula ex in elementum. Vivamus vehicula porta diam, nec luctus sem consequat sit amet. Sed fringilla in lectus in congue. Donec accumsan eu lacus nec imperdiet. Ut mollis felis et tempor aliquet. Etiam ullamcorper ut tortor eget ultricies. Etiam a nisl eget odio pretium ullamcorper id eget dui. Nam condimentum euismod mauris a mattis. Quisque at augue sed risus bibendum hendrerit. Morbi ac porta massa. Quisque at ullamcorper nulla. Maecenas posuere urna et libero rutrum hendrerit at ornare elit. Ut laoreet arcu eu massa mattis ullamcorper. Fusce eu commodo justo. Nulla eget tortor id mi finibus egestas.',
     },
+    {
+      text:
+        'Aenean dictum semper quam, eget feugiat velit posuere id. Integer porttitor mollis massa, blandit sollicitudin nisi imperdiet convallis. Integer cursus sem id mattis rutrum. Mauris ac viverra nisi. Cras magna felis, tristique vitae dui sit amet, euismod ullamcorper urna. Vestibulum dapibus feugiat ligula, et euismod quam posuere a. Suspendisse potenti. Nulla scelerisque commodo diam, at dignissim nunc commodo quis. Praesent egestas rutrum diam in luctus. Phasellus eget cursus nisl. Nulla at volutpat neque. Integer eleifend, ipsum nec condimentum tincidunt, ligula libero mollis purus, tristique blandit dui sem a nulla. Nunc tincidunt sapien diam, vel sagittis ipsum fermentum ut.',
+    },
+    {
+      text:
+        'Quisque ultrices viverra porta. Pellentesque nec felis sollicitudin, semper ipsum molestie, pellentesque nunc. Quisque non ligula nisl. Integer interdum, felis et varius feugiat, sem lacus porta mauris, eu dignissim nunc ex et tellus. Phasellus sit amet leo sit amet tortor facilisis finibus. Mauris convallis dui ut nisl luctus, cursus semper tortor mattis. Nam non tortor a leo malesuada porta eget sit amet arcu. Fusce facilisis nibh nec mauris gravida, et convallis mauris porta. Proin et accumsan arcu. Ut euismod quam a mattis egestas. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aliquam fringilla tempus risus non rhoncus. Nullam ut interdum lectus. Donec cursus tellus sem, eget congue sem commodo at. Donec suscipit turpis quis laoreet egestas.',
+    },
   ];
   const rowsPerPage = 1;
   const showDropDown = false;
