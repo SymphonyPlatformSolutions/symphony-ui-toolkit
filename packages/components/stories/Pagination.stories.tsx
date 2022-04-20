@@ -27,7 +27,7 @@ export const simplePagination: React.FC = () => {
     },
   ];
   const rowsPerPage = { label: 'default', value: 1 };
-  const showDropDown = true;
+  const showDropDown = false;
 
   return (
     <Pagination
