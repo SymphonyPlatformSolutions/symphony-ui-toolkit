@@ -30,5 +30,39 @@
   &--primary {
     color: $scolor-electricity !important;
   }
+}
 
+.tk-loader-textPos--right {
+  p {
+    margin: 0 8px;
+  }
+}
+.tk-loader-textPos--bottom {
+  p {
+    margin: 8px 0;
+  }
+}
+.tk-loader-container {
+  display: flex;
+}
+.tk-loader-textPos {
+  &--bottom {
+    display: inline-block;
+    text-align: center;
+  }
+  &--right {
+    display: flex;
+    align-items: center;
+  }
+}
+.tk-loader-text {
+  width: 59px;
+  color: $--tk-main-text-color;
+
+  font-family: 'Segoe UI';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  margin: 0;
 }
