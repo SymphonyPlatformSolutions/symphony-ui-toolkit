@@ -2,12 +2,12 @@ export default {
   title: 'Components/Spinner',
 };
 
-export const Spinner = () => 
+export const Spinner = () =>
 `
 <div class="tk-ml-2">
 <div class="tk-ml-2">
   <h3>Default</h3>
-  <i class="tk-loader-spinner"></i>
+  <i class="tk-loader-spinner tk-loader--default"></i>
   <h3 class="tk-mt-5">Variants</h3>
 
   <i class="tk-loader-spinner tk-loader--primary"></i>

@@ -428,3 +428,6 @@ $--tk-timeline-hours-color: var(
 
 /** ======== divider ======== */
 $--tk-divider-color: var(--tk-divider-color, getColor($graphite, '20'));
+
+/** ======== Loader ========= */
+$--tk-loader-default: var(--tk-loader-default, $scolor-graphite);
