@@ -31,4 +31,15 @@
     color: $scolor-electricity !important;
   }
 
+  &--small {
+    font-size: 12px;
+  }
+
+  &--medium {
+    font-size: 16px;
+  }
+
+  &--large {
+    font-size: 32px;
+  }
 }
