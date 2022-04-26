@@ -12,6 +12,7 @@ type LoaderProps = {
   variant?: 'primary' | 'attention' | 'warning' | 'ok';
   loadingText?: string;
   loadingTextPos?: 'bottom' | 'right';
+  size?: 'small' | 'medium' | 'large';
 };
 
 const Loader: React.FC<LoaderProps> = ({
@@ -20,14 +21,20 @@ const Loader: React.FC<LoaderProps> = ({
   type,
   loadingText,
   loadingTextPos,
+  size,
   ...rest
 }: LoaderProps) => {
-  const classes = classNames(className, `${prefix}-${type}`, {
-    [`${prefix}--${variant}`]: variant,
-  });
+  const classes = classNames(
+    className,
+    `${prefix}-${type}`,
+    { [`${prefix}--${variant}`]: variant },
+    { [`${prefix}--${size}`]: size }
+  );
+
   const textClasses = classNames(className, {
     [`${prefix}-textPos--${loadingTextPos}`]: loadingTextPos,
   });
+
   return loadingText ? (
     <div className={textClasses}>
       <i className={classes} {...rest}></i>
@@ -41,12 +48,14 @@ const Loader: React.FC<LoaderProps> = ({
 Loader.defaultProps = {
   type: 'spinner',
   loadingTextPos: 'bottom',
+  size: 'medium',
 };
 
 Loader.propTypes = {
   className: PropTypes.string,
   type: PropTypes.oneOf(['spinner']),
   variant: PropTypes.oneOf(['primary', 'attention', 'warning', 'ok']),
+  size: PropTypes.oneOf(['small', 'medium', 'large']),
   loadingText: PropTypes.string,
   loadingTextPos: PropTypes.oneOf(['bottom', 'right']),
 };

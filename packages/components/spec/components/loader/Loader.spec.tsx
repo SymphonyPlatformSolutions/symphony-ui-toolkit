@@ -20,7 +20,12 @@ describe('Loader Component', () => {
 
     it('should render extra props to the loader component', () => {
       render(
-        <Loader variant="ok" loadingText="loading..." loadingTextPos="right">
+        <Loader
+          variant="ok"
+          loadingText="loading..."
+          loadingTextPos="right"
+          size="medium"
+        >
           Close me
         </Loader>
       );
@@ -47,6 +52,7 @@ describe('Loader Component', () => {
       expect(nodeValueText).toContainHTML(
         '<p class="tk-loader-text">loading...</p>'
       );
+      expect(nodeValue).toContainHTML('tk-loader--medium');
     });
   });
 });
