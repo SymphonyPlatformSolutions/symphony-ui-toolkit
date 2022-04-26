@@ -17,6 +17,12 @@ export const Spinner: React.FC = () => (
       <Loader variant="ok" className="tk-ml-2h" />
     </div>
     <div>
+      <h2 className="tk-mt-4h">Sizes</h2>
+      <Loader variant="primary" className="tk-ml-h" size="small" />
+      <Loader variant="primary" className="tk-ml-2h" size="medium" />
+      <Loader variant="primary" className="tk-ml-2h" size="large" />
+    </div>
+    <div>
       <h2 className="tk-mt-4h">Spinner with text</h2>
       <div className="tk-loader-container">
         <Loader
