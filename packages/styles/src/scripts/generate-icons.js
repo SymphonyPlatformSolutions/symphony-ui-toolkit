@@ -2,16 +2,20 @@ const fs = require('fs');
 const { execSync } = require('child_process');
 const { generateFonts, FontAssetType, OtherAssetType } = require('fantasticon');
 
-const DIST_FONTS = 'dist/fonts/';
-const SRC_ICONS = 'src/icons/';
-const GENERATED_DIR = `${SRC_ICONS}/generated/`;
-const STORIES_DIR = `stories/`
+const isRunningOnWindows = process.platform === 'win32'; // even on 64 bit OS
+const slash = isRunningOnWindows ? '\\' : '/';
+const mkdir = `mkdir ${isRunningOnWindows ?  '' :'-p '}`
+
+const DIST_FONTS = `dist${slash}fonts${slash}`;
+const SRC_ICONS = `src${slash}icons${slash}`;
+const GENERATED_DIR = `${SRC_ICONS}${slash}generated${slash}`;
+const STORIES_DIR = `stories${slash}`
 
 const createDirectories = () => {
   execSync(`rm -rf ${DIST_FONTS}`);
   execSync(`rm -rf ${GENERATED_DIR}`);
-  execSync(`mkdir -p ${DIST_FONTS}`);
-  execSync(`mkdir -p ${GENERATED_DIR}`);
+  execSync(`${mkdir}${DIST_FONTS}`);
+  execSync(`${mkdir}${GENERATED_DIR}`);
 }
 
 const getAliases = () => (JSON.parse(fs.readFileSync(`${SRC_ICONS}tk-icons.aliases.json`)));
@@ -42,7 +46,6 @@ const getCodePoints = () => {
   return codepoints;
 }
 
-
 const generateTKFonts = async () => {
   createDirectories();
 
@@ -56,14 +59,14 @@ const generateTKFonts = async () => {
     fontTypes: [FontAssetType.EOT, FontAssetType.SVG, FontAssetType.TTF, FontAssetType.WOFF, FontAssetType.WOFF2],
     assetTypes: [OtherAssetType.HTML, OtherAssetType.JSON, OtherAssetType.SCSS, OtherAssetType.TS],
     templates:{
-      scss: `${SRC_ICONS}templates/tk-icons.scss.hbs`,
-      html: `${SRC_ICONS}templates/tk-icons.stories.js.hbs`,
+      scss: `${SRC_ICONS}templates${slash}tk-icons.scss.hbs`,
+      html: `${SRC_ICONS}templates${slash}tk-icons.stories.js.hbs`,
     },
     pathOptions: {
       scss: `${GENERATED_DIR}tk-icons-definitions.scss`,
       html: `${STORIES_DIR}icons.stories.js`,               // Generate our Storybook story
       json: `${SRC_ICONS}tk-icons.codepoints.json`,         // Keep the generated CodePoints
-      ts:`${DIST_FONTS}tk-icons.ts`,                         // Generate Icon types
+      ts: `${DIST_FONTS}tk-icons.ts`,                       // Generate Icon types
     },
     getIconId: ({basename}) => (basename), // To fix conflict name with "more-.svg" and "more.svg"
     codepoints,
@@ -79,8 +82,8 @@ const generateIcons = async () => {
 };
 
 const blockSvgProp = (property) => {
-  fs.readdirSync(`${SRC_ICONS}svg/`).forEach(file => {
-    fs.readFile(`${SRC_ICONS}svg/${file}`, 'utf8', (err, svgSrc) => {
+  fs.readdirSync(`${SRC_ICONS}svg${slash}`).forEach(file => {
+    fs.readFile(`${SRC_ICONS}svg${slash}${file}`, 'utf8', (_err, svgSrc) => {
       try {
         if(svgSrc.includes(property)) {
           throw `File ${file} uses a forbidden property: ${property}.`;
@@ -91,15 +94,15 @@ const blockSvgProp = (property) => {
       }
     });
   });
-  }
+}
 
 const generateIconTypes = () => {
   let aliases = '\n';
   for (const alias in getAliases()) {
-    aliases+=`  | "${alias}"\n`;
+    aliases += `  | "${alias}"\n`;
   }
   
-  fs.readFile(`${DIST_FONTS}tk-icons.ts`, 'utf8', (err, src) => {
+  fs.readFile(`${DIST_FONTS}tk-icons.ts`, 'utf8', (_err, src) => {
     const tkIconsId = src.toString();
     const tkIcons = `export type TkIcon ${tkIconsId.substring(tkIconsId.indexOf("="), tkIconsId.indexOf(";"))}${aliases};`;
     fs.writeFileSync(`${DIST_FONTS}tk-icons.ts`, tkIcons);
