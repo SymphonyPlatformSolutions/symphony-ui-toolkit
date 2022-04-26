@@ -67,16 +67,28 @@ yarn test
 ```
 **Update the test images**  
 
-When the visual testing detects new components or changes on the existing one’s it will fail the tests. In order to fix it you will need to:
+When the visual testing detects new components or changes on the existing ones it will fail the tests. In order to fix it you will need to run the `update-test-images.sh` script.
+It accepts as a parameter the URL of the CircleCI's `report.zip` file. 
 
- 1. Download report.zip from the CircleCI build.
- 2. Replace on .creevey/report.
- 3. Execute the Script below, to approve the new images.
-	```bash
-	./updateImages.sh
-	```
+Example:
 
-4. Push into your PR.
+`$ ./update-test-images.sh https://output.circle-artifacts.com/output/job/54d8d83d-315b-46e3-bcc2-34f1a75d1f9f/artifacts/0/.creevey/report/report.zip` 
+
+It will execute the following steps automatically:
+
+ 1. Download `report.zip` from the artefacts provided on the CircleCI build URL
+ 3. Unzip it
+ 2. Replace on .creevey/report
+ 3. Execute the following commands to update the PNGs:
+ ```
+    yarn test --update
+    yarn test --config .creevey/config_condensed.js --update
+    yarn test --config .creevey/config_darkmode.js --update
+    yarn test --config .creevey/config_darkmode_condensed.js --update
+ ```
+ 4. `git add` the updated PNG images to the repository.
+
+All that's left to you is to `git commit` and `git push`.
 
 **NOTE:** The images could be different from local env against CircleCI. In our pipelines, are able to find the report with all images during the execution into report.zip.
 ## 🧩 Theming components

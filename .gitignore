@@ -11,3 +11,4 @@ dist
 .eslintcache
 symphony-uitoolkit-*.tgz
 icons.stories.js
+package-lock.json
