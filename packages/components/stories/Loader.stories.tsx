@@ -5,6 +5,8 @@ const Template = (args) => <Loader {...args} />;
 
 export const Default = Template.bind({});
 const loadingText = 'Loading...';
+const value = '50';
+const progress = 'determinate';
 
 export const Spinner: React.FC = () => (
   <>
@@ -40,6 +42,21 @@ export const Spinner: React.FC = () => (
           />
         </div>
       </div>
+    </div>
+  </>
+);
+
+export const ProgressBar: React.FC = () => (
+  <>
+    <div>
+      <h2 className="tk-mt-4h">Determinate (linear)</h2>
+      <Loader
+        variant="default"
+        className="tk-ml-h"
+        value={value}
+        type="progressbar"
+        progress={progress}
+      />
     </div>
   </>
 );
