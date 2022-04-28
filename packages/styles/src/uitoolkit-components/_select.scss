@@ -230,7 +230,11 @@ body {
     .tk-select__menu {
       margin-top: toRem(6);
       z-index: $z-index-dropdown-menu;
+      .dark & {
+        border: toRem(1) solid getColor($--tk-select-color, menuBorder);
+      }
       @include boxContainer();
+      box-shadow: 0 toRem(2) toRem(4) getColor($--tk-select-color, menuShadow1), 0 toRem(12) toRem(28) getColor($--tk-select-color, menuShadow2); 
       &-list {
         padding: 0;
       }
