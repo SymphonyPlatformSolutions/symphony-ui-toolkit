@@ -1,3 +1,4 @@
 import Loader from './Loader';
+import LoaderBeta from './LoaderBeta';
 
-export default Loader;
+export { Loader as default, LoaderBeta };

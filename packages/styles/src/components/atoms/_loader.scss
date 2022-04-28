@@ -1,3 +1,4 @@
+// Spinner
 .tk-loader-spinner {
   @extend .animate-spin;
   font-family: 'tk-icons';
@@ -33,5 +34,116 @@
 
   &--default {
     color: $--tk-loader-default !important;
+  }
+
+  &--small {
+    font-size: toRem(12);
+  }
+
+  &--medium {
+    font-size: toRem(16);
+  }
+
+  &--large {
+    font-size: toRem(32);
+  }
+}
+
+.tk-loader-textPos--right {
+  p {
+    margin: 0 toRem(8);
+  }
+}
+.tk-loader-textPos--bottom {
+  p {
+    margin: toRem(8) 0;
+  }
+}
+.tk-loader-container {
+  display: flex;
+}
+.tk-loader-textPos {
+  &--bottom {
+    display: inline-block;
+    text-align: center;
+  }
+  &--right {
+    display: flex;
+    align-items: center;
+  }
+}
+.tk-loader-text {
+  width: toRem(59);
+  color: $--tk-main-text-color;
+  font-family: 'Segoe UI';
+  font-style: normal;
+  font-weight: 400;
+  font-size: toRem(14);
+  line-height: toRem(20);
+  margin: 0;
+}
+
+// Progressbar
+
+.tk-loader {
+  &--0 {
+    width: 0%;
+  }
+
+  &--1 {
+    width: 1%;
+  }
+
+  &--25 {
+    width: 25%;
+  }
+
+  &--50 {
+    width: 50%;
+  }
+
+  &--75 {
+    width: 75%;
+  }
+
+  &--100 {
+    width: 100%;
+  }
+}
+
+.tk-loader-progressbar-container {
+  width: 200px;
+  border-radius: toRem(4);
+  background-color: getColor($graphite, '20');
+  overflow: hidden;
+}
+
+.tk-loader-determinate {
+  background-color: getColor($electricity, '50');
+  text-align: center;
+  height: toRem(4);
+  border-radius: toRem(4);
+  margin: 0 !important;
+}
+
+.tk-loader-indeterminate {
+  width: 100%;
+  height: toRem(4);
+  border-radius: toRem(4);
+  background-color: getColor($electricity, '50');
+  animation: indeterminateAnimation 1s infinite linear;
+  transform-origin: 0% 50%;
+  margin: 0 !important;
+}
+
+@keyframes indeterminateAnimation {
+  0% {
+    transform: translateX(0) scaleX(0);
+  }
+  40% {
+    transform: translateX(0) scaleX(0.4);
+  }
+  100% {
+    transform: translateX(100%) scaleX(0.5);
   }
 }

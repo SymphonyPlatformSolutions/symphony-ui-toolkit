@@ -12,7 +12,8 @@ import ExpandableCard from './expandable-card';
 import Icon from './icon';
 import { InputDecorator, TextArea, TextField } from './input';
 import Link from './link';
-import Loader from './loader';
+import Loader, { LoaderBeta } from './loader';
+import Progressbar from './progressbar';
 import {
   Modal,
   ModalBody,
@@ -67,5 +68,7 @@ export {
   TkIcon,
   Typography,
   Loader,
+  LoaderBeta,
+  Progressbar,
   Validators,
 };
