@@ -1,21 +1,21 @@
-// Spinner
-.tk-loader-spinner {
-  @extend .animate-spin;
-  font-family: 'tk-icons';
-  font-style: normal;
-  font-variant: normal;
-  font-weight: normal;
-  line-height: 1em;
-  vertical-align: top;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-
-  &::before {
-    @include tk-icon-loading;
-  }
-}
+$percentage-sizes: 0, 1, 25, 50, 75, 100;
 
 .tk-loader {
+  &-spinner {
+    @extend .animate-spin;
+    font-family: 'tk-icons';
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal;
+    line-height: 1em;
+    vertical-align: top;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    &::before {
+      @include tk-icon-loading;
+    }
+  }
   &--warning {
     color: $--tk-color-error !important;
   }
@@ -47,93 +47,66 @@
   &--large {
     font-size: toRem(32);
   }
-}
 
-.tk-loader-textPos--right {
-  p {
-    margin: 0 toRem(8);
+  @each $size in $percentage-sizes {
+    &--#{$size} {
+      width: #{$size}#{'%'};
+    }
   }
-}
-.tk-loader-textPos--bottom {
-  p {
-    margin: toRem(8) 0;
-  }
-}
-.tk-loader-container {
-  display: flex;
-}
-.tk-loader-textPos {
-  &--bottom {
-    display: inline-block;
-    text-align: center;
-  }
-  &--right {
+
+  &-container {
     display: flex;
-    align-items: center;
   }
-}
-.tk-loader-text {
-  width: toRem(59);
-  color: $--tk-main-text-color;
-  font-family: 'Segoe UI';
-  font-style: normal;
-  font-weight: 400;
-  font-size: toRem(14);
-  line-height: toRem(20);
-  margin: 0;
-}
-
-// Progressbar
-
-.tk-loader {
-  &--0 {
-    width: 0%;
+  &-textPos {
+    &--bottom {
+      display: inline-block;
+      text-align: center;
+      p {
+        margin: toRem(8);
+      }
+    }
+    &--right {
+      display: flex;
+      align-items: center;
+      p {
+        margin: 0 toRem(8);
+      }
+    }
   }
-
-  &--1 {
-    width: 1%;
+  &-text {
+    width: toRem(59);
+    color: $--tk-main-text-color;
+    font-family: 'Segoe UI';
+    font-style: normal;
+    font-weight: 400;
+    font-size: toRem(14);
+    line-height: toRem(20);
+    margin: 0;
   }
-
-  &--25 {
-    width: 25%;
+  &-progressbar {
+    &-container {
+      width: 200px;
+      border-radius: toRem(4);
+      background-color: getColor($graphite, '20');
+      overflow: hidden;
+    }
   }
-
-  &--50 {
-    width: 50%;
+  &-determinate {
+    background-color: getColor($electricity, '50');
+    text-align: center;
+    height: toRem(4);
+    border-radius: toRem(4);
+    margin: 0 !important;
   }
-
-  &--75 {
-    width: 75%;
-  }
-
-  &--100 {
+  &-indeterminate {
     width: 100%;
+    height: toRem(4);
+    border-radius: toRem(4);
+    background-color: getColor($electricity, '50');
+    animation: indeterminateAnimation 1s infinite linear;
+    transform-origin: 0% 50%;
+    margin: 0 !important;
   }
-}
-
-.tk-loader-progressbar-container {
-  width: 200px;
-  border-radius: toRem(4);
-  background-color: getColor($graphite, '20');
-  overflow: hidden;
-}
-
-.tk-loader-determinate {
-  background-color: getColor($electricity, '50');
-  text-align: center;
-  height: toRem(4);
-  border-radius: toRem(4);
-  margin: 0 !important;
-}
-
-.tk-loader-indeterminate {
-  width: 100%;
-  height: toRem(4);
-  border-radius: toRem(4);
-  background-color: getColor($electricity, '50');
-  animation: indeterminateAnimation 1s infinite linear;
-  transform-origin: 0% 50%;
-  margin: 0 !important;
 }
 
 @keyframes indeterminateAnimation {
