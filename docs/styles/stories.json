@@ -1,0 +1,639 @@
+{
+  "v": 2,
+  "globalParameters": {},
+  "globals": {},
+  "error": null,
+  "kindParameters": {
+    "Components/Avatar": {
+      "fileName": "C:\\dev\\symphony-ui-toolkit\\packages\\styles\\stories\\avatar.stories.js",
+      "framework": "react"
+    },
+    "Components/Badge": {
+      "fileName": "C:\\dev\\symphony-ui-toolkit\\packages\\styles\\stories\\badge.stories.js",
+      "framework": "react"
+    },
+    "Components/Banner": {
+      "fileName": "C:\\dev\\symphony-ui-toolkit\\packages\\styles\\stories\\banner.stories.js",
+      "framework": "react"
+    },
+    "Components/Button": {
+      "fileName": "C:\\dev\\symphony-ui-toolkit\\packages\\styles\\stories\\button.stories.js",
+      "framework": "react"
+    },
+    "Components/Card": {
+      "fileName": "C:\\dev\\symphony-ui-toolkit\\packages\\styles\\stories\\card.stories.js",
+      "framework": "react"
+    },
+    "Components/Inputs/Checkbox": {
+      "fileName": "C:\\dev\\symphony-ui-toolkit\\packages\\styles\\stories\\checkbox.stories.js",
+      "framework": "react"
+    },
+    "Utils/Color Variables": {
+      "fileName": "C:\\dev\\symphony-ui-toolkit\\packages\\styles\\stories\\colorVariables.stories.js",
+      "framework": "react"
+    },
+    "Components/Quote": {
+      "fileName": "C:\\dev\\symphony-ui-toolkit\\packages\\styles\\stories\\containers.stories.js",
+      "framework": "react"
+    },
+    "Components/Dialogs": {
+      "fileName": "C:\\dev\\symphony-ui-toolkit\\packages\\styles\\stories\\dialogs.stories.js",
+      "framework": "react"
+    },
+    "Components/Divider": {
+      "fileName": "C:\\dev\\symphony-ui-toolkit\\packages\\styles\\stories\\divider.stories.js",
+      "framework": "react"
+    },
+    "Welcome/Docs": {
+      "fileName": "C:\\dev\\symphony-ui-toolkit\\packages\\styles\\stories\\docs.stories.js",
+      "framework": "react"
+    },
+    "Components/Dropdown Menu": {
+      "fileName": "C:\\dev\\symphony-ui-toolkit\\packages\\styles\\stories\\dropdownMenu.stories.js",
+      "framework": "react"
+    },
+    "Components/Inputs": {
+      "fileName": "C:\\dev\\symphony-ui-toolkit\\packages\\styles\\stories\\fields.stories.js",
+      "framework": "react"
+    },
+    "Components/Hint": {
+      "fileName": "C:\\dev\\symphony-ui-toolkit\\packages\\styles\\stories\\hint.stories.js",
+      "framework": "react"
+    },
+    "Components/Icon": {
+      "fileName": "C:\\dev\\symphony-ui-toolkit\\packages\\styles\\stories\\icons.stories.js",
+      "framework": "react"
+    },
+    "Components/Link": {
+      "fileName": "C:\\dev\\symphony-ui-toolkit\\packages\\styles\\stories\\links.stories.js",
+      "framework": "react"
+    },
+    "Components/Spinner": {
+      "fileName": "C:\\dev\\symphony-ui-toolkit\\packages\\styles\\stories\\loader.stories.js",
+      "framework": "react"
+    },
+    "Components/Navigation": {
+      "fileName": "C:\\dev\\symphony-ui-toolkit\\packages\\styles\\stories\\navigation.stories.js",
+      "framework": "react"
+    },
+    "Components/Inputs/Radio": {
+      "fileName": "C:\\dev\\symphony-ui-toolkit\\packages\\styles\\stories\\radio.stories.js",
+      "framework": "react"
+    },
+    "Components/Inputs/Switch": {
+      "fileName": "C:\\dev\\symphony-ui-toolkit\\packages\\styles\\stories\\switch.stories.js",
+      "framework": "react"
+    },
+    "Components/Table": {
+      "fileName": "C:\\dev\\symphony-ui-toolkit\\packages\\styles\\stories\\tables.stories.js",
+      "framework": "react"
+    },
+    "Components/Text Ellipsis": {
+      "fileName": "C:\\dev\\symphony-ui-toolkit\\packages\\styles\\stories\\text-ellipsis.stories.js",
+      "framework": "react"
+    },
+    "Utils/Label": {
+      "fileName": "C:\\dev\\symphony-ui-toolkit\\packages\\styles\\stories\\text.stories.js",
+      "framework": "react"
+    },
+    "Components/Timeline": {
+      "fileName": "C:\\dev\\symphony-ui-toolkit\\packages\\styles\\stories\\timeline.stories.js",
+      "framework": "react"
+    },
+    "Components/Toast": {
+      "fileName": "C:\\dev\\symphony-ui-toolkit\\packages\\styles\\stories\\toast.stories.js",
+      "framework": "react"
+    },
+    "Components/Tooltip": {
+      "fileName": "C:\\dev\\symphony-ui-toolkit\\packages\\styles\\stories\\tooltip.stories.js",
+      "framework": "react"
+    },
+    "Utils": {
+      "fileName": "C:\\dev\\symphony-ui-toolkit\\packages\\styles\\stories\\utils.stories.js",
+      "framework": "react"
+    },
+    "Validations/Validation": {
+      "fileName": "C:\\dev\\symphony-ui-toolkit\\packages\\styles\\stories\\validation.stories.js",
+      "framework": "react"
+    }
+  },
+  "stories": {
+    "components-avatar--avatars": {
+      "id": "components-avatar--avatars",
+      "name": "Avatars",
+      "kind": "Components/Avatar",
+      "story": "Avatars",
+      "parameters": {
+        "fileName": "C:\\dev\\symphony-ui-toolkit\\packages\\styles\\stories\\avatar.stories.js",
+        "framework": "react",
+        "__id": "components-avatar--avatars"
+      }
+    },
+    "components-avatar--avatar-with-badge": {
+      "id": "components-avatar--avatar-with-badge",
+      "name": "Avatar With Badge",
+      "kind": "Components/Avatar",
+      "story": "Avatar With Badge",
+      "parameters": {
+        "fileName": "C:\\dev\\symphony-ui-toolkit\\packages\\styles\\stories\\avatar.stories.js",
+        "framework": "react",
+        "__id": "components-avatar--avatar-with-badge"
+      }
+    },
+    "components-badge--badge": {
+      "id": "components-badge--badge",
+      "name": "Badge",
+      "kind": "Components/Badge",
+      "story": "Badge",
+      "parameters": {
+        "fileName": "C:\\dev\\symphony-ui-toolkit\\packages\\styles\\stories\\badge.stories.js",
+        "framework": "react",
+        "__id": "components-badge--badge"
+      }
+    },
+    "components-banner--banner": {
+      "id": "components-banner--banner",
+      "name": "Banner",
+      "kind": "Components/Banner",
+      "story": "Banner",
+      "parameters": {
+        "fileName": "C:\\dev\\symphony-ui-toolkit\\packages\\styles\\stories\\banner.stories.js",
+        "framework": "react",
+        "__id": "components-banner--banner"
+      }
+    },
+    "components-button--sizes": {
+      "id": "components-button--sizes",
+      "name": "Sizes",
+      "kind": "Components/Button",
+      "story": "Sizes",
+      "parameters": {
+        "fileName": "C:\\dev\\symphony-ui-toolkit\\packages\\styles\\stories\\button.stories.js",
+        "framework": "react",
+        "__id": "components-button--sizes"
+      }
+    },
+    "components-button--variants": {
+      "id": "components-button--variants",
+      "name": "Variants",
+      "kind": "Components/Button",
+      "story": "Variants",
+      "parameters": {
+        "fileName": "C:\\dev\\symphony-ui-toolkit\\packages\\styles\\stories\\button.stories.js",
+        "framework": "react",
+        "__id": "components-button--variants"
+      }
+    },
+    "components-button--theming": {
+      "id": "components-button--theming",
+      "name": "Theming",
+      "kind": "Components/Button",
+      "story": "Theming",
+      "parameters": {
+        "fileName": "C:\\dev\\symphony-ui-toolkit\\packages\\styles\\stories\\button.stories.js",
+        "framework": "react",
+        "__id": "components-button--theming"
+      }
+    },
+    "components-card--card": {
+      "id": "components-card--card",
+      "name": "Card",
+      "kind": "Components/Card",
+      "story": "Card",
+      "parameters": {
+        "fileName": "C:\\dev\\symphony-ui-toolkit\\packages\\styles\\stories\\card.stories.js",
+        "framework": "react",
+        "__id": "components-card--card"
+      }
+    },
+    "components-inputs-checkbox--checkbox": {
+      "id": "components-inputs-checkbox--checkbox",
+      "name": "Checkbox",
+      "kind": "Components/Inputs/Checkbox",
+      "story": "Checkbox",
+      "parameters": {
+        "fileName": "C:\\dev\\symphony-ui-toolkit\\packages\\styles\\stories\\checkbox.stories.js",
+        "framework": "react",
+        "__id": "components-inputs-checkbox--checkbox"
+      }
+    },
+    "utils-color-variables--color-variables": {
+      "id": "utils-color-variables--color-variables",
+      "name": "Color Variables",
+      "kind": "Utils/Color Variables",
+      "story": "Color Variables",
+      "parameters": {
+        "fileName": "C:\\dev\\symphony-ui-toolkit\\packages\\styles\\stories\\colorVariables.stories.js",
+        "framework": "react",
+        "__id": "utils-color-variables--color-variables"
+      }
+    },
+    "components-quote--quote": {
+      "id": "components-quote--quote",
+      "name": "Quote",
+      "kind": "Components/Quote",
+      "story": "Quote",
+      "parameters": {
+        "fileName": "C:\\dev\\symphony-ui-toolkit\\packages\\styles\\stories\\containers.stories.js",
+        "framework": "react",
+        "__id": "components-quote--quote"
+      }
+    },
+    "components-dialogs--small-dialog": {
+      "id": "components-dialogs--small-dialog",
+      "name": "Small Dialog",
+      "kind": "Components/Dialogs",
+      "story": "Small Dialog",
+      "parameters": {
+        "fileName": "C:\\dev\\symphony-ui-toolkit\\packages\\styles\\stories\\dialogs.stories.js",
+        "framework": "react",
+        "__id": "components-dialogs--small-dialog"
+      }
+    },
+    "components-dialogs--medium-dialog": {
+      "id": "components-dialogs--medium-dialog",
+      "name": "Medium Dialog",
+      "kind": "Components/Dialogs",
+      "story": "Medium Dialog",
+      "parameters": {
+        "fileName": "C:\\dev\\symphony-ui-toolkit\\packages\\styles\\stories\\dialogs.stories.js",
+        "framework": "react",
+        "__id": "components-dialogs--medium-dialog"
+      }
+    },
+    "components-dialogs--large-dialog": {
+      "id": "components-dialogs--large-dialog",
+      "name": "Large Dialog",
+      "kind": "Components/Dialogs",
+      "story": "Large Dialog",
+      "parameters": {
+        "fileName": "C:\\dev\\symphony-ui-toolkit\\packages\\styles\\stories\\dialogs.stories.js",
+        "framework": "react",
+        "__id": "components-dialogs--large-dialog"
+      }
+    },
+    "components-dialogs--full-page-dialog": {
+      "id": "components-dialogs--full-page-dialog",
+      "name": "Full Page Dialog",
+      "kind": "Components/Dialogs",
+      "story": "Full Page Dialog",
+      "parameters": {
+        "fileName": "C:\\dev\\symphony-ui-toolkit\\packages\\styles\\stories\\dialogs.stories.js",
+        "framework": "react",
+        "__id": "components-dialogs--full-page-dialog"
+      }
+    },
+    "components-dialogs--simple-dialog": {
+      "id": "components-dialogs--simple-dialog",
+      "name": "Simple Dialog",
+      "kind": "Components/Dialogs",
+      "story": "Simple Dialog",
+      "parameters": {
+        "fileName": "C:\\dev\\symphony-ui-toolkit\\packages\\styles\\stories\\dialogs.stories.js",
+        "framework": "react",
+        "__id": "components-dialogs--simple-dialog"
+      }
+    },
+    "components-divider--divider": {
+      "id": "components-divider--divider",
+      "name": "Divider",
+      "kind": "Components/Divider",
+      "story": "Divider",
+      "parameters": {
+        "fileName": "C:\\dev\\symphony-ui-toolkit\\packages\\styles\\stories\\divider.stories.js",
+        "framework": "react",
+        "__id": "components-divider--divider"
+      }
+    },
+    "welcome-docs--readme": {
+      "id": "welcome-docs--readme",
+      "name": "Readme",
+      "kind": "Welcome/Docs",
+      "story": "Readme",
+      "parameters": {
+        "fileName": "C:\\dev\\symphony-ui-toolkit\\packages\\styles\\stories\\docs.stories.js",
+        "framework": "react",
+        "__id": "welcome-docs--readme"
+      }
+    },
+    "welcome-docs--getting-started": {
+      "id": "welcome-docs--getting-started",
+      "name": "Getting Started",
+      "kind": "Welcome/Docs",
+      "story": "Getting Started",
+      "parameters": {
+        "fileName": "C:\\dev\\symphony-ui-toolkit\\packages\\styles\\stories\\docs.stories.js",
+        "framework": "react",
+        "__id": "welcome-docs--getting-started"
+      }
+    },
+    "welcome-docs--theming-guide": {
+      "id": "welcome-docs--theming-guide",
+      "name": "Theming Guide",
+      "kind": "Welcome/Docs",
+      "story": "Theming Guide",
+      "parameters": {
+        "fileName": "C:\\dev\\symphony-ui-toolkit\\packages\\styles\\stories\\docs.stories.js",
+        "framework": "react",
+        "__id": "welcome-docs--theming-guide"
+      }
+    },
+    "welcome-docs--contributing": {
+      "id": "welcome-docs--contributing",
+      "name": "Contributing",
+      "kind": "Welcome/Docs",
+      "story": "Contributing",
+      "parameters": {
+        "fileName": "C:\\dev\\symphony-ui-toolkit\\packages\\styles\\stories\\docs.stories.js",
+        "framework": "react",
+        "__id": "welcome-docs--contributing"
+      }
+    },
+    "welcome-docs--sandbox": {
+      "id": "welcome-docs--sandbox",
+      "name": "Sandbox",
+      "kind": "Welcome/Docs",
+      "story": "Sandbox",
+      "parameters": {
+        "fileName": "C:\\dev\\symphony-ui-toolkit\\packages\\styles\\stories\\docs.stories.js",
+        "framework": "react",
+        "__id": "welcome-docs--sandbox"
+      }
+    },
+    "components-dropdown-menu--dropdown-menu": {
+      "id": "components-dropdown-menu--dropdown-menu",
+      "name": "Dropdown Menu",
+      "kind": "Components/Dropdown Menu",
+      "story": "Dropdown Menu",
+      "parameters": {
+        "fileName": "C:\\dev\\symphony-ui-toolkit\\packages\\styles\\stories\\dropdownMenu.stories.js",
+        "framework": "react",
+        "__id": "components-dropdown-menu--dropdown-menu"
+      }
+    },
+    "components-inputs--text-field": {
+      "id": "components-inputs--text-field",
+      "name": "Text Field",
+      "kind": "Components/Inputs",
+      "story": "Text Field",
+      "parameters": {
+        "fileName": "C:\\dev\\symphony-ui-toolkit\\packages\\styles\\stories\\fields.stories.js",
+        "framework": "react",
+        "__id": "components-inputs--text-field"
+      }
+    },
+    "components-inputs--select": {
+      "id": "components-inputs--select",
+      "name": "Select",
+      "kind": "Components/Inputs",
+      "story": "Select",
+      "parameters": {
+        "fileName": "C:\\dev\\symphony-ui-toolkit\\packages\\styles\\stories\\fields.stories.js",
+        "framework": "react",
+        "__id": "components-inputs--select"
+      }
+    },
+    "components-inputs--text-area": {
+      "id": "components-inputs--text-area",
+      "name": "Text Area",
+      "kind": "Components/Inputs",
+      "story": "Text Area",
+      "parameters": {
+        "fileName": "C:\\dev\\symphony-ui-toolkit\\packages\\styles\\stories\\fields.stories.js",
+        "framework": "react",
+        "__id": "components-inputs--text-area"
+      }
+    },
+    "components-inputs--dropdown-list": {
+      "id": "components-inputs--dropdown-list",
+      "name": "Dropdown List",
+      "kind": "Components/Inputs",
+      "story": "Dropdown List",
+      "parameters": {
+        "fileName": "C:\\dev\\symphony-ui-toolkit\\packages\\styles\\stories\\fields.stories.js",
+        "framework": "react",
+        "__id": "components-inputs--dropdown-list"
+      }
+    },
+    "components-hint--hint": {
+      "id": "components-hint--hint",
+      "name": "Hint",
+      "kind": "Components/Hint",
+      "story": "Hint",
+      "parameters": {
+        "fileName": "C:\\dev\\symphony-ui-toolkit\\packages\\styles\\stories\\hint.stories.js",
+        "framework": "react",
+        "__id": "components-hint--hint"
+      }
+    },
+    "components-icon--icon": {
+      "id": "components-icon--icon",
+      "name": "Icon",
+      "kind": "Components/Icon",
+      "story": "Icon",
+      "parameters": {
+        "fileName": "C:\\dev\\symphony-ui-toolkit\\packages\\styles\\stories\\icons.stories.js",
+        "framework": "react",
+        "__id": "components-icon--icon"
+      }
+    },
+    "components-link--link": {
+      "id": "components-link--link",
+      "name": "Link",
+      "kind": "Components/Link",
+      "story": "Link",
+      "parameters": {
+        "fileName": "C:\\dev\\symphony-ui-toolkit\\packages\\styles\\stories\\links.stories.js",
+        "framework": "react",
+        "__id": "components-link--link"
+      }
+    },
+    "components-spinner--spinner": {
+      "id": "components-spinner--spinner",
+      "name": "Spinner",
+      "kind": "Components/Spinner",
+      "story": "Spinner",
+      "parameters": {
+        "fileName": "C:\\dev\\symphony-ui-toolkit\\packages\\styles\\stories\\loader.stories.js",
+        "framework": "react",
+        "__id": "components-spinner--spinner"
+      }
+    },
+    "components-navigation--navigation": {
+      "id": "components-navigation--navigation",
+      "name": "Navigation",
+      "kind": "Components/Navigation",
+      "story": "Navigation",
+      "parameters": {
+        "fileName": "C:\\dev\\symphony-ui-toolkit\\packages\\styles\\stories\\navigation.stories.js",
+        "framework": "react",
+        "__id": "components-navigation--navigation"
+      }
+    },
+    "components-inputs-radio--radio": {
+      "id": "components-inputs-radio--radio",
+      "name": "Radio",
+      "kind": "Components/Inputs/Radio",
+      "story": "Radio",
+      "parameters": {
+        "fileName": "C:\\dev\\symphony-ui-toolkit\\packages\\styles\\stories\\radio.stories.js",
+        "framework": "react",
+        "__id": "components-inputs-radio--radio"
+      }
+    },
+    "components-inputs-switch--switch": {
+      "id": "components-inputs-switch--switch",
+      "name": "Switch",
+      "kind": "Components/Inputs/Switch",
+      "story": "Switch",
+      "parameters": {
+        "fileName": "C:\\dev\\symphony-ui-toolkit\\packages\\styles\\stories\\switch.stories.js",
+        "framework": "react",
+        "__id": "components-inputs-switch--switch"
+      }
+    },
+    "components-table--table": {
+      "id": "components-table--table",
+      "name": "Table",
+      "kind": "Components/Table",
+      "story": "Table",
+      "parameters": {
+        "fileName": "C:\\dev\\symphony-ui-toolkit\\packages\\styles\\stories\\tables.stories.js",
+        "framework": "react",
+        "__id": "components-table--table"
+      }
+    },
+    "components-text-ellipsis--text-ellipsis": {
+      "id": "components-text-ellipsis--text-ellipsis",
+      "name": "Text Ellipsis",
+      "kind": "Components/Text Ellipsis",
+      "story": "Text Ellipsis",
+      "parameters": {
+        "fileName": "C:\\dev\\symphony-ui-toolkit\\packages\\styles\\stories\\text-ellipsis.stories.js",
+        "framework": "react",
+        "__id": "components-text-ellipsis--text-ellipsis"
+      }
+    },
+    "utils-label--label": {
+      "id": "utils-label--label",
+      "name": "Label",
+      "kind": "Utils/Label",
+      "story": "Label",
+      "parameters": {
+        "fileName": "C:\\dev\\symphony-ui-toolkit\\packages\\styles\\stories\\text.stories.js",
+        "framework": "react",
+        "__id": "utils-label--label"
+      }
+    },
+    "components-timeline--collapsed": {
+      "id": "components-timeline--collapsed",
+      "name": "Collapsed",
+      "kind": "Components/Timeline",
+      "story": "Collapsed",
+      "parameters": {
+        "fileName": "C:\\dev\\symphony-ui-toolkit\\packages\\styles\\stories\\timeline.stories.js",
+        "framework": "react",
+        "__id": "components-timeline--collapsed"
+      }
+    },
+    "components-timeline--expanded": {
+      "id": "components-timeline--expanded",
+      "name": "Expanded",
+      "kind": "Components/Timeline",
+      "story": "Expanded",
+      "parameters": {
+        "fileName": "C:\\dev\\symphony-ui-toolkit\\packages\\styles\\stories\\timeline.stories.js",
+        "framework": "react",
+        "__id": "components-timeline--expanded"
+      }
+    },
+    "components-toast--toast": {
+      "id": "components-toast--toast",
+      "name": "Toast",
+      "kind": "Components/Toast",
+      "story": "Toast",
+      "parameters": {
+        "fileName": "C:\\dev\\symphony-ui-toolkit\\packages\\styles\\stories\\toast.stories.js",
+        "framework": "react",
+        "__id": "components-toast--toast"
+      }
+    },
+    "components-tooltip--tooltip": {
+      "id": "components-tooltip--tooltip",
+      "name": "Tooltip",
+      "kind": "Components/Tooltip",
+      "story": "Tooltip",
+      "parameters": {
+        "fileName": "C:\\dev\\symphony-ui-toolkit\\packages\\styles\\stories\\tooltip.stories.js",
+        "framework": "react",
+        "__id": "components-tooltip--tooltip"
+      }
+    },
+    "utils--text-colors": {
+      "id": "utils--text-colors",
+      "name": "Text Colors",
+      "kind": "Utils",
+      "story": "Text Colors",
+      "parameters": {
+        "fileName": "C:\\dev\\symphony-ui-toolkit\\packages\\styles\\stories\\utils.stories.js",
+        "framework": "react",
+        "__id": "utils--text-colors"
+      }
+    },
+    "utils--background-colors": {
+      "id": "utils--background-colors",
+      "name": "Background Colors",
+      "kind": "Utils",
+      "story": "Background Colors",
+      "parameters": {
+        "fileName": "C:\\dev\\symphony-ui-toolkit\\packages\\styles\\stories\\utils.stories.js",
+        "framework": "react",
+        "__id": "utils--background-colors"
+      }
+    },
+    "utils--application-background": {
+      "id": "utils--application-background",
+      "name": "Application Background",
+      "kind": "Utils",
+      "story": "Application Background",
+      "parameters": {
+        "fileName": "C:\\dev\\symphony-ui-toolkit\\packages\\styles\\stories\\utils.stories.js",
+        "framework": "react",
+        "__id": "utils--application-background"
+      }
+    },
+    "utils--spacing": {
+      "id": "utils--spacing",
+      "name": "Spacing",
+      "kind": "Utils",
+      "story": "Spacing",
+      "parameters": {
+        "fileName": "C:\\dev\\symphony-ui-toolkit\\packages\\styles\\stories\\utils.stories.js",
+        "framework": "react",
+        "__id": "utils--spacing"
+      }
+    },
+    "utils--typography": {
+      "id": "utils--typography",
+      "name": "Typography",
+      "kind": "Utils",
+      "story": "Typography",
+      "parameters": {
+        "fileName": "C:\\dev\\symphony-ui-toolkit\\packages\\styles\\stories\\utils.stories.js",
+        "framework": "react",
+        "__id": "utils--typography"
+      }
+    },
+    "validations-validation--validation": {
+      "id": "validations-validation--validation",
+      "name": "Validation",
+      "kind": "Validations/Validation",
+      "story": "Validation",
+      "parameters": {
+        "fileName": "C:\\dev\\symphony-ui-toolkit\\packages\\styles\\stories\\validation.stories.js",
+        "framework": "react",
+        "__id": "validations-validation--validation"
+      }
+    }
+  }
+}
