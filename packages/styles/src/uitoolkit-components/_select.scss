@@ -105,6 +105,9 @@ body {
             $--tk-select-tag-color,
             default
           );
+          & > div {
+            width: 100%;
+          }
           &__label {
             display: flex;
             align-items: center;
@@ -186,6 +189,7 @@ body {
             display: flex;
             align-items: center;
             max-width: toRem(192);
+            width: 100%;
             .tk-tag {
               padding-right: toRem(4);
               max-width: toRem(200);
