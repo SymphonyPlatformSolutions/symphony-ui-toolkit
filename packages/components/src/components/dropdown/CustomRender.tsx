@@ -112,7 +112,7 @@ export const MultiValueContainerOverride = ({ children, ...props }: any) =>
  * The displayArrowIndicator prop from the Dropdown can override it
  */
 export const DropdownIndicator = (props: any) => {
-  const { isMulti, displayArrowIndicator, menuIsOpen } = props?.selectProps;
+  const { displayArrowIndicator, menuIsOpen } = props?.selectProps;
 
   return !displayArrowIndicator ?
     null :
@@ -120,10 +120,10 @@ export const DropdownIndicator = (props: any) => {
       {...props}
       innerProps={{ 'data-testid': props.selectProps['data-testid'] }}
     >
-      {!isMulti && <Icon
+      <Icon
         className="tk-select__single-value"
         iconName={menuIsOpen ? 'drop-up' : 'drop-down'}
-      />}
+      />
     </components.DropdownIndicator>;
 };
 

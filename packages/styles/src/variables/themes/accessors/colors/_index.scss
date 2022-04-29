@@ -55,6 +55,9 @@ $--tk-select-color: (
   defaultMenuIcon: var(--tk-select-color-default-menu-icon, getColor($graphite, '50')),
   hoverMenuIcon: var(--tk-select-color-hover-menu-icon, getColor($graphite, '20')), // equivalent of tk-input-disabled
   clearIcon: var(--tk-select-color-clear-icon, getColor($graphite, '70')),
+  menuBorder: var(--tk-select-color-menu-border, transparent),
+  menuShadow1: var(--tk-select-color-menu-shadow-1, rgba(5, 6, 6, 0.08)),
+  menuShadow2: var(--tk-select-color-menu-shadow-2, rgba(5, 6, 6, 0.16)),
 );
 
 $--tk-select-color-destructive: (
