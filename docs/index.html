@@ -8,8 +8,8 @@
     <script>
       let isComponents = true
 
-      const componentsUrl = "./components/index.html"
-      const stylesUrl = "./styles/index.html"
+      const componentsUrl = "./packages/components/index.html"
+      const stylesUrl = "./packages/styles/index.html"
 
       const getUrl = () => (isComponents ? componentsUrl : stylesUrl)
 
@@ -25,6 +25,6 @@
   <body>
     <input type="button" value="SWITCH" />
     <br />
-    <iframe id="frame" src="./components/index.html"></iframe>
+    <iframe id="frame" src="./packages/components/index.html"></iframe>
   </body>
 </html>
