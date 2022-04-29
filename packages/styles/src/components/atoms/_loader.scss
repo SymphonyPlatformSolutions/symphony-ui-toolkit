@@ -1,19 +1,66 @@
-$percentage-sizes: 0, 1, 25, 50, 75, 100;
+//$percentage-sizes: 0, 1, 25, 50, 75, 100;
+
+$i: 0;
+
+@mixin text {
+  color: $--tk-main-text-color;
+  font-family: 'Segoe UI';
+  font-style: normal;
+  font-weight: 400;
+  margin: 0;
+}
+
+@mixin spinner {
+  font-family: 'tk-icons';
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1em;
+  vertical-align: top;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
 .tk-loader {
   &-spinner {
-    @extend .animate-spin;
-    font-family: 'tk-icons';
-    font-style: normal;
-    font-variant: normal;
-    font-weight: normal;
-    line-height: 1em;
-    vertical-align: top;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    &-indeterminate {
+      @extend .animate-spin;
+      @include spinner;
 
-    &::before {
-      @include tk-icon-loading;
+      &::before {
+        @include tk-icon-loading;
+      }
+    }
+    &-determinate {
+      @extend .animate-spin;
+      @include spinner;
+      -webkit-animation: none;
+      animation: none;
+      &::before {
+        @include tk-icon-loading;
+      }
+    }
+
+    &--vertical {
+      display: inline-block;
+      text-align: center;
+      p {
+        margin: toRem(8) 0;
+      }
+    }
+    &--horizontal {
+      display: flex;
+      align-items: center;
+      p {
+        margin: 0 toRem(8);
+      }
+    }
+
+    &-text {
+      @include text;
+      width: toRem(59);
+      font-size: toRem(14);
+      line-height: toRem(20);
     }
   }
   &--warning {
@@ -48,64 +95,51 @@ $percentage-sizes: 0, 1, 25, 50, 75, 100;
     font-size: toRem(32);
   }
 
-  @each $size in $percentage-sizes {
-    &--#{$size} {
-      width: #{$size}#{'%'};
+  @while $i <= 100 {
+    &--#{$i} {
+      width: 1% * $i;
     }
+    $i: $i + 1;
   }
+  //@each $size in $percentage-sizes {
+  //  &--#{$size} {
+  //    width: #{$size}#{'%'};
+  //}
+  // }
 
   &-container {
     display: flex;
   }
-  &-textPos {
-    &--bottom {
-      display: inline-block;
-      text-align: center;
-      p {
-        margin: toRem(8);
-      }
-    }
-    &--right {
-      display: flex;
-      align-items: center;
-      p {
-        margin: 0 toRem(8);
-      }
-    }
-  }
-  &-text {
-    width: toRem(59);
-    color: $--tk-main-text-color;
-    font-family: 'Segoe UI';
-    font-style: normal;
-    font-weight: 400;
-    font-size: toRem(14);
-    line-height: toRem(20);
-    margin: 0;
-  }
-  &-progressbar {
+
+  &-linear {
     &-container {
       width: 200px;
       border-radius: toRem(4);
       background-color: getColor($graphite, '20');
       overflow: hidden;
+      height: toRem(4);
     }
-  }
-  &-determinate {
-    background-color: getColor($electricity, '50');
-    text-align: center;
-    height: toRem(4);
-    border-radius: toRem(4);
-    margin: 0 !important;
-  }
-  &-indeterminate {
-    width: 100%;
-    height: toRem(4);
-    border-radius: toRem(4);
-    background-color: getColor($electricity, '50');
-    animation: indeterminateAnimation 1s infinite linear;
-    transform-origin: 0% 50%;
-    margin: 0 !important;
+    &-text {
+      @include text;
+      text-align: center;
+      max-width: toRem(200);
+    }
+    &-determinate {
+      background-color: getColor($electricity, '50');
+      text-align: center;
+      height: toRem(4);
+      border-radius: toRem(4);
+      margin: 0 !important;
+    }
+    &-indeterminate {
+      width: 100%;
+      height: toRem(4);
+      border-radius: toRem(4);
+      background-color: getColor($electricity, '50');
+      animation: indeterminateAnimation 1s infinite linear;
+      transform-origin: 0% 50%;
+      margin: 0 !important;
+    }
   }
 }
 

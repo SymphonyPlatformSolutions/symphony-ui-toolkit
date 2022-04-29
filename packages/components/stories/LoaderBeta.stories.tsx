@@ -5,6 +5,7 @@ const Template = (args) => <LoaderBeta {...args} />;
 
 export const Default = Template.bind({});
 const loadingText = 'Loading...';
+const value = 50;
 
 export const Spinner: React.FC = () => (
   <>
@@ -26,20 +27,95 @@ export const Spinner: React.FC = () => (
       <h2 className="tk-mt-4h">Spinner with text</h2>
       <div className="tk-loader-container">
         <LoaderBeta
-          variant="primary"
+          variant="default"
           loadingText={loadingText}
-          loadingTextPos={'bottom'}
+          direction={'vertical'}
           className="tk-ml-h"
         />
         <div>
           <LoaderBeta
-            variant="primary"
+            variant="default"
             loadingText={loadingText}
-            loadingTextPos={'right'}
+            direction={'horizontal'}
             className="tk-ml-2h"
           />
         </div>
       </div>
+    </div>
+    <div>
+      <h2 className="tk-mt-4h">Determinate (spinner)</h2>
+      <LoaderBeta
+        variant="default"
+        direction={'vertical'}
+        className="tk-ml-h"
+        progress="determinate"
+      />
+      <div>
+        <h4 className="tk-mt-4h">With text</h4>
+        <LoaderBeta
+          variant="default"
+          loadingText={loadingText}
+          direction={'vertical'}
+          className="tk-ml-h"
+          progress="determinate"
+        />
+      </div>
+    </div>
+    <div>
+      <h2 className="tk-mt-4h">Indeterminate (spinner)</h2>
+      <LoaderBeta
+        variant="default"
+        direction={'vertical'}
+        className="tk-ml-h"
+        progress="indeterminate"
+      />
+      <div>
+        <h4 className="tk-mt-4h">With text</h4>
+        <LoaderBeta
+          variant="default"
+          loadingText={loadingText}
+          direction={'vertical'}
+          className="tk-ml-h"
+          progress="indeterminate"
+        />
+      </div>
+    </div>
+
+    <div>
+      <h2 className="tk-mt-4h">Determinate (linear)</h2>
+      <LoaderBeta
+        className="tk-ml-h"
+        value={value}
+        progress={'determinate'}
+        type="linear"
+      />
+    </div>
+    <div>
+      <h4 className="tk-mt-4h">With text</h4>
+      <LoaderBeta
+        className="tk-ml-h"
+        value={value}
+        progress={'determinate'}
+        loadingText={`${value}%`}
+        type="linear"
+      />
+    </div>
+    <div>
+      <h2 className="tk-mt-4h">Indeterminate (linear)</h2>
+      <LoaderBeta
+        className="tk-ml-h"
+        progress={'indeterminate'}
+        type="linear"
+      />
+    </div>
+    <h4 className="tk-mt-4h">With text</h4>
+    <div>
+      <LoaderBeta
+        className="tk-ml-h"
+        progress={'indeterminate'}
+        loadingText="Loading..."
+        type="linear"
+      />
     </div>
   </>
 );
