@@ -20,7 +20,7 @@
     "lint-fix": "eslint --ext .ts,.tsx,.js,.jsx ./ --fix",
     "start": "start-storybook -p 6006",
     "storybook-docs": "start-storybook --docs",
-    "build-storybook": "build-storybook -c .storybook -o ../../docs",
+    "build-storybook": "build-storybook -c .storybook -o ../../docs/packages/components",
     "deploy-storybook": "gh-pages -d ../../docs",
     "test": "jest --watchAll",
     "test-once": "jest -w 1",
