@@ -1,4 +1,30 @@
-<h1>Symphony - UI Toolkit Storybook</h1>
+<html>
+  <head>
+    <link rel="stylesheet" href="styles.css">
+    <script
+      type="text/javascript"
+      src="http://code.jquery.com/jquery-1.9.1.js"
+    ></script>
+    <script>
+      let isComponents = true
 
-<a href="./styles/index.html">styles</a>
-<a href="./components/index.html">components</a>
+      const componentsUrl = "./components/index.html"
+      const stylesUrl = "./styles/index.html"
+
+      const getUrl = () => (isComponents ? componentsUrl : stylesUrl)
+
+      $(document).ready(() => {
+        $(':button').click(() => {
+          isComponents = !isComponents
+
+          $('#frame').attr('src', getUrl())
+        })
+      })
+    </script>
+  </head>
+  <body>
+    <input type="button" value="SWITCH" />
+    <br />
+    <iframe id="frame" src="./components/index.html"></iframe>
+  </body>
+</html>
