@@ -1,6 +1,6 @@
 iframe {
   position: fixed;
-  top: 50px;
+  top: 0px;
   bottom: 0px;
   right: 0px;
   width: 100%;
@@ -8,6 +8,13 @@ iframe {
   margin: 0;
   padding: 0;
   overflow: hidden;
-  z-index: 999999;
+  z-index: 999900;
   height: 100%;
+}
+
+.switch-button {
+  position: absolute;
+  z-index: 999999;
+  bottom: 20px;
+  right: 40px;
 }
