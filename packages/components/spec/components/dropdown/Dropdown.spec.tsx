@@ -74,6 +74,16 @@ describe('Dropdown component test suite =>', () => {
 
       });
 
+      it('should handle disable mode', async () => {
+        const { queryByText, container } = render(<Dropdown options={dropdownProps.options} isDisabled />);
+        userEvent.click(container.querySelector('.tk-select__input input'));
+        expect(queryByText('banana')).toBeFalsy();
+        expect(queryByText('avocado')).toBeFalsy();
+        expect(queryByText('orange')).toBeFalsy();
+
+        expect(container.querySelector('.tk-input-group--disabled')).toBeTruthy();
+      });
+
       it('should select first option', async () => {
         const { getByText } = render(<Dropdown options={dropdownProps.options} noOptionMessage="no options message" />);
         const input = screen.getByRole('textbox');

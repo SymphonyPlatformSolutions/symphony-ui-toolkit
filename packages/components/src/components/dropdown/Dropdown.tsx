@@ -154,6 +154,8 @@ export class Dropdown<T = LabelValue> extends React.Component<
 
     const {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      addNewOptions,
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       asyncOptions,
       autoScrollToCurrent,
       bindLabel,
@@ -225,7 +227,9 @@ export class Dropdown<T = LabelValue> extends React.Component<
     } = this.props;
 
     return (
-      <div className={classNames(className, 'tk-input-group', `tk-input-group--${size}`)}>
+      <div className={classNames(className, 'tk-input-group', `tk-input-group--${size}`, {
+        'tk-input-group--disabled': isDisabled,
+      })}>
         <DropdownTag
           styles={{
             menuPortal: (base: CSSProperties) => ({ ...base, ...menuPortalStyles }),
