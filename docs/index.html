@@ -4,30 +4,15 @@
       rel="stylesheet"
       href="https://cdn.symphony.com/resources/ui-toolkit/v2.0.0/css/uitoolkit.css"
     />
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css" />
     <script
       type="text/javascript"
-      src="https://code.jquery.com/jquery-3.3.1.min.js"
+      src="https://code.jquery.com/jquery-1.9.1.js"
     ></script>
-    <script>
-      let isComponents = true
-
-      const componentsUrl = "./packages/components/index.html"
-      const stylesUrl = "./packages/styles/index.html"
-
-      const getUrl = () => (isComponents ? componentsUrl : stylesUrl)
-
-      $(document).ready(() => {
-        $(':button').click(() => {
-          isComponents = !isComponents
-
-          $('#frame').attr('src', getUrl())
-        })
-      })
-    </script>
+    <script src="index.js"></script>
   </head>
   <body>
-    <button class="tk-button tk-button--primary switch-button">SWITCH</button>    
-    <iframe id="frame" src="./packages/components/index.html"></iframe>
+    <button id='switch-button' class="tk-button tk-button--primary"></button>
+    <iframe id="packages-iframe" />
   </body>
 </html>
