@@ -1,4 +1,4 @@
-iframe {
+#packages-iframe {
   position: fixed;
   top: 0px;
   bottom: 0px;
@@ -12,9 +12,11 @@ iframe {
   height: 100%;
 }
 
-.switch-button {
+#switch-button {
+  width: 200px;
   position: absolute;
   z-index: 999999;
   bottom: 20px;
   right: 40px;
+  display: none;
 }
