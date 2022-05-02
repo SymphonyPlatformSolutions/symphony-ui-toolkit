@@ -76,11 +76,11 @@ jobs:
       #    when: always
       #    command: |
       #      yarn test --config .creevey/config_darkmode.js
-      - run:
-          name: Execute Visual Tests - Dark Mode + Condensed
-          when: always
-          command: |
-            yarn test --config .creevey/config_darkmode_condensed.js
+      #- run:
+      #    name: Execute Visual Tests - Dark Mode + Condensed
+      #    when: always
+      #    command: |
+      #      yarn test --config .creevey/config_darkmode_condensed.js
       - run:
           name: Preparing artifacts
           when: always
