@@ -10,11 +10,13 @@ const templates = {
 
 const packagesData = [
   {
+    // COMPONENTS
     buttonText: `${templates.button} ${templates.styles}`,
     url: componentsUrl,
     pageTitle: `${templates.title} ${templates.components}`,
   },
   {
+    // STYLES
     buttonText: `${templates.button} ${templates.components}`,
     url: stylesUrl,
     pageTitle: `${templates.title} ${templates.styles}`,
@@ -42,10 +44,16 @@ $(() => {
       setPackagesInfo()
     },
     mouseenter: () => {
-      $('#switch-button').text(packagesData[index].buttonText)
+      $('#switch-button')
+        .stop(true, false)
+        .text(packagesData[index].buttonText)
+        .animate({ width: '200px' })
     },
     mouseleave: () => {
-      $('#switch-button').text('SWITCH...')
+      $('#switch-button')
+        .stop(true, false)
+        .text('SWITCH...')
+        .animate({ width: '100px' })
     },
   })
 })
