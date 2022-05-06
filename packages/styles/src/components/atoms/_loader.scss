@@ -1,7 +1,3 @@
-//$percentage-sizes: 0, 1, 25, 50, 75, 100;
-
-$i: 0;
-
 @mixin text {
   color: $--tk-main-text-color;
   font-family: 'Segoe UI';
@@ -23,6 +19,12 @@ $i: 0;
 
 .tk-loader {
   &-spinner {
+    @extend .animate-spin;
+    @include spinner;
+
+    &::before {
+      @include tk-icon-loading;
+    }
     &-indeterminate {
       @extend .animate-spin;
       @include spinner;
@@ -94,18 +96,6 @@ $i: 0;
   &--large {
     font-size: toRem(32);
   }
-
-  @while $i <= 100 {
-    &--#{$i} {
-      width: 1% * $i;
-    }
-    $i: $i + 1;
-  }
-  //@each $size in $percentage-sizes {
-  //  &--#{$size} {
-  //    width: #{$size}#{'%'};
-  //}
-  // }
 
   &-container {
     display: flex;

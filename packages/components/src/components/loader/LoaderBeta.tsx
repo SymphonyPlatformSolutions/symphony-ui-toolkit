@@ -6,12 +6,11 @@ const prefix = 'tk-loader';
 
 type LoaderBetaProps = {
   className?: string;
-  /** The variant to use */
-  type?: 'spinner' | 'linear';
   variant?: 'default' | 'primary' | 'attention' | 'warning' | 'ok';
-  loadingText?: string;
   direction?: 'vertical' | 'horizontal';
   size?: 'small' | 'medium' | 'large';
+  type?: 'spinner' | 'linear';
+  loadingText?: string;
   progress?: 'determinate' | 'indeterminate';
   value?: number;
 };
@@ -38,9 +37,10 @@ const LoaderBeta: React.FC<LoaderBetaProps> = ({
     [`${prefix}-${type}--${direction}`]: direction,
   });
 
-  const linearClasses = classNames(className, `${prefix}-${type}-${progress}`, {
-    [`${prefix}--${value}`]: value,
-  });
+  const linearClasses = classNames(className, `${prefix}-${type}-${progress}`);
+
+  const progressCheck = () =>
+    progress === 'determinate' ? { width: `${value}%` } : null;
 
   return type === 'spinner' && loadingText ? (
     <div className={textClasses}>
@@ -50,9 +50,11 @@ const LoaderBeta: React.FC<LoaderBetaProps> = ({
   ) : type === 'linear' ? (
     <>
       <div className="tk-loader-linear-container">
-        <div className={linearClasses} {...rest}></div>
+        <div className={linearClasses} style={progressCheck()} {...rest}></div>
       </div>
-      <p className="tk-loader-linear-text">{loadingText}</p>
+      <p className="tk-loader-linear-text">
+        {progress === 'indeterminate' ? loadingText : value + '%'}
+      </p>
     </>
   ) : (
     <i className={classes} {...rest}></i>
