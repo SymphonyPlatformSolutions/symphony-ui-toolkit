@@ -16,6 +16,14 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+@mixin radialProgress {
+  position: relative;
+  display: inline-block;
+  text-align: center;
+  svg {
+    transform: rotate(270deg);
+  }
+}
 
 .tk-loader {
   &-spinner {
@@ -25,36 +33,39 @@
     &::before {
       @include tk-icon-loading;
     }
-    &-indeterminate {
-      @extend .animate-spin;
-      @include spinner;
-
-      &::before {
-        @include tk-icon-loading;
+  }
+  &--spinner {
+    &-determinate {
+      @include radialProgress;
+      .radial-progress-cover {
+        stroke: #cdcfd4;
+        stroke-width: 0.501em;
       }
     }
-    &-determinate {
-      @extend .animate-spin;
-      @include spinner;
-      -webkit-animation: none;
-      animation: none;
-      &::before {
-        @include tk-icon-loading;
+    &-indeterminate {
+      @include radialProgress;
+      .radial-progress-cover {
+        stroke: #cdcfd4;
+        stroke-width: 0.501em;
+        animation: strok 1s infinite;
+        svg {
+          transform: rotate(-90deg);
+        }
       }
     }
 
     &--vertical {
       display: inline-block;
-      text-align: center;
       p {
-        margin: toRem(8) 0;
+        margin: 0;
+        text-align: center;
       }
     }
     &--horizontal {
       display: flex;
-      align-items: center;
       p {
         margin: 0 toRem(8);
+        text-align: left;
       }
     }
 
@@ -65,6 +76,8 @@
       line-height: toRem(20);
     }
   }
+
+  //loader
   &--warning {
     color: $--tk-color-error !important;
   }
@@ -97,11 +110,44 @@
     font-size: toRem(32);
   }
 
+  // loaderBeta
+  &-warning {
+    stroke: $--tk-color-error !important;
+  }
+
+  &-ok {
+    stroke: $scolor-green !important;
+  }
+
+  &-attention {
+    stroke: $scolor-orange !important;
+  }
+
+  &-primary {
+    stroke: $scolor-electricity !important;
+  }
+
+  &-default {
+    stroke: $--tk-loader-default !important;
+  }
+
+  &-small {
+    font-size: toRem(12) / 3;
+  }
+
+  &-medium {
+    font-size: toRem(16) / 3;
+  }
+
+  &-large {
+    font-size: toRem(32) / 3;
+  }
+
   &-container {
     display: flex;
   }
 
-  &-linear {
+  &--linear {
     &-container {
       width: 200px;
       border-radius: toRem(4);
@@ -143,4 +189,58 @@
   100% {
     transform: translateX(100%) scaleX(0.5);
   }
+}
+
+//test
+
+.container {
+  display: grid;
+  grid-template-rows: 0;
+  grid-template-columns: repeat(1, 160px);
+  margin: auto 0;
+}
+
+.container .box {
+  width: 100%;
+}
+
+.container .box h2 {
+  display: block;
+  text-align: center;
+  color: #fff;
+}
+// .svg.radial-progress {
+//   position: relative;
+//   display: inline-block;
+//   text-align: center;
+//   svg {
+//     transform: rotate(270deg);
+//   }
+// }
+circle {
+  stroke-width: 0.47em;
+  fill: transparent;
+  transform: translate(25%, 10%);
+}
+
+.radial-progress-background {
+  stroke: getColor($electricity, '50');
+}
+
+@keyframes strok {
+  from {
+    stroke-dashoffset: 0em;
+  }
+  to {
+    stroke-dashoffset: -9.42477796076938em;
+  }
+}
+
+.radial-progress-center {
+  fill: none;
+}
+
+.radial-fill {
+  position: absolute;
+  transform: translate(-50%, -50%);
 }

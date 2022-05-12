@@ -6,89 +6,13 @@ const Template = (args) => <LoaderBeta {...args} />;
 export const Default = Template.bind({});
 const loadingText = 'Loading...';
 
-export const Spinner: React.FC = () => (
-  <>
-    <div>
-      <h2 className="tk-mt-4h">Variants</h2>
-      <LoaderBeta variant="default" className="tk-ml-h" />
-      <LoaderBeta variant="primary" className="tk-ml-2h" />
-      <LoaderBeta variant="attention" className="tk-ml-2h" />
-      <LoaderBeta variant="warning" className="tk-ml-2h" />
-      <LoaderBeta variant="ok" className="tk-ml-2h" />
-    </div>
-    <div>
-      <h2 className="tk-mt-4h">Sizes</h2>
-      <LoaderBeta variant="primary" className="tk-ml-h" size="small" />
-      <LoaderBeta variant="primary" className="tk-ml-2h" size="medium" />
-      <LoaderBeta variant="primary" className="tk-ml-2h" size="large" />
-    </div>
-    <div>
-      <h2 className="tk-mt-4h">With text</h2>
-      <div className="tk-loader-container">
-        <LoaderBeta
-          variant="default"
-          loadingText={loadingText}
-          direction={'vertical'}
-          className="tk-ml-h"
-        />
-        <div>
-          <LoaderBeta
-            variant="default"
-            loadingText={loadingText}
-            direction={'horizontal'}
-            className="tk-ml-2h"
-          />
-        </div>
-      </div>
-    </div>
-    <div>
-      <h2 className="tk-mt-4h">Determinate</h2>
-      <LoaderBeta
-        variant="default"
-        direction={'vertical'}
-        className="tk-ml-h"
-        progress="determinate"
-      />
-      <div>
-        <h4 className="tk-mt-4h">With text</h4>
-        <LoaderBeta
-          variant="default"
-          loadingText={loadingText}
-          direction={'vertical'}
-          className="tk-ml-h"
-          progress="determinate"
-        />
-      </div>
-    </div>
-    <div>
-      <h2 className="tk-mt-4h">Indeterminate</h2>
-      <LoaderBeta
-        variant="default"
-        direction={'vertical'}
-        className="tk-ml-h"
-        progress="indeterminate"
-      />
-      <div>
-        <h4 className="tk-mt-4h">With text</h4>
-        <LoaderBeta
-          variant="default"
-          loadingText={loadingText}
-          direction={'vertical'}
-          className="tk-ml-h"
-          progress="indeterminate"
-        />
-      </div>
-    </div>
-  </>
-);
-
-export const Linear: React.FC = () => {
+export const Spinner: React.FC = () => {
   const [value, setValue] = React.useState(0);
   let value1 = 0;
 
   let intervalId = null;
 
-  function bip() {
+  function count() {
     if (value1 <= 99) {
       value1++;
       setValue(value1);
@@ -97,7 +21,139 @@ export const Linear: React.FC = () => {
     }
   }
   function start() {
-    intervalId = setInterval(bip, 100);
+    intervalId = setInterval(count, 100);
+  }
+  return (
+    <>
+      <h2 className="tk-mt-4h">Variants</h2>
+      <div style={{ display: 'flex' }}>
+        <LoaderBeta variant="default" className="tk-ml-h" value={100} />
+        <LoaderBeta variant="primary" className="tk-ml-2h" value={100} />
+        <LoaderBeta variant="attention" className="tk-ml-2h" value={100} />
+        <LoaderBeta variant="warning" className="tk-ml-2h" value={100} />
+        <LoaderBeta variant="ok" className="tk-ml-2h" value={100} />
+      </div>
+
+      <h2 className="tk-mt-4h">Sizes</h2>
+      <div style={{ display: 'flex' }}>
+        <LoaderBeta
+          variant="primary"
+          className="tk-ml-h"
+          size="small"
+          value={100}
+        />
+        <LoaderBeta
+          variant="primary"
+          className="tk-ml-2h"
+          size="medium"
+          value={100}
+        />
+        <LoaderBeta
+          variant="primary"
+          className="tk-ml-2h"
+          size="large"
+          value={100}
+        />
+      </div>
+      <div>
+        <h2 className="tk-mt-4h">Determinate</h2>
+        <LoaderBeta
+          variant="primary"
+          direction="vertical"
+          className="tk-ml-h"
+          progress="determinate"
+          value={50}
+        />
+        <div>
+          <h4 className="tk-mt-4h">With text and direction</h4>
+          <div className="tk-loader-container">
+            <LoaderBeta
+              variant="primary"
+              loadingText={'75%'}
+              direction="vertical"
+              className="tk-ml-h"
+              progress="determinate"
+              value={75}
+            />
+            <div>
+              <LoaderBeta
+                variant="primary"
+                loadingText={'75%'}
+                direction="horizontal"
+                className="tk-ml-h"
+                progress="determinate"
+                value={75}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h2 className="tk-mt-4h">Indeterminate</h2>
+        <LoaderBeta
+          variant="primary"
+          direction="vertical"
+          className="tk-ml-h"
+          progress="indeterminate"
+          value={0}
+        />
+        <div>
+          <h4 className="tk-mt-4h">With text and direction</h4>
+          <div className="tk-loader-container">
+            <LoaderBeta
+              variant="primary"
+              loadingText={loadingText}
+              direction="vertical"
+              className="tk-ml-h"
+              progress="indeterminate"
+              value={0}
+            />
+            <div>
+              <LoaderBeta
+                variant="primary"
+                loadingText={loadingText}
+                direction="horizontal"
+                className="tk-ml-h"
+                progress="indeterminate"
+                value={0}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <h2 className="tk-mt-4h">Dynamic determinate</h2>
+      <div>
+        <LoaderBeta
+          className="tk-ml-h"
+          variant="primary"
+          progress="determinate"
+          type="spinner"
+          value={value}
+          loadingText={value + '%'}
+        />
+        <br />
+        <Button onClick={start}>Click</Button>
+      </div>
+    </>
+  );
+};
+
+export const Linear: React.FC = () => {
+  const [value, setValue] = React.useState(0);
+  let value1 = 0;
+
+  let intervalId = null;
+
+  function count() {
+    if (value1 <= 99) {
+      value1++;
+      setValue(value1);
+    } else {
+      clearInterval(intervalId);
+    }
+  }
+  function start() {
+    intervalId = setInterval(count, 100);
   }
 
   return (
@@ -107,15 +163,7 @@ export const Linear: React.FC = () => {
         <LoaderBeta
           className="tk-ml-h"
           value={50}
-          progress={'determinate'}
-          type="linear"
-        />
-      </div>
-      <div>
-        <h2 className="tk-mt-4h">Indeterminate</h2>
-        <LoaderBeta
-          className="tk-ml-h"
-          progress={'indeterminate'}
+          progress="determinate"
           type="linear"
         />
       </div>
@@ -123,7 +171,24 @@ export const Linear: React.FC = () => {
       <div>
         <LoaderBeta
           className="tk-ml-h"
-          progress={'indeterminate'}
+          progress="determinate"
+          loadingText="50%"
+          type="linear"
+        />
+      </div>
+      <div>
+        <h2 className="tk-mt-4h">Indeterminate</h2>
+        <LoaderBeta
+          className="tk-ml-h"
+          progress="indeterminate"
+          type="linear"
+        />
+      </div>
+      <h4 className="tk-mt-4h">With text</h4>
+      <div>
+        <LoaderBeta
+          className="tk-ml-h"
+          progress="indeterminate"
           loadingText="Loading..."
           type="linear"
         />
@@ -132,7 +197,7 @@ export const Linear: React.FC = () => {
       <div>
         <LoaderBeta
           className="tk-ml-h"
-          progress={'determinate'}
+          progress="determinate"
           type="linear"
           value={value}
           loadingText={value + '%'}

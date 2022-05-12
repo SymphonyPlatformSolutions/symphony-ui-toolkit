@@ -5,54 +5,57 @@ import { render } from '@testing-library/react';
 describe('Loader Component', () => {
   describe('Loader component test suite => ', () => {
     it('should render the component with default props', () => {
-      render(<LoaderBeta />);
-
-      const targetFirstIcon = document.evaluate(
-        '//i',
-        document,
-        null,
-        XPathResult.FIRST_ORDERED_NODE_TYPE,
-        null
-      );
-      const nodeValue = targetFirstIcon.singleNodeValue;
-      expect(nodeValue).toContainHTML('tk-loader-spinner');
+      const { container } = render(<LoaderBeta />);
+      expect(
+        container.getElementsByClassName(
+          'tk-loader--spinner-determinate tk-loader-medium tk-loader--spinner--vertical'
+        ).length
+      ).toBe(1);
     });
 
-    it('should render extra props to the loader component', () => {
-      render(
+    it('should render extra props for spinner to the loader component', () => {
+      const { container } = render(
         <LoaderBeta
-          variant="ok"
+          variant="primary"
           loadingText="loading..."
-          loadingTextPos="right"
+          direction="vertical"
           size="medium"
-        >
-          Close me
-        </LoaderBeta>
+          progress="indeterminate"
+          type="spinner"
+        ></LoaderBeta>
       );
 
-      const firstIcon = document.evaluate(
-        '//i',
-        document,
-        null,
-        XPathResult.FIRST_ORDERED_NODE_TYPE,
-        null
-      );
-      const nodeValue = firstIcon.singleNodeValue;
-      const firstIconText = document.evaluate(
-        '//div',
-        document,
-        null,
-        XPathResult.FIRST_ORDERED_NODE_TYPE,
-        null
-      );
-      const nodeValueText = firstIconText.singleNodeValue;
+      expect(
+        container.getElementsByClassName('tk-loader--spinner-indeterminate')
+          .length
+      ).toBe(1);
+      expect(
+        container.getElementsByClassName('tk-loader--spinner-text').length
+      ).toBe(1);
 
-      expect(nodeValue).toContainHTML('tk-loader-spinner tk-loader--ok');
-      expect(nodeValueText).toContainHTML('tk-loader-textPos--right');
-      expect(nodeValueText).toContainHTML(
-        '<p class="tk-loader-text">loading...</p>'
+      expect(container.getElementsByClassName('tk-loader-primary').length).toBe(
+        1
       );
-      expect(nodeValue).toContainHTML('tk-loader--medium');
+    });
+
+    it('should render extra props for linear to the loader component', () => {
+      const { container, getByText } = render(
+        <LoaderBeta
+          loadingText="loading..."
+          size="medium"
+          progress="determinate"
+          type="linear"
+          value={75}
+        ></LoaderBeta>
+      );
+
+      expect(
+        container.getElementsByClassName('tk-loader--linear-determinate').length
+      ).toBe(1);
+      expect(
+        container.getElementsByClassName('tk-loader--linear-text').length
+      ).toBe(1);
+      expect(getByText('loading...')).toBeInTheDocument();
     });
   });
 });

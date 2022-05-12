@@ -6,8 +6,11 @@ const prefix = 'tk-loader';
 
 type LoaderBetaProps = {
   className?: string;
+  /** Variant is only used on the spinner */
   variant?: 'default' | 'primary' | 'attention' | 'warning' | 'ok';
+  /** Direction is only used on the spinner */
   direction?: 'vertical' | 'horizontal';
+  /** Size is only used on the spinner */
   size?: 'small' | 'medium' | 'large';
   type?: 'spinner' | 'linear';
   loadingText?: string;
@@ -26,38 +29,86 @@ const LoaderBeta: React.FC<LoaderBetaProps> = ({
   value,
   ...rest
 }: LoaderBetaProps) => {
-  const classes = classNames(
-    className,
-    `${prefix}-${type}-${progress}`,
-    { [`${prefix}--${variant}`]: variant },
-    { [`${prefix}--${size}`]: size }
-  );
+  const radius = 1.5,
+    circumference = 2 * radius * Math.PI;
+  const maxCount = 100;
+  const offset = -(circumference / maxCount) * value + 'em';
+
+  const classes = classNames(className, `${prefix}--${type}-${progress}`, {
+    [`${prefix}-${size}`]: size,
+  });
+  const variants = classNames(className, `${prefix}-${variant}`);
 
   const textClasses = classNames(className, {
-    [`${prefix}-${type}--${direction}`]: direction,
+    [`${prefix}--${type}--${direction}`]: direction,
   });
 
-  const linearClasses = classNames(className, `${prefix}-${type}-${progress}`);
+  const linearClasses = classNames(className, `${prefix}--${type}-${progress}`);
 
   const progressCheck = () =>
-    progress === 'determinate' ? { width: `${value}%` } : null;
+    progress === 'determinate' && type === 'linear'
+      ? { width: `${value}%` }
+      : null;
 
-  return type === 'spinner' && loadingText ? (
-    <div className={textClasses}>
-      <i className={classes} {...rest}></i>
-      <p className="tk-loader-spinner-text">{loadingText}</p>
-    </div>
-  ) : type === 'linear' ? (
+  React.useEffect(() => {
+    if (type === 'spinner') {
+      loadSpinner();
+    }
+  }, [value]);
+
+  const loadSpinner = () => {
+    const els = document.querySelectorAll('circle');
+    Array.prototype.forEach.call(els, function (el) {
+      el.setAttribute('stroke-dasharray', circumference + 'em');
+      el.setAttribute('r', radius + 'em');
+    });
+
+    document
+      .querySelector('.radial-progress-center')
+      .setAttribute('r', radius - 0.01 + 'em');
+  };
+
+  return type === 'linear' ? (
     <>
-      <div className="tk-loader-linear-container">
+      <div className="tk-loader--linear-container">
         <div className={linearClasses} style={progressCheck()} {...rest}></div>
       </div>
-      <p className="tk-loader-linear-text">
-        {progress === 'indeterminate' ? loadingText : value + '%'}
-      </p>
+      <p className="tk-loader--linear-text">{loadingText}</p>
     </>
   ) : (
-    <i className={classes} {...rest}></i>
+    <>
+      <div>
+        <div className={classes + ' ' + textClasses}>
+          <svg height="5em" width="5em">
+            <circle
+              className={variants + ' ' + 'radial-progress-background'}
+              cx="2em"
+              cy="2em"
+              fill="transparent"
+              strokeDasharray="0em"
+              strokeDashoffset="0em"
+            ></circle>
+            <circle
+              className="radial-progress-cover"
+              cx="2em"
+              cy="2em"
+              fill="transparent"
+              strokeDasharray="0em"
+              strokeDashoffset={offset}
+            ></circle>
+            <circle
+              className="radial-progress-center"
+              cx="2em"
+              cy="2em"
+              fill="transparent"
+              strokeDasharray="0em"
+              strokeDashoffset="0em"
+            ></circle>
+          </svg>
+          <p className="tk-loader--spinner-text">{loadingText}</p>
+        </div>
+      </div>
+    </>
   );
 };
 
@@ -65,7 +116,7 @@ LoaderBeta.defaultProps = {
   type: 'spinner',
   direction: 'vertical',
   size: 'medium',
-  variant: 'default',
+  variant: 'primary',
   progress: 'determinate',
   value: 50,
 };
