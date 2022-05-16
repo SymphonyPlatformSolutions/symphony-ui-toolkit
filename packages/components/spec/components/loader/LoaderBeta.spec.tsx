@@ -30,7 +30,9 @@ describe('Loader Component', () => {
           .length
       ).toBe(1);
       expect(
-        container.getElementsByClassName('tk-loader--spinner-text').length
+        container.getElementsByClassName(
+          'tk-loader--spinner-medium--vertical-text'
+        ).length
       ).toBe(1);
 
       expect(container.getElementsByClassName('tk-loader-primary').length).toBe(
@@ -42,10 +44,8 @@ describe('Loader Component', () => {
       const { container, getByText } = render(
         <LoaderBeta
           loadingText="loading..."
-          size="medium"
           progress="determinate"
           type="linear"
-          value={75}
         ></LoaderBeta>
       );
 

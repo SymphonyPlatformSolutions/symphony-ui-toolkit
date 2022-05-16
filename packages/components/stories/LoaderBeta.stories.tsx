@@ -75,12 +75,11 @@ export const Spinner: React.FC = () => {
               progress="determinate"
               value={75}
             />
-            <div>
+            <div className="tk-ml-2h">
               <LoaderBeta
                 variant="primary"
                 loadingText={'75%'}
                 direction="horizontal"
-                className="tk-ml-h"
                 progress="determinate"
                 value={75}
               />
@@ -104,16 +103,14 @@ export const Spinner: React.FC = () => {
               variant="primary"
               loadingText={loadingText}
               direction="vertical"
-              className="tk-ml-h"
               progress="indeterminate"
               value={0}
             />
-            <div>
+            <div className="tk-ml-2h">
               <LoaderBeta
                 variant="primary"
                 loadingText={loadingText}
                 direction="horizontal"
-                className="tk-ml-h"
                 progress="indeterminate"
                 value={0}
               />

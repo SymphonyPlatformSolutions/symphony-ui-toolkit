@@ -45,6 +45,11 @@ const LoaderBeta: React.FC<LoaderBetaProps> = ({
 
   const linearClasses = classNames(className, `${prefix}--${type}-${progress}`);
 
+  const textDirection = classNames(
+    className,
+    `${prefix}--${type}-${size}--${direction}-text`
+  );
+
   const progressCheck = () =>
     progress === 'determinate' && type === 'linear'
       ? { width: `${value}%` }
@@ -79,7 +84,7 @@ const LoaderBeta: React.FC<LoaderBetaProps> = ({
     <>
       <div>
         <div className={classes + ' ' + textClasses}>
-          <svg height="5em" width="5em">
+          <svg>
             <circle
               className={variants + ' ' + 'radial-progress-background'}
               cx="2em"
@@ -105,7 +110,7 @@ const LoaderBeta: React.FC<LoaderBetaProps> = ({
               strokeDashoffset="0em"
             ></circle>
           </svg>
-          <p className="tk-loader--spinner-text">{loadingText}</p>
+          <p className={textDirection}>{loadingText}</p>
         </div>
       </div>
     </>
