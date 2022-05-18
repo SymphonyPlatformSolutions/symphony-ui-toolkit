@@ -29,10 +29,12 @@ const LoaderBeta: React.FC<LoaderBetaProps> = ({
   value,
   ...rest
 }: LoaderBetaProps) => {
+  const [maxValue, setMaxValue] = React.useState(Number);
   const radius = 1.5,
     circumference = 2 * radius * Math.PI;
   const maxCount = 100;
-  const offset = -(circumference / maxCount) * value + 'em';
+
+  const offset = -(circumference / maxCount) * maxValue + 'em';
 
   const classes = classNames(className, `${prefix}--${type}-${progress}`, {
     [`${prefix}-${size}`]: size,
@@ -50,12 +52,16 @@ const LoaderBeta: React.FC<LoaderBetaProps> = ({
     `${prefix}--${type}-${size}--${direction}-text`
   );
 
+  const limitMaxValue = () => {
+    value > 100 || value < 0 ? setMaxValue(100) : setMaxValue(value);
+  };
   const progressCheck = () =>
     progress === 'determinate' && type === 'linear'
       ? { width: `${value}%` }
       : null;
 
   React.useEffect(() => {
+    limitMaxValue();
     if (type === 'spinner') {
       loadSpinner();
     }
