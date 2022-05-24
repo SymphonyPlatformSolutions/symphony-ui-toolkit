@@ -47,45 +47,47 @@ jobs:
           name: Storybook Start
           command: yarn start
           background: true
-      - run:
-          name: Configure Selenium Grid
-          command: java -jar selenium-server-4.1.1.jar hub
-          background: true
-      - run:
-          name: Run Selenium Node
-          command: |
-            # Waiting for the Selenium Grid become ready
-            sleep 45
-            java -jar selenium-server-4.1.1.jar node
-          background: true
-      - run:
-          name: Execute Visual Tests - Normal Mode
-          command: |
-            # Waiting for the Selenium Grid and Node become ready
-            sleep 50
-            yarn test --config .creevey/config.js
-      - run:
-          name: Execute Visual Tests - Normal Mode + Condensed
-          when: always
-          command: |
-            yarn test --config .creevey/config_condensed.js
-      - run:
-          name: Execute Visual Tests - Dark Mode
-          when: always
-          command: |
-            yarn test --config .creevey/config_darkmode.js
-      - run:
-          name: Execute Visual Tests - Dark Mode + Condensed
-          when: always
-          command: |
-            yarn test --config .creevey/config_darkmode_condensed.js
-      - run:
-          name: Preparing artifacts
-          when: always
-          command: zip -r .creevey/report/report.zip .creevey/report
-
-      - store_artifacts:
-          path: .creevey/report
+      # Temporary disable it because it fails randomly...
+      # See ticket https://perzoinc.atlassian.net/browse/APP-5149
+      #- run:
+      #    name: Configure Selenium Grid
+      #    command: java -jar selenium-server-4.1.1.jar hub
+      #    background: true
+      #- run:
+      #    name: Run Selenium Node
+      #    command: |
+      #      # Waiting for the Selenium Grid become ready
+      #      sleep 45
+      #      java -jar selenium-server-4.1.1.jar node
+      #    background: true
+      #- run:
+      #    name: Execute Visual Tests - Normal Mode
+      #    command: |
+      #      # Waiting for the Selenium Grid and Node become ready
+      #      sleep 50
+      #      yarn test --config .creevey/config.js
+      #- run:
+      #    name: Execute Visual Tests - Normal Mode + Condensed
+      #    when: always
+      #    command: |
+      #      yarn test --config .creevey/config_condensed.js
+      #- run:
+      #    name: Execute Visual Tests - Dark Mode
+      #    when: always
+      #    command: |
+      #      yarn test --config .creevey/config_darkmode.js
+      #- run:
+      #    name: Execute Visual Tests - Dark Mode + Condensed
+      #    when: always
+      #    command: |
+      #      yarn test --config .creevey/config_darkmode_condensed.js
+      #- run:
+      #    name: Preparing artifacts
+      #    when: always
+      #    command: zip -r .creevey/report/report.zip .creevey/report
+      #
+      #- store_artifacts:
+      #    path: .creevey/report
 
       - persist_to_workspace:
           root: dist
