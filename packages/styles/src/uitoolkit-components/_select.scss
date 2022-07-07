@@ -65,6 +65,7 @@ body {
   .tk-select {
     &__single-value {
       color: getColor($--tk-input-color, filledText);
+      line-height: toRem(20);
     }
     &__control {
       padding-left:  var(--tk-select__control-padding-left);
