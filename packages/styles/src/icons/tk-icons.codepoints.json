@@ -166,5 +166,7 @@
     "grid": 61859,
     "market-place": 61860,
     "audio": 61861,
-    "cloud9": 61862
+    "cloud9": 61862,
+    "teams-meeting": 61863,
+    "zoom-meeting": 61864
 }
