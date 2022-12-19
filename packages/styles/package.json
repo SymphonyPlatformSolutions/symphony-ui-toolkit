@@ -11,7 +11,7 @@
     "prestart": "yarn icons",
     "start": "start-storybook -p 6006 -c .storybook watch-css -s ./src",
     "prebuild": "yarn icons && sh src/scripts/generate-cdn.sh",
-    "build-storybook": "build-storybook -c .storybook -o dist/storybook",
+    "build-storybook": "NODE_OPTIONS=--openssl-legacy-provider build-storybook -c .storybook -o dist/storybook",
     "build": "bash ./build.sh",
     "watch": "sass --watch --no-source-map --load-path=node_modules --style compressed uitoolkit.scss:dist/css/uitoolkit.css",
     "icons": "node src/scripts/generate-icons",

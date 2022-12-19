@@ -20,7 +20,7 @@
     "lint-fix": "eslint --ext .ts,.tsx,.js,.jsx ./ --fix",
     "start": "start-storybook -p 6006",
     "storybook-docs": "start-storybook --docs",
-    "build-storybook": "build-storybook -c .storybook -o dist/storybook",
+    "build-storybook": "NODE_OPTIONS=--openssl-legacy-provider build-storybook -c .storybook -o dist/storybook",
     "test": "jest --watchAll",
     "test-once": "jest -w 1",
     "cover": "jest -w 1 --coverage",
