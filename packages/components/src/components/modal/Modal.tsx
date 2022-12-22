@@ -16,6 +16,7 @@ interface ModalProps extends Omit<React.HTMLProps<HTMLDivElement>, 'size'> {
 type ModalContentProps = {
   className?: string;
   children?: React.ReactNode;
+  noScroll?: boolean;
 };
 
 const prefix = 'tk-dialog';
@@ -36,8 +37,9 @@ export const ModalHeader: React.FC<ModalContentProps> = ({
 export const ModalBody: React.FC<ModalContentProps> = ({
   className,
   children,
+  noScroll = false,
   ...rest
-}: ModalContentProps) => <div className={classNames(buildClass('body'), className)} {...rest}>{children}</div>;
+}: ModalContentProps) => <div className={classNames(buildClass('body'), className, { noScroll })} {...rest}>{children}</div>;
 
 export const ModalFooter: React.FC<ModalContentProps> = ({
   className,

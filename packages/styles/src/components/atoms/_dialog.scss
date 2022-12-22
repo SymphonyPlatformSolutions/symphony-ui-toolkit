@@ -53,6 +53,7 @@ $dialog-scrollbar-box-shadow: rgba($scolor-black, 0.5);
   &--full-width {
     width: 100%;
   }
+
   /* Subcomponents */
   &__title {
     padding-right: toRem(16);
@@ -111,11 +112,16 @@ $dialog-scrollbar-box-shadow: rgba($scolor-black, 0.5);
     &::-webkit-scrollbar {
       width: toRem(5);
     }
+
     &::-webkit-scrollbar-thumb {
       border-radius: toRem(5);
       background-color: $dialog-scrollbar-box-shadow;
       // Remove the border, because Mana defines a 4px transparent border that reduces the width of our scrollbar.
       border: none;
+    }
+
+    &.noScroll {
+      overflow: initial;
     }
   }
 
