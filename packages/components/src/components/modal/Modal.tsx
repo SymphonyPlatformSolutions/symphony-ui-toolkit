@@ -57,8 +57,8 @@ const Modal: React.FC<ModalProps> = ({
 }: ModalProps) => {
   const containerClasses = classNames(className, `${prefix}-backdrop`);
   const sizeClasses = classNames(prefix, { [`${prefix}--${size}`]: size });
-  const handleContentClick = (event: React.MouseEvent<HTMLElement>) =>
-    event.stopPropagation();
+  const handleContentClick = (event: React.MouseEvent<HTMLElement>) => event.stopPropagation();
+  const onMouseDown = (event: React.MouseEvent) => event.stopPropagation();
   const handleKeyUp = (event: React.KeyboardEvent<HTMLElement>) => {
     if (onClose && event.key === Keys.ESC) {
       event.stopPropagation();
@@ -68,6 +68,7 @@ const Modal: React.FC<ModalProps> = ({
 
   const domResult = (
     <div
+      onMouseDown={onMouseDown}
       {...rest}
       className={containerClasses}
       onClick={onClose}
