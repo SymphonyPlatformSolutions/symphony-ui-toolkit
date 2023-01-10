@@ -5,7 +5,7 @@ import { BadgeProps } from './interfaces';
 
 const prefix = 'tk-badge';
 
-const Badge: React.FC<BadgeProps> = ({
+const Badge: React.FC<BadgeProps & React.HTMLAttributes<HTMLDivElement>> = ({
   children,
   className,
   variant,

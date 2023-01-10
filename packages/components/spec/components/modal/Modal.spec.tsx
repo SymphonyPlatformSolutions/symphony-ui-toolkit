@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Modal, ModalBody, ModalFooter, ModalHeader, ModalTitle } from '../../../src/components';
 import { Keys } from '../../../src/components/common/eventUtils';
-
 import {
   render,
   screen,
@@ -60,7 +59,8 @@ describe('Modal', () => {
     expect(footer).toBeDefined();
     expect(footer.classList).toContain(footerCssClass);
     expect(footer.classList).toContain('tk-dialog__footer');
-  })
+  });
+
   it('should render nothing', () => {
     const titleText = 'Text in title';
     const headerText = 'Text in header';
@@ -82,7 +82,8 @@ describe('Modal', () => {
     expect(queryByText(headerText)).toBeNull();
     expect(queryByText(bodyText)).toBeNull();
     expect(queryByText(footerText)).toBeNull();
-  })
+  });
+
   it('should close the Modal on "Esc"', async () => {
     let show = true;
     const handleClose = () => { show = false }
@@ -106,4 +107,32 @@ describe('Modal', () => {
     // Modal should be closed
     expect(show).toBeFalsy();
   })
+});
+
+it('should not propagate mouse down event by default', async () => {
+  const onMouseDownParent = jest.fn();
+  const component = <div className="parent" onMouseDown={onMouseDownParent}>
+    <Modal size={'small'} show>
+      <ModalTitle>Title</ModalTitle>
+      <ModalHeader>Header</ModalHeader>
+      <ModalBody>Body</ModalBody>
+    </Modal>
+  </div>;
+  render(component);
+  fireEvent.mouseDown(screen.getByText('Title'))
+  expect(onMouseDownParent).not.toHaveBeenCalled();
+});
+
+it('should allow to propagate mouse down event', async () => {
+  const onMouseDownParent = jest.fn();
+  const component = <div className="parent" onMouseDown={onMouseDownParent}>
+    <Modal size={'small'} show onMouseDown={undefined}>
+      <ModalTitle>Title</ModalTitle>
+      <ModalHeader>Header</ModalHeader>
+      <ModalBody>Body</ModalBody>
+    </Modal>
+  </div>;
+  render(component);
+  fireEvent.mouseDown(screen.getByText('Title'))
+  expect(onMouseDownParent).toHaveBeenCalled();
 });
