@@ -35,7 +35,7 @@ const Icon: React.FC<IconProps> = ({
   return (
     <i
       {...otherProps}
-      className={classnames(`tk-icon-${iconName}`, className)}
+      className={classnames(`tk-icon tk-icon-${iconName}`, className)}
       onClick={!disabled ? onClick : null}
       onKeyDown={!disabled ? onKeyDown : null}
       onKeyPress={!disabled ? onKeyPress : null}
