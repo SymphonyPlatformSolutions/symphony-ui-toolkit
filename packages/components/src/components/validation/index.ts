@@ -1,3 +1,4 @@
 import Validation from './Validation';
+import { EventWithValue } from './interfaces';
 
-export default Validation;
+export { EventWithValue, Validation }

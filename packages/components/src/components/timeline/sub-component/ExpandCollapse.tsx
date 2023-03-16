@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import Icon from '../../icon';
+import Icon from '../../icon/FontIcon';
 
 export interface ExpandCollapseProps {
     children: React.ReactNode[];

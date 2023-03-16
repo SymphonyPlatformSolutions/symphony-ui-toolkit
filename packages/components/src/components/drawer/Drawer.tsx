@@ -1,6 +1,6 @@
 import * as React from 'react';
 import classNames from 'classnames';
-import Icon from '../icon';
+import Icon from '../icon/FontIcon';
 import { DrawerProps, DrawerContentProps } from './interfaces';
 
 const prefix = 'tk-drawer';

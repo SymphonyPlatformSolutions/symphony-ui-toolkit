@@ -9,7 +9,7 @@ import {
   DropdownMenuItem,
 } from './dropdown-menu';
 import ExpandableCard from './expandable-card';
-import Icon from './icon';
+import Icon from './icon/FontIcon';
 import { InputDecorator, TextArea, TextField } from './input';
 import Link from './link';
 import Loader from './loader';
@@ -23,7 +23,6 @@ import {
 import { Checkbox, Radio, Switch } from './selection';
 import Tooltip, { TooltipProps } from './tooltip';
 import Typography from './typography';
-import Validation from './validation';
 import Validators from '../core/validators';
 import VirtualizedList from './virtualized-list';
 
@@ -33,12 +32,16 @@ export * from './avatar';
 export * from './badge';
 export * from './banner';
 export * from './button';
+export * from './drawer';
 export * from './dropdown';
-export * from './text-ellipsis';
+export * from './icon';
+export * as Icons from './icons';
 export * from './nav';
+export * from './text-ellipsis';
 export * from './time-picker';
 export * from './toast';
-export * from './drawer';
+export * from './validation';
+
 export {
   Card,
   Checkbox,
@@ -54,7 +57,6 @@ export {
   TextField,
   Tooltip,
   TooltipProps,
-  Validation,
   Icon,
   InputDecorator,
   VirtualizedList,

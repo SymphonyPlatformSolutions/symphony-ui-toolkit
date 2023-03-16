@@ -4,7 +4,7 @@ import { renderHook, act } from '@testing-library/react-hooks'
 
 import { useTimeline, TimeLineItem } from '../../../src/components/timeline';
 import { Badge } from '../../../src/components/badge';
-import Icon from '../../../src/components/icon/Icon';
+import Icon from '../../../src/components/icon/FontIcon';
 
 type MyItem = {
     title: string;
