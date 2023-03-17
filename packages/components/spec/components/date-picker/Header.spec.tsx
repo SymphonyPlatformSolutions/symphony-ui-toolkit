@@ -73,25 +73,25 @@ describe('Header Component', () => {
     expect(
       wrapper
         .find('.tk-daypicker-header--prevYear')
-        .find('Icon')
+        .find('FontIcon')
         .prop('iconName')
     ).toBe('chevron-right');
     expect(
       wrapper
         .find('.tk-daypicker-header--nextYear')
-        .find('Icon')
+        .find('FontIcon')
         .prop('iconName')
     ).toBe('chevron-left');
     expect(
       wrapper
         .find('.tk-daypicker-header--prevMonth')
-        .find('Icon')
+        .find('FontIcon')
         .prop('iconName')
     ).toBe('right');
     expect(
       wrapper
         .find('.tk-daypicker-header--nextMonth')
-        .find('Icon')
+        .find('FontIcon')
         .prop('iconName')
     ).toBe('left');
   });

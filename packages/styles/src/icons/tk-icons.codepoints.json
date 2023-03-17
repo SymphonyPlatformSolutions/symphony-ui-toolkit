@@ -91,7 +91,8 @@
     "minus-round": 61786,
     "minus": 61787,
     "mobile": 61788,
-    "more-": 61789,
+    "more-horizontal": 61789,
+    "more-vertical": 61790,
     "more": 61790,
     "network": 61791,
     "no-signal": 61792,
@@ -169,5 +170,6 @@
     "cloud9": 61862,
     "teams-meeting": 61863,
     "zoom-meeting": 61864,
-    "person-add": 61865
+    "person-add": 61865,
+    "food-and-drink": 61866
 }

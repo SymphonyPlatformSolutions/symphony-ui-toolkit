@@ -11,7 +11,7 @@ import { DayModifiers, Modifier } from './model/Modifiers';
 import DayPicker from './sub-component/DayPicker';
 
 import TextField from '../input/TextField';
-import Icon from '../icon/Icon';
+import Icon from '../icon/FontIcon';
 
 import styled from 'styled-components';
 

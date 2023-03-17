@@ -2,7 +2,7 @@ import { FunctionComponent } from 'react';
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 
-import Icon from '../../icon/Icon';
+import FontIcon from '../../icon/FontIcon';
 import { addMonths, addYears } from 'date-fns';
 
 import { Keys, cancelEvent } from '../../common/eventUtils';
@@ -67,16 +67,16 @@ const Header: FunctionComponent<HeaderProps> = ({ date, dir, labels, months, onC
           onClick={() => changeYear(-1)}
           onKeyDown={ajustLoopNavigation}
         >
-          <Icon
+          <FontIcon
             iconName={dir === 'rtl' ? 'chevron-right' : 'chevron-left'}
-          ></Icon>
+          ></FontIcon>
         </button>
         <button
           aria-label={labels.previousMonth}
           className="tk-daypicker-header--prevMonth"
           onClick={() => changeMonth(-1)}
         >
-          <Icon iconName={dir === 'rtl' ? 'right' : 'left'}></Icon>
+          <FontIcon iconName={dir === 'rtl' ? 'right' : 'left'}></FontIcon>
         </button>
       </div>
       <div className="tk-daypicker-header--text">{textHeader}</div>
@@ -86,16 +86,16 @@ const Header: FunctionComponent<HeaderProps> = ({ date, dir, labels, months, onC
           className="tk-daypicker-header--nextMonth"
           onClick={() => changeMonth(1)}
         >
-          <Icon iconName={dir === 'rtl' ? 'left' : 'right'}></Icon>
+          <FontIcon iconName={dir === 'rtl' ? 'left' : 'right'}></FontIcon>
         </button>
         <button
           aria-label={labels.nextYear}
           className="tk-daypicker-header--nextYear"
           onClick={() => changeYear(1)}
         >
-          <Icon
+          <FontIcon
             iconName={dir === 'rtl' ? 'chevron-left' : 'chevron-right'}
-          ></Icon>
+          ></FontIcon>
         </button>
       </div>
     </div>

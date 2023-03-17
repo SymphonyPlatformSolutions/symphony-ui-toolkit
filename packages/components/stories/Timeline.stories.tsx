@@ -1,5 +1,5 @@
 import React from 'react';
-import Icon from '../src/components/icon/Icon';
+import Icon from '../src/components/icon/FontIcon';
 import  { Badge } from '../src/components/badge';
 import { useTimeline, TimeLineItem } from '../src/components/timeline';
 

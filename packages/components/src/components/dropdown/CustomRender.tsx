@@ -1,7 +1,7 @@
 import * as React from 'react';
 import classNames from 'classnames';
 import { components } from 'react-select';
-import Icon from '../icon';
+import Icon from '../icon/FontIcon';
 import Loader from '../loader';
 import { SearchHeaderOption } from './interfaces';
 

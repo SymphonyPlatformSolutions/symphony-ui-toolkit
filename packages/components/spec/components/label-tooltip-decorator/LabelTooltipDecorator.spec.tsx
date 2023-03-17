@@ -32,7 +32,7 @@ describe('LabelTooltipDecorator Component', () => {
     it('should display a tooltip if provided', () => {
 
       let wrapper = shallow(<LabelTooltipDecorator />);
-      expect(wrapper.find('Icon').length).toBe(0);
+      expect(wrapper.find('FontIcon').length).toBe(0);
       wrapper = shallow(
         <LabelTooltipDecorator
           id={id}
@@ -40,8 +40,8 @@ describe('LabelTooltipDecorator Component', () => {
           tooltipCloseLabel={tooltipCloseLabel}
         />
       );
-      expect(wrapper.find('Icon').length).toBe(1);
-      expect(wrapper.find('Icon').prop('iconName')).toBeDefined();
+      expect(wrapper.find('FontIcon').length).toBe(1);
+      expect(wrapper.find('FontIcon').prop('iconName')).toBeDefined();
       expect(wrapper.find('Tooltip').length).toBe(1);
       expect(wrapper.find('Tooltip').prop('id')).toEqual(id);
       expect(wrapper.find('Tooltip').prop('description')).toEqual(tooltipText);

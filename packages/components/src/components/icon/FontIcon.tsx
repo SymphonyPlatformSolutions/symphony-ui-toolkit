@@ -1,9 +1,14 @@
+/**
+ * @deprecated
+ * It is recommended to use SvgIcon. FontIcon will be removed in a future release.
+ */
+
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import classnames from 'classnames';
 import { TkIcon } from  '@symphony-ui/uitoolkit-styles/dist/fonts/tk-icons';
 
-export interface IconProps extends React.HTMLProps<HTMLElement> {
+interface FontIconProps extends React.HTMLProps<HTMLElement> {
   /** Required; Designates a specific icon */
   iconName: TkIcon;
   /** Optional CSS class name */
@@ -20,7 +25,7 @@ export interface IconProps extends React.HTMLProps<HTMLElement> {
   onKeyPress?: (event: React.KeyboardEvent<HTMLElement>) => void;
 }
 
-const Icon: React.FC<IconProps> = ({
+const FontIcon: React.FC<FontIconProps> = ({
   className,
   disabled,
   iconName,
@@ -46,7 +51,7 @@ const Icon: React.FC<IconProps> = ({
   );
 };
 
-Icon.propTypes = {
+FontIcon.propTypes = {
   iconName: PropTypes.string.isRequired as PropTypes.Validator<TkIcon>,
   className: PropTypes.string,
   disabled: PropTypes.bool,
@@ -58,4 +63,4 @@ Icon.propTypes = {
   style: PropTypes.object,
 };
 
-export default Icon;
+export default FontIcon;
