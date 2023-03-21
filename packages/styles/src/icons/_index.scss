@@ -3,7 +3,8 @@ $ICONS_FONTS_PATH: '~@symphony-ui/uitoolkit-styles/dist/fonts' !default;
 @import './animation';
 @import './generated/tk-icons-definitions';
 
-.tk-icon {
+[class^='tk-icon-'],
+[class*=' tk-icon-'] {
   display: inline-block;
   font-variant: normal;
   font-style: normal;
