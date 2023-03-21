@@ -9,7 +9,7 @@ url($ICONS_FONTS_PATH+"/tk-icons.ttf") format("truetype"),
 url($ICONS_FONTS_PATH+"/tk-icons.svg#tk-icons") format("svg");
   }
 
-  i.tk-icon:before {
+  i[class^="tk-icon-"]:before, i[class*=" tk-icon-"]:before {
     display: inline-block;
     font-family: {{ name }} !important;
     font-style: normal;

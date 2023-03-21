@@ -80,7 +80,7 @@ const ExpandableCard: React.FC<ExpandableCardProps> = ({
           {collapsed ? 'EXPAND' : 'COLLAPSE'}
         </a>
         <i
-          className={classNames('tk-icon tk-icon-top', { collapsed })}
+          className={classNames('tk-icon-top', { collapsed })}
           onClick={onToggleHeader}
           aria-label="Toggle"
         ></i>
