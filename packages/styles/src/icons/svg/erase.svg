@@ -1,3 +1,3 @@
-<svg width="16" height="16" viewBox="0 0 16 16">
+<svg data-testid="ICON_ERASE" width="16" height="16" viewBox="0 0 16 16">
     <path d="M3 5V16H5V10H11V16H13V5C13 2.23858 10.7614 0 8 0C5.23858 0 3 2.23858 3 5ZM11 8H5V6H11V8Z"/>
 </svg>

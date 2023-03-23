@@ -2,6 +2,7 @@ import * as React from 'react';
 import { SVGProps } from 'react';
 const SvgSymphonyLogo = (props: SVGProps<SVGSVGElement>) => (
   <svg
+    data-testid="ICON_SYMPHONY-LOGO"
     width="1em"
     height="1em"
     viewBox="0 0 14 14"
