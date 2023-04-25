@@ -6,11 +6,7 @@ $list-font-size-icon: toRem(16);
   width: max-content;
   z-index: $z-index-dropdown-menu;
   padding: toRem(8) 0;
-  i {
-    color: getColor($--tk-select-color, defaultMenuIcon);
-    font-size: $list-font-size-icon;
-    padding-right: toRem(8);
-  }
+
 
   &__item {
     box-sizing: border-box;
@@ -29,6 +25,12 @@ $list-font-size-icon: toRem(16);
       .tk-loader-spinner {
         padding-right: 0;
       }
+    }
+
+    > i {
+      color: getColor($--tk-select-color, defaultMenuIcon);
+      font-size: $list-font-size-icon;
+      padding-right: toRem(8);
     }
   }
 
