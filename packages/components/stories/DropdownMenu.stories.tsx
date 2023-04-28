@@ -18,25 +18,25 @@ export const Default: React.FC = () => (
       <DropdownMenuItem>New room...</DropdownMenuItem>
       <DropdownMenuDivider />
       <DropdownMenuItem>
-        <Icon iconName="minus-round"/>
+        <Icon iconName="minus-round" />
         Cut
       </DropdownMenuItem>
       <DropdownMenuItem>
-        <Icon iconName="copy"/>
+        <Icon iconName="copy" />
         Copy
         <i className="tk-dropdown-menu--selected" />
       </DropdownMenuItem>
       <DropdownMenuItem>
-        <Icon iconName="forward"/>
+        <Icon iconName="forward" />
         Paste
       </DropdownMenuItem>
       <DropdownMenuDivider />
       <DropdownMenuItem>
-        <Icon iconName="fullscreen-on"/>
+        <Icon iconName="fullscreen-on" />
         Full screen
       </DropdownMenuItem>
       <DropdownMenuItem>
-        <Icon iconName="fullscreen-off"/>
+        <Icon iconName="fullscreen-off" />
         Minimize
       </DropdownMenuItem>
     </DropdownMenu>
@@ -100,18 +100,15 @@ export const LoadingState: React.FC = () => {
   return (
     <>
       <h3>Loading State</h3>
-      <Typography>
-        This menu can have loading menu item.
-      </Typography>
+      <Typography>This menu can have loading menu item.</Typography>
       <div className="tk-mb-1" />
-      <DropdownMenu
-        className="dropdownMenu"
-        show
-      >
+      <DropdownMenu className="dropdownMenu" show>
         <DropdownMenuItem>New direct chat</DropdownMenuItem>
         <DropdownMenuItem>New room...</DropdownMenuItem>
         <DropdownMenuDivider />
-        <DropdownMenuItem isLoading>You should never see this text</DropdownMenuItem>
+        <DropdownMenuItem loading>
+          You should never see this text
+        </DropdownMenuItem>
         <DropdownMenuDivider />
         <DropdownMenuItem>
           <Icon iconName="minus-round" className="leftIcon" />
@@ -138,7 +135,7 @@ export const LoadingState: React.FC = () => {
       </DropdownMenu>
     </>
   );
-}
+};
 
 export default {
   title: 'Components/Dropdown Menu',
