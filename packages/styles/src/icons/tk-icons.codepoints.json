@@ -169,5 +169,6 @@
     "cloud9": 61862,
     "teams-meeting": 61863,
     "zoom-meeting": 61864,
-    "person-add": 61865
+    "person-add": 61865,
+    "call-hang-up": 61866
 }
