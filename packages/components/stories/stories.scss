@@ -25,10 +25,11 @@ html {
 
 // Icons preview
 .preview {
-  width: 100px;
   display: inline-block;
   margin: 20px;
   text-align: center;
+  width: 120px;
+  word-break: break-word;
 }
 
 // Width percentages

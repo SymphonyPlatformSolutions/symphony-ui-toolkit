@@ -21,7 +21,7 @@ $list-box-shadow: rgba($scolor-graphite-plus-89, 0.122);
     &:not(&--loading):hover {
       color: getColor($--tk-select-color, hoverMenuText);
       background-color: getColor($--tk-select-color, hoverMenuBg);
-      i, i::before {
+      > i, > i::before {
         color: getColor($--tk-select-color, hoverMenuIcon);
       }
     }

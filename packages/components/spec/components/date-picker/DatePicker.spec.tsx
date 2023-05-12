@@ -5,7 +5,7 @@ import { act } from 'react-dom/test-utils';
 import DatePicker from '../../../src/components/date-picker/DatePicker';
 import DayPicker from '../../../src/components/date-picker/sub-component/DayPicker';
 import TextField from '../../../src/components/input/TextField';
-import Icon from '../../../src/components/icon/Icon';
+import Icon from '../../../src/components/icon/FontIcon';
 
 import * as eventUtils from '../../../src/components/common/eventUtils';
 

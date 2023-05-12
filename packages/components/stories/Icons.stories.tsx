@@ -1,24 +1,29 @@
 import * as React from 'react';
-import Icon from '../src/components/icon/Icon';
-import IconCodepoints from '@symphony-ui/uitoolkit-styles/src/icons/tk-icons.codepoints.json';
-import { TkIcon } from '@symphony-ui/uitoolkit-styles/dist/fonts/tk-icons';
+import { SvgIcon } from '../src/components/icon';
+import { ReactIcons } from './helpers/ListOfIcons'
+import { styled, useTheme } from '@storybook/theming';
 
-const iconNames  = Object.keys(IconCodepoints).sort() as TkIcon[];
-export const Icons: React.FC = () => (
-  <div>
-    {iconNames.map((iconName, index) => {
-      return (
-        <div key={index} className="preview">
-          <Icon iconName={iconName}/>
-          <br/>
-          <span>{iconName}</span>
-        </div>
-      );
+export const Icons: React.FC = () => {
+  const theme: any = useTheme();
+  
+  return <div>
+    { Object.entries(ReactIcons).map(([key, ReactIcon]) => {
+      const StyledReactIcon = styled(ReactIcon)`
+        fill: ${theme.color.defaultText};
+        height: 24px;
+        width: 24px;
+      `
+      return (<div className="preview" key={ key }>
+        <StyledReactIcon/>
+        <br/>
+        <span>{ key }</span>
+      </div>
+      )
     })}
   </div>
-);
+}
 
 export default {
   title: 'Components/Icon',
-  component: Icon,
+  component: SvgIcon,
 };

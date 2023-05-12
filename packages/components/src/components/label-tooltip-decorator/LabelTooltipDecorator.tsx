@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useState } from 'react';
 import styled from 'styled-components';
-import Icon from '../icon';
+import Icon from '../icon/FontIcon';
 import Tooltip from '../tooltip';
 import classNames from 'classnames';
 import {

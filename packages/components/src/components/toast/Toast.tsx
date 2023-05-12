@@ -2,7 +2,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Icon from '../icon';
+import Icon from '../icon/FontIcon';
 import { TkIcon } from  '@symphony-ui/uitoolkit-styles/dist/fonts/tk-icons';
 
 interface Placement {

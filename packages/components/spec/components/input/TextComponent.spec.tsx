@@ -6,7 +6,7 @@ import {
   Types,
 } from '../../../src/components/input/TextComponent';
 
-import Icon from '../../../src/components/icon/Icon';
+import Icon from '../../../src/components/icon/FontIcon';
 
 describe('TextComponent Component', () => {
   describe('TextComponent test suite => ', () => {
@@ -111,7 +111,7 @@ describe('TextComponent Component', () => {
       const tooltipCloseLabel = 'Close';
       const onChange = jest.fn();
       let wrapper = mount(<TextComponent type={Types.TEXTFIELD} />);
-      expect(wrapper.find('Icon').length).toBe(0);
+      expect(wrapper.find('FontIcon').length).toBe(0);
       wrapper = mount(
         <TextComponent
           type={Types.TEXTFIELD}
@@ -123,8 +123,8 @@ describe('TextComponent Component', () => {
           onChange={onChange}
         />
       );
-      expect(wrapper.find('Icon').length).toBe(1);
-      expect(wrapper.find('Icon').prop('iconName')).toBeDefined();
+      expect(wrapper.find('FontIcon').length).toBe(1);
+      expect(wrapper.find('FontIcon').prop('iconName')).toBeDefined();
       expect(wrapper.find('LabelTooltipDecorator').length).toBe(1);
       expect(wrapper.find('LabelTooltipDecorator').prop('id')).toBeDefined();
       expect(wrapper.find('LabelTooltipDecorator').prop('tooltip')).toEqual(
@@ -145,7 +145,7 @@ describe('TextComponent Component', () => {
       };
       it('should display an icon if provided', () => {
         let wrapper = shallow(<TextComponent type={Types.TEXTFIELD} />);
-        expect(wrapper.find('Icon').length).toBe(0);
+        expect(wrapper.find('FontIcon').length).toBe(0);
         wrapper = shallow(
           <TextComponent
             type={Types.TEXTFIELD}
@@ -153,7 +153,7 @@ describe('TextComponent Component', () => {
           />
         );
 
-        const wrapperIcon = wrapper.find('Icon');
+        const wrapperIcon = wrapper.find('FontIcon');
         expect(wrapperIcon.length).toBe(1);
         expect(wrapperIcon.prop('iconName')).toBe(iconProps.iconName);
         expect(wrapperIcon.prop('className')).toContain('tk-input__icon');
@@ -164,28 +164,28 @@ describe('TextComponent Component', () => {
       });
       it('should trigger onClick method', () => {
         let wrapper = shallow(<TextComponent type={Types.TEXTFIELD} />);
-        expect(wrapper.find('Icon').length).toBe(0);
+        expect(wrapper.find('FontIcon').length).toBe(0);
         wrapper = shallow(
           <TextComponent
             type={Types.TEXTFIELD}
             iconElement={<Icon {...iconProps} />}
           />
         );
-        const wrapperIcon = wrapper.find('Icon');
+        const wrapperIcon = wrapper.find('FontIcon');
         expect(iconProps.onClick).toHaveBeenCalledTimes(0);
         wrapperIcon.simulate('click');
         expect(iconProps.onClick).toHaveBeenCalledTimes(1);
       });
       it('should trigger onKeyDown method', () => {
         let wrapper = shallow(<TextComponent type={Types.TEXTFIELD} />);
-        expect(wrapper.find('Icon').length).toBe(0);
+        expect(wrapper.find('FontIcon').length).toBe(0);
         wrapper = shallow(
           <TextComponent
             type={Types.TEXTFIELD}
             iconElement={<Icon {...iconProps} />}
           />
         );
-        const wrapperIcon = wrapper.find('Icon');
+        const wrapperIcon = wrapper.find('FontIcon');
         expect(iconProps.onKeyDown).toHaveBeenCalledTimes(0);
         wrapperIcon.simulate('keyDown', { key: 'Enter' });
         expect(iconProps.onKeyDown).toHaveBeenCalledTimes(1);

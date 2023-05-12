@@ -99,10 +99,10 @@
   &.tk-button--icon {
     min-height: $size;
     min-width: $size;
-    &-right > i {
+    &-right > i, &-right > svg {
       margin-left: $margin;
     }
-    &-left > i {
+    &-left > i, &-left > svg {
       margin-right: $margin;
     }
   }

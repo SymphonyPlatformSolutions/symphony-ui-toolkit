@@ -1,3 +1,3 @@
-<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M5.5 1.5L4.95814 5H4.90657L2 10V16H4V12H12V16H14V10L10.6297 5.07316L10 0L5.5 1.5ZM12 10H4L5.75 7H9.75L12 10Z" fill="black"/>
+<svg data-testid="ICON_HIGHLIGHT" width="16" height="16" viewBox="0 0 16 16">
+<path d="M5.5 1.5L4.95814 5H4.90657L2 10V16H4V12H12V16H14V10L10.6297 5.07316L10 0L5.5 1.5ZM12 10H4L5.75 7H9.75L12 10Z"/>
 </svg>

@@ -1,6 +1,6 @@
 {
   "name": "@symphony-ui/uitoolkit-components",
-  "version": "3.4.9",
+  "version": "3.6.4",
   "description": "React components for the Symphony UI design system",
   "publishConfig": {
     "registry": "https://registry.npmjs.org"
@@ -14,7 +14,8 @@
     "dedupe": "yarn-deduplicate",
     "init": "mkdir dist",
     "prebuild": "yarn run clean && yarn run init",
-    "build": "tsc && yarn build-esm",
+    "build": "yarn svg-icons-to-react-components && tsc && yarn build-esm",
+    "svg-icons-to-react-components": "svgr --icon --out-dir src/components/icons -- ../styles/src/icons/svg",
     "build-esm": "tsc --project ./tsconfig.esm.json",
     "lint": "eslint --ext .ts,.tsx,.js,.jsx ./",
     "lint-fix": "eslint --ext .ts,.tsx,.js,.jsx ./ --fix",
@@ -34,7 +35,7 @@
   "dependencies": {
     "@popperjs/core": "^2.4.4",
     "@seznam/compose-react-refs": "^1.0.6",
-    "@symphony-ui/uitoolkit-styles": "3.4.9",
+    "@symphony-ui/uitoolkit-styles": "3.6.4",
     "@types/classnames": "^2.2.10",
     "classnames": "^2.2.6",
     "date-fns": "^2.16.1",
@@ -66,6 +67,7 @@
     "@storybook/addons": "^6.0.21",
     "@storybook/preset-scss": "^1.0.2",
     "@storybook/react": "^6.0.21",
+    "@svgr/cli": "^6.5.1",
     "@testing-library/dom": "^7.29.0",
     "@testing-library/jest-dom": "^5.11.6",
     "@testing-library/react": "^11.2.2",

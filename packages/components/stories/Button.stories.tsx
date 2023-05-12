@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button, Icon } from '../src/components';
+import { Button, Icon, Icons } from '../src/components';
 import '../src/styles';
 import './stories.scss';
 
@@ -17,7 +17,11 @@ export const Variants: React.FC = () => (
     <h2>Primary</h2>
     <div style={{ display: 'flex', margin: 16 }}>
       <Button variant="primary" >Button</Button>
-      <Button variant="primary" iconLeft={<Icon iconName="lock" />}>
+      <Button
+        iconLeft={ <Icons.Lock fill="#fff" height={16} width={16}/> }
+        style={{ display: 'flex', alignItems: 'center' }}
+        variant="primary"
+      >
         Icon left
       </Button>
       <Button variant="primary" iconRight={<Icon iconName="lock" />}>
