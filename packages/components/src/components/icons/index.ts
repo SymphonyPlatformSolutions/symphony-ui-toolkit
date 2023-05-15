@@ -18,6 +18,7 @@ export { default as Bottom } from './Bottom';
 export { default as BusySmall } from './BusySmall';
 export { default as Busy } from './Busy';
 export { default as Calendar } from './Calendar';
+export { default as CallHangUp } from './CallHangUp';
 export { default as CallOngoing } from './CallOngoing';
 export { default as Call } from './Call';
 export { default as Cashtag } from './Cashtag';
