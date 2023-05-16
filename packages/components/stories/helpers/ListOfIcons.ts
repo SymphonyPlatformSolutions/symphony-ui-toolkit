@@ -22,6 +22,7 @@ export const ReactIcons = {
   'BusySmall': icons.BusySmall,
   'Calendar': icons.Calendar,
   'Call': icons.Call,
+  'CallHangup': icons.CallHangUp,
   'CallOngoing': icons.CallOngoing,
   'Cashtag': icons.Cashtag,
   'Chats': icons.Chats,
