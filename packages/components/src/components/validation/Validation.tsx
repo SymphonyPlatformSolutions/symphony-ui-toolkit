@@ -19,6 +19,7 @@ const ValidationPropTypes = {
 };
 
 interface ValidationProps {
+  children?: React.ReactNode;
   onValidationChanged?: (
     isValid: boolean,
     errorsMap?: { [id: string]: boolean }
