@@ -34,8 +34,7 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/project
-      - browser-tools/install-chrome:
-        replace-existing-chrome: true
+      - browser-tools/install-chrome
       - browser-tools/install-chromedriver
       - run: curl -L -O https://github.com/SeleniumHQ/selenium/releases/download/selenium-4.1.0/selenium-server-4.1.1.jar
       - run: yarn
