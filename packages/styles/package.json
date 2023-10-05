@@ -36,7 +36,7 @@
     "fantasticon": "^1.2.2",
     "husky": "^7.0.0",
     "markdown-loader": "^6.0.0",
-    "postcss": "^8.2.13",
+    "postcss": "^8.4.31",
     "postcss-cli": "^8.3.0",
     "sass": "^1.26.11",
     "sass-loader": "^10.0.2",
