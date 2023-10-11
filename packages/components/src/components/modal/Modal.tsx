@@ -31,7 +31,7 @@ export const ModalHeader: React.FC<ModalContentProps> = ({
   className,
   children,
   ...rest
-}: ModalContentProps) => <div className={classNames(buildClass('header'), className)} {...rest}> {children}</div >;
+}: ModalContentProps) => <div className={classNames(buildClass('header'), className)} {...rest}>{children}</div >;
 
 export const ModalBody: React.FC<ModalContentProps> = ({
   className,
@@ -43,7 +43,7 @@ export const ModalFooter: React.FC<ModalContentProps> = ({
   className,
   children,
   ...rest
-}: ModalContentProps) => <div className={classNames(buildClass('footer'), className)} {...rest}> {children}</div >;
+}: ModalContentProps) => <div className={classNames(buildClass('footer'), className)} {...rest}>{children}</div >;
 
 const Modal: React.FC<ModalProps> = ({
   size,
