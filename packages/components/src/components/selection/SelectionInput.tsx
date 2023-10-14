@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useEffect, useMemo, useState } from 'react';
 import * as PropTypes from 'prop-types';
-import classNames from 'classnames';
+import { clsx } from 'clsx';
 import shortid from 'shortid';
 import SelectionTypes, { SelectionInputTypes } from './SelectionTypes';
 import SelectionStatus, { getCheckedValue } from './SelectionStatus';
@@ -148,7 +148,7 @@ const SelectionInput: React.FC<SelectionInputPropsWithType> = ({
 
   return (
     <div
-      className={classNames(
+      className={clsx(
         tkClassName,
         `${tkClassName}__labelPlacement--${labelPlacement}`,
         {
@@ -178,10 +178,10 @@ const SelectionInput: React.FC<SelectionInputPropsWithType> = ({
           tabIndex={tabIndex}
           {...otherProps}
         />
-        <span className={classNames(`${tkClassName}__icon`)} aria-hidden></span>
+        <span className={clsx(`${tkClassName}__icon`)} aria-hidden></span>
       </div>
       <label
-        className={classNames(
+        className={clsx(
           `${tkClassName}__label`,
           `${tkClassName}__label--${labelPlacement}`
         )}

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import classNames from 'classnames';
+import { clsx } from 'clsx';
 import { components } from 'react-select';
 import Icon from '../icon/FontIcon';
 import Loader from '../loader';
@@ -49,7 +49,7 @@ export const DefaultOptionRenderer = (props: any) => {
         </components.Option>
       </div>
       : <div className="tk-option" role="option">
-        <components.Option {...props} className={classNames(classNamePrefix && mode ? `${classNamePrefix}__option--${mode}` : null)} />
+        <components.Option {...props} className={clsx(classNamePrefix && mode ? `${classNamePrefix}__option--${mode}` : null)} />
       </div>
     }
   </>;

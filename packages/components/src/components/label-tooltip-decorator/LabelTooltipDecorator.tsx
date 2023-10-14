@@ -3,7 +3,7 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import Icon from '../icon/FontIcon';
 import Tooltip from '../tooltip';
-import classNames from 'classnames';
+import { clsx } from 'clsx';
 import {
   LabelTooltipDecoratorProps,
   LabelTooltipDecoratorPropTypes,
@@ -31,7 +31,7 @@ const LabelTooltipDecorator: React.FC<LabelTooltipDecoratorProps> = ({
 }) => {
   const [showTooltip, setShowTooltip] = useState(false);
 
-  const classes = classNames('tk-label', {
+  const classes = clsx('tk-label', {
     'tk-label--required': showRequired,
   });
 

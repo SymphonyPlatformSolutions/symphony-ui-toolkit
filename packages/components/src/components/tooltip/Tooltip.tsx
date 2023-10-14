@@ -1,6 +1,6 @@
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
-import classnames from 'classnames';
+import { clsx } from 'clsx';
 import composeRefs from '@seznam/compose-react-refs'
 import styled from 'styled-components';
 import useOnclickOutsideCool from 'react-cool-onclickoutside';
@@ -139,7 +139,7 @@ const Tooltip: React.FC<TooltipProps> = ({
         : showClick;
 
   const children = <div
-    className={ classnames('tk-tooltip__wrapper', wrapperClassName) }
+    className={ clsx('tk-tooltip__wrapper', wrapperClassName) }
     ref={ composeRefs(setReferenceElement, ref) }
   >
     {otherProps.children}
@@ -169,7 +169,7 @@ const Tooltip: React.FC<TooltipProps> = ({
           id={id}
           role="tooltip"
           ref={setPopperElement}
-          className={classnames(
+          className={clsx(
             type === 'tooltip' ? 'tk-tooltip' : 'tk-hint',
             className
           )}

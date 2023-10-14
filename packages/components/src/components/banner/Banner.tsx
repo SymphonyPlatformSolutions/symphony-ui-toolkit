@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import classNames from 'classnames';
+import { clsx } from 'clsx';
 import { BannerType, BannerProps } from './interfaces';
 
 export const Banner: React.FC<BannerProps> = ({
@@ -21,7 +21,7 @@ export const Banner: React.FC<BannerProps> = ({
   }
 
   return (
-    <div className={classNames(
+    <div className={clsx(
       'tk-banner',
       `tk-banner--${variant}`,
       `tk-banner--${size}`,

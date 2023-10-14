@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import classNames from 'classnames';
+import { clsx } from 'clsx';
 import { BadgeProps } from './interfaces';
 
 const prefix = 'tk-badge';
@@ -12,7 +12,7 @@ const Badge: React.FC<BadgeProps & React.HTMLAttributes<HTMLDivElement>> = ({
   size,
   ...rest
 }) => {
-  const classes = classNames(
+  const classes = clsx(
     className,
     prefix,
     `${prefix}--${variant}`,

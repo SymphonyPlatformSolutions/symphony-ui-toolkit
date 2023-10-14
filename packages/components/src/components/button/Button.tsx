@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import classNames from 'classnames';
+import { clsx } from 'clsx';
 
 const prefix = 'tk-button';
 
@@ -37,7 +37,7 @@ export const Button: React.FC<ButtonProps> = ({
   iconLeft,
   ...rest
 }: ButtonProps) => {
-  const classes = classNames(
+  const classes = clsx(
     className,
     prefix,
     `${prefix}--${variant}`,

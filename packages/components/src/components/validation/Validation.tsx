@@ -1,4 +1,4 @@
-import classNames from 'classnames';
+import { clsx } from 'clsx';
 import { debounce, isEmpty } from 'lodash';
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
@@ -224,7 +224,7 @@ class Validation extends React.Component<
     const ariaRequired = validator instanceof Array ? !!validator.find(v => v === Validators.Required) : validator === Validators.Required;
     return (
       <span
-        className={classNames('tk-validation', {
+        className={clsx('tk-validation', {
           'tk-validation--error': hasErrors,
           [`tk-validation--${size}`]: size,
         })}

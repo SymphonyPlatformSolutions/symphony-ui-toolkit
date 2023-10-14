@@ -1,5 +1,5 @@
 import * as React from 'react';
-import classNames from 'classnames';
+import { clsx } from 'clsx';
 
 const prefix = 'tk-typography';
 type variant = 'italic' | 'bold';
@@ -26,7 +26,7 @@ const Typography: React.FC<TypographyProps> = ({
         : variant.map((variantType) => `${prefix}--${variantType}`);
   }
 
-  const classes = classNames(
+  const classes = clsx(
     prefix,
     `${prefix}--${type}`,
     variantType,

@@ -2,7 +2,7 @@ import * as React from 'react';
 import styled from 'styled-components';
 import * as PropTypes from 'prop-types';
 import { useState } from 'react';
-import classNames from 'classnames';
+import { clsx } from 'clsx';
 
 type ExpandableCardProps = {
   children?: React.ReactNode;
@@ -76,16 +76,16 @@ const ExpandableCard: React.FC<ExpandableCardProps> = ({
       <HeaderDiv>
         <div>{header}</div>
         &bull;
-        <a className={classNames('tk-link toggle')} onClick={onToggleHeader}>
+        <a className={clsx('tk-link toggle')} onClick={onToggleHeader}>
           {collapsed ? 'EXPAND' : 'COLLAPSE'}
         </a>
         <i
-          className={classNames('tk-icon-top', { collapsed })}
+          className={clsx('tk-icon-top', { collapsed })}
           onClick={onToggleHeader}
           aria-label="Toggle"
         ></i>
       </HeaderDiv>
-      <BodyDiv className={classNames({ collapsed })}>{children}</BodyDiv>
+      <BodyDiv className={clsx({ collapsed })}>{children}</BodyDiv>
     </div>
   );
 };

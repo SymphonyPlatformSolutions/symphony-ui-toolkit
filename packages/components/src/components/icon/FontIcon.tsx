@@ -5,7 +5,7 @@
 
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
-import classnames from 'classnames';
+import { clsx } from 'clsx';
 import { TkIcon } from  '@symphony-ui/uitoolkit-styles/dist/fonts/tk-icons';
 
 interface FontIconProps extends React.HTMLProps<HTMLElement> {
@@ -40,7 +40,7 @@ const FontIcon: React.FC<FontIconProps> = ({
   return (
     <i
       {...otherProps}
-      className={classnames(`tk-icon-${iconName}`, className)}
+      className={clsx(`tk-icon-${iconName}`, className)}
       onClick={!disabled ? onClick : null}
       onKeyDown={!disabled ? onKeyDown : null}
       onKeyPress={!disabled ? onKeyPress : null}
