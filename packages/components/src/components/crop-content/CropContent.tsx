@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { debounce } from 'lodash-es';
 import ResizeDetectDiv from '../../core/hoc/ResizeDetectDiv';
+import { debounce } from '../../utils/debounce';
 
 type CropContentProps = {
   children?: React.ReactNode;
