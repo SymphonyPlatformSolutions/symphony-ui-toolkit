@@ -1,5 +1,5 @@
 import { clsx } from 'clsx';
-import { debounce, isEmpty } from 'lodash';
+import { debounce, isEmpty } from 'lodash-es';
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import { ValidatorFn, Validators } from '../../core/validators/validators';

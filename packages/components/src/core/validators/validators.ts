@@ -1,4 +1,4 @@
-import * as _ from 'lodash';
+import * as _ from 'lodash-es';
 
 /**
  * A ValidatorFn takes a value as a string and returns an error object {'validationName':true}
