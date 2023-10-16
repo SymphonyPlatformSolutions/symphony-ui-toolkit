@@ -50,4 +50,4 @@ Full releasing manual [here](https://perzoinc.atlassian.net/wiki/spaces/DevX/pag
 
 ## 💪 Contributing
 
-Read detailed guide on [contribution process](docs/contributing.md)
+Read detailed guide on [contribution process](docs/contributing.md).
