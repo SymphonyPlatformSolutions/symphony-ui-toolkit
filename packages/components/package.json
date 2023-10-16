@@ -73,7 +73,6 @@
     "@testing-library/user-event": "^12.6.0",
     "@types/enzyme": "^3.10.5",
     "@types/jest": "^25.2.3",
-    "@types/lodash-es": "^4.17.6",
     "@types/react": "^16.9.35",
     "@types/react-dom": "^16.9.8",
     "@types/react-select": "^4.0.17",

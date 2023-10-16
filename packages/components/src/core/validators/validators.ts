@@ -1,4 +1,4 @@
-import * as _ from 'lodash-es';
+import { isArray, isEmpty, isNil, isPlainObject, isString } from 'lodash-es';
 
 /**
  * A ValidatorFn takes a value as a string and returns an error object {'validationName':true}
@@ -130,9 +130,9 @@ const Url: ValidatorFn = (value) => {
 };
 
 const isEmptyValue = (value: any) =>
-  ((_.isArray(value) || _.isPlainObject(value)) && _.isEmpty(value)) ||
-  _.isNil(value) ||
-  (_.isString(value) && value.trim() === '');
+  ((isArray(value) || isPlainObject(value)) && isEmpty(value)) ||
+  isNil(value) ||
+  (isString(value) && value.trim() === '');
 
 export const Validators = {
   Url,
