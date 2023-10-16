@@ -26,7 +26,7 @@ import {
   LabelValue,
 } from './interfaces';
 import LabelTooltipDecorator from '../label-tooltip-decorator/LabelTooltipDecorator';
-import classNames from 'classnames';
+import { clsx } from 'clsx';
 
 // css baseclass prefix
 const prefix = 'tk-select';
@@ -227,7 +227,7 @@ export class Dropdown<T = LabelValue> extends React.Component<
     } = this.props;
 
     return (
-      <div className={classNames(className, 'tk-input-group', `tk-input-group--${size}`, {
+      <div className={clsx(className, 'tk-input-group', `tk-input-group--${size}`, {
         'tk-input-group--disabled': isDisabled,
       })}>
         <DropdownTag
@@ -264,7 +264,7 @@ export class Dropdown<T = LabelValue> extends React.Component<
           defaultValue={defaultValue}
           id={id}
           name={name}
-          className={classNames(prefix, { [`${prefix}--${variant}`]: variant }, { [`${prefix}--${size}`]: size })}
+          className={clsx(prefix, { [`${prefix}--${variant}`]: variant }, { [`${prefix}--${size}`]: size })}
           closeMenuOnSelect={closeMenuOnSelect}
           classNamePrefix={prefix}
           value={value}

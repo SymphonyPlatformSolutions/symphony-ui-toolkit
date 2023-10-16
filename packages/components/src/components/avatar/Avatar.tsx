@@ -1,5 +1,5 @@
 import * as React from 'react'
-import classNames from 'classnames';
+import { clsx } from 'clsx';
 
 interface AvatarProps extends Omit<React.HTMLProps<HTMLDivElement>, 'size'> {
   size: 'xxlarge' | 'xlarge' | 'large' | 'medium' | 'small' | 'xsmall';
@@ -22,7 +22,7 @@ type BasicIndicatorProps = {
 const prefix = 'tk-avatar'
 
 export const BasicIndicator: React.FC<BasicIndicatorProps> = ({position, variant}: BasicIndicatorProps) => {
-  const classes = classNames(
+  const classes = clsx(
     'tk-avatar__badge',
     `tk-avatar__badge--${position}`,
     `tk-bg-color--${variant}`,
@@ -37,7 +37,7 @@ export const BasicIndicator: React.FC<BasicIndicatorProps> = ({position, variant
 }
 
 export const AvatarBadge: React.FC<AvatarBadgeProps> = ({position, children, className}: AvatarBadgeProps) => {
-  const classes = classNames(
+  const classes = clsx(
     'tk-avatar__badge',
     `tk-avatar__badge--${position}`,
     className
@@ -58,7 +58,7 @@ export const Avatar: React.FC<AvatarProps> = ({
   variant,
   ...otherProps
 }: AvatarProps) => {
-  const classes = classNames(
+  const classes = clsx(
     prefix,
     `${prefix}--${size}`,
     {[`${prefix}--border`]: bordered},

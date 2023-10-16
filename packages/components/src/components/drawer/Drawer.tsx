@@ -1,5 +1,5 @@
 import * as React from 'react';
-import classNames from 'classnames';
+import { clsx } from 'clsx';
 import Icon from '../icon/FontIcon';
 import { DrawerProps, DrawerContentProps } from './interfaces';
 
@@ -11,7 +11,7 @@ const componentFactory =  ({
   children,
   ...rest
 }: DrawerContentProps, name: string) => (
-  <div className={classNames(buildClass(name), className)} {...rest}>
+  <div className={clsx(buildClass(name), className)} {...rest}>
     {children}
   </div>
 );
@@ -33,11 +33,11 @@ export const Drawer: React.FC<DrawerProps> = ({
   ...rest
 }: DrawerProps) => {
   const minWidth = 200;
-  const positionClasses = classNames({
+  const positionClasses = clsx({
     [`${prefix}--${position}`]: position,
     [`${prefix}-hidden`]: !show,
   });
-  const relativeToClasses = classNames({
+  const relativeToClasses = clsx({
     [`${prefix}--relative-to-window`]: relativeToWindow,
   });
 
@@ -56,7 +56,7 @@ export const Drawer: React.FC<DrawerProps> = ({
     <div>
       {hasBackdrop && show && (
         <div
-          className={classNames(
+          className={clsx(
             `${prefix}-backdrop`,
             relativeToClasses
           )}
@@ -66,7 +66,7 @@ export const Drawer: React.FC<DrawerProps> = ({
       <div
         {...rest}
         role="dialog"
-        className={classNames(
+        className={clsx(
           prefix,
           positionClasses,
           relativeToClasses,
@@ -79,7 +79,7 @@ export const Drawer: React.FC<DrawerProps> = ({
           <Icon
             iconName="cross"
             aria-label="close"
-            className={classNames(buildClass('close'))}
+            className={clsx(buildClass('close'))}
             onClick={onClose}
           />
         )}

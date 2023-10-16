@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useCallback, useEffect, useRef } from 'react';
-import classNames from 'classnames';
+import { clsx } from 'clsx';
 import { Keys } from '../common/eventUtils';
 import { Loader } from '..';
 
@@ -25,7 +25,7 @@ export const DropdownMenuDivider: React.FC = () => <div className="tk-dropdown-m
 export const DropdownMenuItem: React.FC<DropdownMenuItemProps> = ({
   children, className, onClick, forwardRef, loading, ...rest
 }: DropdownMenuItemProps) => {
-  const classes = classNames(
+  const classes = clsx(
     'tk-dropdown-menu__item',
     className,
     { ['tk-dropdown-menu__item--loading']: loading },
@@ -77,7 +77,7 @@ export const DropdownMenuItem: React.FC<DropdownMenuItemProps> = ({
 }
 
 export const DropdownMenu: React.FC<DropdownMenuProps> = ({children, className, show = true, onClose, ...rest}: DropdownMenuProps) => {
-  const classes = classNames(
+  const classes = clsx(
     'tk-dropdown-menu',
     className,
   )

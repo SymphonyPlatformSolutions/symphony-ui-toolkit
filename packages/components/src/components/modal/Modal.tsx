@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import classNames from 'classnames';
+import { clsx } from 'clsx';
 import { Keys } from '../common/eventUtils';
 
 interface ModalProps extends Omit<React.HTMLProps<HTMLDivElement>, 'size'> {
@@ -25,25 +25,25 @@ export const ModalTitle: React.FC<ModalContentProps> = ({
   className,
   children,
   ...rest
-}: ModalContentProps) => <div className={classNames(buildClass('title'), className)} {...rest}>{children}</div>;
+}: ModalContentProps) => <div className={clsx(buildClass('title'), className)} {...rest}>{children}</div>;
 
 export const ModalHeader: React.FC<ModalContentProps> = ({
   className,
   children,
   ...rest
-}: ModalContentProps) => <div className={classNames(buildClass('header'), className)} {...rest}>{children}</div >;
+}: ModalContentProps) => <div className={clsx(buildClass('header'), className)} {...rest}>{children}</div >;
 
 export const ModalBody: React.FC<ModalContentProps> = ({
   className,
   children,
   ...rest
-}: ModalContentProps) => <div className={classNames(buildClass('body'), 'styled-scrollbars', className)} {...rest}>{children}</div>;
+}: ModalContentProps) => <div className={clsx(buildClass('body'), 'styled-scrollbars', className)} {...rest}>{children}</div>;
 
 export const ModalFooter: React.FC<ModalContentProps> = ({
   className,
   children,
   ...rest
-}: ModalContentProps) => <div className={classNames(buildClass('footer'), className)} {...rest}>{children}</div >;
+}: ModalContentProps) => <div className={clsx(buildClass('footer'), className)} {...rest}>{children}</div >;
 
 const Modal: React.FC<ModalProps> = ({
   size,
@@ -55,8 +55,8 @@ const Modal: React.FC<ModalProps> = ({
   show,
   ...rest
 }: ModalProps) => {
-  const containerClasses = classNames(className, `${prefix}-backdrop`);
-  const sizeClasses = classNames(prefix, { [`${prefix}--${size}`]: size });
+  const containerClasses = clsx(className, `${prefix}-backdrop`);
+  const sizeClasses = clsx(prefix, { [`${prefix}--${size}`]: size });
   const handleContentClick = (event: React.MouseEvent<HTMLElement>) => event.stopPropagation();
   const onMouseDown = (event: React.MouseEvent) => event.stopPropagation();
   const handleKeyUp = (event: React.KeyboardEvent<HTMLElement>) => {

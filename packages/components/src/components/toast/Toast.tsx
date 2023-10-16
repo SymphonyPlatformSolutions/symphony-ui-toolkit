@@ -1,7 +1,7 @@
 
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import classNames from 'classnames';
+import { clsx } from 'clsx';
 import Icon from '../icon/FontIcon';
 import { TkIcon } from  '@symphony-ui/uitoolkit-styles/dist/fonts/tk-icons';
 
@@ -46,7 +46,7 @@ export const Toast: React.FC<ToastProps> = ({
   const xyCentered = placement.horizontal === 'center' && placement.vertical === 'center';
 
   return (
-    <div className={classNames(
+    <div className={clsx(
       'tk-toast',
       className,
       { ['tk-toast__vertical-horizontal-center'] : xyCentered,

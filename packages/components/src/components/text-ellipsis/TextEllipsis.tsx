@@ -1,5 +1,5 @@
 import * as React from 'react';
-import classnames from 'classnames';
+import { clsx } from 'clsx';
 import Tooltip, { TooltipProps } from '../tooltip';
 
 interface TextEllipsisProps extends Omit<React.HTMLProps<HTMLSpanElement>, 'type'> {
@@ -39,7 +39,7 @@ export const TextEllipsis: React.FC<TextEllipsisProps> = ({
 
   const getTextEllipsisHTML = () => {
     return (<span
-      className={ classnames(className, 'tk-text-ellipsis', { 'tk-text-ellipsis__multiple-rows': rows > 1 }) }
+      className={ clsx(className, 'tk-text-ellipsis', { 'tk-text-ellipsis__multiple-rows': rows > 1 }) }
       style={{ WebkitLineClamp: rows, ...style}}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}

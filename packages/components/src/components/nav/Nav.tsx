@@ -1,5 +1,5 @@
 import * as React from 'react';
-import classnames from 'classnames';
+import { clsx } from 'clsx';
 
 export type NavProps = {
   /** List of items displayed in the navigation bar */
@@ -47,7 +47,7 @@ export const Nav: React.FC<NavProps> = ({
             <li
               key={item.id}
               onClick={() => handleClick(item)}
-              className={classnames('tk-nav-item', { 'tk-nav-item--active': activeNavItemId === item.id })}>
+              className={clsx('tk-nav-item', { 'tk-nav-item--active': activeNavItemId === item.id })}>
               {item.label}
             </li>
           ))}

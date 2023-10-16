@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { useState, useCallback, useMemo, useEffect } from 'react';
-import classNames from 'classnames';
+import { clsx } from 'clsx';
 
 import { DateTimeline } from './sub-component/DateTimeline';
 import { ExpandCollapse } from './sub-component/ExpandCollapse';
@@ -20,14 +20,14 @@ const Timeline = <T,>({
 }: TimelineProps<T>) => {
   return (
     <div
-      className={classNames(prefix, className)} 
+      className={clsx(prefix, className)} 
       {...otherProps}>
       {items.map((item) => {
         const itemBody = item.hasBody && itemBodyRenderer?.(item.value);
         const itemHeader = itemHeaderRenderer(item.value);
         return (
           <div
-            className={classNames(buildClass('item'), {
+            className={clsx(buildClass('item'), {
               [buildClass('item--expandable')]: !!itemBody,
             })}
             onClick={itemBody ? () => onCollapseChange(item.time) : undefined}
@@ -36,7 +36,7 @@ const Timeline = <T,>({
             <div className={buildClass('item--icon')}>{item.icon}</div>
             <DateTimeline time={item.time} />
             <div
-              className={classNames(buildClass('item--content'), {
+              className={clsx(buildClass('item--content'), {
                 [buildClass('item--header-only')]: !itemBody,
               })}
             >

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { useEffect, useMemo } from 'react';
-import classNames from 'classnames';
+import { clsx } from 'clsx';
 import shortid from 'shortid';
 
 import { HasValidationProps } from '../validation/interfaces';
@@ -141,14 +141,14 @@ const TextComponent: React.FC<
 
     return (
       <div
-        className={classNames(`${prefix}-group`, `${prefix}-group--${size}`, {
+        className={clsx(`${prefix}-group`, `${prefix}-group--${size}`, {
           [`${prefix}-group--disabled`]: disabled,
           [`${prefix}-group--readonly`]: readOnly,
         })}
       >
 
         <div
-          className={classNames(
+          className={clsx(
             className,
             `${prefix}__container`,
             `${prefix}__container--${size}`,
@@ -167,7 +167,7 @@ const TextComponent: React.FC<
             aria-placeholder={placeholder}
             aria-readonly={readOnly}
             aria-multiline={type === Types.TEXTAREA}
-            className={classNames(prefix, `${prefix}--${size}`)}
+            className={clsx(prefix, `${prefix}--${size}`)}
             disabled={disabled}
             onBlur={onBlur}
             onClick={onClick}
@@ -192,7 +192,7 @@ const TextComponent: React.FC<
           {iconElement && type == Types.TEXTFIELD
             ? // Clone the iconElement in order to attach className '${prefix}__icon'
             React.cloneElement(iconElement, {
-              className: classNames(
+              className: clsx(
                 `${prefix}__icon`,
                 iconElement.props.className
               ),

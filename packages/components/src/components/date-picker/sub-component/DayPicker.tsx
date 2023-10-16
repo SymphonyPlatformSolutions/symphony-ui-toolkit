@@ -1,6 +1,6 @@
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
-import classNames from 'classnames';
+import { clsx } from 'clsx';
 
 import { Modifier } from '../model/Modifiers';
 import { HeaderLabel } from '../model/HeaderLabel';
@@ -391,7 +391,7 @@ class DayPicker extends React.Component<
               aria-selected={ariaSelected}
               tabIndex={isTabIndex}
               role="gridcell"
-              className={classNames(
+              className={clsx(
                 'tk-daypicker-day',
                 {
                   'tk-daypicker-day--selected': isSelected,

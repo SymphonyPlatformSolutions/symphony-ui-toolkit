@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import classNames from 'classnames';
+import { clsx } from 'clsx';
 
 const prefix = 'tk-loader';
 
@@ -18,7 +18,7 @@ const Loader: React.FC<LoaderProps> = ({
   type,
   ...rest
 }: LoaderProps) => {
-  const classes = classNames(
+  const classes = clsx(
     className,
     `${prefix}-${type}`,
     {[`${prefix}--${variant}`]: variant},

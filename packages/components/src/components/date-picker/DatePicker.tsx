@@ -2,7 +2,7 @@ import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import { createPortal } from 'react-dom';
 import { Component, createRef } from 'react';
-import classNames from 'classnames';
+import { clsx } from 'clsx';
 
 import { createPopper } from '@popperjs/core';
 
@@ -560,12 +560,12 @@ class DatePicker extends Component<
         <div ref={this.setReferenceElement}>
           <TextField
             {...textfieldProps}
-            className={classNames({
+            className={clsx({
               active: showPicker,
             })}
             rightDecorators={
               <Icon
-                className={classNames('tk-input__right-decorators__clickable', {
+                className={clsx('tk-input__right-decorators__clickable', {
                   active: showPicker,
                 })}
                 disabled={disabled}

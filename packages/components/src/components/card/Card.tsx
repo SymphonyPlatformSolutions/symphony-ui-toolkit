@@ -1,5 +1,5 @@
 import * as React from 'react';
-import classNames from 'classnames';
+import { clsx } from 'clsx';
 
 const prefix = 'tk-card';
 
@@ -10,7 +10,7 @@ const Card: React.FC<CardProps> = ({
   children,
   ...rest
 }: CardProps) => {
-  const classes = classNames(
+  const classes = clsx(
     className,
     prefix,
   );

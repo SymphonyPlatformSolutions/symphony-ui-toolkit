@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { useMemo } from 'react';
-import classnames from 'classnames';
+import { clsx } from 'clsx';
 import shortid from 'shortid';
 import LabelTooltipDecorator from '../label-tooltip-decorator/LabelTooltipDecorator';
 import {
@@ -79,7 +79,7 @@ const InputDecorator: React.FC<InputDecoratorProps> = ({
           onBlur: callParentAndChildMethod(rest, child.props, 'onBlur'),
           onChange: callParentAndChildMethod(rest, child.props, 'onChange'),
           id: inputId, // Add ID to the input
-          className: classnames('tk-input', child.props.className), // Add 'tk-input' CSS class
+          className: clsx('tk-input', child.props.className), // Add 'tk-input' CSS class
         })
         : null,
     [child]
@@ -87,12 +87,12 @@ const InputDecorator: React.FC<InputDecoratorProps> = ({
 
   return (
     <div
-      className={classnames('tk-input-group', className, {
+      className={clsx('tk-input-group', className, {
         'tk-input-group--disabled': disabled,
       })}
     >
       <div
-        className={classnames('tk-input__container', {
+        className={clsx('tk-input__container', {
           'tk-input__container--disabled': disabled,
         })}
       >
