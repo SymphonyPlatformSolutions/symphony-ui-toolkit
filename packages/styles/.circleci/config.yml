@@ -14,7 +14,7 @@ cdn-credentials: &cdn-credentials
   aws-region: AWS_REGION_CDN
 
 orbs:
-  node: circleci/node@2.1
+  node: circleci/node@5.1.0
   aws-cli: circleci/aws-cli@2.0
   browser-tools: circleci/browser-tools@1.4.5
 
