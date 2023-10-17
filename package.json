@@ -12,6 +12,7 @@
   "author": "Symphony",
   "license": "ISC",
   "scripts": {
+    "dedupe": "npx yarn-deduplicate yarn.lock",
     "prepare": "husky install",
     "postinstall": "yarn workspace @symphony-ui/uitoolkit-styles build"
   },

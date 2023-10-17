@@ -1,5 +1,5 @@
 import { clsx } from 'clsx';
-import { debounce, isEmpty } from 'lodash';
+import { debounce } from '../../utils/debounce';
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import { ValidatorFn, Validators } from '../../core/validators/validators';
@@ -132,7 +132,9 @@ class Validation extends React.Component<
       }
     }
 
-    valid = (!errorsMap || isEmpty(errorsMap)) && !this.state.errorsChildMap;
+    const isEmpty = Object.keys(errorsMap).length === 0
+
+    valid = (!errorsMap || isEmpty) && !this.state.errorsChildMap;
     if (this.props.onValidationChanged && valid !== this.state.isValid) {
       this.props.onValidationChanged(valid, errorsMap);
     }

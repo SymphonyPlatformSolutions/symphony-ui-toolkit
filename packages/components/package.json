@@ -40,7 +40,6 @@
     "date-fns": "^2.16.1",
     "emoji-js": "^3.5.0",
     "github-markdown-css": "^4.0.0",
-    "lodash": "^4.17.21",
     "prop-types": "^15.7.2",
     "react-cool-onclickoutside": "^1.5.8",
     "react-popper": "^2.2.3",
@@ -73,7 +72,6 @@
     "@testing-library/user-event": "^12.6.0",
     "@types/enzyme": "^3.10.5",
     "@types/jest": "^25.2.3",
-    "@types/lodash": "^4.14.154",
     "@types/react": "^16.9.35",
     "@types/react-dom": "^16.9.8",
     "@types/react-select": "^4.0.17",
@@ -117,9 +115,6 @@
     "ts-loader": "^7.0.5",
     "typescript": "^3.9.3",
     "yarn-deduplicate": "^3.1.0"
-  },
-  "resolutions": {
-    "**/lodash": "^4.17.21"
   },
   "lint-staged": {
     "*.{ts,tsx,js,jsx}": "eslint --cache --fix",
