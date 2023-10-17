@@ -19,6 +19,7 @@ module.exports = {
   ],
   rules: {
     'react/jsx-props-no-spreading': ['off'],
+    'react/prop-types': ['off'],
     quotes: ['error', 'single', 'avoid-escape'],
     'jsx-quotes': ['error', 'prefer-double'],
     '@typescript-eslint/explicit-module-boundary-types': 'off',
