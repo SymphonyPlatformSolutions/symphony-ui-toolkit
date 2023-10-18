@@ -26,12 +26,10 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@babel/core": "^7.9.6",
     "@storybook/addon-storysource": "6.3.5",
     "@storybook/addons": "6.3.5",
     "@storybook/html": "6.3.5",
     "autoprefixer": "^10.0.2",
-    "babel-loader": "^8.1.0",
     "creevey": "^0.7.37",
     "fantasticon": "^1.2.2",
     "husky": "^7.0.0",
