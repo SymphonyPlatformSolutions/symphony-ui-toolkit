@@ -27,6 +27,8 @@ module.exports = {
   // the testing framework before each test
   setupFilesAfterEnv: ['jest-extended', '<rootDir>spec/init/setupTests.js'],
 
+  testEnvironment: 'jsdom',
+
   transformIgnorePatterns: [
     'node_modules/(?!@symphony-ui/uitoolkit-styles/dist/fonts/tk-icons.ts)',
   ],
