@@ -33,6 +33,7 @@ export class ResizeDetectDivInternal extends React.Component<
     const {
       width,
       height,
+      // eslint-disable-next-line react/prop-types
       children,
       onResize,
       onWidthChange,

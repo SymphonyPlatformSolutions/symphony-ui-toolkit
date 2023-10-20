@@ -1,19 +1,26 @@
+/* eslint-disable react/display-name */
+import '../src/styles';
+import './stories.css';
+
 import * as React from 'react';
 import { Button, Icon, Icons } from '../src/components';
-import '../src/styles';
-import './stories.scss';
+import type { Meta, StoryObj } from '@storybook/react';
 
-const Template = (args) => (<Button {...args} />);
+const meta: Meta<typeof Button> = {
+  args: {
+    children: 'Some Text',
+    variant: 'primary',
+  },
+  argTypes: { onClick: { action: 'clicked '} },
+  component: Button,
+  title: 'Components/Button'
+}
 
-export const Default = Template.bind({});
+export default meta;
+type Story = StoryObj<typeof Button>
 
-Default.args = {
-  children: 'Some Text',
-  variant: 'primary',
-};
-
-export const Variants: React.FC = () => (
-  <div className="button-storybook">
+export const Variants: Story = {
+  render: () => <div className="button-storybook">
     <h2>Primary</h2>
     <div style={{ display: 'flex', margin: 16 }}>
       <Button variant="primary" >Button</Button>
@@ -146,10 +153,10 @@ export const Variants: React.FC = () => (
       </Button>
     </div>
   </div>
-);
+};
 
-export const Sizes: React.FC = () => (
-  <div className="button-storybook">
+export const Sizes: Story = {
+  render: () => <div className="button-storybook">
     <div style={{ display: 'flex', margin: 16 }}>
       <Button variant="primary"> Button</Button>
       <Button variant="primary" iconLeft={<Icon iconName="lock" />}>
@@ -316,10 +323,4 @@ export const Sizes: React.FC = () => (
       </Button>
     </div>
   </div>
-);
-export default {
-  title: 'Components/Button',
-  component: Button,
-  subcomponents: { Icon },
-  argTypes: { onClick: { action: 'clicked' } },
 };

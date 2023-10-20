@@ -7,7 +7,7 @@ let globalDarkMode = undefined;
 
 setTimeout(() => init());
 
-addParameters({
+export const parameters = {
   options: {
     storySort: {
       order: [
@@ -36,11 +36,10 @@ addParameters({
     },
   },
   themes: {
-    list: [
-      { name: 'Condensed', class: ['tk-theme-condensed', 'condensed']}
-    ],
+    list: [{ name: 'Condensed', class: ['tk-theme-condensed', 'condensed'] }],
   },
-});
+};
+
 // this allows us to add a dark class to body element to be able to render our component in dark mode  in sync with storybook's
 const init = () => {
   const darkClass = 'dark';
@@ -49,18 +48,20 @@ const init = () => {
     if (isDark !== globalDarkMode) {
       if (isDark) {
         document.body.classList.add(darkClass);
-        addParameters({
-          docs: {
-            theme: themes.dark,
-          },
-        });
+        parameters.docs.theme = themes.dark
+        // addParameters({
+        //   docs: {
+        //     theme: themes.dark,
+        //   },
+        // });
       } else {
         document.body.classList.remove(darkClass);
-        addParameters({
-          docs: {
-            theme: themes.light,
-          },
-        });
+        parameters.docs.theme = themes.light
+        // addParameters({
+        //   docs: {
+        //     theme: themes.light,
+        //   },
+        // });
       }
       globalDarkMode = isDark;
       forceReRender();

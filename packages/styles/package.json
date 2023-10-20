@@ -9,9 +9,9 @@
   "scripts": {
     "prepare": "cd ../.. && husky install",
     "prestart": "yarn icons",
-    "start": "start-storybook -p 6006 -c .storybook watch-css -s ./src",
+    "start": "storybook dev -p 6006 -c .storybook watch-css -s ./src",
     "prebuild": "yarn icons && sh src/scripts/generate-cdn.sh",
-    "build-storybook": "NODE_OPTIONS=--openssl-legacy-provider build-storybook -c .storybook -o dist/storybook",
+    "build-storybook": "storybook build -c .storybook -o dist/storybook",
     "build": "bash ./build.sh",
     "watch": "sass --watch --no-source-map --load-path=node_modules --style compressed uitoolkit.scss:dist/css/uitoolkit.css",
     "icons": "node src/scripts/generate-icons",
@@ -26,9 +26,10 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@storybook/addon-storysource": "6.3.5",
-    "@storybook/addons": "6.3.5",
-    "@storybook/html": "6.3.5",
+    "@babel/preset-env": "^7.23.2",
+    "@storybook/addons": "7.5.1",
+    "@storybook/html": "7.5.1",
+    "@storybook/html-webpack5": "7.5.1",
     "autoprefixer": "^10.0.2",
     "creevey": "^0.7.37",
     "fantasticon": "^1.2.2",
@@ -36,9 +37,11 @@
     "markdown-loader": "^6.0.0",
     "postcss": "^8.2.13",
     "postcss-cli": "^8.3.0",
+    "postcss-loader": "^7.3.3",
     "sass": "^1.26.11",
     "sass-loader": "^10.0.2",
+    "storybook": "^7.5.1",
     "storybook-addon-themes": "^6.1.0",
-    "storybook-dark-mode": "^1.0.8"
+    "storybook-dark-mode": "^3.0.1"
   }
 }

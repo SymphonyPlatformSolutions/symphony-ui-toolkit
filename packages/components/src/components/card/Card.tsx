@@ -6,6 +6,7 @@ const prefix = 'tk-card';
 type CardProps = React.HTMLProps<HTMLDivElement>;
 
 const Card: React.FC<CardProps> = ({
+  // eslint-disable-next-line react/prop-types
   className,
   children,
   ...rest
@@ -17,4 +18,4 @@ const Card: React.FC<CardProps> = ({
   return (<div className={classes} {...rest}>{children}</div>);
 }
 
-export default Card; 
+export default Card;

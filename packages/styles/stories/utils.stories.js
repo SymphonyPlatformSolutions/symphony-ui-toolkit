@@ -1,5 +1,5 @@
 export default {
-  title: "Utils",
+  title: 'Utils',
 };
 
 export const TextColors = () =>
@@ -20,8 +20,6 @@ export const BackgroundColors = () =>
     <div class="tk-mb-2 tk-bg-color--ok">Ok background color .tk-bg-color--ok</div>
     <div class="tk-mb-2 tk-bg-color--attention">Attention background color .tk-bg-color--attention</div>
   </div>`;
-
-
 
 export const ApplicationBackground = () =>
   `<div class="tk-ml-2">
@@ -223,8 +221,8 @@ export const spacing = () =>
 </div>
     `;
 
-
-const text = "Research and development refer to activities in connection with corporate or government innovation";
+const text =
+  'Research and development refer to activities in connection with corporate or government innovation';
 export const Typography = () => `
       <div class="tk-ml-2h">
       <h1 class="tk-mb-4h">Typography</h1>

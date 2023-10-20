@@ -1,66 +1,75 @@
+/* eslint-disable react/display-name */
+import '../src/styles';
+import './stories.css';
+
 import * as React from 'react';
 import { Badge, Icon } from '../src/components';
-import '../src/styles';
-import './stories.scss';
+import type { Meta, StoryObj } from '@storybook/react';
 
-const Template = (args) => (<Badge {...args} />);
+const meta: Meta<typeof Badge> = {
+  component: Badge,
+  title: 'Components/Badge'
+} satisfies Meta<typeof Badge>;
 
-export const Default = Template.bind({});
+export default meta;
+type Story = StoryObj<typeof Badge>
 
-Default.args = {
-  children: 'Some Text',
-};
-
-export const DefaultVariant: React.FC = () => (
-  <>
+export const DefaultVariant: Story = {
+  render: () => <>
     <Badge variant="default" className="tk-mr-h">Badge</Badge>
     <Badge variant="default">
       <Icon iconName="bot" className="tk-mr-h"></Icon>
-      Badge
+    Badge
     </Badge>
-  </>);
+  </>
+}
 
-export const Positive: React.FC = () => (
-  <>
+export const Positive: Story = {
+  render: () => <>
     <Badge variant="positive" className="tk-mr-h">Badge</Badge>
     <Badge variant="positive">
       <Icon iconName="announce" className="tk-mr-h"></Icon>
       Badge
     </Badge>
-  </>);
+  </>
+};
 
-export const Neutral: React.FC = () => (
-  <>
+export const Neutral: Story = {
+  render: () => <>
     <Badge variant="neutral" className="tk-mr-h">Badge</Badge>
     <Badge variant="neutral">
       <Icon iconName="announce" className="tk-mr-h"></Icon>
       Badge
     </Badge>
-  </>);
+  </>
+}
 
-export const Attention: React.FC = () => (
-  <>
+export const Attention: Story = {
+  render: () => <>
     <Badge variant="attention" className="tk-mr-h">Badge</Badge>
     <Badge variant="attention">
       <Icon iconName="alert-round" className="tk-mr-h"></Icon>
       Badge
     </Badge>
-  </>);
+  </>
+}
 
-export const Warning: React.FC = () => (
-  <>
+export const Warning: Story = {
+  render: () => <>
     <Badge variant="warning" className="tk-mr-h">Badge</Badge>
     <Badge variant="warning">
       <Icon iconName="alert-triangle" className="tk-mr-h"></Icon>
       Badge
     </Badge>
   </>
-);
-export const EXTernal: React.FC = () => (
-  <Badge variant="external" className="tk-mr-h">EXT</Badge>);
+};
 
-export const BadgeSizes: React.FC = () => (
-  <>
+export const EXTernal: Story = {
+  render: () => <Badge variant="external" className="tk-mr-h">EXT</Badge>
+}
+
+export const BadgeSizes: Story = {
+  render: () => <>
     <div>
       <Badge size="medium" className="tk-mr-h">Badge</Badge>
       <Badge size="small" className="tk-mr-h">Badge</Badge>
@@ -109,11 +118,5 @@ export const BadgeSizes: React.FC = () => (
         Badge
       </Badge>
     </div>
-
-  </>);
-
-export default {
-  title: 'Components/Badge',
-  component: Badge,
-  subcomponents: { Icon },
-};
+  </>
+}

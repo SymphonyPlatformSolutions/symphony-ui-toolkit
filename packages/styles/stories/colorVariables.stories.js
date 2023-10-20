@@ -1,5 +1,5 @@
 export default {
-  title: 'Utils/Color\ Variables',
+  title: 'Utils/Color Variables',
 };
 
 const colors = [
@@ -27,7 +27,8 @@ const scales = ['05', '10', '20', '30', '40', '50', '60', '70', '80', '90'];
 export const ColorVariables = () => {
   return `<div> <h2>Main colors</h2>
   <p>Click to copy the variable to your clipboard</p>
-    ${mainColors.map((color) => {
+    ${mainColors
+    .map((color) => {
       const hex = getHex(`--tk-color-${color}`);
 
       return `<div
@@ -39,14 +40,17 @@ export const ColorVariables = () => {
           <span style="color: #000"> --tk-color-${color} ${hex}</span> <span style="color: #fff">--tk-color-${color} ${hex}</<span>
         </div>
       </div>`;
-    }).join('<br/>')}
-      ${colors.map(
-        (color) =>
-          `<div><h2>${color.toUpperCase()}</h2>
+    })
+    .join('<br/>')}
+      ${colors
+    .map(
+      (color) =>
+        `<div><h2>${color.toUpperCase()}</h2>
           <p>Click to copy the variable to your clipboard</p>
-          ${scales.map((scale) => {
-            const hex = getHex(`--tk-color-${color}-${scale}`);
-            return `<div
+          ${scales
+    .map((scale) => {
+      const hex = getHex(`--tk-color-${color}-${scale}`);
+      return `<div
               class="tk-card"
               style="background-color: var(--tk-color-${color}-${scale}); cursor: pointer; max-width: 30rem;"
               onclick="navigator.clipboard.writeText('--tk-color-${color}-${scale}')"
@@ -55,9 +59,11 @@ export const ColorVariables = () => {
               <span style="color: #000"> --tk-color-${color}-${scale} ${hex}</span> <span style="color: #fff">--tk-color-${color}-${scale} ${hex}</<span>
               </div>
             </div>`;
-          }).join('<br/>')}
+    })
+    .join('<br/>')}
         </div>`
-      ).join('<br/>')}
+    )
+    .join('<br/>')}
 
     </div>`;
 };

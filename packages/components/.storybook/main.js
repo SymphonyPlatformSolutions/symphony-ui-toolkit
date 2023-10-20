@@ -1,16 +1,25 @@
+import { dirname, join } from 'path';
+
 module.exports = {
-  stories: ['../stories/**/*.stories.mdx', '../stories/**/*.stories.tsx'],
   addons: [
-    '@storybook/addon-docs',
-    '@storybook/addon-actions',
-    '@storybook/addon-links',
-    '@storybook/addon-a11y',
-    'storybook-addon-mdx-embed',
-    'storybook-dark-mode/register',
-    '@storybook/addon-controls',
-    '@storybook/preset-scss',
-    'storybook-addon-themes',
+    getAbsolutePath('@storybook/addon-docs'),
+    getAbsolutePath('@storybook/addon-actions'),
+    getAbsolutePath('@storybook/addon-links'),
+    getAbsolutePath('@storybook/addon-a11y'),
+    getAbsolutePath('storybook-addon-mdx-embed'),
+    getAbsolutePath('storybook-dark-mode'),
+    getAbsolutePath('@storybook/addon-controls'),
+    getAbsolutePath('@storybook/preset-scss'),
+    getAbsolutePath('storybook-addon-themes'),
   ],
+  docs: {
+    autodocs: true,
+  },
+  framework: {
+    name: getAbsolutePath('@storybook/react-webpack5'),
+    options: {},
+  },
+  stories: ['../stories/**/*.stories.mdx', '../stories/**/*.stories.tsx'],
   webpackFinal: async (config) => {
     config.module.rules.push(
       {
@@ -18,9 +27,6 @@ module.exports = {
         use: [
           {
             loader: require.resolve('ts-loader'),
-          },
-          {
-            loader: require.resolve('react-docgen-typescript-loader'),
           },
         ],
       },
@@ -37,3 +43,7 @@ module.exports = {
     return config;
   },
 };
+
+function getAbsolutePath(value) {
+  return dirname(require.resolve(join(value, 'package.json')));
+}

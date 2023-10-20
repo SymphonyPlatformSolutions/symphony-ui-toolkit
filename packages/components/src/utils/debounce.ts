@@ -230,6 +230,7 @@ export function debounce(func: any, wait?: any, options?: any): any {
 
     // eslint-disable-next-line prefer-rest-params
     lastArgs = arguments;
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
     lastThis = this;
     lastCallTime = time;
 

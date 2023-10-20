@@ -2,8 +2,8 @@ export default {
   title: 'Components/Navigation',
 };
 
-export const Navigation = () => 
-`
+export const Navigation = () =>
+  `
 <div class="tk-ml-2">
   <h2>Navs</h2>
   <h3>Default nav</h3>

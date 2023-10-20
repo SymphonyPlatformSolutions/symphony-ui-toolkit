@@ -1,9 +1,9 @@
 export default {
-    title: 'Components/Toast',
+  title: 'Components/Toast',
 };
 
 export const Toast = () => {
-    return (`
+  return `
     <div style="min-height: 600px">
     <h2>Toast</h2>
       <h3 class="tk-mt-5">Regular</h3>
@@ -49,5 +49,5 @@ export const Toast = () => {
       </div>
       
     </div>
-    `);
+    `;
 };
