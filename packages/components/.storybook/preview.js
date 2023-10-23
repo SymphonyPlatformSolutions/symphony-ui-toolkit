@@ -49,19 +49,9 @@ const init = () => {
       if (isDark) {
         document.body.classList.add(darkClass);
         parameters.docs.theme = themes.dark
-        // addParameters({
-        //   docs: {
-        //     theme: themes.dark,
-        //   },
-        // });
       } else {
         document.body.classList.remove(darkClass);
         parameters.docs.theme = themes.light
-        // addParameters({
-        //   docs: {
-        //     theme: themes.light,
-        //   },
-        // });
       }
       globalDarkMode = isDark;
       forceReRender();
