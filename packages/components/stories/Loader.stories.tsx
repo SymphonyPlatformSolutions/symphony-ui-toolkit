@@ -8,7 +8,7 @@ const meta: Meta<typeof Loader> = {
 } satisfies Meta<typeof Loader>;
       
 export default meta;
-  type Story = StoryObj<typeof Loader>
+type Story = StoryObj<typeof Loader>
 
 export const Default: Story = {}
 
