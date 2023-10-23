@@ -33,7 +33,7 @@
     "autoprefixer": "^10.0.2",
     "creevey": "^0.7.37",
     "fantasticon": "^1.2.2",
-    "husky": "^7.0.0",
+    "husky": "^8.0.3",
     "markdown-loader": "^6.0.0",
     "postcss": "^8.2.13",
     "postcss-cli": "^8.3.0",

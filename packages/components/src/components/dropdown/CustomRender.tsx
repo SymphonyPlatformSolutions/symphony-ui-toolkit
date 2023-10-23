@@ -18,7 +18,7 @@ const stopPropagation = (e) => {
 /** The following components are defined to override
  * the appereace of the react-select library components **/
 export const DefaultOptionRenderer = (props: any) => {
-  const { classNamePrefix, enableTermSearch, inputValue, mode } = props?.selectProps;
+  const { classNamePrefix, enableTermSearch, inputValue, mode } = props.selectProps;
   const OptionRenderer = props?.selectProps?.optionRenderer;
   const isSelected = props.isSelected;
   const isSearchHeaderOption = props?.data?.searchHeader;
@@ -112,7 +112,7 @@ export const MultiValueContainerOverride = ({ children, ...props }: any) =>
  * The displayArrowIndicator prop from the Dropdown can override it
  */
 export const DropdownIndicator = (props: any) => {
-  const { displayArrowIndicator, menuIsOpen } = props?.selectProps;
+  const { displayArrowIndicator, menuIsOpen } = props.selectProps;
 
   return !displayArrowIndicator ?
     null :
@@ -169,7 +169,7 @@ export const DropdownList = ({ selectProps, ...props }: any) => {
     const select = selectProps?.selectRef?.current?.select;
     const selectValueSync = select?.state?.selectValue;
     const selectValueAsync = select?.state?.value?.searchHeader;
-    const { searchHeaderOption } = selectProps?.parentInstance;
+    const { searchHeaderOption } = selectProps.parentInstance;
     const { inputValue } = selectProps;
     // Focus on first option and differenciate between Group Options and simple options
     let focusThis = props?.children[1]?.props.data;
