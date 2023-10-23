@@ -1,3 +1,6 @@
+import '../src/styles';
+import './stories.css';
+
 import * as React from 'react';
 import Loader from '../src/components/loader';
 import type { Meta, StoryObj } from '@storybook/react';
