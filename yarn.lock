@@ -2836,7 +2836,7 @@
 
 "@storybook/manager-api@7.5.1":
   version "7.5.1"
-  resolved "https://registry.yarnpkg.com/@storybook/manager-api/-/manager-api-7.5.1.tgz#ebc5c0efc3f9c3451882e61b9b982d898a1fc6c9"
+  resolved "https://repo.symphony.com/artifactory/api/npm/npm-virtual-dev/@storybook/manager-api/-/manager-api-7.5.1.tgz#ebc5c0efc3f9c3451882e61b9b982d898a1fc6c9"
   integrity sha512-ygwJywluhhE1dpA0jC2D/3NFhMXzFCt+iW4m3cOwexYTuiDWF66AbGOFBx9peE7Wk/Z9doKkf9E3v11enwaidA==
   dependencies:
     "@storybook/channels" "7.5.1"
@@ -3044,9 +3044,9 @@
     memoizerific "^1.11.3"
     regenerator-runtime "^0.13.7"
 
-"@storybook/theming@7.5.1", "@storybook/theming@^7.0.0":
+"@storybook/theming@7.5.1", "@storybook/theming@^7.0.0", "@storybook/theming@^7.5.1":
   version "7.5.1"
-  resolved "https://registry.yarnpkg.com/@storybook/theming/-/theming-7.5.1.tgz#b3a78f493d644ac8cba5136e04479a58a9ba5546"
+  resolved "https://repo.symphony.com/artifactory/api/npm/npm-virtual-dev/@storybook/theming/-/theming-7.5.1.tgz#b3a78f493d644ac8cba5136e04479a58a9ba5546"
   integrity sha512-ETLAOn10hI4Mkmjsr0HGcM6HbzaURrrPBYmfXOrdbrzEVN+AHW4FlvP9d8fYyP1gdjPE1F39XvF0jYgt1zXiHQ==
   dependencies:
     "@emotion/use-insertion-effect-with-fallbacks" "^1.0.0"
