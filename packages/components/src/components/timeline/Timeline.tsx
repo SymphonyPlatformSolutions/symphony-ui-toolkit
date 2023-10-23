@@ -10,7 +10,7 @@ import { TimelineProps, TimelineOptions, UseTimeLineResult } from './interfaces'
 const prefix = 'tk-timeline';
 const buildClass = (classStr: string) => `${prefix}__${classStr}`;
 
-const Timeline = <T,>({
+export const Timeline = <T,>({
   onCollapseChange,
   items,
   itemHeaderRenderer,
