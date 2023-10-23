@@ -15,9 +15,7 @@
     "downlevelIteration": true,
     "allowSyntheticDefaultImports": false,
     "skipLibCheck": true,
-    "types": [
-      "node"
-    ]
+    "types": ["node"]
   },
   "include": [
     "src/**/*.ts"

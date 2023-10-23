@@ -1,14 +1,26 @@
-import React from 'react';
+import '../src/styles';
+import './stories.css';
+
+import * as React from 'react';
 import Icon from '../src/components/icon/FontIcon';
 import  { Badge } from '../src/components/badge';
-import { useTimeline, TimeLineItem } from '../src/components/timeline';
+import { Timeline, TimeLineItem, useTimeline } from '../src/components/timeline';
+
+import type { Meta, StoryObj } from '@storybook/react';
+
+const meta: Meta<typeof Timeline> = {
+  component: Timeline,
+  title: 'Components/Timeline',
+} satisfies Meta<typeof Timeline>;
+      
+export default meta;
+type Story = StoryObj<typeof Timeline>
 
 type MyItem = {
   title: string;
   name: string;
   price: number;
 };
-
 
 const DATA: TimeLineItem<MyItem>[] = [
   {
@@ -31,40 +43,41 @@ const DATA: TimeLineItem<MyItem>[] = [
   },
 ];
 
-const Header = (item: MyItem) => <div>{item.title}</div>;
-const Body = (item: MyItem) => (
+const Header = (item?: MyItem) => <div>{item?.title}</div>;
+const Body = (item?: MyItem) => (
   <>
     <div>
-      <Badge variant="positive" className="tk-mb-h">{item.name}</Badge>
+      <Badge variant="positive" className="tk-mb-h">{item?.name}</Badge>
     </div>
     <div>
-      <Badge variant="neutral">{item.price}</Badge>
+      <Badge variant="neutral">{item?.price}</Badge>
     </div>
   </>
 );
 
-export const Default: React.FC = () => {
- 
-  const { Timeline, timelineProps, expandAll, collapseAll, isAllExpanded } =
+export const Default: Story = {
+  render: () => {
+    const { Timeline, timelineProps, expandAll, collapseAll, isAllExpanded } =
     useTimeline<MyItem>({
       items: DATA,
       itemBodyRenderer: Body,
       itemHeaderRenderer: Header,
     });
  
-  return (
-    <>
-      <button onClick={isAllExpanded ? collapseAll : expandAll} className="tk-mb-2h">
-        {isAllExpanded ? 'COLLAPSE ALL' : 'EXPAND ALL'}
-      </button>
-      <Timeline {...timelineProps} />
-    </>
-  );
-};
+    return (
+      <>
+        <button onClick={isAllExpanded ? collapseAll : expandAll} className="tk-mb-2h">
+          {isAllExpanded ? 'COLLAPSE ALL' : 'EXPAND ALL'}
+        </button>
+        <Timeline {...timelineProps} />
+      </>
+    );
+  }
+}
 
-export const Expanded: React.FC = () => {
-
-  const { Timeline, timelineProps, expandAll, collapseAll, isAllExpanded } =
+export const Expanded: Story = {
+  render: () => {
+    const { Timeline, timelineProps, expandAll, collapseAll, isAllExpanded } =
     useTimeline<MyItem>({
       items: DATA,
       itemBodyRenderer: Body,
@@ -73,17 +86,11 @@ export const Expanded: React.FC = () => {
     });
 
     
-  return (
-    <>
+    return <>
       <button onClick={isAllExpanded ? collapseAll : expandAll} className="tk-mb-2h">
         {isAllExpanded ? 'COLLAPSE ALL' : 'EXPAND ALL'}
       </button>
       <Timeline {...timelineProps} />
     </>
-  );
-};
-
-export default {
-  title: 'Components/Timeline',
-  component: useTimeline,
+  }
 };

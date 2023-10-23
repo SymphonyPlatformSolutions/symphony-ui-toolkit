@@ -1,9 +1,9 @@
 export default {
-    title: 'Components/Inputs/Checkbox',
+  title: 'Components/Inputs/Checkbox',
 };
 
 export const Checkbox = () => {
-    return `
+  return `
   <div class="tk-text-color" style="width: 50%;">
     <h1>Checkbox</h1>
         <h2>Active Checkbox</h2>

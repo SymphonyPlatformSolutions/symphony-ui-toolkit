@@ -1,11 +1,11 @@
 import { shallow } from 'enzyme';
 import * as React from 'react';
-import { DatePicker, TextField, Validation } from '../../../src/components';
+import { TextField, Validation } from '../../../src/components';
 import { Validators } from '../../../src/core/validators/validators';
 
-function currentEventLoopEnd() {
-  return new Promise(resolve => setImmediate(resolve));
-}
+// function currentEventLoopEnd() {
+//   return new Promise(resolve => setImmediate(resolve));
+// }
 
 // TODO https://perzoinc.atlassian.net/browse/APP-4934
 // THIS WHOLE TEST SHOULD BE REWRITTEN USING TESTING LIBRARY

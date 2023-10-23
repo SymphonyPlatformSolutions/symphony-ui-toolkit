@@ -1,17 +1,12 @@
+import '../src/styles';
+import './stories.css';
+
 import * as React from 'react';
 import { useState } from 'react';
 import { Toast } from '../src/components';
+import type { Meta, StoryObj } from '@storybook/react';
 
-export default {
-  title: 'Components/Toast',
-  component: Toast,
-  decorators: [
-    (Story) => (
-      <div style={{ margin: '150px auto', textAlign: 'center' }}>
-        <Story />
-      </div>
-    ),
-  ],
+const meta: Meta<typeof Toast> = {
   argTypes: {
     placement: {
       control: { type: 'select' },
@@ -28,68 +23,77 @@ export default {
       ],
     },
   },
-};
+  component: Toast,
+  decorators: [
+    (Story) => (
+      <div style={{ margin: '150px auto', textAlign: 'center' }}>
+        <Story />
+      </div>
+    ),
+  ],
+  title: 'Components/Toast',
+} satisfies Meta<typeof Toast>;
+      
+export default meta;
+type Story = StoryObj<typeof Toast>
 
-const Template = (args) => {
-  const { placement, ...restArgs } = args;
-  const [showToast, setShowToast] = useState(true);
-
-  const onClickClose = () => {
-    setShowToast(!showToast);
-  };
-
-  return (
-    <Toast
-      onClickClose={onClickClose}
-      placement={JSON.parse(placement)}
-      show={showToast}
-      {...restArgs}
-    />
-  );
-};
-
-export const Default = Template.bind({});
-Default.args = {
-  closeIcon: true,
-  content: 'Some text',
-  leftIcon: 'alert-triangle',
-  onClickClose: () => {
-    return;
+export const Default: Story = {
+  args: {
+    closeIcon: true,
+    content: 'Some text',
+    leftIcon: 'alert-triangle',
+    onClickClose: () => {
+      return;
+    },
+    placement: { horizontal: 'center', vertical: 'center' },
+    show: true,
   },
-  placement: JSON.stringify({ horizontal: 'center', vertical: 'center' }),
-  show: true,
-};
+  render: (args) => {
+    const { placement, ...restArgs } = args;
+    const [showToast, setShowToast] = useState(true);
+    const onClickClose = () => setShowToast(!showToast);
 
-export const Closable: React.FC = () => (
-  <Toast
+    return (
+      <Toast
+        onClickClose={onClickClose}
+        placement={placement}
+        {...restArgs}
+        show={showToast}
+      />
+    );
+  }
+}
+
+export const Closable: Story = {
+  render: () => <Toast
     closeIcon
     content="Some text"
     placement={{ horizontal: 'center', vertical: 'center' }}
     show
     onClickClose={() => alert('click close')}
   />
-);
+};
 
-export const NotClosable: React.FC = () => (
-  <Toast
+export const NotClosable: Story = {
+  render: () => <Toast
     closeIcon={false}
     content="Some text"
     placement={{ horizontal: 'center', vertical: 'center' }}
     show
   />
-);
+};
 
-export const WithLeftIcon: React.FC = () => (
-  <Toast
+export const WithLeftIcon: Story = {
+  render: () => <Toast
     content="Some text"
     placement={{ horizontal: 'center', vertical: 'center' }}
     show
     leftIcon="alert-triangle"
   />
-);
+};
 
-export const WithLeftIconAndClosable: React.FC = () => (
-  <Toast
+export const WithLeftIconAndClosable: Story = {
+  render: () => <Toast
     content="Some text"
     placement={{ horizontal: 'center', vertical: 'center' }}
     show
@@ -97,10 +101,10 @@ export const WithLeftIconAndClosable: React.FC = () => (
     closeIcon
     onClickClose={() => alert('click close')}
   />
-);
+};
 
-export const ToastWithInput: React.FC = () => (
-  <Toast
+export const ToastWithInput: Story = {
+  render: () => <Toast
     content={
       <>
         <p>Type something you want:</p>
@@ -110,4 +114,4 @@ export const ToastWithInput: React.FC = () => (
     placement={{ horizontal: 'center', vertical: 'center' }}
     show
   />
-);
+};

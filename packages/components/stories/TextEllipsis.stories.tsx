@@ -1,9 +1,12 @@
+import '../src/styles';
+import './stories.css';
+
 import * as React from 'react';
 import { Icon, TextEllipsis } from '../src/components';
 
-export default {
-  title: 'Components/Text Ellipsis',
-  component: TextEllipsis,
+import type { Meta, StoryObj } from '@storybook/react';
+
+const meta: Meta<typeof TextEllipsis> = {
   argTypes: {
     tooltipProps: {
       description: 'See props in Tooltip',
@@ -14,7 +17,12 @@ export default {
       },
     },
   },
-};
+  component: TextEllipsis,
+  title: 'Components/Text Ellipsis',
+} satisfies Meta<typeof TextEllipsis>;
+      
+export default meta;
+type Story = StoryObj<typeof TextEllipsis>
 
 interface StoryBackgroundProps {
   children: React.ReactNode;
@@ -45,62 +53,62 @@ const addExplanation = (explanation) => (Story) => (
   </>
 );
 
-const Template = (args) => {
-  return (
-    <>
-      <h4>1 row ellipse - tooltip on hover</h4>
-      <StoryBackground>
-        <TextEllipsis rows={1} {...args}>
-          Really, really, really, really, really, really, long text that gets
-          cut!
-        </TextEllipsis>
-      </StoryBackground>
-    </>
-  );
-};
+export const Default: Story = {
+  args: {
+    children:
+        'Really, really, really, really, really, really, long text that gets cut!',
+    rows: 1,
+  },
+  render: (args) => <>
+    <h4>1 row ellipse - tooltip on hover</h4>
+    <StoryBackground>
+      <TextEllipsis rows={1} {...args}>
+        Really, really, really, really, really, really, long text that gets
+        cut!
+      </TextEllipsis>
+    </StoryBackground>
+  </>
+}
 
-export const Default = Template.bind({});
-Default.args = {
-  children:
-    'Really, really, really, really, really, really, long text that gets cut!',
-  rows: 1,
-};
-
-export const EllipseAfterTwoRows: React.FC = () => (
-  <StoryBackground>
+export const EllipseAfterTwoRows: Story = {
+  render: () => <StoryBackground>
     <TextEllipsis rows={2}>
       Really, really, really, really, really, really, really, really, really,
       really, really, really, really, really, really, really, really, long text
       that gets cut!
     </TextEllipsis>
   </StoryBackground>
-);
+}
 
-export const EllipseAContinuousString: React.FC = () => (
-  <StoryBackground>
+export const EllipseAContinuousString: Story = {
+  render: () => <StoryBackground>
     <TextEllipsis>
       A really longcontinuousstringthatseeminglyneverends
     </TextEllipsis>
   </StoryBackground>
-);
+};
 
-export const EllipseAContinuousStringTwoRows = () => (
-  <StoryBackground>
+export const EllipseAContinuousStringTwoRows: Story = {
+  decorators: [
+    addExplanation(
+      'A known limitation of TextEllipsis is if the last word of a multi-line ellipsis is a continuous string it will ellipse before the end.'
+    ),
+  ],
+  render: () => <StoryBackground>
     <TextEllipsis rows={2}>
-      A really, really, long string that wraps two rows and ends with a
-      longcontinuousstringthatseeminglyneverends
+        A really, really, long string that wraps two rows and ends with a
+        longcontinuousstringthatseeminglyneverends
     </TextEllipsis>
   </StoryBackground>
-);
+};
 
-EllipseAContinuousStringTwoRows.decorators = [
-  addExplanation(
-    'A known limitation of TextEllipsis is if the last word of a multi-line ellipsis is a continuous string it will ellipse before the end.'
-  ),
-];
-
-export const TooltipNotAffectingStyling = () => {
-  return (
+export const TooltipNotAffectingStyling: Story = {
+  decorators: [
+    addExplanation(
+      "Use the tooltip prop 'wrapperClassName' to change the styling of the wrapping tooltip element"
+    ),
+  ],
+  render: () => (
     <StoryBackground style={{ display: 'flex' }}>
       <TextEllipsis
         rows={1}
@@ -112,11 +120,5 @@ export const TooltipNotAffectingStyling = () => {
       </TextEllipsis>
       <Icon iconName="community" style={{ paddingLeft: 8 }}></Icon>
     </StoryBackground>
-  );
+  )
 };
-
-TooltipNotAffectingStyling.decorators = [
-  addExplanation(
-    "Use the tooltip prop 'wrapperClassName' to change the styling of the wrapping tooltip element"
-  ),
-];

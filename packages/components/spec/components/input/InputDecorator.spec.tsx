@@ -1,5 +1,5 @@
 import * as React from 'react';
-import classnames from 'classnames';
+import { clsx } from 'clsx';
 import userEvent from '@testing-library/user-event';
 import {
   fireEvent,
@@ -39,7 +39,7 @@ describe('InputDecorator Component', () => {
       const cssClass2 = 'test-class-1';
       render(
         <InputDecorator>
-          <input id={id} className={classnames(cssClass1, cssClass2)} />
+          <input id={id} className={clsx(cssClass1, cssClass2)} />
         </InputDecorator>
       );
       const input = screen.getByRole('textbox');
@@ -73,8 +73,10 @@ describe('InputDecorator Component', () => {
       expect(() =>
         render(
           <InputDecorator>
-            <input />
-            <input />
+            <>
+              <input />
+              <input />
+            </>
           </InputDecorator>
         )
       ).toThrowError();
@@ -117,7 +119,7 @@ describe('InputDecorator Component', () => {
       );
 
       const icon = document.querySelector('i.tk-icon-info-round');
-      userEvent.click(icon);
+      icon && userEvent.click(icon);
       const description = getByText(tooltipText);
       await waitFor(() => expect(description).toBeTruthy());
 

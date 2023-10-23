@@ -1,9 +1,9 @@
 export default {
-    title: 'Components/Inputs/Switch',
+  title: 'Components/Inputs/Switch',
 };
 
 export const Switch = () => {
-    return `
+  return `
   <div class="tk-text-color" style="width: 50%;">
     <h1>Switch</h1>
         <h2>Active Switch</h2>

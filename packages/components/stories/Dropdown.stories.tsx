@@ -1,3 +1,7 @@
+/* eslint-disable react/display-name */
+import '../src/styles';
+import './stories.css';
+
 import { TkIcon } from '@symphony-ui/uitoolkit-styles/dist/fonts/tk-icons';
 import * as React from 'react';
 import {
@@ -10,6 +14,7 @@ import {
   TagRendererProps,
 } from '../src/components';
 import { PortalTemplate } from './templates';
+import type { Meta, StoryObj } from '@storybook/react';
 
 const defaultOptions: LabelValue[] = [
   { label: 'Option 1', value: '1' },
@@ -123,14 +128,6 @@ const filterFunction = (icon: Icon, input: string) => {
   return !input || icon.displayName.indexOf(input) > -1 || icon.value.indexOf(input) > -1;
 };
 
-const Template = (args) => {
-  return (
-    <div style={{ minHeight: '160px' }}>
-      <Dropdown {...args} />
-    </div>
-  );
-};
-
 const onTermSearch = (option: SearchHeaderOption) => {
   console.log('On term search selected: ', option.value);
 }
@@ -140,25 +137,40 @@ const onChange = (value) => {
 const onClear = () => {
   console.log('Dropddown cleared')
 }
-export const Default = Template.bind({});
-Default.args = {
-  options: defaultOptions,
-  enableTermSearch: true,
-  onTermSearch: onTermSearch,
-  onChange: onChange
+
+const meta: Meta<typeof Dropdown> = {
+  args: {
+    options: defaultOptions,
+    enableTermSearch: true,
+    onTermSearch: onTermSearch,
+    onChange: onChange
+  },
+  component: Dropdown,
+  decorators: [
+    (Story) => (<div style={{ minHeight: '160px' }}>
+      <Story />
+    </div>)
+  ],
+  title: 'Components/Input/Dropdown',
+} satisfies Meta<typeof Dropdown>;
+  
+export default meta;
+type Story = StoryObj<typeof Dropdown>
+
+export const Default: Story = {};
+
+export const Variants: Story = {
+  render: () => <>
+    <h4>Default color</h4>
+    <Dropdown options={defaultOptions} />
+    <h4>Destructive</h4>
+    <Dropdown options={defaultOptions} variant="destructive" />
+    <div className="tk-py-5" /><div className="tk-py-5" />
+  </>
 };
 
-export const Variants: React.FC = () => (<>
-  <h4>Default color</h4>
-  <Dropdown options={defaultOptions} />
-  <h4>Destructive</h4>
-  <Dropdown options={defaultOptions} variant="destructive" />
-  <div className="tk-py-5" /><div className="tk-py-5" />
-</>
-);
-
-export const Sizes: React.FC = () => (
-  <>
+export const Sizes: Story = {
+  render: () => <>
     <h4>Small</h4>
     <div style={{ display: 'flex' }}>
       <div style={{ width: '384px', marginRight: '32px' }}>
@@ -188,10 +200,10 @@ export const Sizes: React.FC = () => (
     </div>
     <div className="tk-py-5" /><div className="tk-py-5" />
   </>
-);
+};
 
-export const Select: React.FC = () => (
-  <div>
+export const Select: Story = {
+  render: () => <div>
     <p>Let`s have a look on the different props than can be used to render the dropdown: </p>
     <p className="tk-mt-4">
       With <strong>placeholder</strong>:
@@ -368,9 +380,9 @@ export const Select: React.FC = () => (
       menuShouldScrollIntoView={false}
     />
   </div>
-);
+};
 
-export const Portal = PortalTemplate.bind({});
+export const Portal = PortalTemplate;
 Portal.args = {
   title: 'A Dropdown rendering its menu inside a Portal',
   component: <Dropdown
@@ -378,9 +390,4 @@ Portal.args = {
     menuPortalTarget={document.body}
     menuShouldBlockScroll={true}
     menuPortalStyles={{ zIndex: 100 }} />,
-};
-
-export default {
-  title: 'Components/Input/Dropdown',
-  component: Dropdown
 };

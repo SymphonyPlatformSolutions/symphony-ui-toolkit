@@ -1,5 +1,5 @@
 export default {
-  title: "Validations/Validation"
+  title: 'Validations/Validation',
 };
 
 export const Validation = () => {

@@ -4,7 +4,7 @@ html {
   font-size: 16px;
 }
 
-// Layout utils
+/* Layout utils */
 .flex-container {
   overflow-x: hidden;
 }
@@ -18,12 +18,11 @@ html {
   }
 }
 
-// inline block container for presentation
+/* inline block container for presentation */
 .d-inline-block {
   display: inline-block;
 }
 
-// Icons preview
 .preview {
   display: inline-block;
   margin: 20px;
@@ -32,7 +31,7 @@ html {
   word-break: break-word;
 }
 
-// Width percentages
+/* Width percentages */
 .w-5 {
   width: 5%;
 }

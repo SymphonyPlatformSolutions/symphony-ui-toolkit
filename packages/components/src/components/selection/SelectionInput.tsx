@@ -158,7 +158,7 @@ const SelectionInput: React.FC<SelectionInputPropsWithType> = ({
           [`${tkClassName}--disabled`]: disabled,
         }
       )}
-      tab-index="-1"
+      tabIndex={-1}
       data-checked={isChecked}
     >
       <div className={`${tkClassName}__inputContainer`}>

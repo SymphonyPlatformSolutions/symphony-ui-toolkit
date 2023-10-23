@@ -1,11 +1,35 @@
+/**
+ * 
+ * 
+ * 
+ * 
+ * 
+ * TODO - This Story has never been functional. Fix it!
+ * 
+ * 
+ * 
+ * 
+ * 
+ */
+
 import *  as React from 'react';
 import VirtualizedList from '../src/components/virtualized-list';
 import Button from '../src/components/button';
-import Icon from '../src/components/icon';
+import { SvgIcon } from '../src/components/icon';
+import { Call, Calendar } from '../src/components/icons';
 
+import type { Meta, StoryObj } from '@storybook/react';
+
+const meta: Meta<typeof VirtualizedList> = {
+  component: VirtualizedList,
+  title: 'Utils/Virtualized Lists',
+} satisfies Meta<typeof VirtualizedList>;
+      
+export default meta;
+type Story = StoryObj<typeof VirtualizedList>
 
 function createItems() {
-  const items = []
+  const items: {name: string, status: string}[] = []
   for (let i = 1; i < 20; i++) {
     if(i % 2 === 0) {
       items.push({name: 'Meeting ' + i, status: 'ongoing'})
@@ -24,7 +48,7 @@ function rowRenderer() {
         {/* text might not look good in dark mode, to be replaced by Typography component */}
         {item.name} -
         <Button iconButton variant="tertiary">
-          {item.status === 'ongoing' ? <Icon iconName={'call'}/> : <Icon iconName={'calendar'}/>}
+          {item.status === 'ongoing' ? <SvgIcon icon={Call}/> : <SvgIcon icon={ Calendar}/>}
         </Button>
       </div>
     )
@@ -39,8 +63,8 @@ function noRowsRenderer() {
   )
 }
 
-export const VirtualizedLists: React.FC = () => (
-  <div style = {{display: 'flex'}}>
+export const VirtualizedLists: Story = {
+  render: () => <div style = {{display: 'flex'}}>
     <div>
       <h3>List with content</h3>
       <p>List item is rendered by providing a rowRenderer</p><br/>
@@ -68,10 +92,4 @@ export const VirtualizedLists: React.FC = () => (
       />
     </div>
   </div>
-);
-
-export default {
-  title: 'Utils/Virtualized Lists',
-  component: VirtualizedList,
-}
-
+};

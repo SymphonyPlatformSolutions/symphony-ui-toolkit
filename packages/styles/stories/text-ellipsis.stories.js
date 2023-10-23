@@ -1,9 +1,9 @@
 export default {
-    title: 'Components/Text Ellipsis',
+  title: 'Components/Text Ellipsis',
 };
 
 export const TextEllipsis = () => {
-    return (`
+  return `
     <div style="min-height: 600px">
     
         <h1>Text Ellipsis</h1>
@@ -47,5 +47,5 @@ export const TextEllipsis = () => {
         </div>
     
     </div>
-    `);
+    `;
 };

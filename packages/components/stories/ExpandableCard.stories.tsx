@@ -1,3 +1,6 @@
+import '../src/styles';
+import './stories.css';
+
 import * as React from 'react';
 import {
   ExpandableCard,
@@ -6,6 +9,15 @@ import {
   Link,
   Icon,
 } from '../src/components';
+import type { Meta, StoryObj } from '@storybook/react';
+
+const meta: Meta<typeof ExpandableCard> = {
+  component: ExpandableCard,
+  title: 'Components/Containers/Expandable card',
+} satisfies Meta<typeof ExpandableCard>;
+    
+export default meta;
+type Story = StoryObj<typeof ExpandableCard>
 
 const sampleText = `Sed ut perspiciatis unde omnis iste natus error sit voluptatem
 accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
@@ -22,8 +34,8 @@ reprehenderit qui in ea voluptate velit esse quam nihil molestiae
 consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla
 pariatur?`;
 
-const Template = (args) => (
-  <div>
+export const Default: Story = {
+  render: (args) => <div>
     <ExpandableCard
       {...args}
       onToggle={(el) => console.log('ExpandableCard toggled', el)}
@@ -44,12 +56,10 @@ const Template = (args) => (
       </CropContent>
     </ExpandableCard>
   </div>
-);
+}
 
-export const Default = Template.bind({});
-
-export const InitiallyExpandedCard: React.SFC = () => {
-  return (
+export const InitiallyExpandedCard: Story = {
+  render: () => (
     <div>
       <h3>Header with buttons (Expanded Card)</h3>
       <ExpandableCard
@@ -73,11 +83,5 @@ export const InitiallyExpandedCard: React.SFC = () => {
         </CropContent>
       </ExpandableCard>
     </div>
-  );
-};
-
-export default {
-  title: 'Components/Containers/Expandable card',
-  component: ExpandableCard,
-  subcomponents: { CropContent },
+  )
 };

@@ -3,7 +3,7 @@ export default {
 };
 
 export const Spinner = () =>
-`
+  `
 <div class="tk-ml-2">
 <div class="tk-ml-2">
   <h3>Default</h3>

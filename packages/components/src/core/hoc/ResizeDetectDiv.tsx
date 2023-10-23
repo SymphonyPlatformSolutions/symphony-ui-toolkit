@@ -3,6 +3,7 @@ import * as React from 'react';
 import { withResizeDetector } from 'react-resize-detector';
 
 interface ResizeDetectDivProps {
+  children?: React.ReactNode;
   width: number;
   height: number;
   onResize?: (width: number, height: number) => any;
@@ -33,6 +34,7 @@ export class ResizeDetectDivInternal extends React.Component<
     const {
       width,
       height,
+      // eslint-disable-next-line react/prop-types
       children,
       onResize,
       onWidthChange,

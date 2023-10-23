@@ -1,23 +1,32 @@
-import React, { useState, useRef } from 'react';
+import '../src/styles';
+import './stories.css';
+
+import * as React from 'react';
+import { useState, useRef } from 'react';
 import { Button, TextField, Icon, Validation, Typography } from '../src/components';
 
 import { Validators } from '../src/core/validators/validators';
+import type { Meta, StoryObj } from '@storybook/react';
 
-const Template = (args) => <TextField {...args} />;
+const meta: Meta<typeof TextField> = {
+  component: TextField,
+  title: 'Components/Input/TextField',
+} satisfies Meta<typeof TextField>;
+      
+export default meta;
+type Story = StoryObj<typeof TextField>
 
-export const Default = Template.bind({});
-
-Default.args = {
-  label: 'Field label',
-  tooltip: 'This is a tooltip \n  with newline',
-  tooltipCloseLabel: 'Got it',
-  placeholder:'Type something',
+export const Default: Story = {
+  args: {
+    label: 'Field label',
+    tooltip: 'This is a tooltip \n  with newline',
+    tooltipCloseLabel: 'Got it',
+    placeholder:'Type something',
+  }
 };
 
-
-
-export const Disabled: React.FC = () => 
-  <>
+export const Disabled: Story = { 
+  render: () => <>
     <p>Text Field <b>disabled</b>. A disabled input element is unusable and un-clickable.</p>
     <TextField
       disabled
@@ -26,34 +35,38 @@ export const Disabled: React.FC = () =>
       tooltip="More information"
       tooltipCloseLabel="Got it"
     />
-  </>;
+  </>
+}
 
-export const HelperText: React.FC = () => 
-  <>
+export const HelperText: Story = {
+  render: () => <>
     <TextField
       id="input-1234567899"
       helperText="Helper text"
       placeholder="Type something"
       label="Field label"
     />
-  </>;
+  </>
+}
 
-export const InitialValue: React.FC = () => {
-  const [value, setValue] = useState('Lorem Ipsum');
-  return (
-    <>
-      <TextField
-        label="Field label"
-        placeholder="Type something"
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
-      />
-    </>
-  );
+export const InitialValue: Story = {
+  render: () => {
+    const [value, setValue] = useState('Lorem Ipsum');
+    return (
+      <>
+        <TextField
+          label="Field label"
+          placeholder="Type something"
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+        />
+      </>
+    );
+  }
 };
 
-export const Label: React.FC = () =>
-  <>
+export const Label: Story = {
+  render: () => <>
     <p>If the attribute id is defined, it will be attached to the label as a
 &apos;for&apos; attribute.
     </p>
@@ -71,10 +84,11 @@ export const Label: React.FC = () =>
       placeholder="Type something"
       showRequired
     />
-  </>;
+  </>
+}
 
-export const ReadOnly: React.FC = () => 
-  <>
+export const ReadOnly: Story = { 
+  render: () => <>
     <p>Text Field <b>read only</b>. 
       A read-only input field cannot be modified (however, a user can tab to it, highlight it, and copy the text from it).
     </p>
@@ -94,44 +108,45 @@ export const ReadOnly: React.FC = () =>
       size="small"
       value="Lorem Ipsum"
     />
-  </>;
+  </>
+}
 
-export const RightDecorator: React.FC = () => {
-  const [hideText, setHideText] = useState(false);
-  const [value, setValue] = useState('Lorem Ipsum');
-  const [value1, setValue1] = useState('Lorem Ipsum');
-  const [value2, setValue2] = useState('Lorem Ipsum');
-  return (
-    <>
-      <p>Adding the class <b>.tk-input__right-decorators__clickable </b>
+export const RightDecorator: Story = {
+  render: () => {
+    const [hideText, setHideText] = useState(false);
+    const [value, setValue] = useState('Lorem Ipsum');
+    const [value1, setValue1] = useState('Lorem Ipsum');
+    const [value2, setValue2] = useState('Lorem Ipsum');
+    return (
+      <>
+        <p>Adding the class <b>.tk-input__right-decorators__clickable </b>
         will provide a clickable style to the decorator</p>
-      <TextField
-        label="Field label"
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
-        rightDecorators={<Icon iconName="copy" tabIndex={0} className="tk-input__right-decorators__clickable"/>}
-      />
-      <p>Text Field with 2 <b>right decorators</b></p>
-      <TextField
-        label="Field label"
-        value={value1}
-        onChange={(e) => setValue1(e.target.value)}
-        rightDecorators={
-        value1?.length
-          && [
-            <Icon iconName="copy" tabIndex={0} className="tk-input__right-decorators__clickable" key="copy"/>,
-            <Icon iconName="search" tabIndex={0} className="tk-input__right-decorators__clickable" key="search"/>,
-          ]
-        }
-      />
-      <p>Adding the class <b>.tk-input__hide</b> and <b> masked data</b></p>
-      <TextField
-        label="Field label"
-        isMasked={hideText}
-        value={value2}
-        onChange={(e) => setValue2(e.target.value)}
-        rightDecorators={
-        value?.length
+        <TextField
+          label="Field label"
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+          rightDecorators={<Icon iconName="copy" tabIndex={0} className="tk-input__right-decorators__clickable"/>}
+        />
+        <p>Text Field with 2 <b>right decorators</b></p>
+        <TextField
+          label="Field label"
+          value={value1}
+          onChange={(e) => setValue1(e.target.value)}
+          rightDecorators={
+            value1 && [
+              <Icon iconName="copy" tabIndex={0} className="tk-input__right-decorators__clickable" key="copy"/>,
+              <Icon iconName="search" tabIndex={0} className="tk-input__right-decorators__clickable" key="search"/>,
+            ] || undefined
+          }
+        />
+        <p>Adding the class <b>.tk-input__hide</b> and <b> masked data</b></p>
+        <TextField
+          label="Field label"
+          isMasked={hideText}
+          value={value2}
+          onChange={(e) => setValue2(e.target.value)}
+          rightDecorators={
+            value
           && [
             <button
               key="button"
@@ -142,68 +157,72 @@ export const RightDecorator: React.FC = () => {
             >
               {hideText ? 'SHOW' : 'HIDE'}
             </button>,
-          ]
-        }
-      />
-    </>)
+          ] || undefined
+          }
+        />
+      </>)
+  }
 };
 
-export const Sizes: React.FC = () => {
-  return (
-    <>
-      <Typography type="h1">Small</Typography>
-      <div className="flex-row">
-        <div className="flex-col" style={{width:'350px'}}>
-          <TextField size="small" 
-            label="Field label" 
-            placeholder="Type something"
-          />
+export const Sizes: Story = {
+  render: () => {
+    return (
+      <>
+        <Typography type="h1">Small</Typography>
+        <div className="flex-row">
+          <div className="flex-col" style={{width:'350px'}}>
+            <TextField size="small" 
+              label="Field label" 
+              placeholder="Type something"
+            />
+          </div>
+          <div className="flex-col" style={{width:'350px'}}>
+            <TextField size="small" 
+              label="Field label" 
+              placeholder="Type something"
+              rightDecorators={[
+                <Icon iconName="copy" tabIndex={0} className="tk-input__right-decorators__clickable" key="copy"/>,
+                <Icon iconName="search" tabIndex={0} className="tk-input__right-decorators__clickable" key="search"/>,
+              ]}
+            />
+          </div>
         </div>
-        <div className="flex-col" style={{width:'350px'}}>
-          <TextField size="small" 
-            label="Field label" 
-            placeholder="Type something"
-            rightDecorators={[
-              <Icon iconName="copy" tabIndex={0} className="tk-input__right-decorators__clickable" key="copy"/>,
-              <Icon iconName="search" tabIndex={0} className="tk-input__right-decorators__clickable" key="search"/>,
-            ]}
-          />
+        <Typography type="h1" className="tk-mt-4h">Medium</Typography>
+        <div className="flex-row">
+          <div className="flex-col" style={{width:'350px'}}>
+            <TextField size="medium" 
+              label="Field label" 
+              placeholder="Type something"
+            />
+          </div>
+          <div className="flex-col" style={{width:'350px'}}>
+            <TextField size="medium" 
+              label="Field label" 
+              placeholder="Type something"
+              rightDecorators={[
+                <Icon iconName="copy" tabIndex={0} className="tk-input__right-decorators__clickable" key="copy"/>,
+                <Icon iconName="search" tabIndex={0} className="tk-input__right-decorators__clickable" key="search"/>,
+              ]}
+            />
+          </div>
         </div>
-      </div>
-      <Typography type="h1" className="tk-mt-4h">Medium</Typography>
-      <div className="flex-row">
-        <div className="flex-col" style={{width:'350px'}}>
-          <TextField size="medium" 
-            label="Field label" 
-            placeholder="Type something"
-          />
-        </div>
-        <div className="flex-col" style={{width:'350px'}}>
-          <TextField size="medium" 
-            label="Field label" 
-            placeholder="Type something"
-            rightDecorators={[
-              <Icon iconName="copy" tabIndex={0} className="tk-input__right-decorators__clickable" key="copy"/>,
-              <Icon iconName="search" tabIndex={0} className="tk-input__right-decorators__clickable" key="search"/>,
-            ]}
-          />
-        </div>
-      </div>
-    </>)
+      </>)
+  }
 };
 
-export const Tooltip: React.FC = () => 
-  <>
+export const Tooltip: Story = { 
+  render: () => <>
     <TextField
       label="Field label"
       tooltip="More information"
       tooltipCloseLabel="Got it"
       placeholder="Type something"
     />
-  </>;
+  </>
+}
 
-export const WithIcon: React.FC = () =>
-  <>
+export const WithIcon: Story = {
+  render: () => <>
     <TextField
       placeholder="Type something"
       label="Field label"
@@ -214,61 +233,59 @@ export const WithIcon: React.FC = () =>
         />
       }
     />
-  </>;
+  </>
+};
 
-export const ChangeProgrammatically = () => {
-  const child1 = useRef(null);
-  const child2 = useRef(null);
+export const ChangeProgrammatically: Story = {
+  render: () => {
+    const child1 = useRef<Validation>(null);
+    const child2 = useRef<Validation>(null);
 
-  const [value, setValue] = useState('');
-  const [value1, setValue1] = useState('');
+    const [value, setValue] = useState('');
+    const [value1, setValue1] = useState('');
 
-  const reset = () => {
-    child1.current.reset();
-    child2.current.reset();
-  }
-  const refresh = () => {
-    child1.current.refreshValidation().then((isValid) => console.log(isValid));
-    child2.current.refreshValidation().then((isValid) => console.log(isValid));
-  }
-  return (
-    <>
-      <Validation
-        ref={child1}
-        validator={Validators.Required}
-        errorMessage={{ required: 'This field is mandatory' }}
-      >
-        <TextField
-          label="Field label"
-          placeholder="Type something"
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-        />
-      </Validation>
-      <div className="tk-mt-2">
+    const reset = () => {
+      child1.current?.reset();
+      child2.current?.reset();
+    }
+    const refresh = () => {
+      child1.current?.refreshValidation().then((isValid) => console.log(isValid));
+      child2.current?.refreshValidation().then((isValid) => console.log(isValid));
+    }
+    return (
+      <>
         <Validation
-          ref={child2}
+          ref={child1}
           validator={Validators.Required}
           errorMessage={{ required: 'This field is mandatory' }}
         >
           <TextField
             label="Field label"
             placeholder="Type something"
-            value={value1}
-            onChange={(e) => setValue1(e.target.value)}
-            size="small"
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
           />
         </Validation>
-      </div>
-      <div style={{ display: 'flex', marginTop: '1rem' }}>
-        <Button size="small" onClick={reset} className="tk-mr-2">Reset</Button>
-        <Button size="small" onClick={refresh}>Refresh validation</Button>
-      </div>
-    </>
-  );
-};
-
-export default {
-  title: 'Components/Input/TextField',
-  component: TextField,
+        <div className="tk-mt-2">
+          <Validation
+            ref={child2}
+            validator={Validators.Required}
+            errorMessage={{ required: 'This field is mandatory' }}
+          >
+            <TextField
+              label="Field label"
+              placeholder="Type something"
+              value={value1}
+              onChange={(e) => setValue1(e.target.value)}
+              size="small"
+            />
+          </Validation>
+        </div>
+        <div style={{ display: 'flex', marginTop: '1rem' }}>
+          <Button size="small" onClick={reset} className="tk-mr-2">Reset</Button>
+          <Button size="small" onClick={refresh}>Refresh validation</Button>
+        </div>
+      </>
+    );
+  }
 };

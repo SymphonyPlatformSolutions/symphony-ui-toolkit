@@ -1,12 +1,22 @@
+import '../src/styles';
+import './stories.css';
+
 import * as React from 'react';
 import Loader from '../src/components/loader';
+import type { Meta, StoryObj } from '@storybook/react';
 
-const Template = (args) => (<Loader {...args} />);
+const meta: Meta<typeof Loader> = {
+  component: Loader,
+  title: 'Components/Loader',
+} satisfies Meta<typeof Loader>;
+      
+export default meta;
+type Story = StoryObj<typeof Loader>
 
-export const Default = Template.bind({});
+export const Default: Story = {}
 
-export const Spinner: React.FC = () => (
-  <div>
+export const Spinner: Story = {
+  render: () => <div>
     <h2 className="tk-mt-4h">Variants</h2>
     <Loader variant="default" className="tk-ml-h" />
     <Loader variant="primary" className="tk-ml-2h" />
@@ -14,9 +24,4 @@ export const Spinner: React.FC = () => (
     <Loader variant="warning" className="tk-ml-2h" />
     <Loader variant="ok" className="tk-ml-2h" />
   </div>
-);
-
-export default {
-  title: 'Components/Loader',
-  component: Loader,
 };
