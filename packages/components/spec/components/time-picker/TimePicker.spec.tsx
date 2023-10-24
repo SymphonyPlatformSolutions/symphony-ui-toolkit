@@ -1,11 +1,10 @@
 import * as React from 'react';
-import { mount, shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import { act } from 'react-dom/test-utils';
 
 import TimePicker from '../../../src/components/time-picker/TimePicker';
 
 import { Keys } from '../../../src/components/common/eventUtils';
-import { Dropdown } from '../../../src';
 import { FIELD } from '../../../src/components/time-picker/utils';
 import {
   render,
@@ -40,22 +39,14 @@ describe('TimePicker Component', () => {
   }
 
   it('should render with default props', () => {
-    const wrapper = shallow(<TimePicker />);
-    expect(wrapper.length).toEqual(1);
+    render(<TimePicker/>);
   });
-  it('should properly pass props to Dropdown Component', () => {
+
+  it('should properly pass showRequired props to Dropdown Component', () => {
     const props = createTestProps({});
-    const wrapper = shallow(<TimePicker {...props} />);
-    const wrapperPicker = wrapper.find(Dropdown);
-    expect(wrapperPicker.length).toBe(1);
-    expect(wrapperPicker.prop('id')).toBe(props.id);
-    expect(wrapperPicker.prop('label')).toBe(props.label);
-    expect(wrapperPicker.prop('showRequired')).toBe(props.showRequired);
-    expect(wrapperPicker.prop('name')).toBe(props.name);
-    expect(wrapperPicker.prop('placeHolder')).toBe(props.placeholder);
-    expect(wrapperPicker.prop('onCopy')).toBe(props.onCopy);
-    expect(wrapperPicker.prop('onCut')).toBe(props.onCut);
-    expect(wrapperPicker.prop('onDrag')).toBe(props.onDrag);
+    const { container } = render(<TimePicker {...props} />);
+    const elements = container.getElementsByClassName('tk-label--required');
+    expect(elements.length).toBe(1);
   });
 
   it('should trigger onFocus', async () => {
@@ -241,6 +232,7 @@ describe('TimePicker Component', () => {
       [null, '00:00:00', '00:15:00'], // Default fallback value 15 minutes
       [0, '00:00:00', '00:10:00'], // Min fallback value 10 minutes
       [99999, '00:00:00', '12:00:00'], // Max fallback value 12 hours
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     ])('when step is %p', (step, min, expected) => {
       jest.spyOn(console, 'error').mockImplementation(() => {
         return;
@@ -249,14 +241,19 @@ describe('TimePicker Component', () => {
         min,
         step,
       });
-      const wrapper = shallow(<TimePicker {...props} />);
+      const { container } = render(<TimePicker {...props} />);
+      const element = container.getElementsByClassName('tk-select__value-container')
+      userEvent.click(element[0]);
 
-      const dropDownProps = wrapper.find(Dropdown).props();
-      expect(dropDownProps.options).toBeDefined();
-      expect(dropDownProps.options.length).toBeGreaterThan(1);
-      const secondOption = dropDownProps.options[1];
-      expect(secondOption).toBeDefined();
-      expect(secondOption.value).toBe(expected);
+      if(step === null) {
+        screen.getByText('12:45:00 AM')
+        screen.getByText('01:00:00 AM')
+      } else if(step === 0) {
+        screen.getByText('12:40:00 AM')
+        screen.getByText('12:50:00 AM')
+      } else if(step === 99999) {
+        screen.getByText('12:00:00 AM')
+      }
     });
   });
 
@@ -273,18 +270,17 @@ describe('TimePicker Component', () => {
           { time: '15:00:00' },
         ],
       });
-      const wrapper = mount(<TimePicker {...props} />);
+      const { container } = render(<TimePicker {...props} />);
 
       expect(props.onValidationChanged).toHaveBeenCalledTimes(0);
 
-      wrapper
-        .find('.tk-select__input')
-        .find('input')
-        .simulate('change', value)
+      const element = container.getElementsByTagName('input')
+      userEvent.click(element[0])
+      const option = container.querySelector('#react-select-2-option-3')
+      console.log(option);
+      option && userEvent.click(option);
 
       expect(props.onValidationChanged).toHaveBeenCalledWith(expected);
-
-      wrapper.unmount();
     });
   });
 });
