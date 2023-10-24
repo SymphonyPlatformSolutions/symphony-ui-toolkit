@@ -40,7 +40,7 @@
     "date-fns": "^2.16.1",
     "emoji-js": "^3.5.0",
     "github-markdown-css": "^4.0.0",
-    "prop-types": "^15.7.2",
+    "prop-types": "^15.8.1",
     "react-cool-onclickoutside": "^1.5.8",
     "react-popper": "^2.2.3",
     "react-resize-detector": "^5.0.3",
