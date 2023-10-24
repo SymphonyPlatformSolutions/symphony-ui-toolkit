@@ -22,7 +22,7 @@
     "start": "storybook dev -p 6006",
     "storybook-docs": "storybook dev --docs",
     "build-storybook": "storybook build -c .storybook -o dist/storybook",
-    "test": "jest --watchAll",
+    "test": "node --experimental-vm-modules node_modules/.bin/jest --watchAll",
     "test-once": "jest -w 1",
     "cover": "jest -w 1 --coverage",
     "check-circular": "madge --circular --extensions ts,tsx ./",
@@ -113,6 +113,7 @@
     "storybook-dark-mode": "^3.0.1",
     "style-loader": "^1.2.1",
     "ts-loader": "^7.0.5",
+    "ts-node": "^10.9.1",
     "typescript": "^5.2.2",
     "yarn-deduplicate": "^3.1.0"
   },
