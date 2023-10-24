@@ -1,4 +1,3 @@
-import PropTypes from 'better-prop-types'
 import * as React from 'react';
 
 export interface SvgIconProps extends React.SVGProps<SVGElement> {
@@ -38,16 +37,4 @@ export const SvgIcon: React.FC<SvgIconProps> = ({
     tabIndex={tabIndex}
   />
 
-};
-
-SvgIcon.propTypes = {
-  className: PropTypes.string,
-  disabled: PropTypes.bool,
-  forwardRef: PropTypes.any,
-  icon: PropTypes.func.isRequired,
-  onClick: PropTypes.func,
-  onKeyDown: PropTypes.func,
-  onKeyPress: PropTypes.func,
-  style: PropTypes.object,
-  tabIndex: PropTypes.number,
 };
