@@ -1,5 +1,5 @@
-import { shallow } from 'enzyme';
 import * as React from 'react';
+import { render } from '@testing-library/react';
 import { TextField, Validation } from '../../../src/components';
 import { Validators } from '../../../src/core/validators/validators';
 
@@ -15,12 +15,11 @@ describe('Validation Component', () => {
       jest.restoreAllMocks();
     });
     it('should render', ()=>{
-      const wrapper = shallow(
+      render(
         <Validation validator={Validators.Required} errorMessage={'Required'}>
           <TextField />
         </Validation>
       );
-      expect(wrapper.length).toEqual(1);
     })
     //     it('if a validator is present no error message appears before modified', async () => {
     //       /** TESTS SHOULD NOT TARGET INTERNALS */

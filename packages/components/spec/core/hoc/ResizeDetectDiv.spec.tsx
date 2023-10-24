@@ -1,8 +1,6 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
-
-import { shallow } from 'enzyme';
 import * as React from 'react';
 import { ResizeDetectDivInternal } from '../../../src/core/hoc/ResizeDetectDiv';
+import { render } from '@testing-library/react';
 
 describe('ResizeDetectDiv Component', () => {
   let zone, spyWidth, spyHeight, spyResize;
@@ -18,52 +16,70 @@ describe('ResizeDetectDiv Component', () => {
   });
 
   it('render with default props does not crash', () => {
-    const wrapper = shallow(
+    const { container } = render(
       <ResizeDetectDivInternal width={100} height={100} className="SOMECLASS">
         Text
       </ResizeDetectDivInternal>
     );
-    expect(wrapper.length).toEqual(1);
-    expect(wrapper.hasClass('SOMECLASS')).toBe(true);
+    const element = container.getElementsByClassName('SOMECLASS');
+    expect(element.length).toBe(1);
   });
+
   it('should call width changed with new width', () => {
-    const wrapper = shallow(
-      <ResizeDetectDivInternal
-        width={100}
-        height={100}
-        onWidthChange={zone.onWidthChange}
-        onHeightChange={zone.onHeightChange}
-        onResize={zone.onResize}
-        className="SOMECLASS"
-      >
-        Text
-      </ResizeDetectDivInternal>
-    );
+    const { rerender } = render(<ResizeDetectDivInternal
+      width={100}
+      height={100}
+      onWidthChange={zone.onWidthChange}
+      onHeightChange={zone.onHeightChange}
+      onResize={zone.onResize}
+      className="SOMECLASS"
+    > Text </ResizeDetectDivInternal>);
     // simulate resize update, this is done by the withResizeDetector wrapper
-    wrapper.setProps({ width: 50 });
+    rerender(<ResizeDetectDivInternal
+      width={50}
+      height={100}
+      onWidthChange={zone.onWidthChange}
+      onHeightChange={zone.onHeightChange}
+      onResize={zone.onResize}
+      className="SOMECLASS"
+    > Text </ResizeDetectDivInternal>)
     expect(spyWidth).toHaveBeenCalledWith(50);
     expect(spyResize).toHaveBeenCalledWith(50, 100);
 
-    wrapper.setProps({ height: 50 });
+    rerender(<ResizeDetectDivInternal
+      width={50}
+      height={50}
+      onWidthChange={zone.onWidthChange}
+      onHeightChange={zone.onHeightChange}
+      onResize={zone.onResize}
+      className="SOMECLASS"
+    > Text </ResizeDetectDivInternal>)
     expect(spyHeight).toHaveBeenCalledWith(50);
     expect(spyResize).toHaveBeenCalledWith(50, 50);
   });
+
   it('should not call on change if no size change', () => {
-    const wrapper = shallow(
-      <ResizeDetectDivInternal
-        width={100}
-        height={100}
-        onWidthChange={zone.onWidthChange}
-        onHeightChange={zone.onHeightChange}
-        onResize={zone.onResize}
-        className="SOMECLASS"
-      >
+    const { rerender } = render(<ResizeDetectDivInternal
+      width={100}
+      height={100}
+      onWidthChange={zone.onWidthChange}
+      onHeightChange={zone.onHeightChange}
+      onResize={zone.onResize}
+      className="SOMECLASS"
+    >
         Text
-      </ResizeDetectDivInternal>
-    );
-    wrapper.setProps({ width: 100, height: 100 });
+    </ResizeDetectDivInternal>);
+    rerender(<ResizeDetectDivInternal
+      width={100}
+      height={100}
+      onWidthChange={zone.onWidthChange}
+      onHeightChange={zone.onHeightChange}
+      onResize={zone.onResize}
+      className="SOMECLASS"
+    > Text </ResizeDetectDivInternal>)
     expect(spyHeight).not.toHaveBeenCalled();
     expect(spyWidth).not.toHaveBeenCalled();
     expect(spyResize).not.toHaveBeenCalled();
   });
+
 });
