@@ -1,4 +1,5 @@
 import { callParentAndChildMethod } from '../../src/utils';
+import {jest} from '@jest/globals'
 
 describe('Utils methods', () => {
   describe('callParentAndChildMethod method', () => {

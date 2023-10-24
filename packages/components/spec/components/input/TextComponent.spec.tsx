@@ -7,6 +7,7 @@ import {
 } from '../../../src/components/input/TextComponent';
 
 import Icon from '../../../src/components/icon/FontIcon';
+import { TkIcon } from '@symphony-ui/uitoolkit-styles/dist/fonts/tk-icons';
 
 describe('TextComponent Component', () => {
   describe('TextComponent test suite => ', () => {
@@ -138,7 +139,7 @@ describe('TextComponent Component', () => {
     describe('should handle icon props', () => {
       const iconProps = {
         className: 'my-custom-class',
-        iconName: 'calendar',
+        iconName: 'calendar' as TkIcon,
         tabIndex: 0,
         onClick: jest.fn(),
         onKeyDown: jest.fn(),

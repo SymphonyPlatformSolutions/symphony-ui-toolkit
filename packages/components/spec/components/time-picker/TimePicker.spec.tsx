@@ -254,7 +254,7 @@ describe('TimePicker Component', () => {
       const dropDownProps = wrapper.find(Dropdown).props();
       expect(dropDownProps.options).toBeDefined();
       expect(dropDownProps.options.length).toBeGreaterThan(1);
-      const secondOption = dropDownProps.options[1];
+      const secondOption = dropDownProps.options[1] as any;
       expect(secondOption).toBeDefined();
       expect(secondOption.value).toBe(expected);
     });

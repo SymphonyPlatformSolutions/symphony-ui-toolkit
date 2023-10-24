@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { shallow, mount } from 'enzyme';
 
 import { Keys } from '../../../src/components/common/eventUtils';

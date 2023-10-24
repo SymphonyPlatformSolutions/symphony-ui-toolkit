@@ -3,12 +3,13 @@ import userEvent from '@testing-library/user-event';
 import { render, screen } from '@testing-library/react'
 import { Toast } from '../../../src/components/toast';
 import expect from 'expect'
+import { TkIcon } from '@symphony-ui/uitoolkit-styles/dist/fonts/tk-icons';
 
 describe('Toast', () => {
 
   let closeIcon: boolean;
   let content: JSX.Element | string;
-  let leftIcon: string;
+  let leftIcon: TkIcon;
   let onClickClose: () => void;
   let placement: {
       horizontal: 'center' | 'left' | 'right';
