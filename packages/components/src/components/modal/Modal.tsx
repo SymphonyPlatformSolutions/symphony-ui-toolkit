@@ -2,6 +2,28 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { clsx } from 'clsx';
 import { Keys } from '../common/eventUtils';
+import { SvgIcon } from '../icon';
+import { Icons } from '..';
+
+import styled from 'styled-components';
+
+const Button = styled.button`
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  position: absolute;
+  right: 2rem;
+  top: 2rem;
+  z-index: 200;
+
+  > svg {
+    fill: var(--tk-dialog-cross-color, #7c7f86);
+    :hover {
+      fill: var(--tk-dialog-hover-cross-color, #525760);
+    }
+  }
+`
 
 interface ModalProps extends Omit<React.HTMLProps<HTMLDivElement>, 'size'> {
   size: 'small' | 'medium' | 'large' | 'full-width';
@@ -77,12 +99,15 @@ const Modal: React.FC<ModalProps> = ({
     >
       <div role="dialog" className={sizeClasses} onClick={handleContentClick}>
         {closeButton && (
-          <button
-            type="button"
+          <Button
             aria-label="close"
-            className={buildClass('close')}
             onClick={onClose}
-          />
+            type="button"
+          >
+            <SvgIcon
+              icon={Icons.Cross}
+            />
+          </Button>
         )}
         {children}
       </div>
