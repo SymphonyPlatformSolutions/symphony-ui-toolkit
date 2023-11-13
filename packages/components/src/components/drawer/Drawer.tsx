@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { clsx } from 'clsx';
-import Icon from '../icon/FontIcon';
 import { DrawerProps, DrawerContentProps } from './interfaces';
+import { Icons, SvgIcon } from '..';
 
 const prefix = 'tk-drawer';
 const buildClass = (classStr: string) => `${prefix}__${classStr}`;
@@ -76,10 +76,10 @@ export const Drawer: React.FC<DrawerProps> = ({
         onClick={handleContentClick}
       >
         {closeButton && (
-          <Icon
-            iconName="cross"
+          <SvgIcon
             aria-label="close"
             className={clsx(buildClass('close'))}
+            icon={Icons.Cross}
             onClick={onClose}
           />
         )}
