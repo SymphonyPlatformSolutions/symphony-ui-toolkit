@@ -1,6 +1,7 @@
 import { dirname, join } from 'path';
+import type { StorybookConfig } from '@storybook/react-webpack5';
 
-module.exports = {
+const configuation: StorybookConfig = {
   addons: [
     getAbsolutePath('@storybook/addon-docs'),
     getAbsolutePath('@storybook/addon-actions'),
@@ -16,12 +17,12 @@ module.exports = {
     autodocs: true,
   },
   framework: {
-    name: getAbsolutePath('@storybook/react-webpack5'),
+    name: '@storybook/react-webpack5',
     options: {},
   },
   stories: ['../stories/**/*.stories.mdx', '../stories/**/*.stories.tsx'],
   webpackFinal: async (config) => {
-    config.module.rules.push(
+    config.module?.rules?.push(
       {
         test: /\.(ts|tsx)$/,
         use: [
@@ -39,10 +40,12 @@ module.exports = {
         ],
       }
     );
-    config.resolve.extensions.push('.ts', '.tsx');
+    config.resolve?.extensions?.push('.ts', '.tsx');
     return config;
   },
-};
+}
+
+module.exports = configuation;
 
 function getAbsolutePath(value) {
   return dirname(require.resolve(join(value, 'package.json')));

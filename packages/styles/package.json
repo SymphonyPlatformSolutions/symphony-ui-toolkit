@@ -27,10 +27,11 @@
   "license": "ISC",
   "devDependencies": {
     "@babel/preset-env": "^7.23.2",
-    "@storybook/addons": "7.5.1",
-    "@storybook/html": "7.5.1",
-    "@storybook/html-webpack5": "7.5.1",
+    "@storybook/html": "7.5.3",
+    "@storybook/html-webpack5": "7.5.3",
+    "@storybook/preview-api": "^7.5.3",
     "autoprefixer": "^10.0.2",
+    "@babel/plugin-transform-runtime": "^7.10.4",
     "creevey": "^0.7.37",
     "fantasticon": "^1.2.2",
     "husky": "^8.0.3",
@@ -40,7 +41,7 @@
     "postcss-loader": "^7.3.3",
     "sass": "^1.26.11",
     "sass-loader": "^10.0.2",
-    "storybook": "^7.5.1",
+    "storybook": "^7.5.3",
     "storybook-addon-themes": "^6.1.0",
     "storybook-dark-mode": "^3.0.1"
   }
