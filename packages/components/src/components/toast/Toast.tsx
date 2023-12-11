@@ -4,6 +4,7 @@ import * as PropTypes from 'prop-types';
 import { clsx } from 'clsx';
 import Icon from '../icon/FontIcon';
 import { TkIcon } from  '@symphony-ui/uitoolkit-styles/dist/fonts/tk-icons';
+import { Icons, SvgIcon } from '..';
 
 interface Placement {
     horizontal: 'left' | 'center' | 'right';
@@ -17,8 +18,10 @@ export interface ToastProps extends Omit<React.HTMLProps<HTMLDivElement>, 'child
     closeIcon?: boolean;
     /** Content of the Toast */
     content: string | JSX.Element;
+
     /** If set, icon will be placed to the left */
     leftIcon?: TkIcon;
+    
     /** Function to call on close action */
     onClickClose?: () => void;
     /** Placement of Toast, relative to parent container */
@@ -62,8 +65,9 @@ export const Toast: React.FC<ToastProps> = ({
         iconName={ leftIcon }
       /> }
       { content }
-      { closeIcon && <i
-        className="tk-icon-cross tk-toast__icon-right"
+      { closeIcon && <SvgIcon
+        className="tk-toast__icon-right"
+        icon={Icons.Cross}
         onClick={ onClickClose }
       />}
 

@@ -4,6 +4,8 @@ import { components } from 'react-select';
 import Icon from '../icon/FontIcon';
 import Loader from '../loader';
 import { SearchHeaderOption } from './interfaces';
+import { SvgIcon } from '../icon';
+import { Icons } from '..';
 
 /**
  * Useful to stop propagating on mouse down events in custom renderers
@@ -120,9 +122,9 @@ export const DropdownIndicator = (props: any) => {
       {...props}
       innerProps={{ 'data-testid': props.selectProps['data-testid'] }}
     >
-      <Icon
+      <SvgIcon
         className="tk-select__single-value"
-        iconName={menuIsOpen ? 'drop-up' : 'drop-down'}
+        icon={menuIsOpen ? Icons.DropUp : Icons.DropDown}
       />
     </components.DropdownIndicator>;
 };
