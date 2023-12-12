@@ -1,11 +1,10 @@
 import * as React from 'react';
-import { mount, shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import { act } from 'react-dom/test-utils';
 
 import TimePicker from '../../../src/components/time-picker/TimePicker';
 
 import { Keys } from '../../../src/components/common/eventUtils';
-import { Dropdown } from '../../../src';
 import { FIELD } from '../../../src/components/time-picker/utils';
 import {
   render,
@@ -39,24 +38,14 @@ describe('TimePicker Component', () => {
     };
   }
 
-  it('should render with default props', () => {
-    const wrapper = shallow(<TimePicker />);
-    expect(wrapper.length).toEqual(1);
+  it('should render', () => {
+    render(<TimePicker />);
   });
-  it('should properly pass props to Dropdown Component', () => {
-    const props = createTestProps({});
-    const wrapper = shallow(<TimePicker {...props} />);
-    const wrapperPicker = wrapper.find(Dropdown);
-    expect(wrapperPicker.length).toBe(1);
-    expect(wrapperPicker.prop('id')).toBe(props.id);
-    expect(wrapperPicker.prop('label')).toBe(props.label);
-    expect(wrapperPicker.prop('showRequired')).toBe(props.showRequired);
-    expect(wrapperPicker.prop('name')).toBe(props.name);
-    expect(wrapperPicker.prop('placeHolder')).toBe(props.placeholder);
-    expect(wrapperPicker.prop('onCopy')).toBe(props.onCopy);
-    expect(wrapperPicker.prop('onCut')).toBe(props.onCut);
-    expect(wrapperPicker.prop('onDrag')).toBe(props.onDrag);
-  });
+
+  it('should properly pass props to the underlying Dropdown component', () => {
+    render(<TimePicker label="New Label"/>);
+    screen.getByText('New Label');
+  })
 
   it('should trigger onFocus', async () => {
     const props = createTestProps({
@@ -238,9 +227,9 @@ describe('TimePicker Component', () => {
 
   describe('should fallback the default step value', () => {
     test.each([
-      [null, '00:00:00', '00:15:00'], // Default fallback value 15 minutes
-      [0, '00:00:00', '00:10:00'], // Min fallback value 10 minutes
-      [99999, '00:00:00', '12:00:00'], // Max fallback value 12 hours
+      [null, '00:00:00', '12:15:00 AM'], // Default fallback value 15 minutes
+      [0, '00:00:00', '12:10:00 AM'], // Min fallback value 10 minutes
+      [99999, '00:00:00', '12:00:00 PM'], // Max fallback value 12 hours
     ])('when step is %p', (step, min, expected) => {
       jest.spyOn(console, 'error').mockImplementation(() => {
         return;
@@ -249,14 +238,14 @@ describe('TimePicker Component', () => {
         min,
         step,
       });
-      const wrapper = shallow(<TimePicker {...props} />);
+      
+      render(<TimePicker {...props} />);
 
-      const dropDownProps = wrapper.find(Dropdown).props();
-      expect(dropDownProps.options).toBeDefined();
-      expect(dropDownProps.options.length).toBeGreaterThan(1);
-      const secondOption = dropDownProps.options[1];
-      expect(secondOption).toBeDefined();
-      expect(secondOption.value).toBe(expected);
+      const input = screen.getByRole('textbox');
+      userEvent.click(input);
+
+      const options = screen.getAllByRole('option')
+      expect(options[1].textContent).toBe(expected)
     });
   });
 

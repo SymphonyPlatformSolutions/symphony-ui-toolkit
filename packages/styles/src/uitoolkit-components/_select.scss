@@ -122,7 +122,7 @@ body {
           }
         }
         .tk-select__single-value {
-          color: inherit;
+          fill: inherit;
           white-space: nowrap;
         }
       }
@@ -165,7 +165,7 @@ body {
         padding: 0; // override lib styles
         padding-right: var(--tk-select__dropdown-indicator-padding-right);
         .tk-select__single-value {
-          color: getColor($graphite, '50');
+          fill: getColor($graphite, '50');
         }
       }
     }
