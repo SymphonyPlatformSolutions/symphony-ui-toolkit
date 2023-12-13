@@ -1,6 +1,6 @@
 {
   "name": "@symphony-ui/uitoolkit-styles",
-  "version": "4.0.3",
+  "version": "4.0.4",
   "description": "Symphony UI design system",
   "publishConfig": {
     "registry": "https://registry.npmjs.org"
@@ -26,12 +26,12 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@babel/plugin-transform-runtime": "^7.10.4",
     "@babel/preset-env": "^7.23.2",
     "@storybook/html": "7.5.3",
     "@storybook/html-webpack5": "7.5.3",
     "@storybook/preview-api": "^7.5.3",
     "autoprefixer": "^10.0.2",
-    "@babel/plugin-transform-runtime": "^7.10.4",
     "creevey": "^0.7.37",
     "fantasticon": "^1.2.2",
     "husky": "^8.0.3",
