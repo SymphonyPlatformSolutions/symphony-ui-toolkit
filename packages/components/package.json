@@ -1,6 +1,6 @@
 {
   "name": "@symphony-ui/uitoolkit-components",
-  "version": "4.0.4",
+  "version": "4.0.5",
   "description": "React components for the Symphony UI design system",
   "publishConfig": {
     "registry": "https://registry.npmjs.org"
@@ -35,7 +35,7 @@
   "dependencies": {
     "@popperjs/core": "^2.4.4",
     "@seznam/compose-react-refs": "^1.0.6",
-    "@symphony-ui/uitoolkit-styles": "4.0.4",
+    "@symphony-ui/uitoolkit-styles": "4.0.5",
     "clsx": "^2.0.0",
     "date-fns": "^2.16.1",
     "emoji-js": "^3.5.0",
