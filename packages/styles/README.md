@@ -4,7 +4,7 @@ The official styles library of Symphony's design system
 
 ## Requirements
 
-- Node 12+
+- Node 20+
 - Yarn 1.22+
 
 ## Browser support
@@ -36,12 +36,12 @@ Automated visual testing uses software to automate the process of comparing visu
 
 [Creevey](https://github.com/wKich/creevey/) is a Cross-browser screenshot testing tool for Storybook with a fancy UI Runner.
 
-**Requirements**  
+**Requirements**
 
  - Selenium Grid
- - [Chromedriver](https://chromedriver.chromium.org/downloads)  
+ - [Chromedriver](https://chromedriver.chromium.org/downloads)
 
-**Setting Up**  
+**Setting Up**
 
  1. Download Selenium Server.
 
@@ -65,14 +65,14 @@ java -jar selenium-server-4.1.1.jar node
 yarn start
 yarn test
 ```
-**Update the test images**  
+**Update the test images**
 
 When the visual testing detects new components or changes on the existing ones it will fail the tests. In order to fix it you will need to run the `update-test-images.sh` script.
-It accepts as a parameter the URL of the CircleCI's `report.zip` file. 
+It accepts as a parameter the URL of the CircleCI's `report.zip` file.
 
 Example:
 
-`$ ./update-test-images.sh https://output.circle-artifacts.com/output/job/54d8d83d-315b-46e3-bcc2-34f1a75d1f9f/artifacts/0/.creevey/report/report.zip` 
+`$ ./update-test-images.sh https://output.circle-artifacts.com/output/job/54d8d83d-315b-46e3-bcc2-34f1a75d1f9f/artifacts/0/.creevey/report/report.zip`
 
 It will execute the following steps automatically:
 
