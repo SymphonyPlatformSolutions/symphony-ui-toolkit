@@ -1,7 +1,9 @@
+@use "sass:math";
+
 $UITOOLKIT_REM_BASE: 16 !default;
 
 @function toRem($size) {
-  @return ($size/$UITOOLKIT_REM_BASE) * 1rem;
+  @return (math.div($size, $UITOOLKIT_REM_BASE)) * 1rem;
 }
 
 /* This factor is specified by the Symphony spacing guides */
