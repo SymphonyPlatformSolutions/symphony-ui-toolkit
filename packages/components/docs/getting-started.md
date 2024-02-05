@@ -2,7 +2,7 @@
 
 ## Requirements
 
-- Node 10+
+- Node 20+
 - Yarn
 
 ## 🛠 Install
