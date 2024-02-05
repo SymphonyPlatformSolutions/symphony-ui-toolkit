@@ -1,0 +1,41 @@
+.tk-expandable-card {
+  &__header{
+    margin-bottom: 8px;
+  
+    & > div {
+      display: inline;
+      margin-right: 8px;
+
+      & > * {
+        display: inline;
+      }
+    }
+
+    & > .tk-link.toggle {
+      margin-left: 8px;
+      text-decoration: none;
+      display: inline;
+    }
+
+    & > .tk-icon-top {
+      &::before {
+        transition: transform 300ms ease-in-out;
+      }
+
+      &.collapsed::before {
+        transform: rotate(180deg);
+      }
+
+      cursor: pointer;
+    }
+  }
+  
+  &__body {
+    overflow: hidden;
+    transition: max-height 300ms ease-in-out;
+
+    &.collapsed {
+      max-height: 0;
+    }
+  }
+}

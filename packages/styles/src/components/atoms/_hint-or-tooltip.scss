@@ -1,0 +1,41 @@
+.tk-hint-or-tooltip {
+  &.TooltipContainer {
+    &-enter {
+      opacity: 0;
+      &-active {
+        opacity: 1;
+        transition: opacity 200ms;
+      }
+    }
+    &-exit {
+      opacity: 1;
+      &-active {
+        opacity: 0;
+        transition: opacity 200ms;
+      }
+    }
+  }
+
+  & .tooltip__arrowContainer {
+    position: absolute;
+    z-index: -1;
+    
+    & .tooltip__arrow {
+      border-radius: 2px;
+      transform: rotate(45deg);
+    }
+  }
+
+  &[data-popper-placement^='top'] > .tooltip__arrowContainer {
+    bottom: -7px;
+  }
+  &[data-popper-placement^='bottom'] > .tooltip__arrowContainer {
+    top: -7px;
+  }
+  &[data-popper-placement^='left'] > .tooltip__arrowContainer {
+    right: -7px;
+  }
+  &[data-popper-placement^='right'] > .tooltip__arrowContainer {
+    left: -7px;
+  }
+}

@@ -2,42 +2,11 @@ import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import { clsx } from 'clsx';
 import composeRefs from '@seznam/compose-react-refs'
-import styled from 'styled-components';
 import useOnclickOutsideCool from 'react-cool-onclickoutside';
 import { CSSTransition } from 'react-transition-group';
-import { PopperContainer, popperProps } from '../common/popperUtils';
 import { showTooltipOnClick, showTooltipOnHover } from './helpers';
 import { useMemo, useState } from 'react';
 import { usePopper } from 'react-popper';
-
-const TooltipContainer = styled.div`
-  &.TooltipContainer {
-    ${PopperContainer}
-  }
-
-  .tooltip__arrowContainer {
-    position: absolute;
-    z-index: -1;
-  }
-
-  .tooltip__arrow {
-    border-radius: 2px;
-    transform: rotate(45deg);
-  }
-
-  &[data-popper-placement^='top'] > .tooltip__arrowContainer {
-    bottom: -7px;
-  }
-  &[data-popper-placement^='bottom'] > .tooltip__arrowContainer {
-    top: -7px;
-  }
-  &[data-popper-placement^='left'] > .tooltip__arrowContainer {
-    right: -7px;
-  }
-  &[data-popper-placement^='right'] > .tooltip__arrowContainer {
-    left: -7px;
-  }
-`;
 
 export interface TooltipProps extends Omit<React.HTMLProps<HTMLDivElement>, 'as' | 'ref'> {
   /** Clickable text to display that fires onHintClose */
@@ -143,7 +112,7 @@ const Tooltip: React.FC<TooltipProps> = ({
     ref={ composeRefs(setReferenceElement, ref) }
   >
     {otherProps.children}
-  </div>
+  </div>;
 
   return (
     <>
@@ -161,16 +130,19 @@ const Tooltip: React.FC<TooltipProps> = ({
         * The tooltip.
         */ }
       <CSSTransition
-        {...popperProps}
+        appear
+        mountOnEnter
+        unmountOnExit
+        timeout={0}
         in={isVisible}
         classNames="TooltipContainer"
       >
-        <TooltipContainer
+        <div
           id={id}
           role="tooltip"
           ref={setPopperElement}
           className={clsx(
-            type === 'tooltip' ? 'tk-tooltip' : 'tk-hint',
+            `tk-hint-or-tooltip ${type === 'tooltip' ? 'tk-tooltip' : 'tk-hint'}`,
             className
           )}
           style={styles.popper}
@@ -203,7 +175,7 @@ const Tooltip: React.FC<TooltipProps> = ({
               </div>
             </>
           )}
-        </TooltipContainer>
+        </div>
       </CSSTransition>
     </>
   );
