@@ -62,35 +62,21 @@ $dialog-scrollbar-box-shadow: rgba($scolor-black, 0.5);
   }
 
   &__close {
-    position: absolute;
-    top: toRem(32);
-    right: toRem(32);
-    z-index: $z-index-dialog;
-    box-shadow: none;
-    box-sizing: border-box;
-    border: none;
     background: none;
-    display: flex;
-    align-content: center;
-    justify-content: center;
+    border: none;
     cursor: pointer;
-    outline: none;
-    color: $--tk-dialog-cross-color;
     padding: 0;
+    position: absolute;
+    right: 2rem;
+    top: 2rem;
+    z-index: 200;
 
-    &:before {
-      font-family: 'tk-icons';
-      font-size: toRem(14);
-      @include tk-icon-cross;
-    }
+    &>svg {
+      fill: var(--tk-dialog-cross-color, #7c7f86);
 
-    &:hover {
-      color: $--tk-dialog-hover-cross-color;
-    }
-
-    &:focus {
-      @include addOutline();
-      outline-offset: toRem(4);
+      &:hover {
+        fill: var(--tk-dialog-hover-cross-color, #525760);
+      }
     }
   }
 
