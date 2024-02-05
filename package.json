@@ -16,6 +16,9 @@
     "prepare": "husky install",
     "postinstall": "yarn workspace @symphony-ui/uitoolkit-styles build"
   },
+  "engines": {
+    "node": ">=16.14.0"
+  },
   "devDependencies": {
     "husky": "^8.0.3"
   },
