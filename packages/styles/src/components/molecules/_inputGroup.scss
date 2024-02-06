@@ -40,6 +40,15 @@ body {
 
   .tk-input-group__header {
     margin-bottom: var(--tk-input-group-margin);
+    display: flex;
+    align-items: center;
+
+    & > div {
+      display: inline-block;
+      margin-left: auto;
+      font-size: 16px;
+    }
+
     .tk-tooltip__wrapper {
       font-size: var(--tk-tooltip__wrapper-font-size);
     }

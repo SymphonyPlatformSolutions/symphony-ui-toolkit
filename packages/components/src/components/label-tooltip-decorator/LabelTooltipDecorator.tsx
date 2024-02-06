@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { useState } from 'react';
-import styled from 'styled-components';
 import Icon from '../icon/FontIcon';
 import Tooltip from '../tooltip';
 import { clsx } from 'clsx';
@@ -8,17 +7,6 @@ import {
   LabelTooltipDecoratorProps,
   LabelTooltipDecoratorPropTypes,
 } from './interfaces';
-
-const LabelTooltipDecoratorHeader = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-const LabelTooltipDecoratorTooltip = styled.div`
-  display: inline-block;
-  margin-left: auto;
-  font-size: 16px;
-`;
 
 const LabelTooltipDecorator: React.FC<LabelTooltipDecoratorProps> = ({
   id,
@@ -36,14 +24,14 @@ const LabelTooltipDecorator: React.FC<LabelTooltipDecoratorProps> = ({
   });
 
   return label || tooltip ? (
-    <LabelTooltipDecoratorHeader className="tk-input-group__header">
+    <div className="tk-input-group__header">
       {label ? (
         <label className={classes} htmlFor={htmlFor}>
           {label}
         </label>
       ) : null}
       {tooltip ? (
-        <LabelTooltipDecoratorTooltip>
+        <div>
           <Tooltip
             id={id}
             description={tooltip}
@@ -60,9 +48,9 @@ const LabelTooltipDecorator: React.FC<LabelTooltipDecoratorProps> = ({
               tabIndex={0}
             />
           </Tooltip>
-        </LabelTooltipDecoratorTooltip>
+        </div>
       ) : null}
-    </LabelTooltipDecoratorHeader>
+    </div>
   ) : null;
 };
 

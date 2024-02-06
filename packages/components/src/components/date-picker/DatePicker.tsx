@@ -13,10 +13,6 @@ import DayPicker from './sub-component/DayPicker';
 import TextField from '../input/TextField';
 import Icon from '../icon/FontIcon';
 
-import styled from 'styled-components';
-
-import { PopperContainer } from '../common/popperUtils';
-
 import { matchDay, matchDayMax, matchDayMin } from './utils/matchDayUtils';
 import { Direction } from './model/Direction';
 
@@ -31,14 +27,6 @@ import { format as formatDate, isValid } from 'date-fns';
 import { ErrorMessages, HasValidationProps } from '../validation/interfaces';
 import { HasTooltipProps } from '../tooltip/interfaces';
 import { HTMLInputProps, MenuPortalProps } from '../dropdown/interfaces';
-
-// z-index: 4; equivalent to $z-index-tooltip
-const DatePickerContainer = styled.div`
-  z-index: 4;
-  &.DatePickerContainer {
-    ${PopperContainer}
-  }
-`;
 
 type DatePickerComponentProps = {
   id?: string;
@@ -490,10 +478,10 @@ class DatePicker extends Component<
       menuPortalStyles,
     } = this.props;
     const { locale, navigationDate, showPicker } = this.state;
-
     const portalStyles = menuPortalTarget ? menuPortalStyles : undefined;
+
     return (
-      <DatePickerContainer
+      <div
         role="tooltip"
         ref={this.setPopperElement}
         className="DatePickerContainer"
@@ -516,7 +504,7 @@ class DatePicker extends Component<
           onDayClick={this.handleDayClick}
           onClose={this.handleOnClose}
         />
-      </DatePickerContainer>
+      </div>
     );
   }
 

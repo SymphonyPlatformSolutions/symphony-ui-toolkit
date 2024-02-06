@@ -32,6 +32,9 @@
     "react": ">=16.8.0",
     "react-dom": ">=16.8.0"
   },
+  "engines": {
+    "node": ">=16.14.0"
+  },
   "dependencies": {
     "@popperjs/core": "^2.4.4",
     "@seznam/compose-react-refs": "^1.0.6",
@@ -47,8 +50,7 @@
     "react-select": "^4.3.1",
     "react-transition-group": "^4.4.1",
     "react-virtualized": "^9.22.2",
-    "shortid": "^2.2.16",
-    "styled-components": "^5.1.1"
+    "shortid": "^2.2.16"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",

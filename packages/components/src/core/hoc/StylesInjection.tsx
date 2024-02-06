@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { StyleSheetManager } from 'styled-components';
 import createCache from '@emotion/cache';
 import { CacheProvider } from '@emotion/react';
 
@@ -20,10 +19,8 @@ export const StylesInjection = (props: Props) => {
   });
 
   return (
-    <StyleSheetManager target={props.injectionPoint}>
-      <CacheProvider value={emotionCache} >
-        {props.children}
-      </CacheProvider>
-    </StyleSheetManager>
+    <CacheProvider value={emotionCache} >
+      {props.children}
+    </CacheProvider>
   )
 };

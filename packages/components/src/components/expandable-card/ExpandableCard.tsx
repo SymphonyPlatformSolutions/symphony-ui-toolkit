@@ -1,5 +1,4 @@
 import * as React from 'react';
-import styled from 'styled-components';
 import * as PropTypes from 'prop-types';
 import { useState } from 'react';
 import { clsx } from 'clsx';
@@ -15,39 +14,9 @@ type ExpandableCardProps = {
   /** Method triggered when clicking on "EXPAND/COLLAPSE" return the collapsed boolean and the element itself*/
   onToggle?: (collapsed: boolean, el?: HTMLDivElement) => any;
 };
-// styled components, if it grows put in a sibling file
-const HeaderDiv = styled.div`
-  margin-bottom: 8px;
-  & > div {
-    display: inline;
-    margin-right: 8px;
-    & > * {
-      display: inline;
-    }
-  }
-  & > .tk-link.toggle {
-    margin-left: 8px;
-    text-decoration: none;
-    display: inline;
-  }
-  & > .tk-icon-top {
-    &::before {
-      transition: transform 300ms ease-in-out;
-    }
-    &.collapsed::before {
-      transform: rotate(180deg);
-    }
-    cursor: pointer;
-  }
-`;
 
-const BodyDiv = styled.div`
-  overflow: hidden;
-  transition: max-height 300ms ease-in-out;
-  &.collapsed {
-    max-height: 0;
-  }
-`;
+const prefix = 'tk-expandable-card';
+const buildClass = (classStr: string) => `${prefix}__${classStr}`;
 
 const ExpandableCard: React.FC<ExpandableCardProps> = ({
   children,
@@ -72,8 +41,8 @@ const ExpandableCard: React.FC<ExpandableCardProps> = ({
   };
 
   return (
-    <div className={className} ref={setRefEl} {...rest}>
-      <HeaderDiv>
+    <div className={clsx(prefix, className)} ref={setRefEl} {...rest}>
+      <div className={clsx(buildClass('header'))}>
         <div>{header}</div>
         &bull;
         <a className={clsx('tk-link toggle')} onClick={onToggleHeader}>
@@ -84,8 +53,8 @@ const ExpandableCard: React.FC<ExpandableCardProps> = ({
           onClick={onToggleHeader}
           aria-label="Toggle"
         ></i>
-      </HeaderDiv>
-      <BodyDiv className={clsx({ collapsed })}>{children}</BodyDiv>
+      </div>
+      <div className={clsx(buildClass('body'), { collapsed })}>{children}</div>
     </div>
   );
 };
