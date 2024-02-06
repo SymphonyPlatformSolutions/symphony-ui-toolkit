@@ -1,7 +1,7 @@
 {
   "name": "@symphony-ui/uitoolkit",
   "private": true,
-  "version": "4.0.6",
+  "version": "4.0.7",
   "description": "React components for the Symphony UI design system",
   "workspaces": [
     "packages/*"
