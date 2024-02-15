@@ -1,30 +1,31 @@
 {
   "name": "@symphony-ui/uitoolkit",
-  "private": true,
   "version": "4.0.7",
+  "private": true,
   "description": "React components for the Symphony UI design system",
+  "license": "ISC",
+  "author": "Symphony",
   "workspaces": [
     "packages/*"
   ],
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org"
-  },
-  "author": "Symphony",
-  "license": "ISC",
   "scripts": {
     "dedupe": "npx yarn-deduplicate yarn.lock",
-    "prepare": "husky install",
-    "postinstall": "yarn workspace @symphony-ui/uitoolkit-styles build"
-  },
-  "engines": {
-    "node": ">=16.14.0"
-  },
-  "devDependencies": {
-    "husky": "^8.0.3"
+    "postinstall": "yarn workspace @symphony-ui/uitoolkit-styles build",
+    "prepare": "husky install"
   },
   "lint-staged": {
     "*.{ts,tsx,js,jsx}": "eslint --cache --fix",
     "*.{js,css,md}": "prettier --write"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "devDependencies": {
+    "husky": "^8.0.3"
+  },
+  "packageManager": "yarn@1.22.11",
+  "engines": {
+    "node": ">=16.14.0"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
+  }
 }

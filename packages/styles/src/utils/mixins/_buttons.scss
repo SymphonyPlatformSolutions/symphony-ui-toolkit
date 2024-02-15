@@ -28,6 +28,7 @@
 @mixin styleFilledButton($colorMap) {
   background-color: map-get($colorMap, default);
   color: map-get($colorMap, text);
+  fill: map-get($colorMap, text);
   &:hover {
     @include getButtonStyle($colorMap, hoverText, hover);
   }
@@ -49,6 +50,7 @@
 @mixin styleOutlinedButton($colorMap) {
   background-color: transparent;
   color: map-get($colorMap, default);
+  fill: map-get($colorMap, default);
   @include addBorder(toRem(2), map-get($colorMap, default));
   &:hover {
     @include getButtonStyle($colorMap, hoverText, hover, hoverText);
@@ -77,24 +79,28 @@
     }
   }
 }
+
 @mixin smallButton {
   padding: toRem(4) toRem(12);
   height: toRem(24);
   font-size: toRem(12);
   @include iconSizes(toRem(24), toRem(12), toRem(4));
 }
+
 @mixin mediumButton {
   padding: toRem(8) toRem(16);
   height: toRem(32);
   font-size: toRem(12);
   @include iconSizes(toRem(32), toRem(16), toRem(8));
 }
+
 @mixin largeButton {
   padding: toRem(12) toRem(24);
   height: toRem(40);
   font-size: toRem(14);
   @include iconSizes(toRem(40), toRem(16), toRem(8));
 }
+
 @mixin iconSizes($size, $font-size, $margin) {
   &.tk-button--icon {
     min-height: $size;
@@ -105,6 +111,10 @@
     &-left > i, &-left > svg {
       margin-right: $margin;
     }
+  }
+  svg {
+    height: $font-size;
+    width: $font-size;
   }
   i {
     font-size: $font-size;

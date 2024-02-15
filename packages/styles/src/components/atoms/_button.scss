@@ -2,17 +2,19 @@
 
 .tk-button {
   @include mediumButton;
-  position: relative;
-  display: inline-block;
+  align-items: center;
   border: none;
   border-radius: toRem(28);
-  letter-spacing: toRem(0.5);
-  text-transform: uppercase;
-  text-align: center;
-  line-height: toRem(16);
-  width: auto;
-  white-space: nowrap;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  letter-spacing: toRem(0.5);
+  line-height: toRem(16);
+  position: relative;
+  text-align: center;
+  text-transform: uppercase;
+  white-space: nowrap;
+  width: auto;
   &:disabled {
     cursor: default;
     pointer-events: all;
@@ -49,7 +51,6 @@
   }
   &--icon {
     padding: 0 !important; // Avoid override on the icon button by the size variants
-    display: inline-block;
     border-radius: 50%;
   }
   &.tk-button--small {
