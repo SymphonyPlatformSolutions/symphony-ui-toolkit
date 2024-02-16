@@ -33,7 +33,7 @@
     "react-dom": ">=16.8.0"
   },
   "engines": {
-    "node": ">=16.14.0"
+    "node": ">=14.21.2"
   },
   "dependencies": {
     "@popperjs/core": "^2.4.4",
