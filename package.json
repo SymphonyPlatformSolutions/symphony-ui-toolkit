@@ -23,7 +23,7 @@
   },
   "packageManager": "yarn@1.22.11",
   "engines": {
-    "node": ">=16.14.0"
+    "node": ">=14.21.2"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org"
