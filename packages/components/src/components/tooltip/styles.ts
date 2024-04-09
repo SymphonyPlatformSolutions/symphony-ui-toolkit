@@ -1,13 +1,25 @@
 import { css } from '@emotion/react';
 
-export const styles = {
+export const useStyles = (hoverDelay: number) => ({
   parent: css({
     '&:hover [data-css="tooltip"]': {
-      transition: 'visibility 10s ease',
+      transition: 'visibility 0s linear',
+      transitionDelay: `${hoverDelay}ms`,
       visibility: 'visible'
     },
   }),
-  tooltip: css({
+  tooltipHidden: css({
+    visibility: 'hidden'    
+  }),
+  tooltipVisible: css({
+    visibility: 'visible'
+  }),
+  tooltipClick: css({
+    visibility: 'visible',
+  }),
+  tooltipHover: css({
+    transition: 'visibility 0s linear',
+    transitionDelay: '0.1s',
     visibility: 'hidden'
   })
-}
+})
