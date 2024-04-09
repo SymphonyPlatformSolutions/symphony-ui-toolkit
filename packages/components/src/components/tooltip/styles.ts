@@ -3,14 +3,11 @@ import { css } from '@emotion/react';
 export const styles = {
   parent: css({
     '&:hover [data-css="tooltip"]': {
-      background: 'orange'
+      transition: 'visibility 10s ease',
+      visibility: 'visible'
     },
-    ':hover': {
-      background: 'grey',
-    }
   }),
   tooltip: css({
-    background: 'red',
-    // visibility: 'hidden',
+    visibility: 'hidden'
   })
 }

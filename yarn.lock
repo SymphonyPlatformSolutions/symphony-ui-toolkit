@@ -2895,6 +2895,11 @@
     "@storybook/types" "7.5.3"
     ts-dedent "^2.0.0"
 
+"@storybook/icons@^1.2.9":
+  version "1.2.9"
+  resolved "https://repo.symphony.com/artifactory/api/npm/npm-virtual-dev/@storybook/icons/-/icons-1.2.9.tgz#bb4a51a79e186b62e2dd0e04928b8617ac573838"
+  integrity sha512-cOmylsz25SYXaJL/gvTk/dl3pyk7yBFRfeXTsHvTA3dfhoU/LWSq0NKL9nM7WBasJyn6XPSGnLS4RtKXLw5EUg==
+
 "@storybook/manager-api@7.5.1":
   version "7.5.1"
   resolved "https://registry.yarnpkg.com/@storybook/manager-api/-/manager-api-7.5.1.tgz#ebc5c0efc3f9c3451882e61b9b982d898a1fc6c9"
