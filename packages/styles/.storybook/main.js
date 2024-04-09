@@ -3,9 +3,9 @@ const path = require('path');
 module.exports = {
   stories: ['../stories/**/*.stories.js'],
   addons: [
-    getAbsolutePath('storybook-dark-mode'),
     getAbsolutePath('creevey'),
     getAbsolutePath('storybook-addon-themes'),
+    getAbsolutePath('storybook-dark-mode'),
   ],
 
   webpackFinal: async (config, { configType }) => {

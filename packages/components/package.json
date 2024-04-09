@@ -36,6 +36,7 @@
     "node": ">=14.21.2"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.4",
     "@popperjs/core": "^2.4.4",
     "@seznam/compose-react-refs": "^1.0.6",
     "@symphony-ui/uitoolkit-styles": "4.0.10",
@@ -111,6 +112,7 @@
     "sass-loader": "^10.0.2",
     "storybook": "^7.5.3",
     "storybook-addon-mdx-embed": "^1.1.1",
+    "storybook-addon-pseudo-states": "^3.0.1",
     "storybook-addon-themes": "^6.1.0",
     "storybook-dark-mode": "^3.0.1",
     "style-loader": "^1.2.1",

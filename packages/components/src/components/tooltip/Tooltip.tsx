@@ -5,6 +5,7 @@ import composeRefs from '@seznam/compose-react-refs'
 import useOnclickOutsideCool from 'react-cool-onclickoutside';
 import { CSSTransition } from 'react-transition-group';
 import { showTooltipOnClick, showTooltipOnHover } from './helpers';
+import { styles as stylesEmotion } from './styles';
 import { useMemo, useState } from 'react';
 import { usePopper } from 'react-popper';
 
@@ -116,67 +117,71 @@ const Tooltip: React.FC<TooltipProps> = ({
 
   return (
     <>
-      { /**
+      <div css={stylesEmotion.parent} id="test test">
+        <div>VISIBLE</div>
+        <div css={stylesEmotion.tooltip} data-css="tooltip">NOT VISIBLE</div>
+        { /**
        * The element tooltip is wrapped around.
        */ }
-      { /** Extra span to make sure Tooltip works on disabled children */ }
-      {displayTrigger === 'hover' &&
+        { /** Extra span to make sure Tooltip works on disabled children */ }
+        {displayTrigger === 'hover' &&
           showTooltipOnHover(children, handleMouseMove)}
-      {displayTrigger === 'click' &&
+        {displayTrigger === 'click' &&
           showTooltipOnClick(children, showClick, setShowClick)}
-      {displayTrigger === undefined && children}
+        {displayTrigger === undefined && children}
 
-      { /**
+        { /**
         * The tooltip.
         */ }
-      <CSSTransition
-        appear
-        mountOnEnter
-        unmountOnExit
-        timeout={0}
-        in={isVisible}
-        classNames="TooltipContainer"
-      >
-        <div
-          id={id}
-          role="tooltip"
-          ref={setPopperElement}
-          className={clsx(
-            `tk-hint-or-tooltip ${type === 'tooltip' ? 'tk-tooltip' : 'tk-hint'}`,
-            className
-          )}
-          style={styles.popper}
-          {...attributes.popper}
-          {...otherProps}
-          onMouseEnter={() => handleMouseMove(true)}
-          onMouseLeave={() => handleMouseMove(false)}
+        <CSSTransition
+          appear
+          mountOnEnter
+          unmountOnExit
+          timeout={0}
+          in={isVisible}
+          classNames="TooltipContainer"
         >
-          <span className="tk-hint__description">{description}</span>
-          {type === 'hint' && (
-            <>
-              <div
-                className="tooltip__arrowContainer"
-                style={styles.arrow}
-                data-popper-arrow
-              >
-                <div className="tooltip__arrow tk-hint__arrow" />
-              </div>
-              <div className="tk-hint__footer">
-                {closeLabel ? (
-                  <span
-                    className="tk-hint__close"
-                    onClick={onHintClose}
-                    onKeyDown={(event) => (event.key === 'Enter') && onHintClose()}
-                    tabIndex={0}
-                  >
-                    {closeLabel}
-                  </span>
-                ) : null}
-              </div>
-            </>
-          )}
-        </div>
-      </CSSTransition>
+          <div
+            id={id}
+            role="tooltip"
+            ref={setPopperElement}
+            className={clsx(
+              `tk-hint-or-tooltip ${type === 'tooltip' ? 'tk-tooltip' : 'tk-hint'}`,
+              className
+            )}
+            style={styles.popper}
+            {...attributes.popper}
+            {...otherProps}
+            onMouseEnter={() => handleMouseMove(true)}
+            onMouseLeave={() => handleMouseMove(false)}
+          >
+            <span className="tk-hint__description">{description}</span>
+            {type === 'hint' && (
+              <>
+                <div
+                  className="tooltip__arrowContainer"
+                  style={styles.arrow}
+                  data-popper-arrow
+                >
+                  <div className="tooltip__arrow tk-hint__arrow" />
+                </div>
+                <div className="tk-hint__footer">
+                  {closeLabel ? (
+                    <span
+                      className="tk-hint__close"
+                      onClick={onHintClose}
+                      onKeyDown={(event) => (event.key === 'Enter') && onHintClose()}
+                      tabIndex={0}
+                    >
+                      {closeLabel}
+                    </span>
+                  ) : null}
+                </div>
+              </>
+            )}
+          </div>
+        </CSSTransition>
+      </div>
     </>
   );
 };
