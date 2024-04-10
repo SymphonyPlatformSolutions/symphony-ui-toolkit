@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { clsx } from 'clsx';
-import Tooltip, { TooltipProps } from '../tooltip';
+import { Tooltip, TooltipProps } from '../tooltip';
 
 interface TextEllipsisProps extends Omit<React.HTMLProps<HTMLSpanElement>, 'type'> {
     /** Text that should be ellipsed */

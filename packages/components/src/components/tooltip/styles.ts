@@ -8,11 +8,13 @@ export const useStyles = (hoverDelay: number) => ({
       transitionDelay: `${hoverDelay}ms`,
     },
   }),
+  tooltip: css({
+  }),
   tooltipHidden: css({
-    display: 'none'
+    display: 'none',
   }),
   tooltipVisible: css({
-    display: 'inherit'
+    display: 'inherit',
   }),
   tooltipHover: css({
     display: 'none',

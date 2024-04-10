@@ -1,9 +1,16 @@
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import { clsx } from 'clsx';
-import composeRefs from '@seznam/compose-react-refs'
-import useOnclickOutsideCool from 'react-cool-onclickoutside';
-import { usePopper } from 'react-popper';
+import {
+  arrow,
+  autoUpdate,
+  FloatingArrow,
+  flip,
+  offset,
+  useDismiss,
+  useFloating,
+  useInteractions
+} from '@floating-ui/react';
 import { useState } from 'react';
 import { useStyles } from './styles';
 
@@ -31,7 +38,8 @@ export interface TooltipProps extends Omit<React.HTMLProps<HTMLDivElement>, 'as'
   wrapperClassName?: string;
 }
 
-const Tooltip: React.FC<TooltipProps> = ({
+export const Tooltip: React.FC<TooltipProps> = ({
+  children,
   closeLabel,
   description,
   displayTrigger,
@@ -45,94 +53,92 @@ const Tooltip: React.FC<TooltipProps> = ({
   hoverDelay = 0,
   ...otherProps
 }) => {
-  const stylesEmotion = useStyles(hoverDelay)
-  const [popperElement, setPopperElement] = useState(null);
-  const [referenceElement, setReferenceElement] = useState(null);
+  const stylesEmotion = useStyles(hoverDelay);
 
-  const [showClick, setShowClick] = useState(false);
+  const arrowRef = React.useRef(null);
+  const [isOpen, setIsOpen] = useState(false);
   
-  const ref = useOnclickOutsideCool(() =>
-  { setShowClick(false) },
-  { disabled: !showClick });
-
-  const { styles, attributes } = usePopper(referenceElement, popperElement, {
-    placement: placement || 'top',
-    modifiers: [
-      {
-        name: 'flip',
-        options: {
-          fallbackPlacements: ['bottom', 'right', 'left'],
-        },
-      },
-      {
-        name: 'offset',
-        options: {
-          offset: [0, type === 'hint' ? 15 : 9],
-        },
-      },
+  const { refs, floatingStyles, context } = useFloating({
+    middleware: [
+      arrow({
+        element: arrowRef,
+      }),
+      flip(),
+      offset(type === 'hint' ? 15 : 9),
     ],
+    open: visible ?? isOpen,
+    onOpenChange: setIsOpen,
+    placement: placement ?? 'top',
+    whileElementsMounted: autoUpdate,
   });
 
-  const children = <div
-    className={ clsx('tk-tooltip__wrapper', wrapperClassName) }
-    ref={ composeRefs(setReferenceElement, ref) }
-  >
-    {otherProps.children}
-  </div>;
+  const dismiss = useDismiss(context)
+  const { getReferenceProps, getFloatingProps } = useInteractions([
+    dismiss
+  ])
 
-  return (
-    <div css={stylesEmotion.parent} onClick={() => setShowClick(!showClick)}>
-      { /** The element tooltip is wrapped around. */ }
+  return <div css={stylesEmotion.parent}>
+    { /** The element tooltip is wrapped around. */ }
+    <div
+      className={ clsx('tk-tooltip__wrapper', wrapperClassName) }
+      onClick={() => setIsOpen(!isOpen)}
+      ref={ refs.setReference }
+      { ...getReferenceProps() }
+    >
       { children }
+    </div>;
 
-      { /** The tooltip. */ }
-      <div
-        className={clsx(
-          `tk-hint-or-tooltip ${type === 'tooltip' ? 'tk-tooltip' : 'tk-hint'}`,
-          className
-        )}
-        css={ [
-          displayTrigger === undefined && visible && stylesEmotion.tooltipVisible,
-          displayTrigger === undefined && !visible && stylesEmotion.tooltipHidden,
-          displayTrigger === 'hover' && stylesEmotion.tooltipHover,
-          displayTrigger === 'click' && showClick && stylesEmotion.tooltipVisible,
-          displayTrigger === 'click' && !showClick && stylesEmotion.tooltipHidden
-        ] }
-        data-css={ displayTrigger === 'hover' ? 'tooltip' : undefined }
-        id={id}
-        role="tooltip"
-        ref={setPopperElement}
-        style={styles.popper}
-        {...attributes.popper}
-        {...otherProps}
-      >
-        <span className="tk-hint__description">{description}</span>
-        {type === 'hint' && (
-          <>
-            <div
-              className="tooltip__arrowContainer"
-              style={styles.arrow}
-              data-popper-arrow
-            >
-              <div className="tooltip__arrow tk-hint__arrow" />
-            </div>
-            <div className="tk-hint__footer">
-              {closeLabel ? (
-                <span
-                  className="tk-hint__close"
-                  onClick={onHintClose}
-                  onKeyDown={(event) => (event.key === 'Enter') && onHintClose()}
-                  tabIndex={0}
-                >
-                  {closeLabel}
-                </span>
-              ) : null}
-            </div>
-          </>
-        )}
+    { /** The tooltip. */ }
+    <div
+      className={clsx(
+        `tk-hint-or-tooltip ${type === 'tooltip' ? 'tk-tooltip' : 'tk-hint'}`,
+        className
+      )}
+      css={ [
+        stylesEmotion.tooltip,
+        displayTrigger === undefined && visible && stylesEmotion.tooltipVisible,
+        displayTrigger === undefined && !visible && stylesEmotion.tooltipHidden,
+        displayTrigger === 'hover' && stylesEmotion.tooltipHover,
+        displayTrigger === 'click' && isOpen && stylesEmotion.tooltipVisible,
+        displayTrigger === 'click' && !isOpen && stylesEmotion.tooltipHidden
+      ] }
+      data-css={ displayTrigger === 'hover' ? 'tooltip' : undefined }
+      id={id}
+      role="tooltip"
+      ref={refs.setFloating}
+      style={floatingStyles}
+      {...otherProps}
+      { ...getFloatingProps() }
+    >
+      <span className="tk-hint__description">{description}</span>
+      {type === 'hint' && <div className="tk-hint__footer">
+        {closeLabel ? (
+          <span
+            className="tk-hint__close"
+            onClick={() => {
+              setIsOpen(false)
+              onHintClose()
+            }}
+            onKeyDown={(event) => {
+              if(event.key === 'Enter') {
+                onHintClose()
+                setIsOpen(false)
+              }
+            }}
+            tabIndex={0}
+          >
+            {closeLabel}
+          </span>
+        ) : null}
       </div>
+      }
+      { type === 'hint' && <FloatingArrow
+        context={context}
+        fill="#2b2d32"
+        ref={arrowRef}
+      /> }
     </div>
-  );
+  </div>
 };
 
 Tooltip.defaultProps = {
@@ -153,5 +159,3 @@ Tooltip.propTypes = {
   visible: PropTypes.bool,
   wrapperClassName: PropTypes.string,
 };
-
-export default Tooltip;

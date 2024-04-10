@@ -6,7 +6,7 @@ import {
   waitFor,
   waitForElementToBeRemoved,
 } from '@testing-library/react';
-import Tooltip from '../../../src/components/tooltip';
+import { Tooltip } from '../../../src/components/tooltip';
 import { Switch } from '../../../src/components';
 import SelectionStatus from '../../../src/components/selection/SelectionStatus';
 
