@@ -28,6 +28,11 @@ export interface TooltipProps extends Omit<React.HTMLProps<HTMLDivElement>, 'as'
   * @default 0
   */
   hoverDelay?: number;
+  /**
+   * Timeout before the tooltip disappear on hover (in ms)
+   * @default 100
+   */
+  hoverTimeout?: number;
   /** Function to call when clicking on closeLabel */
   onHintClose?: () => void;
   placement: 'top' | 'bottom' | 'left' | 'right';
@@ -51,6 +56,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
   className,
   wrapperClassName,
   hoverDelay = 0,
+  hoverTimeout = 100,
   ...otherProps
 }) => {
   const arrowRef = React.useRef(null);
@@ -80,7 +86,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
   
   const hover = useHover(context, {
     delay: {
-      close: 100,
+      close: hoverTimeout,
       open: hoverDelay,
     },
     enabled: displayTrigger === 'hover'

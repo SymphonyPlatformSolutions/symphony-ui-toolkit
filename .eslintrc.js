@@ -18,7 +18,6 @@ module.exports = {
     'plugin:react/recommended',
   ],
   rules: {
-    'react/no-unknown-property': ['error', { ignore: ['css'] }],
     'react/jsx-props-no-spreading': ['off'],
     quotes: ['error', 'single', 'avoid-escape'],
     'jsx-quotes': ['error', 'prefer-double'],
