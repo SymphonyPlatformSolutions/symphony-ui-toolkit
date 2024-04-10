@@ -9,10 +9,10 @@ import {
   offset,
   useDismiss,
   useFloating,
+  useHover,
   useInteractions
 } from '@floating-ui/react';
 import { useState } from 'react';
-import { useStyles } from './styles';
 
 export interface TooltipProps extends Omit<React.HTMLProps<HTMLDivElement>, 'as' | 'ref'> {
   /** Clickable text to display that fires onHintClose */
@@ -53,10 +53,12 @@ export const Tooltip: React.FC<TooltipProps> = ({
   hoverDelay = 0,
   ...otherProps
 }) => {
-  const stylesEmotion = useStyles(hoverDelay);
-
   const arrowRef = React.useRef(null);
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(visible);
+
+  React.useEffect(() => {
+    setIsOpen(visible)
+  }, [visible])
   
   const { refs, floatingStyles, context } = useFloating({
     middleware: [
@@ -66,22 +68,36 @@ export const Tooltip: React.FC<TooltipProps> = ({
       flip(),
       offset(type === 'hint' ? 15 : 9),
     ],
-    open: visible ?? isOpen,
+    open: isOpen,
     onOpenChange: setIsOpen,
     placement: placement ?? 'top',
     whileElementsMounted: autoUpdate,
   });
 
-  const dismiss = useDismiss(context)
+  const dismiss = useDismiss(context, {
+    enabled: displayTrigger === 'click',
+  });
+  
+  const hover = useHover(context, {
+    delay: {
+      close: 100,
+      open: hoverDelay,
+    },
+    enabled: displayTrigger === 'hover'
+  });
+
   const { getReferenceProps, getFloatingProps } = useInteractions([
-    dismiss
+    dismiss,
+    hover,
   ])
 
-  return <div css={stylesEmotion.parent}>
+  return <>
     { /** The element tooltip is wrapped around. */ }
     <div
       className={ clsx('tk-tooltip__wrapper', wrapperClassName) }
-      onClick={() => setIsOpen(!isOpen)}
+      onClick={() => {
+        displayTrigger === 'click' && setIsOpen(!isOpen)
+      }}
       ref={ refs.setReference }
       { ...getReferenceProps() }
     >
@@ -89,20 +105,11 @@ export const Tooltip: React.FC<TooltipProps> = ({
     </div>;
 
     { /** The tooltip. */ }
-    <div
+    { isOpen && <div
       className={clsx(
         `tk-hint-or-tooltip ${type === 'tooltip' ? 'tk-tooltip' : 'tk-hint'}`,
         className
       )}
-      css={ [
-        stylesEmotion.tooltip,
-        displayTrigger === undefined && visible && stylesEmotion.tooltipVisible,
-        displayTrigger === undefined && !visible && stylesEmotion.tooltipHidden,
-        displayTrigger === 'hover' && stylesEmotion.tooltipHover,
-        displayTrigger === 'click' && isOpen && stylesEmotion.tooltipVisible,
-        displayTrigger === 'click' && !isOpen && stylesEmotion.tooltipHidden
-      ] }
-      data-css={ displayTrigger === 'hover' ? 'tooltip' : undefined }
       id={id}
       role="tooltip"
       ref={refs.setFloating}
@@ -117,11 +124,11 @@ export const Tooltip: React.FC<TooltipProps> = ({
             className="tk-hint__close"
             onClick={() => {
               setIsOpen(false)
-              onHintClose()
+              onHintClose && onHintClose()
             }}
             onKeyDown={(event) => {
               if(event.key === 'Enter') {
-                onHintClose()
+                onHintClose && onHintClose()
                 setIsOpen(false)
               }
             }}
@@ -138,7 +145,8 @@ export const Tooltip: React.FC<TooltipProps> = ({
         ref={arrowRef}
       /> }
     </div>
-  </div>
+    }
+  </>
 };
 
 Tooltip.defaultProps = {
