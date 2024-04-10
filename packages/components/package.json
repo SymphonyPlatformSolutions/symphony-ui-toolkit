@@ -36,6 +36,7 @@
     "node": ">=14.21.2"
   },
   "dependencies": {
+    "@emotion/cache": "^11.11.0",
     "@emotion/react": "^11.11.4",
     "@floating-ui/react": "^0.26.12",
     "@popperjs/core": "^2.4.4",

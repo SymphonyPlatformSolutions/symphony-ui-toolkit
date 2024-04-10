@@ -107,7 +107,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
     { /** The tooltip. */ }
     { isOpen && <div
       className={clsx(
-        `tk-hint-or-tooltip ${type === 'tooltip' ? 'tk-tooltip' : 'tk-hint'}`,
+        `${type === 'tooltip' ? 'tk-tooltip' : 'tk-hint'}`,
         className
       )}
       id={id}
