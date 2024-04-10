@@ -6,19 +6,21 @@ import {
   waitFor,
   waitForElementToBeRemoved,
 } from '@testing-library/react';
-import Tooltip from '../../../src/components/tooltip';
+import { Tooltip } from '../../../src/components/tooltip';
 import { Switch } from '../../../src/components';
 import SelectionStatus from '../../../src/components/selection/SelectionStatus';
 
 const changeElementText = (element: string, text: string) => {
   const HTMLElement = document.querySelector(element);
-  HTMLElement.textContent = text;
+  if(HTMLElement) {
+    HTMLElement.textContent = text;
+  }
 };
 
 describe('Tooltip', () => {
   let closeLabel: string;
   let description: string | JSX.Element;
-  let displayTrigger: 'click' | 'hover';
+  let displayTrigger: 'click' | 'hover' | undefined;
   let id: string;
   let onHintClose: () => void;
   let placement: 'top' | 'bottom' | 'left' | 'right';
@@ -40,7 +42,7 @@ describe('Tooltip', () => {
   it('should show/hide tooltip when the child element is clicked', async () => {
     displayTrigger = 'click';
 
-    render(
+    const { container } = render(
       <Tooltip
         closeLabel={closeLabel}
         description={description}
@@ -57,10 +59,11 @@ describe('Tooltip', () => {
       screen.getByRole('button', { name: /tooltip toggles when I am clicked/i })
     );
     screen.getByText(/appears$/i);
-    userEvent.click(
-      screen.getByRole('button', { name: /tooltip toggles when I am clicked/i })
-    );
-    await waitForElementToBeRemoved(() => screen.getByText(/appears$/i));
+    
+    userEvent.click(container.getElementsByClassName('tk-tooltip__wrapper')[0]);
+
+    const tooltip = screen.queryByText(/appears$/i);
+    expect(tooltip).toBeNull();
   });
 
   test.each([
@@ -123,7 +126,7 @@ describe('Tooltip', () => {
       </Tooltip>
     );
 
-    let tooltip: HTMLElement;
+    let tooltip: HTMLElement | null;
 
     userEvent.hover(
       screen.getByRole('button', { name: /tooltip will never be shown/i })

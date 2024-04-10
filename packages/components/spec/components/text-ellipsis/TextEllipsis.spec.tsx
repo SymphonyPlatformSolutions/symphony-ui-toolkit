@@ -15,7 +15,7 @@ describe('TextEllipsis', () => {
     )
 
     const element = screen.queryByText('Really, really, really, really, really, long text that gets cut!')
-    expect(element.style['WebkitLineClamp']).toBe('1')
+    expect(element?.style['WebkitLineClamp']).toBe('1')
   })
 
   it('should apply -webkit-line-clamp: 2 when number of rows are 2', () => {
@@ -26,7 +26,7 @@ describe('TextEllipsis', () => {
     )
 
     const element = screen.queryByText('Really, really, really, really, really, long text that gets cut!')
-    expect(element.style['WebkitLineClamp']).toBe('2')
+    expect(element?.style['WebkitLineClamp']).toBe('2')
   })
 
   describe('Tooltip', () => {

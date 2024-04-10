@@ -22,7 +22,7 @@ import {
 } from './modal';
 import { Checkbox, Radio, Switch } from './selection';
 import SelectionStatus from './selection/SelectionStatus';
-import Tooltip, { TooltipProps } from './tooltip';
+import { Tooltip, TooltipProps } from './tooltip';
 import Typography from './typography';
 import Validators from '../core/validators';
 import VirtualizedList from './virtualized-list';
@@ -42,7 +42,6 @@ export * from './text-ellipsis';
 export * from './time-picker';
 export * from './toast';
 export * from './validation';
-
 
 export {
   Card,

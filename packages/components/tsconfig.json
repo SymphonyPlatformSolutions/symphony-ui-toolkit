@@ -1,20 +1,21 @@
 {
   "compilerOptions": {
-    "target": "ES2017",
-    "module": "CommonJS",
+    "allowSyntheticDefaultImports": false,
     "declaration": true,
+    "downlevelIteration": true,
+    "esModuleInterop": true,
+    "jsx": "react-jsx",
+    "jsxImportSource": "@emotion/react",
+    "module": "CommonJS",
+    "noImplicitAny": false,
     "outDir": "dist",
-    "strict": true,
-    "jsx": "react",
     "rootDirs": [
       "stories"
     ],
-    "esModuleInterop": true,
-    "noImplicitAny": false,
-    "strictNullChecks": false,
-    "downlevelIteration": true,
-    "allowSyntheticDefaultImports": false,
     "skipLibCheck": true,
+    "strict": true,
+    "strictNullChecks": false,
+    "target": "ES2017",
     "types": ["node"]
   },
   "include": [
@@ -25,5 +26,4 @@
     "coverage",
     "stories/templates/*"
   ],
-  "jsx": "react"
 }

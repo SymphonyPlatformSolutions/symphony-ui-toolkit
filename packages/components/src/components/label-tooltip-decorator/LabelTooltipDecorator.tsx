@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useState } from 'react';
 import Icon from '../icon/FontIcon';
-import Tooltip from '../tooltip';
+import { Tooltip } from '../tooltip';
 import { clsx } from 'clsx';
 import {
   LabelTooltipDecoratorProps,

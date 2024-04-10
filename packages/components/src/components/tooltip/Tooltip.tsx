@@ -1,12 +1,18 @@
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import { clsx } from 'clsx';
-import composeRefs from '@seznam/compose-react-refs'
-import useOnclickOutsideCool from 'react-cool-onclickoutside';
-import { CSSTransition } from 'react-transition-group';
-import { showTooltipOnClick, showTooltipOnHover } from './helpers';
-import { useMemo, useState } from 'react';
-import { usePopper } from 'react-popper';
+import {
+  arrow,
+  autoUpdate,
+  FloatingArrow,
+  flip,
+  offset,
+  useDismiss,
+  useFloating,
+  useHover,
+  useInteractions
+} from '@floating-ui/react';
+import { useState } from 'react';
 
 export interface TooltipProps extends Omit<React.HTMLProps<HTMLDivElement>, 'as' | 'ref'> {
   /** Clickable text to display that fires onHintClose */
@@ -17,6 +23,16 @@ export interface TooltipProps extends Omit<React.HTMLProps<HTMLDivElement>, 'as'
   displayTrigger?: 'click' | 'hover';
   /** CSS ID */
   id?: string;
+  /**
+  * Timeout before the tooltip appear on hover (in ms)
+  * @default 0
+  */
+  hoverDelay?: number;
+  /**
+   * Timeout before the tooltip disappear on hover (in ms)
+   * @default 100
+   */
+  hoverTimeout?: number;
   /** Function to call when clicking on closeLabel */
   onHintClose?: () => void;
   placement: 'top' | 'bottom' | 'left' | 'right';
@@ -25,38 +41,10 @@ export interface TooltipProps extends Omit<React.HTMLProps<HTMLDivElement>, 'as'
   visible?: boolean;
   /** Optional CSS class name for wrapping span element  */
   wrapperClassName?: string;
-  /**
-   * Timeout before the tooltip disappear on hover (in ms)
-   * @default 100
-   */
-  hoverTimeout?: number;
-  /**
-   * Timeout before the tooltip appear on hover (in ms)
-   * @default 0
-   */
-  hoverDelay?: number;
 }
 
-const debouncer = (
-  callback: React.Dispatch<React.SetStateAction<boolean>>,
-  debounceTimeEntering = 0,
-  debounceTimeExit = 100,
-) => {
-  let timeout: number | undefined;
-
-  return (isEntering: boolean) => {
-    clearTimeout(timeout);
-    if (!isEntering) {
-      timeout = window.setTimeout(() => callback(false), debounceTimeExit);
-    } else if(debounceTimeEntering) {
-      timeout = window.setTimeout(() => callback(true), debounceTimeEntering);
-    } else {
-      callback(true);
-    }
-  };
-};
-
-const Tooltip: React.FC<TooltipProps> = ({
+export const Tooltip: React.FC<TooltipProps> = ({
+  children,
   closeLabel,
   description,
   displayTrigger,
@@ -65,120 +53,106 @@ const Tooltip: React.FC<TooltipProps> = ({
   placement,
   type,
   visible,
-  hoverTimeout,
   className,
   wrapperClassName,
   hoverDelay = 0,
+  hoverTimeout = 100,
   ...otherProps
 }) => {
-  const [popperElement, setPopperElement] = useState(null);
-  const [referenceElement, setReferenceElement] = useState(null);
+  const arrowRef = React.useRef(null);
+  const [isOpen, setIsOpen] = useState(visible);
 
-  const [showHover, setShowHover] = useState(false);
-  const [showClick, setShowClick] = useState(false);
-  const handleMouseMove = useMemo(() => debouncer(setShowHover, hoverDelay, hoverTimeout), [hoverDelay, hoverTimeout]);
-
-  const ref = useOnclickOutsideCool(() =>
-  { setShowClick(false) },
-  { disabled: !showClick });
-
-  const { styles, attributes } = usePopper(referenceElement, popperElement, {
-    placement: placement || 'top',
-    modifiers: [
-      {
-        name: 'flip',
-        options: {
-          fallbackPlacements: ['bottom', 'right', 'left'],
-        },
-      },
-      {
-        name: 'offset',
-        options: {
-          offset: [0, type === 'hint' ? 15 : 9],
-        },
-      },
+  React.useEffect(() => {
+    setIsOpen(visible)
+  }, [visible])
+  
+  const { refs, floatingStyles, context } = useFloating({
+    middleware: [
+      arrow({
+        element: arrowRef,
+      }),
+      flip(),
+      offset(type === 'hint' ? 15 : 9),
     ],
+    open: isOpen,
+    onOpenChange: setIsOpen,
+    placement: placement ?? 'top',
+    whileElementsMounted: autoUpdate,
   });
 
-  const isVisible =
-    typeof visible !== 'undefined'
-      ? visible
-      : displayTrigger === 'hover'
-        ? showHover
-        : showClick;
+  const dismiss = useDismiss(context, {
+    enabled: displayTrigger === 'click',
+  });
+  
+  const hover = useHover(context, {
+    delay: {
+      close: hoverTimeout,
+      open: hoverDelay,
+    },
+    enabled: displayTrigger === 'hover'
+  });
 
-  const children = <div
-    className={ clsx('tk-tooltip__wrapper', wrapperClassName) }
-    ref={ composeRefs(setReferenceElement, ref) }
-  >
-    {otherProps.children}
-  </div>;
+  const { getReferenceProps, getFloatingProps } = useInteractions([
+    dismiss,
+    hover,
+  ])
 
-  return (
-    <>
-      { /**
-       * The element tooltip is wrapped around.
-       */ }
-      { /** Extra span to make sure Tooltip works on disabled children */ }
-      {displayTrigger === 'hover' &&
-          showTooltipOnHover(children, handleMouseMove)}
-      {displayTrigger === 'click' &&
-          showTooltipOnClick(children, showClick, setShowClick)}
-      {displayTrigger === undefined && children}
+  return <>
+    { /** The element tooltip is wrapped around. */ }
+    <div
+      className={ clsx('tk-tooltip__wrapper', wrapperClassName) }
+      onClick={() => {
+        displayTrigger === 'click' && setIsOpen(!isOpen)
+      }}
+      ref={ refs.setReference }
+      { ...getReferenceProps() }
+    >
+      { children }
+    </div>;
 
-      { /**
-        * The tooltip.
-        */ }
-      <CSSTransition
-        appear
-        mountOnEnter
-        unmountOnExit
-        timeout={0}
-        in={isVisible}
-        classNames="TooltipContainer"
-      >
-        <div
-          id={id}
-          role="tooltip"
-          ref={setPopperElement}
-          className={clsx(
-            `tk-hint-or-tooltip ${type === 'tooltip' ? 'tk-tooltip' : 'tk-hint'}`,
-            className
-          )}
-          style={styles.popper}
-          {...attributes.popper}
-          {...otherProps}
-          onMouseEnter={() => handleMouseMove(true)}
-          onMouseLeave={() => handleMouseMove(false)}
-        >
-          <span className="tk-hint__description">{description}</span>
-          {type === 'hint' && (
-            <>
-              <div
-                className="tooltip__arrowContainer"
-                style={styles.arrow}
-                data-popper-arrow
-              >
-                <div className="tooltip__arrow tk-hint__arrow" />
-              </div>
-              <div className="tk-hint__footer">
-                {closeLabel ? (
-                  <span
-                    className="tk-hint__close"
-                    onClick={onHintClose}
-                    onKeyDown={(event) => (event.key === 'Enter') && onHintClose()}
-                    tabIndex={0}
-                  >
-                    {closeLabel}
-                  </span>
-                ) : null}
-              </div>
-            </>
-          )}
-        </div>
-      </CSSTransition>
-    </>
-  );
+    { /** The tooltip. */ }
+    { isOpen && <div
+      className={clsx(
+        `${type === 'tooltip' ? 'tk-tooltip' : 'tk-hint'}`,
+        className
+      )}
+      id={id}
+      role="tooltip"
+      ref={refs.setFloating}
+      style={floatingStyles}
+      {...otherProps}
+      { ...getFloatingProps() }
+    >
+      <span className="tk-hint__description">{description}</span>
+      {type === 'hint' && <div className="tk-hint__footer">
+        {closeLabel ? (
+          <span
+            className="tk-hint__close"
+            onClick={() => {
+              setIsOpen(false)
+              onHintClose && onHintClose()
+            }}
+            onKeyDown={(event) => {
+              if(event.key === 'Enter') {
+                onHintClose && onHintClose()
+                setIsOpen(false)
+              }
+            }}
+            tabIndex={0}
+          >
+            {closeLabel}
+          </span>
+        ) : null}
+      </div>
+      }
+      { type === 'hint' && <FloatingArrow
+        context={context}
+        fill="#2b2d32"
+        ref={arrowRef}
+      /> }
+    </div>
+    }
+  </>
 };
 
 Tooltip.defaultProps = {
@@ -186,19 +160,17 @@ Tooltip.defaultProps = {
 };
 
 Tooltip.propTypes = {
+  className: PropTypes.string,
   children: PropTypes.any,
   closeLabel: PropTypes.string,
   description: PropTypes.oneOfType([PropTypes.string, PropTypes.element]).isRequired,
   displayTrigger: PropTypes.oneOf(['click', 'hover']),
+  hoverDelay: PropTypes.number,
+  hoverTimeout: PropTypes.number,
   id: PropTypes.string,
   onHintClose: PropTypes.func,
   placement: PropTypes.oneOf(['top', 'bottom', 'left', 'right']),
   type: PropTypes.oneOf(['hint', 'tooltip']),
   visible: PropTypes.bool,
-  hoverTimeout: PropTypes.number,
-  className: PropTypes.string,
-  hoverDelay: PropTypes.number,
   wrapperClassName: PropTypes.string,
 };
-
-export default Tooltip;
