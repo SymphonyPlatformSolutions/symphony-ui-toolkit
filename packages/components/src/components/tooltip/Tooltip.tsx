@@ -166,6 +166,7 @@ Tooltip.propTypes = {
   description: PropTypes.oneOfType([PropTypes.string, PropTypes.element]).isRequired,
   displayTrigger: PropTypes.oneOf(['click', 'hover']),
   hoverDelay: PropTypes.number,
+  hoverTimeout: PropTypes.number,
   id: PropTypes.string,
   onHintClose: PropTypes.func,
   placement: PropTypes.oneOf(['top', 'bottom', 'left', 'right']),
