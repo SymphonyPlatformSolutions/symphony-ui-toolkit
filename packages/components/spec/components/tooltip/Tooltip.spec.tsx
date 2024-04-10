@@ -12,13 +12,15 @@ import SelectionStatus from '../../../src/components/selection/SelectionStatus';
 
 const changeElementText = (element: string, text: string) => {
   const HTMLElement = document.querySelector(element);
-  HTMLElement.textContent = text;
+  if(HTMLElement) {
+    HTMLElement.textContent = text;
+  }
 };
 
 describe('Tooltip', () => {
   let closeLabel: string;
   let description: string | JSX.Element;
-  let displayTrigger: 'click' | 'hover';
+  let displayTrigger: 'click' | 'hover' | undefined;
   let id: string;
   let onHintClose: () => void;
   let placement: 'top' | 'bottom' | 'left' | 'right';
@@ -123,7 +125,7 @@ describe('Tooltip', () => {
       </Tooltip>
     );
 
-    let tooltip: HTMLElement;
+    let tooltip: HTMLElement | null;
 
     userEvent.hover(
       screen.getByRole('button', { name: /tooltip will never be shown/i })
