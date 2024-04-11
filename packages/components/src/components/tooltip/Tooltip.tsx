@@ -108,7 +108,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
       { ...getReferenceProps() }
     >
       { children }
-    </div>;
+    </div>
 
     { /** The tooltip. */ }
     { isOpen && <div
