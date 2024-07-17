@@ -70,7 +70,7 @@ export const DropdownMenuItem: React.FC<DropdownMenuItemProps> = ({
   }, [loading])
 
   return (
-    <div {...rest} className={classes} onClick={onClickHandler} ref={forwardRef} onKeyDown={onKeyDownHandler} tabIndex={-1}>
+    <div {...rest} className={classes} onClick={onClickHandler} ref={forwardRef} onKeyDown={onKeyDownHandler} tabIndex={0}>
       {loading ? <Loader variant="primary" /> : children}
     </div>
   )
@@ -107,7 +107,7 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({children, className, 
       removeListeners();
       return;
     }
-    
+
     window.addEventListener('keyup', keyboardEventHandler);
     window.addEventListener('click', mouseEventHandler);
 
@@ -115,7 +115,7 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({children, className, 
       removeListeners()
     }
   }, [show, removeListeners])
-  
+
   return show && (
     <div {...rest} className={classes} ref={menu}>
       {children}
