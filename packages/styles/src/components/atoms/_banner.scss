@@ -18,7 +18,6 @@
     &__action {
         appearance: none;
         background-color: transparent;
-        outline: none;
         border: none;
         text-decoration: underline;
     }
@@ -99,10 +98,16 @@
     &--small {
         padding: toRem(2) toRem(8);
 
-        .tk-banner__variant-icon, .tk-banner__close {
+        .tk-banner__variant-icon {
             &:before {
                 font-size: toRem(12);
                 top: toRem(4);
+            }
+        }
+
+        .tk-banner__close {
+            &:before {
+                font-size: toRem(12);
             }
         }
     }
@@ -110,10 +115,16 @@
     &--medium {
         padding: toRem(6) toRem(12);
 
-        .tk-banner__variant-icon, .tk-banner__close {
+        .tk-banner__variant-icon {
             &:before {
                 font-size: toRem(16);
                 top: toRem(2);
+            }
+        }
+
+        .tk-banner__close {
+            &:before {
+                font-size: toRem(16);
             }
         }
     }

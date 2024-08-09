@@ -44,7 +44,7 @@ export const Banner: React.FC<BannerProps> = ({
 
       {/* Close button (optional) */}
       {isClosable && onClose && (
-        <div className="tk-banner__close" onClick={onClose} />
+        <button className="tk-banner__close" onClick={onClose} />
       )}
 
     </div>
