@@ -107,32 +107,32 @@ describe('Modal', () => {
     // Modal should be closed
     expect(show).toBeFalsy();
   })
-});
 
-it('should not propagate mouse down event by default', async () => {
-  const onMouseDownParent = jest.fn();
-  const component = <div className="parent" onMouseDown={onMouseDownParent}>
-    <Modal size={'small'} show>
-      <ModalTitle>Title</ModalTitle>
-      <ModalHeader>Header</ModalHeader>
-      <ModalBody>Body</ModalBody>
-    </Modal>
-  </div>;
-  render(component);
-  fireEvent.mouseDown(screen.getByText('Title'))
-  expect(onMouseDownParent).not.toHaveBeenCalled();
-});
+  it('should not propagate mouse down event by default', async () => {
+    const onMouseDownParent = jest.fn();
+    const component = <div className="parent" onMouseDown={onMouseDownParent}>
+      <Modal size={'small'} show>
+        <ModalTitle>Title</ModalTitle>
+        <ModalHeader>Header</ModalHeader>
+        <ModalBody>Body</ModalBody>
+      </Modal>
+    </div>;
+    render(component);
+    fireEvent.mouseDown(screen.getByText('Title'))
+    expect(onMouseDownParent).not.toHaveBeenCalled();
+  });
 
-it('should allow to propagate mouse down event', async () => {
-  const onMouseDownParent = jest.fn();
-  const component = <div className="parent" onMouseDown={onMouseDownParent}>
-    <Modal size={'small'} show onMouseDown={undefined}>
-      <ModalTitle>Title</ModalTitle>
-      <ModalHeader>Header</ModalHeader>
-      <ModalBody>Body</ModalBody>
-    </Modal>
-  </div>;
-  render(component);
-  fireEvent.mouseDown(screen.getByText('Title'))
-  expect(onMouseDownParent).toHaveBeenCalled();
+  it('should allow to propagate mouse down event', async () => {
+    const onMouseDownParent = jest.fn();
+    const component = <div className="parent" onMouseDown={onMouseDownParent}>
+      <Modal size={'small'} show onMouseDown={undefined}>
+        <ModalTitle>Title</ModalTitle>
+        <ModalHeader>Header</ModalHeader>
+        <ModalBody>Body</ModalBody>
+      </Modal>
+    </div>;
+    render(component);
+    fireEvent.mouseDown(screen.getByText('Title'))
+    expect(onMouseDownParent).toHaveBeenCalled();
+  });
 });
