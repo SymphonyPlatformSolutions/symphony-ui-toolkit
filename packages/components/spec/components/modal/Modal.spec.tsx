@@ -1,11 +1,12 @@
 import * as React from 'react';
-import { Modal, ModalBody, ModalFooter, ModalHeader, ModalTitle } from '../../../src/components';
+import { Button, Modal, ModalBody, ModalFooter, ModalHeader, ModalTitle } from '../../../src/components';
 import { Keys } from '../../../src/components/common/eventUtils';
 import {
   render,
   screen,
   fireEvent,
 } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 describe('Modal', () => {
   it('should render the content with correct class and without crash', () => {
@@ -135,4 +136,75 @@ describe('Modal', () => {
     fireEvent.mouseDown(screen.getByText('Title'))
     expect(onMouseDownParent).toHaveBeenCalled();
   });
+
+  describe('should handle focus', () => {
+    const component = <div>
+      <a href="#">Another element that should not be on focus</a>
+      <Modal focusTrapEnabled size={'small'} show={true}>
+        <ModalHeader>Hello, World</ModalHeader>
+        <ModalBody>
+          <Button variant={'primary'}>Button 1</Button>
+          <Button variant={'primary'}>Button 2</Button>
+          <Button variant={'primary'}>Button 3</Button>
+        </ModalBody>
+      </Modal>
+    </div>;
+
+    test('by setting the focus on the first element when the modal is opened', async () => {
+      render(component);
+
+      const firstButton = screen.getByText('Button 1');
+
+      // Check if the first focusable element (First Button) is focused
+      expect(firstButton).toHaveFocus()
+    });
+
+    test('by trapping the focus with Tab key', async () => {
+      const { getByText } = render(component);
+
+      const firstButton = getByText('Button 1');
+      const secondButton = getByText('Button 2');
+      const thirdButton = getByText('Button 3');
+
+      expect(firstButton).toHaveFocus()
+
+      // Press Tab key
+      userEvent.tab();
+      expect(secondButton).toHaveFocus();
+
+      // Press Tab key
+      userEvent.tab();
+      expect(thirdButton).toHaveFocus()
+
+      // Press Tab key
+      userEvent.tab();
+
+      // Verify that focus cycles back to the first button
+      expect(firstButton).toHaveFocus()
+    });
+
+    test('by trapping the focus with Shift+Tab key', async () => {
+      const { getByText } = render(component);
+
+      const firstButton = getByText('Button 1');
+      const secondButton = getByText('Button 2');
+      const thirdButton = getByText('Button 3');
+
+      expect(firstButton).toHaveFocus()
+
+      // Press Shift+Tab key
+      userEvent.tab({ shift: true });
+
+      // Verify that focus cycles back to the last button
+      expect(thirdButton).toHaveFocus();
+
+      // Press Shift+Tab key
+      userEvent.tab({ shift: true });
+      expect(secondButton).toHaveFocus()
+
+      // Press Shift+Tab key
+      userEvent.tab({ shift: true });
+      expect(firstButton).toHaveFocus()
+    });
+  })
 });
