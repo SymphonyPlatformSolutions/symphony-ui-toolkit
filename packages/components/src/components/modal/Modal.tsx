@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { clsx } from 'clsx';
-import { Keys } from '../common/eventUtils';
+import { EventListener, Keys } from '../common/eventUtils';
 import { SvgIcon } from '../icon';
 import { Icons } from '..';
 
@@ -10,6 +10,7 @@ interface ModalProps extends Omit<React.HTMLProps<HTMLDivElement>, 'size'> {
   className?: string;
   children?: React.ReactNode;
   closeButton?: boolean;
+  focusTrapEnabled?: boolean;
   parentNode?: Element;
   show?: boolean;
   onClose?: () => void;
@@ -47,16 +48,43 @@ export const ModalFooter: React.FC<ModalContentProps> = ({
   ...rest
 }: ModalContentProps) => <div className={clsx(buildClass('footer'), className)} {...rest}>{children}</div >;
 
+const FOCUSABLE_ELEMENTS = 'button:not([disabled]), a[href], input:not([disabled]), textarea:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"]):not([disabled])';
+
+// Utility function to get focusable elements
+const getFocusableElements = (container: HTMLElement) => {
+  return Array.from(container.querySelectorAll<HTMLElement>(FOCUSABLE_ELEMENTS));
+};
+
+// Focus trap handler
+const handleTabKey = (event: KeyboardEvent, focusableElements: HTMLElement[]) => {
+  if (focusableElements.length === 0) return;
+
+  const firstElement = focusableElements[0];
+  const lastElement = focusableElements[focusableElements.length - 1];
+
+  if (event.key === Keys.TAB) {
+    if (event.shiftKey && document.activeElement === firstElement) {
+      lastElement.focus();
+      event.preventDefault();
+    } else if(!event.shiftKey && document.activeElement === lastElement) {
+      firstElement.focus();
+      event.preventDefault();
+    }
+  }
+};
+
 const Modal: React.FC<ModalProps> = ({
   size,
   className,
   children,
   closeButton,
   onClose,
+  focusTrapEnabled,
   parentNode,
   show,
   ...rest
 }: ModalProps) => {
+  const modalRef = React.useRef<HTMLDivElement>(null);
   const containerClasses = clsx(className, `${prefix}-backdrop`);
   const sizeClasses = clsx(prefix, { [`${prefix}--${size}`]: size });
   const handleContentClick = (event: React.MouseEvent<HTMLElement>) => event.stopPropagation();
@@ -68,6 +96,30 @@ const Modal: React.FC<ModalProps> = ({
     }
   };
 
+  React.useEffect(() => {
+    if (show && focusTrapEnabled) {
+      
+      const trapFocus = () => {
+        if (modalRef.current) {
+          const focusableElements = getFocusableElements(modalRef.current);
+          
+          // Focus the first element if available
+          focusableElements[0]?.focus();
+
+          // Add event listener for Tab key
+          const onKeyDown = (e: KeyboardEvent) => handleTabKey(e, focusableElements);
+          document.addEventListener(EventListener.keydown, onKeyDown);
+
+          // Cleanup event listener
+          return () => document.removeEventListener(EventListener.keydown, onKeyDown);
+        }
+      };
+
+      const cleanup = trapFocus();
+      return cleanup;
+    }
+  }, [show, focusTrapEnabled]);
+
   const domResult = (
     <div
       onMouseDown={onMouseDown}
@@ -77,7 +129,7 @@ const Modal: React.FC<ModalProps> = ({
       onKeyUp={handleKeyUp}
       tabIndex={-1}
     >
-      <div role="dialog" className={sizeClasses} onClick={handleContentClick}>
+      <div ref={modalRef} role="dialog" className={sizeClasses} onClick={handleContentClick}>
         {closeButton && (
           <button
             aria-label="close"
