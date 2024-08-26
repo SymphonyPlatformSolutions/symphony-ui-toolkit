@@ -140,7 +140,7 @@ describe('Modal', () => {
   describe('should handle focus', () => {
     const component = <div>
       <a href="#">Another element that should not be on focus</a>
-      <Modal focusTrapEnabled size={'small'} show={true}>
+      <Modal size={'small'} show={true}>
         <ModalHeader>Hello, World</ModalHeader>
         <ModalBody>
           <Button variant={'primary'}>Button 1</Button>

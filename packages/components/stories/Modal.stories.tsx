@@ -177,29 +177,3 @@ export const ModalWithCloseHandler: Story = {
     );
   }
 };
-
-export const ModalWithFocusTrapped: Story = {
-  render: () => {
-    const [show, setShow] = React.useState(true);
-    const handleClose = () => {
-      setShow(false);
-    };
-    return (
-      <div>
-        <Button onClick={() => setShow(true)}>Open the Modal</Button>
-        <Modal size="medium" closeButton show={show} onClose={handleClose} focusTrapEnabled>
-          <ModalTitle>Medium modal with focus trap</ModalTitle>
-          <ModalBody>{body}</ModalBody>
-          <ModalFooter>
-            <Button variant={'tertiary'} onClick={handleClose}>
-            Cancel
-            </Button>
-            <Button variant={'primary'} onClick={handleClose}>
-            Confirm
-            </Button>
-          </ModalFooter>
-        </Modal>
-      </div>
-    );
-  }
-};

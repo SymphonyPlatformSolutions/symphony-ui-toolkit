@@ -79,7 +79,7 @@ const Modal: React.FC<ModalProps> = ({
   children,
   closeButton,
   onClose,
-  focusTrapEnabled,
+  focusTrapEnabled = true,
   parentNode,
   show,
   ...rest
