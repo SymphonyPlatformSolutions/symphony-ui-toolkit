@@ -84,6 +84,8 @@ const Modal: React.FC<ModalProps> = ({
   show,
   ...rest
 }: ModalProps) => {
+
+  let previousFocusedElement;
   const modalRef = React.useRef<HTMLDivElement>(null);
   const containerClasses = clsx(className, `${prefix}-backdrop`);
   const sizeClasses = clsx(prefix, { [`${prefix}--${size}`]: size });
@@ -98,7 +100,9 @@ const Modal: React.FC<ModalProps> = ({
 
   React.useEffect(() => {
     if (show && focusTrapEnabled) {
-      
+      // Keeps a reference to the element that had the focus before opening the Modal, restore it when we close the modal
+      previousFocusedElement = document.activeElement;
+
       const trapFocus = () => {
         if (modalRef.current) {
           const focusableElements = getFocusableElements(modalRef.current);
@@ -111,7 +115,10 @@ const Modal: React.FC<ModalProps> = ({
           document.addEventListener(EventListener.keydown, onKeyDown);
 
           // Cleanup event listener
-          return () => document.removeEventListener(EventListener.keydown, onKeyDown);
+          return () => {
+            document.removeEventListener(EventListener.keydown, onKeyDown);
+            previousFocusedElement?.focus();
+          }
         }
       };
 
