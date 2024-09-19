@@ -49,6 +49,10 @@ type DatePickerComponentProps = {
   name?: string;
   /** Handle focus event */
   onFocus?: (event: React.FocusEvent<HTMLElement>) => void;
+  /** Handle calendar open event */
+  onCalendarOpen?: () => void;
+  /** Handle calendar close event */
+  onCalendarClose?: () => void;
   placeholder?: string;
   locale?: string;
   placement?: 'top' | 'bottom' | 'right' | 'left';
@@ -56,6 +60,7 @@ type DatePickerComponentProps = {
   /* The picker is open on render (not supported with menuPortalTarget) */
   showOverlay?: boolean;
   showRequired?: boolean;
+  shouldResetInvalidDate?: boolean;
 } & HTMLInputProps &
   HasTooltipProps &
   HasValidationProps<Date> &
@@ -184,8 +189,21 @@ class DatePicker extends Component<
   componentDidUpdate(prevProps, prevState) {
     if (this.state.showPicker && !prevState.showPicker) {
       this.mountDayPickerInstance();
+      this.props.onCalendarOpen && this.props.onCalendarOpen();
     } else if (!this.state.showPicker && prevState.showPicker) {
       this.unmountDayPickerInstance();
+      this.props.onCalendarClose && this.props.onCalendarClose();
+      if(this.props.shouldResetInvalidDate) {
+        const validDate = this.props.date && this.props.date;
+        this.setState({
+          navigationDate: validDate,
+          inputValue: this.computeDate(validDate)
+            ? formatDate(validDate, this.props.format, {
+              locale: this.state.locale,
+            })
+            : null,
+        });
+      }
     }
     // update dynamically if locale change
     if (this.props.locale !== prevProps.locale) {
@@ -389,7 +407,7 @@ class DatePicker extends Component<
     const { locale } = this.state;
 
     const newValue = e.target.value;
-    this.setState({ inputValue: newValue });
+    this.setState({ inputValue: newValue, showPicker: true });
 
     const newDate = autocompleteDate(newValue, format, locale);
 
