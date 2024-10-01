@@ -19,14 +19,17 @@ const navItems: NavItem[] = [
   {
     label: 'Item 0',
     id: 0,
+    panelId: 0
   },
   {
     label: 'Item 1',
     id: 1,
+    panelId: 1
   },
   {
     label: 'Item 2',
     id: 2,
+    panelId: 2
   },
 ];
 
@@ -54,7 +57,7 @@ export const NavigationWithContent: Story = {
           {activeItemId === 0 ? (
             <div>Content item {activeItemId}</div>
           ) : (
-            <div>{activeItemId === 1 ? <div>Content item {activeItemId} </div> : <div>Content item {activeItemId}</div>}</div>
+            <div>{activeItemId === 1 ? <div role="tabpanel" aria-labelledby={'tk-tab-'+activeItemId} id={'tk-panel-'+activeItemId}>Content item {activeItemId} </div> : <div  role="tabpanel" aria-labelledby={'tk-tab-'+activeItemId} id={'tk-panel-'+activeItemId}>Content item {activeItemId}</div>}</div>
           )}
         </div>
       </div>

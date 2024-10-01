@@ -1,36 +1,34 @@
-.tk-nav {
-  &--tabs {
-    width: 100%;
-    list-style: none;
-    display: flex;
-    padding-inline-start: 0;
-    margin: 0;
-    font-size: 1em;
+.tk-nav--tabs {
+  width: 100%;
+  list-style: none;
+  display: flex;
+  padding-inline-start: 0;
+  margin: 0;
+  font-size: 1em;
+}
+.tk-nav-item {
+  all: unset;
+  outline: revert;
+  cursor: pointer;
+  text-transform: uppercase;
+  text-decoration: none;
+  background-color: transparent;
+  display: block;
+  margin: 0.5rem 0.75rem;
+  color: $--tk-nav-color-default;
+  border-bottom: toRem(3) solid transparent;
+  &:first-child {
+    margin-left: 0;
   }
-  &-item {
-    all: unset;
-    outline: revert;
-    cursor: pointer;
-    text-transform: uppercase;
-    text-decoration: none;
-    background-color: transparent;
-    display: block;
-    margin: 0.5rem 0.75rem;
-    color: $--tk-nav-color-default;
-    border-bottom: toRem(3) solid transparent;
-    &:first-child {
-      margin-left: 0;
-    }
-    &:last-child {
-      margin-right: 0;
-    }
-    &--active {
-      color: $--tk-nav-color-active;
-      border-bottom-color: $scolor-electricity !important;
-    }
-    &:hover {
-      color: $--tk-nav-color-hover;
-      border-bottom-color: $--tk-nav-color-border-bottom;
-    }
+  &:last-child {
+    margin-right: 0;
+  }
+  &--active {
+    color: $--tk-nav-color-active;
+    border-bottom-color: $scolor-electricity !important;
+  }
+  &:hover {
+    color: $--tk-nav-color-hover;
+    border-bottom-color: $--tk-nav-color-border-bottom;
   }
 }
