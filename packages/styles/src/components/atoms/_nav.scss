@@ -1,4 +1,4 @@
-ul.tk-nav {
+.tk-nav {
   &--tabs {
     width: 100%;
     list-style: none;
@@ -7,12 +7,9 @@ ul.tk-nav {
     margin: 0;
     font-size: 1em;
   }
-}
-
-/* This should most probably be moved inside --tabs in order to support later more 
-kinds of nav */
-li.tk-nav {
   &-item {
+    all: unset;
+    outline: revert;
     cursor: pointer;
     text-transform: uppercase;
     text-decoration: none;
