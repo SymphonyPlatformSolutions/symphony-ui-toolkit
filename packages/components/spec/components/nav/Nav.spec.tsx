@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom/extend-expect';
 import { render, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import userEvent, { specialChars } from '@testing-library/user-event';
 import * as React from 'react';
 import Nav from '../../../src/components/nav';
 
@@ -36,6 +36,88 @@ describe('Nav component test suite =>', () => {
       await waitFor(() => {
         expect(getByText('banana')).not.toHaveClass('tk-nav-item--active');
         expect(getByText('peach')).toHaveClass('tk-nav-item--active');
+      })
+
+    });
+
+    it('should activate an item on enter', async () => {
+      const { getByText } = render(
+        <Nav items={items} />
+      );
+
+      expect(getByText('banana')).toHaveClass('tk-nav-item--active');
+
+      userEvent.type(getByText('peach'), specialChars.enter);
+      
+
+      await waitFor(() => {
+        expect(getByText('banana')).not.toHaveClass('tk-nav-item--active');
+        expect(getByText('peach')).toHaveClass('tk-nav-item--active');
+      })
+
+    });
+
+    it('should activate an item on space', async () => {
+      const { getByText } = render(
+        <Nav items={items} />
+      );
+
+      expect(getByText('banana')).toHaveClass('tk-nav-item--active');
+
+      userEvent.type(getByText('peach'), specialChars.space);
+      
+
+      await waitFor(() => {
+        expect(getByText('banana')).not.toHaveClass('tk-nav-item--active');
+        expect(getByText('peach')).toHaveClass('tk-nav-item--active');
+      })
+
+    });
+
+    it('should activate item has focus when first tab', async () => {
+      const { getByText } = render(
+        <Nav items={items} />
+      );
+
+      expect(getByText('banana')).toHaveClass('tk-nav-item--active');
+
+      userEvent.tab();
+      
+      await waitFor(() => {
+        expect(getByText('banana')).toHaveFocus();
+      })
+
+    });
+
+    it('should move focus using arrow keys', async () => {
+      const { getByText } = render(
+        <Nav items={items} />
+      );
+
+      expect(getByText('banana')).toHaveClass('tk-nav-item--active');
+
+      userEvent.type(getByText('banana'), specialChars.arrowRight);
+
+      await waitFor(() => {
+        expect(getByText('peach')).toHaveFocus();
+      })
+
+      userEvent.type(getByText('peach'), specialChars.arrowRight);
+
+      await waitFor(() => {
+        expect(getByText('banana')).toHaveFocus();
+      })
+
+      userEvent.type(getByText('banana'), specialChars.arrowLeft);
+
+      await waitFor(() => {
+        expect(getByText('peach')).toHaveFocus();
+      })
+
+      userEvent.type(getByText('peach'), specialChars.arrowLeft);
+
+      await waitFor(() => {
+        expect(getByText('banana')).toHaveFocus();
       })
 
     });
