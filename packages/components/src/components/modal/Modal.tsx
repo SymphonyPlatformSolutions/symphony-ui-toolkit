@@ -56,18 +56,23 @@ const getFocusableElements = (container: HTMLElement) => {
 };
 
 // Focus trap handler
-const handleTabKey = (event: KeyboardEvent, focusableElements: HTMLElement[]) => {
+const handleTabKey = (event: KeyboardEvent, modal: HTMLDivElement) => {
+  const focusableElements = getFocusableElements(modal);
   if (focusableElements.length === 0) return;
 
   const firstElement = focusableElements[0];
   const lastElement = focusableElements[focusableElements.length - 1];
 
+  const realFocusableElements = focusableElements.filter(element => element.tabIndex !== -1);
+  const realFistElement = realFocusableElements[0];
+  const realLastElement = realFocusableElements[realFocusableElements.length - 1];
+
   if (event.key === Keys.TAB) {
-    if (event.shiftKey && document.activeElement === firstElement) {
-      lastElement.focus();
+    if (event.shiftKey && (document.activeElement === firstElement || document.activeElement === realFistElement)) {
+      realLastElement.focus();
       event.preventDefault();
-    } else if(!event.shiftKey && document.activeElement === lastElement) {
-      firstElement.focus();
+    } else if(!event.shiftKey && (document.activeElement === lastElement || document.activeElement === realLastElement)) {
+      realFistElement.focus();
       event.preventDefault();
     }
   }
@@ -111,7 +116,7 @@ const Modal: React.FC<ModalProps> = ({
           focusableElements[0]?.focus();
 
           // Add event listener for Tab key
-          const onKeyDown = (e: KeyboardEvent) => handleTabKey(e, focusableElements);
+          const onKeyDown = (e: KeyboardEvent) => handleTabKey(e, modalRef.current);
           document.addEventListener(EventListener.keydown, onKeyDown);
 
           // Cleanup event listener
