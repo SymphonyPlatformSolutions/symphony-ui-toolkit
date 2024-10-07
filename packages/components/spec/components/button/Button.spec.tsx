@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { render } from '@testing-library/react';
 import { shallow } from 'enzyme';
 
 import Button from '../../../src/components/button/Button';
@@ -41,6 +42,12 @@ describe('Button Component', () => {
       expect(wrapper.text().includes(text)).toBe(true);
     });
 
+    it('forward the ref', () => {
+      const ref = React.createRef<HTMLButtonElement>();
+      expect(ref.current).toBeNull();
+      render(<Button ref={ ref }>Text</Button>);
+      expect(ref.current).not.toBeNull();
+    });
   });
 
 });
