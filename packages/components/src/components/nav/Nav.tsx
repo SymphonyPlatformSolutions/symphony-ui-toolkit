@@ -60,22 +60,24 @@ export const Nav: React.FC<NavProps> = ({
   }
 
   return (
-    <div role="tablist" className="tk-nav--tabs">
-      {items.map((item, idx) => (
-        <button
-          role = "tab"
-          ref={ref => {tabs[idx] = ref}}
-          key={item.id}
-          id={'tk-tab-' + item.id}
-          aria-controls={item.panelId && 'tk-panel-' + item.panelId}
-          aria-selected={activeNavItemId === item.id}
-          onClick={() => handleClick(item)}
-          onKeyDown={(evt) => handleKeydown(evt.key)}
-          tabIndex={activeNavItemId === item.id ? 0 : -1}
-          className={clsx('tk-nav-item', { 'tk-nav-item--active': activeNavItemId === item.id })}>
-          {item.label}
-        </button>
-      ))}
+    <div className="tk-nav">
+      <div role="tablist" className="tk-nav--tabs">
+        {items.map((item, idx) => (
+          <button
+            role = "tab"
+            ref={ref => {tabs[idx] = ref}}
+            key={item.id}
+            id={'tk-tab-' + item.id}
+            aria-controls={item.panelId && 'tk-panel-' + item.panelId}
+            aria-selected={activeNavItemId === item.id}
+            onClick={() => handleClick(item)}
+            onKeyDown={(evt) => handleKeydown(evt.key)}
+            tabIndex={activeNavItemId === item.id ? 0 : -1}
+            className={clsx('tk-nav-item', { 'tk-nav-item--active': activeNavItemId === item.id })}>
+            {item.label}
+          </button>
+        ))}
+      </div>
     </div>
   )
 };

@@ -13,6 +13,15 @@ const items = [
 describe('Nav component test suite =>', () => {
 
   describe('when is simple Nav', () => {
+
+    it('should render a div with a tk-nav class', async () => {
+      const { baseElement } = render(
+        <Nav items={items} />
+      );
+
+      expect(baseElement.getElementsByClassName('tk-nav').length).toBe(1);
+    });
+
     it('should render the Nav component by default', async () => {
       const { getByText } = render(
         <Nav items={items} />
