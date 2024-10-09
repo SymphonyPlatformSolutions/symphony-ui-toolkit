@@ -24,7 +24,7 @@ export interface ButtonProps extends Omit<React.HTMLProps<HTMLButtonElement>, 's
   iconLeft?: React.ReactNode;
 }
 
-export const Button = React.forwardRef(({
+export const Button: React.FC<ButtonProps> = ({
   children,
   className,
   iconButton,
@@ -36,7 +36,7 @@ export const Button = React.forwardRef(({
   iconRight,
   iconLeft,
   ...rest
-}: ButtonProps, ref?: React.Ref<HTMLButtonElement>) => {
+}: ButtonProps) => {
   const classes = clsx(
     className,
     prefix,
@@ -54,7 +54,6 @@ export const Button = React.forwardRef(({
       aria-label={loading ? 'loading' : null}
       className={classes}
       disabled={loading || disabled}
-      ref={ ref }
       style={{ color: loading ? 'transparent' : null }}
       /* eslint-disable react/button-has-type */
       type={type}
@@ -64,7 +63,7 @@ export const Button = React.forwardRef(({
       {iconLeft}{children}{iconRight}
     </button >
   );
-});
+};
 
 Button.defaultProps = {
   iconButton: false,
