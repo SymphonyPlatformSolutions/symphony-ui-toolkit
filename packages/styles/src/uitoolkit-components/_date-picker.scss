@@ -43,6 +43,14 @@
       font-size: toRem(12);
       line-height: toRem(16);
     }
+    &--cusTomTooltip {
+      transform: translate(-15px, -15px) !important;
+    }
+    &--button {
+      &:focus-visible {
+        @include outlineStyle;
+      }
+    }
   }
 
   .tk-daypicker-weekday {
@@ -118,6 +126,10 @@
         visibility: hidden;
       }
     }
+    
+    .focus-visible {
+      @include outlineStyle;
+    }
   }
 
   .tk-daypicker-footer {
@@ -130,6 +142,9 @@
       text-transform: uppercase;
       font-size: toRem(12);
       line-height: toRem(16);
+      &:focus-visible {
+        @include outlineStyle;
+      }
     }
   }
 }

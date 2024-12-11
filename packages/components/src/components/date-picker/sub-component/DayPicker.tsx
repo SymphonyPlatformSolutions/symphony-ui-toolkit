@@ -60,6 +60,8 @@ type DayPickerComponentProps = {
 type DayPickerComponentState = {
   today: Date;
   currentMonth: Date;
+  showTooltip: boolean;
+  currentID: string;
 };
 
 const DAYS_SELECTOR = '.tk-daypicker-day--outside, .tk-daypicker-day';
@@ -78,6 +80,8 @@ class DayPicker extends React.Component<
     this.state = {
       today: startOfToday(),
       currentMonth: props.month || props.selectedDays || new Date(),
+      showTooltip: false,
+      currentID: ''
     };
 
     this.handleKeyDownContainer = this.handleKeyDownContainer.bind(this);
@@ -446,7 +450,7 @@ class DayPicker extends React.Component<
 
   render() {
     const { dir, labels, locale } = this.props;
-    const { currentMonth } = this.state;
+    const { currentMonth, showTooltip, currentID } = this.state;
 
     const now = new Date();
     return (
@@ -459,7 +463,11 @@ class DayPicker extends React.Component<
           date={currentMonth}
           dir={dir}
           months={getMonths(now, locale)}
+          showTooltip={showTooltip}
+          currentID={currentID}
           onChange={(month) => this.setState({ currentMonth: month })}
+          onVisible={(id) => this.setState({showTooltip: true, currentID: id})}
+          onClose={() => this.setState({showTooltip: false, currentID: ''})}
           labels={labels}
           parentRef={this.dayPicker}
         />
