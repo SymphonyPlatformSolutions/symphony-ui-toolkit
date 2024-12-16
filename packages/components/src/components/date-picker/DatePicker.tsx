@@ -50,13 +50,14 @@ type DatePickerComponentProps = {
   /** Handle focus event */
   onFocus?: (event: React.FocusEvent<HTMLElement>) => void;
   /** Handle calendar open event */
-  onCalendarOpen?: () => void;
+  onCalendarOpen?: (datePickerID: string) => void;
   /** Handle calendar close event */
-  onCalendarClose?: () => void;
+  onCalendarClose?: (datePickerID: string) => void;
   placeholder?: string;
   locale?: string;
   placement?: 'top' | 'bottom' | 'right' | 'left';
   todayButton?: string;
+  ariaLabel?: string;
   /* The picker is open on render (not supported with menuPortalTarget) */
   showOverlay?: boolean;
   showRequired?: boolean;
@@ -189,10 +190,10 @@ class DatePicker extends Component<
   componentDidUpdate(prevProps, prevState) {
     if (this.state.showPicker && !prevState.showPicker) {
       this.mountDayPickerInstance();
-      this.props.onCalendarOpen && this.props.onCalendarOpen();
+      this.props.onCalendarOpen && this.props.onCalendarOpen(this.props.id);
     } else if (!this.state.showPicker && prevState.showPicker) {
       this.unmountDayPickerInstance();
-      this.props.onCalendarClose && this.props.onCalendarClose();
+      this.props.onCalendarClose && this.props.onCalendarClose(this.props.id);
       if(this.props.shouldResetInvalidDate) {
         const validDate = this.props.date && this.props.date;
         this.setState({
@@ -492,6 +493,7 @@ class DatePicker extends Component<
       label,
       labels,
       todayButton,
+      ariaLabel,
       menuPortalTarget,
       menuPortalStyles,
     } = this.props;
@@ -500,7 +502,9 @@ class DatePicker extends Component<
 
     return (
       <div
-        role="tooltip"
+        role="dialog"
+        aria-modal="true"
+        aria-label={ariaLabel}
         ref={this.setPopperElement}
         className="DatePickerContainer"
         style={{

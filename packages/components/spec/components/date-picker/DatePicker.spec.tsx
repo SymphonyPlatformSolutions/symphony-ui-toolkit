@@ -360,7 +360,7 @@ describe('DatePicker Component', () => {
     fireEvent.keyDown(input, { key: Keys.ENTER });
     fireEvent.keyDown(input, { key: 'a' }); // type something that trigger nothing
 
-    const calendar = screen.getByRole('tooltip');
+    const calendar = screen.getByRole('dialog');
     expect(calendar).toBeTruthy();
   });
 
