@@ -69,6 +69,7 @@ export const Input = (props: any) => {
     onDrag={props?.selectProps?.onDrag}
     onKeyUp={props?.selectProps?.onKeyUp}
     isHidden={inputAlwaysDisplayed ? !inputAlwaysDisplayed : false}
+    type="search"
   />;
 }
 export const SingleValue = ({ children, data, selectProps, ...props }: any) => {
