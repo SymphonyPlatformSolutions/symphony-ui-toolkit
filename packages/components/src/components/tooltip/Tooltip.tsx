@@ -1,4 +1,3 @@
-import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import { clsx } from 'clsx';
 import {
@@ -44,19 +43,19 @@ export interface TooltipProps extends Omit<React.HTMLProps<HTMLDivElement>, 'as'
 }
 
 export const Tooltip: React.FC<TooltipProps> = ({
+  className,
   children,
   closeLabel,
   description,
   displayTrigger,
   id,
-  onHintClose,
-  placement,
-  type,
-  visible,
-  className,
-  wrapperClassName,
   hoverDelay = 0,
   hoverTimeout = 100,
+  onHintClose,
+  placement,
+  type = 'hint',
+  visible,
+  wrapperClassName,
   ...otherProps
 }) => {
   const arrowRef = React.useRef(null);
@@ -153,24 +152,4 @@ export const Tooltip: React.FC<TooltipProps> = ({
     </div>
     }
   </>
-};
-
-Tooltip.defaultProps = {
-  type: 'hint',
-};
-
-Tooltip.propTypes = {
-  className: PropTypes.string,
-  children: PropTypes.any,
-  closeLabel: PropTypes.string,
-  description: PropTypes.oneOfType([PropTypes.string, PropTypes.element]).isRequired,
-  displayTrigger: PropTypes.oneOf(['click', 'hover']),
-  hoverDelay: PropTypes.number,
-  hoverTimeout: PropTypes.number,
-  id: PropTypes.string,
-  onHintClose: PropTypes.func,
-  placement: PropTypes.oneOf(['top', 'bottom', 'left', 'right']),
-  type: PropTypes.oneOf(['hint', 'tooltip']),
-  visible: PropTypes.bool,
-  wrapperClassName: PropTypes.string,
 };
