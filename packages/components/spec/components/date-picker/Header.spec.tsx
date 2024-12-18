@@ -42,6 +42,8 @@ describe('Header Component', () => {
       months: ['J', 'F', 'M', 'A'],
       parentRef: createRef(),
       onChange: jest.fn(),
+      onVisible: jest.fn(),
+      onClose: jest.fn(),
       ...props,
     };
   }
@@ -121,5 +123,47 @@ describe('Header Component', () => {
     wrapper.find('.tk-daypicker-header--prevMonth').simulate('click');
     wrapper.find('.tk-daypicker-header--nextMonth').simulate('click');
     expect(props.onChange).toHaveBeenCalledTimes(4);
+  });
+
+  it('should trigger onVisible when focusing to the button', () => {
+    const divEle = document.createElement('div');
+    divEle.classList.add('focus-visible');
+    const props = createTestProps({});
+    const wrapper = shallow(<Header {...props} />);
+    wrapper.find('.tk-daypicker-header--prevYear').simulate('focus', {
+      nativeEvent: {
+        type: 'focus',
+      },
+      target: divEle
+    });
+    expect(props.onVisible).toHaveBeenCalledTimes(1);
+  });
+
+  it('should focus by programmatically  If the event target has not focus-visible', () => {
+    const divEle = document.createElement('div');
+    const props = createTestProps({});
+    const wrapper = shallow(<Header {...props} />);
+    wrapper.find('.tk-daypicker-header--prevYear').simulate('focus', {
+      nativeEvent: {
+        type: 'focus',
+      },
+      target: divEle
+    });
+    expect(props.onVisible).not.toBeCalled();
+  });
+
+  it('should trigger onClose when losing the focus', () => {
+    const divEle = document.createElement('div');
+    divEle.classList.add('focus-visible');
+    const props = createTestProps({});
+    const wrapper = shallow(<Header {...props} />);
+    wrapper.find('.tk-daypicker-header--prevYear').simulate('focus', {
+      nativeEvent: {
+        type: 'focus',
+      },
+      target: divEle
+    });
+    wrapper.find('.tk-daypicker-header--prevYear').simulate('blur');
+    expect(props.onClose).toHaveBeenCalledTimes(1);
   });
 });

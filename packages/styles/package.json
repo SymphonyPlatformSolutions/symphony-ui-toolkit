@@ -1,6 +1,6 @@
 {
   "name": "@symphony-ui/uitoolkit-styles",
-  "version": "4.1.1",
+  "version": "4.4.0",
   "description": "Symphony UI design system",
   "publishConfig": {
     "registry": "https://registry.npmjs.org"
@@ -39,7 +39,7 @@
     "fantasticon": "^1.2.2",
     "husky": "^8.0.3",
     "markdown-loader": "^6.0.0",
-    "postcss": "^8.2.13",
+    "postcss": "^8.4.32",
     "postcss-cli": "^8.3.0",
     "postcss-loader": "^7.3.3",
     "sass": "^1.26.11",

@@ -1,8 +1,11 @@
 import { FunctionComponent } from 'react';
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
+import { clsx } from 'clsx';
+import { TkIcon } from '@symphony-ui/uitoolkit-styles/dist/fonts/tk-icons';
 
 import FontIcon from '../../icon/FontIcon';
+import { Tooltip } from '../../tooltip';
 import { addMonths, addYears } from 'date-fns';
 
 import { Keys, cancelEvent } from '../../common/eventUtils';
@@ -15,16 +18,46 @@ type HeaderProps = {
   labels: HeaderLabel;
   months: Array<string>;
   onChange?: (event) => any;
+  onVisible?: (value) => any;
+  onClose?: () => any;
   parentRef?: any;
-}
+  showTooltip?: boolean;
+  currentID?: string
+};
 
-const Header: FunctionComponent<HeaderProps> = ({ date, dir, labels, months, onChange, parentRef }) => {
+const Header: FunctionComponent<HeaderProps> = ({
+  date,
+  dir,
+  labels,
+  months,
+  onChange,
+  onVisible,
+  onClose,
+  parentRef,
+  showTooltip,
+  currentID,
+}) => {
   const changeYear = (amount: number) => {
     onChange(addYears(date, amount));
   };
 
   const changeMonth = (amount: number) => {
     onChange(addMonths(date, amount));
+  };
+
+  const handleOpen = (event: React.ChangeEvent<any>, id: string) => {
+    if (
+      event.nativeEvent.type === 'focus' &&
+      !(event.target as Element).classList.contains('focus-visible')
+    ) {
+      // If the event target has not focus-visible then it is a focus by programmatically
+      return;
+    }
+    onVisible(id);
+  };
+
+  const handleClose = () => {
+    onClose();
   };
 
   /**
@@ -53,6 +86,34 @@ const Header: FunctionComponent<HeaderProps> = ({ date, dir, labels, months, onC
     }
   };
 
+  const tooltipButton = (buttonID: string, label: string, className: string, iconName: TkIcon, onChangeNumber: number, isYearButton: boolean) => {
+    return (
+      <Tooltip
+        id={buttonID}
+        description={label}
+        visible={showTooltip && currentID === buttonID}
+        type="tooltip"
+        placement="top"
+        className={buttonID === 'PREVIOUS_YEAR' ? 'tk-daypicker-header--cusTomTooltip' : ''}
+      >
+        <button
+          aria-label={label}
+          className={clsx(className, 'tk-daypicker-header--button')}
+          onClick={() => isYearButton ? changeYear(onChangeNumber) : changeMonth(onChangeNumber)}
+          onMouseEnter={(e) => handleOpen(e, buttonID)}
+          onFocus={(e) => handleOpen(e, buttonID)}
+          onMouseLeave={() => handleClose()}
+          onBlur={() => handleClose()}
+          onKeyDown={buttonID === 'PREVIOUS_YEAR' && ajustLoopNavigation}
+        >
+          <FontIcon
+            iconName={iconName}
+          ></FontIcon>
+        </button>
+      </Tooltip>
+    )
+  }
+
   const textHeader = `${months[date.getMonth()]} ${date.getFullYear()}`;
   return (
     <div
@@ -61,42 +122,13 @@ const Header: FunctionComponent<HeaderProps> = ({ date, dir, labels, months, onC
       style={{ direction: dir }}
     >
       <div>
-        <button
-          aria-label={labels.previousYear}
-          className="tk-daypicker-header--prevYear"
-          onClick={() => changeYear(-1)}
-          onKeyDown={ajustLoopNavigation}
-        >
-          <FontIcon
-            iconName={dir === 'rtl' ? 'chevron-right' : 'chevron-left'}
-          ></FontIcon>
-        </button>
-        <button
-          aria-label={labels.previousMonth}
-          className="tk-daypicker-header--prevMonth"
-          onClick={() => changeMonth(-1)}
-        >
-          <FontIcon iconName={dir === 'rtl' ? 'right' : 'left'}></FontIcon>
-        </button>
+        {tooltipButton('PREVIOUS_YEAR', labels.previousYear, 'tk-daypicker-header--prevYear', dir === 'rtl' ? 'chevron-right' : 'chevron-left', -1, true)}
+        {tooltipButton('PREVIOUS_MONTH', labels.previousMonth, 'tk-daypicker-header--prevMonth', dir === 'rtl' ? 'right' : 'left', -1, false)}
       </div>
       <div className="tk-daypicker-header--text">{textHeader}</div>
       <div>
-        <button
-          aria-label={labels.nextMonth}
-          className="tk-daypicker-header--nextMonth"
-          onClick={() => changeMonth(1)}
-        >
-          <FontIcon iconName={dir === 'rtl' ? 'left' : 'right'}></FontIcon>
-        </button>
-        <button
-          aria-label={labels.nextYear}
-          className="tk-daypicker-header--nextYear"
-          onClick={() => changeYear(1)}
-        >
-          <FontIcon
-            iconName={dir === 'rtl' ? 'chevron-left' : 'chevron-right'}
-          ></FontIcon>
-        </button>
+        {tooltipButton('NEXT_MONTH', labels.nextMonth, 'tk-daypicker-header--nextMonth', dir === 'rtl' ? 'left' : 'right', 1, false)}
+        {tooltipButton('NEXT_YEAR', labels.nextYear, 'tk-daypicker-header--nextYear', dir === 'rtl' ? 'chevron-left' : 'chevron-right', 1, true)}
       </div>
     </div>
   );

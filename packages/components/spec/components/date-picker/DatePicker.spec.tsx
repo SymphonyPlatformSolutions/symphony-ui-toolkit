@@ -9,11 +9,7 @@ import Icon from '../../../src/components/icon/FontIcon';
 
 import * as eventUtils from '../../../src/components/common/eventUtils';
 
-import {
-  render,
-  screen,
-  fireEvent,
-} from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 
 import { Keys } from '../../../src/components/common/eventUtils';
 
@@ -49,6 +45,8 @@ describe('DatePicker Component', () => {
       onBlur: jest.fn(),
       onChange: jest.fn(),
       onValidationChanged: jest.fn(),
+      onCalendarOpen: jest.fn(),
+      onCalendarClose: jest.fn(),
       ...props,
     };
   }
@@ -88,6 +86,35 @@ describe('DatePicker Component', () => {
     expect(spy).toHaveBeenCalledTimes(0);
     wrapper.setProps({ locale: 'ja' });
     expect(spy).toHaveBeenCalled();
+  });
+  it('Should update date when it changes to a valid value and changes date props value', () => {
+    const props = createTestProps({ shouldResetInvalidDate: true });
+    const wrapper = shallow(<DatePicker {...props} />);
+    wrapper
+      .find(TextField)
+      .simulate('change', { target: { value: '10-02-2024' } });
+    expect(wrapper.state('inputValue')).toBe('10-02-2024');
+    wrapper.setProps({ date: new Date('10-02-2024') });
+    wrapper.setState({ showPicker: false });
+    wrapper.update();
+    // The value will keep the current value
+    expect(wrapper.state('inputValue')).toBe('10-02-2024');
+  });
+  it('Should not update date when it changes to an invalid value and not changes date props value', () => {
+    const props = createTestProps({ shouldResetInvalidDate: true, date: new Date('01-01-2024') });
+    const wrapper = shallow(<DatePicker {...props} />);
+    wrapper.find(TextField).simulate('change', { target: { value: 'ab' } });
+    expect(wrapper.state('inputValue')).toBe('ab');
+    wrapper.setState({ showPicker: false });
+    wrapper.update();
+    // The value will be reset to previous value
+    expect(wrapper.state('inputValue')).toBe('01-01-2024');
+  });
+  it('should show picker when the date changed', () => {
+    const props = createTestProps({ shouldResetInvalidDate: true });
+    const wrapper = shallow(<DatePicker {...props} />);
+    wrapper.find(TextField).simulate('change', { target: { value: '12-ab' } });
+    expect(wrapper.state('showPicker')).toBe(true);
   });
   it('should not pass date if part of disabled date', () => {
     const props = createTestProps({
@@ -174,6 +201,27 @@ describe('DatePicker Component', () => {
       expect(props.onValidationChanged).toHaveBeenCalledWith({
         maxDate: 'Date too far in the future',
       });
+    });
+  });
+  describe('should trigger onCalendarOpen', () => {
+    it('when opening the date picker', () => {
+      const props = createTestProps({});
+      const wrapper = shallow(<DatePicker {...props} />);
+      wrapper.setState({ showPicker: true });
+      wrapper.update();
+      expect(props.onCalendarOpen).toHaveBeenCalledTimes(1);
+    });
+  });
+  describe('should trigger onCalendarClose', () => {
+    it('when closing the date picker', () => {
+      const props = createTestProps({});
+      const wrapper = shallow(<DatePicker {...props} />);
+      wrapper
+        .find(TextField)
+        .simulate('change', { target: { value: '10-02-2024' } });
+      wrapper.setState({ showPicker: false });
+      wrapper.update();
+      expect(props.onCalendarClose).toHaveBeenCalledTimes(1);
     });
   });
   describe('should change focus', () => {
@@ -291,7 +339,7 @@ describe('DatePicker Component', () => {
 
       const focusedCell = screen.getByText('1');
       expect(document.activeElement).toEqual(focusedCell);
-      
+
       fireEvent.keyDown(icon, { key: '1' }); // type something that trigger nothing
       expect(document.activeElement).toEqual(focusedCell);
     });
@@ -303,46 +351,63 @@ describe('DatePicker Component', () => {
 
       const focusedCell = screen.getByText(`${props.date.getDate()}`);
       expect(document.activeElement).toEqual(focusedCell);
-
     });
   });
   it('should handle Enter and default keydown', async () => {
-    const props = createTestProps({ });
+    const props = createTestProps({});
     render(<DatePicker {...props} />);
     const input = screen.getByRole('textbox');
     fireEvent.keyDown(input, { key: Keys.ENTER });
     fireEvent.keyDown(input, { key: 'a' }); // type something that trigger nothing
 
-    const calendar = screen.getByRole('tooltip');
+    const calendar = screen.getByRole('dialog');
     expect(calendar).toBeTruthy();
   });
 
   it('should handle a value null event', () => {
-    const props = createTestProps({ });
+    const props = createTestProps({});
     render(<DatePicker {...props} />);
     const input = screen.getByRole('textbox');
-    fireEvent.change(input, { target: { value:  null } })
-    expect(props.onChange).toHaveBeenCalledWith({ target: { value:  null }});
+    fireEvent.change(input, { target: { value: null } });
+    expect(props.onChange).toHaveBeenCalledWith({ target: { value: null } });
   });
   it('should call onBlur when click outside', () => {
-    const props = createTestProps({ showOverlay: true, date: new Date(2020, 0, 1) });
-    render(<><div>outside</div><DatePicker {...props} /></>);
+    const props = createTestProps({
+      showOverlay: true,
+      date: new Date(2020, 0, 1),
+    });
+    render(
+      <>
+        <div>outside</div>
+        <DatePicker {...props} />
+      </>
+    );
     expect(props.onBlur).toHaveBeenCalledTimes(0);
-    fireEvent.mouseDown(screen.getByText('outside'))
+    fireEvent.mouseDown(screen.getByText('outside'));
     expect(props.onBlur).toHaveBeenCalledTimes(1);
   });
 
   it('should ignore showOverlay when menuPortalTarget', () => {
-    const props = createTestProps({ showOverlay: true, menuPortalTarget: document.body });
+    const props = createTestProps({
+      showOverlay: true,
+      menuPortalTarget: document.body,
+    });
     const { container } = render(<DatePicker {...props} />);
     expect(container.querySelector('.DatePickerContainer')).toEqual(null);
   });
 
   it('should attach block scroll event listener to scroll parent', async () => {
-    const wrapper = mount(<div className="scroll"><DatePicker menuShouldBlockScroll={true}/></div>);
-    jest.spyOn(eventUtils, 'getScrollParent').mockReturnValue(wrapper.find('.scroll').getDOMNode());  // spy on getScrollParent
+    const wrapper = mount(
+      <div className="scroll">
+        <DatePicker menuShouldBlockScroll={true} />
+      </div>
+    );
+    jest
+      .spyOn(eventUtils, 'getScrollParent')
+      .mockReturnValue(wrapper.find('.scroll').getDOMNode()); // spy on getScrollParent
 
-    await act(async () => { // mount
+    await act(async () => {
+      // mount
       wrapper.find('.tk-input').simulate('keyDown', {
         key: Keys.ENTER,
         preventDefault: jest.fn(),
@@ -351,7 +416,8 @@ describe('DatePicker Component', () => {
     });
     wrapper.update();
 
-    await act(async () => { // unmount
+    await act(async () => {
+      // unmount
       wrapper.find('.tk-input').simulate('keyDown', {
         key: Keys.ESC,
         preventDefault: jest.fn(),
@@ -359,6 +425,6 @@ describe('DatePicker Component', () => {
       });
     });
 
-    wrapper.unmount(); 
+    wrapper.unmount();
   });
 });
