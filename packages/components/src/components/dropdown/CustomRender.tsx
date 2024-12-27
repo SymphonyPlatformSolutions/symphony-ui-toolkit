@@ -64,6 +64,7 @@ export const Input = (props: any) => {
   const inputAlwaysDisplayed = props?.selectProps?.inputAlwaysDisplayed;
   return <components.Input
     {...props}
+    required={props?.selectProps?.required}
     onCopy={props?.selectProps?.onCopy}
     onCut={props?.selectProps?.onCut}
     onDrag={props?.selectProps?.onDrag}
