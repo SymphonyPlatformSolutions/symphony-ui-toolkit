@@ -28,7 +28,7 @@ export const ModalTitle: React.FC<ModalContentProps> = ({
   className,
   children,
   ...rest
-}: ModalContentProps) => <div className={clsx(buildClass('title'), className)} {...rest}>{children}</div>;
+}: ModalContentProps) => <h2 className={clsx(buildClass('title'), className)} {...rest}>{children}</h2>;
 
 export const ModalHeader: React.FC<ModalContentProps> = ({
   className,
