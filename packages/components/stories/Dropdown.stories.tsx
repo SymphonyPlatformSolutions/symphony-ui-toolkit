@@ -169,6 +169,12 @@ export const Variants: Story = {
   </>
 };
 
+export const Required: Story = {
+  render: () => <>
+    <Dropdown options={defaultOptions} label="Field label"  required={true} showRequired={true} />
+  </>
+};
+
 export const Sizes: Story = {
   render: () => <>
     <h4>Small</h4>
