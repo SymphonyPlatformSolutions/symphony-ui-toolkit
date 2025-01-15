@@ -70,6 +70,7 @@ export const Input = (props: any) => {
     onDrag={props?.selectProps?.onDrag}
     onKeyUp={props?.selectProps?.onKeyUp}
     isHidden={inputAlwaysDisplayed ? !inputAlwaysDisplayed : false}
+    aria-label={props?.selectProps?.label}
     type="search"
   />;
 }

@@ -263,6 +263,7 @@ export class Dropdown<T = LabelValue> extends React.Component<
           }}
           defaultValue={defaultValue}
           id={id}
+          label={label}
           name={name}
           className={clsx(prefix, { [`${prefix}--${variant}`]: variant }, { [`${prefix}--${size}`]: size })}
           closeMenuOnSelect={closeMenuOnSelect}
