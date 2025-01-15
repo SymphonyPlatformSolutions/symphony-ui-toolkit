@@ -134,7 +134,7 @@ export const DropdownIndicator = (props: any) => {
 
 export const ClearIndicator = (props: any) =>
   <components.ClearIndicator {...props}>
-    <Icon className="tk-select__close-icon" iconName="cross-round" onKeyPress={props.clearValue} tabIndex={0} role="button" />
+    <Icon className="tk-select__close-icon" iconName="cross-round" onKeyPress={props.clearValue} tabIndex={0} role="button" aria-label="clear" />
   </components.ClearIndicator>;
 
 export const Control = ({ children, selectProps, ...props }: any) => {
