@@ -172,5 +172,9 @@
     "zoom-meeting": 61864,
     "person-add": 61865,
     "food-and-drink": 61866,
-    "call-hang-up": 61867
+    "call-hang-up": 61867,
+    "symphony-analytics": 61868,
+    "symphony-directory": 61869,
+    "symphony-messaging": 61870,
+    "symphony-voice": 61871
 }
