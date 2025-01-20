@@ -10,7 +10,7 @@ const SvgSymphonyMessaging = (props: SVGProps<SVGSVGElement>) => (
     xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
-    <path d="M5 14h6.484L15 8l-3.516-6H5m2 6H0m9-3H2m7 6H2" stroke="currentColor" strokeWidth="1.6"/>
+    <path d="M 5 13.2 L 11.026 13.2 L 14.073 8 L 11.026 2.8 L 5 2.8 L 5 1.2 L 11.942 1.2 L 15.927 8 L 11.942 14.8 L 5 14.8 Z M 7 8.8 L 0 8.8 L 0 7.2 L 7 7.2 Z M 9 5.8 L 2 5.8 L 2 4.2 L 9 4.2 Z M 9 11.8 L 2 11.8 L 2 10.2 L 9 10.2 Z" fill="currentColor" />
   </svg>
 );
 export default SvgSymphonyMessaging;
