@@ -331,13 +331,14 @@ describe('DatePicker Component', () => {
     expect(props.onChange).toHaveBeenCalledTimes(1);
   });
   describe('should handle TAB event against the icon', () => {
-    it('on first day of the month if the value is null', async () => {
+    it('on current day of the month if the value is null', async () => {
+      const currentDate = new Date().getDate();
       const props = createTestProps({ showOverlay: true, date: null });
       render(<DatePicker {...props} />);
       const icon = document.querySelector('.tk-icon-calendar');
       fireEvent.keyDown(icon, { key: Keys.TAB });
 
-      const focusedCell = screen.getByText('1');
+      const focusedCell = screen.getByText(`${currentDate}`);
       expect(document.activeElement).toEqual(focusedCell);
 
       fireEvent.keyDown(icon, { key: '1' }); // type something that trigger nothing

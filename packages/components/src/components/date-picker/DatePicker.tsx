@@ -53,6 +53,8 @@ type DatePickerComponentProps = {
   onCalendarOpen?: (datePickerID: string) => void;
   /** Handle calendar close event */
   onCalendarClose?: (datePickerID: string) => void;
+  clearData?: boolean;
+  datePickerID?: string;
   placeholder?: string;
   locale?: string;
   placement?: 'top' | 'bottom' | 'right' | 'left';
@@ -190,10 +192,10 @@ class DatePicker extends Component<
   componentDidUpdate(prevProps, prevState) {
     if (this.state.showPicker && !prevState.showPicker) {
       this.mountDayPickerInstance();
-      this.props.onCalendarOpen && this.props.onCalendarOpen(this.props.id);
+      this.props.onCalendarOpen && this.props.onCalendarOpen(this.props.datePickerID);
     } else if (!this.state.showPicker && prevState.showPicker) {
       this.unmountDayPickerInstance();
-      this.props.onCalendarClose && this.props.onCalendarClose(this.props.id);
+      this.props.onCalendarClose && this.props.onCalendarClose(this.props.datePickerID);
       if(this.props.shouldResetInvalidDate) {
         const validDate = this.props.date && this.props.date;
         this.setState({
@@ -219,6 +221,11 @@ class DatePicker extends Component<
             locale: getLocale,
           })
           : null,
+      });
+    }
+    if (this.props.clearData !== prevProps.clearData && this.props.clearData) {
+      this.setState({
+        inputValue: null,
       });
     }
   }
@@ -445,7 +452,7 @@ class DatePicker extends Component<
       break;
     case Keys.ESC:
       cancelEvent(e);
-      this.handleOnClose();
+      this.handleOnEscAction(e);
       break;
     default:
       break;
@@ -484,6 +491,16 @@ class DatePicker extends Component<
     }
   }
 
+  private handleOnEscAction(e) {
+    const { showPicker } = this.state;
+    if (showPicker) {
+      this.handleOnClose();
+    } else {
+      const element = (e.target as HTMLElement).parentNode;
+      element?.dispatchEvent(new KeyboardEvent(e.type, e));
+    }
+  }
+
   renderCalendar() {
     const {
       date,
@@ -494,6 +511,7 @@ class DatePicker extends Component<
       labels,
       todayButton,
       ariaLabel,
+      datePickerID,
       menuPortalTarget,
       menuPortalStyles,
     } = this.props;
@@ -523,6 +541,7 @@ class DatePicker extends Component<
           month={navigationDate}
           todayButton={todayButton}
           labels={labels}
+          datePickerID={datePickerID}
           onDayClick={this.handleDayClick}
           onClose={this.handleOnClose}
         />
