@@ -221,6 +221,12 @@ class DatePicker extends Component<
           : null,
       });
     }
+    // update dynamically if date change
+    if (this.props.date !== prevProps.date && !this.props.date) {
+      this.setState({
+        inputValue: null,
+      });
+    }
   }
 
   /**
@@ -444,8 +450,10 @@ class DatePicker extends Component<
       this.handleClickIcon();
       break;
     case Keys.ESC:
-      cancelEvent(e);
-      this.handleOnClose();
+      if (showPicker) {
+        cancelEvent(e);
+        this.handleOnClose();
+      }
       break;
     default:
       break;
@@ -523,6 +531,7 @@ class DatePicker extends Component<
           month={navigationDate}
           todayButton={todayButton}
           labels={labels}
+          dataTestId={`${this.props.id}_DAYPICKER`}
           onDayClick={this.handleDayClick}
           onClose={this.handleOnClose}
         />

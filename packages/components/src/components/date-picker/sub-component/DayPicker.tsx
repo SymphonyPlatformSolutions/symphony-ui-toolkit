@@ -53,6 +53,7 @@ type DayPickerComponentProps = {
   month?: Date;
   selectedDays?: Date;
   todayButton?: string;
+  dataTestId?: string;
   onClose?: () => any;
   onDayClick?: (date: Date, modifiers) => any;
 };
@@ -384,17 +385,13 @@ class DayPicker extends React.Component<
             ? isSelected
               ? 0
               : -1
-            : cell === 0
+            : isToday
               ? 0
-              : -1; // focus on selected day otherwise first cell
+              : -1; // focus on selected day otherwise current day
 
           return (
-            <div
+            <button
               key={cellName}
-              aria-label={cellName}
-              aria-selected={ariaSelected}
-              tabIndex={isTabIndex}
-              role="gridcell"
               className={clsx(
                 'tk-daypicker-day',
                 {
@@ -408,6 +405,11 @@ class DayPicker extends React.Component<
                 },
                 { 'tk-daypicker-day--disabled': isDisabled }
               )}
+              role="gridcell"
+              type="button"
+              aria-label={cellName}
+              aria-selected={ariaSelected}
+              tabIndex={isTabIndex}
               onKeyDown={(e) =>
                 this.handleKeyDownCell(e, cellDate, {
                   disabled: isDisabled,
@@ -422,7 +424,7 @@ class DayPicker extends React.Component<
               }
             >
               {cellNumber}
-            </div>
+            </button>
           );
         })}
         {this.renderOutsideDay(daysNeededForNextMonth)}
@@ -439,6 +441,7 @@ class DayPicker extends React.Component<
           className="tk-daypicker-today"
           tabIndex={0}
           aria-label={todayButton}
+          role="button"
           onClick={() => onDayClick(today, {})}
           onKeyDown={this.handleKeyDownFooter}
         >
@@ -449,13 +452,14 @@ class DayPicker extends React.Component<
   }
 
   render() {
-    const { dir, labels, locale } = this.props;
+    const { dir, labels, locale, dataTestId } = this.props;
     const { currentMonth, showTooltip, currentID } = this.state;
 
     const now = new Date();
     return (
       <div
         className="tk-daypicker"
+        data-testid={dataTestId}
         ref={(el) => (this.dayPicker = el)}
         onKeyDown={this.handleKeyDownContainer}
       >
