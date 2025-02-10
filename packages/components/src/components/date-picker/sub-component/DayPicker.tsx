@@ -13,6 +13,12 @@ import Header from './Header';
 import { Keys, cancelEvent } from '../../common/eventUtils';
 
 import {
+  DAYS_ENABLED_SELECTOR,
+  DAYS_SELECTOR,
+  DAYS_VISIBLE_SELECTOR
+} from '../utils/dateConstants';
+
+import {
   formatDay,
   getBoundedDay,
   getMonths,
@@ -64,10 +70,6 @@ type DayPickerComponentState = {
   showTooltip: boolean;
   currentID: string;
 };
-
-const DAYS_SELECTOR = '.tk-daypicker-day--outside, .tk-daypicker-day';
-const DAYS_VISIBLE_SELECTOR = '.tk-daypicker-day';
-const DAYS_ENABLED_SELECTOR = '.tk-daypicker-day:not(.tk-daypicker-day--disabled)';
 
 class DayPicker extends React.Component<
   DayPickerComponentProps,
