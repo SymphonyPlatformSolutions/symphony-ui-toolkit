@@ -28,6 +28,15 @@ yarn
 yarn start
 ```
 
+## 🔗 Synchronize StoryBook with real-time style changes
+
+In another terminal, run:
+
+```
+cd ../styles
+yarn run watch
+```
+
 ## 🧪 Tests and coverage
 
 ```
