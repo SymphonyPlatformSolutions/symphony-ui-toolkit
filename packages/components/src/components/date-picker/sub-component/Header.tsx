@@ -93,7 +93,8 @@ const Header: FunctionComponent<HeaderProps> = ({
         description={label}
         visible={showTooltip && currentID === buttonID}
         type="tooltip"
-        placement={buttonID === 'PREVIOUS_YEAR' || buttonID === 'PREVIOUS_MONTH' ? 'top-start' : 'top'}
+        placement="top"
+        className={buttonID === 'PREVIOUS_YEAR' ? 'tk-daypicker-header--cusTomTooltip' : ''}
       >
         <button
           aria-label={label}

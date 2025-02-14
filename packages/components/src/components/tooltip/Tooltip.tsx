@@ -34,7 +34,7 @@ export interface TooltipProps extends Omit<React.HTMLProps<HTMLDivElement>, 'as'
   hoverTimeout?: number;
   /** Function to call when clicking on closeLabel */
   onHintClose?: () => void;
-  placement: 'top' | 'bottom' | 'left' | 'right' | 'top-start';
+  placement: 'top' | 'bottom' | 'left' | 'right';
   type?: 'hint' | 'tooltip';
   /** if true, the tooltip should be displayed */
   visible?: boolean;
