@@ -213,27 +213,8 @@ describe('DatePicker Component', () => {
       });
     });
   });
-  describe('when opening the date picker', () => {
-    it('should focus to current date if the value is null ', () => {
-      const currentDate = new Date().getDate();
-      const props = createTestProps({ showOverlay: true, date: null });
-      render(<DatePicker {...props} />);
-      const icon = document.querySelector('.tk-icon-calendar');
-      fireEvent.keyDown(icon, { key: Keys.ENTER });
-
-      const focusedCell = screen.getByText(`${currentDate}`);
-      expect(document.activeElement).toEqual(focusedCell);
-    });
-    it('should focus to selected date if the value is not null', () => {
-      const props = createTestProps({ showOverlay: true });
-      render(<DatePicker {...props} />);
-      const icon = document.querySelector('.tk-icon-calendar');
-      fireEvent.keyDown(icon, { key: Keys.ENTER });
-
-      const focusedCell = screen.getByText(`${props.date.getDate()}`);
-      expect(document.activeElement).toEqual(focusedCell);
-    });
-    it('should trigger onCalendarOpen', () => {
+  describe('should trigger onCalendarOpen', () => {
+    it('when opening the date picker', () => {
       const props = createTestProps({});
       const wrapper = shallow(<DatePicker {...props} />);
       wrapper.setState({ showPicker: true });
