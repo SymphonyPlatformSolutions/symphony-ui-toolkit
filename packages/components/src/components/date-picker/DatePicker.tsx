@@ -20,8 +20,6 @@ import { cancelEvent, EventListener, getScrollParent, Keys } from '../common/eve
 
 import { modifierPropTypes } from './utils/propTypesUtils';
 
-import { DAYS_VISIBLE_SELECTOR } from './utils/dateConstants';
-
 import { autocompleteDate } from './utils/dateUtils';
 
 import { format as formatDate, isValid } from 'date-fns';
@@ -192,7 +190,6 @@ class DatePicker extends Component<
   componentDidUpdate(prevProps, prevState) {
     if (this.state.showPicker && !prevState.showPicker) {
       this.mountDayPickerInstance();
-      this.handleFocusToSelectedDate();
       this.props.onCalendarOpen && this.props.onCalendarOpen(this.props.id);
     } else if (!this.state.showPicker && prevState.showPicker) {
       this.unmountDayPickerInstance();
@@ -200,7 +197,7 @@ class DatePicker extends Component<
       if(this.props.shouldResetInvalidDate) {
         const validDate = this.props.date && this.props.date;
         this.setState({
-          navigationDate: validDate || new Date(),
+          navigationDate: validDate,
           inputValue: this.computeDate(validDate)
             ? formatDate(validDate, this.props.format, {
               locale: this.state.locale,
@@ -222,13 +219,6 @@ class DatePicker extends Component<
             locale: getLocale,
           })
           : null,
-      });
-    }
-    // update dynamically if date change
-    if (this.props.date !== prevProps.date && !this.props.date) {
-      this.setState({
-        navigationDate: new Date(),
-        inputValue: null,
       });
     }
   }
@@ -374,16 +364,6 @@ class DatePicker extends Component<
     }
   }
 
-  private handleFocusToSelectedDate() {
-    const selectedDate = this.state.navigationDate.getDate();
-    if (this.refPicker && this.refPicker.dayPicker) {
-      const dayNodes = this.refPicker.dayPicker.querySelectorAll(
-        DAYS_VISIBLE_SELECTOR
-      );
-      dayNodes[selectedDate - 1].focus();
-    }
-  }
-
   private handleScrollParent(e) {
     if (this.state.showPicker) {
       cancelEvent(e);
@@ -464,10 +444,8 @@ class DatePicker extends Component<
       this.handleClickIcon();
       break;
     case Keys.ESC:
-      if (showPicker) {
-        cancelEvent(e);
-        this.handleOnClose();
-      }
+      cancelEvent(e);
+      this.handleOnClose();
       break;
     default:
       break;
@@ -545,7 +523,6 @@ class DatePicker extends Component<
           month={navigationDate}
           todayButton={todayButton}
           labels={labels}
-          dataTestId={`${this.props.id}_DAYPICKER`}
           onDayClick={this.handleDayClick}
           onClose={this.handleOnClose}
         />

@@ -43,6 +43,9 @@
       font-size: toRem(12);
       line-height: toRem(16);
     }
+    &--cusTomTooltip {
+      transform: translate(-15px, -15px) !important;
+    }
     &--button {
       &:focus-visible {
         @include outlineStyle;
@@ -80,23 +83,30 @@
     font-size: toRem(14);
 
     .tk-daypicker-day {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: $--tk-input-default-active-color;
       border: none;
       cursor: pointer;
       border-radius: toRem(2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
       font-weight: 400;
-      background: none;
       &:hover {
-        @include outlineStyle;
+        @include addBorder(toRem(2), $scolor-electricity);
+        box-sizing: border-box;
+        border-radius: toRem(2);
       }
-      &:focus, &:focus-within {
-        @include outlineStyle;
-      }
-      &:focus-visible {
-        @include outlineStyle;
+      &--today {
+        position: relative;
+        &::after {
+          font-size: toRem(10);
+          content: "";
+          position: absolute;
+          bottom: 0;
+          height: 0.45em;
+          width: 0.45em;
+          background-color: currentColor;
+          border-radius: 50%;
+        }
       }
       &--highlighted {
         color: $scolor-electricity;
@@ -111,29 +121,12 @@
         cursor: not-allowed;
         color: $--tk-input-default-inactive-color;
         text-decoration-line: line-through;
-        &:hover {
-          outline: none;
-        }
       }
       &--outside {
         visibility: hidden;
       }
-
-      &--today {
-        position: relative;
-        &::after {
-          font-size: toRem(10);
-          content: "";
-          position: absolute;
-          bottom: 0;
-          height: 0.45em;
-          width: 0.45em;
-          background-color: currentColor;
-          border-radius: 50%;
-        }
-      }
     }
-
+    
     .focus-visible {
       @include outlineStyle;
     }
