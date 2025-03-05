@@ -117,7 +117,6 @@ const Header: FunctionComponent<HeaderProps> = ({
   return (
     <div
       className="tk-daypicker-header"
-      role="heading"
       style={{ direction: dir }}
     >
       <div>
