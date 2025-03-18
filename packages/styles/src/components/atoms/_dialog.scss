@@ -68,19 +68,19 @@ $dialog-scrollbar-box-shadow: rgba($scolor-black, 0.5);
     padding: 0;
     position: absolute;
     right: 2rem;
-    top: 2rem;
     z-index: 200;
     height: toRem(24);
     width: toRem(24);
+
+    &:focus-visible {
+      outline-color: getColor($electricity, '40');
+    }
 
     &>svg {
       fill: var(--tk-dialog-cross-color, #7c7f86);
 
       &:hover {
         fill: var(--tk-dialog-hover-cross-color, #525760);
-      }
-      &:focus {
-        outline-color: getColor($electricity, '40');
       }
     }
   }
