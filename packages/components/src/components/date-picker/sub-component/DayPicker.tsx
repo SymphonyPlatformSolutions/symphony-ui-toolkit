@@ -348,13 +348,12 @@ class DayPicker extends React.Component<
   renderOutsideDay(days: number): JSX.Element[] {
     return toArray(days).map((cell) => {
       return (
-        <button
+        <div
           key={`day-outside-${cell}`}
           aria-selected="false"
           className="tk-daypicker-day--outside"
           tabIndex={-1}
           role="gridcell"
-          type="button"
         />
       );
     });
