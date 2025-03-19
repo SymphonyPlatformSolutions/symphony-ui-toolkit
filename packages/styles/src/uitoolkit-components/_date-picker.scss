@@ -79,6 +79,10 @@
       toRem(32) toRem(32) toRem(32);
     font-size: toRem(14);
 
+    .tk-daypicker-row {
+      display: contents;
+    }
+
     .tk-daypicker-day {
       display: flex;
       align-items: center;
@@ -114,9 +118,14 @@
         &:hover {
           outline: none;
         }
+        &:focus {
+          outline: none;
+        }
       }
       &--outside {
-        visibility: hidden;
+        border: none;
+        background: none;
+        pointer-events: none;
       }
 
       &--today {
