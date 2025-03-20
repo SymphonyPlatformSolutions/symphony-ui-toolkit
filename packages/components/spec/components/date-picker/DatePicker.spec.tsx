@@ -208,8 +208,7 @@ describe('DatePicker Component', () => {
       const currentDate = new Date().getDate();
       const props = createTestProps({ showOverlay: true, date: null });
       render(<DatePicker {...props} />);
-      const icon = document.querySelector('.tk-icon-calendar');
-      fireEvent.keyDown(icon, { key: Keys.ENTER });
+      fireEvent.click(screen.getByRole('textbox'));
 
       const focusedCell = screen.getByText(`${currentDate}`);
       expect(document.activeElement).toEqual(focusedCell);
@@ -217,11 +216,20 @@ describe('DatePicker Component', () => {
     it('should focus to selected date if the value is not null', () => {
       const props = createTestProps({ showOverlay: true });
       render(<DatePicker {...props} />);
-      const icon = document.querySelector('.tk-icon-calendar');
-      fireEvent.keyDown(icon, { key: Keys.ENTER });
+      fireEvent.click(screen.getByRole('textbox'));
 
       const focusedCell = screen.getByText(`${props.date.getDate()}`);
       expect(document.activeElement).toEqual(focusedCell);
+    });
+    it('should not break Date Picker if the date was deselected and reopen Date Picker', async () => {
+      const props = createTestProps({ showOverlay: true });
+      render(<DatePicker {...props} />);
+
+      // Deselected date
+      fireEvent.click(screen.getByRole('textbox'));
+      fireEvent.click(screen.getByText(`${props.date.getDate()}`));
+      fireEvent.click(screen.getByRole('textbox'));
+      expect(screen.getByRole('dialog')).toBeInTheDocument();
     });
     it('should trigger onCalendarOpen', () => {
       const props = createTestProps({});
