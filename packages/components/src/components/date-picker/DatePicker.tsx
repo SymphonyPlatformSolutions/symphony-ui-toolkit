@@ -368,12 +368,17 @@ class DatePicker extends Component<
   }
 
   private handleFocusToSelectedDate() {
-    const selectedDate = this.state.navigationDate.getDate();
+    const selectedDate = this.state.navigationDate ? this.state.navigationDate.getDate() : new Date().getDate();
     if (this.refPicker && this.refPicker.dayPicker) {
       const dayNodes = this.refPicker.dayPicker.querySelectorAll(
         DAYS_VISIBLE_SELECTOR
       );
-      dayNodes[selectedDate - 1].focus();
+      const dateNode = dayNodes[selectedDate - 1];
+      // Only focus to current date or selected date
+      // In case all the dates displayed on DatePicker do not have tab-index = 0 then do not focus on it
+      if (dateNode && dateNode.tabIndex === 0) {
+        dateNode.focus();
+      }
     }
   }
 
