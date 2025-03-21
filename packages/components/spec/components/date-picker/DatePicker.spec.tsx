@@ -221,7 +221,7 @@ describe('DatePicker Component', () => {
       const focusedCell = screen.getByText(`${props.date.getDate()}`);
       expect(document.activeElement).toEqual(focusedCell);
     });
-    it('should not break Date Picker if the date was deselected and reopen Date Picker', async () => {
+    it('should show Date Picker if the selected date was deselected and reopen Date Picker', async () => {
       const props = createTestProps({ showOverlay: true });
       render(<DatePicker {...props} />);
 
