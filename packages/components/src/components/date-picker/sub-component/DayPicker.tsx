@@ -176,10 +176,10 @@ class DayPicker extends React.Component<
     const action = isBefore(date, nextDate) ? 'next' : 'previous';
     if (delta !== 0) {
       this.setState({ currentMonth: nextDate }, () =>
-        this.focusOnlyEnabledCell(nextDate, action, getDaysInMonth(this.state.currentMonth), false)
+        this.focusOnlyEnabledCell(nextDate, action, null, false)
       );
     } else {
-      this.focusOnlyEnabledCell(nextDate, action, getDaysInMonth(this.state.currentMonth));
+      this.focusOnlyEnabledCell(nextDate, action, null);
     }
   }
 
@@ -308,41 +308,23 @@ class DayPicker extends React.Component<
   // Create WeekDayHeader
   renderSubHeader(weekdaysShort, weekdaysLong, dir) {
     return (
-      <div role="rowgroup"> 
-        <div
-          className="tk-daypicker-weekday"
-          role="row"
-          style={{ direction: dir }}
-        >
-          {weekdaysShort.map((day, index) => (
-            <div
-              className="tk-daypicker-weekday--text"
-              role="columnheader"
-              key={index}
-              title={weekdaysLong[index]}
-            >
-              {day}
-            </div>
-          ))}
-        </div>
+      <div
+        className="tk-daypicker-weekday"
+        role="row"
+        style={{ direction: dir }}
+      >
+        {weekdaysShort.map((day, index) => (
+          <div
+            className="tk-daypicker-weekday--text"
+            role="columnheader"
+            key={index}
+            title={weekdaysLong[index]}
+          >
+            {day}
+          </div>
+        ))}
       </div>
     );
-  }
-
-  renderRemainingRows(days: number[], daysNeededForNextMonth: number) {
-    const rowsArray: React.ReactElement[] = [];
-    for (let i = 0; i < days.length; i += 7) {
-      // Take once every 7 days.
-      const dayOfWeek = days.slice(i, i + 7);
-      const isLastRow = i + 7 > days.length;
-      rowsArray.push(
-        <div role="row" className="tk-daypicker-row">
-          {this.renderInsideDay(dayOfWeek)}
-          {isLastRow && this.renderOutsideDay(daysNeededForNextMonth)}
-        </div>
-      )
-    }
-    return rowsArray;
   }
 
   renderOutsideDay(days: number): JSX.Element[] {
@@ -353,83 +335,7 @@ class DayPicker extends React.Component<
           aria-selected="false"
           className="tk-daypicker-day--outside"
           tabIndex={-1}
-          role="gridcell"
         />
-      );
-    });
-  }
-
-  renderInsideDay(days: number[]): JSX.Element[] {
-    const {
-      locale,
-      selectedDays,
-      disabledDays,
-      highlightedDays,
-      onDayClick,
-    } = this.props;
-    const { today, currentMonth } = this.state;
-    const selectedDateString = selectedDays
-      ? lightFormat(selectedDays, 'yyyy-MM-dd')
-      : null;
-    const todayDateString = lightFormat(today, 'yyyy-MM-dd');
-
-    const isSelectedDayVisible =
-      selectedDays &&
-      differenceInCalendarMonths(selectedDays, currentMonth) === 0;
-
-    return days.map((cell) => {
-      const cellDate = setDate(currentMonth, cell);
-      const cellName = formatDay(cellDate, locale);
-
-      const itemDateString = lightFormat(cellDate, 'yyyy-MM-dd');
-      const isSelected = itemDateString === selectedDateString;
-      const isToday = itemDateString === todayDateString;
-      const isDisabled = matchDay(cellDate, disabledDays);
-      const isHighlighted = matchDay(cellDate, highlightedDays);
-      const ariaSelected = isDisabled ? undefined : isSelected;
-      const isTabIndex = isSelectedDayVisible
-        ? isSelected
-          ? 0
-          : -1
-        : isToday
-          ? 0
-          : -1; // focus on selected day otherwise current day
-      return (
-        <button
-          key={cellName}
-          className={clsx(
-            'tk-daypicker-day',
-            {
-              'tk-daypicker-day--selected': isSelected,
-            },
-            {
-              'tk-daypicker-day--today': isToday,
-            },
-            {
-              'tk-daypicker-day--highlighted': isHighlighted && !isDisabled,
-            },
-            { 'tk-daypicker-day--disabled': isDisabled }
-          )}
-          role="gridcell"
-          type="button"
-          aria-label={cellName}
-          aria-selected={ariaSelected}
-          tabIndex={isTabIndex}
-          onKeyDown={(e) =>
-            this.handleKeyDownCell(e, cellDate, {
-              disabled: isDisabled,
-              selected: isSelected,
-            })
-          }
-          onClick={() =>
-            onDayClick(cellDate, {
-              disabled: isDisabled,
-              selected: isSelected,
-            })
-          }
-        >
-          {cell}
-        </button>
       );
     });
   }
@@ -438,32 +344,92 @@ class DayPicker extends React.Component<
     const {
       dir,
       locale,
+      selectedDays,
+      disabledDays,
+      highlightedDays,
+      onDayClick,
     } = this.props;
-    const { currentMonth } = this.state;
+    const { today, currentMonth } = this.state;
     const daysInMonth = getDaysInMonth(currentMonth);
     const daysNeededForLastMonth = getDaysNeededForLastMonth(
       currentMonth,
       locale
     );
-    const nbOfDaysNeedForFirstRow = 7 - daysNeededForLastMonth;
-    const daysNeedForFirstRow = Array.from({ length: nbOfDaysNeedForFirstRow }, (_, i) => i + 1);
-    const nbOfRemainingDays = daysInMonth - nbOfDaysNeedForFirstRow;
-    const remainingDays =  Array.from({ length: nbOfRemainingDays }, (_, i) => i + 1 + nbOfDaysNeedForFirstRow);
     const daysNeededForNextMonth = getDaysNeededForNextMonth(
       currentMonth,
       locale
     );
 
-    return (
-      <div className="tk-daypicker-body" role="rowgroup" style={{ direction: dir }}>
-        {/* Render the first row */}
-        <div role="row" className="tk-daypicker-row">
-          {this.renderOutsideDay(daysNeededForLastMonth)}
-          {this.renderInsideDay(daysNeedForFirstRow)}
-        </div>
+    const selectedDateString = selectedDays
+      ? lightFormat(selectedDays, 'yyyy-MM-dd')
+      : null;
+    const todayDateString = lightFormat(today, 'yyyy-MM-dd');
 
-        {/* Render the remaining row */}
-        {this.renderRemainingRows(remainingDays, daysNeededForNextMonth)}
+    const isSelectedDayVisible =
+      selectedDays &&
+      differenceInCalendarMonths(selectedDays, currentMonth) === 0;
+    return (
+      <div className="tk-daypicker-body" role="grid" style={{ direction: dir }}>
+        {this.renderOutsideDay(daysNeededForLastMonth)}
+
+        {toArray(daysInMonth).map((cell) => {
+          const cellNumber = cell + 1;
+          const cellDate = setDate(currentMonth, cellNumber);
+          const cellName = formatDay(cellDate, locale);
+
+          const itemDateString = lightFormat(cellDate, 'yyyy-MM-dd');
+          const isSelected = itemDateString === selectedDateString;
+          const isToday = itemDateString === todayDateString;
+          const isDisabled = matchDay(cellDate, disabledDays);
+          const isHighlighted = matchDay(cellDate, highlightedDays);
+          const ariaSelected = isDisabled ? undefined : isSelected;
+          const isTabIndex = isSelectedDayVisible
+            ? isSelected
+              ? 0
+              : -1
+            : isToday
+              ? 0
+              : -1; // focus on selected day otherwise current day
+
+          return (
+            <button
+              key={cellName}
+              className={clsx(
+                'tk-daypicker-day',
+                {
+                  'tk-daypicker-day--selected': isSelected,
+                },
+                {
+                  'tk-daypicker-day--today': isToday,
+                },
+                {
+                  'tk-daypicker-day--highlighted': isHighlighted && !isDisabled,
+                },
+                { 'tk-daypicker-day--disabled': isDisabled }
+              )}
+              role="gridcell"
+              type="button"
+              aria-label={cellName}
+              aria-selected={ariaSelected}
+              tabIndex={isTabIndex}
+              onKeyDown={(e) =>
+                this.handleKeyDownCell(e, cellDate, {
+                  disabled: isDisabled,
+                  selected: isSelected,
+                })
+              }
+              onClick={() =>
+                onDayClick(cellDate, {
+                  disabled: isDisabled,
+                  selected: isSelected,
+                })
+              }
+            >
+              {cellNumber}
+            </button>
+          );
+        })}
+        {this.renderOutsideDay(daysNeededForNextMonth)}
       </div>
     );
   }
@@ -511,15 +477,13 @@ class DayPicker extends React.Component<
           labels={labels}
           parentRef={this.dayPicker}
         />
-        <div role="grid">
-          {this.renderSubHeader(
-            getWeekdaysShort(now, locale),
-            getWeekdaysLong(now, locale),
-            dir
-          )}
-          {this.renderBody()}
-          {this.renderFooter()}
-        </div>
+        {this.renderSubHeader(
+          getWeekdaysShort(now, locale),
+          getWeekdaysLong(now, locale),
+          dir
+        )}
+        {this.renderBody()}
+        {this.renderFooter()}
       </div>
     );
   }
