@@ -114,6 +114,9 @@
         &:hover {
           outline: none;
         }
+        &:focus {
+          outline: none;
+        }
       }
       &--outside {
         visibility: hidden;
