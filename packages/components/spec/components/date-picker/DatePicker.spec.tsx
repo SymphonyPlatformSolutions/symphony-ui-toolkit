@@ -87,6 +87,16 @@ describe('DatePicker Component', () => {
     wrapper.setProps({ locale: 'ja' });
     expect(spy).toHaveBeenCalled();
   });
+  it('should update value of input when date props change to empty', () => {
+    const spy = jest.spyOn(DatePicker.prototype, 'componentDidUpdate');
+    const props = createTestProps({});
+    const wrapper = shallow(<DatePicker {...props} />);
+    expect(spy).toHaveBeenCalledTimes(0);
+    wrapper.setProps({ date: undefined });
+    wrapper.update();
+    expect(spy).toHaveBeenCalled();
+    expect(wrapper.state('inputValue')).toBe(null);
+  });
   it('Should update date when it changes to a valid value and changes date props value', () => {
     const props = createTestProps({ shouldResetInvalidDate: true });
     const wrapper = shallow(<DatePicker {...props} />);

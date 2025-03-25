@@ -224,6 +224,13 @@ class DatePicker extends Component<
           : null,
       });
     }
+    // update dynamically if date change
+    if (this.props.date !== prevProps.date && !this.props.date) {
+      this.setState({
+        navigationDate: new Date(),
+        inputValue: null,
+      });
+    }
   }
 
   /**
