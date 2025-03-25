@@ -224,13 +224,6 @@ class DatePicker extends Component<
           : null,
       });
     }
-    // update dynamically if date change
-    if (this.props.date !== prevProps.date && !this.props.date) {
-      this.setState({
-        navigationDate: new Date(),
-        inputValue: null,
-      });
-    }
   }
 
   /**
@@ -375,12 +368,16 @@ class DatePicker extends Component<
   }
 
   private handleFocusToSelectedDate() {
-    const selectedDate = this.state.navigationDate.getDate();
+    const selectedDate = this.state.navigationDate ? this.state.navigationDate.getDate() : new Date().getDate();
     if (this.refPicker && this.refPicker.dayPicker) {
       const dayNodes = this.refPicker.dayPicker.querySelectorAll(
         DAYS_VISIBLE_SELECTOR
       );
-      dayNodes[selectedDate - 1].focus();
+      const dateNode = dayNodes[selectedDate - 1];
+      if (dateNode.tabIndex === 0) {
+        // Only focus to current date or selected date when opening the date picker
+        dateNode?.focus();
+      }
     }
   }
 

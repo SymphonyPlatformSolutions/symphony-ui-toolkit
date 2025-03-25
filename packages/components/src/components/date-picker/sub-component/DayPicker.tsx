@@ -392,7 +392,7 @@ class DayPicker extends React.Component<
               : -1; // focus on selected day otherwise current day
 
           return (
-            <button
+            <div
               key={cellName}
               className={clsx(
                 'tk-daypicker-day',
@@ -408,7 +408,6 @@ class DayPicker extends React.Component<
                 { 'tk-daypicker-day--disabled': isDisabled }
               )}
               role="gridcell"
-              type="button"
               aria-label={cellName}
               aria-selected={ariaSelected}
               tabIndex={isTabIndex}
@@ -426,7 +425,7 @@ class DayPicker extends React.Component<
               }
             >
               {cellNumber}
-            </button>
+            </div>
           );
         })}
         {this.renderOutsideDay(daysNeededForNextMonth)}

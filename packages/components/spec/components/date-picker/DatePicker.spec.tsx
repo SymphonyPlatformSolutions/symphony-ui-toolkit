@@ -87,16 +87,6 @@ describe('DatePicker Component', () => {
     wrapper.setProps({ locale: 'ja' });
     expect(spy).toHaveBeenCalled();
   });
-  it('should update value of input when date props change to empty', () => {
-    const spy = jest.spyOn(DatePicker.prototype, 'componentDidUpdate');
-    const props = createTestProps({});
-    const wrapper = shallow(<DatePicker {...props} />);
-    expect(spy).toHaveBeenCalledTimes(0);
-    wrapper.setProps({ date: undefined });
-    wrapper.update();
-    expect(spy).toHaveBeenCalled();
-    expect(wrapper.state('inputValue')).toBe(null);
-  });
   it('Should update date when it changes to a valid value and changes date props value', () => {
     const props = createTestProps({ shouldResetInvalidDate: true });
     const wrapper = shallow(<DatePicker {...props} />);
@@ -232,6 +222,18 @@ describe('DatePicker Component', () => {
 
       const focusedCell = screen.getByText(`${props.date.getDate()}`);
       expect(document.activeElement).toEqual(focusedCell);
+    });
+    it('should show Date Picker if the selected date was deselected and reopen Date Picker', async () => {
+      const props = createTestProps({ showOverlay: true });
+      render(<DatePicker {...props} />);
+      const icon = document.querySelector('.tk-icon-calendar');
+      fireEvent.keyDown(icon, { key: Keys.ENTER });
+
+      // Deselected date
+      fireEvent.click(screen.getByText(`${props.date.getDate()}`));
+      // Reopen Date picker
+      fireEvent.keyDown(icon, { key: Keys.ENTER });
+      expect(screen.getByRole('dialog')).toBeInTheDocument();
     });
     it('should trigger onCalendarOpen', () => {
       const props = createTestProps({});
