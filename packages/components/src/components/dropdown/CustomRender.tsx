@@ -71,7 +71,7 @@ export const Input = (props: any) => {
     onKeyUp={props?.selectProps?.onKeyUp}
     isHidden={inputAlwaysDisplayed ? !inputAlwaysDisplayed : false}
     aria-label={props?.selectProps?.label}
-    aria-describedBy={props?.selectProps?.['aria-describedby']}
+    aria-describedby={props?.selectProps?.['aria-describedby']}
     aria-invalid={props?.selectProps?.['aria-invalid']}
     type="search"
   />;
