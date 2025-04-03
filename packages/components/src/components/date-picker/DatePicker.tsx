@@ -374,7 +374,7 @@ class DatePicker extends Component<
         DAYS_VISIBLE_SELECTOR
       );
       const dateNode = dayNodes[selectedDate - 1];
-      if (dateNode.tabIndex === 0) {
+      if (dateNode?.tabIndex === 0) {
         // Only focus to current date or selected date when opening the date picker
         dateNode?.focus();
       }
