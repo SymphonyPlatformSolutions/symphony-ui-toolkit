@@ -374,11 +374,9 @@ class DatePicker extends Component<
         DAYS_VISIBLE_SELECTOR
       );
       const dateNode = dayNodes[selectedDate - 1];
-      // In a special case from UT, dateNode can be undefined,
-      // hence there is a condition to check if it has value.
-      if (dateNode && dateNode.tabIndex === 0) {
+      if (dateNode?.tabIndex === 0) {
         // Only focus to current date or selected date when opening the date picker
-        dateNode.focus();
+        dateNode?.focus();
       }
     }
   }
