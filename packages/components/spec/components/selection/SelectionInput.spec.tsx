@@ -7,11 +7,12 @@ import SelectionTypes from '../../../src/components/selection/SelectionTypes';
 import { SelectionInput } from '../../../src/components/selection/SelectionInput';
 import { act } from 'react-dom/test-utils';
 import { Keys } from '../../../src/components/common/eventUtils';
+import { vi } from 'vitest';
 
 describe('SelectionInput Component', () => {
   describe('SelectionInput test suite => ', () => {
     afterEach(() => {
-      jest.restoreAllMocks();
+      vi.restoreAllMocks();
     });
 
     it('render a Checkbox with default props and initial value and test if a input html tag is used', () => {
@@ -113,8 +114,8 @@ describe('SelectionInput Component', () => {
     });
 
     it('with click handler', () => {
-      const clickCallback = jest.fn();
-      const changeCallback = jest.fn();
+      const clickCallback = vi.fn();
+      const changeCallback = vi.fn();
       const wrapper = shallow(
         <SelectionInput
           type={SelectionTypes.CHECKBOX}
@@ -135,12 +136,12 @@ describe('SelectionInput Component', () => {
     it('should select the checkbox when the "Space" touch is pressed', async () => {
       // Set-up event listener mock
       const map = {};
-      window.addEventListener = jest.fn((event, cb) => {
+      window.addEventListener = vi.fn((event, cb) => {
         map[event] = cb;
       });
 
-      const clickCallback = jest.fn();
-      const changeCallback = jest.fn();
+      const clickCallback = vi.fn();
+      const changeCallback = vi.fn();
 
       const wrapper = mount(
         <SelectionInput
@@ -161,7 +162,7 @@ describe('SelectionInput Component', () => {
 
       act(() => {
         // Simulate a click on 'Space' keyboard touch
-        map['keydown']({ key: Keys.SPACE, preventDefault: jest.fn() });
+        map['keydown']({ key: Keys.SPACE, preventDefault: vi.fn() });
       });
 
       wrapper.update();
@@ -171,12 +172,12 @@ describe('SelectionInput Component', () => {
     it('should add "focus-visible" CSS class when "Tab" touch is pressed', async () => {
       // Set-up event listener mock
       const map = {};
-      window.addEventListener = jest.fn((event, cb) => {
+      window.addEventListener = vi.fn((event, cb) => {
         map[event] = cb;
       });
 
-      const clickCallback = jest.fn();
-      const changeCallback = jest.fn();
+      const clickCallback = vi.fn();
+      const changeCallback = vi.fn();
 
       const wrapper = mount(
         <SelectionInput
@@ -215,12 +216,12 @@ describe('SelectionInput Component', () => {
     it('should remove the "focused" CSS class on blur', async () => {
       // Set-up event listener mock
       const map = {};
-      window.addEventListener = jest.fn((event, cb) => {
+      window.addEventListener = vi.fn((event, cb) => {
         map[event] = cb;
       });
 
-      const clickCallback = jest.fn();
-      const changeCallback = jest.fn();
+      const clickCallback = vi.fn();
+      const changeCallback = vi.fn();
 
       const wrapper = mount(
         <SelectionInput
