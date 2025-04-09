@@ -13,10 +13,11 @@ import {
   getDefaultNormalizer,
 } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { vi } from 'vitest';
 
 describe('TimePicker Component', () => {
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
   function createTestProps(props) {
     return {
@@ -28,12 +29,12 @@ describe('TimePicker Component', () => {
       min: '08:00:00',
       max: '16:00:00',
       format: 'hh:mm:ss a',
-      onBlur: jest.fn(),
-      onChange: jest.fn(),
-      onCopy: jest.fn(),
-      onCut: jest.fn(),
-      onDrag: jest.fn(),
-      onValidationChanged: jest.fn(),
+      onBlur: vi.fn(),
+      onChange: vi.fn(),
+      onCopy: vi.fn(),
+      onCut: vi.fn(),
+      onDrag: vi.fn(),
+      onValidationChanged: vi.fn(),
       ...props,
     };
   }
@@ -51,7 +52,7 @@ describe('TimePicker Component', () => {
     const props = createTestProps({
       value: '09:00:00',
       format: 'HH:mm:ss',
-      onFocus: jest.fn(),
+      onFocus: vi.fn(),
     });
     render(<TimePicker {...props} />);
     const input = screen.getByRole('searchbox');
@@ -70,7 +71,7 @@ describe('TimePicker Component', () => {
       const props = createTestProps({
         value,
         format: 'HH:mm:ss',
-        onBlur: jest.fn(),
+        onBlur: vi.fn(),
       });
       render(<><div>outside</div><TimePicker {...props} /></>);
       expect(props.onBlur).toHaveBeenCalledTimes(0);
@@ -104,7 +105,7 @@ describe('TimePicker Component', () => {
           target: {
             value,
             selectionStart: value.length,
-            setSelectionRange: jest.fn(),
+            setSelectionRange: vi.fn(),
           },
         };
 
@@ -153,7 +154,7 @@ describe('TimePicker Component', () => {
               tagName: 'INPUT',
               value,
               selectionStart: cursorPosition,
-              setSelectionRange: jest.fn(),
+              setSelectionRange: vi.fn(),
             },
           };
           wrapper
@@ -231,7 +232,7 @@ describe('TimePicker Component', () => {
       [0, '00:00:00', '12:10:00 AM'], // Min fallback value 10 minutes
       [99999, '00:00:00', '12:00:00 PM'], // Max fallback value 12 hours
     ])('when step is %p', (step, min, expected) => {
-      jest.spyOn(console, 'error').mockImplementation(() => {
+      vi.spyOn(console, 'error').mockImplementation(() => {
         return;
       });
       const props = createTestProps({

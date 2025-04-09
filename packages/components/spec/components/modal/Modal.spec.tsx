@@ -7,6 +7,7 @@ import {
   fireEvent,
 } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { vi } from 'vitest';
 
 describe('Modal', () => {
   it('should render the content with correct class and without crash', () => {
@@ -110,7 +111,7 @@ describe('Modal', () => {
   })
 
   it('should not propagate mouse down event by default', async () => {
-    const onMouseDownParent = jest.fn();
+    const onMouseDownParent = vi.fn();
     const component = <div className="parent" onMouseDown={onMouseDownParent}>
       <Modal size={'small'} show>
         <ModalTitle>Title</ModalTitle>
@@ -124,7 +125,7 @@ describe('Modal', () => {
   });
 
   it('should allow to propagate mouse down event', async () => {
-    const onMouseDownParent = jest.fn();
+    const onMouseDownParent = vi.fn();
     const component = <div className="parent" onMouseDown={onMouseDownParent}>
       <Modal size={'small'} show onMouseDown={undefined}>
         <ModalTitle>Title</ModalTitle>

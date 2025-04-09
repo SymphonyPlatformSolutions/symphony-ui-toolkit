@@ -1,4 +1,3 @@
-import '@testing-library/jest-dom/extend-expect';
 import { fireEvent, render, screen, waitFor, waitForElementToBeRemoved } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { object } from 'prop-types';
@@ -7,6 +6,7 @@ import { Button, Validation } from '../../../src/components';
 import { Keys } from '../../../src/components/common/eventUtils';
 import Dropdown, { DropdownOption, LabelValue } from '../../../src/components/dropdown';
 import { Validators } from '../../../src/core/validators/validators';
+import { vi } from 'vitest';
 
 const CustomComponent = ({ data }) => <div>{data?.label}</div>;
 CustomComponent.propTypes = { data: object };
@@ -15,18 +15,21 @@ const filterFunction = (element: any, input: string) => {
   return !input || element.displayName.indexOf(input) > -1;
 };
 
-const onChange = jest.fn();
-const onInit = jest.fn();
-const onTermSearch = jest.fn();
-const onClear = jest.fn();
-const onBlur = jest.fn();
-const optionDisabled = jest.fn();
-const optionSelected = jest.fn();
+const onChange = vi.fn();
+const onInit = vi.fn();
+const onTermSearch = vi.fn();
+const onClear = vi.fn();
+const onBlur = vi.fn();
+const optionDisabled = vi.fn();
+const optionSelected = vi.fn();
 
 const options = [{ label: 'banana' }, { label: 'avocado' }, { label: 'orange' }]
 
 describe('Dropdown component test suite =>', () => {
-  const dropdownProps = {
+  const dropdownProps: {
+    id: string;
+    options: any[];
+  } = {
     options: [],
     id: 'testId'
   };
@@ -331,7 +334,7 @@ describe('Dropdown component test suite =>', () => {
 
         userEvent.click(getByText('Create "new"'));
 
-        const onChangeCall = onChange.mock.calls[0][0];
+        const onChangeCall = onChange.mock.calls.at(-1)![0];
         const createdOption = onChangeCall.target.value;
         await waitFor(() => {
           expect(createdOption.value).toBe('new');
@@ -388,7 +391,7 @@ describe('Dropdown component test suite =>', () => {
 
         userEvent.click(getByText(`custom ${userInput}`));
 
-        const onChangeCall = onChange.mock.calls[0][0];
+        const onChangeCall = onChange.mock.calls.at(-1)![0];
         const createdOption = onChangeCall.target.value;
 
         await waitFor(() => {
@@ -683,7 +686,7 @@ describe('Dropdown component test suite =>', () => {
 
         userEvent.click(getByText('Create "new"'));
 
-        const onChangeCall = onChange.mock.calls[0][0];
+        const onChangeCall = onChange.mock.calls.at(-1)![0];
         const createdOption = onChangeCall.target.value;
         await waitFor(() => {
           expect(createdOption.value).toBe('new');
@@ -742,7 +745,7 @@ describe('Dropdown component test suite =>', () => {
 
         userEvent.click(getByText(`custom ${userInput}`));
 
-        const onChangeCall = onChange.mock.calls[0][0];
+        const onChangeCall = onChange.mock.calls.at(-1)![0];
         const createdOption = onChangeCall.target.value;
 
         await waitFor(() => {

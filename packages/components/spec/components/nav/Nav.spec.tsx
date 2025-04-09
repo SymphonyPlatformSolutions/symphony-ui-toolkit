@@ -1,10 +1,10 @@
-import '@testing-library/jest-dom/extend-expect';
 import { render, waitFor } from '@testing-library/react';
 import userEvent, { specialChars } from '@testing-library/user-event';
 import * as React from 'react';
 import Nav from '../../../src/components/nav';
+import { vi } from 'vitest';
 
-const onActiveTabChange = jest.fn();
+const onActiveTabChange = vi.fn();
 const items = [
   { id: 0, label: 'banana' },
   { id: 1, label: 'peach' },

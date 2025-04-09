@@ -22,9 +22,9 @@
     "start": "storybook dev -p 6006",
     "storybook-docs": "storybook dev --docs",
     "build-storybook": "storybook build -c .storybook -o dist/storybook",
-    "test": "jest --watchAll",
-    "test-once": "jest -w 1",
-    "cover": "jest -w 1 --coverage",
+    "test": "vitest",
+    "test-once": "vitest run",
+    "cover": "vitest run --coverage",
     "check-circular": "madge --circular --extensions ts,tsx ./",
     "linkit": "yarn build && cp package.json ./dist && cd ./dist && yarn link && cd .."
   },
@@ -84,6 +84,7 @@
     "@types/styled-components": "5.1.26",
     "@typescript-eslint/eslint-plugin": "^6.9.0",
     "@typescript-eslint/parser": "^6.9.0",
+    "@vitest/coverage-v8": "^3.1.1",
     "@wojtekmaj/enzyme-adapter-react-17": "^0.8.0",
     "css-loader": "^4.3.0",
     "enzyme": "^3.11.0",
@@ -94,9 +95,6 @@
     "eslint-plugin-react-hooks": "^2.5.1",
     "html-react-parser": "^0.14.0",
     "husky": "^8.0.3",
-    "jest": "^29.7.0",
-    "jest-environment-jsdom": "^29.7.0",
-    "jest-extended": "^0.11.5",
     "lint-staged": "^12.1.2",
     "madge": "^6.1.0",
     "markdown-loader": "^6.0.0",
@@ -117,6 +115,7 @@
     "style-loader": "^1.2.1",
     "ts-loader": "^7.0.5",
     "typescript": "^5.2.2",
+    "vitest": "^3.1.1",
     "yarn-deduplicate": "^3.1.0"
   },
   "lint-staged": {

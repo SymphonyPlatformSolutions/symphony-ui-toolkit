@@ -4,11 +4,12 @@ import { Checkbox } from '../../../src/components';
 import SelectionTypes from '../../../src/components/selection/SelectionTypes';
 import { SelectionInput } from '../../../src/components/selection/SelectionInput';
 import SelectionStatus from '../../../src/components/selection/SelectionStatus';
+import { vi } from 'vitest';
 
 describe('Checkbox Component', () => {
   describe('Checkbox component test suite => ', () => {
     afterEach(() => {
-      jest.restoreAllMocks();
+      vi.restoreAllMocks();
     });
 
     it('render with default props and initial value', () => {
@@ -29,7 +30,7 @@ describe('Checkbox Component', () => {
     });
 
     it('with "checked" status', () => {
-      const onChangeCallback = jest.fn();
+      const onChangeCallback = vi.fn();
       const wrapper = mount(
         <Checkbox
           name="checked-state-checkbox-name"
@@ -50,7 +51,7 @@ describe('Checkbox Component', () => {
     });
 
     it('with "mixed" status', () => {
-      const onChangeCallback = jest.fn();
+      const onChangeCallback = vi.fn();
       const wrapper = shallow(
         <Checkbox
           name="mixed-checkbox-name"
@@ -70,7 +71,7 @@ describe('Checkbox Component', () => {
     });
 
     it('with click handler', () => {
-      const clickCallback = jest.fn();
+      const clickCallback = vi.fn();
       const wrapper = shallow(
         <Checkbox
           name="click-checkbox-name"
