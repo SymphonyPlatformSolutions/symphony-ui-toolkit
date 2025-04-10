@@ -2,6 +2,7 @@ import { shallow } from 'enzyme';
 import * as React from 'react';
 import { SvgIcon } from '../../../src/components/icon';
 import { Calendar } from '../../../src/components/icons';
+import { vi } from 'vitest';
 
 describe('Icon Component =>', () => {
   
@@ -10,8 +11,8 @@ describe('Icon Component =>', () => {
       className: 'my-custom-class',
       icon: Calendar,
       tabIndex: 0,
-      onClick: jest.fn(),
-      onKeyDown: jest.fn(),
+      onClick: vi.fn(),
+      onKeyDown: vi.fn(),
       ...props,
     };
   }

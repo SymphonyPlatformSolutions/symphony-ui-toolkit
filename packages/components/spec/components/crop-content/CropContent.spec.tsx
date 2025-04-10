@@ -3,6 +3,7 @@ import { shallow } from 'enzyme';
 import * as React from 'react';
 import CropContent from '../../../src/components/crop-content/CropContent';
 import ResizeDetectDiv from '../../../src/core/hoc/ResizeDetectDiv';
+import { vi } from 'vitest'; 
 
 // TODO this whole test should be migrated to testing library
 /**
@@ -85,7 +86,7 @@ describe('CropContent Component', () => {
       expect(getToggleContainer(wrapper).length).toBe(1);
     });
     it('toggle should switch state and height', () => {
-      const onToggle = jest.fn();
+      const onToggle = vi.fn();
       const wrapper = getWrapper({ onToggle });
       simResize(wrapper, 100, 50);
       expect(getToggleContainer(wrapper).length).toBe(1);
@@ -97,7 +98,7 @@ describe('CropContent Component', () => {
     });
     it('should handle overflow on cropHeight change', () => {
       const wrapper = getWrapper();
-      const computeStateSpy = jest.spyOn(
+      const computeStateSpy = vi.spyOn(
         wrapper.instance() as CropContent,
         'computeState'
       );

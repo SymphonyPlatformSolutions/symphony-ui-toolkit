@@ -2,11 +2,12 @@ import { render, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import * as React from 'react';
 import { Banner, BannerType } from '../../../src/components';
+import { vi } from 'vitest';
 
 describe('Banner', () => {
 
-  const actionMock = jest.fn();
-  const closeMock = jest.fn();
+  const actionMock = vi.fn();
+  const closeMock = vi.fn();
 
   const infoValue = BannerType.INFO;
 

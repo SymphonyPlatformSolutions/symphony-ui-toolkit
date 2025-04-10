@@ -8,6 +8,7 @@ import {
   waitFor,
   waitForElementToBeRemoved,
 } from '@testing-library/react';
+import { vi } from 'vitest';
 
 import { InputDecorator, Validation } from '../../../src/components';
 import { Validators } from '../../../src/core/validators/validators';
@@ -15,7 +16,7 @@ import { Validators } from '../../../src/core/validators/validators';
 describe('InputDecorator Component', () => {
   describe('InputDecorator test suite => ', () => {
     afterEach(() => {
-      jest.restoreAllMocks();
+      vi.restoreAllMocks();
     });
 
     it('render a default input', () => {
@@ -54,7 +55,7 @@ describe('InputDecorator Component', () => {
       expect(input.classList).toContain(cssClass2);
     });
     it('throw an error when rendering an invalid child tag (button)', () => {
-      const spy = jest.spyOn(console, 'error').mockImplementation(() => {
+      const spy = vi.spyOn(console, 'error').mockImplementation(() => {
         return;
       });
       expect(() =>
@@ -67,7 +68,7 @@ describe('InputDecorator Component', () => {
       spy.mockRestore();
     });
     it('throw an error when rendering too many children', () => {
-      const spy = jest.spyOn(console, 'error').mockImplementation(() => {
+      const spy = vi.spyOn(console, 'error').mockImplementation(() => {
         return;
       });
       expect(() =>
@@ -182,8 +183,8 @@ describe('InputDecorator Component', () => {
     it('onChange/onBlur methods of the wrapped input should be called', async () => {
       const inputValue = 'This is a test';
       const errorMessage = 'This field is mandatory';
-      const onChangeMock = jest.fn();
-      const onBlurMock = jest.fn();
+      const onChangeMock = vi.fn();
+      const onBlurMock = vi.fn();
       render(
         <Validation validator={Validators.Required} errorMessage={errorMessage}>
           <InputDecorator>

@@ -2,11 +2,12 @@ import { shallow } from 'enzyme';
 import * as React from 'react';
 import { TextField } from '../../../src/components';
 import { TextComponent, Types } from '../../../src/components/input/TextComponent';
+import { vi } from 'vitest';
 
 describe('TextField Component', () => {
   describe('TextField component test suite => ', () => {
     afterEach(() => {
-      jest.restoreAllMocks();
+      vi.restoreAllMocks();
     });
 
     it('render with default props and initial value', () => {

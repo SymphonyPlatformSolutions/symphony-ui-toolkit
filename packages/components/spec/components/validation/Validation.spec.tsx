@@ -2,6 +2,7 @@ import { shallow } from 'enzyme';
 import * as React from 'react';
 import { TextField, Validation } from '../../../src/components';
 import { Validators } from '../../../src/core/validators/validators';
+import { vi } from 'vitest';
 
 // function currentEventLoopEnd() {
 //   return new Promise(resolve => setImmediate(resolve));
@@ -12,7 +13,7 @@ import { Validators } from '../../../src/core/validators/validators';
 describe('Validation Component', () => {
   describe('Validation test suite => ', () => {
     afterEach(() => {
-      jest.restoreAllMocks();
+      vi.restoreAllMocks();
     });
     it('should render', ()=>{
       const wrapper = shallow(
@@ -24,7 +25,7 @@ describe('Validation Component', () => {
     })
     //     it('if a validator is present no error message appears before modified', async () => {
     //       /** TESTS SHOULD NOT TARGET INTERNALS */
-    //       const validate = jest.spyOn(Validation.prototype, 'updateState');
+    //       const validate = vi.spyOn(Validation.prototype, 'updateState');
     //       const wrapper = shallow(
     //         <Validation validator={Validators.Required} errorMessage={'Required'}>
     //           <TextField />
@@ -44,8 +45,8 @@ describe('Validation Component', () => {
     //         validator: Validators.Required,
     //       };
 
-    //       const change = jest.fn();
-    //       const valChange = jest.fn();
+    //       const change = vi.fn();
+    //       const valChange = vi.fn();
     //       const wrapper = shallow(
     //         <Validation
     //           validator={zone.validator}
@@ -68,8 +69,8 @@ describe('Validation Component', () => {
     //         onChange: () => null,
     //         validator: Validators.Required,
     //       };
-    //       const change = jest.spyOn(zone, 'onChange');
-    //       const validate = jest.spyOn(Validation.prototype, 'updateState');
+    //       const change = vi.spyOn(zone, 'onChange');
+    //       const validate = vi.spyOn(Validation.prototype, 'updateState');
     //       const wrapper = shallow(
     //         <Validation validator={zone.validator} errorMessage={'Required'}>
     //           <TextField onChange={zone.onChange} />
@@ -88,7 +89,7 @@ describe('Validation Component', () => {
     //         onBlur: () => null,
     //         validator: Validators.Required,
     //       };
-    //       const blur = jest.spyOn(zone, 'onBlur');
+    //       const blur = vi.spyOn(zone, 'onBlur');
     //       const wrapper = shallow(
     //         <Validation validator={zone.validator} errorMessage={'Required'}>
     //           <TextField onBlur={zone.onBlur} />
@@ -102,7 +103,7 @@ describe('Validation Component', () => {
     //         onBlur: () => null,
     //         validator: Validators.Required,
     //       };
-    //       const blur = jest.spyOn(zone, 'onBlur');
+    //       const blur = vi.spyOn(zone, 'onBlur');
     //       const wrapper = shallow(
     //         <Validation validator={zone.validator} errorMessage={'Required'}>
     //           <TextField onBlur={zone.onBlur} />
@@ -147,7 +148,7 @@ describe('Validation Component', () => {
     //     });
 
     //     it('validation should be called at initialization if validateOnInit is defined', async () => {
-    //       const validate = jest.spyOn(Validation.prototype, 'updateState');
+    //       const validate = vi.spyOn(Validation.prototype, 'updateState');
     //       const valueToCheck = 'A value to test';
     //       const wrapper = shallow(
     //         <Validation
@@ -166,7 +167,7 @@ describe('Validation Component', () => {
     //       const promiseAll = jest
     //         .spyOn(Promise, 'all')
     //         .mockImplementation(() => Promise.resolve([{ number: true }]));
-    //       const validate = jest.spyOn(Validation.prototype, 'updateState');
+    //       const validate = vi.spyOn(Validation.prototype, 'updateState');
     //       const wrapper = shallow(
     //         <Validation
     //           validator={[Validators.Required, Validators.Number]}
@@ -189,8 +190,8 @@ describe('Validation Component', () => {
     //         onValidationChanged: () => null,
     //         validator: Validators.Required,
     //       };
-    //       const validate = jest.spyOn(Validation.prototype, 'updateState');
-    //       const validator = jest.spyOn(zone, 'validator');
+    //       const validate = vi.spyOn(Validation.prototype, 'updateState');
+    //       const validator = vi.spyOn(zone, 'validator');
 
     //       const wrapper = shallow(
     //         <Validation validator={zone.validator} errorMessage={'Required'}>
@@ -208,8 +209,8 @@ describe('Validation Component', () => {
     //       const zone = {
     //         validator: Validators.Required,
     //       };
-    //       const validate = jest.spyOn(Validation.prototype, 'updateState');
-    //       const validator = jest.spyOn(zone, 'validator');
+    //       const validate = vi.spyOn(Validation.prototype, 'updateState');
+    //       const validator = vi.spyOn(zone, 'validator');
 
     //       const wrapper = shallow(
     //         <Validation validator={zone.validator} errorMessage={'Required'}>
@@ -241,7 +242,7 @@ describe('Validation Component', () => {
     //       </Validation>
     //     );
     //     wrapper.render();
-    //     const validator = jest.spyOn(zone, 'validator');
+    //     const validator = vi.spyOn(zone, 'validator');
     //     const errorText = wrapper.find('.tk-validation__errors').text();
     //     expect(errorText).toContain(
     //       'Required.'

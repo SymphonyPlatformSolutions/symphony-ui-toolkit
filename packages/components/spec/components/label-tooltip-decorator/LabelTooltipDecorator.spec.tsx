@@ -2,7 +2,6 @@ import { shallow } from 'enzyme';
 import * as React from 'react';
 import userEvent from '@testing-library/user-event';
 import { render, waitFor, waitForElementToBeRemoved } from '@testing-library/react';
-import '@testing-library/jest-dom/extend-expect';
 import LabelTooltipDecorator from '../../../src/components/label-tooltip-decorator/LabelTooltipDecorator';
 
 describe('LabelTooltipDecorator Component', () => {

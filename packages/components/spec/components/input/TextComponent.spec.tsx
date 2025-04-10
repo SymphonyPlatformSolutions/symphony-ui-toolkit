@@ -1,6 +1,6 @@
 import { shallow, mount } from 'enzyme';
 import * as React from 'react';
-
+import { vi } from 'vitest';
 import {
   TextComponent,
   Types,
@@ -11,11 +11,11 @@ import Icon from '../../../src/components/icon/FontIcon';
 describe('TextComponent Component', () => {
   describe('TextComponent test suite => ', () => {
     afterEach(() => {
-      jest.restoreAllMocks();
+      vi.restoreAllMocks();
     });
 
     it('render a TextField with default props and initial value and test if a input html tag is used', () => {
-      const onChange = jest.fn();
+      const onChange = vi.fn();
       const wrapper = shallow(
         <TextComponent
           type={Types.TEXTFIELD}
@@ -29,7 +29,7 @@ describe('TextComponent Component', () => {
       expect(wrapper.find('input.tk-input').prop('value')).toEqual('Test');
     });
     it('render a TextArea with default props and initial value and test if a textarea html tag is used', () => {
-      const onChange = jest.fn();
+      const onChange = vi.fn();
       const wrapper = shallow(
         <TextComponent type={Types.TEXTAREA} value="Test" onChange={onChange} />
       );
@@ -109,7 +109,7 @@ describe('TextComponent Component', () => {
       const id = 'textfield-1234567890';
       const tooltipText = 'Tooltip';
       const tooltipCloseLabel = 'Close';
-      const onChange = jest.fn();
+      const onChange = vi.fn();
       let wrapper = mount(<TextComponent type={Types.TEXTFIELD} />);
       expect(wrapper.find('FontIcon').length).toBe(0);
       wrapper = mount(
@@ -140,8 +140,8 @@ describe('TextComponent Component', () => {
         className: 'my-custom-class',
         iconName: 'calendar',
         tabIndex: 0,
-        onClick: jest.fn(),
-        onKeyDown: jest.fn(),
+        onClick: vi.fn(),
+        onKeyDown: vi.fn(),
       };
       it('should display an icon if provided', () => {
         let wrapper = shallow(<TextComponent type={Types.TEXTFIELD} />);

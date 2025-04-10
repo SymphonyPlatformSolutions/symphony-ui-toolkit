@@ -8,9 +8,11 @@ import Header from '../../../src/components/date-picker/sub-component/Header';
 
 import { render, screen, fireEvent } from '@testing-library/react';
 
+import { vi } from 'vitest';
+
 describe('DayPicker Component', () => {
   afterEach(() => {
-    jest.restoreAllMocks();
+    vi.restoreAllMocks();
   });
 
   function createTestProps(props) {
@@ -24,16 +26,16 @@ describe('DayPicker Component', () => {
         nextMonth: 'Next Month',
       },
       todayButton: 'Today',
-      onDayClick: jest.fn(),
-      onClose: jest.fn(),
+      onDayClick: vi.fn(),
+      onClose: vi.fn(),
       ...props,
     };
   }
 
   function createKeyboardEvent(props) {
     return {
-      preventDefault: jest.fn(),
-      stopPropagation: jest.fn(),
+      preventDefault: vi.fn(),
+      stopPropagation: vi.fn(),
       ...props,
     };
   }

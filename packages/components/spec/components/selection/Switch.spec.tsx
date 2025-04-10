@@ -3,11 +3,12 @@ import userEvent from '@testing-library/user-event';
 import * as React from 'react';
 import { Switch } from '../../../src/components';
 import SelectionStatus from '../../../src/components/selection/SelectionStatus';
+import { vi } from 'vitest';
 
 describe('Switch Component', () => {
   describe('Switch component test suite => ', () => {
     afterEach(() => {
-      jest.restoreAllMocks();
+      vi.restoreAllMocks();
     });
 
     it('render with default props and initial value', () => {
@@ -24,7 +25,7 @@ describe('Switch Component', () => {
     });
 
     it('with "switched" status', () => {
-      const onChangeCallback = jest.fn();
+      const onChangeCallback = vi.fn();
       const { container } = render(
         <Switch
           name="checked-state-switch-name"
@@ -38,7 +39,7 @@ describe('Switch Component', () => {
     });
 
     it('with "unswitched" status', () => {
-      const onChangeCallback = jest.fn();
+      const onChangeCallback = vi.fn();
       const { container } = render(
         <Switch
           name="checked-state-switch-name"
@@ -52,7 +53,7 @@ describe('Switch Component', () => {
     });
 
     it('with click handler', () => {
-      const clickCallback = jest.fn();
+      const clickCallback = vi.fn();
       const { getByRole, getByText } = render(
         <Switch
           name="click-switch-name"
