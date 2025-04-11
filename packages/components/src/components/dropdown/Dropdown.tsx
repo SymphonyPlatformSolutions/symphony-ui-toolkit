@@ -17,7 +17,7 @@ import {
   NoOptionsMessage,
   DropdownList,
   LoadingMessage,
-  firstOption
+  firstOption,
 } from './CustomRender';
 import {
   DropdownOption,
@@ -27,6 +27,7 @@ import {
 } from './interfaces';
 import LabelTooltipDecorator from '../label-tooltip-decorator/LabelTooltipDecorator';
 import { clsx } from 'clsx';
+import { Keys } from '../common/eventUtils';
 
 // css baseclass prefix
 const prefix = 'tk-select';
@@ -79,7 +80,7 @@ export class Dropdown<T = LabelValue> extends React.Component<
       DropdownTag = CreatableSelect;
     }
     return DropdownTag;
-  }
+  };
 
   handleChange = (selectedOption, meta: ActionMeta<T>) => {
     const isClearingTermSearch =
@@ -107,6 +108,18 @@ export class Dropdown<T = LabelValue> extends React.Component<
     }
   };
 
+  handleKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
+    // also open menu with 'enter' key (not supported in the default react-select behavior)
+    if (
+      (e.target as HTMLElement).nodeName === 'INPUT' &&
+      e.key === Keys.ENTER
+    ) {
+      this.myRef.current.setState({ menuIsOpen: true });
+    }
+
+    this.props.onKeyDown?.(e);
+  };
+
   private internalFiltering = this.props.filterFunction
     ? (o, input) => this.props.filterFunction(o.data, input)
     : createFilter(null);
@@ -121,7 +134,8 @@ export class Dropdown<T = LabelValue> extends React.Component<
 
   handleIsOptionSelected = this.props.isOptionSelected
     ? (option: T) => this.props.isOptionSelected(option)
-    : (option: DropdownOption<T>, selectValue: T[]) => selectValue?.some(i => i === option);
+    : (option: DropdownOption<T>, selectValue: T[]) =>
+      selectValue?.some((i) => i === option);
 
   get internalOptions() {
     if (this.props?.options) {
@@ -132,13 +146,19 @@ export class Dropdown<T = LabelValue> extends React.Component<
   }
 
   internalAsyncOptions = async (inputValue: string) => {
-    return this.props?.asyncOptions(inputValue)
-      .then(options => new Promise(resolve =>
-        resolve(this.props.enableTermSearch ?
-          [this.searchHeaderOption as T, ...options]
-          : options))
-      )
-  }
+    return this.props
+      ?.asyncOptions(inputValue)
+      .then(
+        (options) =>
+          new Promise((resolve) =>
+            resolve(
+              this.props.enableTermSearch
+                ? [this.searchHeaderOption as T, ...options]
+                : options
+            )
+          )
+      );
+  };
 
   bindValue = this.props.bindValue
     ? (option) => option[this.props.bindValue]
@@ -205,6 +225,7 @@ export class Dropdown<T = LabelValue> extends React.Component<
       onDrag,
       onFocus,
       onInputChange,
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       onKeyDown,
       onKeyUp,
       onMenuOpen,
@@ -227,17 +248,32 @@ export class Dropdown<T = LabelValue> extends React.Component<
     } = this.props;
 
     return (
-      <div className={clsx(className, 'tk-input-group', `tk-input-group--${size}`, {
-        'tk-input-group--disabled': isDisabled,
-      })}>
+      <div
+        className={clsx(
+          className,
+          'tk-input-group',
+          `tk-input-group--${size}`,
+          {
+            'tk-input-group--disabled': isDisabled,
+          }
+        )}
+      >
         <DropdownTag
           styles={{
-            menuPortal: (base: CSSProperties) => ({ ...base, ...menuPortalStyles }),
-            valueContainer: (base: CSSProperties) => ({
-              ...base, maxHeight: `${maxHeight}px`
+            menuPortal: (base: CSSProperties) => ({
+              ...base,
+              ...menuPortalStyles,
             }),
-            input: (base: CSSProperties) => ({ ...base, margin: (size === 'small') ? '0 2px' : undefined, color: 'inherit' }),
-            multiValue: (base: CSSProperties) => ({ ...base, margin: '0' })
+            valueContainer: (base: CSSProperties) => ({
+              ...base,
+              maxHeight: `${maxHeight}px`,
+            }),
+            input: (base: CSSProperties) => ({
+              ...base,
+              margin: size === 'small' ? '0 2px' : undefined,
+              color: 'inherit',
+            }),
+            multiValue: (base: CSSProperties) => ({ ...base, margin: '0' }),
           }}
           parentInstance={this}
           ref={this.myRef}
@@ -259,13 +295,17 @@ export class Dropdown<T = LabelValue> extends React.Component<
             NoOptionsMessage,
             MenuList: DropdownList,
             LoadingIndicator: () => null,
-            LoadingMessage
+            LoadingMessage,
           }}
           defaultValue={defaultValue}
           id={id}
           label={label}
           name={name}
-          className={clsx(prefix, { [`${prefix}--${variant}`]: variant }, { [`${prefix}--${size}`]: size })}
+          className={clsx(
+            prefix,
+            { [`${prefix}--${variant}`]: variant },
+            { [`${prefix}--${size}`]: size }
+          )}
           closeMenuOnSelect={closeMenuOnSelect}
           classNamePrefix={prefix}
           value={value}
@@ -278,7 +318,7 @@ export class Dropdown<T = LabelValue> extends React.Component<
           onDrag={onDrag}
           onFocus={onFocus}
           onInputChange={onInputChange}
-          onKeyDown={onKeyDown}
+          onKeyDown={this.handleKeyDown}
           onKeyUp={onKeyUp}
           options={this.internalOptions}
           loadOptions={this.internalAsyncOptions}
