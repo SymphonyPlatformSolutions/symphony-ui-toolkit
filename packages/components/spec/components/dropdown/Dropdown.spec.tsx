@@ -130,6 +130,32 @@ describe('Dropdown component test suite =>', () => {
         expect(getByText('orange')).toBeTruthy();
       });
 
+      it('should hide options menu by pressing ESC and stop propagate the event only if the dropdown was opened', async () => {
+        const onKeyDownContainer = vi.fn();
+        const { queryByText } = render(
+          <div onKeyDown={onKeyDownContainer}>
+            <Dropdown
+              options={dropdownProps.options}
+              hideSelectedOptions
+              closeMenuOnSelect
+              enableTermSearch
+            />
+          </div>
+        );
+        const input = screen.getByRole('searchbox');
+        fireEvent.keyDown(input, { key: Keys.ENTER });
+        expect(onKeyDownContainer).toHaveBeenCalledTimes(1);
+
+        fireEvent.keyDown(input, { key: Keys.ESC });
+        expect(onKeyDownContainer).toHaveBeenCalledTimes(1);
+        expect(queryByText('banana')).not.toBeInTheDocument();
+        expect(queryByText('avocado')).not.toBeInTheDocument();
+        expect(queryByText('orange')).not.toBeInTheDocument();
+
+        fireEvent.keyDown(input, { key: Keys.ESC });
+        expect(onKeyDownContainer).toHaveBeenCalledTimes(2);
+      });
+
       it('should handle disable mode', async () => {
         const { queryByText, container } = render(
           <Dropdown options={dropdownProps.options} isDisabled />
