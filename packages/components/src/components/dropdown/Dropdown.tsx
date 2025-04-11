@@ -115,6 +115,14 @@ export class Dropdown<T = LabelValue> extends React.Component<
       e.key === Keys.ENTER
     ) {
       this.myRef.current.setState({ menuIsOpen: true });
+    } else if (
+      (e.target as HTMLElement).nodeName === 'INPUT' &&
+      e.key === Keys.ESC
+    ) {
+      // Avoid closing modal containing the dropdown when closing the dropdown via ESC
+      if (this.myRef.current.state.menuIsOpen) {
+        e.stopPropagation();
+      }
     }
 
     this.props.onKeyDown?.(e);
