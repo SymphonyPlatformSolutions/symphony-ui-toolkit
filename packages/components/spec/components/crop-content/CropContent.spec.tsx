@@ -3,6 +3,12 @@ import { shallow } from 'enzyme';
 import * as React from 'react';
 import CropContent from '../../../src/components/crop-content/CropContent';
 import ResizeDetectDiv from '../../../src/core/hoc/ResizeDetectDiv';
+import { vi } from 'vitest';
+
+vi.mock('react-resize-detector', () => ({
+  ...vi.importActual('react-resize-detector'),
+  withResizeDetector: vi.fn((comp) => comp),
+}));
 
 // TODO this whole test should be migrated to testing library
 /**
@@ -68,7 +74,7 @@ describe('CropContent Component', () => {
     it('should control the collapse logic from external', () => {
       const wrapper = getWrapper({ collapsed: true });
       expect(wrapper.state('collapsed')).toBeTruthy();
-      wrapper.setProps({ collapsed: false })
+      wrapper.setProps({ collapsed: false });
       expect(wrapper.state('collapsed')).toBeFalsy();
     });
     it('content should crop at 80px by default', () => {
@@ -85,7 +91,7 @@ describe('CropContent Component', () => {
       expect(getToggleContainer(wrapper).length).toBe(1);
     });
     it('toggle should switch state and height', () => {
-      const onToggle = jest.fn();
+      const onToggle = vi.fn();
       const wrapper = getWrapper({ onToggle });
       simResize(wrapper, 100, 50);
       expect(getToggleContainer(wrapper).length).toBe(1);
@@ -97,7 +103,7 @@ describe('CropContent Component', () => {
     });
     it('should handle overflow on cropHeight change', () => {
       const wrapper = getWrapper();
-      const computeStateSpy = jest.spyOn(
+      const computeStateSpy = vi.spyOn(
         wrapper.instance() as CropContent,
         'computeState'
       );
@@ -119,7 +125,7 @@ describe('CropContent Component', () => {
       expect((wrapper.instance().state as any).hasOverflow).toBeFalsy();
     });
 
-    //tests should be migrated like this one
+    // tests should be migrated like this one
     it('should refresh overflow on text manipulation', async () => {
       const rendered = render(getComponent(true));
       const content = document.getElementsByClassName(

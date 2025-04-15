@@ -13,9 +13,11 @@ import { render, screen, fireEvent } from '@testing-library/react';
 
 import { Keys } from '../../../src/components/common/eventUtils';
 
+import { vi } from 'vitest';
+
 describe('DatePicker Component', () => {
   afterEach(() => {
-    jest.restoreAllMocks();
+    vi.restoreAllMocks();
   });
   function createTestProps(props) {
     const date = new Date();
@@ -41,12 +43,12 @@ describe('DatePicker Component', () => {
       todayButton: 'Today',
       tooltip: 'Departure date',
       showOverlay: false,
-      onInit: jest.fn(),
-      onBlur: jest.fn(),
-      onChange: jest.fn(),
-      onValidationChanged: jest.fn(),
-      onCalendarOpen: jest.fn(),
-      onCalendarClose: jest.fn(),
+      onInit: vi.fn(),
+      onBlur: vi.fn(),
+      onChange: vi.fn(),
+      onValidationChanged: vi.fn(),
+      onCalendarOpen: vi.fn(),
+      onCalendarClose: vi.fn(),
       ...props,
     };
   }
@@ -80,7 +82,7 @@ describe('DatePicker Component', () => {
     expect(wrapperPicker.prop('todayButton')).toBe('Today');
   });
   it('should update locale when locale props change', () => {
-    const spy = jest.spyOn(DatePicker.prototype, 'componentDidUpdate');
+    const spy = vi.spyOn(DatePicker.prototype, 'componentDidUpdate');
     const props = createTestProps({});
     const wrapper = shallow(<DatePicker {...props} />);
     expect(spy).toHaveBeenCalledTimes(0);
@@ -223,6 +225,18 @@ describe('DatePicker Component', () => {
       const focusedCell = screen.getByText(`${props.date.getDate()}`);
       expect(document.activeElement).toEqual(focusedCell);
     });
+    it('should show Date Picker if the selected date was deselected and reopen Date Picker', async () => {
+      const props = createTestProps({ showOverlay: true });
+      render(<DatePicker {...props} />);
+      const icon = document.querySelector('.tk-icon-calendar');
+      fireEvent.keyDown(icon, { key: Keys.ENTER });
+
+      // Deselected date
+      fireEvent.click(screen.getByText(`${props.date.getDate()}`));
+      // Reopen Date picker
+      fireEvent.keyDown(icon, { key: Keys.ENTER });
+      expect(screen.getByRole('dialog')).toBeInTheDocument();
+    });
     it('should trigger onCalendarOpen', () => {
       const props = createTestProps({});
       const wrapper = shallow(<DatePicker {...props} />);
@@ -264,8 +278,8 @@ describe('DatePicker Component', () => {
       await act(async () => {
         wrapper.find('.tk-input').simulate('keyDown', {
           key,
-          preventDefault: jest.fn(),
-          stopPropagation: jest.fn(),
+          preventDefault: vi.fn(),
+          stopPropagation: vi.fn(),
         });
       });
       wrapper.update();
@@ -422,7 +436,7 @@ describe('DatePicker Component', () => {
         <DatePicker menuShouldBlockScroll={true} />
       </div>
     );
-    jest
+    vi
       .spyOn(eventUtils, 'getScrollParent')
       .mockReturnValue(wrapper.find('.scroll').getDOMNode()); // spy on getScrollParent
 
@@ -430,8 +444,8 @@ describe('DatePicker Component', () => {
       // mount
       wrapper.find('.tk-input').simulate('keyDown', {
         key: Keys.ENTER,
-        preventDefault: jest.fn(),
-        stopPropagation: jest.fn(),
+        preventDefault: vi.fn(),
+        stopPropagation: vi.fn(),
       });
     });
     wrapper.update();
@@ -440,8 +454,8 @@ describe('DatePicker Component', () => {
       // unmount
       wrapper.find('.tk-input').simulate('keyDown', {
         key: Keys.ESC,
-        preventDefault: jest.fn(),
-        stopPropagation: jest.fn(),
+        preventDefault: vi.fn(),
+        stopPropagation: vi.fn(),
       });
     });
 

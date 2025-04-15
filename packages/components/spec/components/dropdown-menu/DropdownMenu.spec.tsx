@@ -3,6 +3,7 @@ import {mount} from 'enzyme';
 import {DropdownMenu, DropdownMenuDivider, DropdownMenuItem} from '../../../src/components';
 import {fireEvent, getByText, render, screen} from '@testing-library/react';
 import userEvent, {specialChars} from '@testing-library/user-event';
+import { vi } from 'vitest';
 
 describe('DropdownMenu', () => {
   it('should render with the correct classes without crash', () => {
@@ -22,7 +23,7 @@ describe('DropdownMenu', () => {
   });
 
   it('should call onClose when clicking outside of it', () => {
-    const close = jest.fn();
+    const close = vi.fn();
     render(
       <div>
         <div>some other div</div>
@@ -37,7 +38,7 @@ describe('DropdownMenu', () => {
   });
 
   it('shouldn\'t call onClose when clicking outside if show=false', () => {
-    const close = jest.fn();
+    const close = vi.fn();
     render(
       <div>
         <div>some other div</div>
@@ -51,7 +52,7 @@ describe('DropdownMenu', () => {
   });
 
   it('should close the menu when pressing esc key', () => {
-    const close = jest.fn();
+    const close = vi.fn();
     render(
       <div>
         <div>some other div</div>
@@ -87,7 +88,7 @@ describe('DropdownMenu', () => {
   })
 
   it('should call onClick when pressing enter on an option', () => {
-    const onClick = jest.fn();
+    const onClick = vi.fn();
     render(
       <DropdownMenu show={true}>
         <DropdownMenuItem data-testid={'option_1'} onClick={onClick}>Option 1</DropdownMenuItem>
@@ -99,7 +100,7 @@ describe('DropdownMenu', () => {
   })
 
   it('shouldn\'t call onClick if menu item is loading', () => {
-    const onClick = jest.fn();
+    const onClick = vi.fn();
     render(
       <DropdownMenu show>
         <DropdownMenuItem data-testid="option_1" onClick={onClick} loading>Option 1</DropdownMenuItem>

@@ -22,7 +22,7 @@ type HeaderProps = {
   onClose?: () => any;
   parentRef?: any;
   showTooltip?: boolean;
-  currentID?: string
+  currentID?: string;
 };
 
 const Header: FunctionComponent<HeaderProps> = ({
@@ -86,47 +86,91 @@ const Header: FunctionComponent<HeaderProps> = ({
     }
   };
 
-  const tooltipButton = (buttonID: string, label: string, className: string, iconName: TkIcon, onChangeNumber: number, isYearButton: boolean) => {
+  const tooltipButton = (
+    buttonID: string,
+    label: string,
+    className: string,
+    iconName: TkIcon,
+    onChangeNumber: number,
+    isYearButton: boolean
+  ) => {
     return (
       <Tooltip
         id={buttonID}
         description={label}
         visible={showTooltip && currentID === buttonID}
         type="tooltip"
-        placement={buttonID === 'PREVIOUS_YEAR' || buttonID === 'PREVIOUS_MONTH' ? 'top-start' : 'top'}
+        placement={
+          buttonID === 'PREVIOUS_YEAR' || buttonID === 'PREVIOUS_MONTH'
+            ? 'top-start'
+            : 'top'
+        }
       >
         <button
           aria-label={label}
           className={clsx(className, 'tk-daypicker-header--button')}
-          onClick={() => isYearButton ? changeYear(onChangeNumber) : changeMonth(onChangeNumber)}
+          onClick={() =>
+            isYearButton
+              ? changeYear(onChangeNumber)
+              : changeMonth(onChangeNumber)
+          }
           onMouseEnter={(e) => handleOpen(e, buttonID)}
           onFocus={(e) => handleOpen(e, buttonID)}
           onMouseLeave={() => handleClose()}
           onBlur={() => handleClose()}
-          onKeyDown={buttonID === 'PREVIOUS_YEAR' && ajustLoopNavigation}
+          onKeyDown={
+            buttonID === 'PREVIOUS_YEAR' ? ajustLoopNavigation : undefined
+          }
         >
-          <FontIcon
-            iconName={iconName}
-          ></FontIcon>
+          <FontIcon iconName={iconName}></FontIcon>
         </button>
       </Tooltip>
-    )
-  }
+    );
+  };
 
   const textHeader = `${months[date.getMonth()]} ${date.getFullYear()}`;
   return (
     <div
       className="tk-daypicker-header"
+      role="heading"
       style={{ direction: dir }}
     >
       <div>
-        {tooltipButton('PREVIOUS_YEAR', labels.previousYear, 'tk-daypicker-header--prevYear', dir === 'rtl' ? 'chevron-right' : 'chevron-left', -1, true)}
-        {tooltipButton('PREVIOUS_MONTH', labels.previousMonth, 'tk-daypicker-header--prevMonth', dir === 'rtl' ? 'right' : 'left', -1, false)}
+        {tooltipButton(
+          'PREVIOUS_YEAR',
+          labels.previousYear,
+          'tk-daypicker-header--prevYear',
+          dir === 'rtl' ? 'chevron-right' : 'chevron-left',
+          -1,
+          true
+        )}
+        {tooltipButton(
+          'PREVIOUS_MONTH',
+          labels.previousMonth,
+          'tk-daypicker-header--prevMonth',
+          dir === 'rtl' ? 'right' : 'left',
+          -1,
+          false
+        )}
       </div>
       <div className="tk-daypicker-header--text">{textHeader}</div>
       <div>
-        {tooltipButton('NEXT_MONTH', labels.nextMonth, 'tk-daypicker-header--nextMonth', dir === 'rtl' ? 'left' : 'right', 1, false)}
-        {tooltipButton('NEXT_YEAR', labels.nextYear, 'tk-daypicker-header--nextYear', dir === 'rtl' ? 'chevron-left' : 'chevron-right', 1, true)}
+        {tooltipButton(
+          'NEXT_MONTH',
+          labels.nextMonth,
+          'tk-daypicker-header--nextMonth',
+          dir === 'rtl' ? 'left' : 'right',
+          1,
+          false
+        )}
+        {tooltipButton(
+          'NEXT_YEAR',
+          labels.nextYear,
+          'tk-daypicker-header--nextYear',
+          dir === 'rtl' ? 'chevron-left' : 'chevron-right',
+          1,
+          true
+        )}
       </div>
     </div>
   );

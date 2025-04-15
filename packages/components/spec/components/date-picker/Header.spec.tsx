@@ -11,10 +11,11 @@ import { Keys } from '../../../src/components/common/eventUtils';
 
 import Header from '../../../src/components/date-picker/sub-component/Header';
 
+import { vi } from 'vitest';
 
 describe('Header Component', () => {
   afterEach(() => {
-    jest.restoreAllMocks();
+    vi.restoreAllMocks();
   });
 
   function createRef() {
@@ -41,9 +42,9 @@ describe('Header Component', () => {
       },
       months: ['J', 'F', 'M', 'A'],
       parentRef: createRef(),
-      onChange: jest.fn(),
-      onVisible: jest.fn(),
-      onClose: jest.fn(),
+      onChange: vi.fn(),
+      onVisible: vi.fn(),
+      onClose: vi.fn(),
       ...props,
     };
   }

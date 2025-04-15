@@ -1,19 +1,20 @@
 import { callParentAndChildMethod } from '../../src/utils';
+import { vi } from 'vitest';
 
 describe('Utils methods', () => {
   describe('callParentAndChildMethod method', () => {
     const methodName = 'onChange';
     const args = [1, 2, 3, 4, 'test', { key: 'value' }];
     const parent = {
-      onChange: jest.fn(),
+      onChange: vi.fn(),
     };
     const child = {
-      onChange: jest.fn(),
+      onChange: vi.fn(),
     };
     let spyMethodOnParent, spyMethodOnChild;
     beforeEach(() => {
-      spyMethodOnParent = jest.spyOn(parent, methodName);
-      spyMethodOnChild = jest.spyOn(child, methodName);
+      spyMethodOnParent = vi.spyOn(parent, methodName);
+      spyMethodOnChild = vi.spyOn(child, methodName);
     });
 
     it('with no parent', () => {

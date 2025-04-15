@@ -3,6 +3,7 @@
 import { shallow } from 'enzyme';
 import * as React from 'react';
 import { ResizeDetectDivInternal } from '../../../src/core/hoc/ResizeDetectDiv';
+import { vi } from 'vitest';
 
 describe('ResizeDetectDiv Component', () => {
   let zone, spyWidth, spyHeight, spyResize;
@@ -12,9 +13,9 @@ describe('ResizeDetectDiv Component', () => {
       onHeightChange: () => {},
       onResize: () => {}
     };
-    spyWidth = jest.spyOn(zone, 'onWidthChange');
-    spyHeight = jest.spyOn(zone, 'onHeightChange');
-    spyResize = jest.spyOn(zone, 'onResize');
+    spyWidth = vi.spyOn(zone, 'onWidthChange');
+    spyHeight = vi.spyOn(zone, 'onHeightChange');
+    spyResize = vi.spyOn(zone, 'onResize');
   });
 
   it('render with default props does not crash', () => {

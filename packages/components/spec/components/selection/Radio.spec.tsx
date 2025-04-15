@@ -4,11 +4,12 @@ import { Radio } from '../../../src/components';
 import SelectionTypes from '../../../src/components/selection/SelectionTypes';
 import { SelectionInput } from '../../../src/components/selection/SelectionInput';
 import SelectionStatus from '../../../src/components/selection/SelectionStatus';
+import { vi } from 'vitest';
 
 describe('Radio Component', () => {
   describe('Radio component test suite => ', () => {
     afterEach(() => {
-      jest.restoreAllMocks();
+      vi.restoreAllMocks();
     });
 
     it('render with default props and initial value', () => {
@@ -29,7 +30,7 @@ describe('Radio Component', () => {
     });
 
     it('with "checked" status', () => {
-      const onChangeCallback = jest.fn();
+      const onChangeCallback = vi.fn();
       const wrapper = mount(
         <Radio
           name="default-state-radio-name"
@@ -50,7 +51,7 @@ describe('Radio Component', () => {
     });
 
     it('with click handler', () => {
-      const clickCallback = jest.fn();
+      const clickCallback = vi.fn();
       const wrapper = shallow(
         <Radio
           name="click-radio-name"

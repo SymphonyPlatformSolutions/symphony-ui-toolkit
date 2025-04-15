@@ -138,14 +138,7 @@ export function getSiblingOrCurrent(elem, selector: string, direction: 'nextElem
   let index = 0;
   while (sibling && index < (maxStepToCheck || Number.MAX_SAFE_INTEGER)) {
     if (sibling.matches(selector)) return sibling;
-    if (sibling[direction]) {
-      sibling = sibling[direction];
-    } else {
-      const parentSibling = sibling.parentElement[direction];
-      if (parentSibling) {
-        sibling = direction === 'nextElementSibling' ? parentSibling.firstElementChild : parentSibling.lastElementChild;
-      }
-    }
+    sibling = sibling[direction];
     index++;
   }
 }

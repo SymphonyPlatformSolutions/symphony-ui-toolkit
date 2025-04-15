@@ -1,6 +1,7 @@
 import { shallow } from 'enzyme';
 import * as React from 'react';
 import { ExpandableCard } from '../../../src/components';
+import { vi } from 'vitest';
 
 /**
  * Util methods
@@ -29,7 +30,7 @@ describe('CropContent Component', () => {
       expect(getToggleLink(wrapper).length).toBe(1);
     });
     it('toggle should run properly', () => {
-      const onToggle = jest.fn();
+      const onToggle = vi.fn();
       const wrapper = getWrapper({ onToggle });
       expect(
         wrapper.find('div').first().childAt(1).hasClass('collapsed')
