@@ -1,15 +1,15 @@
-import * as React from 'react';
-import * as PropTypes from 'prop-types';
-import { useMemo } from 'react';
 import { clsx } from 'clsx';
-import { nanoid } from 'nanoid';
+import * as PropTypes from 'prop-types';
+import * as React from 'react';
+import { useMemo } from 'react';
+import { v4 as uuidv4 } from 'uuid';
+import { callParentAndChildMethod } from '../../utils';
 import LabelTooltipDecorator from '../label-tooltip-decorator/LabelTooltipDecorator';
 import {
   LabelTooltipDecoratorProps,
   LabelTooltipDecoratorPropTypes,
 } from '../label-tooltip-decorator/interfaces';
 import { HasValidationProps } from '../validation/interfaces';
-import { callParentAndChildMethod } from '../../utils';
 
 const RightDecoratorsPropTypes = {
   rightDecorators: PropTypes.oneOfType([
@@ -63,10 +63,10 @@ const InputDecorator: React.FC<InputDecoratorProps> = ({
 
   // Generate unique ID if not provided
   const inputId = useMemo(() => {
-    return child?.props?.id || `tk-input-${nanoid()}`;
+    return child?.props?.id || `tk-input-${uuidv4()}`;
   }, [child]);
 
-  const tooltipId = useMemo(() => `tk-hint-${nanoid()}`, []);
+  const tooltipId = useMemo(() => `tk-hint-${uuidv4()}`, []);
 
   const disabled = useMemo(() => {
     return child?.props?.disabled;
