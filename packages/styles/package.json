@@ -9,10 +9,10 @@
   "scripts": {
     "prepare": "cd ../.. && husky install",
     "prestart": "yarn icons",
-    "start": "storybook dev -p 6006 -c .storybook watch-css -s ./src",
+    "start": "yarn prestart && storybook dev -p 6006 -c .storybook watch-css -s ./src",
     "prebuild": "yarn icons && sh src/scripts/generate-cdn.sh",
     "build-storybook": "storybook build -c .storybook -o dist/storybook",
-    "build": "bash ./build.sh",
+    "build": "yarn prebuild && bash ./build.sh",
     "watch": "sass --watch --no-source-map --load-path=node_modules --style compressed uitoolkit.scss:dist/css/uitoolkit.css",
     "icons": "node src/scripts/generate-icons",
     "test": "yarn creevey"
@@ -25,9 +25,6 @@
   ],
   "author": "",
   "license": "ISC",
-  "engines": {
-    "node": ">=14.21.2"
-  },
   "devDependencies": {
     "@babel/plugin-transform-runtime": "^7.10.4",
     "@babel/preset-env": "^7.23.2",

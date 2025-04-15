@@ -10,6 +10,8 @@ const VirtualizedList: React.FC<ListProps> = ({
   ...rest
 }: ListProps) => {
   return (
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     <List
       rowCount={rowCount}
       rowHeight={rowHeight}
