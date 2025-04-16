@@ -1,13 +1,13 @@
+import { clsx } from 'clsx';
+import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import { useEffect, useMemo, useState } from 'react';
-import * as PropTypes from 'prop-types';
-import { clsx } from 'clsx';
-import { nanoid } from 'nanoid';
-import SelectionTypes, { SelectionInputTypes } from './SelectionTypes';
-import SelectionStatus, { getCheckedValue } from './SelectionStatus';
-import LabelPlacements from './LabelPlacements';
+import { v4 as uuidv4 } from 'uuid';
 import { Keys } from '../common/eventUtils';
 import { HasValidationProps } from '../validation/interfaces';
+import LabelPlacements from './LabelPlacements';
+import SelectionStatus, { getCheckedValue } from './SelectionStatus';
+import SelectionTypes, { SelectionInputTypes } from './SelectionTypes';
 
 interface SelectionInputProps {
   id?: string;
@@ -48,7 +48,7 @@ const SelectionInput: React.FC<SelectionInputPropsWithType> = ({
 }) => {
   // Generate unique ID if not provided
   const memoizedId = useMemo(() => {
-    return id || `${type}-${nanoid()}`;
+    return id || `${type}-${uuidv4()}`;
   }, [id]);
 
   // Default labelPlacement on right if not provided
