@@ -22,7 +22,7 @@
 
   &:focus-visible {
     @include outlineStyle();
-    outline-offset: toRem(1);
+    outline-offset: toRem(2);
   }
 
   &--primary {
