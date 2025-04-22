@@ -1,10 +1,28 @@
-import * as React from 'react';
 import createCache from '@emotion/cache';
 import { CacheProvider } from '@emotion/react';
-import { customAlphabet } from 'nanoid';
+import * as React from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
-// @emotion/cache only accepts lowercase alpha characters.
-const nanoid = customAlphabet('abcdefghijklmnopqrstuvwxyz');
+/**
+ * Generates a UUID-like string using only alphabetic characters
+ * @param alphabet - The alphabet to use for generating the string (default: lowercase a-z)
+ * @returns A string containing only characters from the provided alphabet
+ * @description Converts a standard UUID into an alphabetic string by mapping bytes to alphabet indices
+ */
+const uuidAlpha = (alphabet = 'abcdefghijklmnopqrstuvwxyz') => {
+  let alpha = '';
+  const base = alphabet.length;
+
+  for (let j = 0; j < 5; j++) { // repeat 5 times to get a final id with 20 chars (5 * 4)
+    const bytes = Buffer.from(uuidv4(), 'hex');
+    for (let i = 0; i < bytes.length; i++) {
+      const byte = bytes[i];
+      alpha += alphabet[byte % base];
+    }
+  }
+
+  return alpha;
+};
 
 interface Props extends Pick<React.HTMLProps<HTMLDivElement>, 'children'> {
   injectionPoint?: HTMLElement | undefined;
@@ -12,11 +30,9 @@ interface Props extends Pick<React.HTMLProps<HTMLDivElement>, 'children'> {
 
 export const StylesInjection = (props: Props) => {
   const emotionCache = createCache({
-    key: nanoid(),
-    container: props.injectionPoint
+    key: uuidAlpha(),
+    container: props.injectionPoint,
   });
 
-  return <CacheProvider value={emotionCache} >
-    {props.children}
-  </CacheProvider>
+  return <CacheProvider value={emotionCache}>{props.children}</CacheProvider>;
 };
