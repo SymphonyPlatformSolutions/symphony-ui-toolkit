@@ -1,19 +1,15 @@
 import * as React from 'react';
-import { useCallback, useEffect, useRef } from 'react';
 import { clsx } from 'clsx';
 import { Keys } from '../common/eventUtils';
 import { Loader } from '..';
+import { useCallback, useEffect, useRef } from 'react';
 
 interface DropdownMenuProps extends React.HTMLProps<HTMLDivElement> {
   show?: boolean;
-  children?: React.ReactNode;
-  className?: string;
   onClose?: () => void;
 }
 
 interface DropdownMenuItemProps extends React.HTMLProps<HTMLDivElement> {
-  children?: React.ReactNode;
-  className?: string;
   loading?: boolean;
   /** To select a certain option in the menu without having to use document.querySelector */
   forwardRef?: React.RefObject<HTMLDivElement>;
@@ -82,7 +78,8 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({children, className, 
     className,
   )
 
-  const menu = useRef<HTMLDivElement>();
+  const ref = useRef<HTMLDivElement>(null);
+
   const keyboardEventHandler = (e: KeyboardEvent) => {
     e.stopPropagation();
     if (e.key === Keys.ESC && onClose) {
@@ -92,14 +89,14 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({children, className, 
 
   const mouseEventHandler = (e: MouseEvent) => {
     e.stopPropagation();
-    if (onClose && menu && !(e.composedPath() as any).includes(menu.current)) {
+    if (onClose && ref && !(e.composedPath() as any).includes(ref.current)) {
       onClose();
     }
   }
 
   const removeListeners = useCallback(() => {
-    window.removeEventListener('keyup', keyboardEventHandler);
-    window.removeEventListener('click', mouseEventHandler);
+    ref.current?.ownerDocument.removeEventListener('keyup', keyboardEventHandler);
+    ref.current?.ownerDocument.removeEventListener('click', mouseEventHandler);
   }, [])
 
   useEffect(() => {
@@ -108,18 +105,16 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({children, className, 
       return;
     }
 
-    window.addEventListener('keyup', keyboardEventHandler);
-    window.addEventListener('click', mouseEventHandler);
+    ref.current?.ownerDocument.addEventListener('keyup', keyboardEventHandler);
+    ref.current?.ownerDocument.addEventListener('click', mouseEventHandler);
 
     return () => {
       removeListeners()
     }
   }, [show, removeListeners])
 
-  return show && (
-    <div {...rest} className={classes} ref={menu}>
-      {children}
-    </div>
-  )
+  return show && <div {...rest} className={classes} ref={ref}>
+    {children}
+  </div>
 };
 
