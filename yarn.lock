@@ -5022,6 +5022,7 @@ __metadata:
     github-markdown-css: "npm:^4.0.0"
     html-react-parser: "npm:^0.14.0"
     husky: "npm:^8.0.3"
+    import-meta-resolve: "npm:^4.1.0"
     lint-staged: "npm:^12.1.2"
     madge: "npm:^6.1.0"
     markdown-loader: "npm:^6.0.0"
@@ -12140,6 +12141,13 @@ __metadata:
     parent-module: "npm:^1.0.0"
     resolve-from: "npm:^4.0.0"
   checksum: 10/2cacfad06e652b1edc50be650f7ec3be08c5e5a6f6d12d035c440a42a8cc028e60a5b99ca08a77ab4d6b1346da7d971915828f33cdab730d3d42f08242d09baa
+  languageName: node
+  linkType: hard
+
+"import-meta-resolve@npm:^4.1.0":
+  version: 4.1.0
+  resolution: "import-meta-resolve@npm:4.1.0"
+  checksum: 10/40162f67eb406c8d5d49266206ef12ff07b54f5fad8cfd806db9efe3a055958e9969be51d6efaf82e34b8bea6758113dcc17bb79ff148292a4badcabc3472f22
   languageName: node
   linkType: hard
 
