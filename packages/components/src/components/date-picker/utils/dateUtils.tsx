@@ -142,9 +142,10 @@ export function getSiblingOrCurrent(elem, selector: string, direction: 'nextElem
       sibling = sibling[direction];
     } else {
       const parentSibling = sibling.parentElement[direction];
-      if (parentSibling) {
-        sibling = direction === 'nextElementSibling' ? parentSibling.firstElementChild : parentSibling.lastElementChild;
+      if (!parentSibling) {
+        return;
       }
+      sibling = direction === 'nextElementSibling' ? parentSibling.firstElementChild : parentSibling.lastElementChild;
     }
     index++;
   }

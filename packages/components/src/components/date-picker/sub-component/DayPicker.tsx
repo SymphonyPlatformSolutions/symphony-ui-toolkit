@@ -46,7 +46,6 @@ import {
   startOfToday,
   startOfWeek,
   startOfMonth,
-  isBefore,
 } from 'date-fns';
 
 type DayPickerComponentProps = {
@@ -171,16 +170,14 @@ class DayPicker extends React.Component<
     );
   }
 
-  arrowNavigation(date: Date, nextDate: Date) {
+  arrowNavigation(date: Date, nextDate: Date, action: 'next' | 'previous') {
     const delta = differenceInCalendarMonths(nextDate, date);
-    const action = isBefore(date, nextDate) ? 'next' : 'previous';
-    const maxStepCheck = getDaysInMonth(this.state.currentMonth);
     if (delta !== 0) {
       this.setState({ currentMonth: nextDate }, () =>
-        this.focusOnlyEnabledCell(nextDate, action, maxStepCheck, false)
+        this.focusOnlyEnabledCell(nextDate, action,null, false)
       );
     } else {
-      this.focusOnlyEnabledCell(nextDate, action, maxStepCheck);
+      this.focusOnlyEnabledCell(nextDate, action, null);
     }
   }
 
@@ -265,16 +262,16 @@ class DayPicker extends React.Component<
       this.focusOnlyEnabledCell(nextCell, 'previous', MAX_STEP_TO_CHECK);
       break;
     case Keys.ARROW_LEFT:
-      this.arrowNavigation(date, addDays(date, -1 * direction));
+      this.arrowNavigation(date, addDays(date, -1 * direction), 'previous');
       break;
     case Keys.ARROW_UP:
-      this.arrowNavigation(date, addDays(date, -7));
+      this.arrowNavigation(date, addDays(date, -7), 'previous');
       break;
     case Keys.ARROW_RIGHT:
-      this.arrowNavigation(date, addDays(date, 1 * direction));
+      this.arrowNavigation(date, addDays(date, 1 * direction), 'next');
       break;
     case Keys.ARROW_DOWN:
-      this.arrowNavigation(date, addDays(date, 7));
+      this.arrowNavigation(date, addDays(date, 7), 'next');
       break;
     default:
       break;
