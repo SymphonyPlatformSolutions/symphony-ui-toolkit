@@ -28,6 +28,8 @@ export interface ToastProps extends Omit<React.HTMLProps<HTMLDivElement>, 'child
     placement: Placement;
     /** If Toast should be shown or not */
     show: boolean;
+    /** Optional label name to describe element **/
+    ariaLabel?: string;
 }
   
 export const Toast: React.FC<ToastProps> = ({
@@ -37,7 +39,8 @@ export const Toast: React.FC<ToastProps> = ({
   leftIcon,
   onClickClose,
   placement,
-  show,
+  show, 
+  ariaLabel,
   ...otherProps
 }) => {
 
@@ -56,7 +59,8 @@ export const Toast: React.FC<ToastProps> = ({
         [`tk-toast__horizontal-${placement.horizontal}`]: !xyCentered,
         [`tk-toast__vertical-${placement.vertical}`]: !xyCentered
       }
-    )}
+    )} 
+    aria-label={ariaLabel}
     { ...otherProps }
     >
       
@@ -90,4 +94,5 @@ Toast.propTypes = {
   onClickClose: PropTypes.func,
   placement: PropTypes.any,
   show: PropTypes.bool.isRequired,
+  ariaLabel: PropTypes.string,
 };
