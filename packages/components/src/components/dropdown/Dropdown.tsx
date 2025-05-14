@@ -367,7 +367,7 @@ export class Dropdown<T = LabelValue> extends React.Component<
           tooltipCloseLabel={tooltipCloseLabel}
           showRequired={showRequired}
         />
-        {helperText && <div className="tk-input__helper">{helperText}</div>}
+        {helperText && <div id={`${id}-input__helper`} className="tk-input__helper">{helperText}</div>}
       </div>
     );
   }
