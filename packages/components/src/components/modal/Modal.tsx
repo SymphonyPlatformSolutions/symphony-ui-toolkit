@@ -14,6 +14,7 @@ interface ModalProps extends Omit<React.HTMLProps<HTMLDivElement>, 'size'> {
   parentNode?: Element;
   show?: boolean;
   onClose?: () => void;
+  ariaLabel?: string;
 }
 
 type ModalContentProps = {
@@ -87,6 +88,7 @@ const Modal: React.FC<ModalProps> = ({
   focusTrapEnabled = true,
   parentNode,
   show,
+  ariaLabel,
   ...rest
 }: ModalProps) => {
 
@@ -111,7 +113,7 @@ const Modal: React.FC<ModalProps> = ({
       const trapFocus = () => {
         if (modalRef.current) {
           const focusableElements = getFocusableElements(modalRef.current);
-          
+
           // Focus the first element if available
           focusableElements[0]?.focus();
 
@@ -141,7 +143,7 @@ const Modal: React.FC<ModalProps> = ({
       onKeyUp={handleKeyUp}
       tabIndex={-1}
     >
-      <div ref={modalRef} role="dialog" className={sizeClasses} onClick={handleContentClick}>
+      <div ref={modalRef} role="dialog" aria-label={ariaLabel} className={sizeClasses} onClick={handleContentClick}>
         {closeButton && (
           <button
             aria-label="close"
