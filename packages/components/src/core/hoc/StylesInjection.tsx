@@ -30,8 +30,9 @@ interface Props extends Pick<React.HTMLProps<HTMLDivElement>, 'children'> {
 
 export const StylesInjection = (props: Props) => {
   const emotionCache = createCache({
-    key: uuidAlpha(),
     container: props.injectionPoint,
+    key: uuidAlpha(),
+    stylisPlugins: [],
   });
 
   return <CacheProvider value={emotionCache}>{props.children}</CacheProvider>;
