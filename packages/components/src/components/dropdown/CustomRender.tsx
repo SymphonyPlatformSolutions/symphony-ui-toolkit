@@ -134,10 +134,15 @@ export const DropdownIndicator = (props: any) => {
     </components.DropdownIndicator>;
 };
 
-export const ClearIndicator = (props: any) =>
-  <components.ClearIndicator {...props}>
-    <Icon className="tk-select__close-icon" iconName="cross-round" onKeyPress={props.clearValue} tabIndex={0} role="button" aria-label="clear" />
+export const ClearIndicator = (props: any) => {
+  let ariaLabel='clear'
+  if (props?.selectProps?.label) {
+    ariaLabel = `${props.selectProps?.label} ${ariaLabel}`;
+  }
+  return <components.ClearIndicator {...props}>
+    <Icon className="tk-select__close-icon" iconName="cross-round" onKeyPress={props.clearValue} tabIndex={0} role="button" aria-label={ariaLabel} />
   </components.ClearIndicator>;
+};
 
 export const Control = ({ children, selectProps, ...props }: any) => {
   const { iconName } = selectProps;
@@ -195,7 +200,7 @@ export const DropdownList = ({ selectProps, ...props }: any) => {
     React.useEffect(() => {
       select?.setState({ focusedOption: null });
     }, [selectProps.selectRef]);
-    // Update the focus depending on the inputValue. 
+    // Update the focus depending on the inputValue.
     React.useEffect(() => {
       select?.setState({ focusedOption: focusThis });
       selectProps.parentInstance.searchHeaderOption.value = inputValue;
