@@ -37,7 +37,7 @@ jobs:
       - browser-tools/install-chrome
       - browser-tools/install-chromedriver
       - run: curl -L -O https://github.com/SeleniumHQ/selenium/releases/download/selenium-4.1.0/selenium-server-4.1.1.jar
-      - run: corepack enable
+      - run: sudo corepack enable
       - run: yarn
       - run: yarn build
       - run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
