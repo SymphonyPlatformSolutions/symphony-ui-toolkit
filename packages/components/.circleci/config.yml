@@ -16,7 +16,7 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/project
-      - run: corepack enable
+      - run: sudo corepack enable
       - run: yarn
       - run: yarn workspace @symphony-ui/uitoolkit-styles build # Build UI-TK Styles because some files from 'dist' folder are used in UI-TK Components
       - run: yarn lint
