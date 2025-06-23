@@ -42,6 +42,7 @@ export * from './text-ellipsis';
 export * from './time-picker';
 export * from './toast';
 export * from './validation';
+export * from './date-time';
 
 export {
   Card,
