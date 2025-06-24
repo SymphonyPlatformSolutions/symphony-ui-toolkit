@@ -92,16 +92,26 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
     }
   };
 
-  const keyboardEventHandler = (e: KeyboardEvent) => {
-    e.stopPropagation();
-    if(e.key === Keys.ESC) {
+  const keyboardEventHandler = (event: KeyboardEvent) => {
+    event.stopPropagation();
+    const eventFiredFromModal = event.composedPath().some((element) => {
+      return (element as Element).className === 'tk-dialog-backdrop'
+    });
+    if(event.key === Keys.ESC && !eventFiredFromModal) {
       onClose?.();
     }
   }
 
-  const mouseEventHandler = (e: MouseEvent) => {
-    e.stopPropagation();
-    if (ref.current && !e.composedPath().includes(ref.current)) {
+  const mouseEventHandler = (event: MouseEvent) => {
+    event.stopPropagation();
+    const eventFiredFromModal = event.composedPath().some((element) => {
+      return (element as Element).className === 'tk-dialog-backdrop'
+    });
+    if (
+      ref.current &&
+      !event.composedPath().includes(ref.current) &&
+      !eventFiredFromModal
+    ) {
       onClose?.();
     }
   }
