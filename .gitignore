@@ -12,3 +12,7 @@ dist
 symphony-uitoolkit-*.tgz
 icons.stories.js
 package-lock.json
+
+yarn-error.log
+.yarn/cache
+.yarn/install-state.gz
