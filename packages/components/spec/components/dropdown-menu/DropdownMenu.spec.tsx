@@ -1,25 +1,26 @@
 import * as React from 'react';
-import {mount} from 'enzyme';
-import {DropdownMenu, DropdownMenuDivider, DropdownMenuItem} from '../../../src/components';
-import {fireEvent, getByText, render, screen} from '@testing-library/react';
-import userEvent, {specialChars} from '@testing-library/user-event';
+import userEvent, { specialChars } from '@testing-library/user-event';
+import { DropdownMenu, DropdownMenuDivider, DropdownMenuItem } from '../../../src/components';
+import { fireEvent, getByText, render, screen } from '@testing-library/react';
 import { vi } from 'vitest';
 
 describe('DropdownMenu', () => {
+
   it('should render with the correct classes without crash', () => {
-    const wrapper = mount(
-      <DropdownMenu>
-        <DropdownMenuItem>Hello world</DropdownMenuItem>
-        <DropdownMenuDivider/>
-        <DropdownMenuItem>Hello people</DropdownMenuItem>
-      </DropdownMenu>
-    )
-    expect(wrapper.find('DropdownMenu').length).toBe(1);
-    expect(wrapper.find('DropdownMenu').childAt(0).hasClass('tk-dropdown-menu')).toBe(true);
-    expect(wrapper.find('DropdownMenuDivider').length).toBe(1);
-    expect(wrapper.find('DropdownMenuDivider').find('div').hasClass('tk-dropdown-menu-divider')).toBe(true);
-    expect(wrapper.find('DropdownMenuItem').length).toBe(2);
-    expect(wrapper.find('DropdownMenuItem').find('div').forEach(d => d.hasClass('tk-dropdown-menu__item')));
+    render(<DropdownMenu>
+      <DropdownMenuItem>Hello world</DropdownMenuItem>
+      <DropdownMenuDivider/>
+      <DropdownMenuItem>Hello people</DropdownMenuItem>
+    </DropdownMenu>)
+    const dropdownMenu = screen.getByRole('menu');
+    expect(dropdownMenu).toBeInTheDocument();
+    expect(dropdownMenu).toHaveClass('tk-dropdown-menu')
+
+    const divider = dropdownMenu.querySelector('.tk-dropdown-menu-divider');
+    expect(divider).toBeInTheDocument();
+
+    const menuItems = dropdownMenu.querySelectorAll('.tk-dropdown-menu__item');
+    expect(menuItems).toHaveLength(2);
   });
 
   it('should call onClose when clicking outside of it', () => {
