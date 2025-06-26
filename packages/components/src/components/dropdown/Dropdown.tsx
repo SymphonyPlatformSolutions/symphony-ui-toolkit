@@ -39,6 +39,8 @@ export class Dropdown<T = LabelValue> extends React.Component<
   myRef: any;
   searchHeaderOption: any;
   lastSelectedOption: any;
+  onInitCalled: boolean = false;
+
   constructor(props) {
     super(props);
 
@@ -64,9 +66,18 @@ export class Dropdown<T = LabelValue> extends React.Component<
   }
 
   componentDidMount() {
-    const { onInit, value } = this.props;
-    if (onInit && value) {
+    const { onInit, value, isInitialized } = this.props;
+    if (!this.onInitCalled && isInitialized !== false && onInit && value) {
       onInit(value as any);
+      this.onInitCalled = true;
+    }
+  }
+
+  componentDidUpdate() {
+    const { onInit, value, isInitialized } = this.props;
+    if (!this.onInitCalled && !!isInitialized && onInit && value) {
+      onInit(value as any);
+      this.onInitCalled = true;
     }
   }
 
