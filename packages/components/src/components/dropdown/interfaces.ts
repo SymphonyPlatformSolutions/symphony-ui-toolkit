@@ -123,6 +123,8 @@ export type DropdownProps<T> = {
   inputAlwaysDisplayed?: boolean;
   /** The value of the search input */
   inputValue?: string;
+  /** Used for async dropdowns, especially with initial values, should be true when 'value' field is correctly populated. */
+  isInitialized?: boolean;
   /** Is the select value clearable */
   isInputClearable?: boolean;
   /** If false, user can not type on the control Input */

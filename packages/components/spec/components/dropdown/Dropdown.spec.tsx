@@ -47,6 +47,10 @@ describe('Dropdown component test suite =>', () => {
     id: 'testId',
   };
 
+  afterEach(() => {
+    onInit.mockClear();
+  })
+
   describe('when options are Sync', () => {
     beforeEach(() => {
       dropdownProps.options = options;
@@ -608,6 +612,7 @@ describe('Dropdown component test suite =>', () => {
           expect(queryByText('orange')).toBeFalsy();
         });
       });
+
       describe('when `defaultOptions` is provided with a different list', () => {
         it('should render different default options to the dropdown menu', async () => {
           const { getByText } = render(
@@ -620,6 +625,7 @@ describe('Dropdown component test suite =>', () => {
           userEvent.click(input);
           expect(getByText('salmon')).toBeTruthy();
         });
+
         it('should filter the options if user types on the input', async () => {
           const { getByText, queryByText } = render(
             <Dropdown
@@ -721,6 +727,40 @@ describe('Dropdown component test suite =>', () => {
         userEvent.click(cross);
         expect(onClear).toBeCalled();
         expect(getByText('Select...')).toBeTruthy();
+      });
+
+      it('should call onInit function only once, when component is initialized', async () => {
+        const dropdownComponent = render(
+          <Dropdown
+            asyncOptions={() => Promise.resolve(options)}
+            onInit={onInit}
+            value={undefined}
+            isInitialized={false}
+          />
+        );
+        expect(onInit).not.toHaveBeenCalled();
+
+        dropdownComponent.rerender(
+          <Dropdown
+            asyncOptions={() => Promise.resolve(options)}
+            onInit={onInit}
+            value="value"
+            isInitialized={true}
+          />
+        );
+        expect(onInit).toHaveBeenCalledTimes(1);
+        expect(onInit).toHaveBeenCalledWith('value');
+
+        dropdownComponent.rerender(
+          <Dropdown
+            asyncOptions={() => Promise.resolve(options)}
+            onInit={onInit}
+            value="value2"
+            isInitialized={true}
+          />
+        );
+        expect(onInit).toHaveBeenCalledTimes(1);
+        expect(onInit).toHaveBeenCalledWith('value');
       });
     });
 
