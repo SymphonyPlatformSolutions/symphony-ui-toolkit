@@ -111,4 +111,26 @@ describe('DropdownMenu', () => {
     userEvent.type(screen.getByTestId('option_1'), specialChars.enter);
     expect(onClick).not.toHaveBeenCalled();
   })
+
+  it('should render value of tabIndex props', () => {
+    const onClick = vi.fn();
+    render(
+      <DropdownMenu show>
+        <DropdownMenuItem data-testid="option_1" onClick={onClick} loading tabIndex={-1}>Option 1</DropdownMenuItem>
+      </DropdownMenu>
+    )
+
+    expect(screen.getByTestId('option_1')).toHaveAttribute('tabIndex', '-1')
+  })
+
+  it('should render default tabIndex props', () => {
+    const onClick = vi.fn();
+    render(
+      <DropdownMenu show>
+        <DropdownMenuItem data-testid="option_1" onClick={onClick} loading>Option 1</DropdownMenuItem>
+      </DropdownMenu>
+    )
+
+    expect(screen.getByTestId('option_1')).toHaveAttribute('tabIndex', '0')
+  })
 })
