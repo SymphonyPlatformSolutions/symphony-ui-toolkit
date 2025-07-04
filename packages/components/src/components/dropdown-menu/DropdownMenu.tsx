@@ -14,12 +14,13 @@ interface DropdownMenuItemProps extends React.HTMLProps<HTMLDivElement> {
   /** To select a certain option in the menu without having to use document.querySelector */
   forwardRef?: React.RefObject<HTMLDivElement>;
   onClick?: (event: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) => void;
+  tabIndex?: number;
 }
 
 export const DropdownMenuDivider: React.FC = () => <div className="tk-dropdown-menu-divider"></div>
 
 export const DropdownMenuItem: React.FC<DropdownMenuItemProps> = ({
-  children, className, onClick, forwardRef, loading, ...rest
+  children, className, onClick, forwardRef, loading, tabIndex = 0, ...rest
 }: DropdownMenuItemProps) => {
   const classes = clsx(
     'tk-dropdown-menu__item',
@@ -65,7 +66,7 @@ export const DropdownMenuItem: React.FC<DropdownMenuItemProps> = ({
     onClick?.(event);
   }, [loading])
 
-  return <div {...rest} className={classes} role="menuitem" onClick={onClickHandler} ref={forwardRef} onKeyDown={onKeyDownHandler} tabIndex={0}>
+  return <div {...rest} className={classes} role="menuitem" onClick={onClickHandler} ref={forwardRef} onKeyDown={onKeyDownHandler} tabIndex={tabIndex}>
     {loading ? <Loader variant="primary" /> : children}
   </div>
 }
