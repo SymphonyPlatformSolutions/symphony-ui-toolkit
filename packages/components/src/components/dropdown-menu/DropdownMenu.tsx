@@ -14,12 +14,13 @@ interface DropdownMenuItemProps extends React.HTMLProps<HTMLDivElement> {
   /** To select a certain option in the menu without having to use document.querySelector */
   forwardRef?: React.RefObject<HTMLDivElement>;
   onClick?: (event: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) => void;
+  tabIndex?: number;
 }
 
 export const DropdownMenuDivider: React.FC = () => <div className="tk-dropdown-menu-divider"></div>
 
 export const DropdownMenuItem: React.FC<DropdownMenuItemProps> = ({
-  children, className, onClick, forwardRef, loading, ...rest
+  children, className, onClick, forwardRef, loading, tabIndex = 0, ...rest
 }: DropdownMenuItemProps) => {
   const classes = clsx(
     'tk-dropdown-menu__item',
@@ -65,55 +66,70 @@ export const DropdownMenuItem: React.FC<DropdownMenuItemProps> = ({
     onClick?.(event);
   }, [loading])
 
-  return (
-    <div {...rest} className={classes} role="menu-item" onClick={onClickHandler} ref={forwardRef} onKeyDown={onKeyDownHandler} tabIndex={0}>
-      {loading ? <Loader variant="primary" /> : children}
-    </div>
-  )
+  return <div {...rest} className={classes} role="menuitem" onClick={onClickHandler} ref={forwardRef} onKeyDown={onKeyDownHandler} tabIndex={tabIndex}>
+    {loading ? <Loader variant="primary" /> : children}
+  </div>
 }
 
-export const DropdownMenu: React.FC<DropdownMenuProps> = ({children, className, show = true, onClose, ...rest}: DropdownMenuProps) => {
+export const DropdownMenu: React.FC<DropdownMenuProps> = ({
+  children,
+  className,
+  show = true,
+  onClose,
+  ...rest
+}: DropdownMenuProps) => {
   const classes = clsx(
     'tk-dropdown-menu',
     className,
   )
 
   const ref = useRef<HTMLDivElement>(null);
+  const [ownerDocument, setOwnerDocument] = React.useState<Document | null>(null);
+
+  const refCallback = (node: HTMLDivElement | null) => {
+    ref.current = node;
+    if (node !== null) {
+      setOwnerDocument(node.ownerDocument);
+    }
+  };
 
   const keyboardEventHandler = (e: KeyboardEvent) => {
     e.stopPropagation();
-    if (e.key === Keys.ESC && onClose) {
-      onClose();
+    if(e.key === Keys.ESC) {
+      onClose?.();
     }
   }
 
   const mouseEventHandler = (e: MouseEvent) => {
     e.stopPropagation();
-    if (onClose && ref && !(e.composedPath() as any).includes(ref.current)) {
-      onClose();
+    if (ref.current && !e.composedPath().includes(ref.current)) {
+      onClose?.();
     }
   }
 
-  const removeListeners = useCallback(() => {
-    ref.current?.ownerDocument.removeEventListener('keyup', keyboardEventHandler);
-    ref.current?.ownerDocument.removeEventListener('click', mouseEventHandler);
-  }, [])
+  const removeListeners = () => {
+    ownerDocument?.removeEventListener('keyup', keyboardEventHandler);
+    ownerDocument?.removeEventListener('click', mouseEventHandler);
+  }
 
   useEffect(() => {
-    if (!show) {
+    if(!show) {
       removeListeners();
       return;
     }
-
-    ref.current?.ownerDocument.addEventListener('keyup', keyboardEventHandler);
-    ref.current?.ownerDocument.addEventListener('click', mouseEventHandler);
-
+    ownerDocument?.addEventListener('keyup', keyboardEventHandler);
+    ownerDocument?.addEventListener('click', mouseEventHandler);
     return () => {
-      removeListeners()
+      removeListeners();
     }
-  }, [show, removeListeners])
+  }, [ownerDocument, removeListeners, show])
 
-  return show && <div {...rest} className={classes} role="menu" ref={ref}>
+  return show && <div
+    className={classes}
+    ref={ refCallback }
+    role="menu"
+    {...rest}
+  >
     {children}
   </div>
 };
