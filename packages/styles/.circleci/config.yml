@@ -23,6 +23,7 @@ jobs:
     <<: *defaults
     steps:
       - checkout
+      - run: sudo corepack enable
       - run: bash ./setVersion.sh
       - persist_to_workspace:
           root: .

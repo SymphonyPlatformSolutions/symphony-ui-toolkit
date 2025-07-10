@@ -4,9 +4,11 @@ if [ -z "$CIRCLE_TAG" ]; then
     echo "No tag, skip publish ..."
 else
     echo "Found tag, setting version to $CIRCLE_TAG"
-    yarn version --no-git-tag-version --new-version ${CIRCLE_TAG//v}
-    yarn workspace @symphony-ui/uitoolkit-styles version --no-git-tag-version --new-version ${CIRCLE_TAG//v}
-    yarn workspace @symphony-ui/uitoolkit-components version --no-git-tag-version --new-version ${CIRCLE_TAG//v}
+    
+    yarn version ${CIRCLE_TAG//v}
+    yarn workspace @symphony-ui/uitoolkit-styles version ${CIRCLE_TAG//v}
+    yarn workspace @symphony-ui/uitoolkit-components version ${CIRCLE_TAG//v}
+
     # Update Components with new release of Styles
     yarn workspace @symphony-ui/uitoolkit-components upgrade @symphony-ui/uitoolkit-styles@${CIRCLE_TAG//v}
 
