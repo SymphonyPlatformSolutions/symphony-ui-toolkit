@@ -12,6 +12,8 @@ else
     # Update Components with new release of Styles
     yarn workspace @symphony-ui/uitoolkit-components upgrade @symphony-ui/uitoolkit-styles@${CIRCLE_TAG//v}
 
+    yarn install
+    git add yarn.lock
     git add package.json
     git add **/package.json
     git config --global user.email "$GIT_USEREMAIL"
