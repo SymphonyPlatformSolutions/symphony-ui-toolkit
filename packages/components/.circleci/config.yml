@@ -57,8 +57,8 @@ jobs:
 
       - run: yarn build
       - run: |
-        echo "npmRegistryServer: \"https://registry.npmjs.org\"" > .yarnrc.yml
-        echo "npmAuthToken: \"${NPM_TOKEN}\"" >> .yarnrc.yml
+        echo "npmRegistryServer: https://registry.npmjs.org" > .yarnrc.yml
+        echo "npmAuthToken: ${NPM_TOKEN}" >> .yarnrc.yml
       - run: bash ./publish.sh
       - run: rm -f ~/.yarnrc.yml
       - run: rm -rf ./dist
