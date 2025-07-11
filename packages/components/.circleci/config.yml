@@ -9,6 +9,10 @@ orbs:
 
 jobs:
   package-components-build-and-publish:
+    environment:
+      # Adding a space and not this variable leads to incorrect parsing for circleci-config-merge.
+      # Space is required for the .yarnrc.yml configuration, otherwise it's not valid.
+      - SPACE: " "
     executor:
       name: node/default
       tag: 'current'
@@ -56,8 +60,8 @@ jobs:
           prefix: tests
 
       - run: yarn build
-      - run: echo "npmRegistryServer:https://registry.npmjs.org" > .yarnrc.yml
-      - run: echo "npmAuthToken:${NPM_TOKEN}" >> .yarnrc.yml
+      - run: echo "npmRegistryServer:${SPACE}https://registry.npmjs.org" > .yarnrc.yml
+      - run: echo "npmAuthToken:${SPACE}${NPM_TOKEN}" >> .yarnrc.yml
       - run: bash ./publish.sh
       - run: rm -f ~/.yarnrc.yml
       - run: rm -rf ./dist
