@@ -41,8 +41,8 @@ jobs:
       - run: sudo corepack enable
       - run: yarn
       - run: yarn build
-      - run: echo "npmRegistryServer:https://registry.npmjs.org" > .yarnrc.yml
-      - run: echo "npmAuthToken:${NPM_TOKEN}" >> .yarnrc.yml
+      - run: echo "npmRegistryServer: https://registry.npmjs.org" > .yarnrc.yml
+      - run: echo "npmAuthToken: ${NPM_TOKEN}" >> .yarnrc.yml
       - run: echo "hello axel!"
       - run: cat .yarnrc.yml
       - run: bash ./publish.sh
