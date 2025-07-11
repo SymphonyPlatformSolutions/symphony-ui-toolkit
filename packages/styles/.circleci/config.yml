@@ -43,6 +43,8 @@ jobs:
       - run: yarn build
       - run: echo "npmRegistryServer:https://registry.npmjs.org" > .yarnrc.yml
       - run: echo "npmAuthToken:${NPM_TOKEN}" >> .yarnrc.yml
+      - run: echo "hello axel!"
+      - run: cat .yarnrc.yml
       - run: bash ./publish.sh
       - run: rm -f ~/.yarnrc.yml
       - run: yarn build-storybook
