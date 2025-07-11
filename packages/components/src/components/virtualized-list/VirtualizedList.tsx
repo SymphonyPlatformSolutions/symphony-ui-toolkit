@@ -9,16 +9,14 @@ const VirtualizedList: React.FC<ListProps> = ({
   rowRenderer,
   ...rest
 }: ListProps) => {
-  return (
-    <List
-      rowCount={rowCount}
-      rowHeight={rowHeight}
-      width={width}
-      height={height}
-      rowRenderer={rowRenderer}
-      {...rest}
-    />
-  );
+  return <List
+    rowCount={rowCount}
+    rowHeight={rowHeight}
+    width={width}
+    height={height}
+    rowRenderer={rowRenderer}
+    {...rest}
+  />
 }
 
 export default VirtualizedList;

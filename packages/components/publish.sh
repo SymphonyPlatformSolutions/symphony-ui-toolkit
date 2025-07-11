@@ -5,7 +5,7 @@ function executePublish {
     cp package.json dist/
     cp README.md dist/
     cd dist
-    yarn publish --ignore-scripts --access public
+    yarn npm publish --access public
     cd ..
 }
 
@@ -13,7 +13,7 @@ function executePublish {
 function publish() {
     echo "Running UI-Toolkit Components publish..."
     executePublish;
-    postToUniversalWebhook;
+    # postToUniversalWebhook;
     echo "Publish UI-Toolkit Components End"
 }
 

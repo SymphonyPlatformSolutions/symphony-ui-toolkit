@@ -6,8 +6,8 @@ The React components library of Symphony`s design system
 
 ## Requirements
 
-- Node 20+
-- Yarn 1.22+
+- Node 22.11.0+
+- Yarn 4.5.1+
 
 ## Browser support
 

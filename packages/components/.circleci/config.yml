@@ -4,11 +4,15 @@
 version: 2.1
 
 orbs:
-  node: circleci/node@5.1.0
+  node: circleci/node@7.1.0
   aws-cli: circleci/aws-cli@2.0
 
 jobs:
   package-components-build-and-publish:
+    environment:
+      # Adding a space and not this variable leads to incorrect parsing for circleci-config-merge.
+      # Space is required for the .yarnrc.yml configuration, otherwise it's not valid.
+      - SPACE: " "
     executor:
       name: node/default
       tag: 'current'
@@ -16,6 +20,7 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/project
+      - run: sudo corepack enable
       - run: yarn
       - run: yarn workspace @symphony-ui/uitoolkit-styles build # Build UI-TK Styles because some files from 'dist' folder are used in UI-TK Components
       - run: yarn lint
@@ -55,9 +60,10 @@ jobs:
           prefix: tests
 
       - run: yarn build
-      - run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
+      - run: echo "npmRegistryServer:${SPACE}https://registry.npmjs.org" > .yarnrc.yml
+      - run: echo "npmAuthToken:${SPACE}${NPM_TOKEN}" >> .yarnrc.yml
       - run: bash ./publish.sh
-      - run: rm -f ~/.npmrc
+      - run: rm -f ~/.yarnrc.yml
       - run: rm -rf ./dist
       - run: yarn build-storybook
       - persist_to_workspace:

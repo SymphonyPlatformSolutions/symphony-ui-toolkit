@@ -26,7 +26,7 @@ jobs:
           name: Install 'circleci-config-merge'
           command: |
               mkdir tools
-              curl -L https://github.com/suzuki-shunsuke/circleci-config-merge/releases/download/v1.1.1/circleci-config-merge_1.1.1_linux_amd64.tar.gz | tar -xz -C ./tools/
+              curl -L https://github.com/suzuki-shunsuke/circleci-config-merge/releases/download/v1.1.6/circleci-config-merge_1.1.6_linux_amd64.tar.gz | tar -xz -C ./tools/
           when: always
       - run:
           name: Generate config
