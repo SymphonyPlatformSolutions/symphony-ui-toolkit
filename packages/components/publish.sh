@@ -5,7 +5,7 @@ function executePublish {
     cp package.json dist/
     cp README.md dist/
     cd dist
-    yarn npm publish --ignore-scripts --access public
+    yarn npm publish --access public
     cd ..
 }
 
