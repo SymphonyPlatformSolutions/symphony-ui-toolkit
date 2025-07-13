@@ -5,6 +5,7 @@ function executePublish {
     cp package.json dist/
     cp README.md dist/
     cd dist
+    touch yarn.lock
     yarn npm publish --access public
     cd ..
 }
