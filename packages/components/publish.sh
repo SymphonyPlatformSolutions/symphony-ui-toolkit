@@ -2,10 +2,12 @@
 set -e
 # Execute publish
 function executePublish {
+    ls -A
     cp package.json dist/
     cp README.md dist/
     cd dist
     touch yarn.lock
+    yarn install
     yarn npm publish --access public
     cd ..
 }
