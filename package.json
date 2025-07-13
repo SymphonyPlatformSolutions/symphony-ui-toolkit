@@ -1,6 +1,6 @@
 {
   "name": "@symphony-ui/uitoolkit",
-  "version": "4.10.3",
+  "version": "5.0.5-experimental",
   "private": true,
   "description": "React components for the Symphony UI design system",
   "license": "ISC",
@@ -26,5 +26,6 @@
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org"
-  }
+  },
+  "stableVersion": "4.10.3"
 }
