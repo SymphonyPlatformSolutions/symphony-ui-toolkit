@@ -2,18 +2,14 @@
 set -e
 # Execute publish
 function executePublish {
-    cp package.json dist/
-    cp README.md dist/
-    cd dist
-    yarn publish --ignore-scripts --access public
-    cd ..
+    yarn npm publish --access public
 }
 
 # Version and publish logic
 function publish() {
     echo "Running UI-Toolkit Components publish..."
     executePublish;
-    postToUniversalWebhook;
+    # postToUniversalWebhook;
     echo "Publish UI-Toolkit Components End"
 }
 

@@ -3,14 +3,14 @@ set -e
 # Execute publish
 function executePublish {
     yarn workspace @symphony-ui/uitoolkit-styles pack
-    yarn workspace @symphony-ui/uitoolkit-styles publish --access public
+    yarn workspace @symphony-ui/uitoolkit-styles npm publish --access public
 }
 
 # Version and publish logic
 function publish() {
     echo "Running UI-Toolkit Styles publish..."
     executePublish;
-    postToUniversalWebhook;
+    # postToUniversalWebhook;
     echo "Publish UI-Toolkit Styles End"
 }
 
