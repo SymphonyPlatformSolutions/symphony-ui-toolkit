@@ -9,9 +9,7 @@
   "sideEffects": false,
   "main": "index.js",
   "types": "index.d.ts",
-  "files": [
-    "dist"
-  ],
+  "files": ["*.js", "*.d.ts"],
   "scripts": {
     "prepare": "cd ../.. && husky install",
     "clean": "rm -rf dist",
