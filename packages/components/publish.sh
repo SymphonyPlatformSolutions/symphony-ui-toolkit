@@ -2,7 +2,7 @@
 set -e
 # Execute publish
 function executePublish {
-    cp -r dist/ .
+    cp -r dist/ ../components
     yarn npm publish --access public
 }
 
