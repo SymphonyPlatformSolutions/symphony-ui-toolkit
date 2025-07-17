@@ -3,6 +3,7 @@ set -e
 # Execute publish
 function executePublish {
     cp -r dist/* .
+    rm -rf dist
     yarn npm publish --access public
 }
 
