@@ -10,8 +10,13 @@
   "main": "index.js",
   "types": "index.d.ts",
   "files": [
-    "*.js",
-    "*.d.ts"
+    "components/",
+    "core/",
+    "esm/",
+    "styles/",
+    "utils/",
+    "index.js",
+    "index.d.ts"
   ],
   "scripts": {
     "prepare": "cd ../.. && husky install",
