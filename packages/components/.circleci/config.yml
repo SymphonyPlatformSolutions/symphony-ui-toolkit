@@ -38,26 +38,6 @@ jobs:
           environment:
             NODE_OPTIONS: --max_old_space_size=4096
           when: always
-      # Run coverage report for Code Climate
-      - run:
-          name: Setup Code Climate test-reporter
-          command: |
-              # download test reporter as a static binary
-              curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-              chmod +x ./cc-test-reporter
-              ./cc-test-reporter before-build
-          when: always
-      - run:
-          name: Send coverage report to Code Climate
-          command:
-              ./cc-test-reporter after-build -t lcov
-          environment:
-            CC_TEST_REPORTER_ID: 518d1f4c65cb1ed1f1109f6871c416a797b7d91d0bdbcd496b6a3d549eff73a2
-          when: always
-      # Upload results
-      - store_artifacts: # upload test coverage as artifact
-          path: ./coverage/lcov.info
-          prefix: tests
 
       - run: yarn build
       - run: echo "npmRegistryServer:${SPACE}https://registry.npmjs.org" > .yarnrc.yml
