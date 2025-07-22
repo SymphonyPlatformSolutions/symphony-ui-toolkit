@@ -2,11 +2,9 @@
 set -e
 # Execute publish
 function executePublish {
-    cp package.json dist/
-    cp README.md dist/
-    cd dist
-    yarn publish --ignore-scripts --access public
-    cd ..
+    cp -r dist/* .
+    rm -rf dist
+    yarn npm publish --access public
 }
 
 # Version and publish logic

@@ -4,8 +4,8 @@ The official styles library of Symphony's design system
 
 ## Requirements
 
-- Node 20+
-- Yarn 1.22+
+- Node 22.11.0+
+- Yarn 4.5.1+
 
 ## Browser support
 
@@ -38,12 +38,12 @@ Automated visual testing uses software to automate the process of comparing visu
 
 **Requirements**
 
- - Selenium Grid
- - [Chromedriver](https://chromedriver.chromium.org/downloads)
+- Selenium Grid
+- [Chromedriver](https://chromedriver.chromium.org/downloads)
 
 **Setting Up**
 
- 1. Download Selenium Server.
+1.  Download Selenium Server.
 
 ```bash
 curl -L -O https://github.com/SeleniumHQ/selenium/releases/download/selenium-4.1.0/selenium-server-4.1.1.jar
@@ -54,17 +54,20 @@ curl -L -O https://github.com/SeleniumHQ/selenium/releases/download/selenium-4.1
 ```bash
 java -jar selenium-server-4.1.1.jar hub
 ```
+
 3. In other terminal run Selenium Node.
 
 ```bash
 java -jar selenium-server-4.1.1.jar node
-````
+```
 
 4. Now Start storybook and then start Visual Testing Execution.
+
 ```bash
 yarn start
 yarn test
 ```
+
 **Update the test images**
 
 When the visual testing detects new components or changes on the existing ones it will fail the tests. In order to fix it you will need to run the `update-test-images.sh` script.
@@ -76,21 +79,24 @@ Example:
 
 It will execute the following steps automatically:
 
- 1. Download `report.zip` from the artefacts provided on the CircleCI build URL
- 3. Unzip it
- 2. Replace on .creevey/report
- 3. Execute the following commands to update the PNGs:
- ```
-    yarn test --update
-    yarn test --config .creevey/config_condensed.js --update
-    yarn test --config .creevey/config_darkmode.js --update
-    yarn test --config .creevey/config_darkmode_condensed.js --update
- ```
- 4. `git add` the updated PNG images to the repository.
+1.  Download `report.zip` from the artefacts provided on the CircleCI build URL
+2.  Unzip it
+3.  Replace on .creevey/report
+4.  Execute the following commands to update the PNGs:
+
+```
+   yarn test --update
+   yarn test --config .creevey/config_condensed.js --update
+   yarn test --config .creevey/config_darkmode.js --update
+   yarn test --config .creevey/config_darkmode_condensed.js --update
+```
+
+4.  `git add` the updated PNG images to the repository.
 
 All that's left to you is to `git commit` and `git push`.
 
 **NOTE:** The images could be different from local env against CircleCI. In our pipelines, are able to find the report with all images during the execution into report.zip.
+
 ## 🧩 Theming components
 
 Read detailed guide on [theming-guide.md](docs/theming-guide.md)

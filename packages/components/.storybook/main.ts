@@ -1,5 +1,6 @@
 import { dirname, join } from 'path';
 import type { StorybookConfig } from '@storybook/react-webpack5';
+import { moduleResolve } from 'import-meta-resolve';
 
 const configuation: StorybookConfig = {
   addons: [
@@ -28,7 +29,7 @@ const configuation: StorybookConfig = {
         test: /\.(ts|tsx)$/,
         use: [
           {
-            loader: require.resolve('ts-loader'),
+            loader: moduleResolve('ts-loader', import.meta.url as any).pathname,
           },
         ],
       },
@@ -46,8 +47,9 @@ const configuation: StorybookConfig = {
   },
 }
 
-module.exports = configuation;
+export default configuation;
 
 function getAbsolutePath(value) {
-  return dirname(require.resolve(join(value, 'package.json')));
+  const URL = moduleResolve(join(value, 'package.json'), import.meta.url as any);
+  return dirname(URL.pathname);
 }
