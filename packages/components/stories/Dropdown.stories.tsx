@@ -171,7 +171,7 @@ export const Variants: Story = {
 
 export const Required: Story = {
   render: () => <>
-    <Dropdown options={defaultOptions} label="Field label"  required={true} showRequired={true} />
+    <Dropdown options={defaultOptions} label="Field label" required={true} showRequired={true} />
   </>
 };
 
@@ -216,7 +216,11 @@ export const Select: Story = {
     </p>
     <Dropdown options={defaultOptions} placeHolder="Customized placeholder: Please select an option.." />
     <p className="tk-mt-4">
-      With <strong>label</strong>:
+      With <strong>accessibility label</strong>:
+    </p>
+    <Dropdown options={defaultOptions} ariaLabel="Accessibility label" />
+    <p className="tk-mt-4">
+      With <strong>field label</strong>:
     </p>
     <Dropdown options={defaultOptions} label="Field label" />
     <p className="tk-mt-4">

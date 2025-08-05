@@ -62,6 +62,7 @@ export const DefaultOptionRenderer = (props: any) => {
 // See https://github.com/JedWatson/react-select/discussions/4302
 export const Input = (props: any) => {
   const inputAlwaysDisplayed = props?.selectProps?.inputAlwaysDisplayed;
+  const ariaLabel = props?.selectProps?.label? props.selectProps.label : props?.selectProps?.ariaLabel;
   return <components.Input
     {...props}
     required={props?.selectProps?.required}
@@ -70,7 +71,7 @@ export const Input = (props: any) => {
     onDrag={props?.selectProps?.onDrag}
     onKeyUp={props?.selectProps?.onKeyUp}
     isHidden={inputAlwaysDisplayed ? !inputAlwaysDisplayed : false}
-    aria-label={props?.selectProps?.label}
+    aria-label={ariaLabel}
     aria-describedby={props?.selectProps?.['aria-describedby']}
     aria-invalid={props?.selectProps?.['aria-invalid']}
     type="search"
