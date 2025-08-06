@@ -62,7 +62,7 @@ export const DefaultOptionRenderer = (props: any) => {
 // See https://github.com/JedWatson/react-select/discussions/4302
 export const Input = (props: any) => {
   const inputAlwaysDisplayed = props?.selectProps?.inputAlwaysDisplayed;
-  const ariaLabel = props?.selectProps?.label? props.selectProps.label : props?.selectProps?.ariaLabel;
+  const ariaLabel = props?.selectProps?.ariaLabel? props.selectProps.ariaLabel : props?.selectProps?.label;
   return <components.Input
     {...props}
     required={props?.selectProps?.required}
