@@ -93,6 +93,7 @@
       border-radius: toRem(2);
       font-weight: 400;
       background: none;
+      margin: 2px;
       &:hover {
         @include outlineStyle;
       }
