@@ -94,6 +94,8 @@ export type MenuPortalProps = {
 };
 
 export type DropdownProps<T> = {
+  /** Label read by accessibility tools for the dropdown */
+  ariaLabel?: string;
   /** Allows to scroll automatically to selected option */
   autoScrollToCurrent?: boolean;
   /** Path in custom object to the unique identifier of the option */
