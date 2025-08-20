@@ -451,6 +451,8 @@ class DatePicker extends Component<
         );
         if (elCell) {
           elCell.focus();
+        } else {
+          this.refPicker.dayPicker.querySelector('.tk-daypicker-today')?.focus();
         }
       }
       break;
