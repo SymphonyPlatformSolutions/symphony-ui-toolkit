@@ -411,6 +411,7 @@ class DayPicker extends React.Component<
           role="gridcell"
           aria-label={cellName}
           aria-selected={ariaSelected}
+          aria-disabled={isDisabled ? 'true' : undefined}
           tabIndex={isTabIndex}
           onKeyDown={(e) =>
             this.handleKeyDownCell(e, cellDate, {
