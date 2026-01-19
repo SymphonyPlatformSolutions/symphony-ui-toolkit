@@ -42,6 +42,9 @@ jobs:
       - browser-tools/install-chrome
       - browser-tools/install-chromedriver
       - run: curl -L -O https://github.com/SeleniumHQ/selenium/releases/download/selenium-4.1.0/selenium-server-4.1.1.jar
+      - run:
+          name: Install corepack
+          command: sudo npm uninstall -g yarn pnpm && sudo npm install -g corepack
       - run: sudo corepack enable
       - run: yarn
       - run: yarn build
