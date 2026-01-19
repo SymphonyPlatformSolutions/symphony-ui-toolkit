@@ -22,6 +22,9 @@ jobs:
   checkout-and-bump: # TODO: Move in a common part
     <<: *defaults
     steps:
+      - add_ssh_keys:
+        fingerprints:
+          - "SHA256:ra86nnFl8kUeXVjVLwjeIe7kMpZtNL9UDMa9oFGuJdA"
       - checkout
       - run: sudo corepack enable
       - run: bash ./setVersion.sh
@@ -50,6 +53,7 @@ jobs:
       - run: yarn build
       - run: echo "npmRegistryServer:${SPACE}https://registry.npmjs.org" > .yarnrc.yml
       - run: echo "npmAuthToken:${SPACE}${NPM_TOKEN}" >> .yarnrc.yml
+      - run: yarn npm whoami
       - run: bash ./publish.sh
       - run: rm -f .yarnrc.yml
       - run: yarn build-storybook
