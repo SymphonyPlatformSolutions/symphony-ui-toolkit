@@ -20,11 +20,17 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/project
-      - node/install-packages:
-          pkg-manager: yarn-berry
+      - run:
+          name: Install corepack
+          command: npm uninstall -g yarn pnpm && npm install -g corepack
+      - run: sudo corepack enable
       - run: yarn
       - run: yarn workspace @symphony-ui/uitoolkit-styles build # Build UI-TK Styles because some files from 'dist' folder are used in UI-TK Components
-      - run: yarn lint
+      - run:
+          name: Lint
+          command: |
+              echo $(yarn --version)
+              yarn lint
       - run: yarn check-circular
       # Run jest tests
       - run:
@@ -35,7 +41,9 @@ jobs:
       # Run coverage
       - run:
           name: Run coverage
-          command: yarn run cover
+          command: |
+            echo $(yarn --version)
+            yarn run cover
           environment:
             NODE_OPTIONS: --max_old_space_size=4096
           when: always
