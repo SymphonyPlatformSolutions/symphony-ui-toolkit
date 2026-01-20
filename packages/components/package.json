@@ -45,7 +45,7 @@
   "dependencies": {
     "@emotion/cache": "^11.11.0",
     "@emotion/react": "^11.11.4",
-    "@floating-ui/react": "^0.26.20",
+    "@floating-ui/react": "^0.27.16",
     "@popperjs/core": "^2.4.4",
     "@symphony-ui/uitoolkit-styles": "5.1.7",
     "clsx": "^2.1.1",
