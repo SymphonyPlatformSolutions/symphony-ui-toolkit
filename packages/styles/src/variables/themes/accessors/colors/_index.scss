@@ -14,17 +14,23 @@ $--tk-outline-color: #88c0fb;
 
 $--tk-background: var(--tk-background, $scolor-white);
 
-$--tk-background-reverse:var(--tk-background-reverse,  getColor($graphite, '80'));
+$--tk-background-reverse: var(
+  --tk-background-reverse,
+  getColor($graphite, '80')
+);
 
 /** ======== Inputs and text areas ======== */
 $--tk-input-color: (
   default: var(--tk-input-color-default, getColor($graphite, '40')),
   defaultBg: var(--tk-input-color-default-bg, $scolor-white),
   hover: var(--tk-input-color-hover, getColor($electricity, '40')),
-  active: var(--tk-input-color-active, getColor($electricity, '50')), // "focus" uses "active" colors
+  active: var(--tk-input-color-active, getColor($electricity, '50')),
+  // "focus" uses "active" colors
   disabled: var(--tk-input-color-disabled, getColor($graphite, '20')),
-  readonly: var(--tk-input-color-default, getColor($graphite, '20')), // readonly uses "default" on dark mode
-  readonlyBg: var(--tk-input-color-read-only-bg, getColor($graphite, '05')), // readonly uses "default" on dark mode
+  readonly: var(--tk-input-color-default, getColor($graphite, '20')),
+  // readonly uses "default" on dark mode
+  readonlyBg: var(--tk-input-color-read-only-bg, getColor($graphite, '05')),
+  // readonly uses "default" on dark mode
   errorActive: var(--tk-input-color-error-active, getColor($red, '50')),
   errorHover: var(--tk-input-color-error-hover, getColor($red, '40')),
   emptyText: var(--tk-input-color-empty-text, getColor($graphite, '50')),
@@ -43,17 +49,21 @@ $--tk-label-required-color: var(
   getColor($red, '50')
 );
 $--tk-hint-color: (
-  default: var(--tk-hint-color-default, getColor($graphite, '50'))
+  default: var(--tk-hint-color-default, getColor($graphite, '50')),
 );
 
 $--tk-select-color: (
   defaultMenuBg: var(--tk-select-color-default-menu-bg, $scolor-white),
   activeMenuBg: var(--tk-select-color-active-menu-bg, getColor($graphite, '70')),
   hoverMenuBg: var(--tk-select-color-hover-menu-bg, getColor($graphite, '60')),
-  defaultMenuText: var(--tk-select-color-default-menu-text, getColor($graphite, '80')),
+  defaultMenuText:
+    var(--tk-select-color-default-menu-text, getColor($graphite, '80')),
   hoverMenuText: var(--tk-select-color-hover-menu-text, $scolor-white),
-  defaultMenuIcon: var(--tk-select-color-default-menu-icon, getColor($graphite, '50')),
-  hoverMenuIcon: var(--tk-select-color-hover-menu-icon, getColor($graphite, '20')), // equivalent of tk-input-disabled
+  defaultMenuIcon:
+    var(--tk-select-color-default-menu-icon, getColor($graphite, '50')),
+  hoverMenuIcon:
+    var(--tk-select-color-hover-menu-icon, getColor($graphite, '20')),
+  // equivalent of tk-input-disabled
   clearIcon: var(--tk-select-color-clear-icon, getColor($graphite, '70')),
   menuBorder: var(--tk-select-color-menu-border, transparent),
   menuShadow1: var(--tk-select-color-menu-shadow-1, rgba(5, 6, 6, 0.08)),
@@ -66,8 +76,9 @@ $--tk-select-color-destructive: (
 
 $--tk-select-tag-color: (
   default: var(--tk-select-tag-color-default, getColor($graphite, '80')),
-  defaultIcon: var(--tk-select-tag-color-default-icon, getColor($graphite, '50')),
-  defaultBg: var(--tk-select-tag-color-default-bg, getColor($graphite, '10'))
+  defaultIcon:
+    var(--tk-select-tag-color-default-icon, getColor($graphite, '50')),
+  defaultBg: var(--tk-select-tag-color-default-bg, getColor($graphite, '10')),
 );
 
 $--tk-input-default-inactive-color: var(
@@ -76,7 +87,7 @@ $--tk-input-default-inactive-color: var(
 );
 $--tk-input-default-active-color: var(
   --tk-input-default-active-color,
-  $scolor-graphite-plus-72
+  getColor($graphite, '80')
 );
 
 $--tk-input-default-background-color: var(
@@ -276,11 +287,39 @@ $--tk-button-focus-shadow: var(--tk-button-focus-shadow, $scolor-white);
 /** ======== DatePickers ======== */
 $--tk-datepicker-default-color: var(
   --tk-datepicker-default-color,
-  $scolor-graphite-plus-72
+  getColor($graphite, '80')
 );
 $--tk-datepicker-disabled-color: var(
   --tk-datepicker-disabled-color,
-  $scolor-graphite
+  getColor($graphite, '30')
+);
+$--tk-datepicker-hover-background: var(
+  --tk-datepicker-hover-background,
+  getColor($graphite, '10')
+);
+$--tk-datepicker-disabled-color: var(
+  --tk-datepicker-disabled-color,
+  getColor($graphite, '30')
+);
+$--tk-datepicker-selected-background: var(
+  --tk-datepicker-selected-background,
+  getColor($graphite, '70')
+);
+$--tk-datepicker-selected-color: var(
+  --tk-datepicker-selected-color,
+  getColor($graphite, '05')
+);
+$--tk-datepicker-selected-hover-outline: var(
+  --tk-datepicker-selected-hover-outline,
+  getColor($graphite, '05')
+);
+$--tk-datepicker-highlighted-underline: var(
+  --tk-datepicker-highlighted-underline,
+  getColor($electricity, '50')
+);
+$--tk-datepicker-accent-color: var(
+  --tk-datepicker-accent-color,
+  getColor($electricity, '50')
 );
 
 /** ======== Tables ======== */
