@@ -10,8 +10,7 @@
 .tk-daypicker {
   color: $--tk-datepicker-default-color;
   font-size: toRem(14);
-  padding: toRem(20) toRem(16) toRem(16)
-    toRem(16);
+  padding: toRem(20) toRem(16) toRem(16) toRem(16);
   @include boxContainer();
 
   .tk-daypicker-header {
@@ -23,17 +22,17 @@
 
     &--prevYear {
       margin-left: toRem(9);
-      @include styleDayPickerHeaderAction($scolor-electricity);
+      @include styleDayPickerHeaderAction($--tk-datepicker-accent-color);
     }
     &--nextYear {
       margin-right: toRem(9);
-      @include styleDayPickerHeaderAction($scolor-electricity);
+      @include styleDayPickerHeaderAction($--tk-datepicker-accent-color);
     }
     &--prevMonth {
-      @include styleDayPickerHeaderAction($scolor-electricity);
+      @include styleDayPickerHeaderAction($--tk-datepicker-accent-color);
     }
     &--nextMonth {
-      @include styleDayPickerHeaderAction($scolor-electricity);
+      @include styleDayPickerHeaderAction($--tk-datepicker-accent-color);
     }
     &--text {
       display: flex;
@@ -95,27 +94,57 @@
       background: none;
       margin: 2px;
       &:hover {
-        @include outlineStyle;
+        background: $--tk-datepicker-hover-background;
       }
-      &:focus, &:focus-within {
+      &:focus,
+      &:focus-within {
         @include outlineStyle;
       }
       &:focus-visible {
         @include outlineStyle;
       }
       &--highlighted {
-        color: $scolor-electricity;
-        font-weight: 700;
+        position: relative;
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: toRem(5);
+          left: 50%;
+          transform: translateX(-50%);
+          width: toRem(20);
+          height: toRem(2);
+          background-color: $--tk-datepicker-accent-color;
+        }
       }
       &--selected {
-        background-color: $scolor-electricity;
-        color: $scolor-graphite-minus-96;
-        border-radius: toRem(2);
+        background-color: $--tk-datepicker-selected-background;
+        color: $--tk-datepicker-selected-color;
+        &:hover {
+          @include outlineStyle;
+          outline-color: $--tk-datepicker-selected-hover-outline;
+          background-color: $--tk-datepicker-selected-background;
+          color: $--tk-datepicker-selected-color;
+        }
+        &:focus {
+          @include outlineStyle;
+        }
       }
       &--disabled {
+        position: relative;
         cursor: not-allowed;
-        color: $--tk-input-default-inactive-color;
-        text-decoration-line: line-through;
+        color: $--tk-datepicker-disabled-color;
+        &:hover {
+          background: none;
+        }
+        &::after {
+          content: '';
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          width: toRem(20);
+          border: toRem(1) solid $--tk-datepicker-disabled-color;
+          transform: translate(-50%, -50%) rotate(-45deg);
+        }
         &:hover {
           outline: none;
         }
@@ -133,7 +162,7 @@
         position: relative;
         &::after {
           font-size: toRem(10);
-          content: "";
+          content: '';
           position: absolute;
           bottom: 0;
           height: 0.45em;
@@ -154,13 +183,27 @@
     justify-content: center;
     .tk-daypicker-today {
       cursor: pointer;
-      color: $scolor-electricity;
+      color: $--tk-datepicker-accent-color;
       font-weight: 600;
       text-transform: uppercase;
+      position: relative;
       font-size: toRem(12);
       line-height: toRem(16);
       &:focus-visible {
         @include outlineStyle;
+      }
+      &::after {
+        font-size: toRem(10);
+        content: '';
+        position: absolute;
+        bottom: 0;
+        height: 0.45em;
+        width: 0.45em;
+        background-color: $--tk-datepicker-accent-color;
+        border-radius: 50%;
+        left: 50%;
+        bottom: toRem(-8);
+        transform: translateX(-50%);
       }
     }
   }
