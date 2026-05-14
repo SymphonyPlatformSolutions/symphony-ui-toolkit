@@ -1,7 +1,7 @@
 import createCache from '@emotion/cache';
 import { CacheProvider } from '@emotion/react';
 import * as React from 'react';
-import { v4 as uuidv4 } from 'uuid';
+import { uid } from 'uid';
 
 /**
  * Generates a UUID-like string using only alphabetic characters
@@ -14,7 +14,7 @@ const uuidAlpha = (alphabet = 'abcdefghijklmnopqrstuvwxyz') => {
   const base = alphabet.length;
 
   for (let j = 0; j < 5; j++) { // repeat 5 times to get a final id with 20 chars (5 * 4)
-    const bytes = Buffer.from(uuidv4(), 'hex');
+    const bytes = Buffer.from(uid(), 'hex');
     for (let i = 0; i < bytes.length; i++) {
       const byte = bytes[i];
       alpha += alphabet[byte % base];
