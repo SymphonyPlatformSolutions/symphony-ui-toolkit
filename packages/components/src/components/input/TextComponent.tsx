@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { useEffect, useMemo } from 'react';
 import { clsx } from 'clsx';
-import { v4 as uuidv4 } from 'uuid';
+import { uid } from 'uid';
 
 import { HasValidationProps } from '../validation/interfaces';
 import { HasTooltipProps } from '../tooltip/interfaces';
@@ -125,10 +125,10 @@ const TextComponent: React.FC<
 
     // Generate unique ID if not provided
     const inputId = useMemo(() => {
-      return id || `${prefix}-${uuidv4()}`;
+      return id || `${prefix}-${uid()}`;
     }, [id]);
 
-    const tooltipId = useMemo(() => `tk-hint-${uuidv4()}`, []);
+    const tooltipId = useMemo(() => `tk-hint-${uid()}`, []);
 
     let TagName;
     if (type == Types.TEXTAREA) {

@@ -2,7 +2,7 @@ import { clsx } from 'clsx';
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import { useMemo } from 'react';
-import { v4 as uuidv4 } from 'uuid';
+import { uid } from 'uid';
 import { callParentAndChildMethod } from '../../utils';
 import LabelTooltipDecorator from '../label-tooltip-decorator/LabelTooltipDecorator';
 import {
@@ -63,10 +63,10 @@ const InputDecorator: React.FC<InputDecoratorProps> = ({
 
   // Generate unique ID if not provided
   const inputId = useMemo(() => {
-    return child?.props?.id || `tk-input-${uuidv4()}`;
+    return child?.props?.id || `tk-input-${uid()}`;
   }, [child]);
 
-  const tooltipId = useMemo(() => `tk-hint-${uuidv4()}`, []);
+  const tooltipId = useMemo(() => `tk-hint-${uid()}`, []);
 
   const disabled = useMemo(() => {
     return child?.props?.disabled;

@@ -2,7 +2,7 @@ import { clsx } from 'clsx';
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import { useEffect, useMemo, useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
+import { uid } from 'uid';
 import { Keys } from '../common/eventUtils';
 import { HasValidationProps } from '../validation/interfaces';
 import LabelPlacements from './LabelPlacements';
@@ -48,7 +48,7 @@ const SelectionInput: React.FC<SelectionInputPropsWithType> = ({
 }) => {
   // Generate unique ID if not provided
   const memoizedId = useMemo(() => {
-    return id || `${type}-${uuidv4()}`;
+    return id || `${type}-${uid()}`;
   }, [id]);
 
   // Default labelPlacement on right if not provided
