@@ -1,6 +1,6 @@
 {
   "name": "@symphony-ui/uitoolkit-styles",
-  "version": "5.1.10",
+  "version": "5.1.11",
   "description": "Symphony UI design system",
   "publishConfig": {
     "registry": "https://registry.npmjs.org"
