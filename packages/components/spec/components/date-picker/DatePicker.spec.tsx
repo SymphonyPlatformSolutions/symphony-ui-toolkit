@@ -89,6 +89,22 @@ describe('DatePicker Component', () => {
     wrapper.setProps({ locale: 'ja' });
     expect(spy).toHaveBeenCalled();
   });
+  it('should update popper instance when component updates and showPicker remains the same', () => {
+    const props = createTestProps({});
+    const wrapper = shallow(<DatePicker {...props} />);
+    const instance = wrapper.instance() as any;
+
+    // Set initial showPicker state
+    wrapper.setState({ showPicker: true });
+
+    const mockUpdate = vi.fn();
+    instance.dayPickerInstance = { update: mockUpdate };
+
+    // Trigger an update without changing showPicker state
+    wrapper.setProps({ disabled: true });
+
+    expect(mockUpdate).toHaveBeenCalledTimes(1);
+  });
   it('Should update date when it changes to a valid value and changes date props value', () => {
     const props = createTestProps({ shouldResetInvalidDate: true });
     const wrapper = shallow(<DatePicker {...props} />);

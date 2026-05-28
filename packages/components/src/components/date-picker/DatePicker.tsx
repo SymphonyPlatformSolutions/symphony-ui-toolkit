@@ -130,7 +130,7 @@ class DatePicker extends Component<
     showOverlay: PropTypes.bool
   };
   refPicker = null;
-  dayPickerInstance = null;
+  dayPickerInstance: ReturnType<typeof createPopper> = null;
 
   constructor(props) {
     super(props);
@@ -208,6 +208,8 @@ class DatePicker extends Component<
             : null,
         });
       }
+    } else if (this.dayPickerInstance && this.state.showPicker === prevState.showPicker) {
+      this.dayPickerInstance.update();
     }
     // update dynamically if locale change
     if (this.props.locale !== prevProps.locale) {
