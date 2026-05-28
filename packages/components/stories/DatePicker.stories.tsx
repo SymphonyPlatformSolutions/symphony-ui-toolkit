@@ -530,11 +530,13 @@ export const DisabledState: Story = {
 
 export const Portal = PortalTemplate;
 Portal.args = {
-  component: <DatePicker
-    menuPortalTarget={document.body}
-    menuShouldBlockScroll={true}
-    showOverlay={true}
-    menuPortalStyles={{ zIndex: 100 }}
-  />,
+  component: <Validation>
+    <DatePicker
+      menuPortalTarget={document.body}
+      menuShouldBlockScroll={true}
+      showOverlay={true}
+      menuPortalStyles={{ zIndex: 100 }}
+    />
+  </Validation>,
   title: 'Date Picker rendering its content inside a Portal',
 }
