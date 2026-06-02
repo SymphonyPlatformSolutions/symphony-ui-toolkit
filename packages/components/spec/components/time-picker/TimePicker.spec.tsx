@@ -97,8 +97,6 @@ describe('TimePicker Component', () => {
 
         // Update input value
         fireEvent.change(input, { target: { value: value } });
-        // react-select v5 keeps the typed text on the input value (rather than
-        // rendering it as a separate text node), so assert against the input.
         expect(input).toHaveValue(value);
 
         const eventMock = {
@@ -217,7 +215,6 @@ describe('TimePicker Component', () => {
       await userEvent.click(input);
       const option = screen.getByText('10:00:00');
       await userEvent.click(option);
-      // The selected time is reflected on the input value in react-select v5.
       expect(input).toHaveValue('10:00:00');
     });
   });

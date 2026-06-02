@@ -163,13 +163,12 @@ describe('Dropdown component test suite =>', () => {
         const { queryByText, container } = render(
           <Dropdown options={dropdownProps.options} isDisabled />
         );
-        // react-select renders the disabled input with `pointer-events: none`;
-        // skip user-event's pointer-events guard so we can assert the click is a no-op.
+        /**
+         * react-select renders the disabled input with "pointer-events: none".
+         * Skip user-event's pointer-events check so we can assert the click didn't do anything.
+         */
         const user = userEvent.setup({ pointerEventsCheck: 0 });
-        await user.click(
-          container.querySelector('.tk-select__input-container input') ||
-            fail('expected element to be found')
-        );
+        await user.click(container.querySelector('.tk-select__input-container input')!);
         expect(queryByText('banana')).toBeFalsy();
         expect(queryByText('avocado')).toBeFalsy();
         expect(queryByText('orange')).toBeFalsy();
@@ -213,9 +212,8 @@ describe('Dropdown component test suite =>', () => {
         const option = screen.getByText('banana');
         await userEvent.click(option);
         expect(getByText('banana')).toBeTruthy();
-        const cross =
-          container.querySelector('i') || fail('expected element to be found');
-        await userEvent.click(cross);
+        const cross = container.querySelector('i')
+        await userEvent.click(cross!);
         expect(onClear).toBeCalled();
         expect(getByText('Select...')).toBeTruthy();
       });
@@ -330,9 +328,8 @@ describe('Dropdown component test suite =>', () => {
         await userEvent.click(input);
         const option = screen.getByText('banana');
         await userEvent.click(option);
-        const cross =
-          container.querySelector('i') || fail('expected element to be found');
-        await userEvent.click(cross);
+        const cross = container.querySelector('i')
+        await userEvent.click(cross!);
         expect(getByText('Select...')).toBeTruthy();
       });
 
@@ -426,9 +423,7 @@ describe('Dropdown component test suite =>', () => {
         await userEvent.type(input, searchedTerm);
         fireEvent.mouseDown(input);
         //Select header option
-        fireEvent.click(
-          queryByText(/Search for term/) || fail('expected element to be found')
-        );
+        fireEvent.click(queryByText(/Search for term/)!);
         expect(getByText(searchedTerm)).toBeInTheDocument();
       });
     });
@@ -726,9 +721,8 @@ describe('Dropdown component test suite =>', () => {
         const option = screen.getByText('banana');
         await userEvent.click(option);
         expect(getByText('banana')).toBeTruthy();
-        const cross =
-          container.querySelector('i') || fail('expected element to be found');
-        await userEvent.click(cross);
+        const cross = container.querySelector('i');
+        await userEvent.click(cross!);
         expect(onClear).toBeCalled();
         expect(getByText('Select...')).toBeTruthy();
       });
@@ -824,10 +818,8 @@ describe('Dropdown component test suite =>', () => {
         await waitFor(async () => {
           const option = screen.getByText('banana');
           await userEvent.click(option);
-          const cross =
-            container.querySelector('i') ||
-            fail('expected element to be found');
-          await userEvent.click(cross);
+          const cross = container.querySelector('i')
+          await userEvent.click(cross!);
           expect(getByText('Select...')).toBeTruthy();
         });
       });
@@ -889,10 +881,7 @@ describe('Dropdown component test suite =>', () => {
         fireEvent.mouseDown(input);
         //Select header option
         await waitFor(() =>
-          fireEvent.click(
-            queryByText(/Search for term/) ||
-              fail('expected element to be found')
-          )
+          fireEvent.click(queryByText(/Search for term/)!)
         );
         expect(getByText(searchedTerm)).toBeInTheDocument();
       });
