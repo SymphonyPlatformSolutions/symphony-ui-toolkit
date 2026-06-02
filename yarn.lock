@@ -1695,7 +1695,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@emotion/react@npm:^11.11.4, @emotion/react@npm:^11.8.1":
+"@emotion/react@npm:^11.14.0, @emotion/react@npm:^11.8.1":
   version: 11.14.0
   resolution: "@emotion/react@npm:11.14.0"
   dependencies:
@@ -4854,7 +4854,7 @@ __metadata:
     "@babel/preset-react": "npm:^7.9.4"
     "@babel/preset-typescript": "npm:^7.9.0"
     "@emotion/cache": "npm:^11.11.0"
-    "@emotion/react": "npm:^11.11.4"
+    "@emotion/react": "npm:^11.14.0"
     "@floating-ui/react": "npm:^0.26.20"
     "@popperjs/core": "npm:^2.4.4"
     "@storybook/addon-a11y": "npm:^7.5.3"

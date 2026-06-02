@@ -3,7 +3,6 @@ import {
   render,
   screen,
   waitFor,
-  waitForElementToBeRemoved,
 } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { object } from 'prop-types';
@@ -436,7 +435,7 @@ describe('Dropdown component test suite =>', () => {
 
     describe('when is with Validation Component', () => {
       it('should be triggered on Blur and on Change', async () => {
-        const { getByText } = render(
+        const { getByText, queryByText } = render(
           <>
             <Button>Outside target</Button>
             <Validation
@@ -467,7 +466,9 @@ describe('Dropdown component test suite =>', () => {
         const option = screen.getByText('banana');
         await userEvent.click(option);
         expect(getByText('banana')).toBeTruthy();
-        waitForElementToBeRemoved(() => getByText('This field is required'));
+        await waitFor(() =>
+          expect(queryByText('This field is required')).not.toBeInTheDocument()
+        );
       });
     });
 
@@ -899,7 +900,7 @@ describe('Dropdown component test suite =>', () => {
 
     describe('when is with Validation Component', () => {
       it('should be triggered on Blur and on Change', async () => {
-        const { getByText } = render(
+        const { getByText, queryByText } = render(
           <>
             <Button>Outside target</Button>
             <Validation
@@ -925,13 +926,13 @@ describe('Dropdown component test suite =>', () => {
           expect(getByText('This field is required')).toBeTruthy()
         );
         // on Change
-        await waitFor(async () => {
-          await userEvent.click(input);
-          const option = screen.getByText('banana');
-          await userEvent.click(option);
-          expect(getByText('banana')).toBeTruthy();
-          waitForElementToBeRemoved(() => getByText('This field is required'));
-        });
+        await userEvent.click(input);
+        const option = await screen.findByText('banana');
+        await userEvent.click(option);
+        expect(getByText('banana')).toBeTruthy();
+        await waitFor(() =>
+          expect(queryByText('This field is required')).not.toBeInTheDocument()
+        );
       });
     });
 

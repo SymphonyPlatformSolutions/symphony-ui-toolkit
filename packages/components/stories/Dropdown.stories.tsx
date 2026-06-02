@@ -143,7 +143,8 @@ const meta: Meta<typeof Dropdown> = {
     options: defaultOptions,
     enableTermSearch: true,
     onTermSearch: onTermSearch,
-    onChange: onChange
+    onChange: onChange,
+    menuPortalTarget: typeof document !== 'undefined' ? document.body : undefined,
   },
   component: Dropdown,
   decorators: [
