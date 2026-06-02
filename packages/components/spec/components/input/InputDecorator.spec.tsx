@@ -120,12 +120,12 @@ describe('InputDecorator Component', () => {
       );
 
       const icon = document.querySelector('i.tk-icon-info-round');
-      icon && userEvent.click(icon);
+      icon && await userEvent.click(icon);
       const description = getByText(tooltipText);
       await waitFor(() => expect(description).toBeTruthy());
 
       const cta = getByText(tooltipCloseLabel);
-      userEvent.click(cta);
+      await userEvent.click(cta);
       waitForElementToBeRemoved(cta);
     });
     it('should display a decorator if provided', () => {
@@ -207,7 +207,7 @@ describe('InputDecorator Component', () => {
       expect(input).toHaveFocus();
       expect(onBlurMock).not.toHaveBeenCalled();
       // Move out the focus from the input
-      userEvent.tab();
+      await userEvent.tab();
       expect(onBlurMock).toHaveBeenCalledTimes(1);
     });
   });

@@ -55,12 +55,12 @@ describe('Tooltip', () => {
       </Tooltip>
     );
 
-    userEvent.click(
+    await userEvent.click(
       screen.getByRole('button', { name: /tooltip toggles when I am clicked/i })
     );
     screen.getByText(/appears$/i);
     
-    userEvent.click(container.getElementsByClassName('tk-tooltip__wrapper')[0]);
+    await userEvent.click(container.getElementsByClassName('tk-tooltip__wrapper')[0]);
 
     const tooltip = screen.queryByText(/appears$/i);
     expect(tooltip).toBeNull();
@@ -102,9 +102,9 @@ describe('Tooltip', () => {
         </Tooltip>
       );
 
-      userEvent.hover(screen.getByText(text));
+      await userEvent.hover(screen.getByText(text));
       screen.getByText(/appears$/i);
-      userEvent.unhover(screen.getByText(text));
+      await userEvent.unhover(screen.getByText(text));
       await waitForElementToBeRemoved(() => screen.getByText(/appears$/i));
     }
   );
@@ -128,16 +128,16 @@ describe('Tooltip', () => {
 
     let tooltip: HTMLElement | null;
 
-    userEvent.hover(
+    await userEvent.hover(
       screen.getByRole('button', { name: /tooltip will never be shown/i })
     );
     tooltip = screen.queryByText(/appears$/i);
     expect(tooltip).not.toBeInTheDocument();
-    userEvent.unhover(
+    await userEvent.unhover(
       screen.getByRole('button', { name: /tooltip will never be shown/i })
     );
 
-    userEvent.click(
+    await userEvent.click(
       screen.getByRole('button', { name: /tooltip will never be shown/i })
     );
     tooltip = screen.queryByText(/appears$/i);
@@ -165,7 +165,7 @@ describe('Tooltip', () => {
       </Tooltip>
     );
 
-    userEvent.click(
+    await userEvent.click(
       screen.getByRole('button', { name: /tooltip toggles when I am clicked/i })
     );
 
@@ -200,7 +200,7 @@ describe('Tooltip', () => {
       </Tooltip>
     );
 
-    userEvent.hover(
+    await userEvent.hover(
       screen.getByRole('button', { name: /tooltip toggles when I am clicked/i })
     );
 
@@ -212,7 +212,7 @@ describe('Tooltip', () => {
       expect(screen.getByText(/text hover$/i)).toBeInTheDocument();
     });
 
-    userEvent.unhover(screen.getByRole('button', { name: /text hover/i }));
+    await userEvent.unhover(screen.getByRole('button', { name: /text hover/i }));
 
     await waitForElementToBeRemoved(() => screen.getByText(/appears$/i));
 
@@ -244,13 +244,13 @@ describe('Tooltip', () => {
       </Tooltip>
     );
 
-    userEvent.hover(
+    await userEvent.hover(
       screen.getByRole('button', { name: /tooltip toggles when I am clicked/i })
     );
     await waitFor(() => {
       expect(screen.getByText(/appears$/i)).toBeInTheDocument();
     });
-    userEvent.unhover(screen.getByRole('button', { name: /text hover/i }));
+    await userEvent.unhover(screen.getByRole('button', { name: /text hover/i }));
     await waitForElementToBeRemoved(() => screen.getByText(/appears$/i));
   }
   );
@@ -280,7 +280,7 @@ describe('Tooltip', () => {
       </Tooltip>
     );
 
-    userEvent.hover(
+    await userEvent.hover(
       screen.getByRole('button', { name: /tooltip toggles when I am clicked/i })
     );
     await waitFor(() => {

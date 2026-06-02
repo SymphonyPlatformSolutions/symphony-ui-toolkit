@@ -170,15 +170,15 @@ describe('Modal', () => {
       expect(firstButton).toHaveFocus()
 
       // Press Tab key
-      userEvent.tab();
+      await userEvent.tab();
       expect(secondButton).toHaveFocus();
 
       // Press Tab key
-      userEvent.tab();
+      await userEvent.tab();
       expect(thirdButton).toHaveFocus()
 
       // Press Tab key
-      userEvent.tab();
+      await userEvent.tab();
 
       // Verify that focus cycles back to the first button
       expect(firstButton).toHaveFocus()
@@ -194,17 +194,17 @@ describe('Modal', () => {
       expect(firstButton).toHaveFocus()
 
       // Press Shift+Tab key
-      userEvent.tab({ shift: true });
+      await userEvent.tab({ shift: true });
 
       // Verify that focus cycles back to the last button
       expect(thirdButton).toHaveFocus();
 
       // Press Shift+Tab key
-      userEvent.tab({ shift: true });
+      await userEvent.tab({ shift: true });
       expect(secondButton).toHaveFocus()
 
       // Press Shift+Tab key
-      userEvent.tab({ shift: true });
+      await userEvent.tab({ shift: true });
       expect(firstButton).toHaveFocus()
     });
   })

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import userEvent, { specialChars } from '@testing-library/user-event';
+import userEvent from '@testing-library/user-event';
 import { DropdownMenu, DropdownMenuDivider, DropdownMenuItem } from '../../../src/components';
 import { fireEvent, getByText, render, screen } from '@testing-library/react';
 import { vi } from 'vitest';
@@ -69,7 +69,7 @@ describe('DropdownMenu', () => {
     expect(close).toHaveBeenCalled();
   });
 
-  it('should move focus between options by pressing arrow down/up on the current option', () => {
+  it('should move focus between options by pressing arrow down/up on the current option', async () => {
     render(
       <DropdownMenu show={true}>
         <DropdownMenuItem data-testid={'option_1'}>Option 1</DropdownMenuItem>
@@ -77,18 +77,18 @@ describe('DropdownMenu', () => {
       </DropdownMenu>
     )
 
-    userEvent.type(screen.getByTestId('option_1'), specialChars.arrowDown);
+    await userEvent.type(screen.getByTestId('option_1'), '{ArrowDown}');
     expect(screen.getByTestId('option_2')).toHaveFocus();
 
-    userEvent.type(screen.getByTestId('option_2'), specialChars.arrowUp);
+    await userEvent.type(screen.getByTestId('option_2'), '{ArrowUp}');
     expect(screen.getByTestId('option_1')).toHaveFocus();
 
     // reaches the end
-    userEvent.type(screen.getByTestId('option_1'), specialChars.arrowUp);
+    await userEvent.type(screen.getByTestId('option_1'), '{ArrowUp}');
     expect(screen.getByTestId('option_2')).toHaveFocus();
   })
 
-  it('should call onClick when pressing enter on an option', () => {
+  it('should call onClick when pressing enter on an option', async () => {
     const onClick = vi.fn();
     render(
       <DropdownMenu show={true}>
@@ -96,11 +96,11 @@ describe('DropdownMenu', () => {
       </DropdownMenu>
     )
 
-    userEvent.type(screen.getByTestId('option_1'), specialChars.enter);
+    await userEvent.type(screen.getByTestId('option_1'), '{Enter}');
     expect(onClick).toHaveBeenCalled();
   })
 
-  it('shouldn\'t call onClick if menu item is loading', () => {
+  it('shouldn\'t call onClick if menu item is loading', async () => {
     const onClick = vi.fn();
     render(
       <DropdownMenu show>
@@ -108,7 +108,7 @@ describe('DropdownMenu', () => {
       </DropdownMenu>
     )
 
-    userEvent.type(screen.getByTestId('option_1'), specialChars.enter);
+    await userEvent.type(screen.getByTestId('option_1'), '{Enter}');
     expect(onClick).not.toHaveBeenCalled();
   })
 

@@ -52,7 +52,7 @@ describe('Switch Component', () => {
       expect(container.getElementsByClassName('tk-switch')[0]).toHaveAttribute('data-checked', 'false');
     });
 
-    it('with click handler', () => {
+    it('with click handler', async () => {
       const clickCallback = vi.fn();
       const { getByRole, getByText } = render(
         <Switch
@@ -63,11 +63,11 @@ describe('Switch Component', () => {
         />
       );
 
-      userEvent.click(getByText('label')); // Click label
+      await userEvent.click(getByText('label')); // Click label
 
       expect(clickCallback).toHaveBeenCalledTimes(1);
 
-      userEvent.click(getByRole('checkbox')); // Click icon
+      await userEvent.click(getByRole('checkbox')); // Click icon
 
       expect(clickCallback).toHaveBeenCalledTimes(2);
     });
