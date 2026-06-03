@@ -10,7 +10,6 @@ import {
   render,
   screen,
   fireEvent,
-  getDefaultNormalizer,
 } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { vi } from 'vitest';
@@ -55,9 +54,9 @@ describe('TimePicker Component', () => {
       onFocus: vi.fn(),
     });
     render(<TimePicker {...props} />);
-    const input = screen.getByRole('searchbox');
+    const input = screen.getByRole('combobox');
     expect(props.onFocus).toHaveBeenCalledTimes(0);
-    userEvent.click(input);
+    await userEvent.click(input);
     expect(props.onFocus).toHaveBeenCalledTimes(1);
   });
 
@@ -75,10 +74,10 @@ describe('TimePicker Component', () => {
       });
       render(<><div>outside</div><TimePicker {...props} /></>);
       expect(props.onBlur).toHaveBeenCalledTimes(0);
-      const input = screen.getByRole('searchbox');
-      userEvent.click(input);
+      const input = screen.getByRole('combobox');
+      await userEvent.click(input);
       expect(props.onBlur).toHaveBeenCalledTimes(0);
-      userEvent.click(screen.getByText('outside'))
+      await userEvent.click(screen.getByText('outside'))
       expect(props.onBlur).toHaveBeenCalledWith({ target: { value: expected } });
     });
   });
@@ -94,11 +93,11 @@ describe('TimePicker Component', () => {
         const props = createTestProps({ format: 'hh:mm:ss a' });
         render(<TimePicker {...props} />);
 
-        const input = screen.getByRole('searchbox');
+        const input = screen.getByRole('combobox');
 
         // Update input value
         fireEvent.change(input, { target: { value: value } });
-        expect(screen.getByText(value)).toBeTruthy();
+        expect(input).toHaveValue(value);
 
         const eventMock = {
           key: value.charAt(0),
@@ -110,13 +109,7 @@ describe('TimePicker Component', () => {
         };
 
         fireEvent.keyUp(input, eventMock);
-        expect(
-          screen.getByText(expectedValue, {
-            // By default, normalization consists of trimming whitespace from the start and end of text
-            // so, disabled this default behavior to keep ending space
-            normalizer: getDefaultNormalizer({ trim: false }),
-          })
-        ).toBeTruthy();
+        expect(input).toHaveValue(expectedValue);
         expect(eventMock.target.setSelectionRange).toHaveBeenCalledWith(
           expectedCursor,
           expectedCursor
@@ -189,7 +182,7 @@ describe('TimePicker Component', () => {
     // Menu should be closed
     expect(screen.queryAllByText('08:00:00')).toHaveLength(0);
 
-    const input = screen.getByRole('searchbox');
+    const input = screen.getByRole('combobox');
 
     const eventMock = {
       key: Keys.ENTER,
@@ -217,12 +210,12 @@ describe('TimePicker Component', () => {
         value: '09:00:00',
         format: 'HH:mm:ss',
       });
-      const { getByText } = render(<TimePicker {...props} />);
-      const input = screen.getByRole('searchbox');
-      userEvent.click(input);
+      render(<TimePicker {...props} />);
+      const input = screen.getByRole('combobox');
+      await userEvent.click(input);
       const option = screen.getByText('10:00:00');
-      userEvent.click(option);
-      expect(getByText('10:00:00')).toBeTruthy();
+      await userEvent.click(option);
+      expect(input).toHaveValue('10:00:00');
     });
   });
 
@@ -231,7 +224,7 @@ describe('TimePicker Component', () => {
       [null, '00:00:00', '12:15:00 AM'], // Default fallback value 15 minutes
       [0, '00:00:00', '12:10:00 AM'], // Min fallback value 10 minutes
       [99999, '00:00:00', '12:00:00 PM'], // Max fallback value 12 hours
-    ])('when step is %p', (step, min, expected) => {
+    ])('when step is %p', async (step, min, expected) => {
       vi.spyOn(console, 'error').mockImplementation(() => {
         return;
       });
@@ -242,8 +235,8 @@ describe('TimePicker Component', () => {
       
       render(<TimePicker {...props} />);
 
-      const input = screen.getByRole('searchbox');
-      userEvent.click(input);
+      const input = screen.getByRole('combobox');
+      await userEvent.click(input);
 
       const options = screen.getAllByRole('option')
       expect(options[1].textContent).toBe(expected)

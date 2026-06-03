@@ -3,7 +3,6 @@ import {
   render,
   screen,
   waitFor,
-  waitForElementToBeRemoved,
 } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { object } from 'prop-types';
@@ -15,7 +14,7 @@ import Dropdown, {
   LabelValue,
 } from '../../../src/components/dropdown';
 import { Validators } from '../../../src/core/validators/validators';
-import { vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 const CustomComponent = ({ data }) => <div>{data?.label}</div>;
 CustomComponent.propTypes = { data: object };
@@ -92,8 +91,8 @@ describe('Dropdown component test suite =>', () => {
           },
         ];
         render(<Dropdown options={timeZoneOptions} mode="nested" />);
-        const input = screen.getByRole('searchbox');
-        userEvent.click(input);
+        const input = screen.getByRole('combobox');
+        await userEvent.click(input);
         const nestedItem = screen.getByText(
           '(GMT -04:00) United states of America (USA) - New York'
         );
@@ -111,8 +110,8 @@ describe('Dropdown component test suite =>', () => {
             enableTermSearch
           />
         );
-        const input = screen.getByRole('searchbox');
-        userEvent.click(input);
+        const input = screen.getByRole('combobox');
+        await userEvent.click(input);
         expect(getByText('banana')).toBeTruthy();
         expect(getByText('avocado')).toBeTruthy();
         expect(getByText('orange')).toBeTruthy();
@@ -127,7 +126,7 @@ describe('Dropdown component test suite =>', () => {
             enableTermSearch
           />
         );
-        const input = screen.getByRole('searchbox');
+        const input = screen.getByRole('combobox');
         fireEvent.keyDown(input, { key: Keys.ENTER });
         expect(getByText('banana')).toBeTruthy();
         expect(getByText('avocado')).toBeTruthy();
@@ -146,7 +145,7 @@ describe('Dropdown component test suite =>', () => {
             />
           </div>
         );
-        const input = screen.getByRole('searchbox');
+        const input = screen.getByRole('combobox');
         fireEvent.keyDown(input, { key: Keys.ENTER });
         expect(onKeyDownContainer).toHaveBeenCalledTimes(1);
 
@@ -164,10 +163,12 @@ describe('Dropdown component test suite =>', () => {
         const { queryByText, container } = render(
           <Dropdown options={dropdownProps.options} isDisabled />
         );
-        userEvent.click(
-          container.querySelector('.tk-select__input input') ||
-            fail('expected element to be found')
-        );
+        /**
+         * react-select renders the disabled input with "pointer-events: none".
+         * Skip user-event's pointer-events check so we can assert the click didn't do anything.
+         */
+        const user = userEvent.setup({ pointerEventsCheck: 0 });
+        await user.click(container.querySelector('.tk-select__input-container input')!);
         expect(queryByText('banana')).toBeFalsy();
         expect(queryByText('avocado')).toBeFalsy();
         expect(queryByText('orange')).toBeFalsy();
@@ -184,12 +185,12 @@ describe('Dropdown component test suite =>', () => {
             noOptionMessage="no options message"
           />
         );
-        const input = screen.getByRole('searchbox');
-        userEvent.click(input);
+        const input = screen.getByRole('combobox');
+        await userEvent.click(input);
         const option = screen.getByText('banana');
-        userEvent.click(option);
+        await userEvent.click(option);
         expect(getByText('banana')).toBeTruthy();
-        userEvent.type(input, 'zz');
+        await userEvent.type(input, 'zz');
         expect(screen.getByText('no options message')).toBeTruthy();
       });
 
@@ -206,14 +207,13 @@ describe('Dropdown component test suite =>', () => {
             onClear={onClear}
           />
         );
-        const input = screen.getByRole('searchbox');
-        userEvent.click(input);
+        const input = screen.getByRole('combobox');
+        await userEvent.click(input);
         const option = screen.getByText('banana');
-        userEvent.click(option);
+        await userEvent.click(option);
         expect(getByText('banana')).toBeTruthy();
-        const cross =
-          container.querySelector('i') || fail('expected element to be found');
-        userEvent.click(cross);
+        const cross = container.querySelector('i')
+        await userEvent.click(cross!);
         expect(onClear).toBeCalled();
         expect(getByText('Select...')).toBeTruthy();
       });
@@ -236,14 +236,14 @@ describe('Dropdown component test suite =>', () => {
           />
         );
 
-        const input = screen.getByRole('searchbox');
-        userEvent.click(input);
+        const input = screen.getByRole('combobox');
+        await userEvent.click(input);
 
         expect(getByText('Hill')).toBeInTheDocument();
         expect(getByText('Case')).toBeInTheDocument();
         expect(getByText('Conda')).toBeInTheDocument();
 
-        userEvent.click(getByText('Case'));
+        await userEvent.click(getByText('Case'));
         expect(getByText('Case')).toBeInTheDocument();
         expect(queryByText('Hill')).not.toBeInTheDocument();
         expect(queryByText('Conda')).not.toBeInTheDocument();
@@ -287,8 +287,8 @@ describe('Dropdown component test suite =>', () => {
             filterFunction={filterFunction}
           />
         );
-        const input = screen.getByRole('searchbox');
-        userEvent.click(input);
+        const input = screen.getByRole('combobox');
+        await userEvent.click(input);
         expect(getByText('banana')).toBeTruthy();
         expect(getByText('avocado')).toBeTruthy();
         expect(getByText('orange')).toBeTruthy();
@@ -302,7 +302,7 @@ describe('Dropdown component test suite =>', () => {
             filterFunction={filterFunction}
           />
         );
-        const input = screen.getByRole('searchbox');
+        const input = screen.getByRole('combobox');
         fireEvent.keyDown(input, { key: Keys.ENTER });
         expect(getByText('banana')).toBeTruthy();
         expect(getByText('avocado')).toBeTruthy();
@@ -313,24 +313,23 @@ describe('Dropdown component test suite =>', () => {
         const { getByText } = render(
           <Dropdown options={dropdownProps.options} isMultiSelect />
         );
-        const input = screen.getByRole('searchbox');
-        userEvent.click(input);
+        const input = screen.getByRole('combobox');
+        await userEvent.click(input);
         const option = screen.getByText('banana');
-        userEvent.click(option);
+        await userEvent.click(option);
         expect(getByText('banana')).toBeTruthy();
       });
 
-      it('should clean selection', () => {
+      it('should clean selection', async () => {
         const { getByText, container } = render(
           <Dropdown options={dropdownProps.options} isMultiSelect />
         );
-        const input = screen.getByRole('searchbox');
-        userEvent.click(input);
+        const input = screen.getByRole('combobox');
+        await userEvent.click(input);
         const option = screen.getByText('banana');
-        userEvent.click(option);
-        const cross =
-          container.querySelector('i') || fail('expected element to be found');
-        userEvent.click(cross);
+        await userEvent.click(option);
+        const cross = container.querySelector('i')
+        await userEvent.click(cross!);
         expect(getByText('Select...')).toBeTruthy();
       });
 
@@ -344,10 +343,10 @@ describe('Dropdown component test suite =>', () => {
             tagRenderer={CustomComponent}
           />
         );
-        const input = screen.getByRole('searchbox');
-        userEvent.click(input);
+        const input = screen.getByRole('combobox');
+        await userEvent.click(input);
         const option = screen.getByText('banana');
-        userEvent.click(option);
+        await userEvent.click(option);
         expect(getByText('banana')).toBeTruthy();
       });
     });
@@ -362,8 +361,8 @@ describe('Dropdown component test suite =>', () => {
             termSearchMessage="Search for term"
           />
         );
-        const input = screen.getByRole('searchbox');
-        userEvent.type(input, 'B');
+        const input = screen.getByRole('combobox');
+        await userEvent.type(input, 'B');
         expect(queryByText(/Search for term/)).toBeInTheDocument();
       });
 
@@ -376,8 +375,8 @@ describe('Dropdown component test suite =>', () => {
               enableTermSearch
             />
           );
-          const input = screen.getByRole('searchbox');
-          userEvent.type(input, 'B');
+          const input = screen.getByRole('combobox');
+          await userEvent.type(input, 'B');
           expect(getByText('banana').className).toContain(
             'tk-select__option--is-focused'
           );
@@ -391,8 +390,8 @@ describe('Dropdown component test suite =>', () => {
               enableTermSearch
             />
           );
-          const input = screen.getByRole('searchbox');
-          userEvent.click(input);
+          const input = screen.getByRole('combobox');
+          await userEvent.click(input);
           fireEvent.keyDown(input, { key: Keys.ARROW_DOWN });
           expect(getByText('avocado').className).toContain(
             'tk-select__option--is-focused'
@@ -418,22 +417,20 @@ describe('Dropdown component test suite =>', () => {
             onBlur={onBlur}
           />
         );
-        const input = screen.getByRole('searchbox');
+        const input = screen.getByRole('combobox');
         fireEvent.blur(input);
         expect(onBlur).toBeCalled();
-        userEvent.type(input, searchedTerm);
+        await userEvent.type(input, searchedTerm);
         fireEvent.mouseDown(input);
         //Select header option
-        fireEvent.click(
-          queryByText(/Search for term/) || fail('expected element to be found')
-        );
+        fireEvent.click(queryByText(/Search for term/)!);
         expect(getByText(searchedTerm)).toBeInTheDocument();
       });
     });
 
     describe('when is with Validation Component', () => {
       it('should be triggered on Blur and on Change', async () => {
-        const { getByText } = render(
+        const { getByText, queryByText } = render(
           <>
             <Button>Outside target</Button>
             <Validation
@@ -450,21 +447,23 @@ describe('Dropdown component test suite =>', () => {
             </Validation>
           </>
         );
-        const input = screen.getByRole('searchbox');
-        userEvent.click(input);
+        const input = screen.getByRole('combobox');
+        await userEvent.click(input);
         // on Blur
         const button = screen.getByRole('button');
-        userEvent.click(button);
+        await userEvent.click(button);
         await waitFor(() =>
           expect(getByText('This field is required')).toBeTruthy()
         );
 
         // on Change
-        userEvent.click(input);
+        await userEvent.click(input);
         const option = screen.getByText('banana');
-        userEvent.click(option);
+        await userEvent.click(option);
         expect(getByText('banana')).toBeTruthy();
-        waitForElementToBeRemoved(() => getByText('This field is required'));
+        await waitFor(() =>
+          expect(queryByText('This field is required')).not.toBeInTheDocument()
+        );
       });
     });
 
@@ -478,13 +477,13 @@ describe('Dropdown component test suite =>', () => {
           />
         );
 
-        userEvent.type(getByRole('searchbox'), 'new');
+        await userEvent.type(getByRole('combobox'), 'new');
 
         await waitFor(() => {
           expect(getByText('Create "new"')).toBeInTheDocument();
         });
 
-        userEvent.click(getByText('Create "new"'));
+        await userEvent.click(getByText('Create "new"'));
 
         const onChangeCall = onChange.mock.calls.at(-1)![0];
         const createdOption = onChangeCall.target.value;
@@ -510,7 +509,7 @@ describe('Dropdown component test suite =>', () => {
           />
         );
 
-        userEvent.type(getByRole('searchbox'), invalidInput);
+        await userEvent.type(getByRole('combobox'), invalidInput);
 
         await waitFor(() => {
           expect(
@@ -518,8 +517,8 @@ describe('Dropdown component test suite =>', () => {
           ).not.toBeInTheDocument();
         });
 
-        userEvent.clear(getByRole('searchbox'));
-        userEvent.type(getByRole('searchbox'), validInput);
+        await userEvent.clear(getByRole('combobox'));
+        await userEvent.type(getByRole('combobox'), validInput);
 
         await waitFor(() => {
           expect(getByText(`Create "${validInput}"`)).toBeInTheDocument();
@@ -546,13 +545,13 @@ describe('Dropdown component test suite =>', () => {
         );
 
         const userInput = 'hello';
-        userEvent.type(getByRole('searchbox'), userInput);
+        await userEvent.type(getByRole('combobox'), userInput);
 
         await waitFor(() => {
           expect(getByText(`custom ${userInput}`)).toBeInTheDocument();
         });
 
-        userEvent.click(getByText(`custom ${userInput}`));
+        await userEvent.click(getByText(`custom ${userInput}`));
 
         const onChangeCall = onChange.mock.calls.at(-1)![0];
         const createdOption = onChangeCall.target.value;
@@ -585,8 +584,8 @@ describe('Dropdown component test suite =>', () => {
             defaultOptions
           />
         );
-        const input = screen.getByRole('searchbox');
-        userEvent.click(input);
+        const input = screen.getByRole('combobox');
+        await userEvent.click(input);
         await waitFor(async () => {
           expect(getByText('banana')).toBeTruthy();
           expect(getByText('avocado')).toBeTruthy();
@@ -598,14 +597,14 @@ describe('Dropdown component test suite =>', () => {
         const { queryByText } = render(
           <Dropdown asyncOptions={() => Promise.resolve(options)} />
         );
-        const input = screen.getByRole('searchbox');
-        userEvent.click(input);
+        const input = screen.getByRole('combobox');
+        await userEvent.click(input);
         await waitFor(async () => {
           expect(queryByText('banana')).toBeTruthy();
           expect(queryByText('avocado')).toBeTruthy();
           expect(queryByText('orange')).toBeTruthy();
         });
-        userEvent.type(input, 'ban');
+        await userEvent.type(input, 'ban');
         await waitFor(async () => {
           expect(queryByText('banana')).toBeTruthy();
           expect(queryByText('avocado')).toBeFalsy();
@@ -621,8 +620,8 @@ describe('Dropdown component test suite =>', () => {
               defaultOptions={[{ label: 'salmon' }]}
             />
           );
-          const input = screen.getByRole('searchbox');
-          userEvent.click(input);
+          const input = screen.getByRole('combobox');
+          await userEvent.click(input);
           expect(getByText('salmon')).toBeTruthy();
         });
 
@@ -633,10 +632,10 @@ describe('Dropdown component test suite =>', () => {
               defaultOptions={[{ label: 'salmon' }]}
             />
           );
-          const input = screen.getByRole('searchbox');
-          userEvent.click(input);
+          const input = screen.getByRole('combobox');
+          await userEvent.click(input);
           expect(getByText('salmon')).toBeTruthy();
-          userEvent.type(input, 'ban');
+          await userEvent.type(input, 'ban');
           await waitFor(async () => {
             expect(queryByText('banana')).toBeTruthy();
             expect(queryByText('avocado')).toBeFalsy();
@@ -653,8 +652,8 @@ describe('Dropdown component test suite =>', () => {
             defaultOptions
           />
         );
-        const input = screen.getByRole('searchbox');
-        userEvent.click(input);
+        const input = screen.getByRole('combobox');
+        await userEvent.click(input);
         await waitFor(async () => {
           const nestedItem = screen.getByText('banana');
           expect(
@@ -673,8 +672,8 @@ describe('Dropdown component test suite =>', () => {
             defaultOptions
           />
         );
-        const input = screen.getByRole('searchbox');
-        userEvent.click(input);
+        const input = screen.getByRole('combobox');
+        await userEvent.click(input);
         await waitFor(async () => {
           expect(getByText('banana')).toBeTruthy();
           expect(getByText('avocado')).toBeTruthy();
@@ -689,14 +688,14 @@ describe('Dropdown component test suite =>', () => {
             noOptionMessage="no options message"
           />
         );
-        const input = screen.getByRole('searchbox');
-        userEvent.click(input);
+        const input = screen.getByRole('combobox');
+        await userEvent.click(input);
         await waitFor(async () => {
           const option = screen.getByText('banana');
-          userEvent.click(option);
+          await userEvent.click(option);
           expect(getByText('banana')).toBeTruthy();
         });
-        userEvent.type(input, 'zz');
+        await userEvent.type(input, 'zz');
         await waitFor(async () => {
           expect(screen.getByText('no options message')).toBeTruthy();
         });
@@ -716,15 +715,14 @@ describe('Dropdown component test suite =>', () => {
           />
         );
         await waitFor(async () => {
-          const input = screen.getByRole('searchbox');
-          userEvent.click(input);
+          const input = screen.getByRole('combobox');
+          await userEvent.click(input);
         });
         const option = screen.getByText('banana');
-        userEvent.click(option);
+        await userEvent.click(option);
         expect(getByText('banana')).toBeTruthy();
-        const cross =
-          container.querySelector('i') || fail('expected element to be found');
-        userEvent.click(cross);
+        const cross = container.querySelector('i');
+        await userEvent.click(cross!);
         expect(onClear).toBeCalled();
         expect(getByText('Select...')).toBeTruthy();
       });
@@ -783,8 +781,8 @@ describe('Dropdown component test suite =>', () => {
             filterFunction={filterFunction}
           />
         );
-        const input = screen.getByRole('searchbox');
-        userEvent.click(input);
+        const input = screen.getByRole('combobox');
+        await userEvent.click(input);
         await waitFor(async () => {
           expect(getByText('banana')).toBeTruthy();
           expect(getByText('avocado')).toBeTruthy();
@@ -799,11 +797,11 @@ describe('Dropdown component test suite =>', () => {
             isMultiSelect
           />
         );
-        const input = screen.getByRole('searchbox');
-        userEvent.click(input);
+        const input = screen.getByRole('combobox');
+        await userEvent.click(input);
         await waitFor(async () => {
           const option = screen.getByText('banana');
-          userEvent.click(option);
+          await userEvent.click(option);
           expect(getByText('banana')).toBeTruthy();
         });
       });
@@ -815,15 +813,13 @@ describe('Dropdown component test suite =>', () => {
             isMultiSelect
           />
         );
-        const input = screen.getByRole('searchbox');
-        userEvent.click(input);
+        const input = screen.getByRole('combobox');
+        await userEvent.click(input);
         await waitFor(async () => {
           const option = screen.getByText('banana');
-          userEvent.click(option);
-          const cross =
-            container.querySelector('i') ||
-            fail('expected element to be found');
-          userEvent.click(cross);
+          await userEvent.click(option);
+          const cross = container.querySelector('i')
+          await userEvent.click(cross!);
           expect(getByText('Select...')).toBeTruthy();
         });
       });
@@ -838,11 +834,11 @@ describe('Dropdown component test suite =>', () => {
             tagRenderer={CustomComponent}
           />
         );
-        const input = screen.getByRole('searchbox');
-        userEvent.click(input);
+        const input = screen.getByRole('combobox');
+        await userEvent.click(input);
         await waitFor(async () => {
           const option = screen.getByText('banana');
-          userEvent.click(option);
+          await userEvent.click(option);
           expect(getByText('banana')).toBeTruthy();
         });
       });
@@ -859,8 +855,8 @@ describe('Dropdown component test suite =>', () => {
           />
         );
 
-        const input = screen.getByRole('searchbox');
-        userEvent.type(input, 'B');
+        const input = screen.getByRole('combobox');
+        await userEvent.type(input, 'B');
         await waitFor(async () => {
           expect(queryByText(/Search for term/)).toBeInTheDocument();
         });
@@ -880,23 +876,20 @@ describe('Dropdown component test suite =>', () => {
             onBlur={onBlur}
           />
         );
-        const input = screen.getByRole('searchbox');
-        await waitFor(async () => {
-          userEvent.type(input, searchedTerm);
-          fireEvent.mouseDown(input);
-          //Select header option
-          fireEvent.click(
-            queryByText(/Search for term/) ||
-              fail('expected element to be found')
-          );
-          expect(getByText('BBBmousBBBmous')).toBeInTheDocument();
-        });
+        const input = screen.getByRole('combobox');
+        await userEvent.type(input, searchedTerm);
+        fireEvent.mouseDown(input);
+        //Select header option
+        await waitFor(() =>
+          fireEvent.click(queryByText(/Search for term/)!)
+        );
+        expect(getByText(searchedTerm)).toBeInTheDocument();
       });
     });
 
     describe('when is with Validation Component', () => {
       it('should be triggered on Blur and on Change', async () => {
-        const { getByText } = render(
+        const { getByText, queryByText } = render(
           <>
             <Button>Outside target</Button>
             <Validation
@@ -913,22 +906,22 @@ describe('Dropdown component test suite =>', () => {
             </Validation>
           </>
         );
-        const input = screen.getByRole('searchbox');
-        userEvent.click(input);
+        const input = screen.getByRole('combobox');
+        await userEvent.click(input);
         // on Blur
         const button = screen.getByRole('button');
-        userEvent.click(button);
+        await userEvent.click(button);
         await waitFor(() =>
           expect(getByText('This field is required')).toBeTruthy()
         );
         // on Change
-        await waitFor(async () => {
-          userEvent.click(input);
-          const option = screen.getByText('banana');
-          userEvent.click(option);
-          expect(getByText('banana')).toBeTruthy();
-          waitForElementToBeRemoved(() => getByText('This field is required'));
-        });
+        await userEvent.click(input);
+        const option = await screen.findByText('banana');
+        await userEvent.click(option);
+        expect(getByText('banana')).toBeTruthy();
+        await waitFor(() =>
+          expect(queryByText('This field is required')).not.toBeInTheDocument()
+        );
       });
     });
 
@@ -943,13 +936,13 @@ describe('Dropdown component test suite =>', () => {
           />
         );
 
-        userEvent.type(getByRole('searchbox'), 'new');
+        await userEvent.type(getByRole('combobox'), 'new');
 
         await waitFor(() => {
           expect(getByText('Create "new"')).toBeInTheDocument();
         });
 
-        userEvent.click(getByText('Create "new"'));
+        await userEvent.click(getByText('Create "new"'));
 
         const onChangeCall = onChange.mock.calls.at(-1)![0];
         const createdOption = onChangeCall.target.value;
@@ -976,7 +969,7 @@ describe('Dropdown component test suite =>', () => {
           />
         );
 
-        userEvent.type(getByRole('searchbox'), invalidInput);
+        await userEvent.type(getByRole('combobox'), invalidInput);
 
         await waitFor(() => {
           expect(
@@ -984,8 +977,8 @@ describe('Dropdown component test suite =>', () => {
           ).not.toBeInTheDocument();
         });
 
-        userEvent.clear(getByRole('searchbox'));
-        userEvent.type(getByRole('searchbox'), validInput);
+        await userEvent.clear(getByRole('combobox'));
+        await userEvent.type(getByRole('combobox'), validInput);
 
         await waitFor(() => {
           expect(getByText(`Create "${validInput}"`)).toBeInTheDocument();
@@ -1012,13 +1005,13 @@ describe('Dropdown component test suite =>', () => {
         );
 
         const userInput = 'hello';
-        userEvent.type(getByRole('searchbox'), userInput);
+        await userEvent.type(getByRole('combobox'), userInput);
 
         await waitFor(() => {
           expect(getByText(`custom ${userInput}`)).toBeInTheDocument();
         });
 
-        userEvent.click(getByText(`custom ${userInput}`));
+        await userEvent.click(getByText(`custom ${userInput}`));
 
         const onChangeCall = onChange.mock.calls.at(-1)![0];
         const createdOption = onChangeCall.target.value;
@@ -1033,7 +1026,7 @@ describe('Dropdown component test suite =>', () => {
   });
 
   describe('when there are several options with same value', () => {
-    it('should select only one option', () => {
+    it('should select only one option', async () => {
       const options: LabelValue[] = [
         { label: 'Option 1', value: '1' },
         { label: 'Option 2', value: '1' },
@@ -1041,10 +1034,10 @@ describe('Dropdown component test suite =>', () => {
       ];
 
       render(<Dropdown options={options} />);
-      const input = screen.getByRole('searchbox');
-      userEvent.click(input);
-      userEvent.click(screen.getByText('Option 1'));
-      userEvent.click(input);
+      const input = screen.getByRole('combobox');
+      await userEvent.click(input);
+      await userEvent.click(screen.getByText('Option 1'));
+      await userEvent.click(input);
       // First reference is the selected option on the input
       expect(
         screen

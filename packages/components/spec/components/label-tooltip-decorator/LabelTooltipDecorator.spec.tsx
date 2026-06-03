@@ -58,12 +58,12 @@ describe('LabelTooltipDecorator Component', () => {
       />
       );
       const icon = document.querySelector('i.tk-icon-info-round');
-      userEvent.click(icon);
+      await userEvent.click(icon!);
       const description = getByText(tooltipText);
       await waitFor(() => expect(description).toBeTruthy());
 
       const cta = getByText(tooltipCloseLabel);
-      userEvent.click(cta);
+      await userEvent.click(cta);
       waitForElementToBeRemoved(cta);
     });
   });

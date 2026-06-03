@@ -1,5 +1,5 @@
 import { render, waitFor } from '@testing-library/react';
-import userEvent, { specialChars } from '@testing-library/user-event';
+import userEvent from '@testing-library/user-event';
 import * as React from 'react';
 import Nav from '../../../src/components/nav';
 import { vi } from 'vitest';
@@ -40,7 +40,7 @@ describe('Nav component test suite =>', () => {
 
       expect(getByText('banana')).toHaveClass('tk-nav-item--active');
 
-      userEvent.click(getByText('peach'));
+      await userEvent.click(getByText('peach'));
 
       await waitFor(() => {
         expect(getByText('banana')).not.toHaveClass('tk-nav-item--active');
@@ -56,7 +56,7 @@ describe('Nav component test suite =>', () => {
 
       expect(getByText('banana')).toHaveClass('tk-nav-item--active');
 
-      userEvent.type(getByText('peach'), specialChars.enter);
+      await userEvent.type(getByText('peach'), '{Enter}');
       
 
       await waitFor(() => {
@@ -73,7 +73,7 @@ describe('Nav component test suite =>', () => {
 
       expect(getByText('banana')).toHaveClass('tk-nav-item--active');
 
-      userEvent.type(getByText('peach'), specialChars.space);
+      await userEvent.type(getByText('peach'), ' ');
       
 
       await waitFor(() => {
@@ -90,7 +90,7 @@ describe('Nav component test suite =>', () => {
 
       expect(getByText('banana')).toHaveClass('tk-nav-item--active');
 
-      userEvent.tab();
+      await userEvent.tab();
       
       await waitFor(() => {
         expect(getByText('banana')).toHaveFocus();
@@ -105,25 +105,25 @@ describe('Nav component test suite =>', () => {
 
       expect(getByText('banana')).toHaveClass('tk-nav-item--active');
 
-      userEvent.type(getByText('banana'), specialChars.arrowRight);
+      await userEvent.type(getByText('banana'), '{ArrowRight}');
 
       await waitFor(() => {
         expect(getByText('peach')).toHaveFocus();
       })
 
-      userEvent.type(getByText('peach'), specialChars.arrowRight);
+      await userEvent.type(getByText('peach'), '{ArrowRight}');
 
       await waitFor(() => {
         expect(getByText('banana')).toHaveFocus();
       })
 
-      userEvent.type(getByText('banana'), specialChars.arrowLeft);
+      await userEvent.type(getByText('banana'), '{ArrowLeft}');
 
       await waitFor(() => {
         expect(getByText('peach')).toHaveFocus();
       })
 
-      userEvent.type(getByText('peach'), specialChars.arrowLeft);
+      await userEvent.type(getByText('peach'), '{ArrowLeft}');
 
       await waitFor(() => {
         expect(getByText('banana')).toHaveFocus();
@@ -174,7 +174,7 @@ describe('Nav component test suite =>', () => {
         />
       );
 
-      userEvent.click(getByText('peach'));
+      await userEvent.click(getByText('peach'));
 
       await waitFor(() => {
         expect(onActiveTabChange).toHaveBeenCalledWith(items[1]);

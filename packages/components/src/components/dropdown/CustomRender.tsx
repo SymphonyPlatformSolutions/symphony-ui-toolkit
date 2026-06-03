@@ -45,12 +45,12 @@ export const DefaultOptionRenderer = (props: any) => {
     </components.Option>
   ) : <>
     {OptionRenderer ?
-      <div className="tk-option" role="option">
+      <div className="tk-option">
         <components.Option {...props}>
           <OptionRenderer {...rendererProps} />
         </components.Option>
       </div>
-      : <div className="tk-option" role="option">
+      : <div className="tk-option">
         <components.Option {...props} className={clsx(classNamePrefix && mode ? `${classNamePrefix}__option--${mode}` : null)} />
       </div>
     }
@@ -179,9 +179,8 @@ export const LoadingMessage = () => <div className="tk-select-loading"><Loader /
  * is activated to handle the header Option selection */
 export const DropdownList = ({ selectProps, ...props }: any) => {
   if (selectProps?.enableTermSearch) {
-    const select = selectProps?.selectRef?.current?.select;
-    const selectValueSync = select?.state?.selectValue;
-    const selectValueAsync = select?.state?.value?.searchHeader;
+    const select = selectProps?.selectRef?.current;
+    const selectValue = select?.state?.selectValue;
     const { searchHeaderOption } = selectProps.parentInstance;
     const { inputValue } = selectProps;
     // Focus on first option and differenciate between Group Options and simple options
@@ -191,11 +190,8 @@ export const DropdownList = ({ selectProps, ...props }: any) => {
     }
     focusThis = focusThis || searchHeaderOption;
     // Clear the value if header option is selected
-    if (selectValueSync && selectValueSync[0]?.searchHeader) {
+    if (selectValue && selectValue[0]?.searchHeader) {
       select?.clearValue();
-    }
-    if (selectValueAsync) {
-      select?.select?.clearValue();
     }
     // Initially, remove the focus from the headerOption
     React.useEffect(() => {

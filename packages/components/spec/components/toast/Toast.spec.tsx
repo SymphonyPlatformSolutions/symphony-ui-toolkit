@@ -84,7 +84,7 @@ describe('Toast', () => {
 
     screen.getByText('Some text')
     const element = screen.getByTestId('ICON_CROSS')
-    userEvent.click(element)
+    await userEvent.click(element)
 
     rerender(
       <Toast
