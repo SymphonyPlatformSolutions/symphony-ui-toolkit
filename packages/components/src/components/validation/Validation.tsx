@@ -178,8 +178,8 @@ class Validation extends React.Component<
     if (this.props.errors) {
       errors = this.props.errors;
     }
-    // don't change the value here otherwise there are risks we get into an infinite loop
     this.lastIsValid = valid;
+    // don't change the value here otherwise there are risks we get into an infinite loop
     this.setState({ isValid: valid, errors });
     return errors;
   }
