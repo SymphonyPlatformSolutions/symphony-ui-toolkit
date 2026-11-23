@@ -24,6 +24,7 @@ describe('Validation Component', () => {
       );
       expect(wrapper.length).toEqual(1);
     })
+
     describe('refreshValidation', () => {
       const renderValidation = (validator) => {
         const ref = React.createRef<Validation>();
@@ -53,6 +54,7 @@ describe('Validation Component', () => {
         expect(isValid).toBe(false);
       });
     });
+
     //     it('if a validator is present no error message appears before modified', async () => {
     //       /** TESTS SHOULD NOT TARGET INTERNALS */
     //       const validate = vi.spyOn(Validation.prototype, 'updateState');
