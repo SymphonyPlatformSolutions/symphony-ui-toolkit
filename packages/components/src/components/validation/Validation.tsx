@@ -53,6 +53,9 @@ class Validation extends React.Component<
 
   private debouncedUpdateState = debounce(this.updateState);
 
+  // Result of the last updateState, readable before the setState is rendered
+  private lastIsValid: boolean = null;
+
   componentDidMount() {
     if (this.props.validateOnInit || this.props.errors) {
       this.updateState(this.props.validateOnInit);
@@ -176,6 +179,7 @@ class Validation extends React.Component<
       errors = this.props.errors;
     }
     // don't change the value here otherwise there are risks we get into an infinite loop
+    this.lastIsValid = valid;
     this.setState({ isValid: valid, errors });
     return errors;
   }
@@ -198,7 +202,8 @@ class Validation extends React.Component<
    */
   public async refreshValidation(): Promise<boolean> {
     await this.updateState(this.state.lastValue);
-    return this.state.isValid;
+    // With React 18, the setState of updateState is batched: this.state.isValid can still be the old value
+    return this.lastIsValid;
   }
 
   render() {

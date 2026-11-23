@@ -1,3 +1,4 @@
+import { render } from '@testing-library/react';
 import { shallow } from 'enzyme';
 import * as React from 'react';
 import { TextField, Validation } from '../../../src/components';
@@ -23,6 +24,35 @@ describe('Validation Component', () => {
       );
       expect(wrapper.length).toEqual(1);
     })
+    describe('refreshValidation', () => {
+      const renderValidation = (validator) => {
+        const ref = React.createRef<Validation>();
+        render(
+          <Validation ref={ref} validator={validator} errorMessage={'Error'}>
+            <TextField />
+          </Validation>
+        );
+        // React 18 batches the setState done after an await: it is not rendered yet when refreshValidation returns
+        vi.spyOn(ref.current, 'setState').mockImplementation(() => undefined);
+        return ref.current;
+      };
+
+      it('should return true when the value is valid, even before the setState is rendered', async () => {
+        const validation = renderValidation(() => Promise.resolve({}));
+
+        const isValid = await validation.refreshValidation();
+
+        expect(isValid).toBe(true);
+      });
+
+      it('should return false when the value is not valid, even before the setState is rendered', async () => {
+        const validation = renderValidation(Validators.Required);
+
+        const isValid = await validation.refreshValidation();
+
+        expect(isValid).toBe(false);
+      });
+    });
     //     it('if a validator is present no error message appears before modified', async () => {
     //       /** TESTS SHOULD NOT TARGET INTERNALS */
     //       const validate = vi.spyOn(Validation.prototype, 'updateState');
