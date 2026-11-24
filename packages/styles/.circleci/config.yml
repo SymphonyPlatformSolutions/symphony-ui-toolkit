@@ -26,6 +26,9 @@ jobs:
           fingerprints:
             - "SHA256:ra86nnFl8kUeXVjVLwjeIe7kMpZtNL9UDMa9oFGuJdA"
       - checkout
+      - run:
+          name: Install corepack
+          command: sudo npm uninstall -g yarn pnpm && sudo npm install -g corepack
       - run: sudo corepack enable
       - run: bash ./setVersion.sh
       - persist_to_workspace:
@@ -183,4 +186,4 @@ workflows:
             branches:
               only: master
             tags:
-              only: /^v.*\d$(?!^v.*SNAPSHOT.*$)/
+              only: /^v.*$/

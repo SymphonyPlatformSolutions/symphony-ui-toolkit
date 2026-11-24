@@ -114,6 +114,17 @@ class Validation extends React.Component<
   }
 
   public async updateState(value: string): Promise<string[]> {
+    const { errors } = await this.validate(value);
+    return errors;
+  }
+
+  /**
+   * Validate the value, update the state and return the result.
+   * The result is returned because, with React 18, the setState is batched and this.state can still be the old value
+   */
+  private async validate(
+    value: string
+  ): Promise<{ valid: boolean; errors: string[] }> {
     let errorsMap = {};
     let valid = true;
     let errors = [];
@@ -177,7 +188,7 @@ class Validation extends React.Component<
     }
     // don't change the value here otherwise there are risks we get into an infinite loop
     this.setState({ isValid: valid, errors });
-    return errors;
+    return { valid, errors };
   }
 
   /**
@@ -197,8 +208,8 @@ class Validation extends React.Component<
    * Force validation to refresh, and return isValid state when triggered (used in Elements form before submission)
    */
   public async refreshValidation(): Promise<boolean> {
-    await this.updateState(this.state.lastValue);
-    return this.state.isValid;
+    const { valid } = await this.validate(this.state.lastValue);
+    return valid;
   }
 
   render() {
